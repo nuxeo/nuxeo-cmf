@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.nuxeo.cm</groupId>
+    <artifactId>nuxeo-case-management-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.nuxeo.cm</groupId>
+  <artifactId>nuxeo-case-management-ear</artifactId>
+  <packaging>pom</packaging>
+  <name>Case Management EAR</name>
+  <description>Case Management EAR</description>
+
+  <properties>
+    <jboss.lib>../target/lib</jboss.lib>
+  </properties>
+
+  <profiles>
+    <profile>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <id>cm-dev</id>
+      <properties>
+        <assembly.name>cm-dev</assembly.name>
+      </properties>
+    </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>server</id>
+      <properties>
+        <assembly.name>cm-dev</assembly.name>
+      </properties>
+    </profile>
+  </profiles>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-ear</artifactId>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.cm</groupId>
+      <artifactId>nuxeo-case-management-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.cm</groupId>
+      <artifactId>nuxeo-case-management-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.cm</groupId>
+      <artifactId>nuxeo-case-management-facade</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.cm</groupId>
+      <artifactId>nuxeo-case-management-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.cm</groupId>
+      <artifactId>nuxeo-case-management-lang</artifactId>
+    </dependency>
+    <!-- addons -->
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-classification-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-classification-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-classification-facade</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-classification-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-mail-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-preview</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-core-contrib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-facade</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-http</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-repository-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-annotations-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-distribution-jboss</artifactId>
+      <classifier>nuxeo-dm-cmis</classifier>
+      <type>zip</type>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.nuxeo.build</groupId>
+        <artifactId>nuxeo-distribution-tools</artifactId>
+        <executions>
+          <execution>
+            <id>antbuild</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <configuration>
+              <buildFiles>
+                <buildFile>${basedir}/src/main/assemble/assembly.xml</buildFile>
+              </buildFiles>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
