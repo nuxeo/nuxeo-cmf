@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://correspondence.nuxeo.com/schemas/mailbox/"
+  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/mailbox/"
+  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+
+  <xs:include schemaLocation="base.xsd" />
+
+  <xs:element name="mailbox_id" type="xs:string" />
+  <xs:element name="type" type="xs:string" />
+  <xs:element name="owner" type="xs:string" />
+
+  <xs:element name="affiliated_mailbox_id" type="xs:string" />
+
+  <xs:element name="users" type="ncxs:stringArray" />
+  <xs:element name="groups" type="ncxs:stringArray" />
+
+  <xs:element name="notified_users" type="ncxs:stringArray" />
+
+  <xs:element name="favorites" type="ncxs:stringArray" />
+
+  <xs:element name="profiles" type="ncxs:stringArray" />
+
+  <xs:complexType name="mailinglist">
+    <xs:sequence>
+      <xs:element name="mlid" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xs:element name="title" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xs:element name="description" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xs:element name="mailboxes" type="ncxs:stringArray" minOccurs="0"
+        maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="mailinglists">
+    <xs:sequence>
+      <xs:element name="mlid" type="ncxs:mailinglist" minOccurs="0"
+        maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="mailinglists" type="ncxs:mailinglists" />
+
+  <xs:element name="incoming_confidentiality" type="xs:int" default="4" />
+  <xs:element name="outgoing_confidentiality" type="xs:int" default="4" />
+
+</xs:schema>
+

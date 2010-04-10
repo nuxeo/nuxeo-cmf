@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<component name="com.nuxeo.correspondence.schemas">
+
+  <require>org.nuxeo.ecm.core.CoreExtensions</require>
+
+  <extension target="org.nuxeo.ecm.core.schema.TypeService"
+    point="schema">
+
+    <schema name="base" src="schemas/base.xsd" />
+
+    <schema name="correspondence_distribution" src="schemas/correspondence_distribution.xsd"
+      prefix="cdist" />
+
+    <schema name="correspondence_document" src="schemas/correspondence_document.xsd"
+      prefix="cdoc" />
+
+    <schema name="correspondence_envelope" src="schemas/correspondence_envelope.xsd"
+      prefix="cenv" />
+
+    <schema name="correspondence_post" src="schemas/correspondence_post.xsd"
+      prefix="cpost" />
+
+    <schema name="correspondence_mailbox" src="schemas/correspondence_mailbox.xsd"
+      prefix="cmb" />
+
+    <schema name="correspondence_contact" src="schemas/correspondence_contact.xsd"
+      prefix="ccont" />
+
+    <schema name="correspondence_incoming_mail"
+      src="schemas/correspondence_incoming_mail.xsd" prefix="cmdocin" />
+
+    <schema name="correspondence_outgoing_mail"
+      src="schemas/correspondence_outgoing_mail.xsd" prefix="cmdocout" />
+  </extension>
+
+  <extension target="org.nuxeo.ecm.core.schema.TypeService"
+    point="doctype">
+
+    <doctype name="CorrespondenceMailboxRoot" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <facet name="Folderish" />
+      <facet name="SuperSpace" />
+    </doctype>
+
+    <doctype name="CorrespondenceMailbox" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <schema name="correspondence_mailbox" />
+      <facet name="Folderish" />
+      <facet name="CorrespondenceMailbox" />
+    </doctype>
+
+    <doctype name="CorrespondenceMailFolder" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <facet name="Folderish" />
+      <facet name="SuperSpace" />
+    </doctype>
+
+    <doctype name="CorrespondenceDocument" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <schema name="correspondence_distribution" />
+      <schema name="correspondence_document" />
+      <schema name="correspondence_contact" />
+      <facet name="CorrespondenceDocument" />
+      <facet name="Commentable" />
+    </doctype>
+
+    <doctype name="CorrespondenceEnvelope" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <schema name="correspondence_distribution" />
+      <schema name="correspondence_envelope" />
+      <facet name="CorrespondenceEnvelope" />
+    </doctype>
+
+    <doctype name="CorrespondencePost" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <schema name="uid" />
+      <schema name="correspondence_contact" />
+      <schema name="correspondence_distribution" />
+      <schema name="correspondence_post" />
+      <facet name="CorrespondencePost" />
+    </doctype>
+
+    <doctype name="IncomingCorrespondenceDocument"
+      extends="CorrespondenceDocument">
+      <schema name="file" />
+      <schema name="files" />
+      <schema name="uid" />
+      <schema name="correspondence_incoming_mail" />
+      <facet name="CorrespondenceDocument" />
+      <facet name="IncomingCorrespondence" />
+    </doctype>
+
+    <doctype name="OutgoingCorrespondenceDocument"
+      extends="CorrespondenceDocument">
+      <schema name="file" />
+      <schema name="files" />
+      <schema name="uid" />
+      <schema name="correspondence_outgoing_mail" />
+      <facet name="CorrespondenceDocument" />
+      <facet name="OutgoingCorrespondence" />
+    </doctype>
+
+  </extension>
+</component>

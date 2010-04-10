@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.test.mailboxCreator">
+
+  <extension target="org.nuxeo.cm.service" point="mailboxCreator">
+
+    <contribution
+      class="org.nuxeo.cm.mock.MockPersonalMailboxCreator" />
+
+  </extension>
+
+</component>

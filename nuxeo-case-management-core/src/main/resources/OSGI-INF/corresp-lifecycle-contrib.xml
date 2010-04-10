@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<component name="com.nuxeo.correspondence.lifecycle">
+
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+    point="lifecycle">
+
+    <lifecycle name="envelope" defaultInitial="draft">
+      <transitions>
+        <transition name="send" destinationState="sent">
+          <description>Send the envelope</description>
+        </transition>
+      </transitions>
+      <transition name="delete" destinationState="deleted">
+        <description>Move document to trash (temporary delete)</description>
+      </transition>
+      <transition name="undelete" destinationState="draft">
+        <description>Recover the document from trash</description>
+      </transition>
+      <states>
+        <state name="draft" description="Default state" initial="true">
+          <transitions>
+            <transition>send</transition>
+            <transition>delete</transition>
+          </transitions>
+        </state>
+        <state name="sent" description="Content has been sent" initial="true">
+          <transitions></transitions>
+        </state>
+        <state name="deleted" description="Document is deleted">
+          <transitions>
+            <transition>undelete</transition>
+          </transitions>
+        </state>
+      </states>
+    </lifecycle>
+  </extension>
+
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+    point="types">
+    <types>
+      <type name="CorrespondenceMailboxRoot">default</type>
+      <type name="CorrespondenceMailbox">default</type>
+      <type name="CorrespondenceMailFolder">default</type>
+      <type name="CorrespondenceEnvelope">envelope</type>
+      <type name="CorrespondencePost">default</type>
+      <type name="CorrespondenceMessage">default</type>
+      <type name="IncomingCorrespondenceDocument">default</type>
+      <type name="OutgoingCorrespondenceDocument">default</type>
+    </types>
+  </extension>
+
+</component>

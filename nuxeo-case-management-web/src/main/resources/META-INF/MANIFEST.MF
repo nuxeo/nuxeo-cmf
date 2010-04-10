@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Case Management Web
+Bundle-SymbolicName: org.nuxeo.cm.web;singleton=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Nuxeo
+Require-Bundle: org.nuxeo.cm.api,
+  org.nuxeo.ecm.platform.ui,
+  org.nuxeo.ecm.platform.audit.web,
+  org.nuxeo.ecm.relations.web
+Nuxeo-RequiredBy: org.nuxeo.ecm.war
+Nuxeo-Component: OSGI-INF/corresp-layouts-contrib.xml,
+  OSGI-INF/corresp-ecm-types-contrib.xml,
+  OSGI-INF/corresp-actions-contrib.xml,
+  OSGI-INF/corresp-url-contrib.xml,
+  OSGI-INF/corresp-resultsprovider-contrib.xml

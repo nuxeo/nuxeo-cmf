@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Case Management Facade
+Bundle-SymbolicName: org.nuxeo.cm.facade;singleton=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Nuxeo
+Require-Bundle: org.nuxeo.cm.core

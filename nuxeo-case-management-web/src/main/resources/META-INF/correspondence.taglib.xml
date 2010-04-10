@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN" "facelet-taglib_1_0.dtd">
+<facelet-taglib>
+  <namespace>http://com.nuxeo.projects.correspondence/</namespace>
+  <function>
+    <function-name>join</function-name>
+    <function-class>
+      org.nuxeo.cm.web.distribution.DistributionFunctions
+    </function-class>
+    <function-signature>
+      java.lang.String join(java.util.Collection, java.lang.String)
+    </function-signature>
+  </function>
+  <function>
+    <function-name>mailboxes</function-name>
+    <function-class>
+      org.nuxeo.cm.web.distribution.DistributionFunctions
+    </function-class>
+    <function-signature>
+      java.util.List getMailboxes(java.util.List)
+    </function-signature>
+  </function>
+  <function>
+    <function-name>mailboxTitle</function-name>
+    <function-class>
+      org.nuxeo.cm.web.distribution.DistributionFunctions
+    </function-class>
+    <function-signature>
+      java.lang.String getMailboxTitle(java.lang.String)
+    </function-signature>
+  </function>
+  <function>
+    <function-name>mailboxTitles</function-name>
+    <function-class>
+      org.nuxeo.cm.web.distribution.DistributionFunctions
+    </function-class>
+    <function-signature>
+      java.lang.String getMailboxTitles(java.util.List, java.lang.String,
+      java.lang.Boolean)
+    </function-signature>
+  </function>
+  <function>
+    <function-name>formatStringForView</function-name>
+    <function-class>
+      org.nuxeo.cm.web.distribution.DistributionFunctions
+    </function-class>
+    <function-signature>
+      java.lang.String formatStringForView(java.lang.String)
+    </function-signature>
+  </function>
+</facelet-taglib>

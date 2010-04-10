@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.documentType">
+
+  <extension target="com.nuxeo.correspondence.DocumentTypeService" point="documentType">
+
+    <documentType>
+      <envelopeDocType>CorrespondenceEnvelope</envelopeDocType>
+      <postDocType>CorrespondencePost</postDocType>
+      <outgoingDocType>OutgoingCorrespondenceDocument</outgoingDocType>
+    </documentType>
+
+  </extension>
+
+</component>

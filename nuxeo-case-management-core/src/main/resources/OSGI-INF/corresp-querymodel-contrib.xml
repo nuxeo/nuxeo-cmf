@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<component name="com.nuxeo.correspondence.querymodel">
+
+  <extension
+    target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"
+    point="model">
+
+    <queryModel name="MAILBOX_INBOX">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
+        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 
+        'CorrespondencePost' AND cpost:isSent = 0 AND cpost:draft = 0
+      </pattern>
+      <sortable value="true" defaultSortColumn="cpost:date"
+        defaultSortAscending="false" />
+      <max>10</max>
+    </queryModel>
+    
+    <queryModel name="MAILBOX_SERVICE">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
+        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CorrespondencePost'
+        AND cpost:draft = 0
+      </pattern>
+      <sortable value="true" defaultSortColumn="dc:title"
+        defaultSortAscending="true" />
+      <max>10</max>
+    </queryModel>
+    
+    <queryModel name="MAILBOX_SENT">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
+        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CorrespondencePost'
+         AND cpost:isSent = 1 AND cpost:draft = 0
+      </pattern>
+      <sortable value="true" defaultSortColumn="dc:title"
+        defaultSortAscending="true" />
+      <max>10</max>
+    </queryModel>
+    
+    <queryModel name="MAILBOX_DRAFT">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
+        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CorrespondencePost'
+        AND cpost:draft = 1
+      </pattern>
+      <sortable value="true" defaultSortColumn="dc:title"
+        defaultSortAscending="true" />
+      <max>10</max>
+    </queryModel>
+
+    <queryModel name="MAILBOX_PLANS">
+      <pattern>
+        SELECT * FROM ClassificationRoot WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
+        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:currentLifeCycleState != 'deleted'
+      </pattern>
+      <sortable value="true" defaultSortColumn="dc:title"
+        defaultSortAscending="true" />
+      <max>10</max>
+    </queryModel>
+
+    <!-- Correspondence Default Service -->
+
+    <queryModel name="GET_MAILBOX_FROM_ID">
+      <pattern>
+        SELECT * FROM Document WHERE cmb:mailbox_id=? 
+        AND ecm:currentLifeCycleState != 'deleted' 
+        AND ecm:mixinType = 'CorrespondenceMailbox'
+      </pattern>
+    </queryModel>
+
+    <queryModel name="GET_ALL_MAILBOX">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' 
+        AND ecm:mixinType = 'CorrespondenceMailbox'
+      </pattern>
+    </queryModel>
+
+  </extension>
+
+</component>

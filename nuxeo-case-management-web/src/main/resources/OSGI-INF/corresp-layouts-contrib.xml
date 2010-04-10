@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.nuxeo.correspondence.layouts">
+
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="widgets">
+
+    <widget name="mailbox_id" type="text">
+      <labels>
+        <label mode="any">label.mailbox.id</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>cmb:mailbox_id</field>
+      </fields>
+      <widgetModes>
+        <mode value="create">hidden</mode>
+        <mode value="any">view</mode>
+      </widgetModes>
+      <properties widgetMode="edit">
+        <property name="validator">
+          #{correspMailboxActions.validateMailboxId}
+        </property>
+        <property name="required">true</property>
+        <property name="styleClass">dataInputText</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_title" type="text">
+      <labels>
+        <label mode="any">title</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>dc:title</field>
+      </fields>
+      <properties widgetMode="edit">
+        <property name="required">true</property>
+        <property name="styleClass">dataInputText</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_description" type="textarea">
+      <labels>
+        <label mode="any">description</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>dc:description</field>
+      </fields>
+      <properties widgetMode="edit">
+        <property name="styleClass">dataInputText</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_type" type="template">
+      <labels>
+        <label mode="any">label.mailbox.type</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>cmb:type</field>
+      </fields>
+      <!-- do not change type after creation -->
+      <widgetModes>
+        <mode value="create">edit</mode>
+        <mode value="any">view</mode>
+      </widgetModes>
+      <properties mode="any">
+        <property name="template">
+          /correspondence_widgets/mailbox_type_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="required">true</property>
+        <property name="styleClass">dataInputText</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_profiles" type="selectManyDirectory">
+      <fields>
+        <field>cmb:profiles</field>
+      </fields>
+      <labels>
+        <label mode="any">label.correspondence.document.profiles</label>
+      </labels>
+      <translated>true</translated>
+      <properties widgetMode="any">
+        <!-- TODO: restrict values according to current user accreditation -->
+        <property name="directoryName">correspondence_mailbox_profile</property>
+        <property name="localize">true</property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="notDisplayDefaultOption">true</property>
+        <property name="ordering">label</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_affiliation" type="template">
+      <labels>
+        <label mode="any">label.mailbox.affiliatedMailbox</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>cmb:affiliated_mailbox_id</field>
+      </fields>
+      <properties mode="any">
+        <property name="template">
+          /correspondence_widgets/single_mailbox_suggestion_widget_template.xhtml
+        </property>
+      </properties>
+      <properties mode="edit">
+        <property name="mailboxSuggestionSearchType">generic</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_parent" type="template">
+      <labels>
+        <label mode="any">label.correspondence.parentMailbox</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field></field>
+      </fields>
+      <!-- do not change parent after creation -->
+      <widgetModes>
+        <mode value="create">edit</mode>
+        <mode value="any">view</mode>
+      </widgetModes>
+      <properties mode="any">
+        <property name="template">
+          /correspondence_widgets/parent_mailbox_suggestion_widget_template.xhtml
+        </property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_owner" type="template">
+      <fields>
+        <field>cmb:owner</field>
+      </fields>
+      <labels>
+        <label mode="any">label.mailbox.owner</label>
+      </labels>
+      <translated>true</translated>
+      <!-- do not change a personal mailbox owner -->
+      <widgetModes>
+        <mode value="create">edit</mode>
+        <mode value="edit">
+          #{nxu:test(layoutValue.cmb.type=='personal', 'view', 'edit')}
+        </mode>
+      </widgetModes>
+      <properties mode="any">
+        <property name="template">
+          /widgets/single_user_suggestion_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="required">true</property>
+        <property name="userSuggestionSearchType">USER_TYPE</property>
+      </properties>
+    </widget>
+
+    <!-- XXX: depends on mailbox_owner and mailbox_type widget names:
+      throws an error when trying to create a personal mailbox for a user
+      who already has one -->
+    <widget name="mailbox_validate_personal_owner" type="template">
+      <labels>
+        <label mode="any"></label>
+      </labels>
+      <translated>true</translated>
+      <widgetModes>
+        <mode value="create">edit</mode>
+        <mode value="any">hidden</mode>
+      </widgetModes>
+      <properties widgetMode="edit">
+        <property name="template">
+          /correspondence_widgets/mailbox_personal_owner_validation_widget_template.xhtml
+        </property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_users" type="template">
+      <fields>
+        <field>cmb:users</field>
+      </fields>
+      <labels>
+        <label mode="any">label.mailbox.users</label>
+      </labels>
+      <translated>true</translated>
+      <properties mode="any">
+        <property name="template">
+          /widgets/user_suggestion_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="userSuggestionSearchType">USER_TYPE</property>
+      </properties>
+    </widget>
+
+    <widget name="mailbox_groups" type="template">
+      <fields>
+        <field>cmb:groups</field>
+      </fields>
+      <labels>
+        <label mode="any">label.mailbox.groups</label>
+      </labels>
+      <translated>true</translated>
+      <properties mode="any">
+        <property name="template">
+          /widgets/user_suggestion_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="userSuggestionSearchType">GROUP_TYPE</property>
+      </properties>
+    </widget>
+
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="layouts">
+
+    <layout name="correspondence_mailbox">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>mailbox_id</widget>
+        </row>
+        <row>
+          <widget>mailbox_title</widget>
+        </row>
+        <row>
+          <widget>mailbox_description</widget>
+        </row>
+        <row>
+          <widget>mailbox_type</widget>
+        </row>
+        <row>
+          <widget>mailbox_owner</widget>
+        </row>
+        <row>
+          <widget>mailbox_validate_personal_owner</widget>
+        </row>
+        <row>
+          <widget>mailbox_profiles</widget>
+        </row>
+        <row>
+          <widget>mailbox_parent</widget>
+        </row>
+        <row>
+          <widget>mailbox_affiliation</widget>
+        </row>
+      </rows>
+    </layout>
+
+    <layout name="correspondence_mailbox_managers">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>mailbox_users</widget>
+        </row>
+        <row>
+          <widget>mailbox_groups</widget>
+        </row>
+      </rows>
+    </layout>
+
+    <layout name="correspondence_recipients">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>action_recipients</widget>
+        </row>
+        <row>
+          <widget>copy_recipients</widget>
+        </row>
+      </rows>
+      <widget name="action_recipients" type="template">
+        <labels>
+          <label mode="any">
+            label.correspondence.distribution.actionRecipients
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>forActionMailboxes</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">
+            /correspondence_widgets/mailbox_suggestion_widget_template.xhtml
+          </property>
+        </properties>
+      </widget>
+      <widget name="copy_recipients" type="template">
+        <labels>
+          <label mode="any">label.distribution.copyRecipients</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>forInformationMailboxes</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">
+            /correspondence_widgets/mailbox_suggestion_widget_template.xhtml
+          </property>
+        </properties>
+      </widget>
+    </layout>
+
+    <layout name="head_correspondence_document">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>senders</widget>
+        </row>
+        <row>
+          <widget>document_date</widget>
+        </row>
+        <row>
+          <widget>receive_date</widget>
+        </row>
+        <row>
+          <widget>initial_action_internal_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>initial_copy_internal_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>initial_action_external_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>initial_copy_external_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>reference</widget>
+        </row>
+      </rows>
+      <widget name="senders" type="list">
+        <labels>
+          <label mode="any">label.correspondence.document.senders</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:senders</field>
+        </fields>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="document_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.document_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:document_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="receive_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.receive_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:receive_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="initial_action_internal_recipient_mailboxes" type="list">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.internal.action
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdist:initial_action_internal_recipient_mailboxes</field>
+        </fields>
+        <subWidgets>
+          <widget type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="initial_copy_internal_recipient_mailboxes" type="list">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.internal.information
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdist:initial_copy_internal_recipient_mailboxes</field>
+        </fields>
+        <subWidgets>
+          <widget type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="initial_action_external_recipient_mailboxes" type="list">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.external.action
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdist:initial_action_external_recipient_mailboxes</field>
+        </fields>
+        <subWidgets>
+          <widget type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="initial_copy_external_recipient_mailboxes" type="list">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.external.information
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdist:initial_copy_external_recipient_mailboxes</field>
+        </fields>
+        <subWidgets>
+          <widget type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="reference" type="text">
+        <labels>
+          <label mode="any">label.correspondence.document.reference</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:reference</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+    </layout>
+
+    <layout name="correspondence_document">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>title</widget>
+        </row>
+        <row>
+          <widget>document_type</widget>
+        </row>
+        <row>
+          <widget>contactsRecipients</widget>
+        </row>
+        <row>
+          <widget>sending_date</widget>
+        </row>
+        <row>
+          <widget>receive_date</widget>
+        </row>
+        <row>
+          <widget>document_date</widget>
+        </row>
+        <row>
+          <widget>contactsSenders</widget>
+        </row>
+        <row>
+          <widget>confidentiality</widget>
+        </row>
+        <row>
+          <widget>origin</widget>
+        </row>
+        <row>
+          <widget>reference</widget>
+        </row>
+        <row>
+          <widget>uid</widget>
+        </row>
+        <row>
+          <widget>body</widget>
+        </row>
+      </rows>
+      <widget name="title" type="text">
+        <labels>
+          <label mode="any">title</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>dc:title</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="required">true</property>
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="document_type" type="selectOneDirectory">
+        <fields>
+          <field>cdoc:type</field>
+        </fields>
+        <labels>
+          <label mode="any">label.correspondence.document.type</label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="any">
+          <property name="directoryName">correspondence_document_type</property>
+          <property name="localize">true</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="notDisplayDefaultOption">true</property>
+          <property name="ordering">label</property>
+          <property name="required">true</property>
+        </properties>
+      </widget>
+
+      <widget name="contactsRecipients" type="template">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.contactsRecipients
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>ccont:recipientsContacts</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">/widgets/contacts_template.xhtml</property>
+        </properties>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.name</label>
+            </labels>
+            <fields>
+              <field>name</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.surname</label>
+            </labels>
+            <fields>
+              <field>surname</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.service</label>
+            </labels>
+            <fields>
+              <field>service</field>
+            </fields>
+          </widget>
+        </subWidgets>
+      </widget>
+
+
+      <widget name="sending_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.sending_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:sending_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="receive_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.receive_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:receive_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="document_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.document_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:document_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="contactsSenders" type="template">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.contactsSenders
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>ccont:sendersContacts</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">/widgets/contacts_template.xhtml</property>
+        </properties>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.name</label>
+            </labels>
+            <fields>
+              <field>name</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.surname</label>
+            </labels>
+            <fields>
+              <field>surname</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.service</label>
+            </labels>
+            <fields>
+              <field>service</field>
+            </fields>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="confidentiality" type="selectOneDirectory">
+        <fields>
+          <field>cdoc:confidentiality</field>
+        </fields>
+        <labels>
+          <label mode="any">
+            label.correspondence.document.confidentiality
+          </label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="any">
+          <!-- TODO: restrict values according to current user accreditation -->
+          <property name="directoryName">
+            correspondence_confidentiality
+          </property>
+          <property name="localize">true</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="notDisplayDefaultOption">true</property>
+          <property name="ordering">label</property>
+          <property name="required">true</property>
+        </properties>
+      </widget>
+      <widget name="origin" type="text">
+        <labels>
+          <label mode="any">label.correspondence.document.origin</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          list
+          <field>cdoc:origin</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="reference" type="text">
+        <labels>
+          <label mode="any">label.correspondence.document.reference</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:reference</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="uid" type="text">
+        <labels>
+          <label mode="any">label.correspondence.document.uid</label>
+        </labels>
+        <fields>
+          <field>uid:uid</field>
+        </fields>
+        <widgetModes>
+          <mode value="create">hidden</mode>
+          <mode value="any">view</mode>
+        </widgetModes>
+      </widget>
+      <widget name="body" type="htmltext">
+        <labels>
+          <label mode="any">label.correspondence.document.body</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:body</field>
+        </fields>
+        list
+      </widget>
+    </layout>
+
+    <layout name="head_correspondence_incoming_document">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>scan_site</widget>
+        </row>
+        <row>
+          <widget>scan_date</widget>
+        </row>
+      </rows>
+      <widget name="scan_site" type="text">
+        <labels>
+          <label mode="any">label.correspondence.document.scan_site</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cmdocin:scan_site</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="scan_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.scan_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cmdocin:scan_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+    </layout>
+
+    <layout name="edit_correspondence_outgoing_document">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>title</widget>
+        </row>
+        <row>
+          <widget>document_date</widget>
+        </row>
+        <row>
+          <widget>contactsSenders</widget>
+        </row>
+        <row>
+          <widget>contactsRecipients</widget>
+        </row>
+        <row>
+          <widget>document_type</widget>
+        </row>
+        <row>
+          <widget>confidentiality</widget>
+        </row>
+      </rows>
+      <widget name="title" type="text">
+        <labels>
+          <label mode="any">title</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>dc:title</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="required">true</property>
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="document_date" type="datetime">
+        <labels>
+          <label mode="any">label.correspondence.document.document_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdoc:document_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="contactsSenders" type="template">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.contactsSenders
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>ccont:sendersContacts</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">/widgets/contacts_template.xhtml</property>
+        </properties>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.name</label>
+            </labels>
+            <fields>
+              <field>name</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.surname</label>
+            </labels>
+            <fields>
+              <field>surname</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.service</label>
+            </labels>
+            <fields>
+              <field>service</field>
+            </fields>
+          </widget>
+        </subWidgets>
+      </widget>
+      <widget name="document_type" type="selectOneDirectory">
+        <fields>
+          <field>cdoc:type</field>
+        </fields>
+        <labels>
+          <label mode="any">label.correspondence.document.type</label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="any">
+          <property name="directoryName">correspondence_document_type</property>
+          <property name="localize">true</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="notDisplayDefaultOption">true</property>
+          <property name="ordering">label</property>
+          <property name="required">true</property>
+        </properties>
+      </widget>
+      <widget name="confidentiality" type="selectOneDirectory">
+        <fields>
+          <field>cdoc:confidentiality</field>
+        </fields>
+        <labels>
+          <label mode="any">
+            label.correspondence.document.confidentiality
+          </label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="any">
+          <!-- TODO: restrict values according to current user accreditation -->
+          <property name="directoryName">
+            correspondence_confidentiality
+          </property>
+          <property name="localize">true</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="notDisplayDefaultOption">true</property>
+          <property name="ordering">label</property>
+          <property name="required">true</property>
+        </properties>
+      </widget>
+      <widget name="contactsRecipients" type="template">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.contactsRecipients
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>ccont:recipientsContacts</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">/widgets/contacts_template.xhtml</property>
+        </properties>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.name</label>
+            </labels>
+            <fields>
+              <field>name</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.surname</label>
+            </labels>
+            <fields>
+              <field>surname</field>
+            </fields>
+          </widget>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any">label.correspondence.document.service</label>
+            </labels>
+            <fields>
+              <field>service</field>
+            </fields>
+          </widget>
+        </subWidgets>
+      </widget>
+    </layout>
+
+    <layout name="distribution_outgoing_post">
+
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+
+      <rows>
+        <row>
+          <widget>initial_action_external_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>initial_copy_external_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>initial_action_internal_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>initial_copy_internal_recipient_mailboxes</widget>
+        </row>
+        <row>
+          <widget>comment</widget>
+        </row>
+      </rows>
+
+
+      <widget name="initial_action_external_recipient_mailboxes" type="list">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.external.action
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdist:initial_action_external_recipient_mailboxes</field>
+        </fields>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+
+      <widget name="initial_copy_external_recipient_mailboxes" type="list">
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.external.information
+          </label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cdist:initial_copy_external_recipient_mailboxes</field>
+        </fields>
+        <subWidgets>
+          <widget name="sender" type="text">
+            <labels>
+              <label mode="any"></label>
+            </labels>
+            <fields>
+              <field></field>
+            </fields>
+            <properties mode="edit">
+              <property name="styleClass">dataInputText</property>
+            </properties>
+          </widget>
+        </subWidgets>
+      </widget>
+
+      <widget name="initial_action_internal_recipient_mailboxes"
+        type="template">
+        <fields>
+          <field>cdist:initial_action_internal_recipient_mailboxes</field>
+        </fields>
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.internal.action
+          </label>
+        </labels>
+        <translated>true</translated>
+        <properties mode="any">
+          <property name="template">
+            /widgets/recipients_suggestion_widget_template.xhtml
+          </property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="userSuggestionSearchType">USER_TYPE</property>
+        </properties>
+      </widget>
+
+      <widget name="initial_copy_internal_recipient_mailboxes"
+        type="template">
+        <fields>
+          <field>cdist:initial_copy_internal_recipient_mailboxes</field>
+        </fields>
+        <labels>
+          <label mode="any">
+            label.correspondence.document.initial.recipient.internal.information
+          </label>
+        </labels>
+        <translated>true</translated>
+        <properties mode="any">
+          <property name="template">
+            /widgets/recipients_suggestion_widget_template.xhtml
+          </property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="userSuggestionSearchType">USER_TYPE</property>
+        </properties>
+      </widget>
+
+      <widget name="comment" type="textarea">
+        <fields>
+          <field>cpost:comment</field>
+        </fields>
+        <labels>
+          <label mode="any">label.relation.comment</label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="edit">
+          <property name="cssStyleClass">dataInputText</property>
+        </properties>
+      </widget>
+
+    </layout>
+
+  </extension>
+
+</component>

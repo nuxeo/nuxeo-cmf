@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Correspondence API
+Bundle-SymbolicName: com.nuxeo.correspondence.lang;singleton=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Nuxeo
+Nuxeo-RequiredBy: org.nuxeo.ecm.war

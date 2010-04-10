@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.correspondence.adapterContrib">
+
+  <extension target="org.nuxeo.ecm.core.api.DocumentAdapterService"
+    point="adapters">
+    <adapter class="org.nuxeo.cm.mailbox.Mailbox"
+      factory="org.nuxeo.cm.core.adapter.MailboxAdapterFactory" />
+    <adapter class="org.nuxeo.cm.mailbox.MailboxHeader"
+      factory="org.nuxeo.cm.core.adapter.MailboxHeaderAdapterFactory" />
+    <adapter class="org.nuxeo.cm.post.CorrespondencePost"
+      facet="CorrespondencePost"
+      factory="org.nuxeo.cm.core.adapter.CorrespondencePostAdapterFactory" />
+    <adapter class="org.nuxeo.cm.mail.MailEnvelope"
+      facet="CorrespondenceEnvelope"
+      factory="org.nuxeo.cm.core.adapter.MailEnvelopeAdapterFactory" />
+    <adapter class="org.nuxeo.cm.mail.MailEnvelopeItem"
+      facet="CorrespondenceDocument"
+      factory="org.nuxeo.cm.core.adapter.MailEnvelopeItemAdapterFactory" />
+    <adapter class="org.nuxeo.cm.mail.LockableAdapter"
+      facet="CorrespondenceDocument"
+      factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
+    <adapter class="org.nuxeo.cm.mail.HasRecipients"
+      factory="org.nuxeo.cm.core.adapter.HasRecipientsAdapterFactory" />
+
+  </extension>
+
+</component>

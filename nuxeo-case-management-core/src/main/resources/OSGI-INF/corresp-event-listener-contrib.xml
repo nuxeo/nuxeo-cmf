@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.correspondence.eventContrib">
+
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+    point="listener">
+
+    <listener name="loginSuccessListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.SuccessLoginListener"
+      priority="150">
+      <event>loginSuccess</event>
+    </listener>
+
+    <listener name="createMailboxId" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CreateMailboxIdListener"
+      priority="160">
+      <event>aboutToCreate</event>
+    </listener>
+
+    <listener name="updateMailboxRights" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.UpdateMailboxRightsListener"
+      priority="170">
+      <event>documentCreated</event>
+      <event>documentModified</event>
+    </listener>
+
+    <listener name="distributionlistener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.DistributionListener"
+      priority="180">
+      <event>afterEnvelopeSentEvent</event>
+    </listener>
+
+    <listener name="afterEnvelopeSentEvent" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.AfterEnvelopeSentEventListener"
+      priority="190">
+      <event>afterEnvelopeSentEvent</event>
+    </listener>
+
+    <listener name="draftCreationListener" async="false" postCommit="true"
+      class="org.nuxeo.cm.core.event.DraftCreationListener"
+      priority="120">
+      <event>afterDraftCreated</event>
+    </listener>
+
+    <listener name="draftUpdatedListener" async="false" postCommit="true"
+      class="org.nuxeo.cm.core.event.DraftUpdatedListener"
+      priority="120">
+      <event>draftUpdated</event>
+    </listener>
+    
+    
+    <listener name="replyCreatedListener" async="false" postCommit="true"
+      class="org.nuxeo.cm.core.event.ReplySentListener"
+      priority="120">
+      <event>afterEnvelopeSentEvent</event>
+    </listener>
+  </extension>
+
+</component>

@@ -20,7 +20,7 @@
     <property name="outdir" value="${maven.project.build.directory}" />
     <property name="stagedir" value="${outdir}/stage" />
     <property name="finaltarget" value="../target" />
-    <antcall target="cleanoutput" />
+
 
     <antcall target="expand" />
     <property name="init.done" value="true" />
@@ -28,6 +28,7 @@
   </target>
 
   <target name="build">
+    <antcall target="cleanoutput" />
     <antcall target="ear" />
     <antcall target="server" />
   </target>
@@ -138,7 +139,7 @@
     </copy>
   </target>
 
-  <target name="server" depends="clean,init" description="Server packaging" if="build.server">
+  <target name="server" depends="init" description="Server packaging" if="build.server">
     <echo>nuxeo-cm-distribution server build (JBoss)...</echo>
     <mkdir dir="${stagedir}" />
     <unzip dest="${stagedir}">
@@ -162,10 +163,6 @@
     <echo>Distribution built:
       ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
     <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />
-  </target>
-
-  <target name="clean">
-    <!--delete dir="${stagedir}" /-->
   </target>
 
 </project>

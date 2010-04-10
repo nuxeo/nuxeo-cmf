@@ -123,17 +123,6 @@
     <move file="${build.dir}/cm.ear" tofile="${build.dir}/${nuxeo.ear}" />
   </target>
 
-  <target name="copy-lib">
-    <delete failonerror="false">
-      <fileset dir="${deploy.lib.dir}/">
-        <include name="nuxeo*.jar" />
-      </fileset>
-    </delete>
-    <copy todir="${deploy.lib.dir}/" failonerror="true">
-      <fileset dir="${build.dir}/${build.lib.dir}/" />
-    </copy>
-  </target>
-
   <target name="copy" depends="delete-ear,copy-ear,copy-lib"
     description="Replace ear and copy libs to jboss" />
   <target name="delete-ear" depends="setproperties">

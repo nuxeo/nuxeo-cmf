@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.correspondence.auditContrib">
+
+  <extension target="org.nuxeo.ecm.platform.audit.service.NXAuditEventsService"
+    point="event">
+    <event name="afterEnvelopeSentEvent" />
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.audit.service.NXAuditEventsService"
+    point="extendedInfo">
+
+    <extendedInfo key="eventContextRecipients_type_FOR_ACTION"
+      expression="#{message.properties['eventContextRecipients_type_FOR_ACTION']}" />
+    <extendedInfo key="eventContextRecipients_type_FOR_INFORMATION"
+      expression="#{message.properties['eventContextRecipients_type_FOR_INFORMATION']}" />
+
+  </extension>
+
+</component>

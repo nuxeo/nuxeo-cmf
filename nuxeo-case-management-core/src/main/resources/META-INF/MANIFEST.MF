@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Case Management Core
+Bundle-SymbolicName: org.nuxeo.cm.core;singleton=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Nuxeo
+Require-Bundle: org.nuxeo.cm.api,
+ org.nuxeo.ecm.core.event,
+ org.nuxeo.ecm.platform.usermanager.api,
+ org.nuxeo.ecm.relations.api
+Nuxeo-Component: OSGI-INF/corresp-framework.xml,
+ OSGI-INF/corresp-classification-contrib.xml,
+ OSGI-INF/corresp-contrib.xml,
+ OSGI-INF/corresp-core-types-contrib.xml,
+ OSGI-INF/corresp-content-template-contrib.xml,
+ OSGI-INF/corresp-lifecycle-contrib.xml,
+ OSGI-INF/corresp-event-listener-contrib.xml,
+ OSGI-INF/corresp-audit-contrib.xml,
+ OSGI-INF/corresp-querymodel-contrib.xml,
+ OSGI-INF/corresp-adapter-contrib.xml,
+ OSGI-INF/corresp-directories-contrib.xml,
+ OSGI-INF/corresp-usermanager-contrib.xml,
+ OSGI-INF/corresp-distribution-type-service.xml,
+ OSGI-INF/corresp-distribution-type-contrib.xml,
+ OSGI-INF/corresp-document-type-service.xml,
+ OSGI-INF/corresp-document-type-contrib.xml

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<component name="com.nuxeo.correspondence.classification">
+
+  <extension target="org.nuxeo.ecm.classification.core.ClassificationService"
+    point="types">
+    <classifiable type="CorrespondenceDocument" />
+    <classifiable type="CorrespondenceEnvelope" />
+    <classifiable type="CorrespondencePost" />
+  </extension>
+
+</component>

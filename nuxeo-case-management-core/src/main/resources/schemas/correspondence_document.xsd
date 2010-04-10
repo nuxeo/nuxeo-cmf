@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://correspondence.nuxeo.com/schemas/document/"
+  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/document/"
+  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+
+  <xs:include schemaLocation="base.xsd" />
+  
+  <xs:element name="body" type="xs:string" />
+  <xs:element name="senders" type="ncxs:stringArray" />
+  <xs:element name="reference" type="xs:string" />
+  <xs:element name="sending_date" type="xs:date" />
+  <xs:element name="receive_date" type="xs:date" />
+  <xs:element name="import_date" type="xs:date" />
+  <xs:element name="document_date" type="xs:date" />
+  <xs:element name="confidentiality" type="xs:string" default="4" />
+  <xs:element name="origin" type="xs:string" />
+  <xs:element name="type" type="xs:string" />
+  <xs:element name="defaultEnvelopeId" type="xs:string" />
+  
+  <xs:element name="firstResponseDate" type="xs:date" />
+  <xs:element name="responseDocumentIds" type="ncxs:stringArray" />
+  <xs:element name="repliedDocumentId" type="xs:string" />
+
+</xs:schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.distributionType">
+
+  <extension target="com.nuxeo.correspondence.DistributionTypeService" point="distributionType">
+
+    <distributionType>
+      <name>FOR_ACTION</name>
+      <allRecipientsProperty>all_action_recipient_mailboxes</allRecipientsProperty>
+      <externalRecipientsProperty>initial_action_external_recipient_mailboxes</externalRecipientsProperty>
+      <internalRecipientsProperty>initial_action_internal_recipient_mailboxes</internalRecipientsProperty>
+    </distributionType>
+
+    <distributionType>
+      <name>FOR_INFORMATION</name>
+      <allRecipientsProperty>all_copy_recipient_mailboxes</allRecipientsProperty>
+      <externalRecipientsProperty>initial_copy_external_recipient_mailboxes</externalRecipientsProperty>
+      <internalRecipientsProperty>initial_copy_internal_recipient_mailboxes</internalRecipientsProperty>
+    </distributionType>
+
+  </extension>
+
+</component>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<fragment>
+
+  <extension target="application#MODULE">
+
+    <module>
+      <java>${bundle.fileName}</java>
+    </module>
+
+  </extension>
+
+  <extension target="faces-config#NAVIGATION">
+
+    <navigation-case>
+      <from-outcome>mailbox_view</from-outcome>
+      <to-view-id>/correspondence/mailbox/mailbox_view.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>mailbox_manage</from-outcome>
+      <to-view-id>/correspondence/mailbox/mailbox_manage.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <from-outcome>mailbox_create</from-outcome>
+      <to-view-id>/correspondence/mailbox/mailbox_create.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <from-outcome>distribution_correspondence_envelope</from-outcome>
+      <to-view-id>
+        /correspondence/mail/distribution_correspondence_envelope.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>create_correspondence_outgoing_document</from-outcome>
+      <to-view-id>
+        /correspondence/mail/create_correspondence_outgoing_document.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <from-outcome>create_correspondence_document</from-outcome>
+      <to-view-id>
+        /correspondence/mail/create_correspondence_document.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>view_correspondence_envelope</from-outcome>
+      <to-view-id>
+        /correspondence/mail/view_correspondence_envelope.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <from-outcome>edit_outgoing_envelope</from-outcome>
+      <to-view-id>
+        /correspondence/outgoingmail/outgoingmail_edit.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <from-outcome>distribution_outgoing_post</from-outcome>
+      <to-view-id>
+        /correspondence/outgoingmail/outgoingmail_distribution.xhtml
+      </to-view-id>
+      <redirect />
+   </navigation-case>
+    
+
+    <navigation-case>
+      <from-outcome>view_correspondence_document</from-outcome>
+      <to-view-id>
+        /correspondence/mail/view_correspondence_document.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+    
+  </extension>
+
+  <install>
+
+    <unzip from="${bundle.fileName}" to="/">
+      <include>nuxeo.war/**</include>
+    </unzip>
+
+  </install>
+
+</fragment>
+

@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Case Management API
+Bundle-SymbolicName: org.nuxeo.cm.api;singleton=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Nuxeo
+Require-Bundle: org.nuxeo.ecm.core.api,
+  org.nuxeo.ecm.relations.api

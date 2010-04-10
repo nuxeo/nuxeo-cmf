@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.test.distributionTypeError">
+
+  <extension target="com.nuxeo.correspondence.DistributionTypeService" point="distributionType">
+
+    <distributionType>
+      <name>TEST_ERROR</name>
+    </distributionType>
+
+  </extension>
+
+</component>

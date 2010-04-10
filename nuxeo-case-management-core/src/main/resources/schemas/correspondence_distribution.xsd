@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://correspondence.nuxeo.com/schemas/distribution/"
+  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/distribution/"
+  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+
+  <xs:include schemaLocation="base.xsd" />
+
+  <xs:complexType name="type_recipient">
+    <xs:sequence>
+      <xs:element name="type" type="xs:string" />
+      <xs:element name="recipient_mailboxes" type="ncxs:stringList" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="type_recipients">
+    <xs:sequence>
+      <xs:element name="recipient" type="ncxs:type_recipient"
+        minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- initial mailbox recipients -->
+  <xs:element name="initial_action_internal_recipient_mailboxes" type="ncxs:stringList" />
+  <xs:element name="initial_copy_internal_recipient_mailboxes" type="ncxs:stringList" />
+
+  <xs:element name="initial_action_external_recipient_mailboxes" type="ncxs:stringList" />
+  <xs:element name="initial_copy_external_recipient_mailboxes" type="ncxs:stringList" />
+
+  <!-- all mailbox recipients -->
+  <xs:element name="all_action_recipient_mailboxes" type="ncxs:stringList" />
+  <xs:element name="all_copy_recipient_mailboxes" type="ncxs:stringList" />
+  
+</xs:schema>
+
