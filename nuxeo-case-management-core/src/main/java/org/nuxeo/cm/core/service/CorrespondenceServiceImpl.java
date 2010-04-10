@@ -33,8 +33,8 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.core.post.CreateDraftPostUnrestricted;
 import org.nuxeo.cm.core.post.CreatePostUnrestricted;
 import org.nuxeo.cm.core.post.UpdatePostUnrestricted;
-import org.nuxeo.cm.event.CorrespondenceEventConstants;
-import org.nuxeo.cm.event.CorrespondenceEventConstants.EventNames;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
+import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CorrespondenceException;
 import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
 import org.nuxeo.cm.mail.MailConstants;
@@ -586,10 +586,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
             Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
             eventProperties.put(
-                    CorrespondenceEventConstants.EVENT_CONTEXT_ENVELOPE,
+                    CaseManagementEventConstants.EVENT_CONTEXT_CASE,
                     envelope);
             eventProperties.put("category",
-                    CorrespondenceEventConstants.DISTRIBUTION_CATEGORY);
+                    CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
             fireEvent(session, envelope, eventProperties,
                     EventNames.beforeDraftCreated.name());
             CreateDraftPostUnrestricted runner = new CreateDraftPostUnrestricted(
@@ -600,7 +600,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             runner.runUnrestricted();
             CorrespondencePost draft = runner.getCreatedPost();
             eventProperties.put(
-                    CorrespondenceEventConstants.EVENT_CONTEXT_DRAFT, draft);
+                    CaseManagementEventConstants.EVENT_CONTEXT_DRAFT, draft);
             fireEvent(session, envelope, eventProperties,
                     EventNames.afterDraftCreated.name());
             return draft;
@@ -733,37 +733,37 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                         }
                     }
                     eventProperties.put(
-                            CorrespondenceEventConstants.EVENT_CONTEXT_RECIPIENTS_TYPE_
+                            CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_
                                     + type, StringUtils.join(mailboxTitles,
                                     ", "));
                 }
 
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_SENDER_MAILBOX,
+                        CaseManagementEventConstants.EVENT_CONTEXT_SENDER_CASE_FOLDER,
                         senderMailbox);
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_SUBJECT,
+                        CaseManagementEventConstants.EVENT_CONTEXT_SUBJECT,
                         subject);
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_COMMENT,
+                        CaseManagementEventConstants.EVENT_CONTEXT_COMMENT,
                         comment);
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_ENVELOPE,
+                        CaseManagementEventConstants.EVENT_CONTEXT_CASE,
                         envelope);
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_INTERNAL_RECIPIENTS,
+                        CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS,
                         (Serializable) internalRecipientIds);
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_EXTERNAL_RECIPIENTS,
+                        CaseManagementEventConstants.EVENT_CONTEXT_EXTERNAL_PARTICIPANTS,
                         (Serializable) externalRecipients);
                 eventProperties.put("category",
-                        CorrespondenceEventConstants.DISTRIBUTION_CATEGORY);
+                        CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
                 eventProperties.put(
-                        CorrespondenceEventConstants.EVENT_CONTEXT_IS_INITIAL,
+                        CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL,
                         isInitial);
 
                 fireEvent(session, envelope, eventProperties,
-                        EventNames.beforeEnvelopeSentEvent.name());
+                        EventNames.beforeCaseSentEvent.name());
 
                 if (isInitial) {
 
@@ -813,7 +813,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                 }
 
                 fireEvent(session, envelope, eventProperties,
-                        EventNames.afterEnvelopeSentEvent.name());
+                        EventNames.afterCaseSentEvent.name());
 
             } catch (ClientException e) {
                 throw new CorrespondenceException(e);
@@ -844,10 +844,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         // Set the path of MailRoot
         context.put(CoreEventConstants.PARENT_PATH,
                 MailConstants.MAIL_ROOT_DOCUMENT_PATH);
-        context.put(CorrespondenceEventConstants.EVENT_CONTEXT_MAILBOX_ID,
+        context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
                 mailbox.getId());
         context.put(
-                CorrespondenceEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID,
+                CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
                 mailbox.getAffiliatedMailboxId());
 
         // Use the Correspondence Type Service to retrieve the used outgoing

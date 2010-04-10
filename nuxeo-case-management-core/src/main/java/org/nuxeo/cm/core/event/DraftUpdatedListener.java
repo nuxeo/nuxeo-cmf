@@ -18,7 +18,7 @@ package org.nuxeo.cm.core.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.event.CorrespondenceEventConstants.EventNames;
+import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.ecm.core.event.EventListener;
 
 

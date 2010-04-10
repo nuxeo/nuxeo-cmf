@@ -22,9 +22,6 @@ package org.nuxeo.cm.event;
 
 import java.util.Map;
 
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
-
 
 /**
  * Correspondence event names
@@ -32,7 +29,7 @@ import org.nuxeo.cm.mailbox.Mailbox;
  * @author Anahide Tchertchian
  *
  */
-public class CorrespondenceEventConstants {
+public class CaseManagementEventConstants {
 
     public static final String DISTRIBUTION_CATEGORY = "DISTRIBUTION";
 
@@ -40,11 +37,11 @@ public class CorrespondenceEventConstants {
         /**
          * Event sent before an envelope is sent.
          */
-        beforeEnvelopeSentEvent,
+        beforeCaseSentEvent,
         /**
          * Event sent after an envelope is sent.
          */
-        afterEnvelopeSentEvent,
+        afterCaseSentEvent,
         /**
          * Event sent before a draft is created. EventContext is a
          * DocumentEventContext carrying the Envelope.
@@ -68,7 +65,7 @@ public class CorrespondenceEventConstants {
     /**
      * The sender (of type {@link Mailbox} )
      */
-    public static final String EVENT_CONTEXT_SENDER_MAILBOX = "eventContextSender";
+    public static final String EVENT_CONTEXT_SENDER_CASE_FOLDER = "eventContextSender";
 
     /**
      * The subject (of type @ String} )
@@ -83,7 +80,7 @@ public class CorrespondenceEventConstants {
     /**
      * The envelope (of type {@link MailEnvelope} )
      */
-    public static final String EVENT_CONTEXT_ENVELOPE = "eventContextEnvelope";
+    public static final String EVENT_CONTEXT_CASE = "eventContextCase";
 
     /**
      * The draft (of type {@link MailPost} )
@@ -94,24 +91,24 @@ public class CorrespondenceEventConstants {
      * The recipients (of type {@link Map} with key {@link String} and value a
      * {@link List} of {@link Mailbox} )
      */
-    public static final String EVENT_CONTEXT_INTERNAL_RECIPIENTS = "eventContextRecipients";
+    public static final String EVENT_CONTEXT_INTERNAL_PARTICIPANTS = "eventContextParticipants";
 
     /**
      * The list of recipient titles.
      * <p>
      * This key needs to be concatenated with the recipients type.
      */
-    public static final String EVENT_CONTEXT_RECIPIENTS_TYPE_ = "eventContextRecipients_type_";
+    public static final String EVENT_CONTEXT_PARTICIPANTS_TYPE_ = "eventContextParticipants_type_";
 
     /**
      * Is initial (of type @ Boolean)
      */
     public static final String EVENT_CONTEXT_IS_INITIAL = "eventContextIsInitial";
 
-    public static final String EVENT_CONTEXT_EXTERNAL_RECIPIENTS = "eventContextExternalRecipients";
+    public static final String EVENT_CONTEXT_EXTERNAL_PARTICIPANTS = "eventContextExternalParticipants";
 
-    public static final String EVENT_CONTEXT_AFFILIATED_MAILBOX_ID = "eventContextAffiliatedMailboxId";
+    public static final String EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID = "eventContextAffiliatedCaseFolderId";
 
-    public static final String EVENT_CONTEXT_MAILBOX_ID = "eventContextMailboxId";
+    public static final String EVENT_CONTEXT_CASE_FOLDER_ID = "eventContextCaseFolderId";
 
 }

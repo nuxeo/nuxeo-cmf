@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.event.CorrespondenceEventConstants;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.mail.HasRecipients;
 import org.nuxeo.cm.mail.MailEnvelope;
 import org.nuxeo.cm.mail.MailEnvelopeItem;
@@ -38,13 +38,13 @@ public class AfterEnvelopeSentEventListener implements EventListener {
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         Map<String, Serializable> properties = event.getContext().getProperties();
-        MailEnvelope envelope = (MailEnvelope) properties.get(CorrespondenceEventConstants.EVENT_CONTEXT_ENVELOPE);
+        MailEnvelope envelope = (MailEnvelope) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
         if (envelope == null) {
             return;
         }
-        Map<String, List<String>> internalRecipients = (Map<String, List<String>>) properties.get(CorrespondenceEventConstants.EVENT_CONTEXT_INTERNAL_RECIPIENTS);
-        Map<String, List<String>> externalRecipients = (Map<String, List<String>>) properties.get(CorrespondenceEventConstants.EVENT_CONTEXT_EXTERNAL_RECIPIENTS);
-        boolean isInitial = (Boolean) properties.get(CorrespondenceEventConstants.EVENT_CONTEXT_IS_INITIAL);
+        Map<String, List<String>> internalRecipients = (Map<String, List<String>>) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS);
+        Map<String, List<String>> externalRecipients = (Map<String, List<String>>) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_EXTERNAL_PARTICIPANTS);
+        boolean isInitial = (Boolean) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL);
 
         // Set Envelope recipients
         setRecipients(envelope, isInitial, internalRecipients, externalRecipients);

@@ -26,13 +26,13 @@
     <listener name="distributionlistener" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.DistributionListener"
       priority="180">
-      <event>afterEnvelopeSentEvent</event>
+      <event>afterCaseSentEvent</event>
     </listener>
 
     <listener name="afterEnvelopeSentEvent" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.AfterEnvelopeSentEventListener"
       priority="190">
-      <event>afterEnvelopeSentEvent</event>
+      <event>afterCaseSentEvent</event>
     </listener>
 
     <listener name="draftCreationListener" async="false" postCommit="true"
@@ -51,7 +51,7 @@
     <listener name="replyCreatedListener" async="false" postCommit="true"
       class="org.nuxeo.cm.core.event.ReplySentListener"
       priority="120">
-      <event>afterEnvelopeSentEvent</event>
+      <event>afterCaseSentEvent</event>
     </listener>
   </extension>
 

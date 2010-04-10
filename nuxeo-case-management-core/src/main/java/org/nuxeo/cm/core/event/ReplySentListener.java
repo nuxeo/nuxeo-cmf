@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.event.CorrespondenceEventConstants;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
 import org.nuxeo.cm.mail.CorrespondenceConstants;
 import org.nuxeo.cm.mail.MailConstants;
@@ -86,7 +86,7 @@ public class ReplySentListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
 
-        if (!CorrespondenceEventConstants.EventNames.afterEnvelopeSentEvent.name().equals(
+        if (!CaseManagementEventConstants.EventNames.afterCaseSentEvent.name().equals(
                 event.getName())) {
             return;
         }

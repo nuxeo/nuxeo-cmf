@@ -50,7 +50,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.event.CorrespondenceEventConstants;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CorrespondenceException;
 import org.nuxeo.cm.mail.LockableAdapter;
 import org.nuxeo.cm.mail.MailConstants;
@@ -379,9 +379,9 @@ public class CorrespondenceMailboxActionsBean extends
             // Set the path of MailRoot
             context.put(CoreEventConstants.PARENT_PATH,
                     MailConstants.MAIL_ROOT_DOCUMENT_PATH);
-            context.put(CorrespondenceEventConstants.EVENT_CONTEXT_MAILBOX_ID,
+            context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
                     getCurrentMailbox().getId());
-            context.put(CorrespondenceEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID,
+            context.put(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
                     getCurrentMailbox().getAffiliatedMailboxId());
 
             // Create the new Mail document model in the MailRoot

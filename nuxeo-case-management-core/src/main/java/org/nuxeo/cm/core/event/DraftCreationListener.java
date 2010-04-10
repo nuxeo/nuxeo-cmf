@@ -20,7 +20,7 @@ import java.security.Principal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.event.CorrespondenceEventConstants.EventNames;
+import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.EventListener;

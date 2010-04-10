@@ -19,7 +19,7 @@ package org.nuxeo.cm.core.event;
 import java.security.Principal;
 
 import org.apache.commons.logging.Log;
-import org.nuxeo.cm.event.CorrespondenceEventConstants;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.mail.MailConstants;
 import org.nuxeo.cm.mail.MailEnvelope;
 import org.nuxeo.cm.mail.MailEnvelopeItem;
@@ -76,7 +76,7 @@ public abstract class AbstractDraftListener {
         }
         DocumentModel firstDoc = item.getDocument();
         CorrespondencePost draft = (CorrespondencePost) docCtx.getProperties().get(
-                CorrespondenceEventConstants.EVENT_CONTEXT_DRAFT);
+                CaseManagementEventConstants.EVENT_CONTEXT_DRAFT);
         updateDraft(draft.getDocument(), firstDoc, envelopeDM, principal);
         session.saveDocument(draft.getDocument());
     }

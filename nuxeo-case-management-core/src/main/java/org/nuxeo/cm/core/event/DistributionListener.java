@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.nuxeo.cm.event.CorrespondenceEventConstants;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
 import org.nuxeo.cm.mail.MailEnvelope;
 import org.nuxeo.cm.mail.MailEnvelopeItem;
@@ -59,12 +59,12 @@ public class DistributionListener implements EventListener {
         EventContext eventCtx = event.getContext();
         // set all rights to mailbox users
 
-        Object envelopeObject = eventCtx.getProperty(CorrespondenceEventConstants.EVENT_CONTEXT_ENVELOPE);
+        Object envelopeObject = eventCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
         if (!(envelopeObject instanceof MailEnvelope)) {
             return;
         }
         MailEnvelope envelope = (MailEnvelope) envelopeObject;
-        Map<String, List<String>> recipients = (Map) eventCtx.getProperty(CorrespondenceEventConstants.EVENT_CONTEXT_INTERNAL_RECIPIENTS);
+        Map<String, List<String>> recipients = (Map) eventCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS);
         if (recipients == null) {
             return;
         }
