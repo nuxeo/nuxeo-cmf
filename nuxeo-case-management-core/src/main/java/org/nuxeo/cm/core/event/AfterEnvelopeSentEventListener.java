@@ -20,10 +20,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;

@@ -30,11 +30,11 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.mail.GetParentPathUnrestricted;
-import org.nuxeo.cm.mail.LockableAdapter;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.cases.GetParentPathUnrestricted;
+import org.nuxeo.cm.cases.LockableAdapter;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBoundInstance;
@@ -98,8 +98,8 @@ public class CorrespondenceDocumentActionsBean extends
 
         MailEnvelope envelope = correspondenceService.createMailEnvelope(
                 documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentMailbox()));
-        emailDoc.setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_DEFAULT_ENVELOPE_ID,
+        emailDoc.setProperty(CaseConstants.MAIL_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_DEFAULT_CASE_FOLDER_ID,
                 envelope.getDocument().getId());
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox

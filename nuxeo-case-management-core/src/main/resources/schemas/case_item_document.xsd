@@ -16,10 +16,6 @@
   <xs:element name="confidentiality" type="xs:string" default="4" />
   <xs:element name="origin" type="xs:string" />
   <xs:element name="type" type="xs:string" />
-  <xs:element name="defaultEnvelopeId" type="xs:string" />
-  
-  <xs:element name="firstResponseDate" type="xs:date" />
-  <xs:element name="responseDocumentIds" type="ncxs:stringArray" />
-  <xs:element name="repliedDocumentId" type="xs:string" />
+  <xs:element name="defaultCaseId" type="xs:string" />
 
 </xs:schema>

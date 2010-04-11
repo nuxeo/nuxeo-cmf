@@ -5,9 +5,9 @@ package org.nuxeo.cm.core.adapter;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.post.CorrespondencePost;
@@ -38,14 +38,14 @@ public class TestAdapter extends SQLRepositoryTestCase {
     }
 
     public void testGeEnvelopeItemAdapter() throws ClientException {
-        DocumentModel doc = createDocument(MailConstants.MAIL_DOCUMENT_TYPE);
+        DocumentModel doc = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         assertNotNull(doc);
         MailEnvelopeItem item = doc.getAdapter(MailEnvelopeItem.class);
         assertNotNull(item);
     }
 
     public void testGetEnvelopeAdapter() throws ClientException {
-        DocumentModel doc = createDocument(MailConstants.MAIL_ENVELOPE_TYPE);
+        DocumentModel doc = createDocument(CaseConstants.CASE_TYPE);
         assertNotNull(doc);
         MailEnvelope mailEnvelope = doc.getAdapter(MailEnvelope.class);
         assertNotNull(mailEnvelope);

@@ -19,12 +19,12 @@ package org.nuxeo.cm.mail;
 import java.util.Collections;
 import java.util.List;
 
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeImpl;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
-import org.nuxeo.cm.mail.MailEnvelopeItemImpl;
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeImpl;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.MailEnvelopeItemImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -46,19 +46,19 @@ public class TestMailEnvelope extends CorrespondenceRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
         openSession();
-        DocumentModel document = createDocument(MailConstants.MAIL_ENVELOPE_TYPE, "env");
+        DocumentModel document = createDocument(CaseConstants.CASE_TYPE, "env");
         HasRecipients adapter = document.getAdapter(HasRecipients.class);
         envelope = new MailEnvelopeImpl(document,adapter);
-        document = createDocument(MailConstants.MAIL_DOCUMENT_TYPE, "i1");
+        document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i1");
         item1 = new MailEnvelopeItemImpl(document,adapter);
-        document = createDocument(MailConstants.MAIL_DOCUMENT_TYPE, "i2");
+        document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i2");
         item2 = new MailEnvelopeItemImpl(document,adapter);
     }
 
     public void testGetDocument() {
         DocumentModel doc = envelope.getDocument();
         assertNotNull(doc);
-        assertEquals(doc.getType(), MailConstants.MAIL_ENVELOPE_TYPE);
+        assertEquals(doc.getType(), CaseConstants.CASE_TYPE);
     }
 
     public void testItemsMethods() throws ClientException {

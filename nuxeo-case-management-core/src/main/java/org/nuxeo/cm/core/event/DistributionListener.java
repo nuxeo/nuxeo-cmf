@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -74,7 +74,7 @@ public class DistributionListener implements EventListener {
                     eventCtx.getCoreSession(), envelope, recipients);
             session.runUnrestricted();
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e.getMessage(), e);
+            throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
 
     }

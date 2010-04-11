@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://correspondence.nuxeo.com/schemas/envelope/"
-  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/envelope/"
+  targetNamespace="http://cm.nuxeo.com/schemas/case/"
+  xmlns:cmxs="http://cm.nuxeo.com/schemas/case/"
   xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
 
-  <xs:element name="documentsId" type="ncxs:documentsIdType" />
+  <xs:element name="documentsId" type="cmxs:documentsIdType" />
 
   <xs:complexType name="documentsIdType">
     <xs:sequence>

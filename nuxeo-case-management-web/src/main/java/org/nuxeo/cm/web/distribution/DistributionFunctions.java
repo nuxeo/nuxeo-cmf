@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
@@ -48,7 +48,7 @@ public class DistributionFunctions {
     }
 
     public static String getMailboxTitle(String mailboxId) {
-        MailboxHeader mailboxHeader = getMailboxHeader(mailboxId);
+        CaseFolderHeader mailboxHeader = getMailboxHeader(mailboxId);
         if (mailboxHeader != null) {
             return mailboxHeader.getTitle();
         }
@@ -57,10 +57,10 @@ public class DistributionFunctions {
 
     public static String getMailboxTitles(List<String> mailboxIds,
             String separator, Boolean sorted) {
-        List<MailboxHeader> mailboxes = getMailboxesHeaders(mailboxIds);
+        List<CaseFolderHeader> mailboxes = getMailboxesHeaders(mailboxIds);
         if (mailboxes != null) {
             List<String> titles = new ArrayList<String>();
-            for (MailboxHeader mb : mailboxes) {
+            for (CaseFolderHeader mb : mailboxes) {
                 titles.add(mb.getTitle());
             }
             if (sorted) {
@@ -84,7 +84,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static MailboxHeader getMailboxHeader(String mailboxId) {
+    public static CaseFolderHeader getMailboxHeader(String mailboxId) {
         try {
             CorrespondenceService service = Framework.getService(CorrespondenceService.class);
             return service.getMailboxHeader(mailboxId);
@@ -102,7 +102,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static List<MailboxHeader> getMailboxesHeaders(List<String> mailboxIds) {
+    public static List<CaseFolderHeader> getMailboxesHeaders(List<String> mailboxIds) {
         try {
             CorrespondenceService service = Framework.getService(CorrespondenceService.class);
             return service.getMailboxesHeaders(mailboxIds);

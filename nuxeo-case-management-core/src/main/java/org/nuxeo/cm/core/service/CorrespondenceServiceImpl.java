@@ -30,20 +30,20 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.core.post.CreateDraftPostUnrestricted;
 import org.nuxeo.cm.core.post.CreatePostUnrestricted;
 import org.nuxeo.cm.core.post.UpdatePostUnrestricted;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
-import org.nuxeo.cm.exception.CorrespondenceException;
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
-import org.nuxeo.cm.mail.MailEnvelopeLifeCycleConstants;
+import org.nuxeo.cm.exception.CaseManagementException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
@@ -85,7 +85,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     // FIXME: do not use a query model: this is service specific and won't
     // change
-    protected static final String QUERY_GET_ALL_MAILBOX = "GET_ALL_MAILBOX";
+    protected static final String QUERY_GET_ALL_CASE_FOLDER = "GET_ALL_CASE_FOLDER";
 
     // FIXME: do not use a query model: this is service specific and won't
     // change
@@ -141,13 +141,13 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         return true;
     }
 
-    public MailboxHeader getMailboxHeader(String muid) {
+    public CaseFolderHeader getMailboxHeader(String muid) {
         if (muid == null) {
             return null;
         }
         List<String> muids = new ArrayList<String>();
         muids.add(muid);
-        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(muids);
+        List<CaseFolderHeader> mailboxesHeaders = getMailboxesHeaders(muids);
         if (mailboxesHeaders == null || mailboxesHeaders.isEmpty()) {
             return null;
         } else {
@@ -185,7 +185,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     }
 
-    public List<MailboxHeader> getMailboxesHeaders(List<String> muids) {
+    public List<CaseFolderHeader> getMailboxesHeaders(List<String> muids) {
         CoreSession session = null;
         try {
             session = getCoreSession();
@@ -194,20 +194,20 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             sessionSearch.runUnrestricted();
             return sessionSearch.getMailboxesHeaders();
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } finally {
             closeCoreSession(session);
         }
     }
 
-    public List<MailboxHeader> getMailboxesHeaders(CoreSession session,
+    public List<CaseFolderHeader> getMailboxesHeaders(CoreSession session,
             List<String> muids) {
         GetMailboxesHeadersUnrestricted sessionSearch = new GetMailboxesHeadersUnrestricted(
                 session, muids);
         try {
             sessionSearch.runUnrestricted();
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         return sessionSearch.getMailboxesHeaders();
     }
@@ -228,7 +228,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
         // return all mailboxes user has access to
         DocumentModelList res = executeQueryModel(session,
-                QUERY_GET_ALL_MAILBOX);
+                QUERY_GET_ALL_CASE_FOLDER);
 
         List<Mailbox> mailboxes = new ArrayList<Mailbox>();
 
@@ -271,10 +271,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                 log.error("Could not resolve UserManager service");
             }
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Couldn't query user directory", e);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } finally {
             if (dirSession != null) {
                 try {
@@ -303,7 +303,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             }
             return getDirService().getDirectory(dirName);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Error acccessing user directory", e);
         }
     }
@@ -320,18 +320,18 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             // they cannot be retrieved remotely
             return Framework.getLocalService(DirectoryService.class);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Error while looking up directory service", e);
         }
     }
 
-    public List<MailboxHeader> searchMailboxes(String pattern, String type) {
+    public List<CaseFolderHeader> searchMailboxes(String pattern, String type) {
         SearchMailboxesHeadersUnrestricted sessionSearch = new SearchMailboxesHeadersUnrestricted(
                 getCoreSession(), pattern, type);
         try {
             sessionSearch.runUnrestricted();
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         return sessionSearch.getMailboxesHeaders();
 
@@ -345,7 +345,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             sendPostUnrestricted.runUnrestricted();
             return sendPostUnrestricted.getPost();
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
 
     }
@@ -364,10 +364,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             mgr = Framework.getService(RepositoryManager.class);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         if (mgr == null) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Cannot find RepostoryManager");
         }
         Repository repo = mgr.getDefaultRepository();
@@ -384,7 +384,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             }
 
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
 
         return session;
@@ -402,7 +402,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
      *
      * @param queryModel The name of the query model
      * @return the corresponding documentModels
-     * @throws CorrespondenceException
+     * @throws CaseManagementException
      */
     protected DocumentModelList executeQueryModel(CoreSession session,
             String queryModel) {
@@ -415,7 +415,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
      * @param queryModel The name of the query model
      * @param params params if the query model
      * @return the corresponding documentModels
-     * @throws CorrespondenceException
+     * @throws CaseManagementException
      */
     protected DocumentModelList executeQueryModel(CoreSession session,
             String queryModel, Object[] params) {
@@ -424,10 +424,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             qmService = Framework.getService(QueryModelService.class);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         if (qmService == null) {
-            throw new CorrespondenceRuntimeException("Query Manager not found");
+            throw new CaseManagementRuntimeException("Query Manager not found");
         }
         QueryModelDescriptor qmd = qmService.getQueryModelDescriptor(queryModel);
         QueryModel qm = new QueryModel(qmd);
@@ -435,7 +435,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             list = qm.getDocuments(session, params);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         return list;
 
@@ -443,7 +443,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     public List<Mailbox> createPersonalMailbox(CoreSession session, String user) {
         if (personalMailboxCreator == null) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Cannot create personal mailbox: missing creator configuration");
         }
         // First check if mailbox exists using unrestricted session to
@@ -459,7 +459,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             return personalMailboxCreator.createMailboxes(session, user);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e.getMessage(), e);
+            throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
     }
 
@@ -476,16 +476,16 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             userManager = Framework.getService(UserManager.class);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         if (userManager == null) {
-            throw new CorrespondenceRuntimeException("User manager not found");
+            throw new CaseManagementRuntimeException("User manager not found");
         }
         DocumentModel userModel = null;
         try {
             userModel = userManager.getUserModel(user);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         if (userModel == null) {
             log.warn(String.format("No User by that name. Maybe a wrong id or virtual user"));
@@ -507,7 +507,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             result = coreSession.query(query, null, limit, offset, false);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
 
         for (DocumentModel documentModel : result) {
@@ -572,7 +572,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             DocumentModel envelopeDoc = session.getDocument(envelopeCreator.getDocumentRef());
             return envelopeDoc.getAdapter(MailEnvelope.class);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -595,7 +595,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             CreateDraftPostUnrestricted runner = new CreateDraftPostUnrestricted(
                     session.getRepositoryName(),
                     (String) envelope.getDocument().getPropertyValue(
-                            MailConstants.TITLE_PROPERTY_NAME), envelope,
+                            CaseConstants.TITLE_PROPERTY_NAME), envelope,
                     mailbox);
             runner.runUnrestricted();
             CorrespondencePost draft = runner.getCreatedPost();
@@ -605,7 +605,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                     EventNames.afterDraftCreated.name());
             return draft;
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -651,7 +651,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                 getEventProducer().fireEvent(docContext.newEvent(eventName));
             }
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -663,7 +663,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         try {
             getEventProducer().fireEvent(envContext.newEvent(name));
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e.getMessage(), e);
+            throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
     }
 
@@ -699,7 +699,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         }
 
         @Override
-        public void run() throws CorrespondenceException {
+        public void run() throws CaseManagementException {
 
             try {
                 String senderMailboxId = postRequest.getSender();
@@ -725,10 +725,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                 for (String type : internalRecipientIds.keySet()) {
                     // TODO: optimize;
                     mailboxTitles.clear();
-                    List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(
+                    List<CaseFolderHeader> mailboxesHeaders = getMailboxesHeaders(
                             session, internalRecipientIds.get(type));
                     if (senderMailboxes != null) {
-                        for (MailboxHeader mailboxHeader : mailboxesHeaders) {
+                        for (CaseFolderHeader mailboxHeader : mailboxesHeaders) {
                             mailboxTitles.add(mailboxHeader.getTitle());
                         }
                     }
@@ -769,7 +769,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
                     // Update the lifecycle of the envelope
                     envelope.getDocument().followTransition(
-                            MailEnvelopeLifeCycleConstants.TRANSITION_SEND);
+                            CaseLifeCycleConstants.TRANSITION_SEND);
 
                     if (senderMailbox != null) {
                         // Update the Draft post for the sender
@@ -777,7 +777,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                                 senderMailbox, envelope.getDocument().getId());
 
                         if (draft == null) {
-                            throw new CorrespondenceException(
+                            throw new CaseManagementException(
                                     "No draft for an initial send.");
                         }
 
@@ -816,7 +816,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                         EventNames.afterCaseSentEvent.name());
 
             } catch (ClientException e) {
-                throw new CorrespondenceException(e);
+                throw new CaseManagementException(e);
             }
         }
 
@@ -825,75 +825,4 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         }
 
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.nuxeo.correspondence.service.CorrespondenceService#getReplyDocument
-     *      (org.nuxeo.ecm.core.api.CoreSession,
-     *      com.nuxeo.correspondence.mailbox.Mailbox,
-     *      org.nuxeo.ecm.core.api.DocumentModel)
-     */
-    public DocumentModel getReplyDocument(CoreSession session, Mailbox mailbox,
-            DocumentModel receivedMail) throws ClientException {
-
-        MailEnvelopeItem receivedItem = receivedMail.getAdapter(MailEnvelopeItem.class);
-
-        Map<String, Object> context = new HashMap<String, Object>();
-
-        // Set the path of MailRoot
-        context.put(CoreEventConstants.PARENT_PATH,
-                MailConstants.MAIL_ROOT_DOCUMENT_PATH);
-        context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
-                mailbox.getId());
-        context.put(
-                CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
-                mailbox.getAffiliatedMailboxId());
-
-        // Use the Correspondence Type Service to retrieve the used outgoing
-        // mail core type
-        CorrespondenceDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
-
-        // Create the new Mail document model in the MailRoot
-        DocumentModel responseMail = session.createDocumentModel(
-                correspDocumentTypeService.getResponseOutgoingDocType(),
-                context);
-
-        // Set recipients
-        responseMail.setPropertyValue(
-                MailConstants.CORRESPONDENCE_CONTACTS_RECIPIENTS,
-                receivedMail.getPropertyValue(MailConstants.CORRESPONDENCE_CONTACTS_SENDERS));
-
-        // Set senders
-        NuxeoPrincipal nxp = (NuxeoPrincipal) session.getPrincipal();
-
-        // FIXME: should be configurable
-        HashMap<String, String> senderItem = new HashMap<String, String>();
-        senderItem.put("name", nxp.getFirstName());
-        senderItem.put("surname", nxp.getLastName());
-        senderItem.put("service", nxp.getCompany());
-
-        List<HashMap<String, String>> senders = new ArrayList<HashMap<String, String>>();
-        senders.add(senderItem);
-        responseMail.setPropertyValue(
-                MailConstants.CORRESPONDENCE_CONTACTS_SENDERS,
-                (Serializable) senders);
-
-        // Set the title
-        MailEnvelopeItem responseItem = responseMail.getAdapter(MailEnvelopeItem.class);
-        responseItem.setTitle(REP_SUFFIX + receivedItem.getTitle());
-
-        // Set the answered document id
-        responseMail.setPropertyValue(
-                MailConstants.CORRESPONDENCE_DOCUMENT_REPLIED_DOCUMENT_ID,
-                receivedMail.getId());
-
-        return responseMail;
-    }
-
 }

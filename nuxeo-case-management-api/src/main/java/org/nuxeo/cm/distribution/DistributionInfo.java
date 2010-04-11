@@ -47,7 +47,7 @@ public class DistributionInfo implements Serializable {
 
     String mode;
 
-    List<RecipientItem> favoriteMailboxes;
+    List<ParticipantItem> favoriteMailboxes;
 
     List<String> forActionMailboxes;
 
@@ -77,17 +77,17 @@ public class DistributionInfo implements Serializable {
         this.mode = mode;
     }
 
-    public List<RecipientItem> getFavoriteMailboxes() {
+    public List<ParticipantItem> getFavoriteMailboxes() {
         return favoriteMailboxes;
     }
 
-    public void setFavoriteMailboxes(List<RecipientItem> favoriteMailboxes) {
+    public void setFavoriteMailboxes(List<ParticipantItem> favoriteMailboxes) {
         this.favoriteMailboxes = favoriteMailboxes;
         // order them
         Collections.sort(this.favoriteMailboxes,
-                new Comparator<RecipientItem>() {
-                    public int compare(RecipientItem o1,
-                            RecipientItem o2) {
+                new Comparator<ParticipantItem>() {
+                    public int compare(ParticipantItem o1,
+                            ParticipantItem o2) {
                         int comp = 0;
                         if (o1.getType() != null) {
                             comp = o1.getType().compareTo(o2.getType());
@@ -147,11 +147,11 @@ public class DistributionInfo implements Serializable {
 
     // presentation helpers
 
-    public List<String> getAllForActionMailboxes() {
+    public List<String> getAllForActionCaseFolders() {
         String type = CorrespondencePostType.FOR_ACTION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
-            for (RecipientItem item : favoriteMailboxes) {
+            for (ParticipantItem item : favoriteMailboxes) {
                 if (type.equals(item.getType())) {
                     mailboxes.add(item.getId());
                 }
@@ -178,7 +178,7 @@ public class DistributionInfo implements Serializable {
         String type = CorrespondencePostType.FOR_INFORMATION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
-            for (RecipientItem item : favoriteMailboxes) {
+            for (ParticipantItem item : favoriteMailboxes) {
                 if (type.equals(item.getType())) {
                     mailboxes.add(item.getId());
                 }
@@ -205,7 +205,7 @@ public class DistributionInfo implements Serializable {
         // TODO: add other info (mailing lists, etc...)
         Map<String, List<String>> res = new HashMap<String, List<String>>();
         res.put(CorrespondencePostType.FOR_ACTION.name(),
-                getAllForActionMailboxes());
+                getAllForActionCaseFolders());
         res.put(CorrespondencePostType.FOR_INFORMATION.name(),
                 getAllForInformationMailboxes());
         return res;

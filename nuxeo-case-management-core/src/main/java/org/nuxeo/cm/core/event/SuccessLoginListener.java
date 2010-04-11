@@ -21,7 +21,7 @@ package org.nuxeo.cm.core.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.exception.CorrespondenceException;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -47,7 +47,7 @@ public class SuccessLoginListener implements EventListener {
         try {
             CorrespondenceService nxcService = Framework.getService(CorrespondenceService.class);
             if (nxcService == null) {
-                throw new CorrespondenceException(
+                throw new CaseManagementException(
                         "CorrespondenceService not found.");
             }
 

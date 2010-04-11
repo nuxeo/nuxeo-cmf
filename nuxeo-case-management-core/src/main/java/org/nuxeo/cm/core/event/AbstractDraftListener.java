@@ -19,10 +19,10 @@ package org.nuxeo.cm.core.event;
 import java.security.Principal;
 
 import org.apache.commons.logging.Log;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -63,7 +63,7 @@ public abstract class AbstractDraftListener {
         }
 
         // Check if the document model is an envelope
-        if (!envelopeDM.hasFacet(MailConstants.MAIL_ENVELOPE_FACET)) {
+        if (!envelopeDM.hasFacet(CaseConstants.CASE_FACET)) {
             return;
         }
         MailEnvelope envelope = envelopeDM.getAdapter(MailEnvelope.class);
@@ -84,11 +84,11 @@ public abstract class AbstractDraftListener {
     protected void updateDraft(DocumentModel draft, DocumentModel firstDoc,
             DocumentModel envelope, Principal principal) throws ClientException {
         draft.setPropertyValue(
-                MailConstants.CORRESPONDENCE_CONTACTS_SENDERS,
-                firstDoc.getPropertyValue(MailConstants.CORRESPONDENCE_CONTACTS_SENDERS));
+                CaseConstants.CONTACTS_SENDERS,
+                firstDoc.getPropertyValue(CaseConstants.CONTACTS_SENDERS));
         draft.setPropertyValue(
-                MailConstants.CORRESPONDENCE_CONTACTS_RECIPIENTS,
-                firstDoc.getPropertyValue(MailConstants.CORRESPONDENCE_CONTACTS_RECIPIENTS));
+                CaseConstants.CONTACTS_PARTICIPANTS,
+                firstDoc.getPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS));
         draft.setPropertyValue(CorrespondencePostConstants.SENDER_FIELD,
                 principal.getName());
     }

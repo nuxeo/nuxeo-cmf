@@ -31,7 +31,7 @@ import java.util.Map;
  * @author Anahide Tchertchian
  *
  */
-public class MailingListImpl implements MailingList {
+public class MailingListImpl implements ParticipantsList {
 
     private static final long serialVersionUID = 1L;
 

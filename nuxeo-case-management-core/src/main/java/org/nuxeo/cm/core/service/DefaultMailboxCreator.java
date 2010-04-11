@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.exception.CorrespondenceException;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxCreator;
@@ -62,7 +62,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
      *      .ecm.core.api.CoreSession, java.lang.String)
      */
     public List<Mailbox> createMailboxes(CoreSession session, String user)
-            throws CorrespondenceException {
+            throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP);
         if (skipCreation != null
@@ -75,7 +75,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
             // Retrieve the user
             UserManager userManager = Framework.getService(UserManager.class);
             if (userManager == null) {
-                throw new CorrespondenceException("User manager not found");
+                throw new CaseManagementException("User manager not found");
             }
 
             DocumentModel userModel = userManager.getUserModel(user);
@@ -99,7 +99,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
                     "SELECT * from %s",
                     MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
             if (res == null || res.isEmpty()) {
-                throw new CorrespondenceException(
+                throw new CaseManagementException(
                         "Cannot find any mailbox folder");
             }
 
@@ -112,7 +112,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
             return Collections.singletonList(mailbox);
 
         } catch (Exception e) {
-            throw new CorrespondenceException(
+            throw new CaseManagementException(
                     "Error during mailboxes creation", e);
         }
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://correspondence.nuxeo.com/schemas/distribution/"
-  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/distribution/"
-  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+  targetNamespace="http://cm.nuxeo.com/schemas/contact/"
+  xmlns:cmxs="http://cm.nuxeo.com/schemas/contact/"
+  xmlns:nxs="http://cm.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
 
@@ -12,19 +12,19 @@
       <xs:element name="surname" type="xs:string" />
       <xs:element name="service" type="xs:string" />
       <xs:element name="email" type="xs:string" />
-      <xs:element name="mailboxId" type="xs:string" />
+      <xs:element name="caseFolderId" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="type_contacts">
     <xs:sequence>
-      <xs:element name="recipient" type="ncxs:type_contact"
+      <xs:element name="recipient" type="cmxs:type_contact"
         minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
-  <xs:element name="sendersContacts" type="ncxs:type_contacts" />
-  <xs:element name="recipientsContacts" type="ncxs:type_contacts" />
+  <xs:element name="sendersContacts" type="cmxs:type_contacts" />
+  <xs:element name="participantsContacts" type="cmxs:type_contacts" />
   
 </xs:schema>
 

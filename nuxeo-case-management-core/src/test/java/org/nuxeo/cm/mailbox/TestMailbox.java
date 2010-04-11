@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.mailbox.MailingList;
+import org.nuxeo.cm.mailbox.ParticipantsList;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -78,7 +78,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         mb.setFavorites(Arrays.asList(new String[] { "fav1", "fav2" }));
         mb.setIncomingConfidentiality(2);
 
-        MailingList ml = mb.getMailingListTemplate();
+        ParticipantsList ml = mb.getMailingListTemplate();
         ml.setId("mlid");
         ml.setTitle("ml title");
         ml.setDescription("ml description");
@@ -121,9 +121,9 @@ public class TestMailbox extends SQLRepositoryTestCase {
                 mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "mlid" }),
                 mb.getMailingListIds());
-        List<MailingList> mls = mb.getMailingLists();
+        List<ParticipantsList> mls = mb.getMailingLists();
         assertEquals(1, mls.size());
-        MailingList ml = mls.get(0);
+        ParticipantsList ml = mls.get(0);
         assertEquals("mlid", ml.getId());
         assertEquals("ml title", ml.getTitle());
         assertEquals("ml description", ml.getDescription());
@@ -155,7 +155,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         mb.removeMailingList("mlid");
 
-        MailingList ml = mb.getMailingListTemplate();
+        ParticipantsList ml = mb.getMailingListTemplate();
         ml.setId("newmlid");
         ml.setTitle("new ml title");
         ml.setDescription("new ml description");
@@ -190,7 +190,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals(Arrays.asList(new String[] { "fav1" }), mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "newmlid", }),
                 mb.getMailingListIds());
-        List<MailingList> mls = mb.getMailingLists();
+        List<ParticipantsList> mls = mb.getMailingLists();
         assertEquals(1, mls.size());
         ml = mls.get(0);
         assertEquals("newmlid", ml.getId());

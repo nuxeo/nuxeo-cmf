@@ -26,8 +26,8 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -80,10 +80,10 @@ public class CorrespondenceContextActionsBean implements Serializable,
                 correspContextHolder.setCurrentMailbox(newDocument.getAdapter(Mailbox.class));
             }
             // document cases
-            if (newDocument.hasFacet(MailConstants.MAIL_ENVELOPE_FACET)) {
+            if (newDocument.hasFacet(CaseConstants.MAIL_ENVELOPE_FACET)) {
                 correspContextHolder.setCurrentEnvelope(newDocument.getAdapter(MailEnvelope.class));
                 correspContextHolder.setCurrentEmail(null);
-            } else if (newDocument.hasFacet(MailConstants.MAIL_FACET)) {
+            } else if (newDocument.hasFacet(CaseConstants.MAIL_FACET)) {
                 correspContextHolder.setCurrentEnvelope(null);
                 correspContextHolder.setCurrentEmail(newDocument);
             }

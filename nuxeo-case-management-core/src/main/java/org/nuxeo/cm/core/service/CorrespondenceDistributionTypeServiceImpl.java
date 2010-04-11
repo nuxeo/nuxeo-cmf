@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.nuxeo.cm.exception.CorrespondenceException;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
@@ -85,7 +85,7 @@ public class CorrespondenceDistributionTypeServiceImpl extends DefaultComponent
      * #getAllProperty(java.lang.String)
      */
     public String getAllProperty(String distributionType)
-            throws CorrespondenceException {
+            throws CaseManagementException {
 
         checkValue(distributionType, ALL_PROPERTY);
         return values.get(distributionType).get(ALL_PROPERTY);
@@ -111,7 +111,7 @@ public class CorrespondenceDistributionTypeServiceImpl extends DefaultComponent
      * #getExternalProperty(java.lang.String)
      */
     public String getExternalProperty(String distributionType)
-            throws CorrespondenceException {
+            throws CaseManagementException {
         checkValue(distributionType, EXTERNAL_PROPERTY);
         return values.get(distributionType).get(EXTERNAL_PROPERTY);
     }
@@ -124,21 +124,21 @@ public class CorrespondenceDistributionTypeServiceImpl extends DefaultComponent
      * #getInternalProperty(java.lang.String)
      */
     public String getInternalProperty(String distributionType)
-            throws CorrespondenceException {
+            throws CaseManagementException {
         checkValue(distributionType, INTERNAL_PROPERTY);
         return values.get(distributionType).get(INTERNAL_PROPERTY);
     }
 
     protected void checkValue(String distributionType, int distributionProperty)
-            throws CorrespondenceException {
+            throws CaseManagementException {
 
         if (!values.containsKey(distributionType)) {
-            throw new CorrespondenceException(
+            throw new CaseManagementException(
                     String.format("Unknow distribution type (%s). Check your DistributionTypeService contributions", distributionType));
         }
 
         if (values.get(distributionType).get(distributionProperty) == null) {
-            throw new CorrespondenceException(
+            throw new CaseManagementException(
                     String.format("'%s' property is undefined. Check your DistributionTypeService contributions", distributionProperty));
         }
 

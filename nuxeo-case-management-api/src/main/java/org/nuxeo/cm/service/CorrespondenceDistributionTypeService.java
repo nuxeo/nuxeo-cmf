@@ -19,7 +19,7 @@ package org.nuxeo.cm.service;
 import java.io.Serializable;
 import java.util.Set;
 
-import org.nuxeo.cm.exception.CorrespondenceException;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.ecm.core.api.ClientException;
 
 
@@ -53,7 +53,7 @@ public interface CorrespondenceDistributionTypeService extends Serializable {
      * @return The corresponding schema property name.
      * @throws ClientException
      */
-    public String getInternalProperty(final String distributionType) throws CorrespondenceException;
+    public String getInternalProperty(final String distributionType) throws CaseManagementException;
 
     /**
      * Get the <b>initial external</b> recipients property corresponding to the
@@ -61,9 +61,9 @@ public interface CorrespondenceDistributionTypeService extends Serializable {
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
-     * @throws CorrespondenceException
+     * @throws CaseManagementException
      */
-    public String getExternalProperty(final String distributionType) throws CorrespondenceException;
+    public String getExternalProperty(final String distributionType) throws CaseManagementException;
 
     /**
      * Get the <b>all</b> recipients property corresponding to the distribution
@@ -71,8 +71,8 @@ public interface CorrespondenceDistributionTypeService extends Serializable {
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
-     * @throws CorrespondenceException
+     * @throws CaseManagementException
      */
-    public String getAllProperty(final String distributionType) throws CorrespondenceException;
+    public String getAllProperty(final String distributionType) throws CaseManagementException;
 
 }

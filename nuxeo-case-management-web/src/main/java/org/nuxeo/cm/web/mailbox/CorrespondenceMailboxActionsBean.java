@@ -50,11 +50,11 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
+import org.nuxeo.cm.cases.LockableAdapter;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.cm.exception.CorrespondenceException;
-import org.nuxeo.cm.mail.LockableAdapter;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.CorrespondenceService;
@@ -139,7 +139,7 @@ public class CorrespondenceMailboxActionsBean extends
      * Returns all mailboxes for logged user
      */
     @Factory(value = "userMailboxes", scope = ScopeType.EVENT)
-    public List<Mailbox> getUserMailboxes() throws CorrespondenceException {
+    public List<Mailbox> getUserMailboxes() throws CaseManagementException {
         if (userMailboxes == null) {
             userMailboxes = new ArrayList<Mailbox>();
             if (currentUser != null) {
@@ -241,7 +241,7 @@ public class CorrespondenceMailboxActionsBean extends
      * Creates a new document mailBox document with the parent given by
      * parentMailboxId
      */
-    public String createMailbox() throws CorrespondenceException {
+    public String createMailbox() throws CaseManagementException {
         try {
             DocumentModel newDocument = navigationContext.getChangeableDocument();
             if (newDocument.getId() != null) {
@@ -271,7 +271,7 @@ public class CorrespondenceMailboxActionsBean extends
             return navigationContext.navigateToDocument(newDocument,
                     "after-create");
         } catch (Throwable t) {
-            throw new CorrespondenceException(t);
+            throw new CaseManagementException(t);
         }
     }
 
@@ -315,7 +315,7 @@ public class CorrespondenceMailboxActionsBean extends
         DocumentModelList res = documentManager.query(String.format(
                 "SELECT * from %s", MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
-            throw new CorrespondenceException("Cannot find any mailbox folder");
+            throw new CaseManagementException("Cannot find any mailbox folder");
         }
         return res.get(0);
     }
@@ -378,7 +378,7 @@ public class CorrespondenceMailboxActionsBean extends
 
             // Set the path of MailRoot
             context.put(CoreEventConstants.PARENT_PATH,
-                    MailConstants.MAIL_ROOT_DOCUMENT_PATH);
+                    CaseConstants.CASE_ROOT_DOCUMENT_PATH);
             context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
                     getCurrentMailbox().getId());
             context.put(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
@@ -424,7 +424,7 @@ public class CorrespondenceMailboxActionsBean extends
         MailEnvelope envelope = envelopeDoc.getAdapter(MailEnvelope.class);
         DocumentModel mailDoc = envelope.getFirstItem(documentManager).getDocument();
 
-        if (mailDoc.hasFacet(MailConstants.OUTGOING_MAIL_FACET)) {
+        if (mailDoc.hasFacet(CaseConstants.OUTGOING_MAIL_FACET)) {
 
             // Edit the outgoing mail
             String view = navigationContext.navigateToDocument(envelopeDoc,
@@ -441,7 +441,7 @@ public class CorrespondenceMailboxActionsBean extends
 
             return view;
 
-        } else if (mailDoc.hasFacet(MailConstants.INCOMING_MAIL_FACET)) {
+        } else if (mailDoc.hasFacet(CaseConstants.INCOMING_MAIL_FACET)) {
 
             return navigationContext.navigateToId(envelopeId);
 

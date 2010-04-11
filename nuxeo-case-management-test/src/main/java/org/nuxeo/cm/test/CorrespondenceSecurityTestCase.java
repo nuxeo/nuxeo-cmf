@@ -37,10 +37,10 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
-import org.nuxeo.cm.mail.GetParentPathUnrestricted;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.cases.GetParentPathUnrestricted;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.cm.service.CorrespondenceService;
@@ -135,7 +135,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
 
         if (mailEnvelopeModel == null) {
             mailEnvelopeModel = session.createDocumentModel(
-                    MailConstants.MAIL_ROOT_DOCUMENT_PATH,
+                    CaseConstants.CASE_ROOT_DOCUMENT_PATH,
                     UUID.randomUUID().toString(),
                     correspDocumentTypeService.getEnvelopeType());
         }
@@ -202,7 +202,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
 
     protected void setMailRootRigts() throws Exception {
         DocumentModel mailRootdoc = session.getDocument(new PathRef(
-                MailConstants.MAIL_ROOT_DOCUMENT_PATH));
+                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
         ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
         ACE ace = new ACE(user1, SecurityConstants.EVERYTHING, true);
         localACL.add(ace);

@@ -18,8 +18,8 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;

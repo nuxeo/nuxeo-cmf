@@ -19,13 +19,13 @@ package org.nuxeo.cm.mail;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.LockableAdapter;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeImpl;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
-import org.nuxeo.cm.mail.MailEnvelopeItemImpl;
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.LockableAdapter;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeImpl;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.MailEnvelopeItemImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -47,7 +47,7 @@ public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
         openSession();
-        DocumentModel document = session.createDocumentModel(MailConstants.MAIL_DOCUMENT_TYPE);
+        DocumentModel document = session.createDocumentModel(CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document.setPathInfo("/", "foo");
         document = session.createDocument(document);
         HasRecipients adapter = document.getAdapter(HasRecipients.class);
@@ -56,12 +56,12 @@ public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
 
     /**
      * Test method for
-     * {@link org.nuxeo.cm.mail.MailEnvelopeItemImpl#getDocument()}.
+     * {@link org.nuxeo.cm.cases.MailEnvelopeItemImpl#getDocument()}.
      */
     public void testGetDocument() {
         DocumentModel model = item.getDocument();
         assertNotNull(model);
-        assertTrue(model.hasFacet(MailConstants.MAIL_FACET));
+        assertTrue(model.hasFacet(CaseConstants.CASE_ITEM_FACET));
     }
 
     public void testProperties() throws ClientException {

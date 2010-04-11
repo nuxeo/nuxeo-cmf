@@ -34,7 +34,7 @@ public class MailboxConstants {
         personal, generic
     }
 
-    public static final String MAILBOX_DOCUMENT_TYPE = "CorrespondenceMailbox";
+    public static final String MAILBOX_DOCUMENT_TYPE = "CaseFolder";
 
     public static final String MAILBOX_FACET = "CorrespondenceMailbox";
 
@@ -82,11 +82,11 @@ public class MailboxConstants {
 
     public static final String MAILBOX_DELETED_STATE = "deleted";
 
-    public static final List<MailboxHeader> getMailboxHeaderList(List<DocumentModel> docs) {
-        List<MailboxHeader> res = new ArrayList<MailboxHeader>();
+    public static final List<CaseFolderHeader> getMailboxHeaderList(List<DocumentModel> docs) {
+        List<CaseFolderHeader> res = new ArrayList<CaseFolderHeader>();
         if (docs != null) {
             for (DocumentModel doc : docs) {
-                res.add(doc.getAdapter(MailboxHeader.class));
+                res.add(doc.getAdapter(CaseFolderHeader.class));
             }
         }
         return res;

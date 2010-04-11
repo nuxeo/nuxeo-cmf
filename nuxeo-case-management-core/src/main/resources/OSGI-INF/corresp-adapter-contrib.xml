@@ -5,21 +5,21 @@
     point="adapters">
     <adapter class="org.nuxeo.cm.mailbox.Mailbox"
       factory="org.nuxeo.cm.core.adapter.MailboxAdapterFactory" />
-    <adapter class="org.nuxeo.cm.mailbox.MailboxHeader"
+    <adapter class="org.nuxeo.cm.mailbox.CaseFolderHeader"
       factory="org.nuxeo.cm.core.adapter.MailboxHeaderAdapterFactory" />
     <adapter class="org.nuxeo.cm.post.CorrespondencePost"
       facet="CorrespondencePost"
       factory="org.nuxeo.cm.core.adapter.CorrespondencePostAdapterFactory" />
-    <adapter class="org.nuxeo.cm.mail.MailEnvelope"
+    <adapter class="org.nuxeo.cm.cases.MailEnvelope"
       facet="CorrespondenceEnvelope"
       factory="org.nuxeo.cm.core.adapter.MailEnvelopeAdapterFactory" />
-    <adapter class="org.nuxeo.cm.mail.MailEnvelopeItem"
+    <adapter class="org.nuxeo.cm.cases.MailEnvelopeItem"
       facet="CorrespondenceDocument"
       factory="org.nuxeo.cm.core.adapter.MailEnvelopeItemAdapterFactory" />
-    <adapter class="org.nuxeo.cm.mail.LockableAdapter"
+    <adapter class="org.nuxeo.cm.cases.LockableAdapter"
       facet="CorrespondenceDocument"
       factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
-    <adapter class="org.nuxeo.cm.mail.HasRecipients"
+    <adapter class="org.nuxeo.cm.cases.HasRecipients"
       factory="org.nuxeo.cm.core.adapter.HasRecipientsAdapterFactory" />
 
   </extension>

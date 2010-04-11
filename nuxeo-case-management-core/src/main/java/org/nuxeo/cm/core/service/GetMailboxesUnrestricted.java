@@ -47,7 +47,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     private static final Log log = LogFactory.getLog(GetMailboxesUnrestricted.class);
 
-    private static final String QUERY_GET_MAILBOX_FROM_ID = "GET_MAILBOX_FROM_ID";
+    private static final String QUERY_GET_MAILBOX_FROM_ID = "GET_CASE_FOLDER_FROM_ID";
 
     protected List<Mailbox> mailboxes;
 

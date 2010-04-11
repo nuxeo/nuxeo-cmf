@@ -32,9 +32,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -69,9 +69,9 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
         try {
             return (T) document.getPropertyValue(value);
         } catch (PropertyException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -87,9 +87,9 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
                     envelopeDocumentId));
             envelope = mailDocument.getAdapter(MailEnvelope.class);
         } catch (PropertyException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         return envelope;
     }
@@ -127,7 +127,7 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
             session.saveDocument(document);
             session.save();
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 

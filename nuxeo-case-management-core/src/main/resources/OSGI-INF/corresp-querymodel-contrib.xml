@@ -6,55 +6,55 @@
     target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"
     point="model">
 
-    <queryModel name="MAILBOX_INBOX">
+    <queryModel name="CASE_FOLDER_INBOX">
       <pattern>
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 
-        'CorrespondencePost' AND cpost:isSent = 0 AND cpost:draft = 0
+        'CaseLink' AND cmlk:isSent = 0 AND cmlk:draft = 0
       </pattern>
-      <sortable value="true" defaultSortColumn="cpost:date"
+      <sortable value="true" defaultSortColumn="cmlk:date"
         defaultSortAscending="false" />
       <max>10</max>
     </queryModel>
     
-    <queryModel name="MAILBOX_SERVICE">
+    <queryModel name="CASE_FOLDER_SERVICE">
       <pattern>
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CorrespondencePost'
-        AND cpost:draft = 0
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
+        AND cmlk:draft = 0
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
       <max>10</max>
     </queryModel>
     
-    <queryModel name="MAILBOX_SENT">
+    <queryModel name="CASE_FOLDER_SENT">
       <pattern>
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CorrespondencePost'
-         AND cpost:isSent = 1 AND cpost:draft = 0
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
+         AND cmlk:isSent = 1 AND cmlk:draft = 0
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
       <max>10</max>
     </queryModel>
     
-    <queryModel name="MAILBOX_DRAFT">
+    <queryModel name="CASE_FOLDER_DRAFT">
       <pattern>
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CorrespondencePost'
-        AND cpost:draft = 1
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
+        AND cmlk:draft = 1
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
       <max>10</max>
     </queryModel>
 
-    <queryModel name="MAILBOX_PLANS">
+    <queryModel name="CASE_FOlDER_PLANS">
       <pattern>
         SELECT * FROM ClassificationRoot WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
@@ -65,20 +65,20 @@
       <max>10</max>
     </queryModel>
 
-    <!-- Correspondence Default Service -->
+    <!-- Case Management Default Service -->
 
-    <queryModel name="GET_MAILBOX_FROM_ID">
+    <queryModel name="GET_CASE_FOLDER_FROM_ID">
       <pattern>
-        SELECT * FROM Document WHERE cmb:mailbox_id=? 
+        SELECT * FROM Document WHERE csfd:case_folder_id=? 
         AND ecm:currentLifeCycleState != 'deleted' 
-        AND ecm:mixinType = 'CorrespondenceMailbox'
+        AND ecm:mixinType = 'CaseFolder'
       </pattern>
     </queryModel>
 
-    <queryModel name="GET_ALL_MAILBOX">
+    <queryModel name="GET_ALL_CASE_FOLDER">
       <pattern>
         SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' 
-        AND ecm:mixinType = 'CorrespondenceMailbox'
+        AND ecm:mixinType = 'CaseFolder'
       </pattern>
     </queryModel>
 

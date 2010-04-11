@@ -28,7 +28,7 @@ import static org.nuxeo.cm.post.CorrespondencePostConstants.SUBJECT_FIELD;
 import java.util.Calendar;
 import java.util.UUID;
 
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;

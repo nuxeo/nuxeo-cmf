@@ -17,7 +17,7 @@
  * $Id: MailTreeHelper.java 57899 2008-10-07 12:02:44Z atchertchian $
  */
 
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

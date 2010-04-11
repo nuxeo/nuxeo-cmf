@@ -14,7 +14,7 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.util.Date;
 
@@ -49,12 +49,12 @@ public class GetParentPathUnrestricted extends UnrestrictedSessionRunner {
     public void run() throws ClientException {
         // Retrieve the MailRoot folder
         DocumentModel mailRootdoc = session.getDocument(new PathRef(
-                MailConstants.MAIL_ROOT_DOCUMENT_PATH));
+                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
 
         // Create (or retrieve) the current MailRoot folder (/mail/YYYY/MM/DD)
         Date now = new Date();
         DocumentModel parent = MailTreeHelper.getOrCreateDateTreeFolder(
-                session, mailRootdoc, now, MailConstants.MAIL_TREE_TYPE);
+                session, mailRootdoc, now, CaseConstants.CASE_TREE_TYPE);
         session.save();
         parentPath = parent.getPathAsString();
     }

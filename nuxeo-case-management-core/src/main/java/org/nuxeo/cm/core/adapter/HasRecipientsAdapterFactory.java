@@ -18,7 +18,7 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.mail.HasRecipientsImpl;
+import org.nuxeo.cm.cases.HasRecipientsImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 

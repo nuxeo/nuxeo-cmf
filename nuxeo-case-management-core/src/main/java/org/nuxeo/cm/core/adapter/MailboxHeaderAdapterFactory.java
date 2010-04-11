@@ -20,7 +20,7 @@
 package org.nuxeo.cm.core.adapter;
 
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.mailbox.MailboxHeaderImpl;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
@@ -43,7 +43,7 @@ public class MailboxHeaderAdapterFactory implements DocumentAdapterFactory {
         }
     }
 
-    protected MailboxHeader getMailboxHeader(DocumentModel doc) {
+    protected CaseFolderHeader getMailboxHeader(DocumentModel doc) {
         try {
             String id = (String) doc.getPropertyValue(MailboxConstants.ID_FIELD);
             String title = (String) doc.getPropertyValue(MailboxConstants.TITLE_FIELD);

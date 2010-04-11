@@ -28,9 +28,9 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.cm.web.distribution.CorrespondenceDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
@@ -98,7 +98,7 @@ public class CorrespondenceEnvelopeActionsBean extends
 
         if (item != null && correspDocumentTypeService != null) {
             return item.getDocument().hasFacet(
-                    MailConstants.INCOMING_MAIL_FACET);
+                    CaseConstants.INCOMING_MAIL_FACET);
         }
 
         return false;

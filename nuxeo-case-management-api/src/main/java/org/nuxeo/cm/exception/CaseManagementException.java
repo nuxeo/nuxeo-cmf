@@ -27,23 +27,23 @@ import org.nuxeo.ecm.core.api.ClientException;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
  */
-public class CorrespondenceException extends ClientException {
+public class CaseManagementException extends ClientException {
 
     private static final long serialVersionUID = 5579991054260392177L;
 
 
-    public CorrespondenceException() {
+    public CaseManagementException() {
     }
 
-    public CorrespondenceException(String message, Throwable th) {
+    public CaseManagementException(String message, Throwable th) {
         super(message, th);
     }
 
-    public CorrespondenceException(String message) {
+    public CaseManagementException(String message) {
         super(message);
     }
 
-    public CorrespondenceException(Throwable th) {
+    public CaseManagementException(Throwable th) {
         super(th);
     }
 

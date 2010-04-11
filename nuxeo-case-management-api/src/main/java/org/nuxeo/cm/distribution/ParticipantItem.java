@@ -28,7 +28,7 @@ import org.nuxeo.cm.mailbox.MailboxHeaderImpl;
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  *
  */
-public class RecipientItem extends MailboxHeaderImpl implements Serializable {
+public class ParticipantItem extends MailboxHeaderImpl implements Serializable {
 
     private static final long serialVersionUID = -1803303464066013026L;
 
@@ -36,7 +36,7 @@ public class RecipientItem extends MailboxHeaderImpl implements Serializable {
 
     String messageType;
 
-    public RecipientItem(String id, String title, String type) {
+    public ParticipantItem(String id, String title, String type) {
         super(id, title, type);
     }
 
@@ -56,7 +56,7 @@ public class RecipientItem extends MailboxHeaderImpl implements Serializable {
         }
         if (!this.getClass().equals(obj.getClass()))
             return false;
-        RecipientItem other = (RecipientItem) obj;
+        ParticipantItem other = (ParticipantItem) obj;
         return safeStrEq(type, other.type) && safeStrEq(id, other.id)
                 && safeStrEq(title, other.title) && safeStrEq(type, other.type);
     }
@@ -83,7 +83,7 @@ public class RecipientItem extends MailboxHeaderImpl implements Serializable {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append(RecipientItem.class.getSimpleName());
+        buf.append(ParticipantItem.class.getSimpleName());
         buf.append("{message type: ");
         buf.append(messageType);
         buf.append(", mbName: ");

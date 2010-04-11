@@ -35,11 +35,11 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.distribution.DistributionInfo;
-import org.nuxeo.cm.distribution.RecipientItem;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.distribution.ParticipantItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostMode;
@@ -102,10 +102,10 @@ public class CorrespondenceDistributionActionsBean extends
             Mailbox currentMailbox = getCurrentMailbox();
             List<String> favs = currentMailbox.getFavorites();
             if (favs != null && !favs.isEmpty()) {
-                List<RecipientItem> favoriteMailboxes = new ArrayList<RecipientItem>();
+                List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    RecipientItem item = (RecipientItem) correspondenceService.getMailboxHeader(fav);
+                    ParticipantItem item = (ParticipantItem) correspondenceService.getMailboxHeader(fav);
                     item.setMessageType(CorrespondencePostType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
@@ -169,7 +169,7 @@ public class CorrespondenceDistributionActionsBean extends
             CorrespondencePost postRequest = new CorrespondencePostRequestImpl(
                     currentMailbox.getId(),
                     Calendar.getInstance(),
-                    (String) envelopeDoc.getPropertyValue(MailConstants.TITLE_PROPERTY_NAME),
+                    (String) envelopeDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
                     distributionInfo.getComment(), envelope, recipients, null);
 
             correspondenceService.sendEnvelope(documentManager, postRequest,

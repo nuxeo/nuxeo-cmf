@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 

@@ -17,7 +17,7 @@
  * $Id: MailEnvelope.java 57494 2008-09-11 17:17:23Z atchertchian $
  */
 
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.io.Serializable;
 import java.util.List;

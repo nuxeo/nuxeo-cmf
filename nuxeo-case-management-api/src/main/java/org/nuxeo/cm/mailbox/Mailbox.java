@@ -23,7 +23,7 @@ package org.nuxeo.cm.mailbox;
 import java.io.Serializable;
 import java.util.List;
 
-import org.nuxeo.cm.exception.CorrespondenceException;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -133,12 +133,12 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     /**
      * Gets the list of mailbox ids used as favorites
      */
-    List<String> getFavorites() throws CorrespondenceException;
+    List<String> getFavorites() throws CaseManagementException;
 
     /**
      * Sets the list of mailbox ids used as favorites
      */
-    void setFavorites(List<String> favorites) throws CorrespondenceException;
+    void setFavorites(List<String> favorites) throws CaseManagementException;
 
     /**
      * Gets the id list of mailing lists of this mailbox.
@@ -146,23 +146,23 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     List<String> getMailingListIds();
 
     /**
-     * Gets the list of {@link MailingList} objects of this mailbox.
+     * Gets the list of {@link ParticipantsList} objects of this mailbox.
      * 
-     * @throws CorrespondenceException
+     * @throws CaseManagementException
      */
-    List<MailingList> getMailingLists();
+    List<ParticipantsList> getMailingLists();
 
     /**
      * Returns a new bare mailing list
      */
-    MailingList getMailingListTemplate();
+    ParticipantsList getMailingListTemplate();
 
     /**
      * Add the given mailing list to this mailbox
      *
      * @param ml the mailing list to add
      */
-    void addMailingList(MailingList mailinglist);
+    void addMailingList(ParticipantsList mailinglist);
 
     /**
      * Removes mailing list with given id from this mailbox

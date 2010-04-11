@@ -46,13 +46,7 @@
       priority="120">
       <event>draftUpdated</event>
     </listener>
-    
-    
-    <listener name="replyCreatedListener" async="false" postCommit="true"
-      class="org.nuxeo.cm.core.event.ReplySentListener"
-      priority="120">
-      <event>afterCaseSentEvent</event>
-    </listener>
+
   </extension>
 
 </component>

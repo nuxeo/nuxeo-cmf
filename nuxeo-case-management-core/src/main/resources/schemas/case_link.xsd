@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://correspondence.nuxeo.com/schemas/dispatch/"
-  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/dispatch/"
+  targetNamespace="http://cm.nuxeo.com/schemas/caselink/"
+  xmlns:cmxs="http://correspondence.nuxeo.com/schemas/caselink/"
   xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
 
   <xs:element name="comment" type="xs:string" />
   <xs:element name="date" type="xs:date" />
-  <xs:element name="envelopeId" type="xs:string" />
-  <xs:element name="envelopeRepositoryName" type="xs:string" />
-  <xs:element name="envelopeDocumentId" type="xs:string" />
+  <xs:element name="caseId" type="xs:string" />
+  <xs:element name="caseRepositoryName" type="xs:string" />
+  <xs:element name="caseItemId" type="xs:string" />
   <xs:element name="isRead" type="xs:boolean" default="false" />
   <xs:element name="isSent" type="xs:boolean" default="false" />
   <xs:element name="isAnswered" type="xs:boolean" default="false" />
   <xs:element name="sender" type="xs:string" />
   <xs:element name="type" type="xs:string" />
   <xs:element name="typeInfo" type="xs:string" />
-  <xs:element name="senderMailboxId" type="xs:string" />
+  <xs:element name="senderCaseFolderId" type="xs:string" />
   <xs:element name="sentDate" type="xs:date" />
   <xs:element name="draft" type="xs:boolean" default="false" />
 

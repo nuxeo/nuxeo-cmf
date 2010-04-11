@@ -21,8 +21,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;

@@ -28,8 +28,8 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.exception.CorrespondenceException;
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
+import org.nuxeo.cm.exception.CaseManagementException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -112,7 +112,7 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public MailingList getMailingListTemplate() {
+    public ParticipantsList getMailingListTemplate() {
         try {
             Object value = null;
             Property prop = doc.getProperty(MailboxConstants.MAILINGLISTS_FIELD);
@@ -136,7 +136,7 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public void addMailingList(MailingList ml) {
+    public void addMailingList(ParticipantsList ml) {
         try {
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
             List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILINGLISTS_FIELD);
@@ -158,7 +158,7 @@ public class MailboxImpl implements Mailbox {
         return getStringProperty(MailboxConstants.DESCRIPTION_FIELD);
     }
 
-    public List<String> getFavorites() throws CorrespondenceException {
+    public List<String> getFavorites() throws CaseManagementException {
         return getStringListProperty(MailboxConstants.FAVORITES_FIELD);
     }
 
@@ -180,9 +180,9 @@ public class MailboxImpl implements Mailbox {
 
     public List<String> getMailingListIds() {
         List<String> mlids = new ArrayList<String>();
-        List<MailingList> mls = getMailingLists();
+        List<ParticipantsList> mls = getMailingLists();
         if (mls != null) {
-            for (MailingList ml : mls) {
+            for (ParticipantsList ml : mls) {
                 mlids.add(ml.getId());
             }
         }
@@ -190,9 +190,9 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public List<MailingList> getMailingLists() {
+    public List<ParticipantsList> getMailingLists() {
         try {
-            List<MailingList> mls = new ArrayList<MailingList>();
+            List<ParticipantsList> mls = new ArrayList<ParticipantsList>();
             List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILINGLISTS_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> mailinglist : mailinglists) {
@@ -286,7 +286,7 @@ public class MailboxImpl implements Mailbox {
     }
 
     public void setFavorites(List<String> favorites)
-            throws CorrespondenceException {
+            throws CaseManagementException {
         ArrayList<String> serializableFavorites = new ArrayList<String>();
         if (favorites != null) {
             serializableFavorites.addAll(favorites);
@@ -359,7 +359,7 @@ public class MailboxImpl implements Mailbox {
             session.saveDocument(doc);
             session.save();
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 

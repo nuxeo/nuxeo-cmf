@@ -18,10 +18,10 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelopeImpl;
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelopeImpl;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
@@ -40,20 +40,20 @@ public class MailEnvelopeAdapterFactory implements DocumentAdapterFactory {
     }
 
     protected void checkDocument(DocumentModel doc) {
-        if (!doc.hasFacet(MailConstants.MAIL_ENVELOPE_FACET)) {
-            throw new CorrespondenceRuntimeException(
+        if (!doc.hasFacet(CaseConstants.CASE_FACET)) {
+            throw new CaseManagementRuntimeException(
                     "Document should have facet "
-                            + MailConstants.MAIL_ENVELOPE_FACET);
+                            + CaseConstants.CASE_FACET);
         }
-        if (!doc.hasSchema(MailConstants.DISTRIBUTION_SCHEMA)) {
-            throw new CorrespondenceRuntimeException(
+        if (!doc.hasSchema(CaseConstants.DISTRIBUTION_SCHEMA)) {
+            throw new CaseManagementRuntimeException(
                     "Document should contain schema "
-                            + MailConstants.DISTRIBUTION_SCHEMA);
+                            + CaseConstants.DISTRIBUTION_SCHEMA);
         }
-        if (!doc.hasSchema(MailConstants.MAIL_ENVELOPE_SCHEMA)) {
-            throw new CorrespondenceRuntimeException(
+        if (!doc.hasSchema(CaseConstants.CASE_SCHEMA)) {
+            throw new CaseManagementRuntimeException(
                     "Document should contain schema "
-                            + MailConstants.MAIL_ENVELOPE_SCHEMA);
+                            + CaseConstants.CASE_SCHEMA);
         }
     }
 

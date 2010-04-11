@@ -29,7 +29,7 @@ import java.util.Map;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
  */
-public interface MailingList extends Serializable {
+public interface ParticipantsList extends Serializable {
 
     /**
      * Returns this mailing list id

@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -142,10 +142,10 @@ public class CorrespondencePrincipalImpl extends NuxeoPrincipalImpl {
         try {
             mgr = Framework.getService(RepositoryManager.class);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e.getMessage(), e);
+            throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
         if (mgr == null) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Unable to find Repository Manager.");
         }
         Repository repo = mgr.getDefaultRepository();

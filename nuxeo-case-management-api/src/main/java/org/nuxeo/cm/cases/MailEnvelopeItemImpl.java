@@ -17,13 +17,13 @@
  * $Id: MailEnvelopeItemImpl.java 57494 2008-09-11 17:17:23Z atchertchian $
  */
 
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -60,15 +60,15 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
     }
 
     public String getConfidentiality() {
-        return getStringProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_CONFIDENTIALITY);
+        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_CONFIDENTIALITY);
     }
 
     protected String getStringProperty(String schema, String value) {
         try {
             return (String) document.getProperty(schema, value);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -76,28 +76,28 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         try {
             document.setProperty(schema, property, value);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
     public String getTitle() {
         try {
-            return (String) document.getPropertyValue(MailConstants.TITLE_PROPERTY_NAME);
+            return (String) document.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         } catch (PropertyException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
     public void setTitle(String title) {
         try {
-            this.document.setPropertyValue(MailConstants.TITLE_PROPERTY_NAME,
+            this.document.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
                     title);
         } catch (PropertyException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -105,18 +105,18 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         try {
             return (Calendar) document.getProperty(schema, value);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
     public String getDefaultEnvelopeId() {
-        return getStringProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_DEFAULT_ENVELOPE_ID);
+        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_DEFAULT_CASE_FOLDER_ID);
     }
 
     public Calendar getDocumentDate() {
-        return getDateProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_DATE);
     }
 
     public MailEnvelope getEnvelope() {
@@ -124,23 +124,23 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
     }
 
     public Calendar getImportDate() {
-        return getDateProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_IMPORT_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_IMPORT_DATE);
     }
 
     public String getOrigin() {
-        return getStringProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_ORIGIN);
+        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_ORIGIN);
     }
 
     public Calendar getReceiveDate() {
-        return getDateProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_RECEIVE_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_RECEIVE_DATE);
     }
 
     public Calendar getSendingDate() {
-        return getDateProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_SENDING_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_SENDING_DATE);
     }
 
     public String getType() {
@@ -148,19 +148,19 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
     }
 
     public void setConfidentiality(String cdf) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_CONFIDENTIALITY, cdf);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_CONFIDENTIALITY, cdf);
     }
 
     public void setDefaultEnvelope(String mailEnvelopeId) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_DEFAULT_ENVELOPE_ID,
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_DEFAULT_CASE_FOLDER_ID,
                 mailEnvelopeId);
     }
 
     public void setDocumentDate(Calendar date) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_DATE, date);
     }
 
     public void setEnvelope(MailEnvelope envelope) {
@@ -168,28 +168,28 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
     }
 
     public void setImportDate(Calendar date) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_IMPORT_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_IMPORT_DATE, date);
     }
 
     public void setOrigin(String origin) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_ORIGIN, origin);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_ORIGIN, origin);
     }
 
     public void setReceiveDate(Calendar date) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_RECEIVE_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_RECEIVE_DATE, date);
     }
 
     public void setSendingDate(Calendar date) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.CORRESPONDENCE_DOCUMENT_SENDING_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_SENDING_DATE, date);
     }
 
     public void setType(String type) {
-        setProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
-                MailConstants.MAIL_DOCUMENT_TYPE, type);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.CASE_ITEM_DOCUMENT_TYPE, type);
     }
 
     /**
@@ -212,7 +212,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
             session.saveDocument(document);
             session.save();
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -229,7 +229,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
             mailEnvelope.save(session);
             return mailEnvelope;
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -246,8 +246,8 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
 
         DocumentModel envelope = session.createDocumentModel(parentPath, id,
                 correspDocumentTypeService.getEnvelopeType());
-        envelope.setPropertyValue(MailConstants.TITLE_PROPERTY_NAME,
-                document.getPropertyValue(MailConstants.TITLE_PROPERTY_NAME));
+        envelope.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
+                document.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME));
         // FIXME: make this constant available in nuxeo-core-api
         envelope.putContextData("initialLifecycleState", initialLifeCysleState);
         envelope = session.createDocument(envelope);

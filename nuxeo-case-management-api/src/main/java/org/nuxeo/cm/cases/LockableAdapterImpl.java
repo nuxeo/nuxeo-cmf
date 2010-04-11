@@ -14,7 +14,7 @@
  * Contributors:
  *     nulrich
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.text.DateFormat;
 import java.util.Date;

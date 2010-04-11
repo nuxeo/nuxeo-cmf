@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.ecm.core.api.ClientException;

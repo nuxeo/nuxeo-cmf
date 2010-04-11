@@ -19,7 +19,7 @@
 
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.mailbox.MailboxImpl;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
@@ -57,7 +57,7 @@ public class MailboxAdapterFactory implements DocumentAdapterFactory {
             // not a mailbox
             return false;
         } else if (!doc.hasSchema(MailboxConstants.MAILBOX_SCHEMA)) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Document should contain schema "
                             + MailboxConstants.MAILBOX_SCHEMA);
         }

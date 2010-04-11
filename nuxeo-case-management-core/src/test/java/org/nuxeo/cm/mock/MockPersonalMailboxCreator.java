@@ -22,7 +22,7 @@ package org.nuxeo.cm.mock;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nuxeo.cm.exception.CorrespondenceException;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxCreator;
@@ -46,7 +46,7 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
     }
 
     public List<Mailbox> createMailboxes(CoreSession session, String user)
-            throws CorrespondenceException {
+            throws CaseManagementException {
 
         List<Mailbox> mailboxes = new ArrayList<Mailbox>();
 
@@ -54,7 +54,7 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
 
             UserManager userManager = Framework.getService(UserManager.class);
             if (userManager == null) {
-                throw new CorrespondenceException("User manager not found");
+                throw new CaseManagementException("User manager not found");
             }
             DocumentModel userModel = userManager.getUserModel(user);
             if (userModel == null) {
@@ -76,7 +76,7 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
             mailboxes.add(mailbox);
 
         } catch (Exception e) {
-            throw new CorrespondenceException(
+            throw new CaseManagementException(
                     "Error during mailboxes creation", e);
         }
 

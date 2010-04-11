@@ -22,23 +22,23 @@ package org.nuxeo.cm.exception;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class CorrespondenceRuntimeException extends RuntimeException {
+public class CaseManagementRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public CorrespondenceRuntimeException() {
+    public CaseManagementRuntimeException() {
         super();
     }
 
-    public CorrespondenceRuntimeException(String message, Throwable cause) {
+    public CaseManagementRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public CorrespondenceRuntimeException(String message) {
+    public CaseManagementRuntimeException(String message) {
         super(message);
     }
 
-    public CorrespondenceRuntimeException(Throwable cause) {
+    public CaseManagementRuntimeException(Throwable cause) {
         super(cause);
     }
 

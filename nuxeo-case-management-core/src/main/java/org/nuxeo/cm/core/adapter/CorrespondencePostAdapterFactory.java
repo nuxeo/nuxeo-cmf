@@ -18,9 +18,9 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
-import org.nuxeo.cm.mail.HasRecipients;
-import org.nuxeo.cm.mail.MailConstants;
+import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
 import org.nuxeo.cm.post.CorrespondencePostDocumentImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -42,17 +42,17 @@ public class CorrespondencePostAdapterFactory implements DocumentAdapterFactory 
 
     protected void checkDocument(DocumentModel doc) {
         if (!doc.hasFacet(CorrespondencePostConstants.POST_FACET)) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Document should have facet "
                             + CorrespondencePostConstants.POST_FACET);
         }
-        if (!doc.hasSchema(MailConstants.DISTRIBUTION_SCHEMA)) {
-            throw new CorrespondenceRuntimeException(
+        if (!doc.hasSchema(CaseConstants.DISTRIBUTION_SCHEMA)) {
+            throw new CaseManagementRuntimeException(
                     "Document should contain schema "
-                            + MailConstants.DISTRIBUTION_SCHEMA);
+                            + CaseConstants.DISTRIBUTION_SCHEMA);
         }
         if (!doc.hasSchema(CorrespondencePostConstants.POST_SCHEMA)) {
-            throw new CorrespondenceRuntimeException(
+            throw new CaseManagementRuntimeException(
                     "Document should contain schema "
                             + CorrespondencePostConstants.POST_SCHEMA);
         }

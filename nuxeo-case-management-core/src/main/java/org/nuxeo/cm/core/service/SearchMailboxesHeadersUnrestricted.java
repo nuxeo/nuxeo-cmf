@@ -22,7 +22,7 @@ package org.nuxeo.cm.core.service;
 import java.util.List;
 
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -40,7 +40,7 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 public class SearchMailboxesHeadersUnrestricted extends
         SearchMailboxesUnrestricted {
 
-    protected List<MailboxHeader> mailboxesHeaders;
+    protected List<CaseFolderHeader> mailboxesHeaders;
 
     public SearchMailboxesHeadersUnrestricted(CoreSession session,
             String pattern, String type) {
@@ -57,7 +57,7 @@ public class SearchMailboxesHeadersUnrestricted extends
         }
     }
 
-    public List<MailboxHeader> getMailboxesHeaders() {
+    public List<CaseFolderHeader> getMailboxesHeaders() {
         return mailboxesHeaders;
     }
 

@@ -24,7 +24,7 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;

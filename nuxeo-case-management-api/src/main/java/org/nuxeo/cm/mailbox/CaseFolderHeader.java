@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2010 Nuxeo SA (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2009 Nuxeo SAS (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,22 +12,36 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     Anahide Tchertchian
+ *     Laurent Doguin
+ *
+ * $Id$
  */
-package org.nuxeo.cm.mail;
+
+package org.nuxeo.cm.mailbox;
+
+import java.io.Serializable;
 
 /**
- * Mail envelope life cycle constants
+ * Mailbox minimal interface
  *
- * @author Anahide Tchertchian
+ * @author Laurent Doguin
  *
  */
-public class MailEnvelopeLifeCycleConstants {
+public interface CaseFolderHeader extends Serializable, Comparable<CaseFolderHeader> {
 
-    public static final String STATE_DRAFT = "draft";
+    /**
+     * Returns the mailbox identifier.
+     */
+    String getId();
 
-    public static final String STATE_SENT = "sent";
+    /**
+     * Returns title of the mailbox
+     */
+    String getTitle();
 
-    public static final String TRANSITION_SEND = "send";
+    /**
+     * Returns type of the mailbox
+     */
+    String getType();
 
 }

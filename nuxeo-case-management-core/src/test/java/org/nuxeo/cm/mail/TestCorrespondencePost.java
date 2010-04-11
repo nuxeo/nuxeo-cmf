@@ -16,7 +16,7 @@
  */
 package org.nuxeo.cm.mail;
 
-import org.nuxeo.cm.mail.HasRecipients;
+import org.nuxeo.cm.cases.HasRecipients;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
 import org.nuxeo.cm.post.CorrespondencePostDocumentImpl;

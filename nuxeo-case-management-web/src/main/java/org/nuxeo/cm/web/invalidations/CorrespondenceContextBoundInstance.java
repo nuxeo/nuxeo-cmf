@@ -22,7 +22,7 @@ package org.nuxeo.cm.web.invalidations;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.annotations.In;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.web.context.CorrespondenceContextHolder;
 import org.nuxeo.ecm.core.api.ClientException;

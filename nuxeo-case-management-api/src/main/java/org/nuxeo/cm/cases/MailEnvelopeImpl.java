@@ -17,14 +17,14 @@
  * $Id: MailEnvelopeImpl.java 58167 2008-10-20 15:37:24Z atchertchian $
  */
 
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -78,7 +78,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
                 items.add(item);
             }
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         return items;
     }
@@ -88,10 +88,10 @@ public class MailEnvelopeImpl implements MailEnvelope {
         List<String> emailIds;
         try {
             emailIds = (ArrayList<String>) document.getProperty(
-                    MailConstants.MAIL_ENVELOPE_SCHEMA,
-                    MailConstants.CORRESPONDENCE_ENVELOPE_DOCUMENTS_ID_TYPE);
+                    CaseConstants.CASE_SCHEMA,
+                    CaseConstants.CASE_FOLDER_DOCUMENTS_ID_TYPE);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         if (emailIds == null) {
             return new ArrayList<String>();
@@ -109,7 +109,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
         try {
             firstItem = session.getDocument(new IdRef(id));
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
         if (firstItem == null) {
             return null;
@@ -131,12 +131,12 @@ public class MailEnvelopeImpl implements MailEnvelope {
 
     protected void saveItemsId(CoreSession session, List<String> itemsId) {
         try {
-            document.setProperty(MailConstants.MAIL_ENVELOPE_SCHEMA,
-                    MailConstants.CORRESPONDENCE_ENVELOPE_DOCUMENTS_ID_TYPE,
+            document.setProperty(CaseConstants.CASE_SCHEMA,
+                    CaseConstants.CASE_FOLDER_DOCUMENTS_ID_TYPE,
                     itemsId);
             session.saveDocument(document);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -198,7 +198,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
             session.saveDocument(document);
             session.save();
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -209,7 +209,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
             try {
                 session = getCoreSession();
             } catch (Exception e) {
-                throw new CorrespondenceRuntimeException(e);
+                throw new CaseManagementRuntimeException(e);
             }
             result = getDocuments(session);
             CoreInstance.getInstance().close(session);
@@ -245,7 +245,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
     }
 
     public boolean isDraft() throws ClientException {
-        return MailEnvelopeLifeCycleConstants.STATE_DRAFT.equals(document.getCurrentLifeCycleState());
+        return CaseLifeCycleConstants.STATE_DRAFT.equals(document.getCurrentLifeCycleState());
     }
 
     public void addInitialExternalRecipients(

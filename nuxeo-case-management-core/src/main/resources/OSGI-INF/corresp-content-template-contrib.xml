@@ -10,9 +10,9 @@
     point="factoryBinding">
 
     <documentation>
-      Sets one domain by default, in each domain a CorrespondenceMailFolder is
-      created (will hold mail in date hierarchies) and a
-      CorrespondenceMailboxRoot (will hold mailboxes).
+      Sets one domain by default, in each domain a CaseItemFolder is
+      created (will hold case items in date hierarchies) and a
+      CaseFolderRoot (will hold case folders).
     </documentation>
 
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateFactory"
@@ -22,8 +22,8 @@
         <ace principal="administrators" permission="Everything" granted="true" />
       </acl>
       <template>
-        <templateItem typeName="Domain" id="correspondence"
-          title="Correspondence" description="Correspondence Management">
+        <templateItem typeName="Domain" id="case-management"
+          title="Case Management" description="Case Management">
         </templateItem>
       </template>
     </factoryBinding>
@@ -31,10 +31,10 @@
     <factoryBinding name="DomainFactory" factoryName="SimpleTemplateFactory"
       targetType="Domain">
       <template>
-        <templateItem typeName="CorrespondenceMailFolder" id="mail"
-          title="Mail" />
-        <templateItem typeName="CorrespondenceMailboxRoot" id="mailboxes"
-          title="Mailboxes" />
+        <templateItem typeName="CaseFolder" id="case-item"
+          title="Case Item" />
+        <templateItem typeName="CaseFolderRoot" id="case-folder"
+          title="Case Folder" />
       </template>
     </factoryBinding>
 

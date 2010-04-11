@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
-import org.nuxeo.cm.exception.CorrespondenceException;
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
@@ -119,7 +119,7 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
         getMailboxesUnrestricted.run();
         List<Mailbox> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
-            throw new CorrespondenceException(
+            throw new CaseManagementException(
                     "Can't send post because sender mailbox does not exist.");
         }
 

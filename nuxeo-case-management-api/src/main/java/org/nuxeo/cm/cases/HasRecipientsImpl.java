@@ -14,7 +14,7 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.exception.CorrespondenceException;
-import org.nuxeo.cm.exception.CorrespondenceRuntimeException;
+import org.nuxeo.cm.exception.CaseManagementException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -49,7 +49,7 @@ public class HasRecipientsImpl implements HasRecipients {
         try {
             this.distributionType = Framework.getService(CorrespondenceDistributionTypeService.class);
         } catch (Exception e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -64,8 +64,8 @@ public class HasRecipientsImpl implements HasRecipients {
             try {
                 String schemaProperty = distributionType.getInternalProperty(key);
                 addRecipients(recipients.get(key), schemaProperty);
-            } catch (CorrespondenceException e) {
-                throw new CorrespondenceRuntimeException(e);
+            } catch (CaseManagementException e) {
+                throw new CaseManagementRuntimeException(e);
             }
         }
     }
@@ -81,8 +81,8 @@ public class HasRecipientsImpl implements HasRecipients {
             try {
                 String schemaProperty = distributionType.getExternalProperty(key);
                 addRecipients(recipients.get(key), schemaProperty);
-            } catch (CorrespondenceException e) {
-                throw new CorrespondenceRuntimeException(e);
+            } catch (CaseManagementException e) {
+                throw new CaseManagementRuntimeException(e);
             }
         }
     }
@@ -97,8 +97,8 @@ public class HasRecipientsImpl implements HasRecipients {
             try {
                 String schemaProperty = distributionType.getAllProperty(key);
                 addRecipients(recipients.get(key), schemaProperty);
-            } catch (CorrespondenceException e) {
-                throw new CorrespondenceRuntimeException(e);
+            } catch (CaseManagementException e) {
+                throw new CaseManagementRuntimeException(e);
             }
         }
 
@@ -113,8 +113,8 @@ public class HasRecipientsImpl implements HasRecipients {
                 List<String> recipients = getRecipients(distributionType.getAllProperty(key));
                 values.put(key, recipients);
 
-            } catch (CorrespondenceException e) {
-                throw new CorrespondenceRuntimeException(e);
+            } catch (CaseManagementException e) {
+                throw new CaseManagementRuntimeException(e);
             }
         }
 
@@ -130,8 +130,8 @@ public class HasRecipientsImpl implements HasRecipients {
             try {
                 List<String> recipients = getRecipients(distributionType.getInternalProperty(key));
                 values.put(key, recipients);
-            } catch (CorrespondenceException e) {
-                throw new CorrespondenceRuntimeException(e);
+            } catch (CaseManagementException e) {
+                throw new CaseManagementRuntimeException(e);
             }
         }
 
@@ -147,8 +147,8 @@ public class HasRecipientsImpl implements HasRecipients {
             try {
                 List<String> recipients = getRecipients(distributionType.getExternalProperty(key));
                 values.put(key, recipients);
-            } catch (CorrespondenceException e) {
-                throw new CorrespondenceRuntimeException(e);
+            } catch (CaseManagementException e) {
+                throw new CaseManagementRuntimeException(e);
             }
         }
 
@@ -172,9 +172,9 @@ public class HasRecipientsImpl implements HasRecipients {
         try {
             document.setPropertyValue(xpath, (Serializable) oldIds);
         } catch (PropertyException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -185,9 +185,9 @@ public class HasRecipientsImpl implements HasRecipients {
         try {
             recipients = (List) document.getPropertyValue(recipientsXpath);
         } catch (PropertyException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
-            throw new CorrespondenceRuntimeException(e);
+            throw new CaseManagementRuntimeException(e);
         }
 
         return recipients;

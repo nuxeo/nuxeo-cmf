@@ -14,7 +14,7 @@
  * Contributors:
  *     nulrich
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -23,9 +23,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mail.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelope;
 import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -66,7 +66,7 @@ public interface CorrespondenceService extends Serializable {
      *
      * @param muid User id
      */
-    MailboxHeader getMailboxHeader(String muid);
+    CaseFolderHeader getMailboxHeader(String muid);
 
     /**
      * Returns the mailboxes with given unique identifiers and a session. Giving
@@ -77,7 +77,7 @@ public interface CorrespondenceService extends Serializable {
      * @param muids
      * @return
      */
-    List<MailboxHeader> getMailboxesHeaders(CoreSession session,
+    List<CaseFolderHeader> getMailboxesHeaders(CoreSession session,
             List<String> muids);
 
     /**
@@ -103,7 +103,7 @@ public interface CorrespondenceService extends Serializable {
      * @param muids Users ids
      *
      */
-    List<MailboxHeader> getMailboxesHeaders(List<String> muids);
+    List<CaseFolderHeader> getMailboxesHeaders(List<String> muids);
 
     /**
      * Returns the personal mailbox id for this user.
@@ -140,7 +140,7 @@ public interface CorrespondenceService extends Serializable {
      * @param pattern matching the box title
      * @param type mailbox type (generic, personal, etc... or null to match all)
      */
-    List<MailboxHeader> searchMailboxes(String pattern, String type);
+    List<CaseFolderHeader> searchMailboxes(String pattern, String type);
 
     /**
      * Create the personal Mailbox with the registered
@@ -226,17 +226,4 @@ public interface CorrespondenceService extends Serializable {
      */
     void notify(CoreSession session, String name, DocumentModel document,
             Map<String, Serializable> eventProperties);
-
-    /**
-     * Create a reply Mail. It is a changeable document, with some properties
-     * already setted.
-     *
-     * @param session a Core Session
-     * @param mailbox the mailbox of the user that create the response
-     * @param mailToReply the document to reply to.
-     * @return a DocumentModel which contains the reply
-     * @throws ClientException
-     */
-    DocumentModel getReplyDocument(CoreSession session, Mailbox mailbox,
-            DocumentModel mailToReply) throws ClientException;
 }

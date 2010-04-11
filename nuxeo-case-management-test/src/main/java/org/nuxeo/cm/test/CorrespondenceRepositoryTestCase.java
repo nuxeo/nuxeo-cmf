@@ -31,9 +31,9 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
-import org.nuxeo.cm.mail.MailConstants;
-import org.nuxeo.cm.mail.MailEnvelope;
-import org.nuxeo.cm.mail.MailEnvelopeItem;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.MailEnvelopeItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
@@ -148,7 +148,7 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
         CorrespondenceDocumentTypeService correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
-            mailEnvelopeModel = session.createDocumentModel(MailConstants.MAIL_ROOT_DOCUMENT_PATH,
+            mailEnvelopeModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
                     UUID.randomUUID().toString(),
                     correspDocumentTypeService.getEnvelopeType());
         }
@@ -157,7 +157,7 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
 
     public DocumentModel getMailEnvelopeItemModel() throws Exception {
         if (mailEnvelopeItemModel == null) {
-            mailEnvelopeItemModel = session.createDocumentModel(MailConstants.MAIL_ROOT_DOCUMENT_PATH,
+            mailEnvelopeItemModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
                     UUID.randomUUID().toString(),"CorrespondenceDocument");
         }
         return mailEnvelopeItemModel;
