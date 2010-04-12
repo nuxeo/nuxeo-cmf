@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.nuxeo.cm.post.CorrespondencePostType;
+import org.nuxeo.cm.post.CaseLinkType;
 
 
 /**
@@ -148,7 +148,7 @@ public class DistributionInfo implements Serializable {
     // presentation helpers
 
     public List<String> getAllForActionCaseFolders() {
-        String type = CorrespondencePostType.FOR_ACTION.getStringType();
+        String type = CaseLinkType.FOR_ACTION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
             for (ParticipantItem item : favoriteMailboxes) {
@@ -175,7 +175,7 @@ public class DistributionInfo implements Serializable {
     }
 
     public List<String> getAllForInformationCaseFolders() {
-        String type = CorrespondencePostType.FOR_INFORMATION.getStringType();
+        String type = CaseLinkType.FOR_INFORMATION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
             for (ParticipantItem item : favoriteMailboxes) {
@@ -204,9 +204,9 @@ public class DistributionInfo implements Serializable {
     public Map<String, List<String>> getAllParticipants() {
         // TODO: add other info (mailing lists, etc...)
         Map<String, List<String>> res = new HashMap<String, List<String>>();
-        res.put(CorrespondencePostType.FOR_ACTION.name(),
+        res.put(CaseLinkType.FOR_ACTION.name(),
                 getAllForActionCaseFolders());
-        res.put(CorrespondencePostType.FOR_INFORMATION.name(),
+        res.put(CaseLinkType.FOR_INFORMATION.name(),
                 getAllForInformationCaseFolders());
         return res;
     }

@@ -27,7 +27,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderHeader;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
 
@@ -77,8 +77,8 @@ public class DistributionFunctions {
 
     public static CaseFolder getMailbox(String mailboxId) {
         try {
-            CorrespondenceService service = Framework.getService(CorrespondenceService.class);
-            return service.getMailbox(mailboxId);
+            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            return service.getCaseFolder(mailboxId);
         } catch (Exception e) {
             return null;
         }
@@ -86,8 +86,8 @@ public class DistributionFunctions {
 
     public static CaseFolderHeader getMailboxHeader(String mailboxId) {
         try {
-            CorrespondenceService service = Framework.getService(CorrespondenceService.class);
-            return service.getMailboxHeader(mailboxId);
+            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            return service.getCaseFolderHeader(mailboxId);
         } catch (Exception e) {
             return null;
         }
@@ -95,8 +95,8 @@ public class DistributionFunctions {
 
     public static List<CaseFolder> getMailboxes(List<String> mailboxIds) {
         try {
-            CorrespondenceService service = Framework.getService(CorrespondenceService.class);
-            return service.getMailboxes(mailboxIds);
+            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            return service.getCaseFolders(mailboxIds);
         } catch (Exception e) {
             return null;
         }
@@ -104,8 +104,8 @@ public class DistributionFunctions {
 
     public static List<CaseFolderHeader> getMailboxesHeaders(List<String> mailboxIds) {
         try {
-            CorrespondenceService service = Framework.getService(CorrespondenceService.class);
-            return service.getMailboxesHeaders(mailboxIds);
+            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            return service.getCaseFoldersHeaders(mailboxIds);
         } catch (Exception e) {
             return null;
         }

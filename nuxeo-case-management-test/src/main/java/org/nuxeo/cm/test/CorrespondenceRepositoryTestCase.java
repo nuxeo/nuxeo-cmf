@@ -19,10 +19,10 @@
 
 package org.nuxeo.cm.test;
 
-import static org.nuxeo.cm.post.CorrespondencePostConstants.ENVELOPE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.POST_DOCUMENT_TYPE;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENDER_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
@@ -35,9 +35,9 @@ import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
-import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.cm.service.CaseManagementService;
 
 /**
  * @author Anahide Tchertchian
@@ -47,11 +47,11 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
 
     protected UserManager userManager;
 
-    protected CorrespondenceService correspService;
+    protected CaseManagementService correspService;
 
-    protected CorrespondenceDistributionTypeService correspDistributionTypeService;
+    protected CaseManagementDistributionTypeService correspDistributionTypeService;
 
-    protected CorrespondenceDocumentTypeService correspDocumentTypeService;
+    protected CaseManagementDocumentTypeService correspDocumentTypeService;
 
     protected static final String administrator = "Administrator";
 
@@ -108,13 +108,13 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 
-        correspService = Framework.getService(CorrespondenceService.class);
+        correspService = Framework.getService(CaseManagementService.class);
         assertNotNull(correspService);
 
-        correspDistributionTypeService = Framework.getService(CorrespondenceDistributionTypeService.class);
+        correspDistributionTypeService = Framework.getService(CaseManagementDistributionTypeService.class);
         assertNotNull(correspDistributionTypeService);
 
-        correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
+        correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         assertNotNull(correspDocumentTypeService);
 
     }
@@ -145,12 +145,12 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
 
     public DocumentModel getMailEnvelopeModel() throws Exception {
 
-        CorrespondenceDocumentTypeService correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
             mailEnvelopeModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
                     UUID.randomUUID().toString(),
-                    correspDocumentTypeService.getEnvelopeType());
+                    correspDocumentTypeService.getCaseType());
         }
         return mailEnvelopeModel;
     }
@@ -168,10 +168,10 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
 
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),
-                UUID.randomUUID().toString(), POST_DOCUMENT_TYPE);
+                UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
 
-        doc.setPropertyValue(ENVELOPE_DOCUMENT_ID_FIELD,
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
         doc.setPropertyValue(IS_DRAFT_FIELD, true);
         doc.setPropertyValue(SENDER_FIELD, mb.getId());

@@ -31,7 +31,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.web.distribution.CorrespondenceDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.mailbox.CorrespondenceAbstractActionsBean;

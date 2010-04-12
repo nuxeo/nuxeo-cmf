@@ -35,7 +35,7 @@ import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -77,7 +77,7 @@ public class CorrespondenceDocumentActionsBean extends
     protected transient CoreSession documentManager;
 
     @In(create = true)
-    protected transient CorrespondenceService correspondenceService;
+    protected transient CaseManagementService correspondenceService;
 
     @In(create = true, required = false)
     protected transient FacesMessages facesMessages;
@@ -96,14 +96,14 @@ public class CorrespondenceDocumentActionsBean extends
 
         String parentPath = getParentFolderPath();
 
-        Case envelope = correspondenceService.createMailEnvelope(
+        Case envelope = correspondenceService.createCase(
                 documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentMailbox()));
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 envelope.getDocument().getId());
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
-        correspondenceService.createDraftPost(documentManager,
+        correspondenceService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), envelope);
         documentManager.save();
 

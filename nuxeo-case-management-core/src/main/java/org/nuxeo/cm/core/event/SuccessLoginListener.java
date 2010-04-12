@@ -22,7 +22,7 @@ package org.nuxeo.cm.core.event;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.SimplePrincipal;
@@ -45,16 +45,16 @@ public class SuccessLoginListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
         try {
-            CorrespondenceService nxcService = Framework.getService(CorrespondenceService.class);
+            CaseManagementService nxcService = Framework.getService(CaseManagementService.class);
             if (nxcService == null) {
                 throw new CaseManagementException(
                         "CorrespondenceService not found.");
             }
 
             SimplePrincipal principal = (SimplePrincipal) event.getContext().getPrincipal();
-            if (!nxcService.hasUserPersonalMailbox(getCoreSession(),
+            if (!nxcService.hasUserPersonalCaseFolder(getCoreSession(),
                     principal.getName())) {
-                nxcService.createPersonalMailbox(getCoreSession(),
+                nxcService.createPersonalCaseFolders(getCoreSession(),
                         principal.getName());
             }
 

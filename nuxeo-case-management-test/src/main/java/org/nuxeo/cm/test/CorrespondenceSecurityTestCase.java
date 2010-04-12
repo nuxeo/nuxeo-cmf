@@ -19,10 +19,10 @@
 
 package org.nuxeo.cm.test;
 
-import static org.nuxeo.cm.post.CorrespondencePostConstants.ENVELOPE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.POST_DOCUMENT_TYPE;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENDER_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
@@ -42,8 +42,8 @@ import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.cm.service.CaseManagementService;
 
 /**
  * @author Anahide Tchertchian
@@ -53,7 +53,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
 
     protected UserManager userManager;
 
-    protected CorrespondenceService correspService;
+    protected CaseManagementService caseManagementService;
 
     protected static final String administrator = "Administrator";
 
@@ -107,8 +107,8 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 
-        correspService = Framework.getService(CorrespondenceService.class);
-        assertNotNull(correspService);
+        caseManagementService = Framework.getService(CaseManagementService.class);
+        assertNotNull(caseManagementService);
 
         openSession();
     }
@@ -131,13 +131,13 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
 
     public DocumentModel getMailEnvelopeModel() throws Exception {
 
-        CorrespondenceDocumentTypeService correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
             mailEnvelopeModel = session.createDocumentModel(
                     CaseConstants.CASE_ROOT_DOCUMENT_PATH,
                     UUID.randomUUID().toString(),
-                    correspDocumentTypeService.getEnvelopeType());
+                    correspDocumentTypeService.getCaseType());
         }
         return mailEnvelopeModel;
     }
@@ -147,10 +147,10 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
 
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),
-                UUID.randomUUID().toString(), POST_DOCUMENT_TYPE);
+                UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
 
-        doc.setPropertyValue(ENVELOPE_DOCUMENT_ID_FIELD,
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
         doc.setPropertyValue(IS_DRAFT_FIELD, true);
         doc.setPropertyValue(SENDER_FIELD, mb.getId());
@@ -160,7 +160,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
     }
 
     protected CaseFolder createPersonalMailbox(String name) throws Exception {
-        return correspService.createPersonalMailbox(session, name).get(0);
+        return caseManagementService.createPersonalCaseFolders(session, name).get(0);
     }
 
     protected CaseItem getMailEnvelopeItem() throws Exception {
@@ -191,11 +191,11 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
                 session);
         runner.runUnrestricted();
         session.save();
-        Case envelope = correspService.createMailEnvelope(session,
+        Case envelope = caseManagementService.createCase(session,
                 emailDoc, runner.getParentPath());
 
         // Create the Draft post in the mailbox
-        correspService.createDraftPost(session, mailbox, envelope);
+        caseManagementService.createDraftCaseLink(session, mailbox, envelope);
         session.save();
         return envelope;
     }

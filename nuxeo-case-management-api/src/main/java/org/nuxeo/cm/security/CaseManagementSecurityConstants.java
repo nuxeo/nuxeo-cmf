@@ -20,8 +20,8 @@ package org.nuxeo.cm.security;
  * @author arussel
  *
  */
-public class CorrespondenceSecurityConstants {
-    public static final String ACL_MAILBOX_PREFIX = "mailboxes";
+public class CaseManagementSecurityConstants {
+    public static final String ACL_CASE_FOLDER_PREFIX = "mailboxes";
 
-    public static final String MAILBOX_PREFIX = "mailbox_";
+    public static final String CASE_FOLDER_PREFIX = "mailbox_";
 }

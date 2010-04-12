@@ -7,7 +7,7 @@
       factory="org.nuxeo.cm.core.adapter.MailboxAdapterFactory" />
     <adapter class="org.nuxeo.cm.mailbox.CaseFolderHeader"
       factory="org.nuxeo.cm.core.adapter.MailboxHeaderAdapterFactory" />
-    <adapter class="org.nuxeo.cm.post.CorrespondencePost"
+    <adapter class="org.nuxeo.cm.post.CaseLink"
       facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CorrespondencePostAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.Case"

@@ -25,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -63,14 +63,14 @@ public class CreateMailboxIdListener implements EventListener {
         }
 
         try {
-            CorrespondenceService correspService = Framework.getService(CorrespondenceService.class);
+            CaseManagementService correspService = Framework.getService(CaseManagementService.class);
             setIdForMailbox(correspService, mb);
         } catch (Exception e) {
             log.error(e);
         }
     }
 
-    protected void setIdForMailbox(CorrespondenceService correspService,
+    protected void setIdForMailbox(CaseManagementService correspService,
             CaseFolder mb) {
         if (correspService == null) {
             log.error("Cannot set mailbox id: correspondence service is null");
@@ -83,14 +83,14 @@ public class CreateMailboxIdListener implements EventListener {
             if (owner == null) {
                 log.warn("Creating a personal mailbox without owner");
             } else {
-                id = correspService.getUserPersonalMailboxId(owner);
+                id = correspService.getUserPersonalCaseFolderId(owner);
             }
         }
         if (id == null) {
             String title = mb.getTitle();
             if (title != null) {
                 id = IdUtils.generateId(mb.getTitle());
-                if (correspService.hasMailbox(id)) {
+                if (correspService.hasCaseFolder(id)) {
                     // add timestamp
                     id += "_" + String.valueOf(new Date().getTime());
                 }

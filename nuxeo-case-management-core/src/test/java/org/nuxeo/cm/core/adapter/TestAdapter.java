@@ -10,8 +10,8 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.post.CorrespondencePostConstants;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.post.CaseLinkConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
@@ -59,9 +59,9 @@ public class TestAdapter extends SQLRepositoryTestCase {
     }
 
     public void testGetPostAdapter() throws ClientException {
-        DocumentModel doc = createDocument(CorrespondencePostConstants.POST_DOCUMENT_TYPE);
+        DocumentModel doc = createDocument(CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
         assertNotNull(doc);
-        CorrespondencePost post = doc.getAdapter(CorrespondencePost.class);
+        CaseLink post = doc.getAdapter(CaseLink.class);
         assertNotNull(post);
     }
 

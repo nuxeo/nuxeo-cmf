@@ -32,11 +32,11 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  *
  * @author Anahide Tchertchian
  */
-public interface MailboxCreator {
+public interface CaseFolderCreator {
 
-    String getPersonalMailboxId(DocumentModel userModel);
+    String getPersonalCaseFolderId(DocumentModel userModel);
 
-    List<CaseFolder> createMailboxes(CoreSession session, String user)
+    List<CaseFolder> createCaseFolders(CoreSession session, String user)
             throws CaseManagementException;
 
 }

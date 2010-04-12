@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 
@@ -31,14 +31,14 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  */
 public class GetMailboxIdsUnrestricted extends UnrestrictedSessionRunner {
 
-    protected CorrespondenceService service;
+    protected CaseManagementService service;
 
     protected List<String> mailboxIds = new ArrayList<String>();
 
     protected String principalId;
 
     public GetMailboxIdsUnrestricted(String repoName,
-            CorrespondenceService service, String principalId) {
+            CaseManagementService service, String principalId) {
         super(repoName);
         this.principalId = principalId;
         this.service = service;
@@ -51,7 +51,7 @@ public class GetMailboxIdsUnrestricted extends UnrestrictedSessionRunner {
      */
     @Override
     public void run() throws ClientException {
-        List<CaseFolder> mailboxes = service.getUserMailboxes(session, principalId);
+        List<CaseFolder> mailboxes = service.getUserCaseFolders(session, principalId);
         for(CaseFolder mailbox : mailboxes) {
             mailboxIds.add(mailbox.getId());
         }

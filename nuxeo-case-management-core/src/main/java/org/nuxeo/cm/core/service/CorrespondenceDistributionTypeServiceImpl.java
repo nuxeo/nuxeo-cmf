@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
+import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -34,7 +34,7 @@ import org.nuxeo.runtime.model.DefaultComponent;
  *
  */
 public class CorrespondenceDistributionTypeServiceImpl extends DefaultComponent
-        implements CorrespondenceDistributionTypeService {
+        implements CaseManagementDistributionTypeService {
 
     private static final long serialVersionUID = 1L;
 

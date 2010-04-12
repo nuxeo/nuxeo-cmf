@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.post.CorrespondencePostConstants;
-import org.nuxeo.cm.post.CorrespondencePostType;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.post.CaseLinkConstants;
+import org.nuxeo.cm.post.CaseLinkType;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -46,38 +46,38 @@ public class TestCorrespondenceRecipients extends CorrespondenceRepositoryTestCa
         List<String> actionList1 = new ArrayList<String>();
         actionList1.add("action1");
         actionList1.add("action2");
-        recipients1.put(CorrespondencePostType.FOR_ACTION.toString(), actionList1);
+        recipients1.put(CaseLinkType.FOR_ACTION.toString(), actionList1);
         List<String> reviewList1 = new ArrayList<String>();
         reviewList1.add("review1");
         reviewList1.add("review2");
-        recipients1.put(CorrespondencePostType.FOR_INFORMATION.toString(), reviewList1);
+        recipients1.put(CaseLinkType.FOR_INFORMATION.toString(), reviewList1);
         DocumentModel model = session.createDocumentModel("/",
                 UUID.randomUUID().toString(),
-                CorrespondencePostConstants.POST_DOCUMENT_TYPE);
+                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
         assertNotNull(doc);
-        CorrespondencePost post = doc.getAdapter(CorrespondencePost.class);
+        CaseLink post = doc.getAdapter(CaseLink.class);
         post.addInitialInternalParticipants(recipients1);
         post.addParticipants(recipients1);
 
         Map<String, List<String>> recipients2 = new HashMap<String, List<String>>();
-        recipients2.put(CorrespondencePostType.FOR_ACTION.toString(), actionList1);
+        recipients2.put(CaseLinkType.FOR_ACTION.toString(), actionList1);
         List<String> reviewList2 = new ArrayList<String>();
         reviewList2.add("review3");
         reviewList2.add("review4");
-        recipients2.put(CorrespondencePostType.FOR_INFORMATION.toString(), reviewList2);
+        recipients2.put(CaseLinkType.FOR_INFORMATION.toString(), reviewList2);
         post.addParticipants(recipients2);
 
         Map<String, List<String>> allRecipients = post.getAllParticipants();
         assertNotNull(allRecipients);
         assertEquals(2, allRecipients.size());
-        assertEquals(2, allRecipients.get(CorrespondencePostType.FOR_ACTION.toString()).size());
-        assertEquals(4, allRecipients.get(CorrespondencePostType.FOR_INFORMATION.toString()).size());
+        assertEquals(2, allRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(4, allRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
         Map<String, List<String>> initialRecipients = post.getInitialInternalParticipants();
         assertNotNull(initialRecipients);
         assertEquals(2, initialRecipients.size());
-        assertEquals(2, initialRecipients.get(CorrespondencePostType.FOR_ACTION.toString()).size());
-        assertEquals(2, initialRecipients.get(CorrespondencePostType.FOR_INFORMATION.toString()).size());
+        assertEquals(2, initialRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(2, initialRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
     }
 
 }

@@ -21,31 +21,31 @@ package org.nuxeo.cm.post;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class CorrespondencePostConstants {
+public class CaseLinkConstants {
 
     /**
      * The he document type.
      */
-    public final static String POST_DOCUMENT_TYPE = "CaseLink";
+    public final static String CASE_LINK_DOCUMENT_TYPE = "CaseLink";
 
-    public final static String POST_FACET = "CaseLink";
+    public final static String CASE_LINK_FACET = "CaseLink";
 
-    public final static String POST_SCHEMA = "case_link";
+    public final static String CASE_LINK_SCHEMA = "case_link";
 
     /**
      * The xpath of the postId.
      */
-    public final static String ID_FIELD = "cpost:postId";
+    public final static String ID_FIELD = "cslk:postId";
 
     /**
      * The xpath of the envelope repository name.
      */
-    public final static String ENVELOPE_REPOSITORY_NAME_FIELD = "cslk:caseRepositoryName";
+    public final static String CASE_REPOSITORY_NAME_FIELD = "cslk:caseRepositoryName";
 
     /**
      * The xpath of the envelope document id.
      */
-    public final static String ENVELOPE_DOCUMENT_ID_FIELD = "cslk:caseId";
+    public final static String CASE_DOCUMENT_ID_FIELD = "cslk:caseId";
 
     /**
      * The xpath of the subject.
@@ -55,7 +55,7 @@ public class CorrespondencePostConstants {
     /**
      * The xpath the sender mailbox id.
      */
-    public final static String SENDER_MAILBOX_ID_FIELD = "cslk:senderCaseFolderId";
+    public final static String SENDER_CASE_FOLDER_ID_FIELD = "cslk:senderCaseFolderId";
 
     /**
      * The xpath of the sender.
@@ -95,7 +95,7 @@ public class CorrespondencePostConstants {
     /**
      * The xpath of the envelope custom id indicator.
      */
-    public final static String ENVELOPE_ID_FIELD = "cpost:envelopeId";
+    public final static String CASE_ID_FIELD = "cslk:envelopeId";
 
     /**
      * The xpath of the isDraft indicator

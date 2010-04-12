@@ -27,8 +27,8 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.security.CaseManagementSecurityConstants;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.repository.Repository;
@@ -60,13 +60,13 @@ public class CorrespondencePrincipalImpl extends NuxeoPrincipalImpl {
     public List<String> getGroups() {
         List<String> groups = super.getGroups();
         try {
-            CorrespondenceService correspondenceService = Framework.getService(CorrespondenceService.class);
+            CaseManagementService correspondenceService = Framework.getService(CaseManagementService.class);
             GetMailboxIdsUnrestricted runner = new GetMailboxIdsUnrestricted(
                     getRepoName(), correspondenceService, getPrincipalId());
             runner.runUnrestricted();
             List<String> mailboxIds = runner.getMailboxIds();
             for (String mailboxId : mailboxIds) {
-                groups.add(CorrespondenceSecurityConstants.MAILBOX_PREFIX
+                groups.add(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX
                         + mailboxId);
             }
             return groups;
@@ -103,10 +103,10 @@ public class CorrespondencePrincipalImpl extends NuxeoPrincipalImpl {
                     if (virtualGroups.contains(groupName)) {
                         // just add the virtual group as is
                         resultingGroups.add(groupName);
-                    } else if(userManager != null && groupName.startsWith(CorrespondenceSecurityConstants.MAILBOX_PREFIX)) {
+                    } else if(userManager != null && groupName.startsWith(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX)) {
                         log.debug("Adding a maibox group: " + groupName);
                         resultingGroups.add(groupName);
-                    } else if (userManager != null && !groupName.startsWith(CorrespondenceSecurityConstants.MAILBOX_PREFIX)) {
+                    } else if (userManager != null && !groupName.startsWith(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX)) {
                         // XXX this should only happens in case of
                         // inconsistency in DB
                         log.error("User " + getName() + " references the "

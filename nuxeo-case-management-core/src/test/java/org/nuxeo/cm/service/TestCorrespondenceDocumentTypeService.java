@@ -45,10 +45,10 @@ public class TestCorrespondenceDocumentTypeService extends
     public void testGetAllProperty() throws ClientException {
 
         assertEquals("Case",
-                correspDocumentTypeService.getEnvelopeType());
+                correspDocumentTypeService.getCaseType());
 
         assertEquals("CaseLink",
-                correspDocumentTypeService.getPostType());
+                correspDocumentTypeService.getCaseLinkType());
     }
 
 }

@@ -6,7 +6,7 @@
     class="org.nuxeo.cm.core.service.CorrespondenceComponent" />
 
   <service>
-    <provide interface="org.nuxeo.cm.service.CorrespondenceService" />
+    <provide interface="org.nuxeo.cm.service.CaseManagementService" />
   </service>
 
   <extension-point name="mailboxCreator">

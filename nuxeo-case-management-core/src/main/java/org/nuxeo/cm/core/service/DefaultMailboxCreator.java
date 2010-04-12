@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.service.MailboxCreator;
+import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -42,13 +42,13 @@ import org.nuxeo.runtime.api.Framework;
  * @author Anahide Tchertchian
  *
  */
-public class DefaultMailboxCreator implements MailboxCreator {
+public class DefaultMailboxCreator implements CaseFolderCreator {
 
     protected static final String CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP = "correspondence.defaultMailboxCreator.skip";
 
     private static final Log log = LogFactory.getLog(CorrespondenceServiceImpl.class);
 
-    public String getPersonalMailboxId(DocumentModel userModel) {
+    public String getPersonalCaseFolderId(DocumentModel userModel) {
         String userId = userModel.getId();
         return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId);
     }
@@ -61,7 +61,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
      * @see com.nuxeo.correspondence.service.MailboxCreator#createMailboxes(org.nuxeo
      *      .ecm.core.api.CoreSession, java.lang.String)
      */
-    public List<CaseFolder> createMailboxes(CoreSession session, String user)
+    public List<CaseFolder> createCaseFolders(CoreSession session, String user)
             throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP);
@@ -89,7 +89,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
             CaseFolder mailbox = mailboxModel.getAdapter(CaseFolder.class);
 
             // Set mailbox properties
-            mailbox.setId(getPersonalMailboxId(userModel));
+            mailbox.setId(getPersonalCaseFolderId(userModel));
             mailbox.setTitle(getUserDisplayName(userModel));
             mailbox.setOwner(user);
             mailbox.setType(CaseFolderConstants.type.personal.name());

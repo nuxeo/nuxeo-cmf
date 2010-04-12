@@ -25,7 +25,7 @@ import java.util.Map;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
+import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
@@ -42,12 +42,12 @@ public class HasParticipantsImpl implements HasParticipants {
 
     protected DocumentModel document;
 
-    protected CorrespondenceDistributionTypeService distributionType;
+    protected CaseManagementDistributionTypeService distributionType;
 
     public HasParticipantsImpl(DocumentModel document) {
         this.document = document;
         try {
-            this.distributionType = Framework.getService(CorrespondenceDistributionTypeService.class);
+            this.distributionType = Framework.getService(CaseManagementDistributionTypeService.class);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }

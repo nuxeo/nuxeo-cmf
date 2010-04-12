@@ -16,7 +16,7 @@
  */
 package org.nuxeo.cm.core.service;
 
-import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -27,7 +27,7 @@ import org.nuxeo.runtime.model.DefaultComponent;
  *
  */
 public class CorrespondenceDocumentTypeServiceImpl extends DefaultComponent
-        implements CorrespondenceDocumentTypeService {
+        implements CaseManagementDocumentTypeService {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,11 +70,11 @@ public class CorrespondenceDocumentTypeServiceImpl extends DefaultComponent
         postDocType = null;
     }
 
-    public String getEnvelopeType() {
+    public String getCaseType() {
         return this.envelopeDocType;
     }
 
-    public String getPostType() {
+    public String getCaseLinkType() {
         return this.postDocType;
     }
 

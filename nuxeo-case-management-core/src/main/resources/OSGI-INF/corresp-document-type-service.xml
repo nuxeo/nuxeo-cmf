@@ -11,7 +11,7 @@
   <implementation class="org.nuxeo.cm.core.service.CorrespondenceDocumentTypeServiceImpl" />
 
   <service>
-    <provide interface="org.nuxeo.cm.service.CorrespondenceDocumentTypeService" />
+    <provide interface="org.nuxeo.cm.service.CaseManagementDocumentTypeService" />
   </service>
 
   <extension-point name="documentType">

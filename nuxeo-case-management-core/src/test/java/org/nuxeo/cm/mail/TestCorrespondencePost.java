@@ -17,9 +17,9 @@
 package org.nuxeo.cm.mail;
 
 import org.nuxeo.cm.cases.HasParticipants;
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.post.CorrespondencePostConstants;
-import org.nuxeo.cm.post.CorrespondencePostDocumentImpl;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.post.CaseLinkConstants;
+import org.nuxeo.cm.post.CaseLinkImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -29,18 +29,18 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  *
  */
 public class TestCorrespondencePost extends CorrespondenceRepositoryTestCase {
-    protected CorrespondencePost post;
+    protected CaseLink post;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
         openSession();
         DocumentModel document = createDocument(
-                CorrespondencePostConstants.POST_DOCUMENT_TYPE,
+                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE,
                 "post");
 
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
-        post = new CorrespondencePostDocumentImpl(document, adapter);
+        post = new CaseLinkImpl(document, adapter);
     }
 
     public void testGetDocument() {
@@ -48,6 +48,6 @@ public class TestCorrespondencePost extends CorrespondenceRepositoryTestCase {
         DocumentModel doc = post.getDocument();
         assertNotNull(doc);
         assertEquals(doc.getType(),
-                CorrespondencePostConstants.POST_DOCUMENT_TYPE);
+                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
     }
 }

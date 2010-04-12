@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -237,15 +237,15 @@ public class CaseItemImpl implements CaseItem {
             String parentPath, String id, String initialLifeCysleState)
             throws ClientException {
 
-        CorrespondenceDocumentTypeService correspDocumentTypeService;
+        CaseManagementDocumentTypeService correspDocumentTypeService;
         try {
-            correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         } catch (Exception e) {
             throw new ClientException(e);
         }
 
         DocumentModel envelope = session.createDocumentModel(parentPath, id,
-                correspDocumentTypeService.getEnvelopeType());
+                correspDocumentTypeService.getCaseType());
         envelope.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
                 document.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME));
         // FIXME: make this constant available in nuxeo-core-api

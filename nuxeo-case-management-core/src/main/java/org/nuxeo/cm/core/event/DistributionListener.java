@@ -29,7 +29,7 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
+import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -114,12 +114,12 @@ public class DistributionListener implements EventListener {
                 for (DocumentModel doc : docs) {
                     doc = session.getDocument(doc.getRef());
                     ACP acp = doc.getACP();
-                    ACL mailboxACL = acp.getOrCreateACL(CorrespondenceSecurityConstants.ACL_MAILBOX_PREFIX);
+                    ACL mailboxACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
                     for (String mailboxId : allMailboxIds) {
-                        mailboxACL.add(new ACE(CorrespondenceSecurityConstants.MAILBOX_PREFIX + mailboxId,
+                        mailboxACL.add(new ACE(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + mailboxId,
                                 SecurityConstants.READ_WRITE, true));
                     }
-                    acp.removeACL(CorrespondenceSecurityConstants.ACL_MAILBOX_PREFIX);
+                    acp.removeACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
                     acp.addACL(mailboxACL);
                     session.setACP(doc.getRef(), acp, true);
                 }

@@ -16,16 +16,16 @@
  */
 package org.nuxeo.cm.post;
 
-import static org.nuxeo.cm.post.CorrespondencePostConstants.COMMENT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.DATE_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.ENVELOPE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.IS_READ_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENDER_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENDER_MAILBOX_ID_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENT_DATE_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SUBJECT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.TYPE_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.COMMENT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.DATE_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_READ_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENT_DATE_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SUBJECT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.TYPE_FIELD;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +46,7 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class CorrespondencePostDocumentImpl implements CorrespondencePost {
+public class CaseLinkImpl implements CaseLink {
 
     private static final long serialVersionUID = -94563234903621891L;
 
@@ -54,7 +54,7 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
 
     protected DocumentModel document;
 
-    public CorrespondencePostDocumentImpl(DocumentModel doc,
+    public CaseLinkImpl(DocumentModel doc,
             HasParticipants recipientAdapted) {
         this.document = doc;
         this.recipientAdapter = recipientAdapted;
@@ -79,10 +79,10 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
         return getPropertyValue(DATE_FIELD);
     }
 
-    public Case getMailEnvelope(CoreSession session) {
+    public Case getCase(CoreSession session) {
         Case envelope;
         try {
-            String envelopeDocumentId = (String) document.getPropertyValue(ENVELOPE_DOCUMENT_ID_FIELD);
+            String envelopeDocumentId = (String) document.getPropertyValue(CASE_DOCUMENT_ID_FIELD);
             DocumentModel mailDocument = session.getDocument(new IdRef(
                     envelopeDocumentId));
             envelope = mailDocument.getAdapter(Case.class);
@@ -106,8 +106,8 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
         return getPropertyValue(SUBJECT_FIELD);
     }
 
-    public String getSenderMailboxId() {
-        return getPropertyValue(SENDER_MAILBOX_ID_FIELD);
+    public String getSenderCaseFolderId() {
+        return getPropertyValue(SENDER_CASE_FOLDER_ID_FIELD);
     }
 
     public Date getSentDate() {

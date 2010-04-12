@@ -40,7 +40,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public interface CorrespondencePost extends HasParticipants, Serializable {
+public interface CaseLink extends HasParticipants, Serializable {
 
     /**
      * get the document model.
@@ -92,14 +92,14 @@ public interface CorrespondencePost extends HasParticipants, Serializable {
      * @return
      * @throws ClientException
      */
-    String getSenderMailboxId();
+    String getSenderCaseFolderId();
 
     /**
      * The mail envelope sent.
      *
      * @return
      */
-    Case getMailEnvelope(CoreSession session);
+    Case getCase(CoreSession session);
 
     /**
      * The send date of the post.

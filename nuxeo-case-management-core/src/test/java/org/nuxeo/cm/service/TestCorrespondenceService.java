@@ -29,8 +29,8 @@ import java.util.Map;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.post.CorrespondencePostRequestImpl;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.post.CaseLinkRequestImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -52,13 +52,13 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
     public void testDefaultPersonalMailboxCreation() throws Exception {
 
-        correspService.createPersonalMailbox(session, "toto");
-        List<CaseFolder> mailboxes = correspService.getUserMailboxes(session,
+        correspService.createPersonalCaseFolders(session, "toto");
+        List<CaseFolder> mailboxes = correspService.getUserCaseFolders(session,
                 "toto");
         assertTrue(mailboxes.isEmpty());
 
-        correspService.createPersonalMailbox(session, user);
-        mailboxes = correspService.getUserMailboxes(session, user);
+        correspService.createPersonalCaseFolders(session, user);
+        mailboxes = correspService.getUserCaseFolders(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
         CaseFolder mb = mailboxes.get(0);
@@ -74,7 +74,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-personalmailbox-creator-corresp-contrib.xml");
 
-        List<CaseFolder> mailboxes = correspService.createPersonalMailbox(session,
+        List<CaseFolder> mailboxes = correspService.createPersonalCaseFolders(session,
                 user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
@@ -86,9 +86,9 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
     }
 
     public void testGetUserPersonalMailboxId() throws Exception {
-        String totoMbId = correspService.getUserPersonalMailboxId("toto");
+        String totoMbId = correspService.getUserPersonalCaseFolderId("toto");
         assertNull(totoMbId);
-        String userMbId = correspService.getUserPersonalMailboxId(user);
+        String userMbId = correspService.getUserPersonalCaseFolderId(user);
         assertNotNull(userMbId);
         assertEquals("user-user", userMbId);
     }
@@ -99,25 +99,25 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
         // log as given user and check he still got access
         openSessionAs(user);
-        CaseFolder mb = correspService.getMailbox(session, "test");
+        CaseFolder mb = correspService.getCaseFolder(session, "test");
         assertEquals(mb.getTitle(), "Test");
 
     }
 
     public void testHasMailbox() throws Exception {
         createMailbox();
-        assertTrue(correspService.hasMailbox("test"));
-        assertFalse(correspService.hasMailbox("foo"));
+        assertTrue(correspService.hasCaseFolder("test"));
+        assertFalse(correspService.hasCaseFolder("foo"));
     }
 
     public void testGetMailboxes() throws Exception {
 
-        correspService.createPersonalMailbox(session, user);
+        correspService.createPersonalCaseFolders(session, user);
 
         // Create an other mailbox
         createMailbox();
 
-        List<CaseFolder> mailboxes = correspService.getUserMailboxes(session, user);
+        List<CaseFolder> mailboxes = correspService.getUserCaseFolders(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(2, mailboxes.size());
 
@@ -134,17 +134,17 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
         // log as given user and check he still got access
         openSessionAs(user);
-        mailboxes = correspService.getUserMailboxes(session, user);
+        mailboxes = correspService.getUserCaseFolders(session, user);
         assertEquals(2, mailboxes.size());
 
     }
 
     public void testSearchMailboxes() throws Exception {
         // create personal mailboxes for users, calling getMailboxes on each
-        correspService.getUserMailboxes(session, user);
-        correspService.getUserMailboxes(session, user1);
-        correspService.getUserMailboxes(session, user2);
-        correspService.getUserMailboxes(session, user3);
+        correspService.getUserCaseFolders(session, user);
+        correspService.getUserCaseFolders(session, user1);
+        correspService.getUserCaseFolders(session, user2);
+        correspService.getUserCaseFolders(session, user3);
 
         // create a generic mailbox too
         DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
@@ -174,7 +174,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
     }
 
     public CaseFolder getPersonalMailbox(String name) throws Exception {
-        return correspService.createPersonalMailbox(session, name).get(0);
+        return correspService.createPersonalCaseFolders(session, name).get(0);
     }
 
     public void testSendEnvelope() throws Exception {
@@ -193,15 +193,15 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         Case envelope = getMailEnvelope();
         createDraftPost(senderMailbox, envelope);
 
-        assertTrue(correspService.getDraftPost(session, senderMailbox,
+        assertTrue(correspService.getDraftCaseLink(session, senderMailbox,
                 envelope.getDocument().getId()).isDraft());
 
-        CorrespondencePost postRequest = new CorrespondencePostRequestImpl(
+        CaseLink postRequest = new CaseLinkRequestImpl(
                 senderMailbox.getId(), Calendar.getInstance(),
                 "Check this out", "it is a bit boring", envelope, recipients,
                 null);
 
-        CorrespondencePost post = correspService.sendEnvelope(session,
+        CaseLink post = correspService.sendCase(session,
                 postRequest, true);
         assertNotNull(post);
         assertFalse(post.isDraft());

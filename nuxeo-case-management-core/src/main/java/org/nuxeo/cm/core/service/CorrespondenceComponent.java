@@ -21,8 +21,8 @@ package org.nuxeo.cm.core.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.service.CorrespondenceService;
-import org.nuxeo.cm.service.MailboxCreator;
+import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -55,7 +55,7 @@ public class CorrespondenceComponent extends DefaultComponent {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getAdapter(Class<T> adapter) {
-        if (adapter.isAssignableFrom(CorrespondenceService.class)) {
+        if (adapter.isAssignableFrom(CaseManagementService.class)) {
             return (T) service;
         }
         return null;
@@ -71,8 +71,8 @@ public class CorrespondenceComponent extends DefaultComponent {
             // Thread context loader is not working in isolated EARs
             Object creator = CorrespondenceComponent.class.getClassLoader().loadClass(
                     className).newInstance();
-            if (creator instanceof MailboxCreator) {
-                service.setPersonalMailboxCreator((MailboxCreator) creator);
+            if (creator instanceof CaseFolderCreator) {
+                service.setPersonalMailboxCreator((CaseFolderCreator) creator);
             } else {
                 log.error("Invalid contribution to personal mailbox creator: "
                         + className);

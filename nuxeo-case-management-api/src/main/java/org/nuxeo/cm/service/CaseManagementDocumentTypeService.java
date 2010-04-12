@@ -25,27 +25,19 @@ import java.io.Serializable;
  * @author Nicolas Ulrich
  *
  */
-public interface CorrespondenceDocumentTypeService extends Serializable {
+public interface CaseManagementDocumentTypeService extends Serializable {
 
     /**
      * Get the core type of the Post
      *
      * @return The core type.
      */
-    public String getPostType();
+    public String getCaseLinkType();
 
     /**
      * Get the core type of the Post
      *
      * @return The core type.
      */
-    public String getEnvelopeType();
-
-    /**
-     * Get the core type of the Outgoing document used by default for response
-     *
-     * @return The core type
-     */
-    public String getResponseOutgoingDocType();
-
+    public String getCaseType();
 }

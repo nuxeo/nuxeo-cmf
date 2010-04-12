@@ -41,11 +41,11 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.distribution.ParticipantItem;
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.post.CorrespondencePostMode;
-import org.nuxeo.cm.post.CorrespondencePostRequestImpl;
-import org.nuxeo.cm.post.CorrespondencePostType;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.post.CaseLinkMode;
+import org.nuxeo.cm.post.CaseLinkRequestImpl;
+import org.nuxeo.cm.post.CaseLinkType;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -81,7 +81,7 @@ public class CorrespondenceDistributionActionsBean extends
     protected transient NavigationContext navigationContext;
 
     @In(create = true)
-    protected transient CorrespondenceService correspondenceService;
+    protected transient CaseManagementService correspondenceService;
 
     @In(create = true)
     protected WebActions webActions;
@@ -105,14 +105,14 @@ public class CorrespondenceDistributionActionsBean extends
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    ParticipantItem item = (ParticipantItem) correspondenceService.getMailboxHeader(fav);
-                    item.setMessageType(CorrespondencePostType.NONE.getStringType());
+                    ParticipantItem item = (ParticipantItem) correspondenceService.getCaseFolderHeader(fav);
+                    item.setMessageType(CaseLinkType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
                 distributionInfo.setFavoriteCaseFolders(favoriteMailboxes);
             }
             // entire envelope by default
-            distributionInfo.setMode(CorrespondencePostMode.ENTIRE_ENVELOPE.getStringType());
+            distributionInfo.setMode(CaseLinkMode.ENTIRE_ENVELOPE.getStringType());
         }
         return distributionInfo;
     }
@@ -126,7 +126,7 @@ public class CorrespondenceDistributionActionsBean extends
                                 "feedback.corresp.distribution.noRecipients"));
                 return null;
             }
-            CorrespondencePostMode mode = CorrespondencePostMode.valueOfString(distributionInfo.getMode());
+            CaseLinkMode mode = CaseLinkMode.valueOfString(distributionInfo.getMode());
             if (mode == null) {
                 facesMessages.add(FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
@@ -144,10 +144,10 @@ public class CorrespondenceDistributionActionsBean extends
             DocumentModel emailDoc = null;
             Case envelope = null;
             envelope = getCurrentEnvelope();
-            if (CorrespondencePostMode.ENTIRE_ENVELOPE.equals(mode)) {
+            if (CaseLinkMode.ENTIRE_ENVELOPE.equals(mode)) {
                 envelopeDoc = envelope.getDocument();
                 emailDoc = envelope.getFirstItem(documentManager).getDocument();
-            } else if (CorrespondencePostMode.DOC_ONLY.equals(mode)) {
+            } else if (CaseLinkMode.DOC_ONLY.equals(mode)) {
                 emailDoc = getCurrentEmail();
                 // XXX: user same parent than current email for new envelope,
                 // maybe to change.
@@ -166,13 +166,13 @@ public class CorrespondenceDistributionActionsBean extends
             }
             Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
 
-            CorrespondencePost postRequest = new CorrespondencePostRequestImpl(
+            CaseLink postRequest = new CaseLinkRequestImpl(
                     currentMailbox.getId(),
                     Calendar.getInstance(),
                     (String) envelopeDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
                     distributionInfo.getComment(), envelope, recipients, null);
 
-            correspondenceService.sendEnvelope(documentManager, postRequest,
+            correspondenceService.sendCase(documentManager, postRequest,
                     envelope.isDraft());
 
             // check there were actual recipients

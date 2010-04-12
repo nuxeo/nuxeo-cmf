@@ -16,15 +16,15 @@
  */
 package org.nuxeo.cm.core.post;
 
-import static org.nuxeo.cm.post.CorrespondencePostConstants.COMMENT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.DATE_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.ENVELOPE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.ENVELOPE_REPOSITORY_NAME_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENDER_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SENDER_MAILBOX_ID_FIELD;
-import static org.nuxeo.cm.post.CorrespondencePostConstants.SUBJECT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.COMMENT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.DATE_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_SENT_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.post.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
 import java.util.List;
@@ -35,8 +35,8 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -45,14 +45,14 @@ import org.nuxeo.runtime.api.Framework;
 
 
 /**
- * A creator of {@link CorrespondencePost}.
+ * A creator of {@link CaseLink}.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
 public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
 
-    protected CorrespondencePost createdPost;
+    protected CaseLink createdPost;
 
     protected final String subject;
 
@@ -72,18 +72,18 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
 
     protected final boolean isInitial;
 
-    protected CorrespondencePost draft;
+    protected CaseLink draft;
 
     protected CaseFolder recipient;
 
-    public CorrespondencePost getCreatedPost() {
+    public CaseLink getCreatedPost() {
         return createdPost;
     }
 
     /**
      * @param draft The draft used to sent this envelope
      * @param repositoryName The name of the repository in which the
-     *            {@link CorrespondencePost} will be created.
+     *            {@link CaseLink} will be created.
      * @param subject The subject of the post.
      * @param comment The comment of the post.
      * @param envelope The envelope sent.
@@ -93,7 +93,7 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
      * @param isSent The post can be Sent or Received
      * @param isInitial Is it an initial sent?
      */
-    public CreatePostUnrestricted(CorrespondencePost draft,
+    public CreatePostUnrestricted(CaseLink draft,
             CoreSession session, String subject, String comment,
             Case envelope, CaseFolder sender, String recipientId,
             Map<String, List<String>> internalRecipients,
@@ -125,9 +125,9 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
 
         recipient = mailboxes.get(0);
         DocumentModel doc = null;
-        CorrespondenceDocumentTypeService correspDocumentTypeService;
+        CaseManagementDocumentTypeService correspDocumentTypeService;
         try {
-            correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         } catch (Exception e) {
             throw new ClientException(e);
         }
@@ -136,11 +136,11 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
         doc = session.createDocumentModel(
                 recipient.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(),
-                correspDocumentTypeService.getPostType());
+                correspDocumentTypeService.getCaseLinkType());
         if (draft != null) {
             doc.copyContent(draft.getDocument());
         }
-        CorrespondencePost post = doc.getAdapter(CorrespondencePost.class);
+        CaseLink post = doc.getAdapter(CaseLink.class);
         if (isInitial) {
             post.addInitialInternalParticipants(internalRecipients);
             post.addInitialExternalParticipants(externalRecipients);
@@ -151,7 +151,7 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
         setPostValues(doc);
         session.createDocument(doc);
         session.save();
-        createdPost = doc.getAdapter(CorrespondencePost.class);
+        createdPost = doc.getAdapter(CaseLink.class);
     }
 
     /**
@@ -164,12 +164,12 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
         // FIXME: use CorrespondencePost setters
         doc.setPropertyValue(IS_DRAFT_FIELD, false);
         doc.setPropertyValue(SUBJECT_FIELD, subject);
-        doc.setPropertyValue(ENVELOPE_REPOSITORY_NAME_FIELD,
+        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD,
                 envelope.getDocument().getRepositoryName());
-        doc.setPropertyValue(ENVELOPE_DOCUMENT_ID_FIELD,
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
         if (sender != null) {
-            doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
+            doc.setPropertyValue(SENDER_CASE_FOLDER_ID_FIELD, sender.getId());
             doc.setPropertyValue(SENDER_FIELD, sender.getOwner());
         }
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());

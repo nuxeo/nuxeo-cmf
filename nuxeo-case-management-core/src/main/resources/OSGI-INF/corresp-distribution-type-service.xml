@@ -13,7 +13,7 @@
   <implementation class="org.nuxeo.cm.core.service.CorrespondenceDistributionTypeServiceImpl" />
 
   <service>
-    <provide interface="org.nuxeo.cm.service.CorrespondenceDistributionTypeService" />
+    <provide interface="org.nuxeo.cm.service.CaseManagementDistributionTypeService" />
   </service>
 
   <extension-point name="distributionType">

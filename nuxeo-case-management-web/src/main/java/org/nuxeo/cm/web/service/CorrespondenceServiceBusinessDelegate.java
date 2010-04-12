@@ -29,7 +29,7 @@ import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Unwrap;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.api.Framework;
 
@@ -48,22 +48,22 @@ public class CorrespondenceServiceBusinessDelegate implements Serializable {
 
     private static final Log log = LogFactory.getLog(CorrespondenceServiceBusinessDelegate.class);
 
-    protected CorrespondenceService service;
+    protected CaseManagementService service;
 
     public void initialize() {
         log.debug("Seam component initialized...");
     }
 
     /**
-     * Acquires a new {@link CorrespondenceService} reference. The related EJB
+     * Acquires a new {@link CaseManagementService} reference. The related EJB
      * may be deployed on a local or remote AppServer.
      */
     @Unwrap
-    public CorrespondenceService getDistributionService()
+    public CaseManagementService getDistributionService()
             throws ClientException {
         if (service == null) {
             try {
-                service = Framework.getService(CorrespondenceService.class);
+                service = Framework.getService(CaseManagementService.class);
             } catch (Exception e) {
                 throw new ClientException(
                         "Error connecting to correspondence service", e);

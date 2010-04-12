@@ -29,7 +29,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 
-public class CorrespondencePostRequestImpl implements CorrespondencePost {
+public class CaseLinkRequestImpl implements CaseLink {
 
     private static final long serialVersionUID = -2454486043183207094L;
 
@@ -47,7 +47,7 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
 
     final Map<String, List<String>> externalRecipients;
 
-    public CorrespondencePostRequestImpl(String sender, Calendar date,
+    public CaseLinkRequestImpl(String sender, Calendar date,
             String subject, String comment, Case envelope,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients) {
@@ -73,7 +73,7 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
         return date;
     }
 
-    public Case getMailEnvelope(CoreSession session) {
+    public Case getCase(CoreSession session) {
         return envelope;
     }
 
@@ -97,7 +97,7 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
         return subject;
     }
 
-    public String getSenderMailboxId() {
+    public String getSenderCaseFolderId() {
         return null;
     }
 

@@ -41,7 +41,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  * @author Nicolas Ulrich
  *
  */
-public interface CorrespondenceDistributionTypeService extends Serializable {
+public interface CaseManagementDistributionTypeService extends Serializable {
 
     public Set<String> getDistributionTypes();
 

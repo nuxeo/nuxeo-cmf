@@ -29,7 +29,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.international.LocaleSelector;
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.web.mailbox.CorrespondenceMailboxActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -70,10 +70,10 @@ public class CorrespondenceStartupHelper extends StartupHelper {
         String page = super.initServerAndFindStartupPage();
         initCurrentDomain();
         try {
-            CorrespondenceService service = Framework.getService(CorrespondenceService.class);
+            CaseManagementService service = Framework.getService(CaseManagementService.class);
             // select mailbox to display
             final String user = currentNuxeoPrincipal.getName();
-            CaseFolder userMailbox = service.getUserPersonalMailbox(documentManager, user);
+            CaseFolder userMailbox = service.getUserPersonalCaseFolder(documentManager, user);
             if (userMailbox != null) {
                page = navigationContext.navigateToDocument(userMailbox.getDocument());
             }

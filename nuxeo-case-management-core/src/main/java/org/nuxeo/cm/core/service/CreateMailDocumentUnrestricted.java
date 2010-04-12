@@ -19,7 +19,7 @@ package org.nuxeo.cm.core.service;
 import java.util.List;
 
 import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
+import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -58,9 +58,9 @@ public class CreateMailDocumentUnrestricted extends UnrestrictedSessionRunner {
     public void run() throws ClientException {
         DocumentModel newDoc = session.createDocument(doc);
         ACP acp = newDoc.getACP();
-        ACL acl = acp.getOrCreateACL(CorrespondenceSecurityConstants.ACL_MAILBOX_PREFIX);
+        ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
         for (CaseFolder mailbox : mailboxes) {
-            acl.add(new ACE(CorrespondenceSecurityConstants.MAILBOX_PREFIX
+            acl.add(new ACE(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX
                     + mailbox.getId(), SecurityConstants.READ_WRITE, true));
         }
         acp.addACL(acl);

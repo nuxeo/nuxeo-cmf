@@ -21,8 +21,8 @@ package org.nuxeo.cm.core.adapter;
 import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.post.CorrespondencePostConstants;
-import org.nuxeo.cm.post.CorrespondencePostDocumentImpl;
+import org.nuxeo.cm.post.CaseLinkConstants;
+import org.nuxeo.cm.post.CaseLinkImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
@@ -37,24 +37,24 @@ public class CorrespondencePostAdapterFactory implements DocumentAdapterFactory 
     public Object getAdapter(DocumentModel doc, Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
-        return new CorrespondencePostDocumentImpl(doc, adapter);
+        return new CaseLinkImpl(doc, adapter);
     }
 
     protected void checkDocument(DocumentModel doc) {
-        if (!doc.hasFacet(CorrespondencePostConstants.POST_FACET)) {
+        if (!doc.hasFacet(CaseLinkConstants.CASE_LINK_FACET)) {
             throw new CaseManagementRuntimeException(
                     "Document should have facet "
-                            + CorrespondencePostConstants.POST_FACET);
+                            + CaseLinkConstants.CASE_LINK_FACET);
         }
         if (!doc.hasSchema(CaseConstants.DISTRIBUTION_SCHEMA)) {
             throw new CaseManagementRuntimeException(
                     "Document should contain schema "
                             + CaseConstants.DISTRIBUTION_SCHEMA);
         }
-        if (!doc.hasSchema(CorrespondencePostConstants.POST_SCHEMA)) {
+        if (!doc.hasSchema(CaseLinkConstants.CASE_LINK_SCHEMA)) {
             throw new CaseManagementRuntimeException(
                     "Document should contain schema "
-                            + CorrespondencePostConstants.POST_SCHEMA);
+                            + CaseLinkConstants.CASE_LINK_SCHEMA);
         }
     }
 

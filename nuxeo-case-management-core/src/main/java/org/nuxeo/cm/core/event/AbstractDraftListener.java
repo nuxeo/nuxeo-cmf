@@ -23,8 +23,8 @@ import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.cm.post.CorrespondencePost;
-import org.nuxeo.cm.post.CorrespondencePostConstants;
+import org.nuxeo.cm.post.CaseLink;
+import org.nuxeo.cm.post.CaseLinkConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -75,7 +75,7 @@ public abstract class AbstractDraftListener {
             return;
         }
         DocumentModel firstDoc = item.getDocument();
-        CorrespondencePost draft = (CorrespondencePost) docCtx.getProperties().get(
+        CaseLink draft = (CaseLink) docCtx.getProperties().get(
                 CaseManagementEventConstants.EVENT_CONTEXT_DRAFT);
         updateDraft(draft.getDocument(), firstDoc, envelopeDM, principal);
         session.saveDocument(draft.getDocument());
@@ -89,7 +89,7 @@ public abstract class AbstractDraftListener {
         draft.setPropertyValue(
                 CaseConstants.CONTACTS_PARTICIPANTS,
                 firstDoc.getPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS));
-        draft.setPropertyValue(CorrespondencePostConstants.SENDER_FIELD,
+        draft.setPropertyValue(CaseLinkConstants.SENDER_FIELD,
                 principal.getName());
     }
 }

@@ -57,7 +57,7 @@ import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.service.CorrespondenceService;
+import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -108,7 +108,7 @@ public class CorrespondenceMailboxActionsBean extends
     protected NavigationContext navigationContext;
 
     @In(create = true)
-    protected transient CorrespondenceService correspondenceService;
+    protected transient CaseManagementService correspondenceService;
 
     @In(required = false)
     protected transient Principal currentUser;
@@ -132,7 +132,7 @@ public class CorrespondenceMailboxActionsBean extends
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return correspondenceService.searchMailboxes(searchPattern, searchType);
+        return correspondenceService.searchCaseFolders(searchPattern, searchType);
     }
 
     /**
@@ -144,7 +144,7 @@ public class CorrespondenceMailboxActionsBean extends
             userMailboxes = new ArrayList<CaseFolder>();
             if (currentUser != null) {
                 CaseFolder personalMailbox = null;
-                List<CaseFolder> mailboxes = correspondenceService.getUserMailboxes(
+                List<CaseFolder> mailboxes = correspondenceService.getUserCaseFolders(
                         documentManager, currentUser.getName());
                 if (mailboxes != null && !mailboxes.isEmpty()) {
                     userMailboxes.addAll(mailboxes);
@@ -181,7 +181,7 @@ public class CorrespondenceMailboxActionsBean extends
     public void validateMailboxId(FacesContext context, UIComponent component,
             Object value) {
         if (!(value instanceof String)
-                || correspondenceService.hasMailbox((String) value)) {
+                || correspondenceService.hasCaseFolder((String) value)) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
                             context,
@@ -223,8 +223,8 @@ public class CorrespondenceMailboxActionsBean extends
         }
 
         if (CaseFolderConstants.type.personal.name().equals(mailboxType)) {
-            String mbId = correspondenceService.getUserPersonalMailboxId((String) mailboxOwner);
-            if (correspondenceService.hasMailbox(mbId)) {
+            String mbId = correspondenceService.getUserPersonalCaseFolderId((String) mailboxOwner);
+            if (correspondenceService.hasCaseFolder(mbId)) {
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
@@ -325,7 +325,7 @@ public class CorrespondenceMailboxActionsBean extends
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
-                mailboxDoc = correspondenceService.getMailbox(documentManager,
+                mailboxDoc = correspondenceService.getCaseFolder(documentManager,
                         parentMailboxId).getDocument();
             } catch (Exception e) {
                 log.error(String.format(
