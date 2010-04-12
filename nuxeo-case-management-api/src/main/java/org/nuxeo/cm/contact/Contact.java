@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 
 
 /**
@@ -173,7 +173,7 @@ public class Contact implements Serializable, Comparable<Contact> {
         return this.asStringForIndexing().compareTo(other.asStringForIndexing());
     }
 
-    public static Contact getContactForMailbox(Mailbox mailbox, String email,
+    public static Contact getContactForMailbox(CaseFolder mailbox, String email,
             String service, String surname) {
         if (mailbox == null) {
             return null;

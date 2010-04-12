@@ -22,7 +22,7 @@ package org.nuxeo.cm.service;
 import java.util.List;
 
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -36,7 +36,7 @@ public interface MailboxCreator {
 
     String getPersonalMailboxId(DocumentModel userModel);
 
-    List<Mailbox> createMailboxes(CoreSession session, String user)
+    List<CaseFolder> createMailboxes(CoreSession session, String user)
             throws CaseManagementException;
 
 }

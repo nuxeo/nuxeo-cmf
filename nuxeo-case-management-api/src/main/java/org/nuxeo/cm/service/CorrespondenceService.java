@@ -23,8 +23,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -45,14 +45,14 @@ public interface CorrespondenceService extends Serializable {
      *
      * @param muid User id
      */
-    Mailbox getMailbox(CoreSession session, String muid);
+    CaseFolder getMailbox(CoreSession session, String muid);
 
     /**
      * Returns the mailbox with given unique identifier.
      *
      * @param muid mailbox id
      */
-    Mailbox getMailbox(String muid);
+    CaseFolder getMailbox(String muid);
 
     /**
      * Returns true if a mailbox with given id exists
@@ -87,7 +87,7 @@ public interface CorrespondenceService extends Serializable {
      * @param muids Users ids
      *
      */
-    List<Mailbox> getMailboxes(CoreSession session, List<String> muids);
+    List<CaseFolder> getMailboxes(CoreSession session, List<String> muids);
 
     /**
      * Returns the mailboxes with given unique identifiers.
@@ -95,7 +95,7 @@ public interface CorrespondenceService extends Serializable {
      * @param muids Users ids
      *
      */
-    List<Mailbox> getMailboxes(List<String> muids);
+    List<CaseFolder> getMailboxes(List<String> muids);
 
     /**
      * Returns the mailboxes headers with given unique identifiers.
@@ -119,7 +119,7 @@ public interface CorrespondenceService extends Serializable {
      * @param userId User id
      *
      */
-    List<Mailbox> getUserMailboxes(CoreSession session, String userId);
+    List<CaseFolder> getUserMailboxes(CoreSession session, String userId);
 
     /**
      * Returns the personal mailbox of the given user.
@@ -127,12 +127,12 @@ public interface CorrespondenceService extends Serializable {
      * @param userId User id
      * @throws ClientException
      */
-    Mailbox getUserPersonalMailbox(CoreSession session, String userId);
+    CaseFolder getUserPersonalMailbox(CoreSession session, String userId);
 
     /**
      * Returns a mailbox for given email
      */
-    Mailbox getUserPersonalMailboxForEmail(CoreSession session, String email);
+    CaseFolder getUserPersonalMailboxForEmail(CoreSession session, String email);
 
     /**
      * Search mailboxes with given pattern
@@ -147,7 +147,7 @@ public interface CorrespondenceService extends Serializable {
      *
      * @param userId
      */
-    public List<Mailbox> createPersonalMailbox(CoreSession session,
+    public List<CaseFolder> createPersonalMailbox(CoreSession session,
             String userId);
 
     /**
@@ -169,25 +169,25 @@ public interface CorrespondenceService extends Serializable {
      * Returns the sent posts for given mailbox
      */
     List<CorrespondencePost> getSentPosts(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit);
+            CaseFolder mailbox, long offset, long limit);
 
     /**
      * Returns the received posts for given mailbox
      */
     List<CorrespondencePost> getReceivedPosts(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit);
+            CaseFolder mailbox, long offset, long limit);
 
     /**
      * Returns the draft posts for given mailbox
      */
     List<CorrespondencePost> getDraftPosts(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit);
+            CaseFolder mailbox, long offset, long limit);
 
     /**
      * Returns the draft post of an envelope in given mailbox. Returns null if
      * post is not found.
      */
-    CorrespondencePost getDraftPost(CoreSession session, Mailbox mailbox,
+    CorrespondencePost getDraftPost(CoreSession session, CaseFolder mailbox,
             String envelopeId);
 
     /**
@@ -196,7 +196,7 @@ public interface CorrespondenceService extends Serializable {
      * @param parentPath the path where the document and its envelope are created
      * @return a MailEnvelope containing default MailItem.
      */
-    MailEnvelope createMailEnvelope(CoreSession session,
+    Case createMailEnvelope(CoreSession session,
             DocumentModel emailDoc, String parentPath);
 
     /**
@@ -206,14 +206,14 @@ public interface CorrespondenceService extends Serializable {
      * @param parentPath the path where the document and its envelope are created
      * @return a MailEnvelope containing default MailItem.
      */
-    MailEnvelope createMailEnvelope(CoreSession session,
-            DocumentModel emailDoc, String parentPath, List<Mailbox> mailboxes);
+    Case createMailEnvelope(CoreSession session,
+            DocumentModel emailDoc, String parentPath, List<CaseFolder> mailboxes);
 
     /**
      * Create a draft post for an envelope in given mailbox.
      */
-    CorrespondencePost createDraftPost(CoreSession session, Mailbox mailbox,
-            MailEnvelope envelope);
+    CorrespondencePost createDraftPost(CoreSession session, CaseFolder mailbox,
+            Case envelope);
 
     /**
      * Throw a core event.

@@ -20,9 +20,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.HasRecipients;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.HasParticipants;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.event.Event;
@@ -38,7 +38,7 @@ public class AfterEnvelopeSentEventListener implements EventListener {
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         Map<String, Serializable> properties = event.getContext().getProperties();
-        MailEnvelope envelope = (MailEnvelope) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
+        Case envelope = (Case) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
         if (envelope == null) {
             return;
         }
@@ -50,10 +50,10 @@ public class AfterEnvelopeSentEventListener implements EventListener {
         setRecipients(envelope, isInitial, internalRecipients, externalRecipients);
         envelope.save(event.getContext().getCoreSession());
         // Set EnvelopeItems recipients
-        List<MailEnvelopeItem> items = envelope.getMailEnvelopeItems(event.getContext().getCoreSession());
-        for (MailEnvelopeItem item : items) {
+        List<CaseItem> items = envelope.getCaseItems(event.getContext().getCoreSession());
+        for (CaseItem item : items) {
             setRecipients(item, isInitial, internalRecipients, externalRecipients);
-            item.setDefaultEnvelope(envelope.getDocument().getId());
+            item.setDefaultCase(envelope.getDocument().getId());
             item.save(event.getContext().getCoreSession());
         }
 
@@ -64,17 +64,17 @@ public class AfterEnvelopeSentEventListener implements EventListener {
         }
     }
 
-    protected void setRecipients(HasRecipients item, boolean isInitial,
+    protected void setRecipients(HasParticipants item, boolean isInitial,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients) {
 
         if (isInitial) {
-            item.addInitialInternalRecipients(internalRecipients);
-            item.addInitialExternalRecipients(externalRecipients);
+            item.addInitialInternalParticipants(internalRecipients);
+            item.addInitialExternalParticipants(externalRecipients);
         }
 
-        item.addRecipients(internalRecipients);
-        item.addRecipients(externalRecipients);
+        item.addParticipants(internalRecipients);
+        item.addParticipants(externalRecipients);
 
     }
 

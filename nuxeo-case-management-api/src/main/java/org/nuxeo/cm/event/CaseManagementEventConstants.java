@@ -63,7 +63,7 @@ public class CaseManagementEventConstants {
 
     // event context
     /**
-     * The sender (of type {@link Mailbox} )
+     * The sender (of type {@link CaseFolder} )
      */
     public static final String EVENT_CONTEXT_SENDER_CASE_FOLDER = "eventContextSender";
 
@@ -78,7 +78,7 @@ public class CaseManagementEventConstants {
     public static final String EVENT_CONTEXT_COMMENT = "comment";
 
     /**
-     * The envelope (of type {@link MailEnvelope} )
+     * The envelope (of type {@link Case} )
      */
     public static final String EVENT_CONTEXT_CASE = "eventContextCase";
 
@@ -89,7 +89,7 @@ public class CaseManagementEventConstants {
 
     /**
      * The recipients (of type {@link Map} with key {@link String} and value a
-     * {@link List} of {@link Mailbox} )
+     * {@link List} of {@link CaseFolder} )
      */
     public static final String EVENT_CONTEXT_INTERNAL_PARTICIPANTS = "eventContextParticipants";
 

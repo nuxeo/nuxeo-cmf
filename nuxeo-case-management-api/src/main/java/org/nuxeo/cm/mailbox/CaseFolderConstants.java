@@ -28,25 +28,25 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author Anahide Tchertchian
  *
  */
-public class MailboxConstants {
+public class CaseFolderConstants {
 
     public enum type {
         personal, generic
     }
 
-    public static final String MAILBOX_DOCUMENT_TYPE = "CaseFolder";
+    public static final String CASE_FOLDER_DOCUMENT_TYPE = "CaseFolder";
 
-    public static final String MAILBOX_FACET = "CaseFolder";
+    public static final String CASE_FOLDER_FACET = "CaseFolder";
 
-    public static final String MAIL_ENVELOPE_TYPE = "CorrespondenceEnvelope";
+    public static final String CASE_TYPE = "CorrespondenceEnvelope";
 
-    public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "CaseFolderRoot";
+    public static final String CASE_FOLDER_ROOT_DOCUMENT_TYPE = "CaseFolderRoot";
 
-    public static final String MAILBOX_SCHEMA = "case_folder";
+    public static final String CASE_FOLDER_SCHEMA = "case_folder";
 
     public static final String ID_FIELD = "csfd:case_folder_id";
     
-    public static final String AFFILIATED_MAILBOX_ID = "csfd:affiliated_case_folder_id";
+    public static final String AFFILIATED_CASE_FOLDER_ID = "csfd:affiliated_case_folder_id";
 
     public static final String TITLE_FIELD = "dc:title";
 
@@ -70,7 +70,7 @@ public class MailboxConstants {
 
     public static final String CONFIDENTIALITY_FIELD = "csfd:defaultconfidentiality";
 
-    public static final String MAILINGLIST_ID_FIELD = "plid";
+    public static final String PARTICIPANTLIST_ID_FIELD = "plid";
 
     public static final String MAILINGLIST_TITLE_FIELD = "title";
 
@@ -90,11 +90,11 @@ public class MailboxConstants {
         return res;
     }
 
-    public static final List<Mailbox> getMailboxList(List<DocumentModel> docs) {
-        List<Mailbox> res = new ArrayList<Mailbox>();
+    public static final List<CaseFolder> getMailboxList(List<DocumentModel> docs) {
+        List<CaseFolder> res = new ArrayList<CaseFolder>();
         if (docs != null) {
             for (DocumentModel doc : docs) {
-                res.add(doc.getAdapter(Mailbox.class));
+                res.add(doc.getAdapter(CaseFolder.class));
             }
         }
         return res;

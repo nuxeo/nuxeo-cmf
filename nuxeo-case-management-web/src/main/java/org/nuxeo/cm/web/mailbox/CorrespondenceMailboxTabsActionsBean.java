@@ -31,7 +31,7 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -217,7 +217,7 @@ public class CorrespondenceMailboxTabsActionsBean extends
     }
 
     @Override
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
+    protected void resetMailboxCache(CaseFolder cachedMailbox, CaseFolder newMailbox)
             throws ClientException {
         viewMailboxActionTabs = null;
         distributionEnvelopeActionTabs = null;

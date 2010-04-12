@@ -39,9 +39,9 @@ import org.nuxeo.runtime.api.Framework;
 
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.cm.service.CorrespondenceService;
 
@@ -67,7 +67,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
 
     protected static DocumentModel mailEnvelopeModel;
 
-    protected MailEnvelope envelope1;
+    protected Case envelope1;
 
     protected static DocumentModel mailEnvelopItemeModel;
 
@@ -121,12 +121,12 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
         return document;
     }
 
-    public MailEnvelope getMailEnvelope() throws Exception {
+    public Case getMailEnvelope() throws Exception {
         DocumentModel model = getMailEnvelopeModel();
         DocumentModel doc = session.createDocument(model);
         session.saveDocument(doc);
         session.save();
-        return doc.getAdapter(MailEnvelope.class);
+        return doc.getAdapter(Case.class);
     }
 
     public DocumentModel getMailEnvelopeModel() throws Exception {
@@ -142,7 +142,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
         return mailEnvelopeModel;
     }
 
-    public void createDraftPost(Mailbox mb, MailEnvelope envelope)
+    public void createDraftPost(CaseFolder mb, Case envelope)
             throws Exception {
 
         DocumentModel model = session.createDocumentModel(
@@ -159,17 +159,17 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
         session.save();
     }
 
-    protected Mailbox createPersonalMailbox(String name) throws Exception {
+    protected CaseFolder createPersonalMailbox(String name) throws Exception {
         return correspService.createPersonalMailbox(session, name).get(0);
     }
 
-    protected MailEnvelopeItem getMailEnvelopeItem() throws Exception {
+    protected CaseItem getMailEnvelopeItem() throws Exception {
         DocumentModel model = getMailEnvelopeItemModel();
         DocumentModel doc = session.createDocument(model);
         doc.setPropertyValue("dc:title", "title");
         session.saveDocument(doc);
         session.save();
-        return doc.getAdapter(MailEnvelopeItem.class);
+        return doc.getAdapter(CaseItem.class);
     }
 
     protected DocumentModel getMailEnvelopeItemModel() throws Exception {
@@ -181,7 +181,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
         return mailEnvelopItemeModel;
     }
 
-    public MailEnvelope createMailDocumentInEnvelope(Mailbox mailbox)
+    public Case createMailDocumentInEnvelope(CaseFolder mailbox)
             throws Exception {
         // The new mail
 
@@ -191,7 +191,7 @@ public class CorrespondenceSecurityTestCase extends SQLRepositoryTestCase {
                 session);
         runner.runUnrestricted();
         session.save();
-        MailEnvelope envelope = correspService.createMailEnvelope(session,
+        Case envelope = correspService.createMailEnvelope(session,
                 emailDoc, runner.getParentPath());
 
         // Create the Draft post in the mailbox

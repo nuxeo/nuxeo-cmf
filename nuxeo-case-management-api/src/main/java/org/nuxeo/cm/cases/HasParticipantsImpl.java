@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -36,7 +36,7 @@ import org.nuxeo.runtime.api.Framework;
  * @author arussel
  *
  */
-public class HasRecipientsImpl implements HasRecipients {
+public class HasParticipantsImpl implements HasParticipants {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ public class HasRecipientsImpl implements HasRecipients {
 
     protected CorrespondenceDistributionTypeService distributionType;
 
-    public HasRecipientsImpl(DocumentModel document) {
+    public HasParticipantsImpl(DocumentModel document) {
         this.document = document;
         try {
             this.distributionType = Framework.getService(CorrespondenceDistributionTypeService.class);
@@ -53,7 +53,7 @@ public class HasRecipientsImpl implements HasRecipients {
         }
     }
 
-    public void addInitialInternalRecipients(
+    public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
 
         if (recipients == null) {
@@ -70,7 +70,7 @@ public class HasRecipientsImpl implements HasRecipients {
         }
     }
 
-    public void addInitialExternalRecipients(
+    public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
 
         if (recipients == null) {
@@ -87,7 +87,7 @@ public class HasRecipientsImpl implements HasRecipients {
         }
     }
 
-    public void addRecipients(Map<String, List<String>> recipients) {
+    public void addParticipants(Map<String, List<String>> recipients) {
 
         if (recipients == null) {
             return;
@@ -104,7 +104,7 @@ public class HasRecipientsImpl implements HasRecipients {
 
     }
 
-    public Map<String, List<String>> getAllRecipients() {
+    public Map<String, List<String>> getAllParticipants() {
 
         Map<String, List<String>> values = new HashMap<String, List<String>>();
 
@@ -122,7 +122,7 @@ public class HasRecipientsImpl implements HasRecipients {
 
     }
 
-    public Map<String, List<String>> getInitialInternalRecipients() {
+    public Map<String, List<String>> getInitialInternalParticipants() {
 
         Map<String, List<String>> values = new HashMap<String, List<String>>();
 
@@ -139,7 +139,7 @@ public class HasRecipientsImpl implements HasRecipients {
 
     }
 
-    public Map<String, List<String>> getInitialExternalRecipients() {
+    public Map<String, List<String>> getInitialExternalParticipants() {
 
         Map<String, List<String>> values = new HashMap<String, List<String>>();
 
@@ -193,9 +193,9 @@ public class HasRecipientsImpl implements HasRecipients {
         return recipients;
     }
 
-    protected List<String> getMailboxIds(List<Mailbox> list) {
+    protected List<String> getCaseFolderIds(List<CaseFolder> list) {
         List<String> result = new ArrayList<String>();
-        for (Mailbox mailbox : list) {
+        for (CaseFolder mailbox : list) {
             result.add(mailbox.getId());
         }
         return result;

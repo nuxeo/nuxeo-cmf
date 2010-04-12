@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.ClientException;
 
 
@@ -28,38 +28,38 @@ import org.nuxeo.ecm.core.api.ClientException;
  * @author arussel
  *
  */
-public interface HasRecipients extends Serializable {
+public interface HasParticipants extends Serializable {
 
     /**
      * Add to the list of recipients.
      *
      * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link Mailbox}
+     *            list of {@link CaseFolder}
      */
-    void addRecipients(Map<String, List<String>> recipients);
+    void addParticipants(Map<String, List<String>> recipients);
 
     /**
      * Add to the list of initial internal recipients.
      *
      * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link Mailbox}
+     *            list of {@link CaseFolder}
      */
-    void addInitialInternalRecipients(Map<String, List<String>> recipients);
+    void addInitialInternalParticipants(Map<String, List<String>> recipients);
 
     /**
      * Add to the list of initial external recipients.
      *
      * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link Mailbox}
+     *            list of {@link CaseFolder}
      */
-    void addInitialExternalRecipients(Map<String, List<String>> recipients);
+    void addInitialExternalParticipants(Map<String, List<String>> recipients);
 
     /**
      * Get the list of all recipients keyed by type.
      *
      * @return
      */
-    Map<String, List<String>> getAllRecipients();
+    Map<String, List<String>> getAllParticipants();
 
     /**
      * get the list of initial internal recipients keyed by type.
@@ -67,7 +67,7 @@ public interface HasRecipients extends Serializable {
      * @return
      * @throws ClientException
      */
-    Map<String, List<String>> getInitialInternalRecipients();
+    Map<String, List<String>> getInitialInternalParticipants();
 
     /**
      * get the list of initial external recipients keyed by type.
@@ -75,6 +75,6 @@ public interface HasRecipients extends Serializable {
      * @return
      * @throws ClientException
      */
-    Map<String, List<String>> getInitialExternalRecipients();
+    Map<String, List<String>> getInitialExternalParticipants();
 
 }

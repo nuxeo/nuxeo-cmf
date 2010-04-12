@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostRequestImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
@@ -53,7 +53,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
     public void testDefaultPersonalMailboxCreation() throws Exception {
 
         correspService.createPersonalMailbox(session, "toto");
-        List<Mailbox> mailboxes = correspService.getUserMailboxes(session,
+        List<CaseFolder> mailboxes = correspService.getUserMailboxes(session,
                 "toto");
         assertTrue(mailboxes.isEmpty());
 
@@ -61,10 +61,10 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         mailboxes = correspService.getUserMailboxes(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
-        Mailbox mb = mailboxes.get(0);
+        CaseFolder mb = mailboxes.get(0);
         assertEquals("user-user", mb.getId());
         assertEquals("User Lambda", mb.getTitle());
-        assertEquals(MailboxConstants.type.personal.name(), mb.getType());
+        assertEquals(CaseFolderConstants.type.personal.name(), mb.getType());
         assertEquals(user, mb.getOwner());
     }
 
@@ -74,14 +74,14 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-personalmailbox-creator-corresp-contrib.xml");
 
-        List<Mailbox> mailboxes = correspService.createPersonalMailbox(session,
+        List<CaseFolder> mailboxes = correspService.createPersonalMailbox(session,
                 user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
-        Mailbox mb = mailboxes.get(0);
+        CaseFolder mb = mailboxes.get(0);
         assertEquals("user-user", mb.getId());
         assertEquals("user's personal mailbox", mb.getTitle());
-        assertEquals(MailboxConstants.type.personal.name(), mb.getType());
+        assertEquals(CaseFolderConstants.type.personal.name(), mb.getType());
         assertEquals(user, mb.getOwner());
     }
 
@@ -99,7 +99,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
         // log as given user and check he still got access
         openSessionAs(user);
-        Mailbox mb = correspService.getMailbox(session, "test");
+        CaseFolder mb = correspService.getMailbox(session, "test");
         assertEquals(mb.getTitle(), "Test");
 
     }
@@ -117,20 +117,20 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         // Create an other mailbox
         createMailbox();
 
-        List<Mailbox> mailboxes = correspService.getUserMailboxes(session, user);
+        List<CaseFolder> mailboxes = correspService.getUserMailboxes(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(2, mailboxes.size());
 
-        Mailbox mbPerso = mailboxes.get(0);
+        CaseFolder mbPerso = mailboxes.get(0);
         assertEquals("user-user", mbPerso.getId());
         assertEquals("User Lambda", mbPerso.getTitle());
-        assertEquals(MailboxConstants.type.personal.name(), mbPerso.getType());
+        assertEquals(CaseFolderConstants.type.personal.name(), mbPerso.getType());
         assertEquals(user, mbPerso.getOwner());
 
-        Mailbox mbGeneric = mailboxes.get(1);
+        CaseFolder mbGeneric = mailboxes.get(1);
         assertEquals("test", mbGeneric.getId());
         assertEquals("Test", mbGeneric.getTitle());
-        assertEquals(MailboxConstants.type.generic.name(), mbGeneric.getType());
+        assertEquals(CaseFolderConstants.type.generic.name(), mbGeneric.getType());
 
         // log as given user and check he still got access
         openSessionAs(user);
@@ -147,12 +147,12 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         correspService.getUserMailboxes(session, user3);
 
         // create a generic mailbox too
-        DocumentModel mailboxModel = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
-        Mailbox newMailbox = mailboxModel.getAdapter(Mailbox.class);
+        DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
+        CaseFolder newMailbox = mailboxModel.getAdapter(CaseFolder.class);
         // set users
         newMailbox.setId("test");
         newMailbox.setTitle("Test");
-        newMailbox.setType(MailboxConstants.type.generic.name());
+        newMailbox.setType(CaseFolderConstants.type.generic.name());
 
         // create doc
         mailboxModel = newMailbox.getDocument();
@@ -173,24 +173,24 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         // assertFalse(mailboxes.isEmpty());
     }
 
-    public Mailbox getPersonalMailbox(String name) throws Exception {
+    public CaseFolder getPersonalMailbox(String name) throws Exception {
         return correspService.createPersonalMailbox(session, name).get(0);
     }
 
     public void testSendEnvelope() throws Exception {
-        Mailbox senderMailbox = getPersonalMailbox(user1);
+        CaseFolder senderMailbox = getPersonalMailbox(user1);
         assertNotNull(senderMailbox);
-        Mailbox receiver1Mailbox = getPersonalMailbox(user2);
+        CaseFolder receiver1Mailbox = getPersonalMailbox(user2);
         String receiver1MailboxId = receiver1Mailbox.getDocument().getId();
         assertNotNull(receiver1Mailbox);
-        Mailbox receiver2Mailbox = getPersonalMailbox(user3);
+        CaseFolder receiver2Mailbox = getPersonalMailbox(user3);
         assertNotNull(receiver2Mailbox);
         Map<String, List<String>> recipients = new HashMap<String, List<String>>();
         recipients.put("FOR_ACTION",
                 Collections.singletonList(receiver1Mailbox.getId()));
         recipients.put("FOR_INFORMATION",
                 Collections.singletonList(receiver2Mailbox.getId()));
-        MailEnvelope envelope = getMailEnvelope();
+        Case envelope = getMailEnvelope();
         createDraftPost(senderMailbox, envelope);
 
         assertTrue(correspService.getDraftPost(session, senderMailbox,
@@ -215,12 +215,12 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
     protected void createMailbox() throws ClientException {
         // create a mailbox with given user, and check it's retrieved correctly
-        DocumentModel mailboxModel = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
-        Mailbox newMailbox = mailboxModel.getAdapter(Mailbox.class);
+        DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
+        CaseFolder newMailbox = mailboxModel.getAdapter(CaseFolder.class);
         // set users
         newMailbox.setId("test");
         newMailbox.setTitle("Test");
-        newMailbox.setType(MailboxConstants.type.generic.name());
+        newMailbox.setType(CaseFolderConstants.type.generic.name());
         newMailbox.setUsers(Arrays.asList(new String[] { user }));
 
         // create doc

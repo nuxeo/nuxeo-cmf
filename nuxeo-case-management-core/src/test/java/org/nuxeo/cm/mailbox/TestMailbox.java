@@ -22,8 +22,8 @@ package org.nuxeo.cm.mailbox;
 import java.util.Arrays;
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.mailbox.ParticipantsList;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -50,25 +50,25 @@ public class TestMailbox extends SQLRepositoryTestCase {
     }
 
     protected DocumentModel getBareMailboxDoc() throws Exception {
-        DocumentModel mailbox = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
+        DocumentModel mailbox = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
         mailbox.setPathInfo(session.getRootDocument().getPathAsString(),
                 CASE_FOLDER);
         return mailbox;
     }
 
-    protected Mailbox getMailbox() throws Exception {
+    protected CaseFolder getMailbox() throws Exception {
         DocumentRef docRef = new PathRef("/" + CASE_FOLDER);
-        return session.getDocument(docRef).getAdapter(Mailbox.class);
+        return session.getDocument(docRef).getAdapter(CaseFolder.class);
     }
 
     protected DocumentModel createMailboxDoc() throws Exception {
         DocumentModel doc = getBareMailboxDoc();
-        Mailbox mb = doc.getAdapter(Mailbox.class);
+        CaseFolder mb = doc.getAdapter(CaseFolder.class);
 
         mb.setId("mailboxid");
         mb.setTitle("mailbox title");
         mb.setDescription("mb description");
-        mb.setType(MailboxConstants.type.personal.name());
+        mb.setType(CaseFolderConstants.type.personal.name());
 
         mb.setProfiles(Arrays.asList(new String[] { "profile1" }));
 
@@ -79,12 +79,12 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         mb.setFavorites(Arrays.asList(new String[] { "fav1", "fav2" }));
 
-        ParticipantsList ml = mb.getMailingListTemplate();
+        ParticipantsList ml = mb.getParticipantListTemplate();
         ml.setId("mlid");
         ml.setTitle("ml title");
         ml.setDescription("ml description");
-        ml.setMailboxIds(Arrays.asList(new String[] { "mb1", "mb2" }));
-        mb.addMailingList(ml);
+        ml.setCaseFolderIds(Arrays.asList(new String[] { "mb1", "mb2" }));
+        mb.addParticipantList(ml);
 
         return session.createDocument(mb.getDocument());
     }
@@ -97,7 +97,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
     public void testMailboxCreation() throws Exception {
         createMailboxDoc();
 
-        Mailbox mb = getMailbox();
+        CaseFolder mb = getMailbox();
         assertEquals("mailboxid", mb.getId());
         assertEquals("mailbox title", mb.getTitle());
         assertEquals("mb description", mb.getDescription());
@@ -121,15 +121,15 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals(Arrays.asList(new String[] { "fav1", "fav2" }),
                 mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "mlid" }),
-                mb.getMailingListIds());
-        List<ParticipantsList> mls = mb.getMailingLists();
+                mb.getParticipantListIds());
+        List<ParticipantsList> mls = mb.getParticipantLists();
         assertEquals(1, mls.size());
         ParticipantsList ml = mls.get(0);
         assertEquals("mlid", ml.getId());
         assertEquals("ml title", ml.getTitle());
         assertEquals("ml description", ml.getDescription());
         assertEquals(Arrays.asList(new String[] { "mb1", "mb2" }),
-                ml.getMailboxIds());
+                ml.getCaseFolderIds());
 
         assertEquals((Integer) 4, mb.getConfidentiality());
     }
@@ -137,11 +137,11 @@ public class TestMailbox extends SQLRepositoryTestCase {
     public void testMailboxEdition() throws Exception {
         createMailboxDoc();
 
-        Mailbox mb = getMailbox();
+        CaseFolder mb = getMailbox();
         mb.setId("newid");
         mb.setTitle("new mailbox title");
         mb.setDescription("new mb description");
-        mb.setType(MailboxConstants.type.generic.name());
+        mb.setType(CaseFolderConstants.type.generic.name());
 
         mb.setProfiles(Arrays.asList(new String[] { "profile1", "profile2" }));
 
@@ -153,14 +153,14 @@ public class TestMailbox extends SQLRepositoryTestCase {
         mb.setFavorites(Arrays.asList(new String[] { "fav1" }));
         mb.setConfidentiality(3);
 
-        mb.removeMailingList("mlid");
+        mb.removeParticipantList("mlid");
 
-        ParticipantsList ml = mb.getMailingListTemplate();
+        ParticipantsList ml = mb.getParticipantListTemplate();
         ml.setId("newmlid");
         ml.setTitle("new ml title");
         ml.setDescription("new ml description");
-        ml.setMailboxIds(Arrays.asList(new String[] { "mb1" }));
-        mb.addMailingList(ml);
+        ml.setCaseFolderIds(Arrays.asList(new String[] { "mb1" }));
+        mb.addParticipantList(ml);
 
         session.saveDocument(mb.getDocument());
 
@@ -188,14 +188,14 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         assertEquals(Arrays.asList(new String[] { "fav1" }), mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "newmlid", }),
-                mb.getMailingListIds());
-        List<ParticipantsList> mls = mb.getMailingLists();
+                mb.getParticipantListIds());
+        List<ParticipantsList> mls = mb.getParticipantLists();
         assertEquals(1, mls.size());
         ml = mls.get(0);
         assertEquals("newmlid", ml.getId());
         assertEquals("new ml title", ml.getTitle());
         assertEquals("new ml description", ml.getDescription());
-        assertEquals(Arrays.asList(new String[] { "mb1" }), ml.getMailboxIds());
+        assertEquals(Arrays.asList(new String[] { "mb1" }), ml.getCaseFolderIds());
 
         assertEquals((Integer) 3, mb.getConfidentiality());
 

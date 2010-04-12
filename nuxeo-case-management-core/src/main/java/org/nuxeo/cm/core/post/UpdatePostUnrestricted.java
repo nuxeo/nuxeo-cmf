@@ -30,8 +30,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -53,9 +53,9 @@ public class UpdatePostUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String comment;
 
-    protected final MailEnvelope envelope;
+    protected final Case envelope;
 
-    protected final Mailbox sender;
+    protected final CaseFolder sender;
 
     protected final String recipientId;
 
@@ -67,7 +67,7 @@ public class UpdatePostUnrestricted extends UnrestrictedSessionRunner {
 
     protected final boolean isInitial;
 
-    protected Mailbox recipient;
+    protected CaseFolder recipient;
 
     public CorrespondencePost getUpdatedPost() {
         return post;
@@ -86,7 +86,7 @@ public class UpdatePostUnrestricted extends UnrestrictedSessionRunner {
      * @param isInitial Is it an initial sent?
      */
     public UpdatePostUnrestricted(CoreSession session, String subject,
-            String comment, MailEnvelope envelope, Mailbox sender,
+            String comment, Case envelope, CaseFolder sender,
             String recipientId, Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial, CorrespondencePost post) {
@@ -110,12 +110,12 @@ public class UpdatePostUnrestricted extends UnrestrictedSessionRunner {
 
         CorrespondencePost post = doc.getAdapter(CorrespondencePost.class);
         if (isInitial) {
-            post.addInitialInternalRecipients(internalRecipients);
-            post.addInitialExternalRecipients(externalRecipients);
+            post.addInitialInternalParticipants(internalRecipients);
+            post.addInitialExternalParticipants(externalRecipients);
         }
 
-        post.addRecipients(internalRecipients);
-        post.addRecipients(externalRecipients);
+        post.addParticipants(internalRecipients);
+        post.addParticipants(externalRecipients);
 
         setPostValues(doc);
         session.saveDocument(doc);

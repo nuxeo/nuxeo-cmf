@@ -29,8 +29,8 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.cm.web.distribution.CorrespondenceDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
@@ -67,7 +67,7 @@ public class CorrespondenceEnvelopeActionsBean extends
      * @throws ClientException
      */
     public boolean isInitialEnvelope() throws ClientException {
-        MailEnvelope env = getCurrentEnvelope();
+        Case env = getCurrentEnvelope();
 
         if (env != null) {
             return getCurrentEnvelope().isDraft();
@@ -84,9 +84,9 @@ public class CorrespondenceEnvelopeActionsBean extends
      */
     public void removeEmail(DocumentModel doc) throws ClientException {
 
-        MailEnvelope currentEnvelope = getCurrentEnvelope();
-        MailEnvelopeItem item = doc.getAdapter(MailEnvelopeItem.class);
-        currentEnvelope.removeMailEnvelopeItem(item, documentManager);
+        Case currentEnvelope = getCurrentEnvelope();
+        CaseItem item = doc.getAdapter(CaseItem.class);
+        currentEnvelope.removeCaseItem(item, documentManager);
 
     }
 

@@ -20,8 +20,8 @@
 package org.nuxeo.cm.core.adapter;
 
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.mailbox.MailboxImpl;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
+import org.nuxeo.cm.mailbox.CaseFolderImpl;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
@@ -36,7 +36,7 @@ public class MailboxAdapterFactory implements DocumentAdapterFactory {
     @SuppressWarnings("unchecked")
     public Object getAdapter(DocumentModel doc, Class arg1) {
         if (checkDocument(doc)) {
-            return new MailboxImpl(doc);
+            return new CaseFolderImpl(doc);
         } else {
             // cannot be adapted
             return null;
@@ -45,21 +45,21 @@ public class MailboxAdapterFactory implements DocumentAdapterFactory {
 
     /**
      * Returns false if document does not have
-     * {@link MailboxConstants#MAILBOX_FACET}
+     * {@link CaseFolderConstants#CASE_FOLDER_FACET}
      *
      * @param doc
      * @throws ClientRuntimeException if document has the required facet but
      *             does not have the required
-     *             {@link MailboxConstants#MAILBOX_SCHEMA}
+     *             {@link CaseFolderConstants#CASE_FOLDER_SCHEMA}
      */
     public static boolean checkDocument(DocumentModel doc) {
-        if (!doc.hasFacet(MailboxConstants.MAILBOX_FACET)) {
+        if (!doc.hasFacet(CaseFolderConstants.CASE_FOLDER_FACET)) {
             // not a mailbox
             return false;
-        } else if (!doc.hasSchema(MailboxConstants.MAILBOX_SCHEMA)) {
+        } else if (!doc.hasSchema(CaseFolderConstants.CASE_FOLDER_SCHEMA)) {
             throw new CaseManagementRuntimeException(
                     "Document should contain schema "
-                            + MailboxConstants.MAILBOX_SCHEMA);
+                            + CaseFolderConstants.CASE_FOLDER_SCHEMA);
         }
         return true;
     }

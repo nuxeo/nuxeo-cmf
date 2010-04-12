@@ -21,8 +21,8 @@ package org.nuxeo.cm.web.context;
 
 import java.io.Serializable;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -33,9 +33,9 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  */
 public interface CorrespondenceContextHolder extends Serializable {
 
-    Mailbox getCurrentMailbox() throws ClientException;
+    CaseFolder getCurrentMailbox() throws ClientException;
 
-    MailEnvelope getCurrentEnvelope() throws ClientException;
+    Case getCurrentEnvelope() throws ClientException;
 
     DocumentModel getCurrentEmail() throws ClientException;
 

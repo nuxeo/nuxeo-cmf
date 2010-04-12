@@ -18,7 +18,7 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
@@ -36,7 +36,7 @@ public class CorrespondencePostAdapterFactory implements DocumentAdapterFactory 
     @SuppressWarnings("unchecked")
     public Object getAdapter(DocumentModel doc, Class arg1) {
         checkDocument(doc);
-        HasRecipients adapter = doc.getAdapter(HasRecipients.class);
+        HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new CorrespondencePostDocumentImpl(doc, adapter);
     }
 

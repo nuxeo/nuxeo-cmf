@@ -32,7 +32,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
  */
-public interface MailEnvelope extends HasRecipients, Serializable {
+public interface Case extends HasParticipants, Serializable {
 
     /**
      * Gets the document model describing the envelope
@@ -56,33 +56,33 @@ public interface MailEnvelope extends HasRecipients, Serializable {
     /**
      * Returns unmodifiable list of items.
      */
-    List<MailEnvelopeItem> getMailEnvelopeItems(CoreSession session);
+    List<CaseItem> getCaseItems(CoreSession session);
 
     /**
      * Gets the first document within this envelope
      */
-    MailEnvelopeItem getFirstItem(CoreSession session);
+    CaseItem getFirstItem(CoreSession session);
 
     /**
      * Adds given item to the envelope.
      *
      * @return true if added, false if item was already present.
      */
-    boolean addMailEnvelopeItem(MailEnvelopeItem item, CoreSession session);
+    boolean addCaseItem(CaseItem item, CoreSession session);
 
     /**
      * Removes given item from the envelope.
      *
      * @return true if added, false if item was not present.
      */
-    boolean removeMailEnvelopeItem(MailEnvelopeItem item, CoreSession session);
+    boolean removeCaseItem(CaseItem item, CoreSession session);
 
     /**
      * Moves up given selected items in the envelope.
      *
      * @return true if moved up, false if some could not be moved.
      */
-    boolean moveUpEmailsInEnvelope(List<MailEnvelopeItem> selected,
+    boolean moveUpEmailsInCase(List<CaseItem> selected,
             CoreSession session);
 
     /**
@@ -90,7 +90,7 @@ public interface MailEnvelope extends HasRecipients, Serializable {
      *
      * @return true if moved down, false if some could not be moved.
      */
-    boolean moveDownEmailsInEnvelope(List<MailEnvelopeItem> selected,
+    boolean moveDownEmailsInCase(List<CaseItem> selected,
             CoreSession session);
 
     /**

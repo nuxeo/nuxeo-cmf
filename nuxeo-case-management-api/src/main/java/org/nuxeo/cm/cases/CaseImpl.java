@@ -39,7 +39,7 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
  */
-public class MailEnvelopeImpl implements MailEnvelope {
+public class CaseImpl implements Case {
 
     private static final long serialVersionUID = 6160682333116646611L;
 
@@ -51,10 +51,10 @@ public class MailEnvelopeImpl implements MailEnvelope {
 
     protected DocumentModel document;
 
-    protected HasRecipients recipientsAdapter;
+    protected HasParticipants recipientsAdapter;
 
-    public MailEnvelopeImpl(DocumentModel envelope,
-            HasRecipients recipientsAdapater) {
+    public CaseImpl(DocumentModel envelope,
+            HasParticipants recipientsAdapater) {
         super();
         this.document = envelope;
         this.recipientsAdapter = recipientsAdapater;
@@ -64,17 +64,17 @@ public class MailEnvelopeImpl implements MailEnvelope {
         return document;
     }
 
-    public List<MailEnvelopeItem> getMailEnvelopeItems(CoreSession session) {
+    public List<CaseItem> getCaseItems(CoreSession session) {
         return Collections.unmodifiableList(getItems(session));
     }
 
-    protected List<MailEnvelopeItem> getItems(CoreSession session) {
-        List<MailEnvelopeItem> items = new ArrayList<MailEnvelopeItem>();
+    protected List<CaseItem> getItems(CoreSession session) {
+        List<CaseItem> items = new ArrayList<CaseItem>();
         try {
             for (String emailId : getItemsId()) {
                 DocumentModel mailDocument = session.getDocument(new IdRef(
                         emailId));
-                MailEnvelopeItem item = mailDocument.getAdapter(MailEnvelopeItem.class);
+                CaseItem item = mailDocument.getAdapter(CaseItem.class);
                 items.add(item);
             }
         } catch (ClientException e) {
@@ -99,7 +99,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
         return emailIds;
     }
 
-    public MailEnvelopeItem getFirstItem(CoreSession session) {
+    public CaseItem getFirstItem(CoreSession session) {
         List<String> itemIds = getItemsId();
         if (itemIds == null || itemIds.isEmpty()) {
             return null;
@@ -114,10 +114,10 @@ public class MailEnvelopeImpl implements MailEnvelope {
         if (firstItem == null) {
             return null;
         }
-        return firstItem.getAdapter(MailEnvelopeItem.class);
+        return firstItem.getAdapter(CaseItem.class);
     }
 
-    public boolean addMailEnvelopeItem(MailEnvelopeItem item,
+    public boolean addCaseItem(CaseItem item,
             CoreSession session) {
         List<String> itemsId = getItemsId();
         String newId = item.getDocument().getId();
@@ -140,7 +140,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
         }
     }
 
-    public boolean removeMailEnvelopeItem(MailEnvelopeItem item,
+    public boolean removeCaseItem(CaseItem item,
             CoreSession session) {
         List<String> itemsId = getItemsId();
         String newId = item.getDocument().getId();
@@ -149,12 +149,12 @@ public class MailEnvelopeImpl implements MailEnvelope {
         return result;
     }
 
-    protected boolean moveEmailsInEnvelope(List<MailEnvelopeItem> selected,
+    protected boolean moveEmailsInEnvelope(List<CaseItem> selected,
             boolean up, CoreSession session) {
         List<String> itemIds = getItemsId();
         boolean res = true;
         int size = itemIds.size();
-        for (MailEnvelopeItem item : selected) {
+        for (CaseItem item : selected) {
             String itemId = item.getDocument().getId();
             int index = itemIds.indexOf(itemId);
             if (index != -1) {
@@ -183,12 +183,12 @@ public class MailEnvelopeImpl implements MailEnvelope {
         return res;
     }
 
-    public boolean moveUpEmailsInEnvelope(List<MailEnvelopeItem> selected,
+    public boolean moveUpEmailsInCase(List<CaseItem> selected,
             CoreSession session) {
         return moveEmailsInEnvelope(selected, true, session);
     }
 
-    public boolean moveDownEmailsInEnvelope(List<MailEnvelopeItem> selected,
+    public boolean moveDownEmailsInCase(List<CaseItem> selected,
             CoreSession session) {
         return moveEmailsInEnvelope(selected, false, session);
     }
@@ -221,7 +221,7 @@ public class MailEnvelopeImpl implements MailEnvelope {
 
     public List<DocumentModel> getDocuments(CoreSession session) {
         List<DocumentModel> result = new ArrayList<DocumentModel>();
-        for (MailEnvelopeItem item : getItems(session)) {
+        for (CaseItem item : getItems(session)) {
             result.add(item.getDocument());
         }
         return result;
@@ -248,29 +248,29 @@ public class MailEnvelopeImpl implements MailEnvelope {
         return CaseLifeCycleConstants.STATE_DRAFT.equals(document.getCurrentLifeCycleState());
     }
 
-    public void addInitialExternalRecipients(
+    public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
-        recipientsAdapter.addInitialExternalRecipients(recipients);
+        recipientsAdapter.addInitialExternalParticipants(recipients);
     }
 
-    public void addInitialInternalRecipients(
+    public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
-        recipientsAdapter.addInitialInternalRecipients(recipients);
+        recipientsAdapter.addInitialInternalParticipants(recipients);
     }
 
-    public void addRecipients(Map<String, List<String>> recipients) {
-        recipientsAdapter.addRecipients(recipients);
+    public void addParticipants(Map<String, List<String>> recipients) {
+        recipientsAdapter.addParticipants(recipients);
     }
 
-    public Map<String, List<String>> getAllRecipients() {
-        return recipientsAdapter.getAllRecipients();
+    public Map<String, List<String>> getAllParticipants() {
+        return recipientsAdapter.getAllParticipants();
     }
 
-    public Map<String, List<String>> getInitialExternalRecipients() {
-        return recipientsAdapter.getInitialExternalRecipients();
+    public Map<String, List<String>> getInitialExternalParticipants() {
+        return recipientsAdapter.getInitialExternalParticipants();
     }
 
-    public Map<String, List<String>> getInitialInternalRecipients() {
-        return recipientsAdapter.getInitialInternalRecipients();
+    public Map<String, List<String>> getInitialInternalParticipants() {
+        return recipientsAdapter.getInitialInternalParticipants();
     }
 }

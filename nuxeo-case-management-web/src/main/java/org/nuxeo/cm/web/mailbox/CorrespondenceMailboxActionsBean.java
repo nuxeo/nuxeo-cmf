@@ -52,11 +52,11 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.common.utils.IdUtils;
@@ -113,7 +113,7 @@ public class CorrespondenceMailboxActionsBean extends
     @In(required = false)
     protected transient Principal currentUser;
 
-    protected List<Mailbox> userMailboxes;
+    protected List<CaseFolder> userMailboxes;
 
     @In(create = true, required = false)
     protected transient FacesMessages facesMessages;
@@ -139,18 +139,18 @@ public class CorrespondenceMailboxActionsBean extends
      * Returns all mailboxes for logged user
      */
     @Factory(value = "userMailboxes", scope = ScopeType.EVENT)
-    public List<Mailbox> getUserMailboxes() throws CaseManagementException {
+    public List<CaseFolder> getUserMailboxes() throws CaseManagementException {
         if (userMailboxes == null) {
-            userMailboxes = new ArrayList<Mailbox>();
+            userMailboxes = new ArrayList<CaseFolder>();
             if (currentUser != null) {
-                Mailbox personalMailbox = null;
-                List<Mailbox> mailboxes = correspondenceService.getUserMailboxes(
+                CaseFolder personalMailbox = null;
+                List<CaseFolder> mailboxes = correspondenceService.getUserMailboxes(
                         documentManager, currentUser.getName());
                 if (mailboxes != null && !mailboxes.isEmpty()) {
                     userMailboxes.addAll(mailboxes);
-                    for (Iterator<Mailbox> it = userMailboxes.iterator(); it.hasNext();) {
-                        Mailbox mbox = it.next();
-                        if (MailboxConstants.type.personal.name().equals(
+                    for (Iterator<CaseFolder> it = userMailboxes.iterator(); it.hasNext();) {
+                        CaseFolder mbox = it.next();
+                        if (CaseFolderConstants.type.personal.name().equals(
                                 mbox.getType())
                                 && currentUser.getName().equals(mbox.getOwner())) {
                             personalMailbox = mbox;
@@ -161,8 +161,8 @@ public class CorrespondenceMailboxActionsBean extends
                 }
                 // Sort mailboxes: personal mailbox comes first, then
                 // alphabetical order is used
-                Collections.sort(userMailboxes, new Comparator<Mailbox>() {
-                    public int compare(Mailbox o1, Mailbox o2) {
+                Collections.sort(userMailboxes, new Comparator<CaseFolder>() {
+                    public int compare(CaseFolder o1, CaseFolder o2) {
                         return o1.getTitle().compareTo(o2.getTitle());
                     }
                 });
@@ -222,7 +222,7 @@ public class CorrespondenceMailboxActionsBean extends
             return;
         }
 
-        if (MailboxConstants.type.personal.name().equals(mailboxType)) {
+        if (CaseFolderConstants.type.personal.name().equals(mailboxType)) {
             String mbId = correspondenceService.getUserPersonalMailboxId((String) mailboxOwner);
             if (correspondenceService.hasMailbox(mbId)) {
                 FacesMessage message = new FacesMessage(
@@ -254,7 +254,7 @@ public class CorrespondenceMailboxActionsBean extends
             // reset the parent id
             resetParentMailboxId();
             String parentDocumentPath = parentDocument.getPathAsString();
-            String title = (String) newDocument.getPropertyValue(MailboxConstants.TITLE_FIELD);
+            String title = (String) newDocument.getPropertyValue(CaseFolderConstants.TITLE_FIELD);
             if (title == null) {
                 title = "";
             }
@@ -296,7 +296,7 @@ public class CorrespondenceMailboxActionsBean extends
     }
 
     @Override
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
+    protected void resetMailboxCache(CaseFolder cachedMailbox, CaseFolder newMailbox)
             throws ClientException {
         ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance("resultsProvidersCache");
 
@@ -313,7 +313,7 @@ public class CorrespondenceMailboxActionsBean extends
      */
     protected DocumentModel getMailboxRoot() throws ClientException {
         DocumentModelList res = documentManager.query(String.format(
-                "SELECT * from %s", MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
+                "SELECT * from %s", CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
             throw new CaseManagementException("Cannot find any mailbox folder");
         }
@@ -356,12 +356,12 @@ public class CorrespondenceMailboxActionsBean extends
      */
     public Boolean isGenericMailbox() throws ClientException {
         DocumentModel doc = navigationContext.getCurrentDocument();
-        if (!doc.hasFacet(MailboxConstants.MAILBOX_FACET)) {
+        if (!doc.hasFacet(CaseFolderConstants.CASE_FOLDER_FACET)) {
             return false;
         }
-        Mailbox mailbox = doc.getAdapter(Mailbox.class);
+        CaseFolder mailbox = doc.getAdapter(CaseFolder.class);
         String type = mailbox.getType();
-        return type.equals(MailboxConstants.type.generic.name());
+        return type.equals(CaseFolderConstants.type.generic.name());
     }
 
     /**
@@ -382,7 +382,7 @@ public class CorrespondenceMailboxActionsBean extends
             context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
                     getCurrentMailbox().getId());
             context.put(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
-                    getCurrentMailbox().getAffiliatedMailboxId());
+                    getCurrentMailbox().getAffiliatedCaseFolderId());
 
             // Create the new Mail document model in the MailRoot
             DocumentModel changeableDocument = documentManager.createDocumentModel(
@@ -403,7 +403,7 @@ public class CorrespondenceMailboxActionsBean extends
      * Updates the current mailbox
      */
     public void updateManagerTabMailbox() throws ClientException {
-        Mailbox mailbox = getCurrentMailbox();
+        CaseFolder mailbox = getCurrentMailbox();
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
@@ -412,7 +412,7 @@ public class CorrespondenceMailboxActionsBean extends
     }
 
     public String getCurrentMailboxParent() throws ClientException {
-        Mailbox mailbox = getCurrentMailbox();
+        CaseFolder mailbox = getCurrentMailbox();
         return mailbox.getParentId(documentManager);
     }
 
@@ -421,7 +421,7 @@ public class CorrespondenceMailboxActionsBean extends
         DocumentModel envelopeDoc = documentManager.getDocument(new IdRef(
                 envelopeId));
 
-        MailEnvelope envelope = envelopeDoc.getAdapter(MailEnvelope.class);
+        Case envelope = envelopeDoc.getAdapter(Case.class);
         DocumentModel mailDoc = envelope.getFirstItem(documentManager).getDocument();
         return navigationContext.navigateToId(envelopeId);
     }

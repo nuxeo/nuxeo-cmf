@@ -53,7 +53,7 @@ public class GetParentPathUnrestricted extends UnrestrictedSessionRunner {
 
         // Create (or retrieve) the current MailRoot folder (/mail/YYYY/MM/DD)
         Date now = new Date();
-        DocumentModel parent = MailTreeHelper.getOrCreateDateTreeFolder(
+        DocumentModel parent = CaseTreeHelper.getOrCreateDateTreeFolder(
                 session, mailRootdoc, now, CaseConstants.CASE_TREE_TYPE);
         session.save();
         parentPath = parent.getPathAsString();

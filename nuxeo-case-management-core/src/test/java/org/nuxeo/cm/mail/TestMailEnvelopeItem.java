@@ -19,13 +19,13 @@ package org.nuxeo.cm.mail;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeImpl;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
-import org.nuxeo.cm.cases.MailEnvelopeItemImpl;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseImpl;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.cases.CaseItemImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -41,7 +41,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
  *
  */
 public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
-    protected MailEnvelopeItem item;
+    protected CaseItem item;
 
     @Override
     public void setUp() throws Exception {
@@ -50,13 +50,13 @@ public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
         DocumentModel document = session.createDocumentModel(CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document.setPathInfo("/", "foo");
         document = session.createDocument(document);
-        HasRecipients adapter = document.getAdapter(HasRecipients.class);
-        item = new MailEnvelopeItemImpl(document, adapter);
+        HasParticipants adapter = document.getAdapter(HasParticipants.class);
+        item = new CaseItemImpl(document, adapter);
     }
 
     /**
      * Test method for
-     * {@link org.nuxeo.cm.cases.MailEnvelopeItemImpl#getDocument()}.
+     * {@link org.nuxeo.cm.cases.CaseItemImpl#getDocument()}.
      */
     public void testGetDocument() {
         DocumentModel model = item.getDocument();
@@ -76,25 +76,25 @@ public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
         closeSession();
         openSession();
         DocumentModel model = session.getDocument(new IdRef(id));
-        HasRecipients adapter = model.getAdapter(HasRecipients.class);
-        item = new MailEnvelopeItemImpl(model, adapter);
+        HasParticipants adapter = model.getAdapter(HasParticipants.class);
+        item = new CaseItemImpl(model, adapter);
         assertEquals(item.getTitle(), title);
         assertEquals(item.getConfidentiality(), cdf);
         assertEquals(item.getSendingDate(), date);
     }
 
     public void testCreateMailEnvelope() throws ClientException {
-        MailEnvelope envelope = item.createMailEnvelope(session,
+        Case envelope = item.createMailCase(session,
                 session.getRootDocument().getPathAsString(), null);
         assertNotNull(envelope);
         String id = envelope.getDocument().getId();
         closeSession();
         openSession();
         DocumentModel model = session.getDocument(new IdRef(id));
-        HasRecipients adapter = model.getAdapter(HasRecipients.class);
-        envelope = new MailEnvelopeImpl(model, adapter);
+        HasParticipants adapter = model.getAdapter(HasParticipants.class);
+        envelope = new CaseImpl(model, adapter);
         assertNotNull(envelope);
-        assertEquals(envelope.getMailEnvelopeItems(session).size(), 1);
+        assertEquals(envelope.getCaseItems(session).size(), 1);
     }
 
     public void testLock() throws ClientException {

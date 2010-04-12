@@ -20,8 +20,8 @@ import java.security.Principal;
 
 import org.apache.commons.logging.Log;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
@@ -66,11 +66,11 @@ public abstract class AbstractDraftListener {
         if (!envelopeDM.hasFacet(CaseConstants.CASE_FACET)) {
             return;
         }
-        MailEnvelope envelope = envelopeDM.getAdapter(MailEnvelope.class);
+        Case envelope = envelopeDM.getAdapter(Case.class);
         if (envelope == null) {
             return;
         }
-        MailEnvelopeItem item = envelope.getFirstItem(session);
+        CaseItem item = envelope.getFirstItem(session);
         if (item == null) {
             return;
         }

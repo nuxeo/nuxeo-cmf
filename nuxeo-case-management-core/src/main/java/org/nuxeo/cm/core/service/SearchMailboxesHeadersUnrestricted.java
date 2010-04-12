@@ -21,7 +21,7 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -51,7 +51,7 @@ public class SearchMailboxesHeadersUnrestricted extends
     public void run() throws ClientException {
         try {
             DocumentModelList res = queryMailboxes();
-            mailboxesHeaders = MailboxConstants.getMailboxHeaderList(res);
+            mailboxesHeaders = CaseFolderConstants.getMailboxHeaderList(res);
         } catch (Exception e) {
             throw new ClientException(e);
         }

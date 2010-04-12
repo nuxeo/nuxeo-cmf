@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.Case;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -41,14 +41,14 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
 
     final String comment;
 
-    final MailEnvelope envelope;
+    final Case envelope;
 
     final Map<String, List<String>> internalRecipients;
 
     final Map<String, List<String>> externalRecipients;
 
     public CorrespondencePostRequestImpl(String sender, Calendar date,
-            String subject, String comment, MailEnvelope envelope,
+            String subject, String comment, Case envelope,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients) {
         super();
@@ -61,7 +61,7 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
         this.externalRecipients = externalRecipients;
     }
 
-    public Map<String, List<String>> getAllRecipients() {
+    public Map<String, List<String>> getAllParticipants() {
         return internalRecipients;
     }
 
@@ -73,7 +73,7 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
         return date;
     }
 
-    public MailEnvelope getMailEnvelope(CoreSession session) {
+    public Case getMailEnvelope(CoreSession session) {
         return envelope;
     }
 
@@ -81,11 +81,11 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
         throw new UnsupportedOperationException("Post request have no id.");
     }
 
-    public Map<String, List<String>> getInitialInternalRecipients() {
+    public Map<String, List<String>> getInitialInternalParticipants() {
         return internalRecipients;
     }
 
-    public Map<String, List<String>> getInitialExternalRecipients() {
+    public Map<String, List<String>> getInitialExternalParticipants() {
         return externalRecipients;
     }
 
@@ -134,17 +134,17 @@ public class CorrespondencePostRequestImpl implements CorrespondencePost {
                 "Post request have no draft status.");
     }
 
-    public void addInitialExternalRecipients(
+    public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public void addInitialInternalRecipients(
+    public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public void addRecipients(Map<String, List<String>> recipients) {
+    public void addParticipants(Map<String, List<String>> recipients) {
         throw new UnsupportedOperationException("Not implemented");
     }
 

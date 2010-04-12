@@ -25,8 +25,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -61,7 +61,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
      * @see com.nuxeo.correspondence.service.MailboxCreator#createMailboxes(org.nuxeo
      *      .ecm.core.api.CoreSession, java.lang.String)
      */
-    public List<Mailbox> createMailboxes(CoreSession session, String user)
+    public List<CaseFolder> createMailboxes(CoreSession session, String user)
             throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP);
@@ -85,19 +85,19 @@ public class DefaultMailboxCreator implements MailboxCreator {
             }
 
             // Create the personal mailbox for the user
-            DocumentModel mailboxModel = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
-            Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
+            DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
+            CaseFolder mailbox = mailboxModel.getAdapter(CaseFolder.class);
 
             // Set mailbox properties
             mailbox.setId(getPersonalMailboxId(userModel));
             mailbox.setTitle(getUserDisplayName(userModel));
             mailbox.setOwner(user);
-            mailbox.setType(MailboxConstants.type.personal.name());
+            mailbox.setType(CaseFolderConstants.type.personal.name());
 
             // XXX: save it in first mailbox folder found for now
             DocumentModelList res = session.query(String.format(
                     "SELECT * from %s",
-                    MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
+                    CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
             if (res == null || res.isEmpty()) {
                 throw new CaseManagementException(
                         "Cannot find any mailbox folder");
@@ -106,7 +106,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
             mailboxModel.setPathInfo(res.get(0).getPathAsString(),
                     IdUtils.generateId(mailbox.getTitle()));
             mailboxModel = session.createDocument(mailboxModel);
-            mailbox = mailboxModel.getAdapter(Mailbox.class);
+            mailbox = mailboxModel.getAdapter(CaseFolder.class);
 
             session.save();
             return Collections.singletonList(mailbox);

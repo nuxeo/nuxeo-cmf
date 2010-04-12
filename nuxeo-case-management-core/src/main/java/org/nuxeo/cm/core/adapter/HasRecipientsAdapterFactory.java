@@ -18,7 +18,7 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.cases.HasRecipientsImpl;
+import org.nuxeo.cm.cases.HasParticipantsImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
@@ -31,7 +31,7 @@ public class HasRecipientsAdapterFactory implements DocumentAdapterFactory {
 
     @SuppressWarnings("unchecked")
     public Object getAdapter(DocumentModel doc, Class arg1) {
-        return new HasRecipientsImpl(doc);
+        return new HasParticipantsImpl(doc);
     }
 
 }

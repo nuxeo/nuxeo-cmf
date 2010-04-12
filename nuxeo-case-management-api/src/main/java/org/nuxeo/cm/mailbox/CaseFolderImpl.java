@@ -35,7 +35,6 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.Property;
-import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.schema.types.Field;
 import org.nuxeo.ecm.core.schema.types.ListType;
@@ -48,15 +47,15 @@ import org.nuxeo.ecm.core.schema.types.Type;
  * @author Anahide Tchertchian
  *
  */
-public class MailboxImpl implements Mailbox {
+public class CaseFolderImpl implements CaseFolder {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Log log = LogFactory.getLog(Mailbox.class);
+    private static final Log log = LogFactory.getLog(CaseFolder.class);
 
     protected DocumentModel doc;
 
-    public MailboxImpl(DocumentModel doc) {
+    public CaseFolderImpl(DocumentModel doc) {
         this.doc = doc;
     }
 
@@ -113,10 +112,10 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public ParticipantsList getMailingListTemplate() {
+    public ParticipantsList getParticipantListTemplate() {
         try {
             Object value = null;
-            Property prop = doc.getProperty(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            Property prop = doc.getProperty(CaseFolderConstants.PARTICIPANTS_LIST_FIELD);
             Field field = prop.getField();
             if (field != null) {
                 Type type = field.getType();
@@ -130,54 +129,54 @@ public class MailboxImpl implements Mailbox {
                         "Cannot get default template for mailing list");
             }
             Map<String, Serializable> map = (Map<String, Serializable>) value;
-            return new MailingListImpl(map);
+            return new ParticipantListImpl(map);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void addMailingList(ParticipantsList ml) {
+    public void addParticipantList(ParticipantsList ml) {
         try {
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD);
             if (mailinglists != null) {
                 mls.addAll(mailinglists);
             }
             mls.add(ml.getMap());
-            setPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD, mls);
+            setPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD, mls);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
     }
 
     public List<String> getUsers() {
-        return getStringListProperty(MailboxConstants.USERS_FIELD);
+        return getStringListProperty(CaseFolderConstants.USERS_FIELD);
     }
 
     public String getDescription() {
-        return getStringProperty(MailboxConstants.DESCRIPTION_FIELD);
+        return getStringProperty(CaseFolderConstants.DESCRIPTION_FIELD);
     }
 
     public List<String> getFavorites() throws CaseManagementException {
-        return getStringListProperty(MailboxConstants.FAVORITES_FIELD);
+        return getStringListProperty(CaseFolderConstants.FAVORITES_FIELD);
     }
 
     public List<String> getGroups() {
-        return getStringListProperty(MailboxConstants.GROUPS_FIELD);
+        return getStringListProperty(CaseFolderConstants.GROUPS_FIELD);
     }
 
     public String getId() {
-        return getStringProperty(MailboxConstants.ID_FIELD);
+        return getStringProperty(CaseFolderConstants.ID_FIELD);
     }
 
     public void setId(String id) {
-        setPropertyValue(MailboxConstants.ID_FIELD, id);
+        setPropertyValue(CaseFolderConstants.ID_FIELD, id);
     }
 
-    public List<String> getMailingListIds() {
+    public List<String> getParticipantListIds() {
         List<String> mlids = new ArrayList<String>();
-        List<ParticipantsList> mls = getMailingLists();
+        List<ParticipantsList> mls = getParticipantLists();
         if (mls != null) {
             for (ParticipantsList ml : mls) {
                 mlids.add(ml.getId());
@@ -187,13 +186,13 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ParticipantsList> getMailingLists() {
+    public List<ParticipantsList> getParticipantLists() {
         try {
             List<ParticipantsList> mls = new ArrayList<ParticipantsList>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> mailinglist : mailinglists) {
-                    mls.add(new MailingListImpl(mailinglist));
+                    mls.add(new ParticipantListImpl(mailinglist));
                 }
             }
             return mls;
@@ -203,23 +202,23 @@ public class MailboxImpl implements Mailbox {
     }
 
     public List<String> getNotifiedUsers() {
-        return getStringListProperty(MailboxConstants.NOTIFIED_USERS_FIELD);
+        return getStringListProperty(CaseFolderConstants.NOTIFIED_USERS_FIELD);
     }
 
     public String getOwner() {
-        return getStringProperty(MailboxConstants.OWNER_FIELD);
+        return getStringProperty(CaseFolderConstants.OWNER_FIELD);
     }
 
     public List<String> getProfiles() {
-        return getStringListProperty(MailboxConstants.PROFILES_FIELD);
+        return getStringListProperty(CaseFolderConstants.PROFILES_FIELD);
     }
 
     public String getTitle() {
-        return getStringProperty(MailboxConstants.TITLE_FIELD);
+        return getStringProperty(CaseFolderConstants.TITLE_FIELD);
     }
 
     public String getType() {
-        return getStringProperty(MailboxConstants.TYPE_FIELD);
+        return getStringProperty(CaseFolderConstants.TYPE_FIELD);
     }
 
     public List<String> getAllUsers() {
@@ -244,14 +243,14 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public void removeMailingList(String mailingListId) {
+    public void removeParticipantList(String mailingListId) {
         try {
             boolean set = false;
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> ml : mailinglists) {
-                    if (mailingListId.equals(ml.get(MailboxConstants.MAILINGLIST_ID_FIELD))) {
+                    if (mailingListId.equals(ml.get(CaseFolderConstants.PARTICIPANTLIST_ID_FIELD))) {
                         set = true;
                     } else {
                         mls.add(ml);
@@ -259,7 +258,7 @@ public class MailboxImpl implements Mailbox {
                 }
             }
             if (set) {
-                setPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD, mls);
+                setPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD, mls);
             }
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
@@ -271,11 +270,11 @@ public class MailboxImpl implements Mailbox {
         if (users != null) {
             serializableUsers.addAll(users);
         }
-        setPropertyValue(MailboxConstants.USERS_FIELD, serializableUsers);
+        setPropertyValue(CaseFolderConstants.USERS_FIELD, serializableUsers);
     }
 
     public void setDescription(String description) {
-        setPropertyValue(MailboxConstants.DESCRIPTION_FIELD, description);
+        setPropertyValue(CaseFolderConstants.DESCRIPTION_FIELD, description);
     }
 
     public void setFavorites(List<String> favorites)
@@ -284,7 +283,7 @@ public class MailboxImpl implements Mailbox {
         if (favorites != null) {
             serializableFavorites.addAll(favorites);
         }
-        setPropertyValue(MailboxConstants.FAVORITES_FIELD,
+        setPropertyValue(CaseFolderConstants.FAVORITES_FIELD,
                 serializableFavorites);
     }
 
@@ -293,7 +292,7 @@ public class MailboxImpl implements Mailbox {
         if (groups != null) {
             serializableGroups.addAll(groups);
         }
-        setPropertyValue(MailboxConstants.GROUPS_FIELD, serializableGroups);
+        setPropertyValue(CaseFolderConstants.GROUPS_FIELD, serializableGroups);
     }
 
     public void setNotifiedUsers(List<String> users) {
@@ -301,12 +300,12 @@ public class MailboxImpl implements Mailbox {
         if (users != null) {
             serializableUsers.addAll(users);
         }
-        setPropertyValue(MailboxConstants.NOTIFIED_USERS_FIELD,
+        setPropertyValue(CaseFolderConstants.NOTIFIED_USERS_FIELD,
                 serializableUsers);
     }
 
     public void setOwner(String owner) {
-        setPropertyValue(MailboxConstants.OWNER_FIELD, owner);
+        setPropertyValue(CaseFolderConstants.OWNER_FIELD, owner);
     }
 
     public void setProfiles(List<String> profiles) {
@@ -314,33 +313,33 @@ public class MailboxImpl implements Mailbox {
         if (profiles != null) {
             serializableProfiles.addAll(profiles);
         }
-        setPropertyValue(MailboxConstants.PROFILES_FIELD, serializableProfiles);
+        setPropertyValue(CaseFolderConstants.PROFILES_FIELD, serializableProfiles);
     }
 
     public void setTitle(String title) {
-        setPropertyValue(MailboxConstants.TITLE_FIELD, title);
+        setPropertyValue(CaseFolderConstants.TITLE_FIELD, title);
     }
 
     public void setType(String type) {
-        setPropertyValue(MailboxConstants.TYPE_FIELD, type);
+        setPropertyValue(CaseFolderConstants.TYPE_FIELD, type);
     }
 
     public void setConfidentiality(Integer confidentiality) {
-        setPropertyValue(MailboxConstants.CONFIDENTIALITY_FIELD,
+        setPropertyValue(CaseFolderConstants.CONFIDENTIALITY_FIELD,
                 confidentiality);
     }
 
 
     public Integer getConfidentiality() {
-        return getIntegerProperty(MailboxConstants.CONFIDENTIALITY_FIELD);
+        return getIntegerProperty(CaseFolderConstants.CONFIDENTIALITY_FIELD);
     }
 
-    public int compareTo(Mailbox other) {
+    public int compareTo(CaseFolder other) {
         // sort by type and then by title
         if (getType().equals(other.getType())) {
             // sort by title
             return getTitle().compareTo(other.getTitle());
-        } else if (MailboxConstants.type.personal.name().equals(getType())) {
+        } else if (CaseFolderConstants.type.personal.name().equals(getType())) {
             return -1;
         } else {
             return 1;
@@ -361,7 +360,7 @@ public class MailboxImpl implements Mailbox {
             if (session.hasPermission(doc.getParentRef(),
                     SecurityConstants.READ)) {
                 DocumentModel parent = session.getDocument(doc.getParentRef());
-                Mailbox parentMailbox = parent.getAdapter(Mailbox.class);
+                CaseFolder parentMailbox = parent.getAdapter(CaseFolder.class);
                 if (parentMailbox != null) {
                     return parentMailbox.getId();
                 }
@@ -386,7 +385,7 @@ public class MailboxImpl implements Mailbox {
         return total;
     }
 
-    public String getAffiliatedMailboxId() {
-        return getStringProperty(MailboxConstants.AFFILIATED_MAILBOX_ID);
+    public String getAffiliatedCaseFolderId() {
+        return getStringProperty(CaseFolderConstants.AFFILIATED_CASE_FOLDER_ID);
     }
 }

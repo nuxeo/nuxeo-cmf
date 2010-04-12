@@ -32,9 +32,9 @@ import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.service.CorrespondenceDistributionTypeService;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.cm.service.CorrespondenceService;
@@ -71,7 +71,7 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
 
     protected static DocumentModel mailEnvelopeItemModel;
 
-    protected MailEnvelope envelope1;
+    protected Case envelope1;
 
     public CorrespondenceRepositoryTestCase() {
         super(null);
@@ -127,20 +127,20 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
         return document;
     }
 
-    public MailEnvelope getMailEnvelope() throws Exception {
+    public Case getMailEnvelope() throws Exception {
         DocumentModel model = getMailEnvelopeModel();
         DocumentModel doc = session.createDocument(model);
         session.saveDocument(doc);
         session.save();
-        return doc.getAdapter(MailEnvelope.class);
+        return doc.getAdapter(Case.class);
     }
 
-    public MailEnvelopeItem getMailEnvelopeItem() throws Exception {
+    public CaseItem getMailEnvelopeItem() throws Exception {
         DocumentModel model = getMailEnvelopeItemModel();
         DocumentModel doc = session.createDocument(model);
         session.saveDocument(doc);
         session.save();
-        return doc.getAdapter(MailEnvelopeItem.class);
+        return doc.getAdapter(CaseItem.class);
     }
 
     public DocumentModel getMailEnvelopeModel() throws Exception {
@@ -163,7 +163,7 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
         return mailEnvelopeItemModel;
     }
 
-    public void createDraftPost(Mailbox mb, MailEnvelope envelope)
+    public void createDraftPost(CaseFolder mb, Case envelope)
             throws Exception {
 
         DocumentModel model = session.createDocumentModel(

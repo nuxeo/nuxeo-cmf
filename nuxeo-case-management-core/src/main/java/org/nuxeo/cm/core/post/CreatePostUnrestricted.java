@@ -31,10 +31,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -58,9 +58,9 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String comment;
 
-    protected final MailEnvelope envelope;
+    protected final Case envelope;
 
-    protected final Mailbox sender;
+    protected final CaseFolder sender;
 
     protected final String recipientId;
 
@@ -74,7 +74,7 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
 
     protected CorrespondencePost draft;
 
-    protected Mailbox recipient;
+    protected CaseFolder recipient;
 
     public CorrespondencePost getCreatedPost() {
         return createdPost;
@@ -95,7 +95,7 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
      */
     public CreatePostUnrestricted(CorrespondencePost draft,
             CoreSession session, String subject, String comment,
-            MailEnvelope envelope, Mailbox sender, String recipientId,
+            Case envelope, CaseFolder sender, String recipientId,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial) {
@@ -117,7 +117,7 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
         GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                 session, recipientId);
         getMailboxesUnrestricted.run();
-        List<Mailbox> mailboxes = getMailboxesUnrestricted.getMailboxes();
+        List<CaseFolder> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
             throw new CaseManagementException(
                     "Can't send post because sender mailbox does not exist.");
@@ -142,11 +142,11 @@ public class CreatePostUnrestricted extends UnrestrictedSessionRunner {
         }
         CorrespondencePost post = doc.getAdapter(CorrespondencePost.class);
         if (isInitial) {
-            post.addInitialInternalRecipients(internalRecipients);
-            post.addInitialExternalRecipients(externalRecipients);
+            post.addInitialInternalParticipants(internalRecipients);
+            post.addInitialExternalParticipants(externalRecipients);
         }
-        post.addRecipients(internalRecipients);
-        post.addRecipients(externalRecipients);
+        post.addParticipants(internalRecipients);
+        post.addParticipants(externalRecipients);
 
         setPostValues(doc);
         session.createDocument(doc);

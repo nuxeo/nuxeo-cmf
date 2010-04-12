@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -71,11 +71,11 @@ public class DistributionFunctions {
         return null;
     }
 
-    public static Mailbox getMailbox(DocumentModel mailboxDoc) {
-        return mailboxDoc.getAdapter(Mailbox.class);
+    public static CaseFolder getMailbox(DocumentModel mailboxDoc) {
+        return mailboxDoc.getAdapter(CaseFolder.class);
     }
 
-    public static Mailbox getMailbox(String mailboxId) {
+    public static CaseFolder getMailbox(String mailboxId) {
         try {
             CorrespondenceService service = Framework.getService(CorrespondenceService.class);
             return service.getMailbox(mailboxId);
@@ -93,7 +93,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static List<Mailbox> getMailboxes(List<String> mailboxIds) {
+    public static List<CaseFolder> getMailboxes(List<String> mailboxIds) {
         try {
             CorrespondenceService service = Framework.getService(CorrespondenceService.class);
             return service.getMailboxes(mailboxIds);

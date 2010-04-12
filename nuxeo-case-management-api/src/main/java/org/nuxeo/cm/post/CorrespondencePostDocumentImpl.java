@@ -32,8 +32,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.HasRecipients;
-import org.nuxeo.cm.cases.MailEnvelope;
+import org.nuxeo.cm.cases.HasParticipants;
+import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -50,12 +50,12 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
 
     private static final long serialVersionUID = -94563234903621891L;
 
-    protected HasRecipients recipientAdapter;
+    protected HasParticipants recipientAdapter;
 
     protected DocumentModel document;
 
     public CorrespondencePostDocumentImpl(DocumentModel doc,
-            HasRecipients recipientAdapted) {
+            HasParticipants recipientAdapted) {
         this.document = doc;
         this.recipientAdapter = recipientAdapted;
     }
@@ -79,13 +79,13 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
         return getPropertyValue(DATE_FIELD);
     }
 
-    public MailEnvelope getMailEnvelope(CoreSession session) {
-        MailEnvelope envelope;
+    public Case getMailEnvelope(CoreSession session) {
+        Case envelope;
         try {
             String envelopeDocumentId = (String) document.getPropertyValue(ENVELOPE_DOCUMENT_ID_FIELD);
             DocumentModel mailDocument = session.getDocument(new IdRef(
                     envelopeDocumentId));
-            envelope = mailDocument.getAdapter(MailEnvelope.class);
+            envelope = mailDocument.getAdapter(Case.class);
         } catch (PropertyException e) {
             throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
@@ -139,30 +139,30 @@ public class CorrespondencePostDocumentImpl implements CorrespondencePost {
         return (Boolean) getPropertyValue(IS_DRAFT_FIELD);
     }
 
-    public void addInitialExternalRecipients(
+    public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
-        recipientAdapter.addInitialExternalRecipients(recipients);
+        recipientAdapter.addInitialExternalParticipants(recipients);
     }
 
-    public void addInitialInternalRecipients(
+    public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
-        recipientAdapter.addInitialInternalRecipients(recipients);
+        recipientAdapter.addInitialInternalParticipants(recipients);
     }
 
-    public void addRecipients(Map<String, List<String>> recipients) {
-        recipientAdapter.addRecipients(recipients);
+    public void addParticipants(Map<String, List<String>> recipients) {
+        recipientAdapter.addParticipants(recipients);
     }
 
-    public Map<String, List<String>> getAllRecipients() {
-        return recipientAdapter.getAllRecipients();
+    public Map<String, List<String>> getAllParticipants() {
+        return recipientAdapter.getAllParticipants();
     }
 
-    public Map<String, List<String>> getInitialExternalRecipients() {
-        return recipientAdapter.getInitialExternalRecipients();
+    public Map<String, List<String>> getInitialExternalParticipants() {
+        return recipientAdapter.getInitialExternalParticipants();
     }
 
-    public Map<String, List<String>> getInitialInternalRecipients() {
-        return recipientAdapter.getInitialInternalRecipients();
+    public Map<String, List<String>> getInitialInternalParticipants() {
+        return recipientAdapter.getInitialInternalParticipants();
     }
 
 }

@@ -16,7 +16,7 @@
  */
 package org.nuxeo.cm.mail;
 
-import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
 import org.nuxeo.cm.post.CorrespondencePostDocumentImpl;
@@ -39,7 +39,7 @@ public class TestCorrespondencePost extends CorrespondenceRepositoryTestCase {
                 CorrespondencePostConstants.POST_DOCUMENT_TYPE,
                 "post");
 
-        HasRecipients adapter = document.getAdapter(HasRecipients.class);
+        HasParticipants adapter = document.getAdapter(HasParticipants.class);
         post = new CorrespondencePostDocumentImpl(document, adapter);
     }
 

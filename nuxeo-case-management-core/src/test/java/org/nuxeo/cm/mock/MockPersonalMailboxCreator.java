@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -45,10 +45,10 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
         return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId);
     }
 
-    public List<Mailbox> createMailboxes(CoreSession session, String user)
+    public List<CaseFolder> createMailboxes(CoreSession session, String user)
             throws CaseManagementException {
 
-        List<Mailbox> mailboxes = new ArrayList<Mailbox>();
+        List<CaseFolder> mailboxes = new ArrayList<CaseFolder>();
 
         try {
 
@@ -62,13 +62,13 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
                 return null;
             }
 
-            DocumentModel mailboxModel = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
-            Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
+            DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
+            CaseFolder mailbox = mailboxModel.getAdapter(CaseFolder.class);
 
             String userId = userModel.getId();
             mailbox.setId(getPersonalMailboxId(userModel));
             mailbox.setTitle(userId + "'s personal mailbox");
-            mailbox.setType(MailboxConstants.type.personal.name());
+            mailbox.setType(CaseFolderConstants.type.personal.name());
             mailbox.setOwner(user);
 
             session.save();

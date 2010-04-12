@@ -21,7 +21,7 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -54,7 +54,7 @@ public class SetMailboxAclUnrestricted extends UnrestrictedSessionRunner {
     @Override
     public void run() throws ClientException {
         DocumentModel doc = session.getDocument(ref);
-        Mailbox mb = doc.getAdapter(Mailbox.class);
+        CaseFolder mb = doc.getAdapter(CaseFolder.class);
         ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
         ACL mailACL = new ACLImpl(mb.getId());
         List<String> total = mb.getAllUsersAndGroups();

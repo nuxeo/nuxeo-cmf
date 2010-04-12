@@ -31,8 +31,8 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.core.post.CreateDraftPostUnrestricted;
 import org.nuxeo.cm.core.post.CreatePostUnrestricted;
@@ -41,8 +41,8 @@ import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
@@ -101,7 +101,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     protected Map<String, Serializable> context = null;
 
-    public Mailbox getMailbox(CoreSession session, String muid) {
+    public CaseFolder getMailbox(CoreSession session, String muid) {
 
         if (muid == null) {
             return null;
@@ -119,11 +119,11 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                     "Several mailboxes with id %s, returning first found", muid));
         }
 
-        return res.get(0).getAdapter(Mailbox.class);
+        return res.get(0).getAdapter(CaseFolder.class);
 
     }
 
-    public Mailbox getMailbox(String muid) {
+    public CaseFolder getMailbox(String muid) {
         CoreSession session = null;
         try {
             session = getCoreSession();
@@ -156,7 +156,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     }
 
-    public List<Mailbox> getMailboxes(CoreSession session, List<String> muids) {
+    public List<CaseFolder> getMailboxes(CoreSession session, List<String> muids) {
 
         if (muids == null) {
             return null;
@@ -181,7 +181,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             docs.add(res.get(0));
 
         }
-        return MailboxConstants.getMailboxList(docs);
+        return CaseFolderConstants.getMailboxList(docs);
 
     }
 
@@ -212,7 +212,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         return sessionSearch.getMailboxesHeaders();
     }
 
-    public List<Mailbox> getMailboxes(List<String> muids) {
+    public List<CaseFolder> getMailboxes(List<String> muids) {
 
         CoreSession session = null;
         try {
@@ -224,18 +224,18 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     }
 
-    public List<Mailbox> getUserMailboxes(CoreSession session, String user) {
+    public List<CaseFolder> getUserMailboxes(CoreSession session, String user) {
 
         // return all mailboxes user has access to
         DocumentModelList res = executeQueryModel(session,
                 QUERY_GET_ALL_CASE_FOLDER);
 
-        List<Mailbox> mailboxes = new ArrayList<Mailbox>();
+        List<CaseFolder> mailboxes = new ArrayList<CaseFolder>();
 
         // Load all the Mailbox adapters
         if (res != null && !res.isEmpty()) {
             for (DocumentModel mbModel : res) {
-                Mailbox mb = mbModel.getAdapter(Mailbox.class);
+                CaseFolder mb = mbModel.getAdapter(CaseFolder.class);
                 mailboxes.add(mb);
             }
         }
@@ -246,12 +246,12 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     }
 
-    public Mailbox getUserPersonalMailbox(CoreSession session, String user) {
+    public CaseFolder getUserPersonalMailbox(CoreSession session, String user) {
         String mailboxId = getUserPersonalMailboxId(user);
         return getMailbox(session, mailboxId);
     }
 
-    public Mailbox getUserPersonalMailboxForEmail(CoreSession session,
+    public CaseFolder getUserPersonalMailboxForEmail(CoreSession session,
             String userEmail) {
         if (userEmail == null
                 || org.apache.commons.lang.StringUtils.isEmpty(userEmail)) {
@@ -441,7 +441,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     }
 
-    public List<Mailbox> createPersonalMailbox(CoreSession session, String user) {
+    public List<CaseFolder> createPersonalMailbox(CoreSession session, String user) {
         if (personalMailboxCreator == null) {
             throw new CaseManagementRuntimeException(
                     "Cannot create personal mailbox: missing creator configuration");
@@ -518,7 +518,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public List<CorrespondencePost> getReceivedPosts(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit) {
+            CaseFolder mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
@@ -530,7 +530,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public List<CorrespondencePost> getSentPosts(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit) {
+            CaseFolder mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
@@ -542,7 +542,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public List<CorrespondencePost> getDraftPosts(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit) {
+            CaseFolder mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
@@ -553,10 +553,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         return getPosts(coreSession, offset, limit, query);
     }
 
-    public MailEnvelope createMailEnvelope(CoreSession session,
-            DocumentModel emailDoc, String parentPath, List<Mailbox> mailboxes) {
+    public Case createMailEnvelope(CoreSession session,
+            DocumentModel emailDoc, String parentPath, List<CaseFolder> mailboxes) {
         // Save the new mail in the MailRoot folder
-        MailEnvelopeItem item = emailDoc.getAdapter(MailEnvelopeItem.class);
+        CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
         emailDoc.setPathInfo(parentPath, docName);
         DocumentModel mail = null;
@@ -567,21 +567,21 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
             mail = session.getDocument(mailCreator.getDocRef());
             // Create envelope
             CreateEnvelopeUnrestricted envelopeCreator = new CreateEnvelopeUnrestricted(
-                    session, mail.getAdapter(MailEnvelopeItem.class), parentPath, mailboxes);
+                    session, mail.getAdapter(CaseItem.class), parentPath, mailboxes);
             envelopeCreator.runUnrestricted();
             DocumentModel envelopeDoc = session.getDocument(envelopeCreator.getDocumentRef());
-            return envelopeDoc.getAdapter(MailEnvelope.class);
+            return envelopeDoc.getAdapter(Case.class);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
 
-    public MailEnvelope createMailEnvelope(CoreSession session,
+    public Case createMailEnvelope(CoreSession session,
             DocumentModel emailDoc, String parentPath) {
-        return createMailEnvelope(session, emailDoc, parentPath, new ArrayList<Mailbox>());
+        return createMailEnvelope(session, emailDoc, parentPath, new ArrayList<CaseFolder>());
     }
     public CorrespondencePost createDraftPost(CoreSession session,
-            Mailbox mailbox, MailEnvelope envelope) {
+            CaseFolder mailbox, Case envelope) {
         try {
 
             Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
@@ -610,7 +610,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public CorrespondencePost getDraftPost(CoreSession coreSession,
-            Mailbox mailbox, String envelopeId) {
+            CaseFolder mailbox, String envelopeId) {
         if (mailbox == null) {
             return null;
         }
@@ -634,7 +634,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
     /**
      * Fire an event for a MailEnvelope object.
      */
-    protected void fireEvent(CoreSession coreSession, MailEnvelope envelope,
+    protected void fireEvent(CoreSession coreSession, Case envelope,
             Map<String, Serializable> eventProperties, String eventName) {
         try {
             DocumentEventContext envContext = new DocumentEventContext(
@@ -642,8 +642,8 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                     envelope.getDocument());
             envContext.setProperties(eventProperties);
             getEventProducer().fireEvent(envContext.newEvent(eventName));
-            List<MailEnvelopeItem> items = envelope.getMailEnvelopeItems(coreSession);
-            for (MailEnvelopeItem item : items) {
+            List<CaseItem> items = envelope.getCaseItems(coreSession);
+            for (CaseItem item : items) {
                 DocumentModel doc = item.getDocument();
                 DocumentEventContext docContext = new DocumentEventContext(
                         coreSession, coreSession.getPrincipal(), doc);
@@ -706,21 +706,21 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
                 GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                         session, senderMailboxId);
                 getMailboxesUnrestricted.run();
-                List<Mailbox> senderMailboxes = getMailboxesUnrestricted.getMailboxes();
-                Mailbox senderMailbox = null;
+                List<CaseFolder> senderMailboxes = getMailboxesUnrestricted.getMailboxes();
+                CaseFolder senderMailbox = null;
                 if (senderMailboxes != null && !senderMailboxes.isEmpty()) {
                     senderMailbox = senderMailboxes.get(0);
                 }
 
                 String subject = postRequest.getSubject();
                 String comment = postRequest.getComment();
-                MailEnvelope envelope = postRequest.getMailEnvelope(session);
+                Case envelope = postRequest.getMailEnvelope(session);
 
                 // Create Event properties
                 Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
 
-                Map<String, List<String>> externalRecipients = postRequest.getInitialExternalRecipients();
-                Map<String, List<String>> internalRecipientIds = postRequest.getInitialInternalRecipients();
+                Map<String, List<String>> externalRecipients = postRequest.getInitialExternalParticipants();
+                Map<String, List<String>> internalRecipientIds = postRequest.getInitialInternalParticipants();
                 List<String> mailboxTitles = new ArrayList<String>();
                 for (String type : internalRecipientIds.keySet()) {
                     // TODO: optimize;

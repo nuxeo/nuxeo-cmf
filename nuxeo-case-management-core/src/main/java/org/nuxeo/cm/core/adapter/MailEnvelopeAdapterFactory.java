@@ -18,9 +18,9 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.cases.HasRecipients;
+import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelopeImpl;
+import org.nuxeo.cm.cases.CaseImpl;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
@@ -35,8 +35,8 @@ public class MailEnvelopeAdapterFactory implements DocumentAdapterFactory {
     @SuppressWarnings("unchecked")
     public Object getAdapter(DocumentModel doc, Class arg1) {
         checkDocument(doc);
-        HasRecipients adapter = doc.getAdapter(HasRecipients.class);
-        return new MailEnvelopeImpl(doc, adapter);
+        HasParticipants adapter = doc.getAdapter(HasParticipants.class);
+        return new CaseImpl(doc, adapter);
     }
 
     protected void checkDocument(DocumentModel doc) {

@@ -20,7 +20,7 @@
 package org.nuxeo.cm.core.event;
 
 import org.nuxeo.cm.core.service.SetMailboxAclUnrestricted;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -47,7 +47,7 @@ public class UpdateMailboxRightsListener implements EventListener {
         // set all rights to mailbox users
 
         DocumentModel doc = docCtx.getSourceDocument();
-        if (!MailboxConstants.MAILBOX_DOCUMENT_TYPE.equals(doc.getType())) {
+        if (!CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE.equals(doc.getType())) {
             return;
         }
         CoreSession session = docCtx.getCoreSession();

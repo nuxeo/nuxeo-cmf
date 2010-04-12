@@ -19,9 +19,9 @@
 
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.mailbox.CaseFolderHeader;
-import org.nuxeo.cm.mailbox.MailboxHeaderImpl;
+import org.nuxeo.cm.mailbox.CaseFolderHeaderImpl;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -45,10 +45,10 @@ public class MailboxHeaderAdapterFactory implements DocumentAdapterFactory {
 
     protected CaseFolderHeader getMailboxHeader(DocumentModel doc) {
         try {
-            String id = (String) doc.getPropertyValue(MailboxConstants.ID_FIELD);
-            String title = (String) doc.getPropertyValue(MailboxConstants.TITLE_FIELD);
-            String type = (String) doc.getPropertyValue(MailboxConstants.TYPE_FIELD);
-            return new MailboxHeaderImpl(id, title, type);
+            String id = (String) doc.getPropertyValue(CaseFolderConstants.ID_FIELD);
+            String title = (String) doc.getPropertyValue(CaseFolderConstants.TITLE_FIELD);
+            String type = (String) doc.getPropertyValue(CaseFolderConstants.TYPE_FIELD);
+            return new CaseFolderHeaderImpl(id, title, type);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }

@@ -22,8 +22,8 @@ package org.nuxeo.cm.web.invalidations;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.annotations.In;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.web.context.CorrespondenceContextHolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -54,9 +54,9 @@ public abstract class CorrespondenceContextBoundInstance implements
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
-    protected Mailbox cachedMailbox;
+    protected CaseFolder cachedMailbox;
 
-    protected MailEnvelope cachedEnvelope;
+    protected Case cachedEnvelope;
 
     protected DocumentModel cachedEmail;
 
@@ -68,13 +68,13 @@ public abstract class CorrespondenceContextBoundInstance implements
             log.error("Cannot check context: instance is null");
             return;
         }
-        Mailbox currentMailbox = correspContextHolder.getCurrentMailbox();
+        CaseFolder currentMailbox = correspContextHolder.getCurrentMailbox();
         if (hasCacheKeyChanged(generateMailboxCacheKey(cachedMailbox),
                 generateMailboxCacheKey(currentMailbox))) {
             resetMailboxCache(cachedMailbox, currentMailbox);
             cachedMailbox = currentMailbox;
         }
-        MailEnvelope currentEnvelope = correspContextHolder.getCurrentEnvelope();
+        Case currentEnvelope = correspContextHolder.getCurrentEnvelope();
         if (hasCacheKeyChanged(generateMailEnvelopeCacheKey(cachedEnvelope),
                 generateMailEnvelopeCacheKey(currentEnvelope))) {
             resetEnvelopeCache(cachedEnvelope, currentEnvelope);
@@ -109,7 +109,7 @@ public abstract class CorrespondenceContextBoundInstance implements
         return key;
     }
 
-    protected String generateMailboxCacheKey(Mailbox mailbox)
+    protected String generateMailboxCacheKey(CaseFolder mailbox)
             throws ClientException {
         String key = null;
         if (mailbox != null) {
@@ -118,7 +118,7 @@ public abstract class CorrespondenceContextBoundInstance implements
         return key;
     }
 
-    protected String generateMailEnvelopeCacheKey(MailEnvelope envelope)
+    protected String generateMailEnvelopeCacheKey(Case envelope)
             throws ClientException {
         String key = null;
         if (envelope != null && documentManager != null) {
@@ -140,11 +140,11 @@ public abstract class CorrespondenceContextBoundInstance implements
         return cachedEmail;
     }
 
-    public MailEnvelope getCachedEnvelope() throws ClientException {
+    public Case getCachedEnvelope() throws ClientException {
         return cachedEnvelope;
     }
 
-    public Mailbox getCachedMailbox() throws ClientException {
+    public CaseFolder getCachedMailbox() throws ClientException {
         return cachedMailbox;
     }
 
@@ -152,21 +152,21 @@ public abstract class CorrespondenceContextBoundInstance implements
         return correspContextHolder.getCurrentEmail();
     }
 
-    public MailEnvelope getCurrentEnvelope() throws ClientException {
+    public Case getCurrentEnvelope() throws ClientException {
         return correspContextHolder.getCurrentEnvelope();
     }
 
-    public Mailbox getCurrentMailbox() throws ClientException {
+    public CaseFolder getCurrentMailbox() throws ClientException {
         return correspContextHolder.getCurrentMailbox();
     }
 
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
+    protected void resetMailboxCache(CaseFolder cachedMailbox, CaseFolder newMailbox)
             throws ClientException {
         // do nothing: to implement in subclasses
     }
 
-    protected void resetEnvelopeCache(MailEnvelope cachedEnvelope,
-            MailEnvelope newEnvelope) throws ClientException {
+    protected void resetEnvelopeCache(Case cachedEnvelope,
+            Case newEnvelope) throws ClientException {
         // do nothing: to implement in subclasses
     }
 

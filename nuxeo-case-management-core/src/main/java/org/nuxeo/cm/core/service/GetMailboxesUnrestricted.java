@@ -24,8 +24,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -49,7 +49,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     private static final String QUERY_GET_MAILBOX_FROM_ID = "GET_CASE_FOLDER_FROM_ID";
 
-    protected List<Mailbox> mailboxes;
+    protected List<CaseFolder> mailboxes;
 
     final protected List<String> muids;
 
@@ -73,7 +73,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
     @Override
     public void run() throws ClientException {
         List<DocumentModel> docs = getMailboxesDocumentModel(muids);
-        mailboxes = MailboxConstants.getMailboxList(docs);
+        mailboxes = CaseFolderConstants.getMailboxList(docs);
     }
 
     protected List<DocumentModel> getMailboxesDocumentModel(List<String> muids)
@@ -109,7 +109,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
         }
     }
 
-    public List<Mailbox> getMailboxes() {
+    public List<CaseFolder> getMailboxes() {
         return mailboxes;
     }
 

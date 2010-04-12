@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -45,7 +45,7 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     private static final Log log = LogFactory.getLog(SearchMailboxesUnrestricted.class);
 
-    protected List<Mailbox> mailboxes;
+    protected List<CaseFolder> mailboxes;
 
     final protected String pattern;
 
@@ -62,7 +62,7 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
     public void run() throws ClientException {
         try {
             DocumentModelList res = queryMailboxes();
-            mailboxes = MailboxConstants.getMailboxList(res);
+            mailboxes = CaseFolderConstants.getMailboxList(res);
         } catch (Exception e) {
             throw new ClientException(e);
         }
@@ -71,11 +71,11 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
     protected DocumentModelList queryMailboxes() throws ClientException {
         String query = String.format(
                 "SELECT * FROM %s WHERE %s ILIKE '%%%s%%' AND ecm:currentLifeCycleState != '%s'",
-                MailboxConstants.MAILBOX_DOCUMENT_TYPE,
-                MailboxConstants.TITLE_FIELD, pattern,
-                MailboxConstants.MAILBOX_DELETED_STATE);
+                CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE,
+                CaseFolderConstants.TITLE_FIELD, pattern,
+                CaseFolderConstants.MAILBOX_DELETED_STATE);
         if (type != null) {
-            query += String.format(" AND %s='%s'", MailboxConstants.TYPE_FIELD,
+            query += String.format(" AND %s='%s'", CaseFolderConstants.TYPE_FIELD,
                     type);
         }
         if (log.isDebugEnabled()) {
@@ -84,7 +84,7 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
         return session.query(query);
     }
 
-    public List<Mailbox> getMailboxes() {
+    public List<CaseFolder> getMailboxes() {
         return mailboxes;
     }
 

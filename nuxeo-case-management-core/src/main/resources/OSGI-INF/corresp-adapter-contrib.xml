@@ -3,23 +3,23 @@
 
   <extension target="org.nuxeo.ecm.core.api.DocumentAdapterService"
     point="adapters">
-    <adapter class="org.nuxeo.cm.mailbox.Mailbox"
+    <adapter class="org.nuxeo.cm.mailbox.CaseFolder"
       factory="org.nuxeo.cm.core.adapter.MailboxAdapterFactory" />
     <adapter class="org.nuxeo.cm.mailbox.CaseFolderHeader"
       factory="org.nuxeo.cm.core.adapter.MailboxHeaderAdapterFactory" />
     <adapter class="org.nuxeo.cm.post.CorrespondencePost"
       facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CorrespondencePostAdapterFactory" />
-    <adapter class="org.nuxeo.cm.cases.MailEnvelope"
+    <adapter class="org.nuxeo.cm.cases.Case"
       facet="Case"
       factory="org.nuxeo.cm.core.adapter.MailEnvelopeAdapterFactory" />
-    <adapter class="org.nuxeo.cm.cases.MailEnvelopeItem"
+    <adapter class="org.nuxeo.cm.cases.CaseItem"
       facet="CaseItem"
       factory="org.nuxeo.cm.core.adapter.MailEnvelopeItemAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.LockableAdapter"
       facet="CaseItem"
       factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
-    <adapter class="org.nuxeo.cm.cases.HasRecipients"
+    <adapter class="org.nuxeo.cm.cases.HasParticipants"
       factory="org.nuxeo.cm.core.adapter.HasRecipientsAdapterFactory" />
 
   </extension>

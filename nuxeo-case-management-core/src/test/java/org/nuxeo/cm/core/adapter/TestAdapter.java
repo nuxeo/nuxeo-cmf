@@ -6,10 +6,10 @@ package org.nuxeo.cm.core.adapter;
 import java.util.UUID;
 
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -40,21 +40,21 @@ public class TestAdapter extends SQLRepositoryTestCase {
     public void testGeEnvelopeItemAdapter() throws ClientException {
         DocumentModel doc = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         assertNotNull(doc);
-        MailEnvelopeItem item = doc.getAdapter(MailEnvelopeItem.class);
+        CaseItem item = doc.getAdapter(CaseItem.class);
         assertNotNull(item);
     }
 
     public void testGetEnvelopeAdapter() throws ClientException {
         DocumentModel doc = createDocument(CaseConstants.CASE_TYPE);
         assertNotNull(doc);
-        MailEnvelope mailEnvelope = doc.getAdapter(MailEnvelope.class);
+        Case mailEnvelope = doc.getAdapter(Case.class);
         assertNotNull(mailEnvelope);
     }
 
     public void testGetMailboxAdapter() throws ClientException {
-        DocumentModel doc = createDocument(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
+        DocumentModel doc = createDocument(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
         assertNotNull(doc);
-        Mailbox mailbox = doc.getAdapter(Mailbox.class);
+        CaseFolder mailbox = doc.getAdapter(CaseFolder.class);
         assertNotNull(mailbox);
     }
 

@@ -18,9 +18,9 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -39,13 +39,13 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
  */
 public class CreateEnvelopeUnrestricted extends UnrestrictedSessionRunner {
 
-    protected MailEnvelopeItem item;
+    protected CaseItem item;
 
     protected DocumentRef ref;
     protected String parentPath;
-    protected List<Mailbox> mailboxes;
+    protected List<CaseFolder> mailboxes;
 
-    public CreateEnvelopeUnrestricted(CoreSession session, MailEnvelopeItem item, String parentPath, List<Mailbox> mailboxes) {
+    public CreateEnvelopeUnrestricted(CoreSession session, CaseItem item, String parentPath, List<CaseFolder> mailboxes) {
         super(session);
         this.item = item;
         this.parentPath = parentPath;
@@ -59,11 +59,11 @@ public class CreateEnvelopeUnrestricted extends UnrestrictedSessionRunner {
      */
     @Override
     public void run() throws ClientException {
-        MailEnvelope env = item.createMailEnvelope(session, parentPath, null);
+        Case env = item.createMailCase(session, parentPath, null);
         DocumentModel doc = env.getDocument();
         ACP acp = doc.getACP();
         ACL acl = acp.getOrCreateACL(CorrespondenceSecurityConstants.ACL_MAILBOX_PREFIX);
-        for (Mailbox mailbox : mailboxes) {
+        for (CaseFolder mailbox : mailboxes) {
             acl.add(new ACE(CorrespondenceSecurityConstants.MAILBOX_PREFIX
                     + mailbox.getId(), SecurityConstants.READ_WRITE, true));
         }

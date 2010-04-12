@@ -21,17 +21,17 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.nuxeo.cm.cases.HasRecipients;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.HasParticipants;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 
 /**
- * A CorrespondencePost represent a sent {@link MailEnvelope} in a
- * {@link Mailbox}.
+ * A CorrespondencePost represent a sent {@link Case} in a
+ * {@link CaseFolder}.
  *
  * When a Mailbox send a MailEnvelope, a CorrespondencePost is created in its
  * Mailbox and a {@link CorrepsondenceMessage} is created in each of the
@@ -40,7 +40,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public interface CorrespondencePost extends HasRecipients, Serializable {
+public interface CorrespondencePost extends HasParticipants, Serializable {
 
     /**
      * get the document model.
@@ -99,7 +99,7 @@ public interface CorrespondencePost extends HasRecipients, Serializable {
      *
      * @return
      */
-    MailEnvelope getMailEnvelope(CoreSession session);
+    Case getMailEnvelope(CoreSession session);
 
     /**
      * The send date of the post.

@@ -66,14 +66,14 @@ public interface ParticipantsList extends Serializable {
     /**
      * Gets the id list of mailboxes of this list.
      */
-    List<String> getMailboxIds();
+    List<String> getCaseFolderIds();
 
     /**
      * Sets the list of mailboxes of this list.
      *
      * @param mailboxes
      */
-    void setMailboxIds(List<String> mailboxes);
+    void setCaseFolderIds(List<String> mailboxes);
 
     /**
      * Gets the complew property map

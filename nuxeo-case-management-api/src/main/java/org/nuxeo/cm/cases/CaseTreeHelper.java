@@ -38,7 +38,7 @@ import org.nuxeo.ecm.core.api.PathRef;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
  */
-public class MailTreeHelper {
+public class CaseTreeHelper {
 
     public static final String TITLE_PROPERTY_NAME = "dc:title";
 

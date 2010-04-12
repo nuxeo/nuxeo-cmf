@@ -77,11 +77,11 @@ public class DistributionInfo implements Serializable {
         this.mode = mode;
     }
 
-    public List<ParticipantItem> getFavoriteMailboxes() {
+    public List<ParticipantItem> getFavoriteCaseFolders() {
         return favoriteMailboxes;
     }
 
-    public void setFavoriteMailboxes(List<ParticipantItem> favoriteMailboxes) {
+    public void setFavoriteCaseFolders(List<ParticipantItem> favoriteMailboxes) {
         this.favoriteMailboxes = favoriteMailboxes;
         // order them
         Collections.sort(this.favoriteMailboxes,
@@ -111,24 +111,24 @@ public class DistributionInfo implements Serializable {
         this.comment = comment;
     }
 
-    public List<String> getForActionMailboxes() {
+    public List<String> getForActionCaseFolders() {
         return forActionMailboxes;
     }
 
-    public void setForActionMailboxes(List<String> forActionPersonalMailboxes) {
+    public void setForActionCaseFolders(List<String> forActionPersonalMailboxes) {
         this.forActionMailboxes = forActionPersonalMailboxes;
     }
 
-    public List<String> getForInformationMailboxes() {
+    public List<String> getForInformationCaseFolders() {
         return forInformationMailboxes;
     }
 
-    public void setForInformationMailboxes(
+    public void setForInformationCaseFolders(
             List<String> forInformationPersonalMailboxes) {
         this.forInformationMailboxes = forInformationPersonalMailboxes;
     }
 
-    public void setForActionMailingLists(List<String> forActionMailingLists) {
+    public void setForActionParticipantLists(List<String> forActionMailingLists) {
         this.forActionMailingLists = forActionMailingLists;
     }
 
@@ -136,7 +136,7 @@ public class DistributionInfo implements Serializable {
         this.forActionFunctions = forActionFunctions;
     }
 
-    public void setForInformationMailingLists(
+    public void setForInformationParticipantLists(
             List<String> forInformationMailingLists) {
         this.forInformationMailingLists = forInformationMailingLists;
     }
@@ -163,7 +163,7 @@ public class DistributionInfo implements Serializable {
         return new ArrayList<String>(mailboxes);
     }
 
-    public List<String> getForActionMailingLists() {
+    public List<String> getForActionParticipantLists() {
         return forActionMailingLists;
     }
 
@@ -174,7 +174,7 @@ public class DistributionInfo implements Serializable {
         return null;
     }
 
-    public List<String> getAllForInformationMailboxes() {
+    public List<String> getAllForInformationCaseFolders() {
         String type = CorrespondencePostType.FOR_INFORMATION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
@@ -190,7 +190,7 @@ public class DistributionInfo implements Serializable {
         return new ArrayList<String>(mailboxes);
     }
 
-    public List<String> getForInformationMailingLists() {
+    public List<String> getForInformationParticipantLists() {
         return forInformationMailingLists;
     }
 
@@ -201,13 +201,13 @@ public class DistributionInfo implements Serializable {
         return null;
     }
 
-    public Map<String, List<String>> getAllRecipients() {
+    public Map<String, List<String>> getAllParticipants() {
         // TODO: add other info (mailing lists, etc...)
         Map<String, List<String>> res = new HashMap<String, List<String>>();
         res.put(CorrespondencePostType.FOR_ACTION.name(),
                 getAllForActionCaseFolders());
         res.put(CorrespondencePostType.FOR_INFORMATION.name(),
-                getAllForInformationMailboxes());
+                getAllForInformationCaseFolders());
         return res;
     }
 
@@ -219,14 +219,14 @@ public class DistributionInfo implements Serializable {
         return false;
     }
 
-    public boolean hasRecipients() {
+    public boolean hasParticipants() {
         boolean res = true;
-        if (isEmpty(getForActionMailboxes())
-                && isEmpty(getForActionMailingLists())
+        if (isEmpty(getForActionCaseFolders())
+                && isEmpty(getForActionParticipantLists())
                 && isEmpty(getForActionFunctions())
                 && isEmpty(getForActionGroups())
-                && isEmpty(getForInformationMailboxes())
-                && isEmpty(getForInformationMailingLists())
+                && isEmpty(getForInformationCaseFolders())
+                && isEmpty(getForInformationParticipantLists())
                 && isEmpty(getForInformationFunctions())
                 && isEmpty(getForInformationGroups())) {
             res = false;
@@ -234,10 +234,10 @@ public class DistributionInfo implements Serializable {
         return res;
     }
 
-    public boolean hasActionRecipients() {
+    public boolean hasActionParticipants() {
         boolean res = true;
-        if (isEmpty(getForActionMailboxes())
-                && isEmpty(getForActionMailingLists())
+        if (isEmpty(getForActionCaseFolders())
+                && isEmpty(getForActionParticipantLists())
                 && isEmpty(getForActionFunctions())
                 && isEmpty(getForActionGroups())) {
             res = false;

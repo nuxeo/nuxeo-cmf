@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
@@ -60,10 +60,10 @@ public class DistributionListener implements EventListener {
         // set all rights to mailbox users
 
         Object envelopeObject = eventCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
-        if (!(envelopeObject instanceof MailEnvelope)) {
+        if (!(envelopeObject instanceof Case)) {
             return;
         }
-        MailEnvelope envelope = (MailEnvelope) envelopeObject;
+        Case envelope = (Case) envelopeObject;
         Map<String, List<String>> recipients = (Map) eventCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS);
         if (recipients == null) {
             return;
@@ -82,12 +82,12 @@ public class DistributionListener implements EventListener {
     public static class SetEnvelopeAclUnrestricted extends
             UnrestrictedSessionRunner {
 
-        final protected MailEnvelope envelope;
+        final protected Case envelope;
 
         final protected Map<String, List<String>> recipients;
 
         public SetEnvelopeAclUnrestricted(CoreSession session,
-                MailEnvelope envelope, Map<String, List<String>> recipients) {
+                Case envelope, Map<String, List<String>> recipients) {
             super(session);
             this.envelope = envelope;
             this.recipients = recipients;
@@ -106,8 +106,8 @@ public class DistributionListener implements EventListener {
                 if (envelopeDoc != null) {
                     docs.add(envelopeDoc);
                 }
-                List<MailEnvelopeItem> items = envelope.getMailEnvelopeItems(session);
-                for (MailEnvelopeItem item : items) {
+                List<CaseItem> items = envelope.getCaseItems(session);
+                for (CaseItem item : items) {
                     DocumentModel doc = item.getDocument();
                     docs.add(doc);
                 }

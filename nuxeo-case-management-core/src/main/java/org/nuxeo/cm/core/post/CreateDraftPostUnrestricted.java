@@ -28,8 +28,8 @@ import static org.nuxeo.cm.post.CorrespondencePostConstants.SUBJECT_FIELD;
 import java.util.Calendar;
 import java.util.UUID;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.service.CorrespondenceDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -50,16 +50,16 @@ public class CreateDraftPostUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String subject;
 
-    protected final MailEnvelope envelope;
+    protected final Case envelope;
 
-    protected final Mailbox sender;
+    protected final CaseFolder sender;
 
     public CorrespondencePost getCreatedPost() {
         return createdPost;
     }
 
     public CreateDraftPostUnrestricted(String repositoryName, String subject,
-            MailEnvelope envelope, Mailbox sender) {
+            Case envelope, CaseFolder sender) {
         super(repositoryName);
         this.envelope = envelope;
         this.subject = subject;

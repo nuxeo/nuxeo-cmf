@@ -25,9 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostRequestImpl;
 import org.nuxeo.cm.post.CorrespondencePostType;
@@ -49,21 +49,21 @@ public class TestCorrespondenceDistribution extends
         openSession();
     }
 
-    public Mailbox getPersonalMailbox(String name) throws Exception {
+    public CaseFolder getPersonalMailbox(String name) throws Exception {
         return correspService.createPersonalMailbox(session, name).get(0);
     }
 
     public void testSendEnvelope() throws Exception {
 
         // Initialize mailboxes
-        Mailbox initialSender = getPersonalMailbox(user1);
-        Mailbox initialReceiverMailbox = getPersonalMailbox(user2);
-        Mailbox receiverMailbox1 = getPersonalMailbox(user3);
+        CaseFolder initialSender = getPersonalMailbox(user1);
+        CaseFolder initialReceiverMailbox = getPersonalMailbox(user2);
+        CaseFolder receiverMailbox1 = getPersonalMailbox(user3);
 
         // Create an envelope
-        MailEnvelope envelope = getMailEnvelope();
-        MailEnvelopeItem envelopeItem = getMailEnvelopeItem();
-        envelope.addMailEnvelopeItem(envelopeItem, session);
+        Case envelope = getMailEnvelope();
+        CaseItem envelopeItem = getMailEnvelopeItem();
+        envelope.addCaseItem(envelopeItem, session);
         createDraftPost(initialSender, envelope);
 
         assertNotNull(correspService.getDraftPost(session, initialSender,
@@ -103,15 +103,15 @@ public class TestCorrespondenceDistribution extends
                 session, initialReceiverMailbox, 0, 0).get(0);
 
         // Retrieve the envelope from this post
-        MailEnvelope envelopeFromPost = postInMailbox.getMailEnvelope(session);
+        Case envelopeFromPost = postInMailbox.getMailEnvelope(session);
 
         // Check the envelope
         assertEquals(envelopeFromPost.getDocument().getId(),
                 envelope.getDocument().getId());
 
         // Check initial recipients in the envelope
-        assertEquals(1, envelopeFromPost.getInitialInternalRecipients().get(CorrespondencePostType.FOR_ACTION.toString()).size());
-        assertTrue(envelopeFromPost.getInitialInternalRecipients().get(CorrespondencePostType.FOR_ACTION.toString()).contains(
+        assertEquals(1, envelopeFromPost.getInitialInternalParticipants().get(CorrespondencePostType.FOR_ACTION.toString()).size());
+        assertTrue(envelopeFromPost.getInitialInternalParticipants().get(CorrespondencePostType.FOR_ACTION.toString()).contains(
                 initialReceiverMailbox.getId()));
 
         // Prepare recipients list for a transfer
@@ -153,23 +153,23 @@ public class TestCorrespondenceDistribution extends
         assertEquals(envelopeFromPost.getDocument().getId(),
                 envelope.getDocument().getId());
 
-        assertEquals(2, envelopeFromPost.getAllRecipients().size());
-        assertEquals(1, envelopeFromPost.getInitialInternalRecipients().get(CorrespondencePostType.FOR_ACTION.toString()).size());
+        assertEquals(2, envelopeFromPost.getAllParticipants().size());
+        assertEquals(1, envelopeFromPost.getInitialInternalParticipants().get(CorrespondencePostType.FOR_ACTION.toString()).size());
 
-        assertTrue(envelopeFromPost.getInitialInternalRecipients().get(CorrespondencePostType.FOR_ACTION.toString()).contains(
+        assertTrue(envelopeFromPost.getInitialInternalParticipants().get(CorrespondencePostType.FOR_ACTION.toString()).contains(
                 initialReceiverMailbox.getId()));
-        assertTrue(envelopeFromPost.getAllRecipients().get(CorrespondencePostType.FOR_INFORMATION.toString()).contains(
+        assertTrue(envelopeFromPost.getAllParticipants().get(CorrespondencePostType.FOR_INFORMATION.toString()).contains(
                 receiverMailbox1.getId()));
 
         //Check Envelope item
-        MailEnvelopeItem item = envelopeFromPost.getFirstItem(session);
+        CaseItem item = envelopeFromPost.getFirstItem(session);
 
-        assertEquals(2, item.getAllRecipients().size());
-        assertEquals(1, item.getInitialInternalRecipients().get(CorrespondencePostType.FOR_ACTION.toString()).size());
+        assertEquals(2, item.getAllParticipants().size());
+        assertEquals(1, item.getInitialInternalParticipants().get(CorrespondencePostType.FOR_ACTION.toString()).size());
 
-        assertTrue(item.getInitialInternalRecipients().get(CorrespondencePostType.FOR_ACTION.toString()).contains(
+        assertTrue(item.getInitialInternalParticipants().get(CorrespondencePostType.FOR_ACTION.toString()).contains(
                 initialReceiverMailbox.getId()));
-        assertTrue(item.getAllRecipients().get(CorrespondencePostType.FOR_INFORMATION.toString()).contains(
+        assertTrue(item.getAllParticipants().get(CorrespondencePostType.FOR_INFORMATION.toString()).contains(
                 receiverMailbox1.getId()));
 
 

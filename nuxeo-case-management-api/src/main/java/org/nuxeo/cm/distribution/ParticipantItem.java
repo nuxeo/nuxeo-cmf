@@ -21,14 +21,14 @@ package org.nuxeo.cm.distribution;
 
 import java.io.Serializable;
 
-import org.nuxeo.cm.mailbox.MailboxHeaderImpl;
+import org.nuxeo.cm.mailbox.CaseFolderHeaderImpl;
 
 
 /**
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  *
  */
-public class ParticipantItem extends MailboxHeaderImpl implements Serializable {
+public class ParticipantItem extends CaseFolderHeaderImpl implements Serializable {
 
     private static final long serialVersionUID = -1803303464066013026L;
 

@@ -25,7 +25,7 @@ package org.nuxeo.cm.mailbox;
  * @author Laurent Doguin
  *
  */
-public class MailboxHeaderImpl implements CaseFolderHeader {
+public class CaseFolderHeaderImpl implements CaseFolderHeader {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class MailboxHeaderImpl implements CaseFolderHeader {
 
     protected String type;
 
-    public MailboxHeaderImpl(String id, String title, String type) {
+    public CaseFolderHeaderImpl(String id, String title, String type) {
         this.title = title;
         this.id = id;
         this.type = type;
@@ -58,7 +58,7 @@ public class MailboxHeaderImpl implements CaseFolderHeader {
         if (getType().equals(other.getType())) {
             // sort by title
             return getTitle().compareTo(other.getTitle());
-        } else if (MailboxConstants.type.personal.name().equals(getType())) {
+        } else if (CaseFolderConstants.type.personal.name().equals(getType())) {
             return -1;
         } else {
             return 1;

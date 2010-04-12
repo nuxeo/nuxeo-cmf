@@ -36,11 +36,11 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.distribution.ParticipantItem;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CorrespondencePost;
 import org.nuxeo.cm.post.CorrespondencePostMode;
 import org.nuxeo.cm.post.CorrespondencePostRequestImpl;
@@ -99,7 +99,7 @@ public class CorrespondenceDistributionActionsBean extends
         if (distributionInfo == null) {
             distributionInfo = new DistributionInfo();
             // initialize quick items values
-            Mailbox currentMailbox = getCurrentMailbox();
+            CaseFolder currentMailbox = getCurrentMailbox();
             List<String> favs = currentMailbox.getFavorites();
             if (favs != null && !favs.isEmpty()) {
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
@@ -109,7 +109,7 @@ public class CorrespondenceDistributionActionsBean extends
                     item.setMessageType(CorrespondencePostType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
-                distributionInfo.setFavoriteMailboxes(favoriteMailboxes);
+                distributionInfo.setFavoriteCaseFolders(favoriteMailboxes);
             }
             // entire envelope by default
             distributionInfo.setMode(CorrespondencePostMode.ENTIRE_ENVELOPE.getStringType());
@@ -120,7 +120,7 @@ public class CorrespondenceDistributionActionsBean extends
     public String validateWizard() throws ClientException {
         DocumentModel envelopeDoc = null;
         if (distributionInfo != null) {
-            if (!distributionInfo.hasRecipients()) {
+            if (!distributionInfo.hasParticipants()) {
                 facesMessages.add(FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
                                 "feedback.corresp.distribution.noRecipients"));
@@ -133,7 +133,7 @@ public class CorrespondenceDistributionActionsBean extends
                                 "feedback.corresp.distribution.invalidMode"));
                 return null;
             }
-            Mailbox currentMailbox = getCurrentMailbox();
+            CaseFolder currentMailbox = getCurrentMailbox();
             if (currentMailbox == null) {
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
@@ -142,7 +142,7 @@ public class CorrespondenceDistributionActionsBean extends
                 return null;
             }
             DocumentModel emailDoc = null;
-            MailEnvelope envelope = null;
+            Case envelope = null;
             envelope = getCurrentEnvelope();
             if (CorrespondencePostMode.ENTIRE_ENVELOPE.equals(mode)) {
                 envelopeDoc = envelope.getDocument();
@@ -152,8 +152,8 @@ public class CorrespondenceDistributionActionsBean extends
                 // XXX: user same parent than current email for new envelope,
                 // maybe to change.
                 DocumentModel parent = documentManager.getDocument(emailDoc.getParentRef());
-                MailEnvelopeItem item = emailDoc.getAdapter(MailEnvelopeItem.class);
-                item.createMailEnvelope(documentManager, parent.getPathAsString(), null);
+                CaseItem item = emailDoc.getAdapter(CaseItem.class);
+                item.createMailCase(documentManager, parent.getPathAsString(), null);
                 // FIXME: Null value here
                 envelopeDoc = envelope.getDocument();
             }
@@ -164,7 +164,7 @@ public class CorrespondenceDistributionActionsBean extends
                                 "feedback.corresp.distribution.invalidEnvelope"));
                 return null;
             }
-            Map<String, List<String>> recipients = distributionInfo.getAllRecipients();
+            Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
 
             CorrespondencePost postRequest = new CorrespondencePostRequestImpl(
                     currentMailbox.getId(),
@@ -218,8 +218,8 @@ public class CorrespondenceDistributionActionsBean extends
     }
 
     @Override
-    protected void resetEnvelopeCache(MailEnvelope cachedEnvelope,
-            MailEnvelope newEnvelope) throws ClientException {
+    protected void resetEnvelopeCache(Case cachedEnvelope,
+            Case newEnvelope) throws ClientException {
         resetWizard();
     }
 

@@ -23,8 +23,8 @@ import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -57,7 +57,7 @@ public class CreateMailboxIdListener implements EventListener {
         }
 
         DocumentModel doc = docCtx.getSourceDocument();
-        Mailbox mb = doc.getAdapter(Mailbox.class);
+        CaseFolder mb = doc.getAdapter(CaseFolder.class);
         if (mb == null || mb.getId() != null) {
             return;
         }
@@ -71,14 +71,14 @@ public class CreateMailboxIdListener implements EventListener {
     }
 
     protected void setIdForMailbox(CorrespondenceService correspService,
-            Mailbox mb) {
+            CaseFolder mb) {
         if (correspService == null) {
             log.error("Cannot set mailbox id: correspondence service is null");
             return;
         }
         // set the mailbox id
         String id = null;
-        if (MailboxConstants.type.personal.name().equals(mb.getType())) {
+        if (CaseFolderConstants.type.personal.name().equals(mb.getType())) {
             String owner = mb.getOwner();
             if (owner == null) {
                 log.warn("Creating a personal mailbox without owner");

@@ -33,8 +33,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.cases.MailEnvelopeItem;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBoundInstance;
@@ -96,7 +96,7 @@ public class CorrespondenceDocumentActionsBean extends
 
         String parentPath = getParentFolderPath();
 
-        MailEnvelope envelope = correspondenceService.createMailEnvelope(
+        Case envelope = correspondenceService.createMailEnvelope(
                 documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentMailbox()));
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -160,7 +160,7 @@ public class CorrespondenceDocumentActionsBean extends
      */
     public void updateCurrentEmail() throws ClientException {
         DocumentModel currentEmailDoc = getCurrentEmail();
-        MailEnvelopeItem currentEmail = currentEmailDoc.getAdapter(MailEnvelopeItem.class);
+        CaseItem currentEmail = currentEmailDoc.getAdapter(CaseItem.class);
         currentEmail.save(documentManager);
         documentManager.save();
         facesMessages.add(FacesMessage.SEVERITY_INFO,

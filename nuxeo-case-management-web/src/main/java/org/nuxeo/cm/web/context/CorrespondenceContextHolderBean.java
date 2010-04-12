@@ -24,8 +24,8 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.cases.MailEnvelope;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -48,9 +48,9 @@ public class CorrespondenceContextHolderBean implements
 
     private static final long serialVersionUID = 1L;
 
-    protected Mailbox currentMailbox;
+    protected CaseFolder currentMailbox;
 
-    protected MailEnvelope currentEnvelope;
+    protected Case currentEnvelope;
 
     protected DocumentModel currentEmail;
 
@@ -58,12 +58,12 @@ public class CorrespondenceContextHolderBean implements
     protected transient CoreSession documentManager;
 
     @Factory(value = "currentMailbox", scope = ScopeType.EVENT)
-    public Mailbox getCurrentMailbox() throws ClientException {
+    public CaseFolder getCurrentMailbox() throws ClientException {
         return currentMailbox;
     }
 
     @Factory(value = "currentEnvelope", scope = ScopeType.EVENT)
-    public MailEnvelope getCurrentEnvelope() throws ClientException {
+    public Case getCurrentEnvelope() throws ClientException {
         return currentEnvelope;
     }
 
@@ -76,11 +76,11 @@ public class CorrespondenceContextHolderBean implements
         return currentEmail;
     }
 
-    public void setCurrentMailbox(Mailbox currentMailbox) {
+    public void setCurrentMailbox(CaseFolder currentMailbox) {
         this.currentMailbox = currentMailbox;
     }
 
-    public void setCurrentEnvelope(MailEnvelope currentEnvelope) {
+    public void setCurrentEnvelope(Case currentEnvelope) {
         this.currentEnvelope = currentEnvelope;
     }
 

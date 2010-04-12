@@ -34,7 +34,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public interface MailEnvelopeItem extends HasRecipients, Serializable {
+public interface CaseItem extends HasParticipants, Serializable {
 
     /**
      * the title of this item.
@@ -115,9 +115,9 @@ public interface MailEnvelopeItem extends HasRecipients, Serializable {
      * @return the envelope or null if the document is not associated with an
      *         envelope.
      */
-    MailEnvelope getEnvelope();
+    Case getCase();
 
-    void setEnvelope(MailEnvelope envelope);
+    void setCase(Case theCase);
 
     /**
      * get the envelope in which this item should be shown if not associated
@@ -128,9 +128,9 @@ public interface MailEnvelopeItem extends HasRecipients, Serializable {
      *
      * @return
      */
-    String getDefaultEnvelopeId();
+    String getDefaultCaseId();
 
-    void setDefaultEnvelope(String mailEnvelopeId);
+    void setDefaultCase(String mailEnvelopeId);
 
     /**
      * Returns the mail document.
@@ -144,7 +144,7 @@ public interface MailEnvelopeItem extends HasRecipients, Serializable {
      * @param parent The folder in which the envelope will be created.
      * @return The created mail envelope.
      */
-    MailEnvelope createMailEnvelope(CoreSession documentManager,
+    Case createMailCase(CoreSession documentManager,
             String parentPath, String initialLifeCycleState);
 
     /**

@@ -18,7 +18,7 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.security.CorrespondenceSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -38,12 +38,12 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 public class CreateMailDocumentUnrestricted extends UnrestrictedSessionRunner {
     protected DocumentModel doc;
 
-    protected List<Mailbox> mailboxes;
+    protected List<CaseFolder> mailboxes;
 
     protected DocumentRef ref;
 
     public CreateMailDocumentUnrestricted(CoreSession session,
-            DocumentModel doc, List<Mailbox> mailboxes) {
+            DocumentModel doc, List<CaseFolder> mailboxes) {
         super(session);
         this.doc = doc;
         this.mailboxes = mailboxes;
@@ -59,7 +59,7 @@ public class CreateMailDocumentUnrestricted extends UnrestrictedSessionRunner {
         DocumentModel newDoc = session.createDocument(doc);
         ACP acp = newDoc.getACP();
         ACL acl = acp.getOrCreateACL(CorrespondenceSecurityConstants.ACL_MAILBOX_PREFIX);
-        for (Mailbox mailbox : mailboxes) {
+        for (CaseFolder mailbox : mailboxes) {
             acl.add(new ACE(CorrespondenceSecurityConstants.MAILBOX_PREFIX
                     + mailbox.getId(), SecurityConstants.READ_WRITE, true));
         }

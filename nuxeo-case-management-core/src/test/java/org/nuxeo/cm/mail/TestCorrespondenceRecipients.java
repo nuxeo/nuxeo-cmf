@@ -57,8 +57,8 @@ public class TestCorrespondenceRecipients extends CorrespondenceRepositoryTestCa
         DocumentModel doc = session.createDocument(model);
         assertNotNull(doc);
         CorrespondencePost post = doc.getAdapter(CorrespondencePost.class);
-        post.addInitialInternalRecipients(recipients1);
-        post.addRecipients(recipients1);
+        post.addInitialInternalParticipants(recipients1);
+        post.addParticipants(recipients1);
 
         Map<String, List<String>> recipients2 = new HashMap<String, List<String>>();
         recipients2.put(CorrespondencePostType.FOR_ACTION.toString(), actionList1);
@@ -66,14 +66,14 @@ public class TestCorrespondenceRecipients extends CorrespondenceRepositoryTestCa
         reviewList2.add("review3");
         reviewList2.add("review4");
         recipients2.put(CorrespondencePostType.FOR_INFORMATION.toString(), reviewList2);
-        post.addRecipients(recipients2);
+        post.addParticipants(recipients2);
 
-        Map<String, List<String>> allRecipients = post.getAllRecipients();
+        Map<String, List<String>> allRecipients = post.getAllParticipants();
         assertNotNull(allRecipients);
         assertEquals(2, allRecipients.size());
         assertEquals(2, allRecipients.get(CorrespondencePostType.FOR_ACTION.toString()).size());
         assertEquals(4, allRecipients.get(CorrespondencePostType.FOR_INFORMATION.toString()).size());
-        Map<String, List<String>> initialRecipients = post.getInitialInternalRecipients();
+        Map<String, List<String>> initialRecipients = post.getInitialInternalParticipants();
         assertNotNull(initialRecipients);
         assertEquals(2, initialRecipients.size());
         assertEquals(2, initialRecipients.get(CorrespondencePostType.FOR_ACTION.toString()).size());

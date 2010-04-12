@@ -34,7 +34,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author Anahide Tchertchian
  *
  */
-public interface Mailbox extends Serializable, Comparable<Mailbox> {
+public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
 
     /**
      * Returns the document model representing this mailbox
@@ -143,31 +143,31 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     /**
      * Gets the id list of mailing lists of this mailbox.
      */
-    List<String> getMailingListIds();
+    List<String> getParticipantListIds();
 
     /**
      * Gets the list of {@link ParticipantsList} objects of this mailbox.
      * 
      * @throws CaseManagementException
      */
-    List<ParticipantsList> getMailingLists();
+    List<ParticipantsList> getParticipantLists();
 
     /**
      * Returns a new bare mailing list
      */
-    ParticipantsList getMailingListTemplate();
+    ParticipantsList getParticipantListTemplate();
 
     /**
      * Add the given mailing list to this mailbox
      *
      * @param ml the mailing list to add
      */
-    void addMailingList(ParticipantsList mailinglist);
+    void addParticipantList(ParticipantsList mailinglist);
 
     /**
      * Removes mailing list with given id from this mailbox
      */
-    void removeMailingList(String mailinglistId);
+    void removeParticipantList(String mailinglistId);
 
     /**
      * Gets profiles for this mailbox
@@ -214,5 +214,5 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     /**
      * @return the affiliated mailbox id. null if not affiliated mailbox exists.
      */
-    String getAffiliatedMailboxId();
+    String getAffiliatedCaseFolderId();
 }

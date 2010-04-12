@@ -31,52 +31,52 @@ import java.util.Map;
  * @author Anahide Tchertchian
  *
  */
-public class MailingListImpl implements ParticipantsList {
+public class ParticipantListImpl implements ParticipantsList {
 
     private static final long serialVersionUID = 1L;
 
     protected final Map<String, Serializable> mlDoc;
 
-    public MailingListImpl(Map<String, Serializable> mlDoc) {
+    public ParticipantListImpl(Map<String, Serializable> mlDoc) {
         super();
         this.mlDoc = mlDoc;
     }
 
     public String getDescription() {
-        return (String) mlDoc.get(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD);
+        return (String) mlDoc.get(CaseFolderConstants.MAILINGLIST_DESCRIPTION_FIELD);
     }
 
     public String getId() {
-        return (String) mlDoc.get(MailboxConstants.MAILINGLIST_ID_FIELD);
+        return (String) mlDoc.get(CaseFolderConstants.PARTICIPANTLIST_ID_FIELD);
     }
 
-    public List<String> getMailboxIds() {
-        return Arrays.asList((String[]) mlDoc.get(MailboxConstants.MAILINGLIST_CASE_FOLDER_FIELD));
+    public List<String> getCaseFolderIds() {
+        return Arrays.asList((String[]) mlDoc.get(CaseFolderConstants.MAILINGLIST_CASE_FOLDER_FIELD));
     }
 
     public String getTitle() {
-        return (String) mlDoc.get(MailboxConstants.MAILINGLIST_TITLE_FIELD);
+        return (String) mlDoc.get(CaseFolderConstants.MAILINGLIST_TITLE_FIELD);
     }
 
     public void setDescription(String descr) {
-        mlDoc.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD, descr);
+        mlDoc.put(CaseFolderConstants.MAILINGLIST_DESCRIPTION_FIELD, descr);
     }
 
     public void setId(String id) {
-        mlDoc.put(MailboxConstants.MAILINGLIST_ID_FIELD, id);
+        mlDoc.put(CaseFolderConstants.PARTICIPANTLIST_ID_FIELD, id);
     }
 
-    public void setMailboxIds(List<String> mailboxes) {
+    public void setCaseFolderIds(List<String> mailboxes) {
         ArrayList<String> serializableMailboxes = new ArrayList<String>();
         if (mailboxes != null) {
             serializableMailboxes.addAll(mailboxes);
         }
-        mlDoc.put(MailboxConstants.MAILINGLIST_CASE_FOLDER_FIELD,
+        mlDoc.put(CaseFolderConstants.MAILINGLIST_CASE_FOLDER_FIELD,
                 serializableMailboxes);
     }
 
     public void setTitle(String title) {
-        mlDoc.put(MailboxConstants.MAILINGLIST_TITLE_FIELD, title);
+        mlDoc.put(CaseFolderConstants.MAILINGLIST_TITLE_FIELD, title);
     }
 
     public Map<String, Serializable> getMap() {

@@ -19,7 +19,7 @@ package org.nuxeo.cm.core.usermanager;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.service.CorrespondenceService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
@@ -51,8 +51,8 @@ public class GetMailboxIdsUnrestricted extends UnrestrictedSessionRunner {
      */
     @Override
     public void run() throws ClientException {
-        List<Mailbox> mailboxes = service.getUserMailboxes(session, principalId);
-        for(Mailbox mailbox : mailboxes) {
+        List<CaseFolder> mailboxes = service.getUserMailboxes(session, principalId);
+        for(CaseFolder mailbox : mailboxes) {
             mailboxIds.add(mailbox.getId());
         }
     }

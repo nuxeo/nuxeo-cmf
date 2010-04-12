@@ -38,18 +38,18 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class MailEnvelopeItemImpl implements MailEnvelopeItem {
+public class CaseItemImpl implements CaseItem {
 
     private static final long serialVersionUID = 1L;
 
-    protected MailEnvelope envelope;
+    protected Case envelope;
 
-    protected HasRecipients recipientAdapter;
+    protected HasParticipants recipientAdapter;
 
     protected DocumentModel document;
 
-    public MailEnvelopeItemImpl(DocumentModel document,
-            HasRecipients recipientAdapter) {
+    public CaseItemImpl(DocumentModel document,
+            HasParticipants recipientAdapter) {
         super();
         this.document = document;
         this.recipientAdapter = recipientAdapter;
@@ -109,7 +109,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         }
     }
 
-    public String getDefaultEnvelopeId() {
+    public String getDefaultCaseId() {
         return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID);
     }
@@ -119,7 +119,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
                 CaseConstants.DOCUMENT_DATE);
     }
 
-    public MailEnvelope getEnvelope() {
+    public Case getCase() {
         return envelope;
     }
 
@@ -152,7 +152,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
                 CaseConstants.DOCUMENT_CONFIDENTIALITY, cdf);
     }
 
-    public void setDefaultEnvelope(String mailEnvelopeId) {
+    public void setDefaultCase(String mailEnvelopeId) {
         setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 mailEnvelopeId);
@@ -163,7 +163,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
                 CaseConstants.DOCUMENT_DATE, date);
     }
 
-    public void setEnvelope(MailEnvelope envelope) {
+    public void setCase(Case envelope) {
         this.envelope = envelope;
     }
 
@@ -200,10 +200,10 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof MailEnvelopeItemImpl)) {
+        if (!(other instanceof CaseItemImpl)) {
             return false;
         }
-        MailEnvelopeItemImpl otherItem = (MailEnvelopeItemImpl) other;
+        CaseItemImpl otherItem = (CaseItemImpl) other;
         return document.equals(otherItem.document);
     }
 
@@ -216,16 +216,16 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         }
     }
 
-    public MailEnvelope createMailEnvelope(CoreSession session,
+    public Case createMailCase(CoreSession session,
             String parentPath, String initialLifeCysleState) {
         try {
             String emailTitle = getTitle();
             String envelopeid = IdUtils.generateId(emailTitle == null ? ""
                     : emailTitle);
-            MailEnvelope mailEnvelope = createEnvelope(session,
+            Case mailEnvelope = createEnvelope(session,
                     parentPath, envelopeid, initialLifeCysleState);
-            mailEnvelope.addMailEnvelopeItem(
-                    document.getAdapter(MailEnvelopeItem.class), session);
+            mailEnvelope.addCaseItem(
+                    document.getAdapter(CaseItem.class), session);
             mailEnvelope.save(session);
             return mailEnvelope;
         } catch (ClientException e) {
@@ -233,7 +233,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         }
     }
 
-    protected MailEnvelope createEnvelope(CoreSession session,
+    protected Case createEnvelope(CoreSession session,
             String parentPath, String id, String initialLifeCysleState)
             throws ClientException {
 
@@ -251,7 +251,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         // FIXME: make this constant available in nuxeo-core-api
         envelope.putContextData("initialLifecycleState", initialLifeCysleState);
         envelope = session.createDocument(envelope);
-        return envelope.getAdapter(MailEnvelope.class);
+        return envelope.getAdapter(Case.class);
     }
 
     @Override
@@ -259,31 +259,31 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
         return document.toString();
     }
 
-    public void addInitialExternalRecipients(
+    public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
-        recipientAdapter.addInitialExternalRecipients(recipients);
+        recipientAdapter.addInitialExternalParticipants(recipients);
 
     }
 
-    public void addInitialInternalRecipients(
+    public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
-        recipientAdapter.addInitialInternalRecipients(recipients);
+        recipientAdapter.addInitialInternalParticipants(recipients);
     }
 
-    public void addRecipients(Map<String, List<String>> recipients) {
-        recipientAdapter.addRecipients(recipients);
+    public void addParticipants(Map<String, List<String>> recipients) {
+        recipientAdapter.addParticipants(recipients);
     }
 
-    public Map<String, List<String>> getAllRecipients() {
-        return recipientAdapter.getAllRecipients();
+    public Map<String, List<String>> getAllParticipants() {
+        return recipientAdapter.getAllParticipants();
     }
 
-    public Map<String, List<String>> getInitialExternalRecipients() {
-        return recipientAdapter.getInitialExternalRecipients();
+    public Map<String, List<String>> getInitialExternalParticipants() {
+        return recipientAdapter.getInitialExternalParticipants();
     }
 
-    public Map<String, List<String>> getInitialInternalRecipients() {
-        return recipientAdapter.getInitialInternalRecipients();
+    public Map<String, List<String>> getInitialInternalParticipants() {
+        return recipientAdapter.getInitialInternalParticipants();
     }
 
 }
