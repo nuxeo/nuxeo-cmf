@@ -1,0 +1,12 @@
+<div class="tabsBar" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxd="http://nuxeo.org/nxweb/document">
+  <h:form>
+    <nxu:dataList layout="unorderedList" var="tab" value="#{viewCaseFolderActionTabs}"
+      itemStyleClass="#{nxu:test(currentViewCaseFolderAction == tab, 'selected', '')}">
+      <h:commandLink  value="#{messages[tab.label]}"
+	  action="#{cmCaseFolderTabsActionsBean.setCurrentViewCaseFolderAction(tab.id)}" />
+    </nxu:dataList>
+  </h:form>
+</div>

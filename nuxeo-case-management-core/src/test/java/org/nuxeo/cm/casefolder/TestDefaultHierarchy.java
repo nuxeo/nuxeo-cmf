@@ -19,7 +19,7 @@
 
 package org.nuxeo.cm.casefolder;
 
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
@@ -28,7 +28,7 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
  * @author Anahide Tchertchian
  *
  */
-public class TestDefaultHierarchy extends CorrespondenceRepositoryTestCase {
+public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
     private static final String CASE_MANAGEMENT = "/case-management";
     private static final String CASE_FOLDER_FOLDER = CASE_MANAGEMENT + "/case-folder-root";

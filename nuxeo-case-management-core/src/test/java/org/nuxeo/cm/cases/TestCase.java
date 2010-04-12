@@ -25,7 +25,7 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseImpl;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.CaseItemImpl;
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
@@ -35,7 +35,7 @@ import org.nuxeo.ecm.core.api.IdRef;
  * @author arussel
  *
  */
-public class TestCase extends CorrespondenceRepositoryTestCase {
+public class TestCase extends CaseManagementRepositoryTestCase {
     protected Case envelope;
 
     protected CaseItem item1;

@@ -20,7 +20,7 @@ import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkConstants;
 import org.nuxeo.cm.post.CaseLinkImpl;
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 
@@ -28,7 +28,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author arussel
  *
  */
-public class TestCaseLink extends CorrespondenceRepositoryTestCase {
+public class TestCaseLink extends CaseManagementRepositoryTestCase {
     protected CaseLink post;
 
     @Override

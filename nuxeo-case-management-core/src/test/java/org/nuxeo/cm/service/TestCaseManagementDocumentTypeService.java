@@ -19,7 +19,7 @@
 
 package org.nuxeo.cm.service;
 
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 
 
@@ -28,7 +28,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  *
  */
 public class TestCaseManagementDocumentTypeService extends
-        CorrespondenceRepositoryTestCase {
+        CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {

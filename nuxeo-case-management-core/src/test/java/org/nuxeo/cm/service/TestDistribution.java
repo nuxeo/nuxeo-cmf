@@ -31,7 +31,7 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkRequestImpl;
 import org.nuxeo.cm.post.CaseLinkType;
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 
 
 /**
@@ -41,7 +41,7 @@ import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
  *
  */
 public class TestDistribution extends
-        CorrespondenceRepositoryTestCase {
+        CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {

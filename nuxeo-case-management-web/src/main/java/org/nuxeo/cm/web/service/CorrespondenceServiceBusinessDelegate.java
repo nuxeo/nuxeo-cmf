@@ -40,7 +40,7 @@ import org.nuxeo.runtime.api.Framework;
  *
  * @author Anahide Tchertchian
  */
-@Name("correspondenceService")
+@Name("cmService")
 @Scope(SESSION)
 public class CorrespondenceServiceBusinessDelegate implements Serializable {
 

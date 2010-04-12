@@ -31,7 +31,7 @@ import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkRequestImpl;
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -42,7 +42,7 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
  * @author Anahide Tchertchian
  *
  */
-public class TestCaseManagementService extends CorrespondenceRepositoryTestCase {
+public class TestCaseManagementService extends CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {

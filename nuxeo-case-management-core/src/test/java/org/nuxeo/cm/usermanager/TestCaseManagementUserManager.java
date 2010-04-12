@@ -7,9 +7,9 @@ import org.nuxeo.cm.core.usermanager.CaseManagementPrincipalImpl;
 import org.nuxeo.cm.core.usermanager.CaseManagementUserManagerImpl;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 
-public class TestCaseManagementUserManager extends CorrespondenceRepositoryTestCase {
+public class TestCaseManagementUserManager extends CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {

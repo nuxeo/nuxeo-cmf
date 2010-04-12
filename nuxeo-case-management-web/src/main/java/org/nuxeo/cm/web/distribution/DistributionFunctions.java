@@ -47,17 +47,17 @@ public class DistributionFunctions {
         return StringUtils.join(collection.iterator(), separator);
     }
 
-    public static String getMailboxTitle(String mailboxId) {
-        CaseFolderHeader mailboxHeader = getMailboxHeader(mailboxId);
+    public static String getCaseFolderTitle(String mailboxId) {
+        CaseFolderHeader mailboxHeader = getCaseFolderHeader(mailboxId);
         if (mailboxHeader != null) {
             return mailboxHeader.getTitle();
         }
         return mailboxId;
     }
 
-    public static String getMailboxTitles(List<String> mailboxIds,
+    public static String getCaseFolderTitles(List<String> mailboxIds,
             String separator, Boolean sorted) {
-        List<CaseFolderHeader> mailboxes = getMailboxesHeaders(mailboxIds);
+        List<CaseFolderHeader> mailboxes = getCaseFolderHeaders(mailboxIds);
         if (mailboxes != null) {
             List<String> titles = new ArrayList<String>();
             for (CaseFolderHeader mb : mailboxes) {
@@ -71,11 +71,11 @@ public class DistributionFunctions {
         return null;
     }
 
-    public static CaseFolder getMailbox(DocumentModel mailboxDoc) {
+    public static CaseFolder getCaseFolder(DocumentModel mailboxDoc) {
         return mailboxDoc.getAdapter(CaseFolder.class);
     }
 
-    public static CaseFolder getMailbox(String mailboxId) {
+    public static CaseFolder getCaseFolder(String mailboxId) {
         try {
             CaseManagementService service = Framework.getService(CaseManagementService.class);
             return service.getCaseFolder(mailboxId);
@@ -84,7 +84,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static CaseFolderHeader getMailboxHeader(String mailboxId) {
+    public static CaseFolderHeader getCaseFolderHeader(String mailboxId) {
         try {
             CaseManagementService service = Framework.getService(CaseManagementService.class);
             return service.getCaseFolderHeader(mailboxId);
@@ -93,7 +93,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static List<CaseFolder> getMailboxes(List<String> mailboxIds) {
+    public static List<CaseFolder> getCaseFolders(List<String> mailboxIds) {
         try {
             CaseManagementService service = Framework.getService(CaseManagementService.class);
             return service.getCaseFolders(mailboxIds);
@@ -102,7 +102,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static List<CaseFolderHeader> getMailboxesHeaders(List<String> mailboxIds) {
+    public static List<CaseFolderHeader> getCaseFolderHeaders(List<String> mailboxIds) {
         try {
             CaseManagementService service = Framework.getService(CaseManagementService.class);
             return service.getCaseFoldersHeaders(mailboxIds);

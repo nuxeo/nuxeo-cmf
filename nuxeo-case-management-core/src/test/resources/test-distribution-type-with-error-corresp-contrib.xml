@@ -2,7 +2,7 @@
 
 <component name="org.nuxeo.cm.service.test.distributionTypeError">
 
-  <extension target="com.nuxeo.correspondence.DistributionTypeService" point="distributionType">
+  <extension target="org.nuxeo.cm.DistributionTypeService" point="distributionType">
 
     <distributionType>
       <name>TEST_ERROR</name>

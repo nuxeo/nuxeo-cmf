@@ -9,8 +9,8 @@ Require-Bundle: org.nuxeo.cm.api,
   org.nuxeo.ecm.platform.audit.web,
   org.nuxeo.ecm.relations.web
 Nuxeo-RequiredBy: org.nuxeo.ecm.war
-Nuxeo-Component: OSGI-INF/corresp-layouts-contrib.xml,
-  OSGI-INF/corresp-ecm-types-contrib.xml,
-  OSGI-INF/corresp-actions-contrib.xml,
-  OSGI-INF/corresp-url-contrib.xml,
-  OSGI-INF/corresp-resultsprovider-contrib.xml
+Nuxeo-Component: OSGI-INF/cm-layouts-contrib.xml,
+  OSGI-INF/cm-ecm-types-contrib.xml,
+  OSGI-INF/cm-actions-contrib.xml,
+  OSGI-INF/cm-url-contrib.xml,
+  OSGI-INF/cm-resultsprovider-contrib.xml

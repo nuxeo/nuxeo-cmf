@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.correspondence.URLService.contrib">
+
+  <require>org.nuxeo.ecm.platform.ui.web.rest.URLService.contrib</require>
+
+  <extension target="org.nuxeo.ecm.platform.ui.web.rest.URLService"
+    point="urlpatterns">
+
+    <documentation>
+      Override default document view to provide currentEmail info
+    </documentation>
+
+    <!-- override: component does not implement merging -->
+    <urlPattern name="default" enabled="false" />
+
+    <urlPattern name="corresp" enabled="true">
+      <defaultURLPolicy>true</defaultURLPolicy>
+      <needBaseURL>true</needBaseURL>
+      <needRedirectFilter>true</needRedirectFilter>
+      <needFilterPreprocessing>true</needFilterPreprocessing>
+      <codecName>docpath</codecName>
+      <actionBinding>#{restHelper.initContextFromRestRequest}</actionBinding>
+      <documentViewBinding>#{restHelper.documentView}</documentViewBinding>
+      <newDocumentViewBinding>
+        #{restHelper.newDocumentView}
+      </newDocumentViewBinding>
+      <bindings>
+        <binding name="tabId">#{webActions.currentTabId}</binding>
+        <binding name="subTabId">#{webActions.currentSubTabId}</binding>
+        <binding name="currentEmailId">
+          #{cmContextActions.currentEmailId}
+        </binding>
+      </bindings>
+    </urlPattern>
+
+  </extension>
+
+</component>

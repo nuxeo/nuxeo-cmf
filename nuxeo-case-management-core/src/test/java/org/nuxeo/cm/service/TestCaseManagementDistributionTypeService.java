@@ -23,7 +23,7 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 
@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  *
  */
 public class TestCaseManagementDistributionTypeService extends
-        CorrespondenceRepositoryTestCase {
+        CaseManagementRepositoryTestCase {
 
     private static final String FOR_ACTION = "FOR_ACTION";
 

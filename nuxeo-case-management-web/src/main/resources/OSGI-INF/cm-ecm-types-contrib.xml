@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.nuxeo.correspondence.types">
+
+  <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+
+    <!-- remove useless -->
+    <type id="File" remove="true" />
+    <type id="Note" remove="true" />
+
+    <type id="CaseFolderRoot">
+      <label>label.correspondence.type.CorrespondenceMailboxRoot</label>
+      <icon>/icons/folder.gif</icon>
+      <default-view>view_documents</default-view>
+      <subtypes>
+        <type>CaseFolder</type>
+      </subtypes>
+      <layouts mode="any">
+        <layout>heading</layout>
+      </layouts>
+    </type>
+
+    <type id="CaseFolder">
+      <label>label.correspondence.type.CorrespondenceMailbox</label>
+      <icon>/icons/correspondence_mailbox.png</icon>
+      <default-view>casefolder_view</default-view>
+      <create-view>casefolder_create</create-view>
+      <layouts mode="any">
+        <layout>cm_casefolder</layout>
+        <layout>cm_casefolder_managers</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>cm_casefolder</layout>
+        <!-- remove managers on edit (?) -->
+        <layout>cm_casefolder_managers</layout>
+      </layouts>
+    </type>
+
+    <type id="CaseFolderRoot">
+      <label>label.correspondence.type.CorrespondenceMailFolder</label>
+      <icon>/icons/folder.gif</icon>
+      <default-view>view_documents</default-view>
+      <subtypes>
+        <type>Folder</type>
+      </subtypes>
+      <layouts mode="any">
+        <layout>heading</layout>
+      </layouts>
+    </type>
+
+    <type id="Case">
+      <label>label.correspondence.type.CorrespondenceEnvelope</label>
+      <icon>/icons/correspondence_envelope.png</icon>
+      <default-view>view_cm_case</default-view>
+      <views>
+        <view id="edit_case" value="edit_case" />
+      </views>
+
+      <subtypes>
+        <type>Folder</type>
+      </subtypes>
+      <layouts mode="any">
+        <layout>heading</layout>
+      </layouts>
+    </type>
+
+    <type id="CaseLink">
+      <label>label.correspondence.type.CorrespondencePost</label>
+      <icon>/icons/correspondence_mail.png</icon>
+      <default-view>view_documents</default-view>
+      <views>
+        <view id="distribution_caselink" value="distribution_caselink" />
+      </views>
+      <layouts mode="any">
+         <layout>distribution_caselink</layout>
+      </layouts>
+    </type>
+
+    <type id="CaseItem">
+      <label>label.correspondence.type.IncomingCorrespondenceDocument</label>
+      <icon>/icons/correspondence_mail.png</icon>
+      <default-view>view_cm_document</default-view>
+      <create-view>create_cm_document</create-view>
+      <layouts mode="view">
+        <layout>cm_document</layout>
+        <layout>file</layout>
+      </layouts>
+      <layouts mode="header">
+        <layout>head_cm_document</layout>
+      </layouts>
+      <layouts mode="any">
+        <layout>cm_document</layout>
+        <layout>head_cm_document</layout>
+        <layout>file</layout>
+      </layouts>
+    </type>
+
+  </extension>
+
+</component>

@@ -25,7 +25,7 @@ import java.util.UUID;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkConstants;
 import org.nuxeo.cm.post.CaseLinkType;
-import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 
@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class TestParticipants extends CorrespondenceRepositoryTestCase {
+public class TestParticipants extends CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
