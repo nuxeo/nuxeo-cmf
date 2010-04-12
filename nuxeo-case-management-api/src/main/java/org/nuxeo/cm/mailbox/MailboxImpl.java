@@ -35,6 +35,7 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.Property;
+import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.schema.types.Field;
 import org.nuxeo.ecm.core.schema.types.ListType;
@@ -115,7 +116,7 @@ public class MailboxImpl implements Mailbox {
     public ParticipantsList getMailingListTemplate() {
         try {
             Object value = null;
-            Property prop = doc.getProperty(MailboxConstants.MAILINGLISTS_FIELD);
+            Property prop = doc.getProperty(MailboxConstants.PARTICIPANTS_LIST_FIELD);
             Field field = prop.getField();
             if (field != null) {
                 Type type = field.getType();
@@ -139,12 +140,12 @@ public class MailboxImpl implements Mailbox {
     public void addMailingList(ParticipantsList ml) {
         try {
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILINGLISTS_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
             if (mailinglists != null) {
                 mls.addAll(mailinglists);
             }
             mls.add(ml.getMap());
-            setPropertyValue(MailboxConstants.MAILINGLISTS_FIELD, mls);
+            setPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD, mls);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
@@ -174,10 +175,6 @@ public class MailboxImpl implements Mailbox {
         setPropertyValue(MailboxConstants.ID_FIELD, id);
     }
 
-    public Integer getIncomingConfidentiality() {
-        return getIntegerProperty(MailboxConstants.INCOMING_CONFIDENTIALITY_FIELD);
-    }
-
     public List<String> getMailingListIds() {
         List<String> mlids = new ArrayList<String>();
         List<ParticipantsList> mls = getMailingLists();
@@ -193,7 +190,7 @@ public class MailboxImpl implements Mailbox {
     public List<ParticipantsList> getMailingLists() {
         try {
             List<ParticipantsList> mls = new ArrayList<ParticipantsList>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILINGLISTS_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> mailinglist : mailinglists) {
                     mls.add(new MailingListImpl(mailinglist));
@@ -207,10 +204,6 @@ public class MailboxImpl implements Mailbox {
 
     public List<String> getNotifiedUsers() {
         return getStringListProperty(MailboxConstants.NOTIFIED_USERS_FIELD);
-    }
-
-    public Integer getOutgoingConfidentiality() {
-        return getIntegerProperty(MailboxConstants.OUTGOING_CONFIDENTIALITY_FIELD);
     }
 
     public String getOwner() {
@@ -255,7 +248,7 @@ public class MailboxImpl implements Mailbox {
         try {
             boolean set = false;
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILINGLISTS_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> ml : mailinglists) {
                     if (mailingListId.equals(ml.get(MailboxConstants.MAILINGLIST_ID_FIELD))) {
@@ -266,7 +259,7 @@ public class MailboxImpl implements Mailbox {
                 }
             }
             if (set) {
-                setPropertyValue(MailboxConstants.MAILINGLISTS_FIELD, mls);
+                setPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD, mls);
             }
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
@@ -332,14 +325,14 @@ public class MailboxImpl implements Mailbox {
         setPropertyValue(MailboxConstants.TYPE_FIELD, type);
     }
 
-    public void setIncomingConfidentiality(Integer confidentiality) {
-        setPropertyValue(MailboxConstants.INCOMING_CONFIDENTIALITY_FIELD,
+    public void setConfidentiality(Integer confidentiality) {
+        setPropertyValue(MailboxConstants.CONFIDENTIALITY_FIELD,
                 confidentiality);
     }
 
-    public void setOutgoingConfidentiality(Integer confidentiality) {
-        setPropertyValue(MailboxConstants.OUTGOING_CONFIDENTIALITY_FIELD,
-                confidentiality);
+
+    public Integer getConfidentiality() {
+        return getIntegerProperty(MailboxConstants.CONFIDENTIALITY_FIELD);
     }
 
     public int compareTo(Mailbox other) {

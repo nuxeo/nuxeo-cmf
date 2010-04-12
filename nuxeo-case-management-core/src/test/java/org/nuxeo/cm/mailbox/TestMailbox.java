@@ -38,6 +38,8 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
  */
 public class TestMailbox extends SQLRepositoryTestCase {
 
+    private static final String CASE_FOLDER = "casefolder";
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -50,12 +52,12 @@ public class TestMailbox extends SQLRepositoryTestCase {
     protected DocumentModel getBareMailboxDoc() throws Exception {
         DocumentModel mailbox = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
         mailbox.setPathInfo(session.getRootDocument().getPathAsString(),
-                "mailbox");
+                CASE_FOLDER);
         return mailbox;
     }
 
     protected Mailbox getMailbox() throws Exception {
-        DocumentRef docRef = new PathRef("/mailbox");
+        DocumentRef docRef = new PathRef("/" + CASE_FOLDER);
         return session.getDocument(docRef).getAdapter(Mailbox.class);
     }
 
@@ -76,7 +78,6 @@ public class TestMailbox extends SQLRepositoryTestCase {
         mb.setGroups(Arrays.asList(new String[] { "group1", "group2" }));
 
         mb.setFavorites(Arrays.asList(new String[] { "fav1", "fav2" }));
-        mb.setIncomingConfidentiality(2);
 
         ParticipantsList ml = mb.getMailingListTemplate();
         ml.setId("mlid");
@@ -130,8 +131,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals(Arrays.asList(new String[] { "mb1", "mb2" }),
                 ml.getMailboxIds());
 
-        assertEquals((Integer) 2, mb.getIncomingConfidentiality());
-        assertEquals((Integer) 4, mb.getOutgoingConfidentiality());
+        assertEquals((Integer) 4, mb.getConfidentiality());
     }
 
     public void testMailboxEdition() throws Exception {
@@ -151,7 +151,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         mb.setGroups(Arrays.asList(new String[] { "group1", "group2", "group3" }));
 
         mb.setFavorites(Arrays.asList(new String[] { "fav1" }));
-        mb.setIncomingConfidentiality(3);
+        mb.setConfidentiality(3);
 
         mb.removeMailingList("mlid");
 
@@ -198,8 +198,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals("new ml description", ml.getDescription());
         assertEquals(Arrays.asList(new String[] { "mb1" }), ml.getMailboxIds());
 
-        assertEquals((Integer) 3, mb.getIncomingConfidentiality());
-        assertEquals((Integer) 4, mb.getOutgoingConfidentiality());
+        assertEquals((Integer) 4, mb.getConfidentiality());
 
     }
 

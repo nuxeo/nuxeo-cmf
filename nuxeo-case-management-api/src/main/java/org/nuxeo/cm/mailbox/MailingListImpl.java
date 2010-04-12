@@ -51,7 +51,7 @@ public class MailingListImpl implements ParticipantsList {
     }
 
     public List<String> getMailboxIds() {
-        return Arrays.asList((String[]) mlDoc.get(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD));
+        return Arrays.asList((String[]) mlDoc.get(MailboxConstants.MAILINGLIST_CASE_FOLDER_FIELD));
     }
 
     public String getTitle() {
@@ -71,7 +71,7 @@ public class MailingListImpl implements ParticipantsList {
         if (mailboxes != null) {
             serializableMailboxes.addAll(mailboxes);
         }
-        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
+        mlDoc.put(MailboxConstants.MAILINGLIST_CASE_FOLDER_FIELD,
                 serializableMailboxes);
     }
 

@@ -189,24 +189,10 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     boolean hasProfile(String profile);
 
     /**
-     * Returns the default confidentiality for incoming mails for this mailbox.
-     */
-    Integer getIncomingConfidentiality();
-
-    /**
      * Sets the default confidentiality for iconming mails for this mailbox.
      */
-    void setIncomingConfidentiality(Integer confidentiality);
-
-    /**
-     * Returns the default confidentiality for outgoing mails for this mailbox.
-     */
-    Integer getOutgoingConfidentiality();
-
-    /**
-     * Sets the default confidentiality for outgoing mails for this mailbox.
-     */
-    void setOutgoingConfidentiality(Integer confidentiality);
+    void setConfidentiality(Integer confidentiality);
+    Integer getConfidentiality();
 
     /**
      * Persist the Mailbox

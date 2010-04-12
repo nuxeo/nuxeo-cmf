@@ -36,49 +36,47 @@ public class MailboxConstants {
 
     public static final String MAILBOX_DOCUMENT_TYPE = "CaseFolder";
 
-    public static final String MAILBOX_FACET = "CorrespondenceMailbox";
+    public static final String MAILBOX_FACET = "CaseFolder";
 
     public static final String MAIL_ENVELOPE_TYPE = "CorrespondenceEnvelope";
 
     public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "CorrespondenceMailboxRoot";
 
-    public static final String MAILBOX_SCHEMA = "correspondence_mailbox";
+    public static final String MAILBOX_SCHEMA = "case_folder";
 
-    public static final String ID_FIELD = "cmb:mailbox_id";
+    public static final String ID_FIELD = "csfd:case_folder_id";
     
-    public static final String AFFILIATED_MAILBOX_ID = "cmb:affiliated_mailbox_id";
+    public static final String AFFILIATED_MAILBOX_ID = "csfd:affiliated_case_folder_id";
 
     public static final String TITLE_FIELD = "dc:title";
 
     public static final String DESCRIPTION_FIELD = "dc:description";
 
-    public static final String TYPE_FIELD = "cmb:type";
+    public static final String TYPE_FIELD = "csfd:type";
 
-    public static final String OWNER_FIELD = "cmb:owner";
+    public static final String OWNER_FIELD = "csfd:owner";
 
-    public static final String USERS_FIELD = "cmb:users";
+    public static final String USERS_FIELD = "csfd:users";
 
-    public static final String NOTIFIED_USERS_FIELD = "cmb:notified_users";
+    public static final String NOTIFIED_USERS_FIELD = "csfd:notified_users";
 
-    public static final String GROUPS_FIELD = "cmb:groups";
+    public static final String GROUPS_FIELD = "csfd:groups";
 
-    public static final String PROFILES_FIELD = "cmb:profiles";
+    public static final String PROFILES_FIELD = "csfd:profiles";
 
-    public static final String FAVORITES_FIELD = "cmb:favorites";
+    public static final String FAVORITES_FIELD = "csfd:favorites";
 
-    public static final String MAILINGLISTS_FIELD = "cmb:mailinglists";
+    public static final String PARTICIPANTS_LIST_FIELD = "csfd:participantlists";
 
-    public static final String INCOMING_CONFIDENTIALITY_FIELD = "cmb:incoming_confidentiality";
+    public static final String CONFIDENTIALITY_FIELD = "csfd:defaultconfidentiality";
 
-    public static final String OUTGOING_CONFIDENTIALITY_FIELD = "cmb:outgoing_confidentiality";
-
-    public static final String MAILINGLIST_ID_FIELD = "mlid";
+    public static final String MAILINGLIST_ID_FIELD = "plid";
 
     public static final String MAILINGLIST_TITLE_FIELD = "title";
 
     public static final String MAILINGLIST_DESCRIPTION_FIELD = "description";
 
-    public static final String MAILINGLIST_MAILBOXES_FIELD = "mailboxes";
+    public static final String MAILINGLIST_CASE_FOLDER_FIELD = "casefolder";
 
     public static final String MAILBOX_DELETED_STATE = "deleted";
 

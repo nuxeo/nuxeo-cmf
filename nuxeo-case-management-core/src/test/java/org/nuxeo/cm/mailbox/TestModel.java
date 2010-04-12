@@ -21,6 +21,7 @@ package org.nuxeo.cm.mailbox;
 
 import java.util.ArrayList;
 
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -65,16 +66,16 @@ public class TestModel extends SQLRepositoryTestCase {
 
         // Create the Mail Box
         DocumentModel mailbox = new DocumentModelImpl(folder, "myMailBox",
-                "CorrespondenceMailbox");
+                "CaseFolder");
         mailbox = session.createDocument(mailbox);
 
         // Create Documents
         DocumentModel document = new DocumentModelImpl(folder, "doc1",
-                "CorrespondenceDocument");
+                CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document = session.createDocument(document);
 
         DocumentModel document2 = new DocumentModelImpl(folder, "doc1",
-                "CorrespondenceDocument");
+               CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document2 = session.createDocument(document2);
 
         // Create Envelope with 2 Documents
@@ -83,13 +84,13 @@ public class TestModel extends SQLRepositoryTestCase {
         documentIds.add(document2.getId());
 
         DocumentModel envelope = new DocumentModelImpl(folder, "envelope",
-                "CorrespondenceEnvelope");
+                CaseConstants.CASE_TYPE);
         envelope.setPropertyValue("cenv:documentsId", documentIds);
         envelope = session.createDocument(envelope);
 
         // Dispatch the Envelope
         DocumentModel dispatch = new DocumentModelImpl(folder, "post",
-                "CorrespondencePost");
+                "CaseLink");
         dispatch.setPropertyValue("cpost:envelopeId", envelope.getId());
         dispatch = session.createDocument(dispatch);
 
