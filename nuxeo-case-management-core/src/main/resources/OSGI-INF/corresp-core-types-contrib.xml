@@ -9,10 +9,10 @@
 
     <schema name="base" src="schemas/base.xsd" />
 
-    <schema name="_distribution" src="schemas/distribution.xsd"
+    <schema name="distribution" src="schemas/distribution.xsd"
       prefix="cmdist" />
 
-    <schema name="case_item_document" src="schemas/case_item_document.xsd"
+    <schema name="case_item" src="schemas/case_item.xsd"
       prefix="cmdoc" />
 
     <schema name="case" src="schemas/case.xsd"
@@ -38,28 +38,29 @@
       <facet name="SuperSpace" />
     </doctype>
 
-    <doctype name="CaseFolder" extends="Document">
-      <schema name="common" />
-      <schema name="dublincore" />
-      <schema name="case_folder" />
-      <facet name="Folderish" />
-      <facet name="CaseFolder" />
-    </doctype>
-
-    <doctype name="CaseFolderFolder" extends="Document">
+    <doctype name="CaseRoot" extends="Document">
       <schema name="common" />
       <schema name="dublincore" />
       <facet name="Folderish" />
       <facet name="SuperSpace" />
     </doctype>
 
-    <doctype name="CaseItemDocument" extends="Document">
+    <doctype name="CaseItem" extends="Document">
       <schema name="common" />
       <schema name="dublincore" />
       <schema name="distribution" />
-      <schema name="case_item_document" />
+      <schema name="case_item" />
       <schema name="contact" />
-      <facet name="CaseItemDocument" />
+      <facet name="CaseItem" />
+      <facet name="Commentable" />
+    </doctype>
+
+    <doctype name="Case" extends="Document">
+      <schema name="common" />
+      <schema name="dublincore" />
+      <schema name="distribution" />
+      <schema name="case" />
+      <facet name="Case" />
       <facet name="Commentable" />
     </doctype>
 

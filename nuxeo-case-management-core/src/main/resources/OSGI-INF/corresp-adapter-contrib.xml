@@ -11,13 +11,13 @@
       facet="CorrespondencePost"
       factory="org.nuxeo.cm.core.adapter.CorrespondencePostAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.MailEnvelope"
-      facet="CorrespondenceEnvelope"
+      facet="Case"
       factory="org.nuxeo.cm.core.adapter.MailEnvelopeAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.MailEnvelopeItem"
-      facet="CorrespondenceDocument"
+      facet="CaseItem"
       factory="org.nuxeo.cm.core.adapter.MailEnvelopeItemAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.LockableAdapter"
-      facet="CorrespondenceDocument"
+      facet="CaseItem"
       factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.HasRecipients"
       factory="org.nuxeo.cm.core.adapter.HasRecipientsAdapterFactory" />

@@ -33,13 +33,13 @@ public class CaseConstants {
 
     public static final String CASE_SCHEMA = "case";
 
-    public static final String CASE_ITEM_DOCUMENT_SCHEMA = "case_item_document";
+    public static final String CASE_ITEM_DOCUMENT_SCHEMA = "case_item";
 
     public static final String CASE_FACET = "Case";
 
     public static final String CASE_ITEM_FACET = "CaseItem";
 
-    public static final String CASE_ITEM_DOCUMENT_TYPE = "CaseItemDocument";
+    public static final String CASE_ITEM_DOCUMENT_TYPE = "CaseItem";
 
     public static final String TITLE_PROPERTY_NAME = "dc:title";
 

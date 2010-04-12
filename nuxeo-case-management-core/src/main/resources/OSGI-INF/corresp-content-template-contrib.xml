@@ -31,9 +31,9 @@
     <factoryBinding name="DomainFactory" factoryName="SimpleTemplateFactory"
       targetType="Domain">
       <template>
-        <templateItem typeName="CaseFolder" id="case-item"
-          title="Case Item" />
-        <templateItem typeName="CaseFolderRoot" id="case-folder"
+        <templateItem typeName="CaseRoot" id="case-root"
+          title="Case" />
+        <templateItem typeName="CaseFolderRoot" id="case-folder-root"
           title="Case Folder" />
       </template>
     </factoryBinding>

@@ -51,7 +51,7 @@ public class MailEnvelopeItemAdapterFactory implements DocumentAdapterFactory {
         }
         if (!doc.hasSchema(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA)) {
             throw new CaseManagementRuntimeException(
-                    "Docuemnt should have schema "
+                    "Document should have schema "
                             + CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA);
         }
     }

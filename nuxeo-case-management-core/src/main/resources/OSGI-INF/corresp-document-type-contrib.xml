@@ -5,9 +5,8 @@
   <extension target="com.nuxeo.correspondence.DocumentTypeService" point="documentType">
 
     <documentType>
-      <envelopeDocType>CorrespondenceEnvelope</envelopeDocType>
-      <postDocType>CorrespondencePost</postDocType>
-      <outgoingDocType>OutgoingCorrespondenceDocument</outgoingDocType>
+      <envelopeDocType>Case</envelopeDocType>
+      <postDocType>CaseLink</postDocType>
     </documentType>
 
   </extension>

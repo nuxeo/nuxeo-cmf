@@ -30,6 +30,10 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
  */
 public class TestDefaultHierarchy extends CorrespondenceRepositoryTestCase {
 
+    private static final String CASE_MANAGEMENT = "/case-management";
+    private static final String CASE_FOLDER_FOLDER = CASE_MANAGEMENT + "/case-folder-root";
+    private static final String CASE = CASE_MANAGEMENT + "/case-root";
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -44,18 +48,15 @@ public class TestDefaultHierarchy extends CorrespondenceRepositoryTestCase {
         assertEquals(1, rootChildren.size());
 
         DocumentModel domain = rootChildren.get(0);
-        assertEquals("/correspondence", domain.getPathAsString());
+        assertEquals(CASE_MANAGEMENT, domain.getPathAsString());
 
         DocumentModelList domainChildren = session.getChildren(domain.getRef());
         assertEquals(2, domainChildren.size());
 
         DocumentModel mailRoot = domainChildren.get(0);
-        assertEquals("/correspondence/mail", mailRoot.getPathAsString());
+        assertEquals(CASE, mailRoot.getPathAsString());
 
         DocumentModel mailboxRoot = domainChildren.get(1);
-        assertEquals("/correspondence/mailboxes", mailboxRoot.getPathAsString());
-
-        // TODO: maybe test rights
-
+        assertEquals(CASE_FOLDER_FOLDER, mailboxRoot.getPathAsString());
     }
 }
