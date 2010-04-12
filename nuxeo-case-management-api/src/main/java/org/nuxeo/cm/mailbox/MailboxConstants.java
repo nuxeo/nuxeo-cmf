@@ -40,7 +40,7 @@ public class MailboxConstants {
 
     public static final String MAIL_ENVELOPE_TYPE = "CorrespondenceEnvelope";
 
-    public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "CorrespondenceMailboxRoot";
+    public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "CaseFolderRoot";
 
     public static final String MAILBOX_SCHEMA = "case_folder";
 

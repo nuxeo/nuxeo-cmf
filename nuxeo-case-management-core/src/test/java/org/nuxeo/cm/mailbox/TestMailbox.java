@@ -164,7 +164,6 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         session.saveDocument(mb.getDocument());
 
-        // refresh + test
         mb = getMailbox();
         assertEquals("newid", mb.getId());
         assertEquals("new mailbox title", mb.getTitle());
@@ -198,7 +197,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals("new ml description", ml.getDescription());
         assertEquals(Arrays.asList(new String[] { "mb1" }), ml.getMailboxIds());
 
-        assertEquals((Integer) 4, mb.getConfidentiality());
+        assertEquals((Integer) 3, mb.getConfidentiality());
 
     }
 

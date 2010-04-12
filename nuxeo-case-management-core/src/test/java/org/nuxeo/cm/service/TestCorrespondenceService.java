@@ -157,7 +157,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         // create doc
         mailboxModel = newMailbox.getDocument();
         // XXX: use default domain path here
-        mailboxModel.setPathInfo("/correspondence/mailboxes",
+        mailboxModel.setPathInfo("/case-management/case-folder-root",
                 newMailbox.getId());
         session.createDocument(mailboxModel);
         // save to make it available to other sessions
@@ -210,7 +210,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
                 + receiver1MailboxId + "'");
         assertEquals(1, docList.size());
         DocumentModel message = docList.get(0);
-        assertEquals("CorrespondencePost", message.getType());
+        assertEquals("CaseLink", message.getType());
     }
 
     protected void createMailbox() throws ClientException {
@@ -226,7 +226,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         // create doc
         mailboxModel = newMailbox.getDocument();
         // XXX: use default domain path here
-        mailboxModel.setPathInfo("/correspondence/mailboxes",
+        mailboxModel.setPathInfo("/case-management/case-folder-root",
                 newMailbox.getId());
         session.createDocument(mailboxModel);
         // save to make it available to other sessions

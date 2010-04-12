@@ -89,7 +89,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 
     // FIXME: do not use a query model: this is service specific and won't
     // change
-    protected static final String QUERY_GET_MAILBOX_FROM_ID = "GET_MAILBOX_FROM_ID";
+    protected static final String QUERY_GET_CASE_FOLDER_FROM_ID = "GET_CASE_FOLDER_FROM_ID";
 
     private static final long serialVersionUID = 1L;
 
@@ -108,7 +108,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         }
 
         DocumentModelList res = executeQueryModel(session,
-                QUERY_GET_MAILBOX_FROM_ID, new Object[] { muid });
+                QUERY_GET_CASE_FOLDER_FROM_ID, new Object[] { muid });
 
         if (res == null || res.isEmpty()) {
             return null;
@@ -167,7 +167,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
         for (String muid : muids) {
 
             DocumentModelList res = executeQueryModel(session,
-                    QUERY_GET_MAILBOX_FROM_ID, new Object[] { muid });
+                    QUERY_GET_CASE_FOLDER_FROM_ID, new Object[] { muid });
 
             if (res == null || res.isEmpty()) {
                 continue;

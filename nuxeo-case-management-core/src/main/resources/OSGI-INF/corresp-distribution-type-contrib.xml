@@ -6,16 +6,16 @@
 
     <distributionType>
       <name>FOR_ACTION</name>
-      <allRecipientsProperty>all_action_recipient_mailboxes</allRecipientsProperty>
-      <externalRecipientsProperty>initial_action_external_recipient_mailboxes</externalRecipientsProperty>
-      <internalRecipientsProperty>initial_action_internal_recipient_mailboxes</internalRecipientsProperty>
+      <allRecipientsProperty>all_action_participant_case_folders</allRecipientsProperty>
+      <externalRecipientsProperty>initial_action_external_participant_case_folders</externalRecipientsProperty>
+      <internalRecipientsProperty>initial_action_internal_participant_case_folders</internalRecipientsProperty>
     </distributionType>
 
     <distributionType>
       <name>FOR_INFORMATION</name>
-      <allRecipientsProperty>all_copy_recipient_mailboxes</allRecipientsProperty>
-      <externalRecipientsProperty>initial_copy_external_recipient_mailboxes</externalRecipientsProperty>
-      <internalRecipientsProperty>initial_copy_internal_recipient_mailboxes</internalRecipientsProperty>
+      <allRecipientsProperty>all_copy_participant_case_folders</allRecipientsProperty>
+      <externalRecipientsProperty>initial_copy_external_particiapant_case_folders</externalRecipientsProperty>
+      <internalRecipientsProperty>initial_copy_internal_participant_case_folders</internalRecipientsProperty>
     </distributionType>
 
   </extension>

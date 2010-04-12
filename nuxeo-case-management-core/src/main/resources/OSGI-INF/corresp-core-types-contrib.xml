@@ -69,6 +69,7 @@
       <schema name="dublincore" />
       <schema name="distribution" />
       <schema name="case_folder" />
+      <facet name="Folderish" />
       <facet name="CaseFolder" />
     </doctype>
 
