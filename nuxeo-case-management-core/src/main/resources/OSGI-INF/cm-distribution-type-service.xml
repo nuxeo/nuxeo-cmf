@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.correspondence.DistributionTypeService">
+
+  <documentation>
+  The Correspondence Distribution Service allows to add a new list of
+  recipients for mails.
+  
+  Nuxeo Correspondence comes with two lists: 'For Action' and 'For Copy'.
+    
+  @author <a href="mailto:nu@nuxeo.com">Nicolas Ulrich</a>
+  </documentation>
+  
+  <implementation class="org.nuxeo.cm.core.service.CaseManagementDistributionTypeServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.cm.service.CaseManagementDistributionTypeService" />
+  </service>
+
+  <extension-point name="distributionType">
+
+    <documentation>
+    Used to register the new recipients list, which contains a name and the 
+    schema property names. Contributions for this extension point are of the 
+    form:
+    <code>
+    <distributionType>
+      <name>DISTRIBUTION_NAME</name>
+      <allRecipientsProperty>propertyName</allRecipientsProperty>
+      <externalRecipientsProperty>propertyName</externalRecipientsProperty>
+      <internalRecipientsProperty>propertyName</internalRecipientsProperty>
+    </distributionType>
+    </code>
+    </documentation>
+
+
+    <object class="org.nuxeo.cm.core.service.CaseManagementDistributionTypeDescriptor" />
+  </extension-point>
+
+</component>

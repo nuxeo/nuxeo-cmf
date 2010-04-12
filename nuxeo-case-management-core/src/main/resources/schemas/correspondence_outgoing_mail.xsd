@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://correspondence.nuxeo.com/schemas/sample/outgoing/"
-  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/sample/outgoing/">
-
-  <xs:element name="sending_unit" type="xs:string" />
-  <xs:element name="sending_mailbox" type="xs:string" />
-
-</xs:schema>

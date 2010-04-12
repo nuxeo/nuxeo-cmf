@@ -2,8 +2,8 @@ package org.nuxeo.cm.usermanager;
 
 import java.util.List;
 
-import org.nuxeo.cm.core.usermanager.CorrespondencePrincipalImpl;
-import org.nuxeo.cm.core.usermanager.CorrespondenceUserManagerImpl;
+import org.nuxeo.cm.core.usermanager.CaseManagementPrincipalImpl;
+import org.nuxeo.cm.core.usermanager.CaseManagementUserManagerImpl;
 import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 
@@ -18,10 +18,10 @@ public class TestCorrespondenceUserManager extends CorrespondenceRepositoryTestC
     }
 
     public void testGetPrincipalGroups() throws Exception {
-        assertTrue(userManager instanceof CorrespondenceUserManagerImpl);
+        assertTrue(userManager instanceof CaseManagementUserManagerImpl);
         NuxeoPrincipal admin = userManager.getPrincipal(user);
         assertNotNull(admin);
-        assertTrue(admin instanceof CorrespondencePrincipalImpl);
+        assertTrue(admin instanceof CaseManagementPrincipalImpl);
         CaseFolder mailbox = correspService.createPersonalCaseFolders(session, user).get(0);
         assertNotNull(mailbox);
         List<String> groups = admin.getGroups();

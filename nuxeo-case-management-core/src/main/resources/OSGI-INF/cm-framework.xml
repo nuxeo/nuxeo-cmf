@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service">
+
+  <implementation
+    class="org.nuxeo.cm.core.service.CaseManagementComponent" />
+
+  <service>
+    <provide interface="org.nuxeo.cm.service.CaseManagementService" />
+  </service>
+
+  <extension-point name="mailboxCreator">
+    <object
+      class="org.nuxeo.cm.core.service.CreationClassDescriptor" />
+  </extension-point>
+
+</component>

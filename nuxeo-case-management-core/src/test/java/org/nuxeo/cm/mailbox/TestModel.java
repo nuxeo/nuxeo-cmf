@@ -41,7 +41,7 @@ public class TestModel extends SQLRepositoryTestCase {
 
         // deploy type contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
-                "OSGI-INF/corresp-core-types-contrib.xml");
+                "OSGI-INF/cm-core-types-contrib.xml");
 
         openSession();
 

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.correspondence.adapterContrib">
+
+  <extension target="org.nuxeo.ecm.core.api.DocumentAdapterService"
+    point="adapters">
+    <adapter class="org.nuxeo.cm.mailbox.CaseFolder"
+      factory="org.nuxeo.cm.core.adapter.CaseFolderAdapterFactory" />
+    <adapter class="org.nuxeo.cm.mailbox.CaseFolderHeader"
+      factory="org.nuxeo.cm.core.adapter.CaseFolderHeaderAdapterFactory" />
+    <adapter class="org.nuxeo.cm.post.CaseLink"
+      facet="CaseLink"
+      factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
+    <adapter class="org.nuxeo.cm.cases.Case"
+      facet="Case"
+      factory="org.nuxeo.cm.core.adapter.CaseAdapterFactory" />
+    <adapter class="org.nuxeo.cm.cases.CaseItem"
+      facet="CaseItem"
+      factory="org.nuxeo.cm.core.adapter.CaseItemAdapterFactory" />
+    <adapter class="org.nuxeo.cm.cases.LockableAdapter"
+      facet="CaseItem"
+      factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
+    <adapter class="org.nuxeo.cm.cases.HasParticipants"
+      factory="org.nuxeo.cm.core.adapter.HasParticipantsAdapterFactory" />
+
+  </extension>
+
+</component>
