@@ -24,9 +24,9 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;

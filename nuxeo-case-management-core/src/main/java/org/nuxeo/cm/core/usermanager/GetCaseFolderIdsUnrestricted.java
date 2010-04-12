@@ -19,7 +19,7 @@ package org.nuxeo.cm.core.usermanager;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;

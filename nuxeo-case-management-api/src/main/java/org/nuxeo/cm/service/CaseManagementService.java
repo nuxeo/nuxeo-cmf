@@ -23,9 +23,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderHeader;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;

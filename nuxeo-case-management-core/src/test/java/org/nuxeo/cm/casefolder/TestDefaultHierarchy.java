@@ -17,7 +17,7 @@
  * $Id$
  */
 
-package org.nuxeo.cm.mailbox;
+package org.nuxeo.cm.casefolder;
 
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;

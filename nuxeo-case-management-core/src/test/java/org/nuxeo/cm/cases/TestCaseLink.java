@@ -14,7 +14,7 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.post.CaseLink;
@@ -28,7 +28,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author arussel
  *
  */
-public class TestCorrespondencePost extends CorrespondenceRepositoryTestCase {
+public class TestCaseLink extends CorrespondenceRepositoryTestCase {
     protected CaseLink post;
 
     @Override

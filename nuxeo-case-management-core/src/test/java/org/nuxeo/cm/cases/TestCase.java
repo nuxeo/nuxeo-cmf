@@ -14,7 +14,7 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ import org.nuxeo.ecm.core.api.IdRef;
  * @author arussel
  *
  */
-public class TestMailEnvelope extends CorrespondenceRepositoryTestCase {
+public class TestCase extends CorrespondenceRepositoryTestCase {
     protected Case envelope;
 
     protected CaseItem item1;

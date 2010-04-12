@@ -18,7 +18,7 @@
  * $Id$
  */
 
-package org.nuxeo.cm.mailbox;
+package org.nuxeo.cm.casefolder;
 
 import java.io.Serializable;
 import java.util.List;

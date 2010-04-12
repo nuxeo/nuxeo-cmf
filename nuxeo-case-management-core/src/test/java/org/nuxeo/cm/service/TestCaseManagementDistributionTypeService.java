@@ -32,7 +32,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  * @author Nicolas Ulrich
  *
  */
-public class TestCorrespondenceDistributionTypeService extends
+public class TestCaseManagementDistributionTypeService extends
         CorrespondenceRepositoryTestCase {
 
     private static final String FOR_ACTION = "FOR_ACTION";

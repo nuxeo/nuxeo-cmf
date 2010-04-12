@@ -25,8 +25,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderHeader;
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderHeader;
 import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;

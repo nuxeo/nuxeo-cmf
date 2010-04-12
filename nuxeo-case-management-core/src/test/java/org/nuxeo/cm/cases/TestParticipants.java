@@ -14,7 +14,7 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class TestCorrespondenceRecipients extends CorrespondenceRepositoryTestCase {
+public class TestParticipants extends CorrespondenceRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
@@ -41,7 +41,7 @@ public class TestCorrespondenceRecipients extends CorrespondenceRepositoryTestCa
         openSession();
     }
 
-    public void testRecipientsMethods() throws Exception {
+    public void testParticipantsMethods() throws Exception {
         Map<String, List<String>> recipients1 = new HashMap<String, List<String>>();
         List<String> actionList1 = new ArrayList<String>();
         actionList1.add("action1");

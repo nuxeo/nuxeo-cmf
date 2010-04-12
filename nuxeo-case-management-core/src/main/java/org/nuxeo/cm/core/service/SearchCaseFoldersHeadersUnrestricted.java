@@ -21,8 +21,8 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.mailbox.CaseFolderHeader;
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.casefolder.CaseFolderHeader;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModelList;

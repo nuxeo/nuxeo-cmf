@@ -22,9 +22,9 @@ package org.nuxeo.cm.mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -38,7 +38,7 @@ import org.nuxeo.runtime.api.Framework;
  * @author Anahide Tchertchian
  *
  */
-public class MockPersonalMailboxCreator implements CaseFolderCreator {
+public class MockPersonalCaseFolderCreator implements CaseFolderCreator {
 
     public String getPersonalCaseFolderId(DocumentModel userModel) {
         String userId = userModel.getId();

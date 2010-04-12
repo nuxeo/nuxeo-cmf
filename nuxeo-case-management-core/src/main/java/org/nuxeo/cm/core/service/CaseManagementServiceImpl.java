@@ -30,6 +30,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.casefolder.CaseFolderHeader;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
@@ -41,12 +44,8 @@ import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.mailbox.CaseFolderHeader;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkConstants;
-import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.common.utils.IdUtils;
@@ -56,9 +55,7 @@ import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
-import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.EventProducer;
@@ -79,9 +76,6 @@ import org.nuxeo.runtime.api.Framework;
  * Correspondence service core implementation
  */
 public class CaseManagementServiceImpl implements CaseManagementService {
-
-    // FIXME: should be configurable and internationalized
-    private static final String REP_SUFFIX = "Rep: ";
 
     // FIXME: do not use a query model: this is service specific and won't
     // change

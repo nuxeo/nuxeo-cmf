@@ -25,9 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkRequestImpl;
 import org.nuxeo.cm.post.CaseLinkType;
@@ -40,7 +40,7 @@ import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
  * @author Nicolas Ulrich
  *
  */
-public class TestCorrespondenceDistribution extends
+public class TestDistribution extends
         CorrespondenceRepositoryTestCase {
 
     @Override

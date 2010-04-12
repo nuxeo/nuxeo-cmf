@@ -19,20 +19,20 @@
 
 package org.nuxeo.cm.mock;
 
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderImpl;
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderImpl;
 
 /**
  * @author Anahide Tchertchian
  *
  */
-public class MockMailbox extends CaseFolderImpl implements CaseFolder  {
+public class MockCaseFolder extends CaseFolderImpl implements CaseFolder  {
 
     private static final long serialVersionUID = 1L;
 
     protected final String id;
 
-    public MockMailbox(String id) {
+    public MockCaseFolder(String id) {
         super(null);
         this.id = id;
     }

@@ -18,9 +18,9 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;

@@ -17,14 +17,14 @@
  * $Id$
  */
 
-package org.nuxeo.cm.mailbox;
+package org.nuxeo.cm.casefolder;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.mailbox.ParticipantsList;
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.casefolder.ParticipantsList;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -36,7 +36,7 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
  * @author Anahide Tchertchian
  *
  */
-public class TestMailbox extends SQLRepositoryTestCase {
+public class TestCaseFolder extends SQLRepositoryTestCase {
 
     private static final String CASE_FOLDER = "casefolder";
 
@@ -49,20 +49,20 @@ public class TestMailbox extends SQLRepositoryTestCase {
         openSession();
     }
 
-    protected DocumentModel getBareMailboxDoc() throws Exception {
+    protected DocumentModel getBareCaseFolderDoc() throws Exception {
         DocumentModel mailbox = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
         mailbox.setPathInfo(session.getRootDocument().getPathAsString(),
                 CASE_FOLDER);
         return mailbox;
     }
 
-    protected CaseFolder getMailbox() throws Exception {
+    protected CaseFolder getCaseFolder() throws Exception {
         DocumentRef docRef = new PathRef("/" + CASE_FOLDER);
         return session.getDocument(docRef).getAdapter(CaseFolder.class);
     }
 
-    protected DocumentModel createMailboxDoc() throws Exception {
-        DocumentModel doc = getBareMailboxDoc();
+    protected DocumentModel createCaseFolderDoc() throws Exception {
+        DocumentModel doc = getBareCaseFolderDoc();
         CaseFolder mb = doc.getAdapter(CaseFolder.class);
 
         mb.setId("mailboxid");
@@ -94,10 +94,10 @@ public class TestMailbox extends SQLRepositoryTestCase {
         super.tearDown();
     }
 
-    public void testMailboxCreation() throws Exception {
-        createMailboxDoc();
+    public void testCaseFolderCreation() throws Exception {
+        createCaseFolderDoc();
 
-        CaseFolder mb = getMailbox();
+        CaseFolder mb = getCaseFolder();
         assertEquals("mailboxid", mb.getId());
         assertEquals("mailbox title", mb.getTitle());
         assertEquals("mb description", mb.getDescription());
@@ -134,10 +134,10 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals((Integer) 4, mb.getConfidentiality());
     }
 
-    public void testMailboxEdition() throws Exception {
-        createMailboxDoc();
+    public void testCaseFolderEdition() throws Exception {
+        createCaseFolderDoc();
 
-        CaseFolder mb = getMailbox();
+        CaseFolder mb = getCaseFolder();
         mb.setId("newid");
         mb.setTitle("new mailbox title");
         mb.setDescription("new mb description");
@@ -164,7 +164,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         session.saveDocument(mb.getDocument());
 
-        mb = getMailbox();
+        mb = getCaseFolder();
         assertEquals("newid", mb.getId());
         assertEquals("new mailbox title", mb.getTitle());
         assertEquals("new mb description", mb.getDescription());

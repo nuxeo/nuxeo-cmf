@@ -19,9 +19,9 @@
 
 package org.nuxeo.cm.core.adapter;
 
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.casefolder.CaseFolderImpl;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
-import org.nuxeo.cm.mailbox.CaseFolderImpl;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;

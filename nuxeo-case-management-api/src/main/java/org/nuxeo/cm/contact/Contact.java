@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolder;
 
 
 /**

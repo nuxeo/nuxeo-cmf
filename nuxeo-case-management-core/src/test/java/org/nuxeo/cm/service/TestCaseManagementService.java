@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.mailbox.CaseFolder;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkRequestImpl;
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
@@ -42,7 +42,7 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
  * @author Anahide Tchertchian
  *
  */
-public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase {
+public class TestCaseManagementService extends CorrespondenceRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
@@ -50,7 +50,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         openSession();
     }
 
-    public void testDefaultPersonalMailboxCreation() throws Exception {
+    public void testDefaultPersonalCaseFolderCreation() throws Exception {
 
         correspService.createPersonalCaseFolders(session, "toto");
         List<CaseFolder> mailboxes = correspService.getUserCaseFolders(session,
@@ -68,7 +68,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         assertEquals(user, mb.getOwner());
     }
 
-    public void testPersonalMailboxCreatorContribution() throws Exception {
+    public void testPersonalCaseFolderCreatorContribution() throws Exception {
         // override creation behaviour
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
@@ -85,7 +85,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         assertEquals(user, mb.getOwner());
     }
 
-    public void testGetUserPersonalMailboxId() throws Exception {
+    public void testGetUserPersonalCaseFolderId() throws Exception {
         String totoMbId = correspService.getUserPersonalCaseFolderId("toto");
         assertNull(totoMbId);
         String userMbId = correspService.getUserPersonalCaseFolderId(user);
@@ -93,9 +93,9 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         assertEquals("user-user", userMbId);
     }
 
-    public void testGetMailbox() throws Exception {
+    public void testGetCaseFolder() throws Exception {
 
-        createMailbox();
+        createCaseFolder();
 
         // log as given user and check he still got access
         openSessionAs(user);
@@ -104,18 +104,18 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
     }
 
-    public void testHasMailbox() throws Exception {
-        createMailbox();
+    public void testHasCaseFolder() throws Exception {
+        createCaseFolder();
         assertTrue(correspService.hasCaseFolder("test"));
         assertFalse(correspService.hasCaseFolder("foo"));
     }
 
-    public void testGetMailboxes() throws Exception {
+    public void testGetCaseFolders() throws Exception {
 
         correspService.createPersonalCaseFolders(session, user);
 
         // Create an other mailbox
-        createMailbox();
+        createCaseFolder();
 
         List<CaseFolder> mailboxes = correspService.getUserCaseFolders(session, user);
         assertFalse(mailboxes.isEmpty());
@@ -139,7 +139,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
 
     }
 
-    public void testSearchMailboxes() throws Exception {
+    public void testSearchCaseFolders() throws Exception {
         // create personal mailboxes for users, calling getMailboxes on each
         correspService.getUserCaseFolders(session, user);
         correspService.getUserCaseFolders(session, user1);
@@ -173,17 +173,17 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         // assertFalse(mailboxes.isEmpty());
     }
 
-    public CaseFolder getPersonalMailbox(String name) throws Exception {
+    public CaseFolder getPersonalCaseFolder(String name) throws Exception {
         return correspService.createPersonalCaseFolders(session, name).get(0);
     }
 
-    public void testSendEnvelope() throws Exception {
-        CaseFolder senderMailbox = getPersonalMailbox(user1);
+    public void testSendCase() throws Exception {
+        CaseFolder senderMailbox = getPersonalCaseFolder(user1);
         assertNotNull(senderMailbox);
-        CaseFolder receiver1Mailbox = getPersonalMailbox(user2);
+        CaseFolder receiver1Mailbox = getPersonalCaseFolder(user2);
         String receiver1MailboxId = receiver1Mailbox.getDocument().getId();
         assertNotNull(receiver1Mailbox);
-        CaseFolder receiver2Mailbox = getPersonalMailbox(user3);
+        CaseFolder receiver2Mailbox = getPersonalCaseFolder(user3);
         assertNotNull(receiver2Mailbox);
         Map<String, List<String>> recipients = new HashMap<String, List<String>>();
         recipients.put("FOR_ACTION",
@@ -213,7 +213,7 @@ public class TestCorrespondenceService extends CorrespondenceRepositoryTestCase 
         assertEquals("CaseLink", message.getType());
     }
 
-    protected void createMailbox() throws ClientException {
+    protected void createCaseFolder() throws ClientException {
         // create a mailbox with given user, and check it's retrieved correctly
         DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
         CaseFolder newMailbox = mailboxModel.getAdapter(CaseFolder.class);

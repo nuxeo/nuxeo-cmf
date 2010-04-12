@@ -22,8 +22,8 @@ package org.nuxeo.cm.core.event;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_CREATED;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_UPDATED;
 
+import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.core.service.SetCaseFolderAclUnrestricted;
-import org.nuxeo.cm.mailbox.CaseFolderConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;

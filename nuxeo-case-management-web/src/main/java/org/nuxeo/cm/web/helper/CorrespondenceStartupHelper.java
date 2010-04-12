@@ -28,7 +28,7 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.international.LocaleSelector;
-import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.web.mailbox.CorrespondenceMailboxActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;

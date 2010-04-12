@@ -28,8 +28,8 @@ import static org.nuxeo.cm.post.CaseLinkConstants.SUBJECT_FIELD;
 import java.util.Calendar;
 import java.util.UUID;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;

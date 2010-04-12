@@ -27,7 +27,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  * @author Nicolas Ulrich
  *
  */
-public class TestCorrespondenceDocumentTypeService extends
+public class TestCaseManagementDocumentTypeService extends
         CorrespondenceRepositoryTestCase {
 
     @Override

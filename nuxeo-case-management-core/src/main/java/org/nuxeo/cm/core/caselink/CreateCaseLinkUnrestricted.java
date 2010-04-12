@@ -31,10 +31,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetCaseFoldersUnrestricted;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;

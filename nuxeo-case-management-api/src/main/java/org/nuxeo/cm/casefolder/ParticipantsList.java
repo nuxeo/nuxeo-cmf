@@ -17,7 +17,7 @@
  * $Id: MailingList.java 53707 2008-03-11 17:23:46Z gracinet $
  */
 
-package org.nuxeo.cm.mailbox;
+package org.nuxeo.cm.casefolder;
 
 import java.io.Serializable;
 import java.util.List;

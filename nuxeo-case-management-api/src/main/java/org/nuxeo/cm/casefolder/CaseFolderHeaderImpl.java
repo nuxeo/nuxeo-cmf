@@ -17,7 +17,7 @@
  * $Id$
  */
 
-package org.nuxeo.cm.mailbox;
+package org.nuxeo.cm.casefolder;
 
 /**
  * MailboxHeader implementation

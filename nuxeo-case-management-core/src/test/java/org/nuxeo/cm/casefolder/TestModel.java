@@ -17,7 +17,7 @@
  * $Id$
  */
 
-package org.nuxeo.cm.mailbox;
+package org.nuxeo.cm.casefolder;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class TestModel extends SQLRepositoryTestCase {
 
     }
 
-    public void testMailCreation() throws Exception {
+    public void testCaseItemCreation() throws Exception {
 
         DocumentModel folder = createTestFolder();
 

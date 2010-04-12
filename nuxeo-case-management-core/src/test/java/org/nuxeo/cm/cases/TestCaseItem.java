@@ -14,7 +14,7 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.mail;
+package org.nuxeo.cm.cases;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -40,7 +40,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
  * @author arussel
  *
  */
-public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
+public class TestCaseItem extends CorrespondenceRepositoryTestCase {
     protected CaseItem item;
 
     @Override
@@ -83,7 +83,7 @@ public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
         assertEquals(item.getSendingDate(), date);
     }
 
-    public void testCreateMailEnvelope() throws ClientException {
+    public void testCreateCase() throws ClientException {
         Case envelope = item.createMailCase(session,
                 session.getRootDocument().getPathAsString(), null);
         assertNotNull(envelope);
@@ -97,6 +97,7 @@ public class TestMailEnvelopeItem extends CorrespondenceRepositoryTestCase {
         assertEquals(envelope.getCaseItems(session).size(), 1);
     }
 
+    @SuppressWarnings("deprecation")
     public void testLock() throws ClientException {
 
         DocumentModel doc = item.getDocument();

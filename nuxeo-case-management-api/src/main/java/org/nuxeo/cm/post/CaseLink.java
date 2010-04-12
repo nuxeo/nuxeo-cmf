@@ -21,9 +21,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;

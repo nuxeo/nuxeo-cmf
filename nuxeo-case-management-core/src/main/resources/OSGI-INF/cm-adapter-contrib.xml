@@ -3,9 +3,9 @@
 
   <extension target="org.nuxeo.ecm.core.api.DocumentAdapterService"
     point="adapters">
-    <adapter class="org.nuxeo.cm.mailbox.CaseFolder"
+    <adapter class="org.nuxeo.cm.casefolder.CaseFolder"
       factory="org.nuxeo.cm.core.adapter.CaseFolderAdapterFactory" />
-    <adapter class="org.nuxeo.cm.mailbox.CaseFolderHeader"
+    <adapter class="org.nuxeo.cm.casefolder.CaseFolderHeader"
       factory="org.nuxeo.cm.core.adapter.CaseFolderHeaderAdapterFactory" />
     <adapter class="org.nuxeo.cm.post.CaseLink"
       facet="CaseLink"

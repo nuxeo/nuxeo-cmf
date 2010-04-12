@@ -2,14 +2,14 @@ package org.nuxeo.cm.usermanager;
 
 import java.util.List;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.core.usermanager.CaseManagementPrincipalImpl;
 import org.nuxeo.cm.core.usermanager.CaseManagementUserManagerImpl;
-import org.nuxeo.cm.mailbox.CaseFolder;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 
 import org.nuxeo.cm.test.CorrespondenceRepositoryTestCase;
 
-public class TestCorrespondenceUserManager extends CorrespondenceRepositoryTestCase {
+public class TestCaseManagementUserManager extends CorrespondenceRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {

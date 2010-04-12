@@ -31,7 +31,7 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.mailbox.CaseFolder;
+import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBound;
 import org.nuxeo.cm.web.invalidations.CorrespondenceContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
