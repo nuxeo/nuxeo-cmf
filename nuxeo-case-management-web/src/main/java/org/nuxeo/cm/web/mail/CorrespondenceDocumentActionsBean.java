@@ -98,8 +98,8 @@ public class CorrespondenceDocumentActionsBean extends
 
         MailEnvelope envelope = correspondenceService.createMailEnvelope(
                 documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentMailbox()));
-        emailDoc.setProperty(CaseConstants.MAIL_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_FOLDER_ID,
+        emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 envelope.getDocument().getId());
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
@@ -241,19 +241,4 @@ public class CorrespondenceDocumentActionsBean extends
             DocumentModel newEmail) throws ClientException {
         editingMail = false;
     }
-
-    public String reply() throws ClientException {
-
-        DocumentModel emailDoc = getCurrentEmail();
-        DocumentModel reply = correspondenceService.getReplyDocument(
-                documentManager, getCurrentMailbox(), emailDoc);
-
-        // Set changeable document
-        navigationContext.setChangeableDocument(reply);
-
-        // Redirect to the creation form
-        return navigationContext.getActionResult(reply, UserAction.CREATE);
-
-    }
-
 }

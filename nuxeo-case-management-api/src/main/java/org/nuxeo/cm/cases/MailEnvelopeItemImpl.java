@@ -111,7 +111,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
 
     public String getDefaultEnvelopeId() {
         return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_FOLDER_ID);
+                CaseConstants.DOCUMENT_DEFAULT_CASE_ID);
     }
 
     public Calendar getDocumentDate() {
@@ -154,7 +154,7 @@ public class MailEnvelopeItemImpl implements MailEnvelopeItem {
 
     public void setDefaultEnvelope(String mailEnvelopeId) {
         setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_FOLDER_ID,
+                CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 mailEnvelopeId);
     }
 

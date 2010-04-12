@@ -77,35 +77,6 @@ public class CorrespondenceEnvelopeActionsBean extends
     }
 
     /**
-     * Check if the envelope display an incoming mail
-     *
-     * @return true if it's an incoming mail
-     * @throws ClientException
-     */
-    public boolean isIncomingEnvelope() throws ClientException {
-
-        CorrespondenceDocumentTypeService correspDocumentTypeService = null;
-        try {
-            correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
-        } catch (Exception e) {
-            log.error("Could not retrieve CorrespondenceDocumentType Service",
-                    e);
-
-        }
-
-        MailEnvelope currentEnvelope = getCurrentEnvelope();
-        MailEnvelopeItem item = currentEnvelope.getFirstItem(documentManager);
-
-        if (item != null && correspDocumentTypeService != null) {
-            return item.getDocument().hasFacet(
-                    CaseConstants.INCOMING_MAIL_FACET);
-        }
-
-        return false;
-
-    }
-
-    /**
      * Remove a mail from the current envelope
      *
      * @param doc the mail to remove

@@ -65,7 +65,7 @@ public class CaseConstants {
 
     public static final String DOCUMENT_CONFIDENTIALITY = "confidentiality";
 
-    public static final String DOCUMENT_DEFAULT_CASE_FOLDER_ID = "defaultCaseFolderId";
+    public static final String DOCUMENT_DEFAULT_CASE_ID = "defaultCaseId";
 
     public static final String DOCUMENT_DATE = "document_date";
 

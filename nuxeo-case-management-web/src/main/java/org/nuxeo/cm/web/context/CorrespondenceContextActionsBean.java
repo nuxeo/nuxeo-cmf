@@ -80,10 +80,10 @@ public class CorrespondenceContextActionsBean implements Serializable,
                 correspContextHolder.setCurrentMailbox(newDocument.getAdapter(Mailbox.class));
             }
             // document cases
-            if (newDocument.hasFacet(CaseConstants.MAIL_ENVELOPE_FACET)) {
+            if (newDocument.hasFacet(CaseConstants.CASE_FACET)) {
                 correspContextHolder.setCurrentEnvelope(newDocument.getAdapter(MailEnvelope.class));
                 correspContextHolder.setCurrentEmail(null);
-            } else if (newDocument.hasFacet(CaseConstants.MAIL_FACET)) {
+            } else if (newDocument.hasFacet(CaseConstants.CASE_ITEM_FACET)) {
                 correspContextHolder.setCurrentEnvelope(null);
                 correspContextHolder.setCurrentEmail(newDocument);
             }

@@ -158,7 +158,7 @@ public class CorrespondenceRepositoryTestCase extends SQLRepositoryTestCase {
     public DocumentModel getMailEnvelopeItemModel() throws Exception {
         if (mailEnvelopeItemModel == null) {
             mailEnvelopeItemModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    UUID.randomUUID().toString(),"CorrespondenceDocument");
+                    UUID.randomUUID().toString(),CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         }
         return mailEnvelopeItemModel;
     }

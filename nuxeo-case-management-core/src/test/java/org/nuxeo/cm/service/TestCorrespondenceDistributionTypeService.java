@@ -56,29 +56,29 @@ public class TestCorrespondenceDistributionTypeService extends
     }
 
     public void testGetAllProperty() throws ClientException {
-        assertEquals("all_action_recipient_mailboxes",
+        assertEquals("all_action_participant_case_folders",
                 correspDistributionTypeService.getAllProperty(FOR_ACTION));
 
-        assertEquals("all_copy_recipient_mailboxes",
+        assertEquals("all_copy_participant_case_folders",
                 correspDistributionTypeService.getAllProperty(FOR_INFORMATION));
     }
 
     public void testGetExternalProperty() throws ClientException {
-        assertEquals("initial_action_external_recipient_mailboxes",
+        assertEquals("initial_action_external_participant_case_folders",
                 correspDistributionTypeService.getExternalProperty(FOR_ACTION));
 
         assertEquals(
-                "initial_copy_external_recipient_mailboxes",
+                "initial_copy_external_particiapant_case_folders",
                 correspDistributionTypeService.getExternalProperty(FOR_INFORMATION));
     }
 
     public void testGetInternalProperty() throws ClientException {
 
-        assertEquals("initial_action_internal_recipient_mailboxes",
+        assertEquals("initial_action_internal_participant_case_folders",
                 correspDistributionTypeService.getInternalProperty(FOR_ACTION));
 
         assertEquals(
-                "initial_copy_internal_recipient_mailboxes",
+                "initial_copy_internal_participant_case_folders",
                 correspDistributionTypeService.getInternalProperty(FOR_INFORMATION));
     }
 

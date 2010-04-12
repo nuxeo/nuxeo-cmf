@@ -423,32 +423,7 @@ public class CorrespondenceMailboxActionsBean extends
 
         MailEnvelope envelope = envelopeDoc.getAdapter(MailEnvelope.class);
         DocumentModel mailDoc = envelope.getFirstItem(documentManager).getDocument();
-
-        if (mailDoc.hasFacet(CaseConstants.OUTGOING_MAIL_FACET)) {
-
-            // Edit the outgoing mail
-            String view = navigationContext.navigateToDocument(envelopeDoc,
-                    "edit_outgoing_envelope");
-
-            // Lock the document
-            LockableAdapter lockable = mailDoc.getAdapter(LockableAdapter.class);
-
-            if (lockable.getDocumentLockDetails(documentManager).isEmpty()
-                    && documentManager.hasPermission(
-                            getCurrentEmail().getRef(), SecurityConstants.WRITE)) {
-                lockable.lockDocument(documentManager);
-            }
-
-            return view;
-
-        } else if (mailDoc.hasFacet(CaseConstants.INCOMING_MAIL_FACET)) {
-
-            return navigationContext.navigateToId(envelopeId);
-
-        }
-
-        return null;
-
+        return navigationContext.navigateToId(envelopeId);
     }
 
 }
