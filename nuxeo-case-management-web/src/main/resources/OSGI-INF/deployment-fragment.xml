@@ -13,76 +13,68 @@
   <extension target="faces-config#NAVIGATION">
 
     <navigation-case>
-      <from-outcome>mailbox_view</from-outcome>
-      <to-view-id>/correspondence/mailbox/mailbox_view.xhtml</to-view-id>
+      <from-outcome>casefolder_view</from-outcome>
+      <to-view-id>/casemanagement/casefolder/casefolder_view.xhtml</to-view-id>
       <redirect />
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>mailbox_manage</from-outcome>
-      <to-view-id>/correspondence/mailbox/mailbox_manage.xhtml</to-view-id>
+      <from-outcome>casefolder_manage</from-outcome>
+      <to-view-id>/casemanagement/casefolder/casefolder_manage.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>mailbox_create</from-outcome>
-      <to-view-id>/correspondence/mailbox/mailbox_create.xhtml</to-view-id>
+      <from-outcome>casefolder_create</from-outcome>
+      <to-view-id>/casemanagement/casefolder/casefolder_create.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>distribution_correspondence_envelope</from-outcome>
+      <from-outcome>distribution_casemanagement_case</from-outcome>
       <to-view-id>
-        /correspondence/mail/distribution_correspondence_envelope.xhtml
-      </to-view-id>
-      <redirect />
-    </navigation-case>
-
-    <navigation-case>
-      <from-outcome>create_correspondence_outgoing_document</from-outcome>
-      <to-view-id>
-        /correspondence/mail/create_correspondence_outgoing_document.xhtml
-      </to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <from-outcome>create_correspondence_document</from-outcome>
-      <to-view-id>
-        /correspondence/mail/create_correspondence_document.xhtml
+        /casemanagement/mail/distribution_casemanagement_case.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>view_correspondence_envelope</from-outcome>
+      <from-outcome>create_casemanagement_document</from-outcome>
       <to-view-id>
-        /correspondence/mail/view_correspondence_envelope.xhtml
+        /casemanagement/mail/create_casemanagement_document.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>edit_outgoing_envelope</from-outcome>
+      <from-outcome>view_casemanagement_case</from-outcome>
       <to-view-id>
-        /correspondence/outgoingmail/outgoingmail_edit.xhtml
+        /casemanagement/mail/view_casemanagement_case.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>distribution_outgoing_post</from-outcome>
+      <from-outcome>edit_case</from-outcome>
       <to-view-id>
-        /correspondence/outgoingmail/outgoingmail_distribution.xhtml
+        /casemanagement/caseitem/caseitem_edit.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <from-outcome>distribution_caselink</from-outcome>
+      <to-view-id>
+        /casemanagement/caseitem/caseitem_distribution.xhtml
       </to-view-id>
       <redirect />
    </navigation-case>
     
 
     <navigation-case>
-      <from-outcome>view_correspondence_document</from-outcome>
+      <from-outcome>view_casemanagement_document</from-outcome>
       <to-view-id>
-        /correspondence/mail/view_correspondence_document.xhtml
+        /casemanagement/case/view_casemanagement_document.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>

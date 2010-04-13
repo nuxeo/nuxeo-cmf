@@ -4,13 +4,13 @@
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgets">
 
-    <widget name="mailbox_id" type="text">
+    <widget name="casefolder_id" type="text">
       <labels>
-        <label mode="any">label.mailbox.id</label>
+        <label mode="any">label.casefolder.id</label>
       </labels>
       <translated>true</translated>
       <fields>
-        <field>cmb:mailbox_id</field>
+        <field>csfd:casefolder_id</field>
       </fields>
       <widgetModes>
         <mode value="create">hidden</mode>
@@ -18,14 +18,14 @@
       </widgetModes>
       <properties widgetMode="edit">
         <property name="validator">
-          #{correspMailboxActions.validateMailboxId}
+          #{cmCaseFolderActions.validateMailboxId}
         </property>
         <property name="required">true</property>
         <property name="styleClass">dataInputText</property>
       </properties>
     </widget>
 
-    <widget name="mailbox_title" type="text">
+    <widget name="casefolder_title" type="text">
       <labels>
         <label mode="any">title</label>
       </labels>
@@ -39,7 +39,7 @@
       </properties>
     </widget>
 
-    <widget name="mailbox_description" type="textarea">
+    <widget name="casefolder_description" type="textarea">
       <labels>
         <label mode="any">description</label>
       </labels>
@@ -52,13 +52,13 @@
       </properties>
     </widget>
 
-    <widget name="mailbox_type" type="template">
+    <widget name="casefolder_type" type="template">
       <labels>
-        <label mode="any">label.mailbox.type</label>
+        <label mode="any">label.casefolder.type</label>
       </labels>
       <translated>true</translated>
       <fields>
-        <field>cmb:type</field>
+        <field>csfd:type</field>
       </fields>
       <!-- do not change type after creation -->
       <widgetModes>
@@ -67,7 +67,7 @@
       </widgetModes>
       <properties mode="any">
         <property name="template">
-          /correspondence_widgets/mailbox_type_widget_template.xhtml
+          /cm_widgets/casefolder_type_widget_template.xhtml
         </property>
       </properties>
       <properties widgetMode="edit">
@@ -76,9 +76,9 @@
       </properties>
     </widget>
 
-    <widget name="mailbox_profiles" type="selectManyDirectory">
+    <widget name="casefolder_profiles" type="selectManyDirectory">
       <fields>
-        <field>cmb:profiles</field>
+        <field>csfd:profiles</field>
       </fields>
       <labels>
         <label mode="any">label.correspondence.document.profiles</label>
@@ -86,7 +86,7 @@
       <translated>true</translated>
       <properties widgetMode="any">
         <!-- TODO: restrict values according to current user accreditation -->
-        <property name="directoryName">correspondence_mailbox_profile</property>
+        <property name="directoryName">cm_casefolder_profile</property>
         <property name="localize">true</property>
       </properties>
       <properties widgetMode="edit">
@@ -95,25 +95,25 @@
       </properties>
     </widget>
 
-    <widget name="mailbox_affiliation" type="template">
+    <widget name="casefolder_affiliation" type="template">
       <labels>
-        <label mode="any">label.mailbox.affiliatedMailbox</label>
+        <label mode="any">label.casefolder.affiliatedMailbox</label>
       </labels>
       <translated>true</translated>
       <fields>
-        <field>cmb:affiliated_mailbox_id</field>
+        <field>csfd:affiliated_casefolder_id</field>
       </fields>
       <properties mode="any">
         <property name="template">
-          /correspondence_widgets/single_mailbox_suggestion_widget_template.xhtml
+          /cm_widgets/single_casefolder_suggestion_widget_template.xhtml
         </property>
       </properties>
       <properties mode="edit">
-        <property name="mailboxSuggestionSearchType">generic</property>
+        <property name="casefolderSuggestionSearchType">generic</property>
       </properties>
     </widget>
 
-    <widget name="mailbox_parent" type="template">
+    <widget name="casefolder_parent" type="template">
       <labels>
         <label mode="any">label.correspondence.parentMailbox</label>
       </labels>
@@ -128,24 +128,24 @@
       </widgetModes>
       <properties mode="any">
         <property name="template">
-          /correspondence_widgets/parent_mailbox_suggestion_widget_template.xhtml
+          /cm_widgets/parent_casefolder_suggestion_widget_template.xhtml
         </property>
       </properties>
     </widget>
 
-    <widget name="mailbox_owner" type="template">
+    <widget name="casefolder_owner" type="template">
       <fields>
-        <field>cmb:owner</field>
+        <field>csfd:owner</field>
       </fields>
       <labels>
-        <label mode="any">label.mailbox.owner</label>
+        <label mode="any">label.casefolder.owner</label>
       </labels>
       <translated>true</translated>
-      <!-- do not change a personal mailbox owner -->
+      <!-- do not change a personal casefolder owner -->
       <widgetModes>
         <mode value="create">edit</mode>
         <mode value="edit">
-          #{nxu:test(layoutValue.cmb.type=='personal', 'view', 'edit')}
+          #{nxu:test(layoutValue.csfd.type=='personal', 'view', 'edit')}
         </mode>
       </widgetModes>
       <properties mode="any">
@@ -159,10 +159,10 @@
       </properties>
     </widget>
 
-    <!-- XXX: depends on mailbox_owner and mailbox_type widget names:
-      throws an error when trying to create a personal mailbox for a user
+    <!-- XXX: depends on casefolder_owner and casefolder_type widget names:
+      throws an error when trying to create a personal casefolder for a user
       who already has one -->
-    <widget name="mailbox_validate_personal_owner" type="template">
+    <widget name="casefolder_validate_personal_owner" type="template">
       <labels>
         <label mode="any"></label>
       </labels>
@@ -173,17 +173,17 @@
       </widgetModes>
       <properties widgetMode="edit">
         <property name="template">
-          /correspondence_widgets/mailbox_personal_owner_validation_widget_template.xhtml
+          /cm_widgets/casefolder_personal_owner_validation_widget_template.xhtml
         </property>
       </properties>
     </widget>
 
-    <widget name="mailbox_users" type="template">
+    <widget name="casefolder_users" type="template">
       <fields>
-        <field>cmb:users</field>
+        <field>csfd:users</field>
       </fields>
       <labels>
-        <label mode="any">label.mailbox.users</label>
+        <label mode="any">label.casefolder.users</label>
       </labels>
       <translated>true</translated>
       <properties mode="any">
@@ -196,12 +196,12 @@
       </properties>
     </widget>
 
-    <widget name="mailbox_groups" type="template">
+    <widget name="casefolder_groups" type="template">
       <fields>
-        <field>cmb:groups</field>
+        <field>csfd:groups</field>
       </fields>
       <labels>
-        <label mode="any">label.mailbox.groups</label>
+        <label mode="any">label.casefolder.groups</label>
       </labels>
       <translated>true</translated>
       <properties mode="any">
@@ -219,68 +219,68 @@
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="layouts">
 
-    <layout name="correspondence_mailbox">
+    <layout name="cm_casefolder">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
       <rows>
         <row>
-          <widget>mailbox_id</widget>
+          <widget>casefolder_id</widget>
         </row>
         <row>
-          <widget>mailbox_title</widget>
+          <widget>casefolder_title</widget>
         </row>
         <row>
-          <widget>mailbox_description</widget>
+          <widget>casefolder_description</widget>
         </row>
         <row>
-          <widget>mailbox_type</widget>
+          <widget>casefolder_type</widget>
         </row>
         <row>
-          <widget>mailbox_owner</widget>
+          <widget>casefolder_owner</widget>
         </row>
         <row>
-          <widget>mailbox_validate_personal_owner</widget>
+          <widget>casefolder_validate_personal_owner</widget>
         </row>
         <row>
-          <widget>mailbox_profiles</widget>
+          <widget>casefolder_profiles</widget>
         </row>
         <row>
-          <widget>mailbox_parent</widget>
+          <widget>casefolder_parent</widget>
         </row>
         <row>
-          <widget>mailbox_affiliation</widget>
+          <widget>casefolder_affiliation</widget>
         </row>
       </rows>
     </layout>
 
-    <layout name="correspondence_mailbox_managers">
+    <layout name="cm_casefolder_managers">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
       <rows>
         <row>
-          <widget>mailbox_users</widget>
+          <widget>casefolder_users</widget>
         </row>
         <row>
-          <widget>mailbox_groups</widget>
+          <widget>casefolder_groups</widget>
         </row>
       </rows>
     </layout>
 
-    <layout name="correspondence_recipients">
+    <layout name="cm_participants">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
       <rows>
         <row>
-          <widget>action_recipients</widget>
+          <widget>action_participants</widget>
         </row>
         <row>
-          <widget>copy_recipients</widget>
+          <widget>copy_participants</widget>
         </row>
       </rows>
-      <widget name="action_recipients" type="template">
+      <widget name="action_participants" type="template">
         <labels>
           <label mode="any">
             label.correspondence.distribution.actionRecipients
@@ -292,11 +292,11 @@
         </fields>
         <properties mode="any">
           <property name="template">
-            /correspondence_widgets/mailbox_suggestion_widget_template.xhtml
+            /cm_widgets/casefolder_suggestion_widget_template.xhtml
           </property>
         </properties>
       </widget>
-      <widget name="copy_recipients" type="template">
+      <widget name="copy_participants" type="template">
         <labels>
           <label mode="any">label.distribution.copyRecipients</label>
         </labels>
@@ -306,13 +306,13 @@
         </fields>
         <properties mode="any">
           <property name="template">
-            /correspondence_widgets/mailbox_suggestion_widget_template.xhtml
+            /cm_widgets/casefolder_suggestion_widget_template.xhtml
           </property>
         </properties>
       </widget>
     </layout>
 
-    <layout name="head_correspondence_document">
+    <layout name="head_cm_document">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
@@ -327,16 +327,16 @@
           <widget>receive_date</widget>
         </row>
         <row>
-          <widget>initial_action_internal_recipient_mailboxes</widget>
+          <widget>initial_action_internal_participant_casefolderes</widget>
         </row>
         <row>
-          <widget>initial_copy_internal_recipient_mailboxes</widget>
+          <widget>initial_copy_internal_participant_casefolderes</widget>
         </row>
         <row>
-          <widget>initial_action_external_recipient_mailboxes</widget>
+          <widget>initial_action_external_participant_casefolderes</widget>
         </row>
         <row>
-          <widget>initial_copy_external_recipient_mailboxes</widget>
+          <widget>initial_copy_external_participant_casefolderes</widget>
         </row>
         <row>
           <widget>reference</widget>
@@ -394,7 +394,7 @@
           <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
         </properties>
       </widget>
-      <widget name="initial_action_internal_recipient_mailboxes" type="list">
+      <widget name="initial_action_internal_participant_casefolderes" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.internal.action
@@ -402,7 +402,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_internal_recipient_mailboxes</field>
+          <field>cdist:initial_action_internal_participant_casefolderes</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -418,7 +418,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_internal_recipient_mailboxes" type="list">
+      <widget name="initial_copy_internal_participant_casefolderes" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.internal.information
@@ -426,7 +426,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_internal_recipient_mailboxes</field>
+          <field>cdist:initial_copy_internal_participant_casefolderes</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -442,7 +442,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_action_external_recipient_mailboxes" type="list">
+      <widget name="initial_action_external_participant_casefolderes" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.action
@@ -450,7 +450,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_external_recipient_mailboxes</field>
+          <field>cdist:initial_action_external_participant_casefolderes</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -466,7 +466,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_external_recipient_mailboxes" type="list">
+      <widget name="initial_copy_external_participant_casefolderes" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.information
@@ -474,7 +474,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_external_recipient_mailboxes</field>
+          <field>cdist:initial_copy_external_participant_casefolderes</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -504,7 +504,7 @@
       </widget>
     </layout>
 
-    <layout name="correspondence_document">
+    <layout name="cm_document">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
@@ -568,7 +568,7 @@
         </labels>
         <translated>true</translated>
         <properties widgetMode="any">
-          <property name="directoryName">correspondence_document_type</property>
+          <property name="directoryName">cm_document_type</property>
           <property name="localize">true</property>
         </properties>
         <properties widgetMode="edit">
@@ -578,7 +578,7 @@
         </properties>
       </widget>
 
-      <widget name="contactsRecipients" type="template">
+      <widget name="contactsParticipants" type="template">
         <labels>
           <label mode="any">
             label.correspondence.document.contactsRecipients
@@ -586,7 +586,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>ccont:recipientsContacts</field>
+          <field>cmct:participantsContacts</field>
         </fields>
         <properties mode="any">
           <property name="template">/widgets/contacts_template.xhtml</property>
@@ -626,7 +626,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:sending_date</field>
+          <field>cmdoc:sending_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -641,7 +641,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:receive_date</field>
+          <field>cmdoc:receive_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -656,7 +656,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:document_date</field>
+          <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -673,7 +673,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>ccont:sendersContacts</field>
+          <field>cmct:sendersContacts</field>
         </fields>
         <properties mode="any">
           <property name="template">/widgets/contacts_template.xhtml</property>
@@ -707,7 +707,7 @@
       </widget>
       <widget name="confidentiality" type="selectOneDirectory">
         <fields>
-          <field>cdoc:confidentiality</field>
+          <field>cmdoc:confidentiality</field>
         </fields>
         <labels>
           <label mode="any">
@@ -718,7 +718,7 @@
         <properties widgetMode="any">
           <!-- TODO: restrict values according to current user accreditation -->
           <property name="directoryName">
-            correspondence_confidentiality
+            cm_confidentiality
           </property>
           <property name="localize">true</property>
         </properties>
@@ -735,7 +735,7 @@
         <translated>true</translated>
         <fields>
           list
-          <field>cdoc:origin</field>
+          <field>cmdoc:origin</field>
         </fields>
         <properties widgetMode="edit">
           <property name="styleClass">dataInputText</property>
@@ -747,7 +747,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:reference</field>
+          <field>cmdoc:reference</field>
         </fields>
         <properties widgetMode="edit">
           <property name="styleClass">dataInputText</property>
@@ -771,54 +771,13 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:body</field>
+          <field>cmdoc:body</field>
         </fields>
         list
       </widget>
     </layout>
 
-    <layout name="head_correspondence_incoming_document">
-      <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
-      </templates>
-      <rows>
-        <row>
-          <widget>scan_site</widget>
-        </row>
-        <row>
-          <widget>scan_date</widget>
-        </row>
-      </rows>
-      <widget name="scan_site" type="text">
-        <labels>
-          <label mode="any">label.correspondence.document.scan_site</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>cmdocin:scan_site</field>
-        </fields>
-        <properties widgetMode="edit">
-          <property name="styleClass">dataInputText</property>
-        </properties>
-      </widget>
-      <widget name="scan_date" type="datetime">
-        <labels>
-          <label mode="any">label.correspondence.document.scan_date</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>cmdocin:scan_date</field>
-        </fields>
-        <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
-        </properties>
-        <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
-        </properties>
-      </widget>
-    </layout>
-
-    <layout name="edit_correspondence_outgoing_document">
+    <layout name="edit_cm_document">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
@@ -861,7 +820,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:document_date</field>
+          <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -878,7 +837,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>ccont:sendersContacts</field>
+          <field>cmct:sendersContacts</field>
         </fields>
         <properties mode="any">
           <property name="template">/widgets/contacts_template.xhtml</property>
@@ -912,14 +871,14 @@
       </widget>
       <widget name="document_type" type="selectOneDirectory">
         <fields>
-          <field>cdoc:type</field>
+          <field>cmdoc:type</field>
         </fields>
         <labels>
           <label mode="any">label.correspondence.document.type</label>
         </labels>
         <translated>true</translated>
         <properties widgetMode="any">
-          <property name="directoryName">correspondence_document_type</property>
+          <property name="directoryName">cm_document_type</property>
           <property name="localize">true</property>
         </properties>
         <properties widgetMode="edit">
@@ -930,7 +889,7 @@
       </widget>
       <widget name="confidentiality" type="selectOneDirectory">
         <fields>
-          <field>cdoc:confidentiality</field>
+          <field>cmdoc:confidentiality</field>
         </fields>
         <labels>
           <label mode="any">
@@ -941,7 +900,7 @@
         <properties widgetMode="any">
           <!-- TODO: restrict values according to current user accreditation -->
           <property name="directoryName">
-            correspondence_confidentiality
+            cm_confidentiality
           </property>
           <property name="localize">true</property>
         </properties>
@@ -959,7 +918,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>ccont:recipientsContacts</field>
+          <field>cmct:participantsContacts</field>
         </fields>
         <properties mode="any">
           <property name="template">/widgets/contacts_template.xhtml</property>
@@ -1001,16 +960,16 @@
 
       <rows>
         <row>
-          <widget>initial_action_external_recipient_mailboxes</widget>
+          <widget>initial_action_external_participant_casefolderes</widget>
         </row>
         <row>
-          <widget>initial_copy_external_recipient_mailboxes</widget>
+          <widget>initial_copy_external_participant_casefolderes</widget>
         </row>
         <row>
-          <widget>initial_action_internal_recipient_mailboxes</widget>
+          <widget>initial_action_internal_participant_casefolderes</widget>
         </row>
         <row>
-          <widget>initial_copy_internal_recipient_mailboxes</widget>
+          <widget>initial_copy_internal_participant_casefolderes</widget>
         </row>
         <row>
           <widget>comment</widget>
@@ -1018,7 +977,7 @@
       </rows>
 
 
-      <widget name="initial_action_external_recipient_mailboxes" type="list">
+      <widget name="initial_action_external_participant_casefolderes" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.action
@@ -1026,7 +985,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_external_recipient_mailboxes</field>
+          <field>cmdist:initial_action_external_participant_casefolderes</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1043,7 +1002,7 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_copy_external_recipient_mailboxes" type="list">
+      <widget name="initial_copy_external_participant_casefolderes" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.information
@@ -1051,7 +1010,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_external_recipient_mailboxes</field>
+          <field>cmdist:initial_copy_external_participant_casefolderes</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1068,10 +1027,10 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_action_internal_recipient_mailboxes"
+      <widget name="initial_action_internal_participant_casefolderes"
         type="template">
         <fields>
-          <field>cdist:initial_action_internal_recipient_mailboxes</field>
+          <field>cmdist:initial_action_internal_participant_casefolderes</field>
         </fields>
         <labels>
           <label mode="any">
@@ -1081,7 +1040,7 @@
         <translated>true</translated>
         <properties mode="any">
           <property name="template">
-            /widgets/recipients_suggestion_widget_template.xhtml
+            /widgets/participants_suggestion_widget_template.xhtml
           </property>
         </properties>
         <properties widgetMode="edit">
@@ -1089,10 +1048,10 @@
         </properties>
       </widget>
 
-      <widget name="initial_copy_internal_recipient_mailboxes"
+      <widget name="initial_copy_internal_participant_casefolderes"
         type="template">
         <fields>
-          <field>cdist:initial_copy_internal_recipient_mailboxes</field>
+          <field>cmdist:initial_copy_internal_participant_casefolderes</field>
         </fields>
         <labels>
           <label mode="any">
@@ -1102,7 +1061,7 @@
         <translated>true</translated>
         <properties mode="any">
           <property name="template">
-            /widgets/recipients_suggestion_widget_template.xhtml
+            /widgets/participants_suggestion_widget_template.xhtml
           </property>
         </properties>
         <properties widgetMode="edit">
@@ -1112,7 +1071,7 @@
 
       <widget name="comment" type="textarea">
         <fields>
-          <field>cpost:comment</field>
+          <field>cslk:comment</field>
         </fields>
         <labels>
           <label mode="any">label.relation.comment</label>
