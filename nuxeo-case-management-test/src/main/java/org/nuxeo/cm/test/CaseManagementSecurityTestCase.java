@@ -20,12 +20,18 @@
 package org.nuxeo.cm.test;
 
 import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.post.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
+import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
+import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.cases.GetParentPathUnrestricted;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.ACE;
@@ -36,15 +42,6 @@ import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
-
-import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.cases.GetParentPathUnrestricted;
-import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.service.CaseFolderManagementService;
-import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
-import org.nuxeo.cm.service.CaseDistributionService;
 
 /**
  * @author Anahide Tchertchian
@@ -115,8 +112,6 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
 
         caseFolderManagementService = Framework.getService(CaseFolderManagementService.class);
         assertNotNull(caseFolderManagementService);
-
-        openSession();
     }
 
     protected DocumentModel createDocument(String type, String id)

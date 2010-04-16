@@ -104,7 +104,7 @@ public class Contacts extends ArrayList<Contact> {
      * This method returns the list of non null mailbox ids
      */
     public List<String> getMailboxes() {
-        return getDatas(CONTACT_FIELD.mailboxId);
+        return getDatas(CONTACT_FIELD.caseFolderId);
     }
 
     private List<String> getDatas(CONTACT_FIELD field) {

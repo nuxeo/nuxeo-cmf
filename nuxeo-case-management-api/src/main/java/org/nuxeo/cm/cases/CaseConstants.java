@@ -92,10 +92,10 @@ public class CaseConstants {
     public static final String CASE_FOLDER_DOCUMENTS_ID_TYPE = "documentsId";
 
     public static final String CASE_FOLDER_DOCUMENTS_ID_PROPERTY_NAME = "case:documentsId";
-    
-    public static final String CONTACTS_SENDERS = "ccont:sendersContacts";
 
-    public static final String CONTACTS_PARTICIPANTS = "ccont:participantsContacts";
+    public static final String CONTACTS_SENDERS = "cmct:sendersContacts";
+
+    public static final String CONTACTS_PARTICIPANTS = "cmct:participantsContacts";
 
     public static final String FILE_PROPERTY_NAME = "file:content";
 
