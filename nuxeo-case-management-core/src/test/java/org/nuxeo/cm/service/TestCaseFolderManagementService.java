@@ -193,7 +193,7 @@ public class TestCaseFolderManagementService extends CaseManagementRepositoryTes
         Case envelope = getMailEnvelope();
         createDraftPost(senderMailbox, envelope);
 
-        assertTrue(correspService.getDraftCaseLink(session, senderMailbox,
+        assertTrue(distributionService.getDraftCaseLink(session, senderMailbox,
                 envelope.getDocument().getId()).isDraft());
 
         CaseLink postRequest = new CaseLinkRequestImpl(
@@ -201,7 +201,7 @@ public class TestCaseFolderManagementService extends CaseManagementRepositoryTes
                 "Check this out", "it is a bit boring", envelope, recipients,
                 null);
 
-        CaseLink post = correspService.sendCase(session,
+        CaseLink post = distributionService.sendCase(session,
                 postRequest, true);
         assertNotNull(post);
         assertFalse(post.isDraft());

@@ -50,7 +50,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     protected CaseFolderManagementService correspCaseFolderService;
 
-    protected CaseDistributionService correspService;
+    protected CaseDistributionService distributionService;
 
     protected CaseManagementDistributionTypeService correspDistributionTypeService;
 
@@ -111,8 +111,8 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 
-        correspService = Framework.getService(CaseDistributionService.class);
-        assertNotNull(correspService);
+        distributionService = Framework.getService(CaseDistributionService.class);
+        assertNotNull(distributionService);
 
         correspCaseFolderService = Framework.getService(CaseFolderManagementService.class);
         assertNotNull(correspCaseFolderService);

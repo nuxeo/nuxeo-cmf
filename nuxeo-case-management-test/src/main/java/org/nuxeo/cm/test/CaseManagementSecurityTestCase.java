@@ -94,7 +94,7 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
         // deploy api and core bundles
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
-        deployBundle("com.nuxeo.correspondence.sample.core");
+        deployBundle("org.nuxeo.correspondence.core");
 
         // needed for users
         deployBundle("org.nuxeo.ecm.directory");

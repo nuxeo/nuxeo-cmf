@@ -66,7 +66,7 @@ CaseManagementRepositoryTestCase {
         envelope.addCaseItem(envelopeItem, session);
         createDraftPost(initialSender, envelope);
 
-        assertNotNull(correspService.getDraftCaseLink(session, initialSender,
+        assertNotNull(distributionService.getDraftCaseLink(session, initialSender,
                 envelope.getDocument().getId()));
 
         // Create initial recipients list
@@ -81,25 +81,25 @@ CaseManagementRepositoryTestCase {
                 initialRecipients, null);
 
         // Check mailboxes of initial recipient and sender
-        assertEquals(1, correspService.getDraftCaseLinks(session, initialSender, 0,
+        assertEquals(1, distributionService.getDraftCaseLinks(session, initialSender, 0,
                 0).size());
-        assertEquals(0, correspService.getReceivedCaseLinks(session,
+        assertEquals(0, distributionService.getReceivedCaseLinks(session,
                 initialReceiverMailbox, 0, 0).size());
 
         assertTrue(envelope.isDraft());
 
         // Initial sending
-        correspService.sendCase(session, postRequest, true);
+        distributionService.sendCase(session, postRequest, true);
 
         assertFalse(envelope.isDraft());
         // Check mailbox of recipient and sender
-        assertEquals(1, correspService.getSentCaseLinks(session, initialSender, 0,
+        assertEquals(1, distributionService.getSentCaseLinks(session, initialSender, 0,
                 0).size());
-        assertEquals(1, correspService.getReceivedCaseLinks(session,
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
                 initialReceiverMailbox, 0, 0).size());
 
         // Retrieve the post in the initial receiver mailbox
-        CaseLink postInMailbox = correspService.getReceivedCaseLinks(
+        CaseLink postInMailbox = distributionService.getReceivedCaseLinks(
                 session, initialReceiverMailbox, 0, 0).get(0);
 
         // Retrieve the envelope from this post
@@ -126,24 +126,24 @@ CaseManagementRepositoryTestCase {
                 envelopeFromPost, recipients, null);
 
         // Check mailbox of recipients
-        assertEquals(0, correspService.getReceivedCaseLinks(session,
+        assertEquals(0, distributionService.getReceivedCaseLinks(session,
                 receiverMailbox1, 0, 0).size());
-        assertEquals(1, correspService.getReceivedCaseLinks(session,
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
                 initialReceiverMailbox, 0, 0).size());
 
         // Transfer
-        correspService.sendCase(session, postRequest, false);
+        distributionService.sendCase(session, postRequest, false);
 
         // Check mailbox of recipients
-        assertEquals(1, correspService.getReceivedCaseLinks(session,
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
                 receiverMailbox1, 0, 0).size());
-        assertEquals(1, correspService.getReceivedCaseLinks(session,
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
                 initialReceiverMailbox, 0, 0).size());
-        assertEquals(1, correspService.getSentCaseLinks(session,
+        assertEquals(1, distributionService.getSentCaseLinks(session,
                 initialReceiverMailbox, 0, 0).size());
 
         // Retrieve the post in the recipient1 mailbox
-        postInMailbox = correspService.getReceivedCaseLinks(session,
+        postInMailbox = distributionService.getReceivedCaseLinks(session,
                 receiverMailbox1, 0, 0).get(0);
 
         // Retrieve the envelope from the post
