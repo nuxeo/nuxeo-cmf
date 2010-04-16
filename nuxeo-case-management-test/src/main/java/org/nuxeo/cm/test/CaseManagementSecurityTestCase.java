@@ -31,6 +31,8 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
+import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
