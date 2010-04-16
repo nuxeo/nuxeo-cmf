@@ -52,11 +52,11 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -83,7 +83,7 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementCaseFolderActionsBean extends
-        CaseManagementAbstractActionsBean implements Serializable {
+CaseManagementAbstractActionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -106,7 +106,7 @@ public class CaseManagementCaseFolderActionsBean extends
     protected NavigationContext navigationContext;
 
     @In(create = true)
-    protected transient CaseManagementService correspondenceService;
+    protected transient CaseFolderManagementService correspondenceCaseFolderService;
 
     @In(required = false)
     protected transient Principal currentUser;
@@ -130,7 +130,7 @@ public class CaseManagementCaseFolderActionsBean extends
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return correspondenceService.searchCaseFolders(searchPattern, searchType);
+        return correspondenceCaseFolderService.searchCaseFolders(searchPattern, searchType);
     }
 
     /**
@@ -142,7 +142,7 @@ public class CaseManagementCaseFolderActionsBean extends
             userMailboxes = new ArrayList<CaseFolder>();
             if (currentUser != null) {
                 CaseFolder personalMailbox = null;
-                List<CaseFolder> mailboxes = correspondenceService.getUserCaseFolders(
+                List<CaseFolder> mailboxes = correspondenceCaseFolderService.getUserCaseFolders(
                         documentManager, currentUser.getName());
                 if (mailboxes != null && !mailboxes.isEmpty()) {
                     userMailboxes.addAll(mailboxes);
@@ -179,11 +179,11 @@ public class CaseManagementCaseFolderActionsBean extends
     public void validateCaseFolderId(FacesContext context, UIComponent component,
             Object value) {
         if (!(value instanceof String)
-                || correspondenceService.hasCaseFolder((String) value)) {
+                || correspondenceCaseFolderService.hasCaseFolder((String) value)) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
                             context,
-                            "feedback.correspondence.mailboxIdAlreadyExists"),
+                    "feedback.correspondence.mailboxIdAlreadyExists"),
                     null);
             // also add global message?
             // context.addMessage(null, message);
@@ -221,12 +221,12 @@ public class CaseManagementCaseFolderActionsBean extends
         }
 
         if (CaseFolderConstants.type.personal.name().equals(mailboxType)) {
-            String mbId = correspondenceService.getUserPersonalCaseFolderId((String) mailboxOwner);
-            if (correspondenceService.hasCaseFolder(mbId)) {
+            String mbId = correspondenceCaseFolderService.getUserPersonalCaseFolderId((String) mailboxOwner);
+            if (correspondenceCaseFolderService.hasCaseFolder(mbId)) {
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
-                                "feedback.correspondence.personalMailboxAlreadyExists"),
+                        "feedback.correspondence.personalMailboxAlreadyExists"),
                         null);
                 // also add global message?
                 // context.addMessage(null, message);
@@ -246,7 +246,7 @@ public class CaseManagementCaseFolderActionsBean extends
                 log.debug("Document " + newDocument.getName()
                         + " already created");
                 return navigationContext.navigateToDocument(newDocument,
-                        "after-create");
+                "after-create");
             }
             DocumentModel parentDocument = getParentCaseFolder(parentMailboxId);
             // reset the parent id
@@ -267,7 +267,7 @@ public class CaseManagementCaseFolderActionsBean extends
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                     parentDocument);
             return navigationContext.navigateToDocument(newDocument,
-                    "after-create");
+            "after-create");
         } catch (Throwable t) {
             throw new CaseManagementException(t);
         }
@@ -295,7 +295,7 @@ public class CaseManagementCaseFolderActionsBean extends
 
     @Override
     protected void resetCaseFolderCache(CaseFolder cachedMailbox, CaseFolder newMailbox)
-            throws ClientException {
+    throws ClientException {
         ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance("resultsProvidersCache");
 
         resultsProvidersCache.invalidate(CASE_FOLDER_INBOX);
@@ -319,16 +319,16 @@ public class CaseManagementCaseFolderActionsBean extends
     }
 
     protected DocumentModel getParentCaseFolder(String parentMailboxId)
-            throws ClientException {
+    throws ClientException {
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
-                mailboxDoc = correspondenceService.getCaseFolder(documentManager,
+                mailboxDoc = correspondenceCaseFolderService.getCaseFolder(documentManager,
                         parentMailboxId).getDocument();
             } catch (Exception e) {
                 log.error(String.format(
                         "Unable to find parent mailbox with id '%s', using default "
-                                + "mailbox root as parent", parentMailboxId));
+                        + "mailbox root as parent", parentMailboxId));
             }
         }
         if (mailboxDoc == null) {
@@ -405,7 +405,7 @@ public class CaseManagementCaseFolderActionsBean extends
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
-                        "feedback.corresp.delegation.modified"));
+                "feedback.corresp.delegation.modified"));
         EventManager.raiseEventsOnDocumentChange(mailbox.getDocument());
     }
 

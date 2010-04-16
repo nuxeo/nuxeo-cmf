@@ -22,7 +22,7 @@ public class TestCaseManagementUserManager extends CaseManagementRepositoryTestC
         NuxeoPrincipal admin = userManager.getPrincipal(user);
         assertNotNull(admin);
         assertTrue(admin instanceof CaseManagementPrincipalImpl);
-        CaseFolder mailbox = correspService.createPersonalCaseFolders(session, user).get(0);
+        CaseFolder mailbox = correspCaseFolderService.createPersonalCaseFolders(session, user).get(0);
         assertNotNull(mailbox);
         List<String> groups = admin.getGroups();
         assertNotNull(groups);

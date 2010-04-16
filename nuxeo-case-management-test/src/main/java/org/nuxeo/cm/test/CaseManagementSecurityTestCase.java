@@ -42,8 +42,9 @@ import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseDistributionService;
 
 /**
  * @author Anahide Tchertchian
@@ -53,7 +54,9 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
 
     protected UserManager userManager;
 
-    protected CaseManagementService caseManagementService;
+    protected CaseDistributionService caseDistributionService;
+
+    protected CaseFolderManagementService caseFolderManagementService;
 
     protected static final String administrator = "Administrator";
 
@@ -107,14 +110,17 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 
-        caseManagementService = Framework.getService(CaseManagementService.class);
-        assertNotNull(caseManagementService);
+        caseDistributionService = Framework.getService(CaseDistributionService.class);
+        assertNotNull(caseDistributionService);
+
+        caseFolderManagementService = Framework.getService(CaseFolderManagementService.class);
+        assertNotNull(caseFolderManagementService);
 
         openSession();
     }
 
     protected DocumentModel createDocument(String type, String id)
-            throws Exception {
+    throws Exception {
         DocumentModel document = session.createDocumentModel(type);
         document.setPathInfo("/", id);
         document = session.createDocument(document);
@@ -143,7 +149,7 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
     }
 
     public void createDraftPost(CaseFolder mb, Case envelope)
-            throws Exception {
+    throws Exception {
 
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),
@@ -160,7 +166,7 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
     }
 
     protected CaseFolder createPersonalMailbox(String name) throws Exception {
-        return caseManagementService.createPersonalCaseFolders(session, name).get(0);
+        return caseFolderManagementService.createPersonalCaseFolders(session, name).get(0);
     }
 
     protected CaseItem getMailEnvelopeItem() throws Exception {
@@ -176,13 +182,13 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
         if (mailEnvelopItemeModel == null) {
             mailEnvelopItemeModel = session.createDocumentModel("/",
                     UUID.randomUUID().toString(),
-                    "IncomingCorrespondenceDocument");
+            "IncomingCorrespondenceDocument");
         }
         return mailEnvelopItemeModel;
     }
 
     public Case createMailDocumentInEnvelope(CaseFolder mailbox)
-            throws Exception {
+    throws Exception {
         // The new mail
 
         DocumentModel emailDoc = getMailEnvelopeItemModel();
@@ -191,11 +197,11 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
                 session);
         runner.runUnrestricted();
         session.save();
-        Case envelope = caseManagementService.createCase(session,
+        Case envelope = caseDistributionService.createCase(session,
                 emailDoc, runner.getParentPath());
 
         // Create the Draft post in the mailbox
-        caseManagementService.createDraftCaseLink(session, mailbox, envelope);
+        caseDistributionService.createDraftCaseLink(session, mailbox, envelope);
         session.save();
         return envelope;
     }

@@ -45,7 +45,8 @@ import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.post.CaseLinkMode;
 import org.nuxeo.cm.post.CaseLinkRequestImpl;
 import org.nuxeo.cm.post.CaseLinkType;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -65,7 +66,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementDistributionActionsBean extends
-        CaseManagementContextBoundInstance implements Serializable {
+CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,7 +82,10 @@ public class CaseManagementDistributionActionsBean extends
     protected transient NavigationContext navigationContext;
 
     @In(create = true)
-    protected transient CaseManagementService correspondenceService;
+    protected transient CaseDistributionService correspondenceService;
+
+    @In(create = true)
+    protected transient CaseFolderManagementService correspondenceCaseFolderService;
 
     @In(create = true)
     protected WebActions webActions;
@@ -105,7 +109,7 @@ public class CaseManagementDistributionActionsBean extends
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    ParticipantItem item = (ParticipantItem) correspondenceService.getCaseFolderHeader(fav);
+                    ParticipantItem item = (ParticipantItem) correspondenceCaseFolderService.getCaseFolderHeader(fav);
                     item.setMessageType(CaseLinkType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
@@ -123,14 +127,14 @@ public class CaseManagementDistributionActionsBean extends
             if (!distributionInfo.hasParticipants()) {
                 facesMessages.add(FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                                "feedback.corresp.distribution.noRecipients"));
+                        "feedback.corresp.distribution.noRecipients"));
                 return null;
             }
             CaseLinkMode mode = CaseLinkMode.valueOfString(distributionInfo.getMode());
             if (mode == null) {
                 facesMessages.add(FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                                "feedback.corresp.distribution.invalidMode"));
+                        "feedback.corresp.distribution.invalidMode"));
                 return null;
             }
             CaseFolder currentMailbox = getCurrentCaseFolder();
@@ -138,7 +142,7 @@ public class CaseManagementDistributionActionsBean extends
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                                "feedback.corresp.distribution.invalidCurrentMailbox"));
+                        "feedback.corresp.distribution.invalidCurrentMailbox"));
                 return null;
             }
             DocumentModel emailDoc = null;
@@ -161,7 +165,7 @@ public class CaseManagementDistributionActionsBean extends
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                                "feedback.corresp.distribution.invalidEnvelope"));
+                        "feedback.corresp.distribution.invalidEnvelope"));
                 return null;
             }
             Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
@@ -180,7 +184,7 @@ public class CaseManagementDistributionActionsBean extends
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                                "feedback.corresp.distribution.noFinalRecipients"));
+                        "feedback.corresp.distribution.noFinalRecipients"));
                 return null;
             }
             envelope.save(documentManager);
@@ -191,7 +195,7 @@ public class CaseManagementDistributionActionsBean extends
             resetWizard();
             facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
-                            "feedback.corresp.distribution.done"));
+                    "feedback.corresp.distribution.done"));
         }
         // navigate to default view
         webActions.resetCurrentTab();

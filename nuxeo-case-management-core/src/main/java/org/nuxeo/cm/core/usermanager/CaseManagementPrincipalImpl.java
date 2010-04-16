@@ -28,7 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.repository.Repository;
@@ -50,7 +50,7 @@ public class CaseManagementPrincipalImpl extends NuxeoPrincipalImpl {
 
     public CaseManagementPrincipalImpl(String name, boolean isAnonymous,
             boolean isAdministrator, boolean updateAllGroups)
-            throws ClientException {
+    throws ClientException {
         super(name, isAnonymous, isAdministrator, updateAllGroups);
     }
 
@@ -60,7 +60,7 @@ public class CaseManagementPrincipalImpl extends NuxeoPrincipalImpl {
     public List<String> getGroups() {
         List<String> groups = super.getGroups();
         try {
-            CaseManagementService correspondenceService = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService correspondenceService = Framework.getService(CaseFolderManagementService.class);
             GetCaseFolderIdsUnrestricted runner = new GetCaseFolderIdsUnrestricted(
                     getRepoName(), correspondenceService, getPrincipalId());
             runner.runUnrestricted();
@@ -146,7 +146,7 @@ public class CaseManagementPrincipalImpl extends NuxeoPrincipalImpl {
         }
         if (mgr == null) {
             throw new CaseManagementRuntimeException(
-                    "Unable to find Repository Manager.");
+            "Unable to find Repository Manager.");
         }
         Repository repo = mgr.getDefaultRepository();
         return repo.getName();

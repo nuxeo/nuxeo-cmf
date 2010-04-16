@@ -35,9 +35,10 @@ import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseDistributionService;
 
 /**
  * @author Anahide Tchertchian
@@ -47,7 +48,9 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     protected UserManager userManager;
 
-    protected CaseManagementService correspService;
+    protected CaseFolderManagementService correspCaseFolderService;
+
+    protected CaseDistributionService correspService;
 
     protected CaseManagementDistributionTypeService correspDistributionTypeService;
 
@@ -108,8 +111,11 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 
-        correspService = Framework.getService(CaseManagementService.class);
+        correspService = Framework.getService(CaseDistributionService.class);
         assertNotNull(correspService);
+
+        correspCaseFolderService = Framework.getService(CaseFolderManagementService.class);
+        assertNotNull(correspCaseFolderService);
 
         correspDistributionTypeService = Framework.getService(CaseManagementDistributionTypeService.class);
         assertNotNull(correspDistributionTypeService);
@@ -120,7 +126,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     }
 
     protected DocumentModel createDocument(String type, String id)
-            throws Exception {
+    throws Exception {
         DocumentModel document = session.createDocumentModel(type);
         document.setPathInfo("/", id);
         document = session.createDocument(document);
@@ -164,7 +170,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     }
 
     public void createDraftPost(CaseFolder mb, Case envelope)
-            throws Exception {
+    throws Exception {
 
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),

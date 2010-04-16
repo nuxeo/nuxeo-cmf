@@ -41,7 +41,7 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
  *
  */
 public class TestDistribution extends
-        CaseManagementRepositoryTestCase {
+CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
@@ -50,7 +50,7 @@ public class TestDistribution extends
     }
 
     public CaseFolder getPersonalMailbox(String name) throws Exception {
-        return correspService.createPersonalCaseFolders(session, name).get(0);
+        return correspCaseFolderService.createPersonalCaseFolders(session, name).get(0);
     }
 
     public void testSendEnvelope() throws Exception {

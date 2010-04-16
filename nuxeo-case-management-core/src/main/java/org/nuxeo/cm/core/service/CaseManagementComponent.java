@@ -21,8 +21,8 @@ package org.nuxeo.cm.core.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.service.CaseManagementService;
 import org.nuxeo.cm.service.CaseFolderCreator;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -44,18 +44,18 @@ public class CaseManagementComponent extends DefaultComponent {
 
     protected static final String MESSAGE_FACTORY_EXTENSION_POINT = "messageFactory";
 
-    protected CaseManagementServiceImpl service;
+    protected CaseFolderManagementServiceImpl service;
 
     @Override
     public void activate(ComponentContext context) throws Exception {
         super.activate(context);
-        this.service = new CaseManagementServiceImpl();
+        this.service = new CaseFolderManagementServiceImpl();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getAdapter(Class<T> adapter) {
-        if (adapter.isAssignableFrom(CaseManagementService.class)) {
+        if (adapter.isAssignableFrom(CaseFolderManagementService.class)) {
             return (T) service;
         }
         return null;
@@ -64,7 +64,7 @@ public class CaseManagementComponent extends DefaultComponent {
     @Override
     public void registerContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+    throws Exception {
         if (extensionPoint.equals(MAILBOX_CREATOR_EXTENSION_POINT)) {
             CreationClassDescriptor classDesc = (CreationClassDescriptor) contribution;
             String className = classDesc.getKlass();

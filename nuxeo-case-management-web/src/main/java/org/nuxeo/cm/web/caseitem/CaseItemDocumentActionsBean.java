@@ -35,7 +35,7 @@ import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -76,7 +76,7 @@ public class CaseItemDocumentActionsBean extends
     protected transient CoreSession documentManager;
 
     @In(create = true)
-    protected transient CaseManagementService correspondenceService;
+    protected transient CaseDistributionService correspondenceService;
 
     @In(create = true, required = false)
     protected transient FacesMessages facesMessages;

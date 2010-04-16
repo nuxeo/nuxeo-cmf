@@ -42,7 +42,7 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
  * @author Anahide Tchertchian
  *
  */
-public class TestCaseManagementService extends CaseManagementRepositoryTestCase {
+public class TestCaseFolderManagementService extends CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
@@ -52,13 +52,13 @@ public class TestCaseManagementService extends CaseManagementRepositoryTestCase 
 
     public void testDefaultPersonalCaseFolderCreation() throws Exception {
 
-        correspService.createPersonalCaseFolders(session, "toto");
-        List<CaseFolder> mailboxes = correspService.getUserCaseFolders(session,
-                "toto");
+        correspCaseFolderService.createPersonalCaseFolders(session, "toto");
+        List<CaseFolder> mailboxes = correspCaseFolderService.getUserCaseFolders(session,
+        "toto");
         assertTrue(mailboxes.isEmpty());
 
-        correspService.createPersonalCaseFolders(session, user);
-        mailboxes = correspService.getUserCaseFolders(session, user);
+        correspCaseFolderService.createPersonalCaseFolders(session, user);
+        mailboxes = correspCaseFolderService.getUserCaseFolders(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
         CaseFolder mb = mailboxes.get(0);
@@ -72,9 +72,9 @@ public class TestCaseManagementService extends CaseManagementRepositoryTestCase 
         // override creation behaviour
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
-                "test-personalmailbox-creator-corresp-contrib.xml");
+        "test-personalmailbox-creator-corresp-contrib.xml");
 
-        List<CaseFolder> mailboxes = correspService.createPersonalCaseFolders(session,
+        List<CaseFolder> mailboxes = correspCaseFolderService.createPersonalCaseFolders(session,
                 user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
@@ -86,9 +86,9 @@ public class TestCaseManagementService extends CaseManagementRepositoryTestCase 
     }
 
     public void testGetUserPersonalCaseFolderId() throws Exception {
-        String totoMbId = correspService.getUserPersonalCaseFolderId("toto");
+        String totoMbId = correspCaseFolderService.getUserPersonalCaseFolderId("toto");
         assertNull(totoMbId);
-        String userMbId = correspService.getUserPersonalCaseFolderId(user);
+        String userMbId = correspCaseFolderService.getUserPersonalCaseFolderId(user);
         assertNotNull(userMbId);
         assertEquals("user-user", userMbId);
     }
@@ -99,25 +99,25 @@ public class TestCaseManagementService extends CaseManagementRepositoryTestCase 
 
         // log as given user and check he still got access
         openSessionAs(user);
-        CaseFolder mb = correspService.getCaseFolder(session, "test");
+        CaseFolder mb = correspCaseFolderService.getCaseFolder(session, "test");
         assertEquals(mb.getTitle(), "Test");
 
     }
 
     public void testHasCaseFolder() throws Exception {
         createCaseFolder();
-        assertTrue(correspService.hasCaseFolder("test"));
-        assertFalse(correspService.hasCaseFolder("foo"));
+        assertTrue(correspCaseFolderService.hasCaseFolder("test"));
+        assertFalse(correspCaseFolderService.hasCaseFolder("foo"));
     }
 
     public void testGetCaseFolders() throws Exception {
 
-        correspService.createPersonalCaseFolders(session, user);
+        correspCaseFolderService.createPersonalCaseFolders(session, user);
 
         // Create an other mailbox
         createCaseFolder();
 
-        List<CaseFolder> mailboxes = correspService.getUserCaseFolders(session, user);
+        List<CaseFolder> mailboxes = correspCaseFolderService.getUserCaseFolders(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(2, mailboxes.size());
 
@@ -134,17 +134,17 @@ public class TestCaseManagementService extends CaseManagementRepositoryTestCase 
 
         // log as given user and check he still got access
         openSessionAs(user);
-        mailboxes = correspService.getUserCaseFolders(session, user);
+        mailboxes = correspCaseFolderService.getUserCaseFolders(session, user);
         assertEquals(2, mailboxes.size());
 
     }
 
     public void testSearchCaseFolders() throws Exception {
         // create personal mailboxes for users, calling getMailboxes on each
-        correspService.getUserCaseFolders(session, user);
-        correspService.getUserCaseFolders(session, user1);
-        correspService.getUserCaseFolders(session, user2);
-        correspService.getUserCaseFolders(session, user3);
+        correspCaseFolderService.getUserCaseFolders(session, user);
+        correspCaseFolderService.getUserCaseFolders(session, user1);
+        correspCaseFolderService.getUserCaseFolders(session, user2);
+        correspCaseFolderService.getUserCaseFolders(session, user3);
 
         // create a generic mailbox too
         DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
@@ -174,7 +174,7 @@ public class TestCaseManagementService extends CaseManagementRepositoryTestCase 
     }
 
     public CaseFolder getPersonalCaseFolder(String name) throws Exception {
-        return correspService.createPersonalCaseFolders(session, name).get(0);
+        return correspCaseFolderService.createPersonalCaseFolders(session, name).get(0);
     }
 
     public void testSendCase() throws Exception {

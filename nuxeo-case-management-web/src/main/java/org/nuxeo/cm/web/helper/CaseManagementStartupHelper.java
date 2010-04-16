@@ -29,7 +29,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.international.LocaleSelector;
 import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.web.casefolder.CaseManagementCaseFolderActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -70,12 +70,12 @@ public class CaseManagementStartupHelper extends StartupHelper {
         String page = super.initServerAndFindStartupPage();
         initCurrentDomain();
         try {
-            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
             // select mailbox to display
             final String user = currentNuxeoPrincipal.getName();
             CaseFolder userMailbox = service.getUserPersonalCaseFolder(documentManager, user);
             if (userMailbox != null) {
-               page = navigationContext.navigateToDocument(userMailbox.getDocument());
+                page = navigationContext.navigateToDocument(userMailbox.getDocument());
             }
         } catch (Exception e) {
             log.error("Could not redirect to user mailbox", e);

@@ -25,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -63,14 +63,14 @@ public class CreateCaseFolderIdListener implements EventListener {
         }
 
         try {
-            CaseManagementService correspService = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService correspService = Framework.getService(CaseFolderManagementService.class);
             setIdForMailbox(correspService, mb);
         } catch (Exception e) {
             log.error(e);
         }
     }
 
-    protected void setIdForMailbox(CaseManagementService correspService,
+    protected void setIdForMailbox(CaseFolderManagementService correspService,
             CaseFolder mb) {
         if (correspService == null) {
             log.error("Cannot set mailbox id: correspondence service is null");

@@ -27,7 +27,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderHeader;
-import org.nuxeo.cm.service.CaseManagementService;
+import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
 
@@ -77,7 +77,7 @@ public class DistributionFunctions {
 
     public static CaseFolder getCaseFolder(String mailboxId) {
         try {
-            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
             return service.getCaseFolder(mailboxId);
         } catch (Exception e) {
             return null;
@@ -86,7 +86,7 @@ public class DistributionFunctions {
 
     public static CaseFolderHeader getCaseFolderHeader(String mailboxId) {
         try {
-            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
             return service.getCaseFolderHeader(mailboxId);
         } catch (Exception e) {
             return null;
@@ -95,7 +95,7 @@ public class DistributionFunctions {
 
     public static List<CaseFolder> getCaseFolders(List<String> mailboxIds) {
         try {
-            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
             return service.getCaseFolders(mailboxIds);
         } catch (Exception e) {
             return null;
@@ -104,7 +104,7 @@ public class DistributionFunctions {
 
     public static List<CaseFolderHeader> getCaseFolderHeaders(List<String> mailboxIds) {
         try {
-            CaseManagementService service = Framework.getService(CaseManagementService.class);
+            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
             return service.getCaseFoldersHeaders(mailboxIds);
         } catch (Exception e) {
             return null;

@@ -46,7 +46,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
 
     protected static final String CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP = "correspondence.defaultMailboxCreator.skip";
 
-    private static final Log log = LogFactory.getLog(CaseManagementServiceImpl.class);
+    private static final Log log = LogFactory.getLog(DefaultCaseFolderCreator.class);
 
     public String getPersonalCaseFolderId(DocumentModel userModel) {
         String userId = userModel.getId();
@@ -62,7 +62,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
      *      .ecm.core.api.CoreSession, java.lang.String)
      */
     public List<CaseFolder> createCaseFolders(CoreSession session, String user)
-            throws CaseManagementException {
+    throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP);
         if (skipCreation != null
@@ -100,7 +100,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
                     CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
             if (res == null || res.isEmpty()) {
                 throw new CaseManagementException(
-                        "Cannot find any mailbox folder");
+                "Cannot find any mailbox folder");
             }
 
             mailboxModel.setPathInfo(res.get(0).getPathAsString(),
@@ -122,7 +122,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
     }
 
     protected String getUserDisplayName(DocumentModel userModel)
-            throws ClientException {
+    throws ClientException {
         String schemaName = getUserSchemaName();
         String first = (String) userModel.getProperty(schemaName, "firstName");
         String last = (String) userModel.getProperty(schemaName, "lastName");
