@@ -18,7 +18,7 @@
 
   <xs:complexType name="type_contacts">
     <xs:sequence>
-      <xs:element name="recipient" type="cmxs:type_contact"
+      <xs:element name="participant" type="cmxs:type_contact"
         minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>

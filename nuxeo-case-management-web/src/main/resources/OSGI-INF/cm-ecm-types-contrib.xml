@@ -30,12 +30,11 @@
       </layouts>
       <layouts mode="edit">
         <layout>cm_casefolder</layout>
-        <!-- remove managers on edit (?) -->
         <layout>cm_casefolder_managers</layout>
       </layouts>
     </type>
 
-    <type id="CaseFolderRoot">
+    <type id="CaseRoot">
       <label>label.correspondence.type.CorrespondenceMailFolder</label>
       <icon>/icons/folder.gif</icon>
       <default-view>view_documents</default-view>

@@ -48,10 +48,6 @@ ResultsProviderFarm, Serializable {
 
     private static final long serialVersionUID = 8331654530334881666L;
 
-    // Result providers
-    // public static final String CHILDREN_BY_SEARCH =
-    // "CURRENT_DOC_CHILDREN_BY_SEARCH";
-
     protected static final String FILTER_SCHEMA_NAME = "browsing_filters";
 
     protected static final String FILTER_FIELD_NAME_PARENT_ID = "query_parentId";

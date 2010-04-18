@@ -8,7 +8,7 @@
 
   <xs:element name="comment" type="xs:string" />
   <xs:element name="date" type="xs:date" />
-  <xs:element name="caseId" type="xs:string" />
+  <xs:element name="caseDocumentId" type="xs:string" />
   <xs:element name="caseRepositoryName" type="xs:string" />
   <xs:element name="caseItemId" type="xs:string" />
   <xs:element name="isRead" type="xs:boolean" default="false" />

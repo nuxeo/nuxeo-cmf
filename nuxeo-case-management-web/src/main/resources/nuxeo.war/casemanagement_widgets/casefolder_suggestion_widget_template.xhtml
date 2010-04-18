@@ -45,14 +45,14 @@
             fetchValue=""
             nothingLabel="#{messages['label.content.empty.search']}"
             minChars="#{minChars}" frequency="#{frequency}" requestDelay="#{requestDelay}">
-            <f:param name="mailboxSuggestionSearchType"
-              value="#{widget.properties['mailboxSuggestionSearchType']}" />
+            <f:param name="caseFolderSuggestionSearchType"
+              value="#{widget.properties['caseFolderSuggestionSearchType']}" />
             <a4j:support event="onselect"
               focus="#{widget.id}_suggest"
               bypassUpdates="true"
               reRender="#{widget.id}_listRegion">
-              <f:param name="mailboxSuggestionSearchType"
-                value="#{widget.properties['mailboxSuggestionSearchType']}" />
+              <f:param name="caseFolderSuggestionSearchType"
+                value="#{widget.properties['caseFolderSuggestionSearchType']}" />
               <f:setPropertyActionListener value="#{result.id}"
                     target="#{suggestionActions.selectedValue}" />
               <nxu:actionListenerMethod value="#{suggestionActions.addBoundSelectionToList}" />

@@ -27,7 +27,7 @@
       <bindings>
         <binding name="tabId">#{webActions.currentTabId}</binding>
         <binding name="subTabId">#{webActions.currentSubTabId}</binding>
-        <binding name="currentEmailId">
+        <binding name="currentCaseItemId">
           #{cmContextActions.currentCaseItemId}
         </binding>
       </bindings>

@@ -17,7 +17,7 @@
       org.nuxeo.cm.web.distribution.DistributionFunctions
     </function-class>
     <function-signature>
-      java.util.List getCaseFolderss(java.util.List)
+      java.util.List getCaseFolders(java.util.List)
     </function-signature>
   </function>
   <function>

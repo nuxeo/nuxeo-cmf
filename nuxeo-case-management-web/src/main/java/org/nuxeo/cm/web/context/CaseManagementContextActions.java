@@ -34,12 +34,12 @@ public interface CaseManagementContextActions {
     /**
      * Sets current email identifier
      */
-    void setCurrentEmailId(String id) throws ClientException;
+    void setCurrentCaseItemId(String id) throws ClientException;
 
     /**
      * Returns current email identifier
      */
-    String getCurrentEmailId() throws ClientException;
+    String getCurrentCaseItemId() throws ClientException;
 
     /**
      * Sets current context according to current document information

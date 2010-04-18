@@ -82,10 +82,10 @@ CaseManagementContextBoundInstance implements Serializable {
     protected transient NavigationContext navigationContext;
 
     @In(create = true)
-    protected transient CaseDistributionService correspondenceService;
+    protected transient CaseDistributionService caseDistributionService;
 
     @In(create = true)
-    protected transient CaseFolderManagementService correspondenceCaseFolderService;
+    protected transient CaseFolderManagementService caseFolderManagementService;
 
     @In(create = true)
     protected WebActions webActions;
@@ -109,7 +109,7 @@ CaseManagementContextBoundInstance implements Serializable {
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    ParticipantItem item = (ParticipantItem) correspondenceCaseFolderService.getCaseFolderHeader(fav);
+                    ParticipantItem item = (ParticipantItem) caseFolderManagementService.getCaseFolderHeader(fav);
                     item.setMessageType(CaseLinkType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
@@ -176,7 +176,7 @@ CaseManagementContextBoundInstance implements Serializable {
                     (String) envelopeDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
                     distributionInfo.getComment(), envelope, recipients, null);
 
-            correspondenceService.sendCase(documentManager, postRequest,
+            caseDistributionService.sendCase(documentManager, postRequest,
                     envelope.isDraft());
 
             // check there were actual recipients

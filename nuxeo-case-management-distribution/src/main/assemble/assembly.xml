@@ -152,6 +152,7 @@
     <!-- Deploy Custom plugins -->
     <copy todir="${app.path}/server/default/deploy/nuxeo.ear/plugins">
       <artifact:set groupId="org.nuxeo.cm" type="jar" />
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
     </copy>
     <antcall target="zip">
       <param name="distribution" value="server" />

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+n<?xml version="1.0"?>
 <project name="Nuxeo Correspondence" default="deploy" basedir=".">
   <property file="../build.properties" />
 

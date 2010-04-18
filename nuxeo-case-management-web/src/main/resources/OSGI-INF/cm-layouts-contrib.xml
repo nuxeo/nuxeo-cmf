@@ -67,7 +67,7 @@
       </widgetModes>
       <properties mode="any">
         <property name="template">
-          /cm_widgets/casefolder_type_widget_template.xhtml
+          /casemanagement_widgets/casefolder_type_widget_template.xhtml
         </property>
       </properties>
       <properties widgetMode="edit">
@@ -105,7 +105,7 @@
       </fields>
       <properties mode="any">
         <property name="template">
-          /cm_widgets/single_casefolder_suggestion_widget_template.xhtml
+          /casemanagement_widgets/single_casefolder_suggestion_widget_template.xhtml
         </property>
       </properties>
       <properties mode="edit">
@@ -128,7 +128,7 @@
       </widgetModes>
       <properties mode="any">
         <property name="template">
-          /cm_widgets/parent_casefolder_suggestion_widget_template.xhtml
+          /casemanagement_widgets/parent_casefolder_suggestion_widget_template.xhtml
         </property>
       </properties>
     </widget>
@@ -173,7 +173,7 @@
       </widgetModes>
       <properties widgetMode="edit">
         <property name="template">
-          /cm_widgets/casefolder_personal_owner_validation_widget_template.xhtml
+          /casemanagement_widgets/casefolder_personal_owner_validation_widget_template.xhtml
         </property>
       </properties>
     </widget>
@@ -288,11 +288,11 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>forActionMailboxes</field>
+          <field>forActionCaseFolders</field>
         </fields>
         <properties mode="any">
           <property name="template">
-            /cm_widgets/casefolder_suggestion_widget_template.xhtml
+            /casemanagement_widgets/casefolder_suggestion_widget_template.xhtml
           </property>
         </properties>
       </widget>
@@ -302,11 +302,11 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>forInformationMailboxes</field>
+          <field>forInformationCaseFolders</field>
         </fields>
         <properties mode="any">
           <property name="template">
-            /cm_widgets/casefolder_suggestion_widget_template.xhtml
+            /casemanagement_widgets/casefolder_suggestion_widget_template.xhtml
           </property>
         </properties>
       </widget>
@@ -327,16 +327,16 @@
           <widget>receive_date</widget>
         </row>
         <row>
-          <widget>initial_action_internal_participant_casefolderes</widget>
+          <widget>initial_action_internal_participant_casefolders</widget>
         </row>
         <row>
-          <widget>initial_copy_internal_participant_casefolderes</widget>
+          <widget>initial_copy_internal_participant_casefolders</widget>
         </row>
         <row>
-          <widget>initial_action_external_participant_casefolderes</widget>
+          <widget>initial_action_external_participant_casefolders</widget>
         </row>
         <row>
-          <widget>initial_copy_external_participant_casefolderes</widget>
+          <widget>initial_copy_external_participant_casefolders</widget>
         </row>
         <row>
           <widget>reference</widget>
@@ -394,7 +394,7 @@
           <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
         </properties>
       </widget>
-      <widget name="initial_action_internal_participant_casefolderes" type="list">
+      <widget name="initial_action_internal_participant_casefolders" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.internal.action
@@ -402,7 +402,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_internal_participant_casefolderes</field>
+          <field>cdist:initial_action_internal_participant_casefolders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -418,7 +418,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_internal_participant_casefolderes" type="list">
+      <widget name="initial_copy_internal_participant_casefolders" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.internal.information
@@ -426,7 +426,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_internal_participant_casefolderes</field>
+          <field>cdist:initial_copy_internal_participant_casefolders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -442,7 +442,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_action_external_participant_casefolderes" type="list">
+      <widget name="initial_action_external_participant_casefolderders" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.action
@@ -450,7 +450,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_external_participant_casefolderes</field>
+          <field>cdist:initial_action_external_participant_casefolders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -466,7 +466,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_external_participant_casefolderes" type="list">
+      <widget name="initial_copy_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.information
@@ -474,7 +474,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_external_participant_casefolderes</field>
+          <field>cdist:initial_copy_external_participant_casefolders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -516,7 +516,7 @@
           <widget>document_type</widget>
         </row>
         <row>
-          <widget>contactsRecipients</widget>
+          <widget>contactsParticipants</widget>
         </row>
         <row>
           <widget>sending_date</widget>
@@ -589,7 +589,7 @@
           <field>cmct:participantsContacts</field>
         </fields>
         <properties mode="any">
-          <property name="template">/widgets/contacts_template.xhtml</property>
+          <property name="template">/casemanagement_widgets/contacts_template.xhtml</property>
         </properties>
         <subWidgets>
           <widget name="sender" type="text">
@@ -676,7 +676,7 @@
           <field>cmct:sendersContacts</field>
         </fields>
         <properties mode="any">
-          <property name="template">/widgets/contacts_template.xhtml</property>
+          <property name="template">/casemanagement_widgets/contacts_template.xhtml</property>
         </properties>
         <subWidgets>
           <widget name="sender" type="text">
@@ -840,7 +840,7 @@
           <field>cmct:sendersContacts</field>
         </fields>
         <properties mode="any">
-          <property name="template">/widgets/contacts_template.xhtml</property>
+          <property name="template">/casemanagement_widgets/contacts_template.xhtml</property>
         </properties>
         <subWidgets>
           <widget name="sender" type="text">
@@ -921,7 +921,7 @@
           <field>cmct:participantsContacts</field>
         </fields>
         <properties mode="any">
-          <property name="template">/widgets/contacts_template.xhtml</property>
+          <property name="template">/casemanagement_widgets/contacts_template.xhtml</property>
         </properties>
         <subWidgets>
           <widget name="sender" type="text">
@@ -960,16 +960,16 @@
 
       <rows>
         <row>
-          <widget>initial_action_external_participant_casefolderes</widget>
+          <widget>initial_action_external_participant_casefolders</widget>
         </row>
         <row>
-          <widget>initial_copy_external_participant_casefolderes</widget>
+          <widget>initial_copy_external_participant_casefolders</widget>
         </row>
         <row>
-          <widget>initial_action_internal_participant_casefolderes</widget>
+          <widget>initial_action_internal_participant_casefolders</widget>
         </row>
         <row>
-          <widget>initial_copy_internal_participant_casefolderes</widget>
+          <widget>initial_copy_internal_participant_casefolders</widget>
         </row>
         <row>
           <widget>comment</widget>
@@ -977,7 +977,7 @@
       </rows>
 
 
-      <widget name="initial_action_external_participant_casefolderes" type="list">
+      <widget name="initial_action_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.action
@@ -985,7 +985,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_action_external_participant_casefolderes</field>
+          <field>cmdist:initial_action_external_participant_casefolders</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1002,7 +1002,7 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_copy_external_participant_casefolderes" type="list">
+      <widget name="initial_copy_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
             label.correspondence.document.initial.recipient.external.information
@@ -1010,7 +1010,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_copy_external_participant_casefolderes</field>
+          <field>cmdist:initial_copy_external_participant_casefolders</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1027,10 +1027,10 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_action_internal_participant_casefolderes"
+      <widget name="initial_action_internal_participant_casefolders"
         type="template">
         <fields>
-          <field>cmdist:initial_action_internal_participant_casefolderes</field>
+          <field>cmdist:initial_action_internal_participant_casefolders</field>
         </fields>
         <labels>
           <label mode="any">
@@ -1040,7 +1040,7 @@
         <translated>true</translated>
         <properties mode="any">
           <property name="template">
-            /widgets/participants_suggestion_widget_template.xhtml
+            /casemanagement_widgets/participants_suggestion_widget_template.xhtml
           </property>
         </properties>
         <properties widgetMode="edit">
@@ -1048,10 +1048,10 @@
         </properties>
       </widget>
 
-      <widget name="initial_copy_internal_participant_casefolderes"
+      <widget name="initial_copy_internal_participant_casefolders"
         type="template">
         <fields>
-          <field>cmdist:initial_copy_internal_participant_casefolderes</field>
+          <field>cmdist:initial_copy_internal_participant_casefolders</field>
         </fields>
         <labels>
           <label mode="any">
@@ -1061,7 +1061,7 @@
         <translated>true</translated>
         <properties mode="any">
           <property name="template">
-            /widgets/participants_suggestion_widget_template.xhtml
+            /casemanagement_widgets/participants_suggestion_widget_template.xhtml
           </property>
         </properties>
         <properties widgetMode="edit">

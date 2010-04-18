@@ -49,7 +49,7 @@ public abstract class CaseManagementContextBoundInstance implements
     // XXX AT: injected here to get getters on context objects, see if it's an
     // optim problem.
     @In(create = true, required = false)
-    protected transient CaseManagementContextHolder correspContextHolder;
+    protected transient CaseManagementContextHolder cmContextHolder;
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -149,15 +149,15 @@ public abstract class CaseManagementContextBoundInstance implements
     }
 
     public DocumentModel getCurrentCaseItem() throws ClientException {
-        return correspContextHolder.getCurrentCaseItem();
+        return cmContextHolder.getCurrentCaseItem();
     }
 
     public Case getCurrentCase() throws ClientException {
-        return correspContextHolder.getCurrentCase();
+        return cmContextHolder.getCurrentCase();
     }
 
     public CaseFolder getCurrentCaseFolder() throws ClientException {
-        return correspContextHolder.getCurrentCaseFolder();
+        return cmContextHolder.getCurrentCaseFolder();
     }
 
     protected void resetCaseFolderCache(CaseFolder cachedMailbox, CaseFolder newMailbox)

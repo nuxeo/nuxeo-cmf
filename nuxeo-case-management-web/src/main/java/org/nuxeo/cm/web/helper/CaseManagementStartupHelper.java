@@ -57,7 +57,7 @@ public class CaseManagementStartupHelper extends StartupHelper {
     private static final Log log = LogFactory.getLog(CaseManagementStartupHelper.class);
 
     @In(create = true)
-    protected transient CaseManagementCaseFolderActionsBean correspMailboxActions;
+    protected transient CaseManagementCaseFolderActionsBean cmCaseFolderActions;
 
     @In(create = true)
     protected transient NuxeoPrincipal currentNuxeoPrincipal;

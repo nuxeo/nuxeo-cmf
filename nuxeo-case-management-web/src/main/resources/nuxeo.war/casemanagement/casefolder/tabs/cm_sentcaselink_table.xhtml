@@ -61,7 +61,7 @@
         <div class="popupTarget" docRef="#{row.data.ref}">
           <!-- Title -->
           <h:commandLink value="#{nxd:titleOrId(row.data)}"
-             action="#{navigationContext.navigateToId(row.data.cslk.envelopeDocumentId)}" />
+             action="#{navigationContext.navigateToId(row.data.cslk.caseDocumentId)}" />
         </div>
 
       </nxu:column>
@@ -100,7 +100,7 @@
               rendered="#{provider.sortable}" id="header_sender_sort">
             <h:outputText value="#{messages['label.content.header.sender']}" />
             <f:param name="providerName" value="#{providerName}" />
-            <f:param name="sortColumn" value="cpost:sender" />
+            <f:param name="sortColumn" value="cslk:sender" />
             <h:panelGroup rendered="#{provider.sortInfo.sortColumn == 'cslk:sender' }" >
               <h:graphicImage value="/icons/arrow_down.gif"
                 rendered="#{provider.sortInfo.sortAscending}" />

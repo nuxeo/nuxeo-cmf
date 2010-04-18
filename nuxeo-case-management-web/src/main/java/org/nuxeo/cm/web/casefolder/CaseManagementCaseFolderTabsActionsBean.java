@@ -32,6 +32,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -53,10 +54,6 @@ public class CaseManagementCaseFolderTabsActionsBean extends
         CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public static final String MAILBOX_VIEW = "mailbox_view";
-
-    public static final String MAILBOX_MANAGE = "mailbox_manage";
 
     protected List<Action> viewMailboxActionTabs;
 
@@ -85,7 +82,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
     @Factory(value = "viewCaseFolderActionTabs", scope = EVENT)
     public List<Action> getViewCaseFolderActionTabs() {
         if (viewMailboxActionTabs == null) {
-            viewMailboxActionTabs = webActions.getActionsList("VIEW_MAILBOX_ACTION_LIST");
+            viewMailboxActionTabs = webActions.getActionsList(CaseManagementWebConstants.VIEW_CASE_FOLDER_ACTION_LIST);
         }
         return viewMailboxActionTabs;
     }
@@ -96,7 +93,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
     @Factory(value = "manageCaseFolderActionTabs", scope = EVENT)
     public List<Action> getManageCaseFolderActionTabs() {
         if (manageMailboxActionTabs == null) {
-            manageMailboxActionTabs = webActions.getActionsList("MANAGE_MAILBOX_ACTION_LIST");
+            manageMailboxActionTabs = webActions.getActionsList(CaseManagementWebConstants.MANAGE_CASE_FOLDER_ACTION_LIST);
         }
         return manageMailboxActionTabs;
     }
@@ -107,7 +104,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
     @Factory(value = "distributionCaseActionTabs", scope = EVENT)
     public List<Action> getDistributionCaseActionTabs() {
         if (distributionEnvelopeActionTabs == null) {
-            distributionEnvelopeActionTabs = webActions.getActionsList("DISTRIBUTION_ENVELOPE_ACTION_LIST");
+            distributionEnvelopeActionTabs = webActions.getActionsList(CaseManagementWebConstants.DISTRIBUTION_CASE_ACTION_LIST);
         }
         return distributionEnvelopeActionTabs;
     }
@@ -205,7 +202,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
      */
     public String openCaseFolderManage() {
         currentManageMailboxAction = null;
-        return MAILBOX_MANAGE;
+        return CaseManagementWebConstants.CASE_FOLDER_MANAGE;
     }
 
     /**
@@ -213,7 +210,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
      */
     public String openCaseFolderView() {
         currentViewMailboxAction = null;
-        return MAILBOX_VIEW;
+        return CaseManagementWebConstants.CASE_FOLDER_VIEW;
     }
 
     @Override

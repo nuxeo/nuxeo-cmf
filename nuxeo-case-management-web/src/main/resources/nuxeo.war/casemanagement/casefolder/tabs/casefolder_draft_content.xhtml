@@ -9,13 +9,13 @@
     <h:form>
       <nxh:commandButton
         styleClass="button" type="submit"
-        action="#{cmCaseFolderActions.createDraftMail('CaseItem')}"
+        action="#{cmCaseFolderActions.createDraftCaseItem('CaseItem')}"
         value="#{messages['label.correspondence.action.createOutgoingCorrespondenceDocument']}"
       />
     </h:form>
     <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('CASE_FOLDER_DRAFT')}" >
 
-    <ui:decorate template="cm_draftcaseslink_table.xhtml">
+    <ui:decorate template="cm_draftcaselink_table.xhtml">
       <ui:param name="documents" value="#{draftChildrenSelectModel}" />
       <ui:param name="showCheckboxes" value="#{true}" />
       <ui:param name="provider" value="#{provider}" />

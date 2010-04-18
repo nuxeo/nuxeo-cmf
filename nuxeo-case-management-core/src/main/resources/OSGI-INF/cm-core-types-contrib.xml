@@ -51,6 +51,7 @@
       <schema name="distribution" />
       <schema name="case_item" />
       <schema name="contact" />
+      <schema name="uid" />
       <facet name="CaseItem" />
       <facet name="Commentable" />
     </doctype>

@@ -31,25 +31,25 @@
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>distribution_casemanagement_case</from-outcome>
+      <from-outcome>distribution_cm_case</from-outcome>
       <to-view-id>
-        /casemanagement/mail/distribution_casemanagement_case.xhtml
+        /casemanagement/caseitem/distribution_cm_case.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>create_casemanagement_document</from-outcome>
+      <from-outcome>create_cm_document</from-outcome>
       <to-view-id>
-        /casemanagement/mail/create_casemanagement_document.xhtml
+        /casemanagement/caseitem/create_cm_document.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>view_casemanagement_case</from-outcome>
+      <from-outcome>view_cm_case</from-outcome>
       <to-view-id>
-        /casemanagement/mail/view_casemanagement_case.xhtml
+        /casemanagement/caseitem/view_cm_case.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>
@@ -72,9 +72,9 @@
     
 
     <navigation-case>
-      <from-outcome>view_casemanagement_document</from-outcome>
+      <from-outcome>view_cm_document</from-outcome>
       <to-view-id>
-        /casemanagement/case/view_casemanagement_document.xhtml
+        /casemanagement/caseitem/view_cm_document.xhtml
       </to-view-id>
       <redirect />
     </navigation-case>

@@ -14,12 +14,10 @@ Requirements:
 - Nuxeo > 5.2-M4 packaged with Jboss 4.2.3 GA
 
 Instructions:
+To create a distribution:
+ant server
+=> it will create a cm server in nuxeo-case-management-distribution/target
+directory. 
 
-To deploy to an existing server:
-- copy build.properties.sample to build.properties
-- set the value of build.properties
-- run "ant deploy"
-
-To create a full distribution:
-- run "mvn -Pserver clean install"
-=>  the server is in the target directory
+To copy the jar file to the created server:
+ant deploy-jar

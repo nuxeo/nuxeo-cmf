@@ -76,7 +76,7 @@ public class CaseItemDocumentActionsBean extends
     protected transient CoreSession documentManager;
 
     @In(create = true)
-    protected transient CaseDistributionService correspondenceService;
+    protected transient CaseDistributionService caseDistributionService;
 
     @In(create = true, required = false)
     protected transient FacesMessages facesMessages;
@@ -95,14 +95,14 @@ public class CaseItemDocumentActionsBean extends
 
         String parentPath = getParentFolderPath();
 
-        Case envelope = correspondenceService.createCase(
+        Case envelope = caseDistributionService.createCase(
                 documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentCaseFolder()));
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 envelope.getDocument().getId());
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
-        correspondenceService.createDraftCaseLink(documentManager,
+        caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentCaseFolder(), envelope);
         documentManager.save();
 

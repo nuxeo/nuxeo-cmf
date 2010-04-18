@@ -44,7 +44,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 public class CaseManagementContextHolderBean implements
         CaseManagementContextHolder {
 
-    public static final String SEAM_COMPONENT_NAME = "correspContextHolder";
+    public static final String SEAM_COMPONENT_NAME = "cmContextHolder";
 
     private static final long serialVersionUID = 1L;
 

@@ -91,7 +91,7 @@ public class TestModel extends SQLRepositoryTestCase {
         // Dispatch the Envelope
         DocumentModel dispatch = new DocumentModelImpl(folder, "post",
                 "CaseLink");
-        dispatch.setPropertyValue("cslk:caseId", envelope.getId());
+        dispatch.setPropertyValue("cslk:caseDocumentId", envelope.getId());
         dispatch = session.createDocument(dispatch);
 
     }

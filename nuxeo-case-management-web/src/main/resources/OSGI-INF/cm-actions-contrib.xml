@@ -26,8 +26,8 @@
       <filter-id>hideFromCaseFolder</filter-id>
     </action> 
     
-   <!-- MailboxFolder Actions -->
-    <action id="newMailbox"
+   <!-- CaseFolder Actions -->
+    <action id="newCaseFolder"
       link="#{documentActions.createDocument('CorrespondenceMailbox')}"
       enabled="true" label="label.correspondence.createMailbox" icon="/icons/action_add.gif">
       <category>SUBVIEW_UPPER_LIST</category>
@@ -69,7 +69,7 @@
       
     </action>
 
-    <!-- Mailbox View Action -->
+    <!-- CaseFolder View Action -->
     <action id="TAB_CASE_FOLDER_INBOX" link="/casemanagement/casefolder/tabs/casefolder_inbox_content.xhtml" order="20"
       label="label.correspondence.inboxMailbox" enabled="true"
       icon="/icons/file.gif">
@@ -160,7 +160,7 @@
     <filter id="isCmInitialCase">
       <rule grant="true">
         <facet>Case</facet>
-        <condition>#{cmcaseActions.isInitialCase()}</condition>
+        <condition>#{cmCaseActions.isInitialCase()}</condition>
       </rule>
     </filter>
 

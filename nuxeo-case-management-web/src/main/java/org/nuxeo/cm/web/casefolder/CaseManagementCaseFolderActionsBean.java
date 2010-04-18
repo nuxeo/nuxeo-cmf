@@ -52,7 +52,6 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
-import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
@@ -63,7 +62,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.UserAction;
@@ -106,7 +104,7 @@ CaseManagementAbstractActionsBean implements Serializable {
     protected NavigationContext navigationContext;
 
     @In(create = true)
-    protected transient CaseFolderManagementService correspondenceCaseFolderService;
+    protected transient CaseFolderManagementService caseFolderManagementService;
 
     @In(required = false)
     protected transient Principal currentUser;
@@ -130,7 +128,7 @@ CaseManagementAbstractActionsBean implements Serializable {
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return correspondenceCaseFolderService.searchCaseFolders(searchPattern, searchType);
+        return caseFolderManagementService.searchCaseFolders(searchPattern, searchType);
     }
 
     /**
@@ -142,7 +140,7 @@ CaseManagementAbstractActionsBean implements Serializable {
             userMailboxes = new ArrayList<CaseFolder>();
             if (currentUser != null) {
                 CaseFolder personalMailbox = null;
-                List<CaseFolder> mailboxes = correspondenceCaseFolderService.getUserCaseFolders(
+                List<CaseFolder> mailboxes = caseFolderManagementService.getUserCaseFolders(
                         documentManager, currentUser.getName());
                 if (mailboxes != null && !mailboxes.isEmpty()) {
                     userMailboxes.addAll(mailboxes);
@@ -179,7 +177,7 @@ CaseManagementAbstractActionsBean implements Serializable {
     public void validateCaseFolderId(FacesContext context, UIComponent component,
             Object value) {
         if (!(value instanceof String)
-                || correspondenceCaseFolderService.hasCaseFolder((String) value)) {
+                || caseFolderManagementService.hasCaseFolder((String) value)) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
                             context,
@@ -221,8 +219,8 @@ CaseManagementAbstractActionsBean implements Serializable {
         }
 
         if (CaseFolderConstants.type.personal.name().equals(mailboxType)) {
-            String mbId = correspondenceCaseFolderService.getUserPersonalCaseFolderId((String) mailboxOwner);
-            if (correspondenceCaseFolderService.hasCaseFolder(mbId)) {
+            String mbId = caseFolderManagementService.getUserPersonalCaseFolderId((String) mailboxOwner);
+            if (caseFolderManagementService.hasCaseFolder(mbId)) {
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
@@ -323,7 +321,7 @@ CaseManagementAbstractActionsBean implements Serializable {
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
-                mailboxDoc = correspondenceCaseFolderService.getCaseFolder(documentManager,
+                mailboxDoc = caseFolderManagementService.getCaseFolder(documentManager,
                         parentMailboxId).getDocument();
             } catch (Exception e) {
                 log.error(String.format(
@@ -415,12 +413,6 @@ CaseManagementAbstractActionsBean implements Serializable {
     }
 
     public String openDraft(String envelopeId) throws ClientException {
-
-        DocumentModel envelopeDoc = documentManager.getDocument(new IdRef(
-                envelopeId));
-
-        Case envelope = envelopeDoc.getAdapter(Case.class);
-        DocumentModel mailDoc = envelope.getFirstItem(documentManager).getDocument();
         return navigationContext.navigateToId(envelopeId);
     }
 

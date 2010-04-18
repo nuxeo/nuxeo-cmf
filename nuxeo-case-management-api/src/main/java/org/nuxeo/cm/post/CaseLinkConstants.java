@@ -45,7 +45,7 @@ public class CaseLinkConstants {
     /**
      * The xpath of the envelope document id.
      */
-    public final static String CASE_DOCUMENT_ID_FIELD = "cslk:caseId";
+    public final static String CASE_DOCUMENT_ID_FIELD = "cslk:caseDocumentId";
 
     /**
      * The xpath of the subject.

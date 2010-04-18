@@ -45,7 +45,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Name("cmCaseActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceEnvelopeActionsBean extends
+public class CaseManagementEnvelopeActionsBean extends
         CaseManagementAbstractActionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

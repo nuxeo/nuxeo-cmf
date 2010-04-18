@@ -11,9 +11,9 @@
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 
-        'CaseLink' AND cmlk:isSent = 0 AND cmlk:draft = 0
+        'CaseLink' AND cslk:isSent = 0 AND cslk:draft = 0
       </pattern>
-      <sortable value="true" defaultSortColumn="cmlk:date"
+      <sortable value="true" defaultSortColumn="cslk:date"
         defaultSortAscending="false" />
       <max>10</max>
     </queryModel>
@@ -23,7 +23,7 @@
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-        AND cmlk:draft = 0
+        AND cslk:draft = 0
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
@@ -35,7 +35,7 @@
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-         AND cmlk:isSent = 1 AND cmlk:draft = 0
+         AND cslk:isSent = 1 AND cslk:draft = 0
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
@@ -47,7 +47,7 @@
         SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-        AND cmlk:draft = 1
+        AND cslk:draft = 1
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />

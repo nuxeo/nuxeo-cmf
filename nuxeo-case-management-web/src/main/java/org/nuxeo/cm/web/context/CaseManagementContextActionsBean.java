@@ -45,27 +45,27 @@ public class CaseManagementContextActionsBean implements Serializable,
     private static final long serialVersionUID = 1L;
 
     @In(create = true, required = false)
-    protected transient CaseManagementContextHolderBean correspContextHolder;
+    protected transient CaseManagementContextHolderBean cmContextHolder;
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
-    public String getCurrentEmailId() throws ClientException {
-        DocumentModel currentEmail = correspContextHolder.getCurrentCaseItem();
+    public String getCurrentCaseItemId() throws ClientException {
+        DocumentModel currentEmail = cmContextHolder.getCurrentCaseItem();
         if (currentEmail != null) {
             return currentEmail.getId();
         }
         return null;
     }
 
-    public void setCurrentEmailId(String id) throws ClientException {
+    public void setCurrentCaseItemId(String id) throws ClientException {
         if (id != null && documentManager != null) {
             id = id.trim();
             if (!"".equals(id)) {
                 DocumentModel currentEmail = documentManager.getDocument(new IdRef(
                         id));
                 if (currentEmail != null) {
-                    correspContextHolder.setCurrentCaseItem(currentEmail);
+                    cmContextHolder.setCurrentCaseItem(currentEmail);
                 }
             }
         }
@@ -77,15 +77,15 @@ public class CaseManagementContextActionsBean implements Serializable,
         if (newDocument != null) {
             // mailbox case
             if (CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE.equals(newDocument.getType())) {
-                correspContextHolder.setCurrentCaseFolder(newDocument.getAdapter(CaseFolder.class));
+                cmContextHolder.setCurrentCaseFolder(newDocument.getAdapter(CaseFolder.class));
             }
             // document cases
             if (newDocument.hasFacet(CaseConstants.CASE_FACET)) {
-                correspContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
-                correspContextHolder.setCurrentCaseItem(null);
+                cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
+                cmContextHolder.setCurrentCaseItem(null);
             } else if (newDocument.hasFacet(CaseConstants.CASE_ITEM_FACET)) {
-                correspContextHolder.setCurrentCase(null);
-                correspContextHolder.setCurrentCaseItem(newDocument);
+                cmContextHolder.setCurrentCase(null);
+                cmContextHolder.setCurrentCaseItem(newDocument);
             }
         }
     }

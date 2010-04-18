@@ -19,51 +19,38 @@
 
 package org.nuxeo.cm.web.service;
 
-import static org.jboss.seam.ScopeType.SESSION;
+import static org.jboss.seam.ScopeType.APPLICATION;
 
 import java.io.Serializable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Unwrap;
-import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.api.Framework;
-
+import org.nuxeo.cm.service.CaseFolderManagementService;
 
 /**
  * Correspondence service business delegate, exposing the service to the seam
  * layer.
- *
+ * 
  * @author Anahide Tchertchian
  */
-@Name("cmService")
-@Scope(SESSION)
-public class CorrespondenceServiceBusinessDelegate implements Serializable {
+@Name("caseFolderManagementService")
+@Scope(APPLICATION)
+public class CaseFolderManagementServiceBusinessDelegate implements
+        Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Log log = LogFactory.getLog(CorrespondenceServiceBusinessDelegate.class);
+    protected CaseFolderManagementService service;
 
-    protected CaseDistributionService service;
-
-    public void initialize() {
-        log.debug("Seam component initialized...");
-    }
-
-    /**
-     * Acquires a new {@link CaseDistributionService} reference. The related EJB
-     * may be deployed on a local or remote AppServer.
-     */
     @Unwrap
-    public CaseDistributionService getDistributionService()
+    public CaseFolderManagementService getCaseFolderManagementService()
             throws ClientException {
         if (service == null) {
             try {
-                service = Framework.getService(CaseDistributionService.class);
+                service = Framework.getService(CaseFolderManagementService.class);
             } catch (Exception e) {
                 throw new ClientException(
                         "Error connecting to correspondence service", e);
@@ -73,14 +60,6 @@ public class CorrespondenceServiceBusinessDelegate implements Serializable {
             }
         }
         return service;
-    }
-
-    @Destroy
-    public void destroy() {
-        if (service != null) {
-            service = null;
-        }
-        log.debug("Destroyed the seam component...");
     }
 
 }
