@@ -16,10 +16,10 @@
  */
 package org.nuxeo.cm.cases;
 
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkConstants;
+import org.nuxeo.cm.caselink.CaseLinkImpl;
 import org.nuxeo.cm.cases.HasParticipants;
-import org.nuxeo.cm.post.CaseLink;
-import org.nuxeo.cm.post.CaseLinkConstants;
-import org.nuxeo.cm.post.CaseLinkImpl;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 

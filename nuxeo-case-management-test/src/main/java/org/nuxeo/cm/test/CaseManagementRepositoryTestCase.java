@@ -19,10 +19,10 @@
 
 package org.nuxeo.cm.test;
 
-import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
-import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 

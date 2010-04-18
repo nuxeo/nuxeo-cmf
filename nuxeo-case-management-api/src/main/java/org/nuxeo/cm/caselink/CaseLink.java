@@ -15,7 +15,7 @@
  *     arussel
  *     Nicolas Ulrich
  */
-package org.nuxeo.cm.post;
+package org.nuxeo.cm.caselink;
 
 import java.io.Serializable;
 import java.util.Calendar;

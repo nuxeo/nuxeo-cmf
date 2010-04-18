@@ -14,18 +14,18 @@
  * Contributors:
  *     arussel
  */
-package org.nuxeo.cm.post;
+package org.nuxeo.cm.caselink;
 
-import static org.nuxeo.cm.post.CaseLinkConstants.COMMENT_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.DATE_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.IS_READ_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SENT_DATE_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SUBJECT_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.TYPE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_READ_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENT_DATE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.TYPE_FIELD;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -16,21 +16,21 @@
  */
 package org.nuxeo.cm.core.caselink;
 
-import static org.nuxeo.cm.post.CaseLinkConstants.DATE_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.IS_DRAFT_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
-import static org.nuxeo.cm.post.CaseLinkConstants.SUBJECT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
 import java.util.UUID;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.post.CaseLink;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;

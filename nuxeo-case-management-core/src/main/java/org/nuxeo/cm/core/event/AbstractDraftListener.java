@@ -19,12 +19,12 @@ package org.nuxeo.cm.core.event;
 import java.security.Principal;
 
 import org.apache.commons.logging.Log;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.cm.post.CaseLink;
-import org.nuxeo.cm.post.CaseLinkConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;

@@ -26,11 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
+import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.post.CaseLink;
-import org.nuxeo.cm.post.CaseLinkRequestImpl;
-import org.nuxeo.cm.post.CaseLinkType;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 
 

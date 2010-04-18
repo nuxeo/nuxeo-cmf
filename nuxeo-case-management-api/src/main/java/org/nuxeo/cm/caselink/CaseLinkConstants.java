@@ -15,7 +15,7 @@
  *     arussel
  *     nulrich
  */
-package org.nuxeo.cm.post;
+package org.nuxeo.cm.caselink;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>

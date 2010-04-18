@@ -7,7 +7,7 @@
       factory="org.nuxeo.cm.core.adapter.CaseFolderAdapterFactory" />
     <adapter class="org.nuxeo.cm.casefolder.CaseFolderHeader"
       factory="org.nuxeo.cm.core.adapter.CaseFolderHeaderAdapterFactory" />
-    <adapter class="org.nuxeo.cm.post.CaseLink"
+    <adapter class="org.nuxeo.cm.caselink.CaseLink"
       facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.Case"

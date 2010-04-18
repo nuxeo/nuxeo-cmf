@@ -28,9 +28,9 @@ import java.util.Map;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.post.CaseLink;
-import org.nuxeo.cm.post.CaseLinkRequestImpl;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;

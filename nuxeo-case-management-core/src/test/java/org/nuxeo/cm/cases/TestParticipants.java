@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.nuxeo.cm.post.CaseLink;
-import org.nuxeo.cm.post.CaseLinkConstants;
-import org.nuxeo.cm.post.CaseLinkType;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkConstants;
+import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 

@@ -18,11 +18,11 @@
  */
 package org.nuxeo.cm.core.adapter;
 
+import org.nuxeo.cm.caselink.CaseLinkConstants;
+import org.nuxeo.cm.caselink.CaseLinkImpl;
 import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.post.CaseLinkConstants;
-import org.nuxeo.cm.post.CaseLinkImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 

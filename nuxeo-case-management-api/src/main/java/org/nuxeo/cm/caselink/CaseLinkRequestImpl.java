@@ -17,7 +17,7 @@
  * $Id$
  */
 
-package org.nuxeo.cm.post;
+package org.nuxeo.cm.caselink;
 
 import java.util.Calendar;
 import java.util.Date;
