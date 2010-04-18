@@ -2,7 +2,7 @@
 
 <component name="org.nuxeo.cm.service.documentType">
 
-  <extension target="com.nuxeo.correspondence.DocumentTypeService" point="documentType">
+  <extension target="org.nuxeo.cm.DocumentTypeService" point="documentType">
 
     <documentType>
       <envelopeDocType>Case</envelopeDocType>
