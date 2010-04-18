@@ -11,10 +11,10 @@
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
-  <artifactId>nuxeo-case-management-ear</artifactId>
+  <artifactId>nuxeo-case-management-distribution</artifactId>
   <packaging>pom</packaging>
-  <name>Case Management EAR</name>
-  <description>Case Management EAR</description>
+  <name>Case Management distributionn</name>
+  <description>Case Management distribution</description>
 
   <properties>
     <jboss.lib>../target/lib</jboss.lib>
