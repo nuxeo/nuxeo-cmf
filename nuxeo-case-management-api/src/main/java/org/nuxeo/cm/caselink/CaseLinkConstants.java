@@ -102,9 +102,4 @@ public class CaseLinkConstants {
      */
     public final static String IS_DRAFT_FIELD = "cslk:draft";
 
-    /**
-     * The xpath of the isAnswered indicator 
-     */
-    public final static String IS_ANSWERED = "cslk:isAnswered";
-
 }

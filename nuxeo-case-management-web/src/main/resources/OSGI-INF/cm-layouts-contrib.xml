@@ -952,7 +952,7 @@
       </widget>
     </layout>
 
-    <layout name="distribution_outgoing_post">
+    <layout name="distribution_caselink">
 
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>

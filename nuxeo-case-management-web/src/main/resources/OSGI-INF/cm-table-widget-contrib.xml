@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<component name="com.nuxeo.cm.table.widget">
+
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="widgettypes">
+
+   
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="widgets">
+    
+    <widget name="cm_icon_type" type="listing_icon_type">
+      <labels>
+        <label mode="any"></label>
+      </labels>
+      <fields>
+        <field>data</field>
+        <field>data.id</field>
+        <field>data.type</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_listing_title_link"
+      type="listing_title_link">
+      <labels>
+        <label mode="any">label.content.header.title</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+        <field>data.id</field>
+        <field>data.cslk.senderCaseFolderId</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_listing_sending_date" type="datetime">
+      <labels>
+        <label mode="any">label.content.header.date</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.cslk.date</field>
+      </fields>
+      <properties widgetMode="any">
+        <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+      </properties>
+    </widget>
+    
+    <widget name="cm_listing_sender" type="listing_author">
+      <labels>
+        <label mode="any">label.content.header.sender</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.cslk.sender</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_listing_uid" type="text">
+      <labels>
+        <label mode="any">label.content.header.uid</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.uid.uid</field>
+      </fields>
+    </widget>
+
+
+  </extension>
+
+</component>

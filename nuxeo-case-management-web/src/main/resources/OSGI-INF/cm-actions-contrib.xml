@@ -28,7 +28,7 @@
     
    <!-- CaseFolder Actions -->
     <action id="newCaseFolder"
-      link="#{documentActions.createDocument('CorrespondenceMailbox')}"
+      link="#{documentActions.createDocument('CaseFolder')}"
       enabled="true" label="label.correspondence.createMailbox" icon="/icons/action_add.gif">
       <category>SUBVIEW_UPPER_LIST</category>
       <filter-id>newCmCaseFolder</filter-id>

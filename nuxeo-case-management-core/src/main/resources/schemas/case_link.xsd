@@ -13,7 +13,6 @@
   <xs:element name="caseItemId" type="xs:string" />
   <xs:element name="isRead" type="xs:boolean" default="false" />
   <xs:element name="isSent" type="xs:boolean" default="false" />
-  <xs:element name="isAnswered" type="xs:boolean" default="false" />
   <xs:element name="sender" type="xs:string" />
   <xs:element name="type" type="xs:string" />
   <xs:element name="typeInfo" type="xs:string" />

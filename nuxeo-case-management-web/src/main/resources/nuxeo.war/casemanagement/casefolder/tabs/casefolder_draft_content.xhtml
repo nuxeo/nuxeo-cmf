@@ -15,12 +15,13 @@
     </h:form>
     <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('CASE_FOLDER_DRAFT')}" >
 
-    <ui:decorate template="cm_draftcaselink_table.xhtml">
+   <ui:decorate template="/incl/documents_layout_table.xhtml">
       <ui:param name="documents" value="#{draftChildrenSelectModel}" />
       <ui:param name="showCheckboxes" value="#{true}" />
       <ui:param name="provider" value="#{provider}" />
       <ui:param name="providerName" value="CASE_FOLDER_DRAFT" />
       <ui:param name="listName" value="CURRENT_SELECTION" />
+       <ui:param name="layoutName" value="cm_draft_caselink" />
       <ui:define name="buttons">
         <ui:include src="/incl/clipboard.xhtml" />
       </ui:define>
