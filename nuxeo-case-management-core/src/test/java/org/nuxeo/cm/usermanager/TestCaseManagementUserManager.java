@@ -3,30 +3,57 @@ package org.nuxeo.cm.usermanager;
 import java.util.List;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.core.usermanager.CaseManagementPrincipalImpl;
-import org.nuxeo.cm.core.usermanager.CaseManagementUserManagerImpl;
-import org.nuxeo.ecm.core.api.NuxeoPrincipal;
-
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.ecm.core.api.NuxeoPrincipal;
+import org.nuxeo.ecm.platform.computedgroups.UserManagerWithComputedGroups;
+import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 
-public class TestCaseManagementUserManager extends CaseManagementRepositoryTestCase {
+public class TestCaseManagementUserManager extends
+        CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
         openSession();
+        // set test property so that login module stuff is ignored during tests
+        System.setProperty("org.nuxeo.runtime.testing", "true");
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        System.clearProperty("org.nuxeo.runtime.testing");
     }
 
     public void testGetPrincipalGroups() throws Exception {
-        assertTrue(userManager instanceof CaseManagementUserManagerImpl);
-        NuxeoPrincipal admin = userManager.getPrincipal(user);
-        assertNotNull(admin);
-        assertTrue(admin instanceof CaseManagementPrincipalImpl);
-        CaseFolder mailbox = correspCaseFolderService.createPersonalCaseFolders(session, user).get(0);
+        CaseFolder mailbox = correspCaseFolderService.createPersonalCaseFolders(
+                session, user).get(0);
         assertNotNull(mailbox);
-        List<String> groups = admin.getGroups();
+        CaseFolder mailbox2 = correspCaseFolderService.createPersonalCaseFolders(
+                session, user2).get(0);
+        assertNotNull(mailbox2);
+
+        assertTrue(userManager instanceof UserManagerWithComputedGroups);
+        NuxeoPrincipal pal = userManager.getPrincipal(user);
+        assertNotNull(pal);
+        assertTrue(pal instanceof NuxeoPrincipalImpl);
+        assertFalse(pal.isAdministrator());
+        List<String> groups = pal.getGroups();
         assertNotNull(groups);
-        assertTrue(groups.contains("mailbox_" + mailbox.getId()));
+        assertEquals(2, groups.size());
+        assertTrue(groups.contains("group_1"));
+        assertTrue(groups.contains("mailbox_user-user"));
+
+        pal = userManager.getPrincipal(user2);
+        assertNotNull(pal);
+        assertTrue(pal instanceof NuxeoPrincipalImpl);
+        assertFalse(pal.isAdministrator());
+        groups = pal.getGroups();
+        assertNotNull(groups);
+        assertEquals(2, groups.size());
+        assertTrue(groups.contains("group_1"));
+        assertTrue(groups.contains("mailbox_user-user2"));
+
     }
 
 }

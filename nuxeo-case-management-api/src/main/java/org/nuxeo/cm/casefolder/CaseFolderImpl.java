@@ -34,12 +34,12 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.model.Property;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.schema.types.Field;
 import org.nuxeo.ecm.core.schema.types.ListType;
 import org.nuxeo.ecm.core.schema.types.Type;
-
 
 /**
  * Mailbox implementation using a document model as backend
@@ -258,7 +258,8 @@ public class CaseFolderImpl implements CaseFolder {
                 }
             }
             if (set) {
-                setPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD, mls);
+                setPropertyValue(CaseFolderConstants.PARTICIPANTS_LIST_FIELD,
+                        mls);
             }
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
@@ -313,7 +314,8 @@ public class CaseFolderImpl implements CaseFolder {
         if (profiles != null) {
             serializableProfiles.addAll(profiles);
         }
-        setPropertyValue(CaseFolderConstants.PROFILES_FIELD, serializableProfiles);
+        setPropertyValue(CaseFolderConstants.PROFILES_FIELD,
+                serializableProfiles);
     }
 
     public void setTitle(String title) {
@@ -328,7 +330,6 @@ public class CaseFolderImpl implements CaseFolder {
         setPropertyValue(CaseFolderConstants.CONFIDENTIALITY_FIELD,
                 confidentiality);
     }
-
 
     public Integer getConfidentiality() {
         return getIntegerProperty(CaseFolderConstants.CONFIDENTIALITY_FIELD);
@@ -366,9 +367,30 @@ public class CaseFolderImpl implements CaseFolder {
                 }
             }
         } catch (ClientException e) {
-            log.error("Unable to retrieve parent mailbox", e);
+            log.error("Unable to retrieve parent case folder id", e);
         }
         return null;
+    }
+
+    public List<String> getChildrenIds(CoreSession session) {
+        List<String> res = new ArrayList<String>();
+        try {
+            if (session.hasPermission(doc.getRef(),
+                    SecurityConstants.READ_CHILDREN)) {
+                DocumentModelList children = session.getChildren(doc.getRef());
+                if (children != null) {
+                    for (DocumentModel child : children) {
+                        CaseFolder childCaseFolder = child.getAdapter(CaseFolder.class);
+                        if (childCaseFolder != null) {
+                            res.add(childCaseFolder.getId());
+                        }
+                    }
+                }
+            }
+        } catch (ClientException e) {
+            log.error("Unable to retrieve child case folder ids", e);
+        }
+        return res;
     }
 
     public List<String> getAllUsersAndGroups() {

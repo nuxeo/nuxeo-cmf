@@ -27,7 +27,6 @@ import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
-
 /**
  * Mailbox interface
  *
@@ -147,7 +146,7 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
 
     /**
      * Gets the list of {@link ParticipantsList} objects of this mailbox.
-     * 
+     *
      * @throws CaseManagementException
      */
     List<ParticipantsList> getParticipantLists();
@@ -192,11 +191,12 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
      * Sets the default confidentiality for iconming mails for this mailbox.
      */
     void setConfidentiality(Integer confidentiality);
+
     Integer getConfidentiality();
 
     /**
      * Persist the Mailbox
-     * 
+     *
      * @param session
      */
     void save(CoreSession session);
@@ -205,6 +205,11 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
      * Returns the parentId of this mailbox
      */
     String getParentId(CoreSession session);
+
+    /**
+     * Returns the children ids of this mailbox
+     */
+    List<String> getChildrenIds(CoreSession session);
 
     /**
      * @return list of all users and groups.

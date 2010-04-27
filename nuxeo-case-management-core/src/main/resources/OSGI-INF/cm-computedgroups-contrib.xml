@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.usermanager.computedgroups.contrib">
+
+  <extension
+    target="org.nuxeo.ecm.platform.computedgroups.ComputedGroupsServiceImpl"
+    point="computer">
+    <groupComputer name="caseManagementGroupComputer">
+      <computer>
+        org.nuxeo.cm.core.usermanager.CaseManagementGroupComputer
+      </computer>
+    </groupComputer>
+  </extension>
+
+  <extension
+    target="org.nuxeo.ecm.platform.computedgroups.ComputedGroupsServiceImpl"
+    point="computerChain">
+    <groupComputerChain>
+      <computers>
+        <computer>caseManagementGroupComputer</computer>
+      </computers>
+    </groupComputerChain>
+
+  </extension>
+
+</component>
