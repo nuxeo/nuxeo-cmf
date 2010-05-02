@@ -181,7 +181,7 @@ CaseManagementAbstractActionsBean implements Serializable {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
                             context,
-                    "feedback.correspondence.mailboxIdAlreadyExists"),
+                    "feedback.casemanagement.caseFolderIdAlreadyExists"),
                     null);
             // also add global message?
             // context.addMessage(null, message);
@@ -224,7 +224,7 @@ CaseManagementAbstractActionsBean implements Serializable {
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
-                        "feedback.correspondence.personalMailboxAlreadyExists"),
+                        "feedback.casemanagement.personalCaseFolderAlreadyExists"),
                         null);
                 // also add global message?
                 // context.addMessage(null, message);
@@ -403,7 +403,7 @@ CaseManagementAbstractActionsBean implements Serializable {
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
-                "feedback.corresp.delegation.modified"));
+                "feedback.casemanagement.delegation.modified"));
         EventManager.raiseEventsOnDocumentChange(mailbox.getDocument());
     }
 

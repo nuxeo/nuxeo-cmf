@@ -5,4 +5,4 @@ Bundle-SymbolicName: org.nuxeo.cm.lang;singleton=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Nuxeo
 Nuxeo-RequiredBy: org.nuxeo.ecm.war
-Require-Bundle: org.nuxeo.cm.web 
+Require-Bundle: org.nuxeo.cm.web

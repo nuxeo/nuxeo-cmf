@@ -1,0 +1,17 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+
+  <h:form id="document_files" enctype="multipart/form-data">
+    <nxl:layout name="files" mode="#{correspDocumentActions.getEmailLayoutMode()}" value="#{currentCaseItem}" />
+
+    <c:if test="#{cmDocumentActions.canEditCurrentCaseItem}">
+
+      <h:commandButton value="#{messages['label.casemanagement.save']}"
+        action="#{cmDocumentActions.updateCurrentCaseItem}"
+        styleClass="button" />
+
+    </c:if>
+  </h:form>
+
+</div>

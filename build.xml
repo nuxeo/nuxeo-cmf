@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <project name="case-management" default="usage" basedir=".">
-  
+
+  <property name="server.dir" value="nuxeo-case-management-distribution/target/nuxeo-cm-server" />
+  <property name="nuxeo.ear" value="${server.dir}/server/default/deploy/nuxeo.ear" />
+
   <target name="usage">
     <echo message="usage: ant [deploy-jar|server]" />
     <echo message="ant deploy-jar    => build and deploy the jar into the server" />
     <echo message="ant server        => build the server" />
+    <echo message="ant web           => copy the web files to the server" />
   </target>
 
   <target name="deploy-jar">
@@ -13,12 +17,18 @@
       <arg value="clean" />
       <arg value="install" />
     </exec>
-    <copy todir="nuxeo-case-management-distribution/target/nuxeo-cm-server/server/default/deploy/nuxeo.ear/plugins" overwrite="true" flatten="true">
+    <copy todir="${nuxeo.ear}/plugins" overwrite="true" flatten="true">
       <fileset dir="${basedir}">
         <include name="*/target/*.jar" />
         <exclude name="*/target/*-sources.jar" />
         <exclude name="*-test/target/*.jar*"/>
       </fileset>
+    </copy>
+  </target>
+
+  <target name="web" description="Copy web files to a live JBoss">
+    <copy todir="${nuxeo.ear}/nuxeo.war" verbose="true">
+      <fileset dir="${basedir}/nuxeo-case-management-web/src/main/resources/nuxeo.war/" />
     </copy>
   </target>
 

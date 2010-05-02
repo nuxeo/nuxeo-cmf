@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<component
+    name="org.nuxeo.cm.navtree.casefolderlist.contrib">
+
+  <require>org.nuxeo.ecm.platform.virtualnavigation.NavTreeService</require>
+
+  <extension target="org.nuxeo.ecm.platform.virtualnavigation.NavTreeService"
+      point="navigationTree">
+
+    <navTree treeId="CASE_FOLDER" xhtmlview="/casemanagement/casefolder/casefolder_list.xhtml">
+    </navTree>
+
+  </extension>
+
+</component>

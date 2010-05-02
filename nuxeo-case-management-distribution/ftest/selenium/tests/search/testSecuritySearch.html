@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>testSecuritySearch</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testSecuritySearch</td></tr>
+</thead><tbody>
+<!-- test scenario
+Linnette, as member of the parent mailbox, has the same rights as the children mailboxes.
+Bree, as recipient, sees the document and can edit it. She is not able to see the parent mailbox.
+Lucien should only see the document through search and is not able to edit it as he is neither
+sender nor recipient.-->
+<!-- Administrator creates security search mailboxes -->
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>Administrator</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>Administrator</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//select[@class=&quot;langSelect&quot;]</td>
+	<td>label=English (United Kingdom)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@class='langSubmit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You are logged as Administrator</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Mailboxes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Mailboxes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Create a mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create a mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_title</td>
+	<td>Test Security Parent Mailbox</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_description</td>
+	<td>This is the test security parent mailbox</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_type</td>
+	<td>label=Generic</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggest']</td>
+	<td>lin</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Linnet Scavo</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_selectionOutput</td>
+	<td>Linnet Scavo</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_owner</td>
+	<td>linnet</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Create']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Mailbox saved</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Mailboxes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Mailboxes</td>
+	<td></td>
+</tr>
+<!-- Create Test Security Mailbox Child -->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create a mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggest']</td>
+	<td>Test Securit</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Security Parent Mailbox</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_title</td>
+	<td>Test Mailbox Security Child</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_description</td>
+	<td>This is a test mailbox with a parent</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_type</td>
+	<td>label=Generic</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggest']</td>
+	<td>bree</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Bree Van de Kaamp</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Create']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Mailbox saved</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Mailboxes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Mailboxes</td>
+	<td></td>
+</tr>
+<!-- Create Another Security Mailbox Child-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create a mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggest']</td>
+	<td>Test Securit</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Security Parent Mailbox</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_title</td>
+	<td>Another Test Mailbox</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_description</td>
+	<td>This is a test mailbox with a parent</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_type</td>
+	<td>label=Generic</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggest</td>
+	<td>lucien</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Lucien Bramard</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Create']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Mailbox saved</td>
+	<td></td>
+</tr>
+<!-- log as jdoe and send mail -->
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>retrieveCurrentDateInfo</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>jdoe</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>jdoe1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//select[@class=&quot;langSelect&quot;]</td>
+	<td>label=English (United Kingdom)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@class='langSubmit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You are logged as jdoe</td>
+	<td></td>
+</tr>
+<!-- Create draft -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Create an incoming mail</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create an incoming mail</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Create a new document Incoming mail</td>
+	<td></td>
+</tr>
+<tr>
+	<td>retrieveTestFolderPath</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_title</td>
+	<td>Send Mail to MailboxTestChild</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_name</td>
+	<td>Name1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_surname</td>
+	<td>Surname1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_service</td>
+	<td>Service1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_document_date</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_receive_date</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_sending_date</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_head_correspondence_incoming_document:nxw_scan_date</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:03</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_name</td>
+	<td>Name2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_surname</td>
+	<td>Surname2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_service</td>
+	<td>Service2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_correspondence_document:nxw_reference</td>
+	<td>Test Mail reference</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_head_correspondence_incoming_document:nxw_scan_site</td>
+	<td>Test Mail scan site</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@type='file']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//input[@type='file']</td>
+	<td>${testfolderpath}/data/hello.pdf</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Create']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Incoming mail saved</td>
+	<td></td>
+</tr>
+<!-- Send mail -->
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1 document(s) in the envelope</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//h1</td>
+	<td>Send Mail to MailboxTestChild</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//img[@alt='Initial Distribution']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Distribution</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Distribution</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@id='distribution_recipients:nxl_correspondence_recipients:nxw_action_recipients_suggest']</td>
+	<td>Test Mailbox Securit</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='distribution_recipients:nxl_correspondence_recipients:nxw_action_recipients_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Mailbox Security Child</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='distribution_recipients:nxl_correspondence_recipients:nxw_action_recipients_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>distribution_recipients:comment</td>
+	<td>my distribution test comment</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Send']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>The distribution is done</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log out</td>
+	<td></td>
+</tr>
+<!-- Login as Bree to see Test Mailbox Security Child inbox content -->
+<tr>
+	<td>open</td>
+	<td>/nuxeo/nxpath/default/correspondence/mailboxes/test-security-parent/test-mailbox-security@mailbox_view</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>bree</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>bree1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//select[@class=&quot;langSelect&quot;]</td>
+	<td>label=English (United Kingdom)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@class='langSubmit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You are logged as bree</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>Link=Test Security Parent Mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userServicesForm:simpleSearchKeywordsInput</td>
+	<td>Send Mail to MailboxTestChild</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<!-- Check if Bree can edit the document-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Cancel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//form[@id='document_properties']/table[4]/tbody/tr/td[2]/textarea</td>
+	<td>document modified by Linnet</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Cancel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log out</td>
+	<td></td>
+</tr>
+<!-- Login as Lucien to see another test mailbox inbox content -->
+<tr>
+	<td>open</td>
+	<td>/nuxeo/nxpath/default/correspondence/mailboxes/test-security-parent/another-test-mailbox@mailbox_view</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>lbramard</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>lbramard1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//select[@class=&quot;langSelect&quot;]</td>
+	<td>label=English (United Kingdom)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@class='langSubmit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You are logged as lbramard</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userServicesForm:simpleSearchKeywordsInput</td>
+	<td>Send Mail to MailboxTestChild</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<!-- Check that Lucien should not be able to edit the document-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<!-- <tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log out</td>
+	<td></td>
+</tr>
+<!-- Login as Linnette to see search for  Send Mail to MailboxTestChild Document and edit it -->
+<tr>
+	<td>open</td>
+	<td>/nuxeo/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>linnet</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>linnet1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//select[@class=&quot;langSelect&quot;]</td>
+	<td>label=English (United Kingdom)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@class='langSubmit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You are logged as linnet</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userServicesForm:simpleSearchKeywordsInput</td>
+	<td>Send Mail to MailboxTestChild</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<!-- Check if Linnet can edit the document-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Send Mail to MailboxTestChild</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Cancel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//form[@id='document_properties']/table[4]/tbody/tr/td[2]/textarea</td>
+	<td>document modified by Linnet</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Cancel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log out</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

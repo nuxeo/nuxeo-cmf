@@ -29,7 +29,6 @@
 
   <target name="build">
     <antcall target="cleanoutput" />
-    <antcall target="ear" />
     <antcall target="server" />
   </target>
 
@@ -37,106 +36,8 @@
     <artifact:expand depth="3" />
   </target>
 
-  <target name="ear" depends="init" if="build.ear">
-    <echo>Building NXCM EAR</echo>
-    <property name="nuxeo.ear" value="${stagedir}/${assembly.name}.ear" />
-    <mkdir dir="${nuxeo.ear}" />
-
-    <antcall target="build-standard" />
-    <delete failonerror="false" dir="${outdir}/${assembly.name}.ear" />
-    <copy todir="${finaltarget}/${assembly.name}.ear">
-      <fileset dir="${nuxeo.ear}" />
-    </copy>
-
-    <antcall target="cleanstage" />
-  </target>
-
-  <target name="build-standard" description="Build default distribution"
-    depends="init">
-
-    <patternset id="cmExclusion">
-      <exclude name="config/opensocial.properties" />
-      <exclude name="system/nuxeo-opensocial*" />
-      <exclude name="system/nuxeo-spaces*" />
-    </patternset>
-
-    <nx:profile name="cm-dev">
-      <unzip dest="${nuxeo.ear}">
-        <artifact:resolveFile
-          key="org.nuxeo.ecm.distribution:nuxeo-distribution-dm:${nuxeo.platform.version}:zip" />
-        <patternset refid="cmExclusion" />
-      </unzip>
-      <copy todir="${nuxeo.ear}" failonerror="false" overwrite="true">
-        <fileset dir="src/main/resources_common" />
-        <fileset dir="src/main/resources_mono" />
-        <filterset refid="filter-resources" />
-      </copy>
-      <copy todir="${nuxeo.ear}/system">
-        <artifact:resolveFile key="org.nuxeo.ecm.core:nuxeo-chemistry-impl" />
-        <artifact:resolveFile key="org.nuxeo.ecm.core:nuxeo-chemistry-bindings" />
-        <artifact:resolveFile key="org.nuxeo.ecm.webengine:nuxeo-webengine-core" />
-      </copy>
-      <antcall target="cmis-third-party-libraries">
-        <param name="lib.dir"
-               value="${nuxeo.ear}/lib" />
-      </antcall>
-
-      <replace file="${nuxeo.ear}/config/default-repository-config.xml">
-	<replacetoken>
-          <![CDATA[<indexing>]]></replacetoken>
-	<replacevalue>
-          <![CDATA[<indexing>
-        <queryMaker class="org.nuxeo.ecm.core.storage.sql.NXQLQueryMaker" />
-        <queryMaker class="org.nuxeo.ecm.core.chemistry.impl.CMISQLQueryMaker" />
-	]]></replacevalue>
-      </replace>
-
-      <copy todir="${nuxeo.ear}/plugins" overwrite="true">
-	<artifact:set>
-          <includes>
-            <artifact groupId="org.nuxeo.cm" />
-          </includes>
-	</artifact:set>
-      </copy>
-      
-    </nx:profile>
-
-    <copy todir="${nuxeo.ear}/plugins" overwrite="true">
-      <artifact:set>
-        <includes>
-          <artifact groupId="org.nuxeo.ecm" />
-        </includes>
-      </artifact:set>
-    </copy>
-
-  </target>
-
-
-  <target name="cleanstage">
-    <delete dir="${stagedir}" />
-  </target>
-
   <target name="cleanoutput">
     <delete dir="${finaltarget}" />
-  </target>
-
-  <target name="cmis-third-party-libraries">
-    <!-- Add libraries required under JBoss (not present in the dependency tree) -->
-    <copy todir="${lib.dir}" overwrite="true">
-      <artifact:resolveFile key="org.apache.chemistry:chemistry-api" />
-      <artifact:resolveFile key="org.apache.chemistry:chemistry-commons" />
-      <artifact:resolveFile key="org.apache.chemistry:chemistry-atompub" />
-      <artifact:resolveFile key="org.apache.chemistry:chemistry-atompub-server" />
-      <artifact:resolveFile key="org.apache.chemistry:chemistry-ws" />
-      <artifact:resolveFile key="org.apache.chemistry:chemistry-soap-server" />
-      <artifact:resolveFile key="org.antlr:antlr-runtime" />
-      <artifact:resolveFile key="org.apache.abdera:abdera-core" />
-      <artifact:resolveFile key="org.apache.abdera:abdera-i18n" />
-      <artifact:resolveFile key="org.apache.abdera:abdera-parser" />
-      <artifact:resolveFile key="org.apache.abdera:abdera-server" />
-      <artifact:resolveFile key="org.apache.ws.commons.axiom:axiom-api" />
-      <artifact:resolveFile key="org.apache.ws.commons.axiom:axiom-impl" />
-    </copy>
   </target>
 
   <target name="server" depends="init" description="Server packaging" if="build.server">
@@ -148,11 +49,23 @@
     <property name="app.path" value="${stagedir}/nuxeo-cm-server" />
     <nx:rename from="${stagedir}/nuxeo-*" to="${app.path}" />
     <chmod dir="${app.path}" perm="750" includes="*.sh,bin/*.sh" />
-
+    <!-- remove open social -->
+    <delete failonerror="false" verbose="true">
+      <fileset 
+	 dir="${app.path}/server/default/deploy/nuxeo.ear/system"
+	 includes="nuxeo-opensocial-*"/> 
+      <fileset 
+	 dir="${app.path}/server/default/deploy/nuxeo.ear/config"
+	 includes="opensocial.properties default-opensocial-config.xml" />
+    </delete>
     <!-- Deploy Custom plugins -->
     <copy todir="${app.path}/server/default/deploy/nuxeo.ear/plugins">
       <artifact:set groupId="org.nuxeo.cm" type="jar" />
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
+    </copy>
+    <!-- Deploy custom configuration -->
+    <copy todir="${app.path}/server/default/deploy/nuxeo.ear" overwrite="true">
+      <fileset dir="src/main/resources" />
     </copy>
     <antcall target="zip">
       <param name="distribution" value="server" />
@@ -160,7 +73,9 @@
   </target>
 
   <target name="zip">
-    <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" basedir="${stagedir}" />
+    <zip
+       destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip"
+       basedir="${stagedir}" />
     <echo>Distribution built:
       ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
     <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />

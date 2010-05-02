@@ -1,0 +1,8 @@
+# copy to runtests.conf and then change URL as you need (default is
+# localhost:8080)
+LD_LIBRARY_PATH=FIREFOX_BIN=/home/arussel/Work/lib/firefox-3.5.9:$LD_LIBRARY_PATH
+FIREFOX_BIN=/home/arussel/Work/lib/firefox-3.5.9
+HOME_URL="http://localhost:8080/nuxeo/"
+SUITE="/tests/suite.html"
+FIREFOX_CONF="*firefox $FIREFOX_BIN"
+XVFB_RUN="xvfb-run"

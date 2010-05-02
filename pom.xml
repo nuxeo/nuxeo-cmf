@@ -33,9 +33,9 @@
     <module>nuxeo-case-management-api</module>
     <module>nuxeo-case-management-test</module>
     <module>nuxeo-case-management-core</module>
+    <module>nuxeo-case-management-lang</module>
     <module>nuxeo-case-management-facade</module>
     <module>nuxeo-case-management-web</module>
-    <module>nuxeo-case-management-lang</module>
   </modules>
 
   <dependencyManagement>

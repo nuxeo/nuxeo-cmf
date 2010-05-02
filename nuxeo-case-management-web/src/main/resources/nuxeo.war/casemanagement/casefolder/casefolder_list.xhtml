@@ -1,0 +1,59 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jstl/core" class="menu"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"><h:form
+  rendered="#{!currentUser.anonymous}">
+
+  <h:panelGroup>
+    <div class="userCaseFolders">
+    <div class="userCaseFoldersContent">
+    
+    <h4><h:outputText value="#{messages['label.mailBoxListTitle']}" /></h4>
+
+    <div><f:subview rendered="#{!empty userCaseFolders}">
+      <nxu:dataList var="caseFolder" value="#{userCaseFolders}"
+        layout="unorderedList"
+        itemStyleClass="#{nxu:test(caseFolder.document.csfd.case_folder_id == currentCaseFolder.id, 'selected', '')}">
+        <f:subview rendered="#{caseFolder.document.csfd.case_folder_id == currentCaseFolder.id}">
+          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}" tab="view"
+              newConversation="true" target="_BLANK">
+            <img src="icons/external.gif" style="vertical-align: top"
+                 alt="#{messages['permalink.newTab']}"
+                 title="#{messages['permalink.newTab']}" />
+          </nxd:restDocumentLink>
+          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}" tab="view">
+            <nxh:outputText value="#{caseFolder.document.dublincore.title}" />
+          </nxd:restDocumentLink>
+        </f:subview>
+        <f:subview rendered="#{caseFolder.document.csfd.case_folder_id != currentCaseFolder.id}">
+          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}" tab="view"
+            newConversation="true" target="_BLANK">
+            <img src="icons/external.gif" style="vertical-align: top"
+              alt="#{messages['permalink.newTab']}"
+              title="#{messages['permalink.newTab']}" />
+          </nxd:restDocumentLink>
+          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}">
+            <nxh:outputText value="#{caseFolder.document.dublincore.title}" />
+          </nxd:restDocumentLink>
+        </f:subview>
+      </nxu:dataList>
+    </f:subview> <f:subview rendered="#{empty userCaseFolders}">
+      <div class="userCaseFoldersEmptyMessage"><h:outputText
+        value="#{messages['label.casemanagement.caseFolders.empty']}" /></div>
+    </f:subview></div>
+    </div>
+
+    <!-- Bottom of the rounded box -->
+
+    <p class="nobottomgap"></p>
+    </div>
+
+    <div class="bottom-left"></div>
+    <div class="bottom-right"></div>
+
+  </h:panelGroup>
+
+</h:form></div>

@@ -1,0 +1,23 @@
+<div xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:nxu="http://nuxeo.org/nxweb/util">
+
+  <h:panelGrid id="visualizer">
+  
+    <object classid="clsid:CA8A9780-280D-11CF-A24D-444553540000"
+      height="950" width="700">
+      <param name="src"
+        value="#{nxd:fileUrl('downloadFile', currentCaseItem, 'file:content',
+        currentCaseItem.file.filename)}" />
+      <embed
+        src="#{nxd:fileUrl('downloadFile', currentEmail, 'file:content', currentCaseItem.file.filename)}"
+        height="950" width="700">
+        <noembed>
+          <h:outputText value="#{label.visualizer.noembed.support}" />
+        </noembed>
+      </embed>
+    </object>
+    
+  </h:panelGrid>
+
+</div>

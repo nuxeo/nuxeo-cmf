@@ -43,12 +43,12 @@
 
        <c:if test="#{currentCaseFolder.getProfiles().contains('cellule_courrier')}">
          <nxh:commandLink action="#{correspMailboxActions.createDraftMail('CaseItem')}">
-            <h:outputText value="#{messages['label.correspondence.action.createIncomingCorrespondenceDocument']}"/>
+            <h:outputText value="#{messages['label.casemanagement.action.createIncomingCaseManagementDocument']}"/>
          </nxh:commandLink>
        </c:if>
 
        <nxh:commandLink action="#{cmCaseFolderTabsActionsBean.openCaseFolderManage()}">
-         <h:outputText value="#{messages['label.correspondence.action.manage']}"/>
+         <h:outputText value="#{messages['label.casemanagement.action.manage']}"/>
        </nxh:commandLink>
 
       </h:form>

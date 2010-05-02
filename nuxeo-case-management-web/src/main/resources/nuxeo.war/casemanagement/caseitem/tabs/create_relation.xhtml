@@ -1,0 +1,27 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxdir="http://nuxeo.org/nxdirectory"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+
+  <h3>
+    <h:form>
+      <h:commandLink actionListener="#{cmRelationActions.toggleCreateForm}">
+        <h:graphicImage url="/icons/toggle_plus.png" rendered="#{!cmRelationActions.showCreateForm}" />
+        <h:graphicImage url="/icons/toggle_minus.png" rendered="#{cmRelationActions.showCreateForm}" />
+        <h:outputText value="#{messages['title.create.relation']}" />
+      </h:commandLink>
+    </h:form>
+  </h3>
+
+  <h:form id="createForm" rendered="#{cmRelationActions.showCreateForm}">
+    <nxl:layout name="cm_relation_search" value="#{cmRelationActions}"
+      mode="create" />
+
+    <h:commandButton type="submit" value="#{messages['command.add']}" styleClass="button"
+      action="#{cmRelationActions.addStatement}" />
+  </h:form>
+
+</div>

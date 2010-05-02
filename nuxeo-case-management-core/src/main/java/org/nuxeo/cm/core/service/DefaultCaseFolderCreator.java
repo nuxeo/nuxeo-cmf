@@ -44,7 +44,7 @@ import org.nuxeo.runtime.api.Framework;
  */
 public class DefaultCaseFolderCreator implements CaseFolderCreator {
 
-    protected static final String CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP = "correspondence.defaultMailboxCreator.skip";
+    protected static final String CM_DEFAULT_CASE_FOLDER_CREATOR_SKIP = "cm.defaultCaseFolderCreator.skip";
 
     private static final Log log = LogFactory.getLog(DefaultCaseFolderCreator.class);
 
@@ -64,7 +64,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
     public List<CaseFolder> createCaseFolders(CoreSession session, String user)
     throws CaseManagementException {
 
-        String skipCreation = Framework.getProperty(CORRESPONDENCE_DEFAULT_MAILBOX_CREATOR_SKIP);
+        String skipCreation = Framework.getProperty(CM_DEFAULT_CASE_FOLDER_CREATOR_SKIP);
         if (skipCreation != null
                 && skipCreation.equals(Boolean.TRUE.toString())) {
             return Collections.emptyList();

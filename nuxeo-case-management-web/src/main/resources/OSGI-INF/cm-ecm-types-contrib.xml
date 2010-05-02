@@ -8,7 +8,7 @@
     <type id="Note" remove="true" />
 
     <type id="CaseFolderRoot">
-      <label>label.correspondence.type.CorrespondenceMailboxRoot</label>
+      <label>label.casemanagement.type.CaseManagementCaseFolderRoot</label>
       <icon>/icons/folder.gif</icon>
       <default-view>view_documents</default-view>
       <subtypes>
@@ -20,7 +20,7 @@
     </type>
 
     <type id="CaseFolder">
-      <label>label.correspondence.type.CorrespondenceMailbox</label>
+      <label>label.casemanagement.type.CaseManagementCaseFolder</label>
       <icon>/icons/correspondence_mailbox.png</icon>
       <default-view>casefolder_view</default-view>
       <create-view>casefolder_create</create-view>
@@ -35,7 +35,7 @@
     </type>
 
     <type id="CaseRoot">
-      <label>label.correspondence.type.CorrespondenceMailFolder</label>
+      <label>label.casemanagement.type.CaseManagementMailFolder</label>
       <icon>/icons/folder.gif</icon>
       <default-view>view_documents</default-view>
       <subtypes>
@@ -47,7 +47,7 @@
     </type>
 
     <type id="Case">
-      <label>label.correspondence.type.CorrespondenceEnvelope</label>
+      <label>label.casemanagement.type.CaseManagementCase</label>
       <icon>/icons/correspondence_envelope.png</icon>
       <default-view>view_cm_case</default-view>
       <views>
@@ -75,7 +75,7 @@
     </type>
 
     <type id="CaseItem">
-      <label>label.correspondence.type.IncomingCorrespondenceDocument</label>
+      <label>label.casemanagement.type.IncomingCaseManagementDocument</label>
       <icon>/icons/correspondence_mail.png</icon>
       <default-view>view_cm_document</default-view>
       <create-view>create_cm_document</create-view>

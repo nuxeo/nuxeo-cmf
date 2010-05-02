@@ -127,14 +127,14 @@ CaseManagementContextBoundInstance implements Serializable {
             if (!distributionInfo.hasParticipants()) {
                 facesMessages.add(FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.corresp.distribution.noRecipients"));
+                        "feedback.casemanagement.distribution.noParticipants"));
                 return null;
             }
             CaseLinkMode mode = CaseLinkMode.valueOfString(distributionInfo.getMode());
             if (mode == null) {
                 facesMessages.add(FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.corresp.distribution.invalidMode"));
+                        "feedback.casemanagement.distribution.invalidMode"));
                 return null;
             }
             CaseFolder currentMailbox = getCurrentCaseFolder();
@@ -142,7 +142,7 @@ CaseManagementContextBoundInstance implements Serializable {
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.corresp.distribution.invalidCurrentMailbox"));
+                        "feedback.casemanagement.distribution.invalidCurrentCaseFolder"));
                 return null;
             }
             DocumentModel emailDoc = null;
@@ -165,7 +165,7 @@ CaseManagementContextBoundInstance implements Serializable {
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.corresp.distribution.invalidEnvelope"));
+                        "feedback.casemanagement.distribution.invalidCase"));
                 return null;
             }
             Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
@@ -195,7 +195,7 @@ CaseManagementContextBoundInstance implements Serializable {
             resetWizard();
             facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
-                    "feedback.corresp.distribution.done"));
+                    "feedback.casemanagement.distribution.done"));
         }
         // navigate to default view
         webActions.resetCurrentTab();

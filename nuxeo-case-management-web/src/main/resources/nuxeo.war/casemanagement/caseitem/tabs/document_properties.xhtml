@@ -1,0 +1,40 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+
+  <h:form id="document_properties" enctype="multipart/form-data">
+
+    <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}" value="#{currentCaseItem}" />
+    
+    <c:if test="#{!cmDocumentActions.editingMail and cmDocumentActions.canEditCurrentCaseItem}">
+      <h:commandButton styleClass="button"
+        immediate="true" value="#{messages['label.cmondence.startEditing']}"
+        action="#{cmDocumentActions.startEditingMail()}" />
+    </c:if>
+
+    <c:if test="#{cmDocumentActions.editingMail}">
+      <table class="dataInput">
+        <tbody>
+          <tr>
+            <td class="labelColumn">
+              <h:outputText value="#{messages['label.comment']}" />
+            </td>
+            <td class="fieldColumn">
+              <h:inputTextarea value="#{currentCaseItem.contextData['request/comment']}" />
+            </td>
+          </tr>
+        </tbody> 
+      </table>
+      <h:commandButton styleClass="button"
+        value="#{messages['label.cmondence.save']}"
+        action="#{cmDocumentActions.save()}" />
+      <h:commandButton styleClass="button"
+        value="#{messages['command.cancel']}"
+        action="#{cmDocumentActions.backToMailbox()}"
+        immediate="true" />
+    </c:if>
+
+  </h:form>
+
+</div>

@@ -35,7 +35,7 @@ import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
 
 
 /**
- * Set the right WRITE for all the users of the mailbox, in unrestricted mode.
+ * Set the right WRITE for all the users of the case folder, in unrestricted mode.
  *
  * @author nulrich
  * @author ldoguin

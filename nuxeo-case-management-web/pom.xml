@@ -39,6 +39,18 @@
     </dependency>
 
     <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-comment-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-relations-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-relations-web</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-api</artifactId>
     </dependency>

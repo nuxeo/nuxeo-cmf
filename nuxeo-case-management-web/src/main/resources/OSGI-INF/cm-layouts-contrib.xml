@@ -10,7 +10,7 @@
       </labels>
       <translated>true</translated>
       <fields>
-        <field>csfd:casefolder_id</field>
+        <field>csfd:case_folder_id</field>
       </fields>
       <widgetModes>
         <mode value="create">hidden</mode>
@@ -81,7 +81,7 @@
         <field>csfd:profiles</field>
       </fields>
       <labels>
-        <label mode="any">label.correspondence.document.profiles</label>
+        <label mode="any">label.casemanagement.document.profiles</label>
       </labels>
       <translated>true</translated>
       <properties widgetMode="any">
@@ -97,11 +97,11 @@
 
     <widget name="casefolder_affiliation" type="template">
       <labels>
-        <label mode="any">label.casefolder.affiliatedMailbox</label>
+        <label mode="any">label.casefolder.affiliatedCaseFolder</label>
       </labels>
       <translated>true</translated>
       <fields>
-        <field>csfd:affiliated_casefolder_id</field>
+        <field>csfd:affiliated_case_folder_id</field>
       </fields>
       <properties mode="any">
         <property name="template">
@@ -115,7 +115,7 @@
 
     <widget name="casefolder_parent" type="template">
       <labels>
-        <label mode="any">label.correspondence.parentMailbox</label>
+        <label mode="any">label.casemanagement.parentCaseFolder</label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -283,7 +283,7 @@
       <widget name="action_participants" type="template">
         <labels>
           <label mode="any">
-            label.correspondence.distribution.actionRecipients
+            label.casemanagement.distribution.actionParticipants
           </label>
         </labels>
         <translated>true</translated>
@@ -298,7 +298,7 @@
       </widget>
       <widget name="copy_participants" type="template">
         <labels>
-          <label mode="any">label.distribution.copyRecipients</label>
+          <label mode="any">label.distribution.copyParticipants</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -344,7 +344,7 @@
       </rows>
       <widget name="senders" type="list">
         <labels>
-          <label mode="any">label.correspondence.document.senders</label>
+          <label mode="any">label.casemanagement.document.senders</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -381,7 +381,7 @@
       </widget>
       <widget name="receive_date" type="datetime">
         <labels>
-          <label mode="any">label.correspondence.document.receive_date</label>
+          <label mode="any">label.casemanagement.document.receive_date</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -397,7 +397,7 @@
       <widget name="initial_action_internal_participant_casefolders" type="list">
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.internal.action
+            label.casemanagement.document.initial.participant.internal.action
           </label>
         </labels>
         <translated>true</translated>
@@ -421,7 +421,7 @@
       <widget name="initial_copy_internal_participant_casefolders" type="list">
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.internal.information
+            label.casemanagement.document.initial.participant.internal.information
           </label>
         </labels>
         <translated>true</translated>
@@ -445,7 +445,7 @@
       <widget name="initial_action_external_participant_casefolderders" type="list">
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.external.action
+            label.casemanagement.document.initial.participant.external.action
           </label>
         </labels>
         <translated>true</translated>
@@ -469,7 +469,7 @@
       <widget name="initial_copy_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.external.information
+            label.casemanagement.document.initial.participant.external.information
           </label>
         </labels>
         <translated>true</translated>
@@ -492,7 +492,7 @@
       </widget>
       <widget name="reference" type="text">
         <labels>
-          <label mode="any">label.correspondence.document.reference</label>
+          <label mode="any">label.casemanagement.document.reference</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -581,7 +581,7 @@
       <widget name="contactsParticipants" type="template">
         <labels>
           <label mode="any">
-            label.correspondence.document.contactsRecipients
+            label.casemanagement.document.contactsParticipants
           </label>
         </labels>
         <translated>true</translated>
@@ -622,7 +622,7 @@
 
       <widget name="sending_date" type="datetime">
         <labels>
-          <label mode="any">label.correspondence.document.sending_date</label>
+          <label mode="any">label.casemanagement.document.sending_date</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -637,7 +637,7 @@
       </widget>
       <widget name="receive_date" type="datetime">
         <labels>
-          <label mode="any">label.correspondence.document.receive_date</label>
+          <label mode="any">label.casemanagement.document.receive_date</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -668,7 +668,7 @@
       <widget name="contactsSenders" type="template">
         <labels>
           <label mode="any">
-            label.correspondence.document.contactsSenders
+            label.casemanagement.document.contactsSenders
           </label>
         </labels>
         <translated>true</translated>
@@ -711,7 +711,7 @@
         </fields>
         <labels>
           <label mode="any">
-            label.correspondence.document.confidentiality
+            label.casemanagement.document.confidentiality
           </label>
         </labels>
         <translated>true</translated>
@@ -730,7 +730,7 @@
       </widget>
       <widget name="origin" type="text">
         <labels>
-          <label mode="any">label.correspondence.document.origin</label>
+          <label mode="any">label.casemanagement.document.origin</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -743,7 +743,7 @@
       </widget>
       <widget name="reference" type="text">
         <labels>
-          <label mode="any">label.correspondence.document.reference</label>
+          <label mode="any">label.casemanagement.document.reference</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -767,7 +767,7 @@
       </widget>
       <widget name="body" type="htmltext">
         <labels>
-          <label mode="any">label.correspondence.document.body</label>
+          <label mode="any">label.casemanagement.document.body</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -832,7 +832,7 @@
       <widget name="contactsSenders" type="template">
         <labels>
           <label mode="any">
-            label.correspondence.document.contactsSenders
+            label.casemanagement.document.contactsSenders
           </label>
         </labels>
         <translated>true</translated>
@@ -893,7 +893,7 @@
         </fields>
         <labels>
           <label mode="any">
-            label.correspondence.document.confidentiality
+            label.casemanagement.document.confidentiality
           </label>
         </labels>
         <translated>true</translated>
@@ -913,7 +913,7 @@
       <widget name="contactsRecipients" type="template">
         <labels>
           <label mode="any">
-            label.correspondence.document.contactsRecipients
+            label.casemanagement.document.contactsParticipants
           </label>
         </labels>
         <translated>true</translated>
@@ -980,7 +980,7 @@
       <widget name="initial_action_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.external.action
+            label.casemanagement.document.initial.participant.external.action
           </label>
         </labels>
         <translated>true</translated>
@@ -1005,7 +1005,7 @@
       <widget name="initial_copy_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.external.information
+            label.casemanagement.document.initial.participant.external.information
           </label>
         </labels>
         <translated>true</translated>
@@ -1034,7 +1034,7 @@
         </fields>
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.internal.action
+            label.casemanagement.document.initial.participant.internal.action
           </label>
         </labels>
         <translated>true</translated>
@@ -1055,7 +1055,7 @@
         </fields>
         <labels>
           <label mode="any">
-            label.correspondence.document.initial.recipient.internal.information
+            label.casemanagement.document.initial.participant.internal.information
           </label>
         </labels>
         <translated>true</translated>
