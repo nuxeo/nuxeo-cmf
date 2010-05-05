@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,15 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer
      * Returns an empty list for efficiency
      */
     public List<String> getAllGroupIds() throws Exception {
+        return Collections.emptyList();
+    }
+
+    /**
+     * Returns an empty list as case folders are not searchable
+     */
+    @Override
+    public List<String> searchGroups(Map<String, Serializable> filter,
+            HashSet<String> fulltext) throws Exception {
         return Collections.emptyList();
     }
 
@@ -123,6 +133,14 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer
                 getRepoName(), getService(), groupName);
         runner.runUnrestricted();
         return runner.getCaseFolderSubFolderNames();
+    }
+
+    /**
+     * Return false: no mailbox should be seen as a group
+     */
+    @Override
+    public boolean hasGroup(String name) throws Exception {
+        return false;
     }
 
     protected CaseFolderManagementService getService() {
