@@ -227,14 +227,6 @@
         <artifactId>antlr-runtime</artifactId>
         <version>${antlr.runtime.version}</version>
       </dependency>
-      <!-- Distribution -->
-      <dependency>
-	<groupId>org.nuxeo.ecm.distribution</groupId>
-	<artifactId>nuxeo-distribution-jboss</artifactId>
-	<version>${nuxeo.platform.version}</version>
-        <classifier>nuxeo-dm-cmis</classifier>
-	<type>zip</type>
-      </dependency>
 
     </dependencies>
 

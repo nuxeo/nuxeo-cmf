@@ -120,12 +120,6 @@
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-annotations-web</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.distribution</groupId>
-      <artifactId>nuxeo-distribution-jboss</artifactId>
-      <classifier>nuxeo-dm-cmis</classifier>
-      <type>zip</type>
-    </dependency>
 
   </dependencies>
 

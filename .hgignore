@@ -7,6 +7,7 @@ syntax:glob
 .project
 .project.ok
 .settings
+result-suite.html
 bin
 build.properties
 target
@@ -15,3 +16,5 @@ target
 *.iml
 *.ipr
 *.iws
+log.txt
+derby.log
