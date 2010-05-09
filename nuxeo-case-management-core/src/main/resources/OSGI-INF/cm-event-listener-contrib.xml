@@ -4,19 +4,25 @@
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
     point="listener">
 
+
+    <listener name="classificationListener" async="false" postCommit="true"
+      class="org.nuxeo.cm.core.event.ClassificationCaseFolderListener"
+      priority="120">
+    </listener>
+
     <listener name="loginSuccessListener" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.SuccessLoginListener"
       priority="150">
       <event>loginSuccess</event>
     </listener>
 
-    <listener name="createMailboxId" async="false" postCommit="false"
+    <listener name="createCaseFolderd" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.CreateCaseFolderIdListener"
       priority="160">
       <event>aboutToCreate</event>
     </listener>
 
-    <listener name="updateMailboxRights" async="false" postCommit="false"
+    <listener name="updateCaseFolderRights" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.UpdateCaseFolderRightsListener"
       priority="170">
       <event>documentCreated</event>
@@ -29,7 +35,7 @@
       <event>afterCaseSentEvent</event>
     </listener>
 
-    <listener name="afterEnvelopeSentEvent" async="false" postCommit="false"
+    <listener name="afterCaseSentEvent" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.AfterCaseSentEventListener"
       priority="190">
       <event>afterCaseSentEvent</event>

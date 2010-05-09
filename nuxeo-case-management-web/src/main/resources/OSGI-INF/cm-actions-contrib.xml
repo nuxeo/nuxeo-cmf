@@ -224,7 +224,7 @@
     <!-- end of envelope/document tab actions -->
     
     <!-- Mailbox Management Actions -->
-    <action id="TAB_CASE_FOLDER_PLANS" link="/casemanagemen/casefolder/tabs/casefolder_plans_content.xhtml" order="25"
+    <action id="TAB_CASE_FOLDER_PLANS" link="/casemanagement/casefolder/tabs/casefolder_plans_content.xhtml" order="25"
       label="label.casemanagement.plansCaseFolder" enabled="true"
       icon="/icons/file.gif">
       <category>MANAGE_CASE_FOLDER_ACTION_LIST</category>

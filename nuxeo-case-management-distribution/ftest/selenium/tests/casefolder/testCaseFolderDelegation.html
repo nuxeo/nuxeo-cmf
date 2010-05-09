@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testMailboxDelegation</title>
+<title>testCaseFolderDelegation</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testMailboxDelegation</td></tr>
+<tr><td rowspan="1" colspan="3">testCaseFolderDelegation</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -56,17 +56,7 @@
 	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
-<tr>
-	<td>type</td>
-	<td>mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggest</td>
-	<td>bree</td>
-</tr>
 <!-- add Bree to delegation -->
-<tr>
-	<td>click</td>
-	<td>//table[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox:suggest']/tbody/tr[1]/td[2]</td>
-	<td></td>
-</tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Manage</td>
@@ -98,13 +88,18 @@
 	<td>Bree Van de Kaamp</td>
 </tr>
 <tr>
+	<td>waitForElementPresent</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
+	<td></td>
+</tr>
+<tr>
 	<td>watchA4jRequests</td>
 	<td></td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div/table/tbody/tr</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox:suggest']/x:tbody/x:tr/x:td</td>
 	<td></td>
 </tr>
 <tr>
@@ -113,8 +108,13 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForTextPresent</td>
+	<td>Bree Van de Kaamp</td>
+	<td>1000</td>
+</tr>
+<tr>
 	<td>assertTextPresent</td>
-	<td>bree</td>
+	<td>Bree Van de Kaamp</td>
 	<td></td>
 </tr>
 <tr>
@@ -164,6 +164,21 @@
 	<td></td>
 </tr>
 <tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>virtualNavTreeTab:virtualNavTreeList:2:virtualNavTreeLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>verifyText</td>
 	<td>link=John Doe</td>
 	<td>John Doe</td>
@@ -184,18 +199,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>//span[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_list:0:nxw_mailbox_users_listItem']/table/tbody/tr/td[2]</td>
-	<td>Bree Van de Kaamp</td>
-</tr>
-<tr>
 	<td>watchA4jRequests</td>
 	<td></td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//a[@id='mailbox_delegation:nxl_cm_casefolder_casefolder_managers:nxw_mailbox_users_list:0:nxw_mailbox_users_delete']/img</td>
+	<td>//img[@src='/nuxeo/icons/action_delete.gif']</td>
 	<td></td>
 </tr>
 <tr>

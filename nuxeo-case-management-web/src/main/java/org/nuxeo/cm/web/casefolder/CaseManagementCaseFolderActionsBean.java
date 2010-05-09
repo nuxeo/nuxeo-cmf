@@ -72,16 +72,15 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 
-
 /**
  * Handles mailboxes creation/edition and views.
- *
+ * 
  */
 @Name("cmCaseFolderActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementCaseFolderActionsBean extends
-CaseManagementAbstractActionsBean implements Serializable {
+        CaseManagementAbstractActionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -128,7 +127,8 @@ CaseManagementAbstractActionsBean implements Serializable {
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return caseFolderManagementService.searchCaseFolders(searchPattern, searchType);
+        return caseFolderManagementService.searchCaseFolders(searchPattern,
+                searchType);
     }
 
     /**
@@ -174,14 +174,14 @@ CaseManagementAbstractActionsBean implements Serializable {
      * Performs a validation error when trying to set a mailbox id that already
      * exists in the system.
      */
-    public void validateCaseFolderId(FacesContext context, UIComponent component,
-            Object value) {
+    public void validateCaseFolderId(FacesContext context,
+            UIComponent component, Object value) {
         if (!(value instanceof String)
                 || caseFolderManagementService.hasCaseFolder((String) value)) {
             FacesMessage message = new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
-                            context,
-                    "feedback.casemanagement.caseFolderIdAlreadyExists"),
+                    FacesMessage.SEVERITY_ERROR,
+                    ComponentUtils.translate(context,
+                            "feedback.casemanagement.caseFolderIdAlreadyExists"),
                     null);
             // also add global message?
             // context.addMessage(null, message);
@@ -224,7 +224,7 @@ CaseManagementAbstractActionsBean implements Serializable {
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
-                        "feedback.casemanagement.personalCaseFolderAlreadyExists"),
+                                "feedback.casemanagement.personalCaseFolderAlreadyExists"),
                         null);
                 // also add global message?
                 // context.addMessage(null, message);
@@ -244,7 +244,7 @@ CaseManagementAbstractActionsBean implements Serializable {
                 log.debug("Document " + newDocument.getName()
                         + " already created");
                 return navigationContext.navigateToDocument(newDocument,
-                "after-create");
+                        "after-create");
             }
             DocumentModel parentDocument = getParentCaseFolder(parentMailboxId);
             // reset the parent id
@@ -265,7 +265,7 @@ CaseManagementAbstractActionsBean implements Serializable {
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                     parentDocument);
             return navigationContext.navigateToDocument(newDocument,
-            "after-create");
+                    "after-create");
         } catch (Throwable t) {
             throw new CaseManagementException(t);
         }
@@ -291,9 +291,14 @@ CaseManagementAbstractActionsBean implements Serializable {
         return getSelectDataModelFromProvider(CASE_FOLDER_DRAFT);
     }
 
+    @Factory(value = "plansChildrenSelectModel", scope = EVENT)
+    public SelectDataModel getPlansSelectModel() throws ClientException {
+        return getSelectDataModelFromProvider(CASE_FOLDER_PLANS);
+    }
+
     @Override
-    protected void resetCaseFolderCache(CaseFolder cachedMailbox, CaseFolder newMailbox)
-    throws ClientException {
+    protected void resetCaseFolderCache(CaseFolder cachedMailbox,
+            CaseFolder newMailbox) throws ClientException {
         ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance("resultsProvidersCache");
 
         resultsProvidersCache.invalidate(CASE_FOLDER_INBOX);
@@ -309,24 +314,26 @@ CaseManagementAbstractActionsBean implements Serializable {
      */
     protected DocumentModel getCaseFolderRoot() throws ClientException {
         DocumentModelList res = documentManager.query(String.format(
-                "SELECT * from %s", CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
+                "SELECT * from %s",
+                CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
-            throw new CaseManagementException("Cannot find any case folder root");
+            throw new CaseManagementException(
+                    "Cannot find any case folder root");
         }
         return res.get(0);
     }
 
     protected DocumentModel getParentCaseFolder(String parentMailboxId)
-    throws ClientException {
+            throws ClientException {
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
-                mailboxDoc = caseFolderManagementService.getCaseFolder(documentManager,
-                        parentMailboxId).getDocument();
+                mailboxDoc = caseFolderManagementService.getCaseFolder(
+                        documentManager, parentMailboxId).getDocument();
             } catch (Exception e) {
                 log.error(String.format(
                         "Unable to find parent mailbox with id '%s', using default "
-                        + "mailbox root as parent", parentMailboxId));
+                                + "mailbox root as parent", parentMailboxId));
             }
         }
         if (mailboxDoc == null) {
@@ -362,7 +369,7 @@ CaseManagementAbstractActionsBean implements Serializable {
 
     /**
      * Create a mail draft mail
-     *
+     * 
      * @param type
      * @return
      * @throws ClientException
@@ -375,9 +382,11 @@ CaseManagementAbstractActionsBean implements Serializable {
             // Set the path of MailRoot
             context.put(CoreEventConstants.PARENT_PATH,
                     CaseConstants.CASE_ROOT_DOCUMENT_PATH);
-            context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
+            context.put(
+                    CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
                     getCurrentCaseFolder().getId());
-            context.put(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
+            context.put(
+                    CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
                     getCurrentCaseFolder().getAffiliatedCaseFolderId());
 
             // Create the new Mail document model in the MailRoot
@@ -403,7 +412,7 @@ CaseManagementAbstractActionsBean implements Serializable {
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
-                "feedback.casemanagement.delegation.modified"));
+                        "feedback.casemanagement.delegation.modified"));
         EventManager.raiseEventsOnDocumentChange(mailbox.getDocument());
     }
 

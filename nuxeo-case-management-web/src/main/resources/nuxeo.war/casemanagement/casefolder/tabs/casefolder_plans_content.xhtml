@@ -5,13 +5,13 @@
 
   <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
     <ui:include src="/incl/document_actions.xhtml" />
-    <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('MAILBOX_PLANS')}" >
+    <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('CASE_FOLDER_PLANS')}" >
 
     <ui:decorate template="/incl/documents_table.xhtml">
       <ui:param name="documents" value="#{plansChildrenSelectModel}" />
       <ui:param name="showCheckboxes" value="#{true}" />
       <ui:param name="provider" value="#{provider}" />
-      <ui:param name="providerName" value="MAILBOX_PLANS" />
+      <ui:param name="providerName" value="CASE_FOLDER_PLANS" />
       <ui:param name="listName" value="CURRENT_SELECTION" />
       <ui:define name="buttons">
         <ui:include src="/incl/clipboard.xhtml" />

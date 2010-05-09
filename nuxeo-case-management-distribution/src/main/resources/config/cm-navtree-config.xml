@@ -9,6 +9,8 @@
 
     <navTree treeId="CASE_FOLDER" xhtmlview="/casemanagement/casefolder/casefolder_list.xhtml">
     </navTree>
+    <navTree treeId="CLASSIFICATION" xhtmlview="/classification/classification_tree_explorer.xhtml">
+    </navTree>
 
   </extension>
 

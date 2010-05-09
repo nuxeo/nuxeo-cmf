@@ -54,7 +54,7 @@
       <max>10</max>
     </queryModel>
 
-    <queryModel name="CASE_FOlDER_PLANS">
+    <queryModel name="CASE_FOLDER_PLANS">
       <pattern>
         SELECT * FROM ClassificationRoot WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
         = 0 AND ecm:mixinType != 'HiddenInNavigation' AND

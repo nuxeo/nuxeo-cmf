@@ -44,7 +44,8 @@
     <echo>nuxeo-cm-distribution server build (JBoss)...</echo>
     <mkdir dir="${stagedir}" />
     <unzip dest="${stagedir}">
-      <artifact:file groupId="org.nuxeo.ecm.distribution" artifactId="nuxeo-distribution-jboss" classifier="nuxeo-dm-cmis" type="zip" />
+      <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip"
+                            classifier="nuxeo-dm" />
     </unzip>
     <property name="app.path" value="${stagedir}/nuxeo-cm-server" />
     <nx:rename from="${stagedir}/nuxeo-*" to="${app.path}" />
@@ -55,7 +56,7 @@
 	 dir="${app.path}/server/default/deploy/nuxeo.ear/system"
 	 includes="nuxeo-opensocial-*"/> 
       <fileset 
-	 dir="${app.path}/server/default/deploy/nuxeo.ear/config"
+	 dir="${app.path}/templates/common/config"
 	 includes="opensocial.properties default-opensocial-config.xml" />
     </delete>
     <!-- Deploy Custom plugins -->
@@ -64,7 +65,7 @@
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
     </copy>
     <!-- Deploy custom configuration -->
-    <copy todir="${app.path}/server/default/deploy/nuxeo.ear" overwrite="true">
+    <copy todir="${app.path}/templates/common" overwrite="true">
       <fileset dir="src/main/resources" />
     </copy>
     <antcall target="zip">

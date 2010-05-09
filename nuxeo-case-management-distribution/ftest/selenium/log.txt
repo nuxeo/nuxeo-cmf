@@ -1,0 +1,1853 @@
+10:01:23.851 INFO [10] org.openqa.selenium.server.SeleniumServer - Writing debug logs to log.txt
+10:01:23.852 INFO [10] org.openqa.selenium.server.SeleniumServer - Java: Sun Microsystems Inc. 16.3-b01
+10:01:23.852 INFO [10] org.openqa.selenium.server.SeleniumServer - OS: Linux 2.6.32-22-generic amd64
+10:01:23.863 INFO [10] org.openqa.selenium.server.SeleniumServer - v1.0.1 [2697], with Core v@VERSION@ [@REVISION@]
+10:01:23.887 DEBUG [10] org.mortbay.util.Container - add component: SocketListener0@0.0.0.0:14440
+10:01:23.908 DEBUG [10] org.mortbay.util.Container - add component: org.mortbay.http.ResourceCache@658fb1f7
+10:01:23.913 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.ProxyHandler in HttpContext[/,/]
+10:01:23.914 DEBUG [10] org.mortbay.util.Container - add component: HttpContext[/,/]
+10:01:23.917 DEBUG [10] org.mortbay.http.HttpServer - Added HttpContext[/,/] for host *
+10:01:23.917 DEBUG [10] org.mortbay.util.Container - add component: org.mortbay.http.ResourceCache@4d61f10f
+10:01:23.923 DEBUG [10] org.mortbay.http.HttpContext - added SC{BASIC,null,user,CONFIDENTIAL} at /tests/html/basicAuth/*
+10:01:23.931 DEBUG [10] org.mortbay.util.Container - add component: org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.935 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.948 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.SessionExtensionJsHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.949 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.htmlrunner.SingleTestSuiteResourceHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.951 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler@36d251a3
+10:01:23.952 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.CachedContentTestHandler@37f5d386
+10:01:23.953 DEBUG [10] org.mortbay.util.Container - add component: HttpContext[/selenium-server,/selenium-server]
+10:01:23.953 DEBUG [10] org.mortbay.http.HttpServer - Added HttpContext[/selenium-server,/selenium-server] for host *
+10:01:23.953 DEBUG [10] org.mortbay.util.Container - add component: org.mortbay.http.ResourceCache@37922221
+10:01:23.973 DEBUG [10] org.mortbay.util.Container - add component: org.openqa.selenium.server.SeleniumDriverResourceHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.973 DEBUG [10] org.mortbay.util.Container - add component: HttpContext[/selenium-server/driver,/selenium-server/driver]
+10:01:23.973 DEBUG [10] org.mortbay.http.HttpServer - Added HttpContext[/selenium-server/driver,/selenium-server/driver] for host *
+10:01:23.973 DEBUG [10] org.mortbay.util.Container - Starting org.mortbay.jetty.Server@86c347
+10:01:23.975 INFO [10] org.mortbay.http.HttpServer - Version Jetty/5.1.x
+10:01:23.976 DEBUG [10] org.mortbay.http.HttpServer - LISTENERS: [SocketListener0@0.0.0.0:14440]
+10:01:23.976 DEBUG [10] org.mortbay.http.HttpServer - HANDLER: {null={/selenium-server/driver/*=[HttpContext[/selenium-server/driver,/selenium-server/driver]], /selenium-server/*=[HttpContext[/selenium-server,/selenium-server]], /=[HttpContext[/,/]]}}
+10:01:23.977 DEBUG [10] org.mortbay.util.Container - Starting HttpContext[/selenium-server/driver,/selenium-server/driver]
+10:01:23.978 DEBUG [10] org.mortbay.http.HttpContext - Init classloader from null, sun.misc.Launcher$AppClassLoader@1f7182c1 for HttpContext[/selenium-server/driver,/selenium-server/driver]
+10:01:23.978 INFO [10] org.mortbay.util.Container - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+10:01:23.978 DEBUG [10] org.mortbay.util.Container - Starting HttpContext[/selenium-server,/selenium-server]
+10:01:23.979 DEBUG [10] org.mortbay.http.HttpContext - Init classloader from null, sun.misc.Launcher$AppClassLoader@1f7182c1 for HttpContext[/selenium-server,/selenium-server]
+10:01:23.980 DEBUG [10] org.mortbay.http.handler.AbstractHttpHandler - Started org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.980 DEBUG [10] org.mortbay.http.handler.AbstractHttpHandler - Started org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.981 DEBUG [10] org.mortbay.http.handler.AbstractHttpHandler - Started org.openqa.selenium.server.SessionExtensionJsHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.981 DEBUG [10] org.mortbay.http.handler.AbstractHttpHandler - Started org.openqa.selenium.server.htmlrunner.SingleTestSuiteResourceHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.981 DEBUG [10] org.mortbay.http.handler.AbstractHttpHandler - Started org.openqa.selenium.server.SeleniumDriverResourceHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:23.981 INFO [10] org.mortbay.util.Container - Started HttpContext[/selenium-server,/selenium-server]
+10:01:23.981 DEBUG [10] org.mortbay.util.Container - Starting HttpContext[/,/]
+10:01:23.982 DEBUG [10] org.mortbay.http.HttpContext - Init classloader from null, sun.misc.Launcher$AppClassLoader@1f7182c1 for HttpContext[/,/]
+10:01:23.982 DEBUG [10] org.mortbay.http.handler.AbstractHttpHandler - Started org.openqa.selenium.server.ProxyHandler in HttpContext[/,/]
+10:01:23.982 INFO [10] org.mortbay.util.Container - Started HttpContext[/,/]
+10:01:23.999 INFO [10] org.mortbay.http.SocketListener - Started SocketListener on 0.0.0.0:14440
+10:01:23.999 INFO [10] org.mortbay.util.Container - Started org.mortbay.jetty.Server@86c347
+10:01:24.014 DEBUG [10] org.openqa.selenium.server.browserlaunchers.BrowserLauncherFactory - Requested browser string '*chrome' matches *chrome 
+10:01:24.018 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.Firefox2or3Locator - Dicovering Firefox 2...
+10:01:24.056 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.BrowserLocator - Discovering Firefox 2...
+10:01:24.056 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.BrowserLocator - Checking whether Firefox 2 launcher at :'/Applications/Firefox-2.app/Contents/MacOS/firefox-bin' is valid...
+10:01:24.057 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.BrowserLocator - Checking whether Firefox 2 launcher at :'/Applications/Firefox.app/Contents/MacOS/firefox-bin' is valid...
+10:01:24.057 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.BrowserLocator - Checking whether Firefox 2 launcher at :'/usr/lib/firefox/firefox-bin' is valid...
+10:01:24.126 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.BrowserLocator - Checking whether Firefox 2 launcher at :'/home/arussel/Work/lib/firefox-3.5.9/firefox-bin' is valid...
+10:01:24.132 DEBUG [10] org.openqa.selenium.server.browserlaunchers.locators.BrowserLocator - Discovered valid Firefox 2 launcher  : '/home/arussel/Work/lib/firefox-3.5.9/firefox-bin'
+10:01:24.178 DEBUG [10] org.openqa.selenium.server.browserlaunchers.ResourceExtractor - Extracting /customProfileDirCUSTFFCHROME to /tmp/customProfileDir84010
+10:01:24.204 INFO [10] org.openqa.selenium.server.browserlaunchers.FirefoxChromeLauncher - Preparing Firefox profile...
+10:01:28.995 INFO [10] org.openqa.selenium.server.browserlaunchers.FirefoxChromeLauncher - Launching Firefox...
+10:01:29.000 DEBUG [10] org.openqa.selenium.server.browserlaunchers.AsyncExecute - Execute:Java13CommandLauncher: Executing '/home/arussel/Work/lib/firefox-3.5.9/firefox-bin' with arguments:
+'-profile'
+'/tmp/customProfileDir84010'
+
+The ' characters around the executable and arguments are
+not part of the command.
+10:01:29.023 DEBUG [10] org.openqa.selenium.server.browserlaunchers.AsyncExecute - spawned process java.lang.UNIXProcess@33010058
+10:01:30.767 DEBUG [11] org.mortbay.http.HttpConnection - new HttpConnection: Socket[addr=/0:0:0:0:0:0:0:1,port=35500,localport=14440]
+10:01:30.935 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:30.939 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:30.940 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.940 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.951 INFO [11] org.mortbay.util.Credential - Checking Resource aliases
+10:01:30.948 DEBUG [12] org.mortbay.http.HttpConnection - new HttpConnection: Socket[addr=/0:0:0:0:0:0:0:1,port=35501,localport=14440]
+10:01:30.959 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/xmlextras.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:30.960 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:30.960 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.960 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.990 DEBUG [13] org.mortbay.http.HttpConnection - new HttpConnection: Socket[addr=/0:0:0:0:0:0:0:1,port=35502,localport=14440]
+10:01:30.991 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/prototype.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:30.991 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:30.991 DEBUG [13] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.991 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.993 DEBUG [14] org.mortbay.http.HttpConnection - new HttpConnection: Socket[addr=/0:0:0:0:0:0:0:1,port=35503,localport=14440]
+10:01:30.993 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium.css RESOURCE=/core/selenium.css
+10:01:30.993 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium.css
+10:01:30.997 DEBUG [15] org.mortbay.http.HttpConnection - new HttpConnection: Socket[addr=/0:0:0:0:0:0:0:1,port=35504,localport=14440]
+10:01:30.998 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/cssQuery/cssQuery-p.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:30.999 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:30.999 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:30.999 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.001 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/snapsie.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.001 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.001 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.001 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.004 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/xmlextras.js RESOURCE=/core/scripts/xmlextras.js
+10:01:31.005 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/xmlextras.js
+10:01:31.005 DEBUG [13] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/prototype.js RESOURCE=/core/lib/prototype.js
+10:01:31.006 DEBUG [13] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/prototype.js
+10:01:31.007 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.004 DEBUG [16] org.mortbay.http.HttpConnection - new HttpConnection: Socket[addr=/0:0:0:0:0:0:0:1,port=35505,localport=14440]
+10:01:31.007 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:30 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 3978
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.009 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-testrunner.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.009 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.009 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.009 DEBUG [16] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/htmlutils.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.009 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.010 DEBUG [16] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.010 DEBUG [16] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.010 DEBUG [16] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.011 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.011 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/cssQuery/cssQuery-p.js RESOURCE=/core/lib/cssQuery/cssQuery-p.js
+10:01:31.011 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:30 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 5100
+Last-Modified: Mon, 09 May 2011 08:01:30 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.011 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/cssQuery/cssQuery-p.js
+10:01:31.012 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/ui-element.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.012 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.012 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.012 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.023 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/ui-element.js RESOURCE=/core/scripts/ui-element.js
+10:01:31.023 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/ui-element.js
+10:01:31.023 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.023 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:30 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 55152
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.024 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/user-extensions.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.024 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.024 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-testrunner.js RESOURCE=/core/scripts/selenium-testrunner.js
+10:01:31.025 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-testrunner.js
+10:01:31.026 DEBUG [16] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/htmlutils.js RESOURCE=/core/scripts/htmlutils.js
+10:01:31.026 DEBUG [16] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/htmlutils.js
+10:01:31.024 DEBUG [13] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.031 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.034 DEBUG [13] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/user-extensions.js RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/user-extensions.js
+10:01:31.026 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/snapsie.js RESOURCE=/core/lib/snapsie.js
+10:01:31.036 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/snapsie.js
+10:01:31.026 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.037 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:30 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 6431
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.035 DEBUG [13] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/user-extensions.js
+10:01:31.039 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.039 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 3032
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.040 DEBUG [16] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.040 DEBUG [16] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 52413
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.054 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.054 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 58296
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.054 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.055 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 3351
+Last-Modified: Fri, 06 May 2022 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.055 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/scriptaculous/scriptaculous.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.055 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.055 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.056 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.057 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/scriptaculous/scriptaculous.js RESOURCE=/core/lib/scriptaculous/scriptaculous.js
+10:01:31.057 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/scriptaculous/scriptaculous.js
+10:01:31.059 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.060 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 2247
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.061 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.061 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 47346
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.062 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-logging.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.062 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.062 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.062 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.064 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-logging.js RESOURCE=/core/scripts/selenium-logging.js
+10:01:31.064 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-logging.js
+10:01:31.066 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.066 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 5443
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.067 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-version.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.067 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.067 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.067 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.069 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-version.js RESOURCE=/core/scripts/selenium-version.js
+10:01:31.069 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-version.js
+10:01:31.092 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-browserdetect.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.092 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.093 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.093 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.094 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-browserdetect.js RESOURCE=/core/scripts/selenium-browserdetect.js
+10:01:31.094 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-browserdetect.js
+10:01:31.096 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.096 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 4710
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.097 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-browserbot.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.097 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.097 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.098 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.100 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-browserbot.js RESOURCE=/core/scripts/selenium-browserbot.js
+10:01:31.100 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-browserbot.js
+10:01:31.106 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.111 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 304
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.111 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/xpath/util.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.112 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.112 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.112 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.113 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/xpath/util.js RESOURCE=/core/xpath/util.js
+10:01:31.114 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/xpath/util.js
+10:01:31.116 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.116 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 14795
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.117 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/xpath/xmltoken.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.117 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.117 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.117 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.119 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/scriptaculous/builder.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.119 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.119 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.119 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.121 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/scriptaculous/builder.js RESOURCE=/core/lib/scriptaculous/builder.js
+10:01:31.119 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/xpath/xmltoken.js RESOURCE=/core/xpath/xmltoken.js
+10:01:31.129 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/xpath/xmltoken.js
+10:01:31.128 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/scriptaculous/builder.js
+10:01:31.130 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.131 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 86886
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.131 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/find_matching_child.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.132 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.132 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.132 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.137 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.137 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 3361
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.144 DEBUG [16] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/scriptaculous/effects.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.144 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.156 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 7809
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.156 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/xpath/dom.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.157 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.157 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.157 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.158 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/xpath/dom.js RESOURCE=/core/xpath/dom.js
+10:01:31.159 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/xpath/dom.js
+10:01:31.147 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/scriptaculous/controls.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.160 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.148 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/find_matching_child.js RESOURCE=/core/scripts/find_matching_child.js
+10:01:31.160 DEBUG [13] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.151 DEBUG [16] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.160 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.161 DEBUG [16] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.161 DEBUG [16] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.162 DEBUG [13] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/scriptaculous/controls.js RESOURCE=/core/lib/scriptaculous/controls.js
+10:01:31.162 DEBUG [13] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/scriptaculous/controls.js
+10:01:31.147 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/scriptaculous/dragdrop.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.162 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.163 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.163 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.164 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/scriptaculous/dragdrop.js RESOURCE=/core/lib/scriptaculous/dragdrop.js
+10:01:31.165 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/scriptaculous/dragdrop.js
+10:01:31.160 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/find_matching_child.js
+10:01:31.168 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.168 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 1937
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.169 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-api.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.169 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.169 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.169 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.171 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/lib/scriptaculous/slider.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.171 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.171 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.171 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.165 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.162 DEBUG [16] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/scriptaculous/effects.js RESOURCE=/core/lib/scriptaculous/effects.js
+10:01:31.172 DEBUG [16] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/scriptaculous/effects.js
+10:01:31.174 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-api.js RESOURCE=/core/scripts/selenium-api.js
+10:01:31.174 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-api.js
+10:01:31.174 DEBUG [16] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.175 DEBUG [16] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 32908
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.176 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 28036
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.177 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.178 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 129730
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.178 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-commandhandlers.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.178 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.179 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.179 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.180 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-commandhandlers.js RESOURCE=/core/scripts/selenium-commandhandlers.js
+10:01:31.182 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.199 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 15265
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.200 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/xpath/xpath.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.200 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.200 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.201 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.203 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/xpath/xpath.js RESOURCE=/core/xpath/xpath.js
+10:01:31.203 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/xpath/xpath.js
+10:01:31.206 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.206 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 70955
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.207 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/xpath/javascript-xpath-0.1.11.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.207 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.207 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.207 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.209 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/xpath/javascript-xpath-0.1.11.js RESOURCE=/core/xpath/javascript-xpath-0.1.11.js
+10:01:31.210 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/xpath/javascript-xpath-0.1.11.js
+10:01:31.181 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/core/lib/scriptaculous/slider.js RESOURCE=/core/lib/scriptaculous/slider.js
+10:01:31.210 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for /core/lib/scriptaculous/slider.js
+10:01:31.212 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.213 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 10790
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.181 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.213 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 29617
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.214 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-commandhandlers.js
+10:01:31.215 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.216 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 16105
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.230 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-executionloop.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.231 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.231 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.231 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.236 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-executionloop.js RESOURCE=/core/scripts/selenium-executionloop.js
+10:01:31.236 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-executionloop.js
+10:01:31.238 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.238 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 6255
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.241 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.241 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 81024
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.333 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/TestPrompt.html HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.333 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.333 DEBUG [13] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.334 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.335 DEBUG [13] org.mortbay.http.handler.ResourceHandler - PATH=/core/TestPrompt.html RESOURCE=/core/TestPrompt.html
+10:01:31.335 DEBUG [13] org.mortbay.http.handler.ResourceHandler - Looking for /core/TestPrompt.html
+10:01:31.336 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/Blank.html HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.336 DEBUG [16] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/TestRunner-splash.html HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:31.336 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.336 DEBUG [16] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.336 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.336 DEBUG [16] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.336 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.336 DEBUG [16] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.338 DEBUG [16] org.mortbay.http.handler.ResourceHandler - PATH=/core/TestRunner-splash.html RESOURCE=/core/TestRunner-splash.html
+10:01:31.338 DEBUG [16] org.mortbay.http.handler.ResourceHandler - Looking for /core/TestRunner-splash.html
+10:01:31.338 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/core/Blank.html RESOURCE=/core/Blank.html
+10:01:31.338 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for /core/Blank.html
+10:01:31.340 DEBUG [16] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.340 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.340 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 141
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.340 DEBUG [16] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 1311
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.342 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.342 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 5488
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.349 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/icons/all.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/selenium.css
+
+
+10:01:31.349 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.349 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/icons/selected.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/selenium.css
+
+
+10:01:31.349 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.349 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.350 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.349 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.350 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.351 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/core/icons/all.png RESOURCE=/core/icons/all.png
+10:01:31.351 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for /core/icons/all.png
+10:01:31.352 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/icons/pause_disabled.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/selenium.css
+
+
+10:01:31.352 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.353 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.353 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.353 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.354 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 662
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.354 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/icons/selected.png RESOURCE=/core/icons/selected.png
+10:01:31.355 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/icons/selected.png
+10:01:31.356 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/icons/step_disabled.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/selenium.css
+
+
+10:01:31.356 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.356 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.356 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.357 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/icons/pause_disabled.png RESOURCE=/core/icons/pause_disabled.png
+10:01:31.357 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/icons/pause_disabled.png
+10:01:31.358 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/core/icons/step_disabled.png RESOURCE=/core/icons/step_disabled.png
+10:01:31.358 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for /core/icons/step_disabled.png
+10:01:31.359 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.359 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.360 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.360 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 668
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.360 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 263
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.360 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 402
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.398 DEBUG [16] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/TestRunner-splash.html
+If-Modified-Since: Mon, 09 May 2011 08:01:30 GMT
+
+
+10:01:31.398 DEBUG [16] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.398 DEBUG [16] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.398 DEBUG [16] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.400 DEBUG [16] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium.css RESOURCE=/core/selenium.css
+10:01:31.401 DEBUG [16] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium.css
+10:01:31.402 DEBUG [16] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.402 DEBUG [16] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 5100
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.404 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-logo.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/TestRunner-splash.html
+
+
+10:01:31.404 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.404 DEBUG [13] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.404 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.406 DEBUG [13] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-logo.png RESOURCE=/core/selenium-logo.png
+10:01:31.406 DEBUG [13] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-logo.png
+10:01:31.408 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.408 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 8604
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.412 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/selenium-browserdetect.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/TestPrompt.html
+If-Modified-Since: Mon, 09 May 2011 08:01:31 GMT
+
+
+10:01:31.412 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.413 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.413 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.414 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/selenium-browserdetect.js RESOURCE=/core/scripts/selenium-browserdetect.js
+10:01:31.415 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/selenium-browserdetect.js
+10:01:31.416 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.417 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 4710
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:31.453 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/scripts/xmlextras.js HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/TestPrompt.html
+If-Modified-Since: Mon, 09 May 2011 08:01:31 GMT
+
+
+10:01:31.453 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:31.453 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.454 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.456 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/scripts/xmlextras.js RESOURCE=/core/scripts/xmlextras.js
+10:01:31.456 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/scripts/xmlextras.js
+10:01:31.459 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:31.460 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:31 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: application/x-javascript
+Content-Length: 3978
+Last-Modified: Mon, 09 May 2011 08:01:31 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.134 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/TestRunner-splash.html?start=true HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:32.134 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.134 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.134 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.136 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/core/TestRunner-splash.html RESOURCE=/core/TestRunner-splash.html
+10:01:32.136 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for /core/TestRunner-splash.html
+10:01:32.138 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.138 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 1311
+Last-Modified: Mon, 09 May 2011 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.158 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/tests/suite.html?thisIsChrome=true&thisIsHTA=false HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:32.158 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.158 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.158 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.159 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/tests/suite.html RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/suite.html
+10:01:32.159 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/suite.html
+10:01:32.172 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.172 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 3409
+Last-Modified: Fri, 06 May 2022 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.178 DEBUG [16] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/TestRunner-splash.html?start=true
+If-Modified-Since: Mon, 09 May 2011 08:01:31 GMT
+
+
+10:01:32.178 DEBUG [16] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.178 DEBUG [16] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.179 DEBUG [16] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.180 DEBUG [16] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium.css RESOURCE=/core/selenium.css
+10:01:32.180 DEBUG [16] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium.css
+10:01:32.182 DEBUG [16] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.182 DEBUG [16] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 5100
+Last-Modified: Mon, 09 May 2011 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.184 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-logo.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/TestRunner-splash.html?start=true
+If-Modified-Since: Mon, 09 May 2011 08:01:31 GMT
+
+
+10:01:32.184 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.184 DEBUG [13] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.184 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.191 DEBUG [13] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-logo.png RESOURCE=/core/selenium-logo.png
+10:01:32.191 DEBUG [13] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-logo.png
+10:01:32.193 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.193 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 8604
+Last-Modified: Mon, 09 May 2011 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.260 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-test.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/tests/suite.html?thisIsChrome=true&thisIsHTA=false
+
+
+10:01:32.260 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.260 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.261 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.262 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-test.css RESOURCE=/core/selenium-test.css
+10:01:32.262 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-test.css
+10:01:32.264 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.265 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 600
+Last-Modified: Mon, 09 May 2011 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.286 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /favicon.ico HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:32.286 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/,/],0
+10:01:32.287 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.ProxyHandler in HttpContext[/,/]
+10:01:32.288 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.ProxyHandler in HttpContext[/,/]
+10:01:32.288 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 403 Forbidden+for+Proxy
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Content-Type: text/html
+Content-Length: 1244
+
+
+10:01:32.321 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/tests/login/testLoginOK.html?thisIsChrome=true&thisIsHTA=false HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+
+
+10:01:32.322 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.322 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.322 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.323 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/tests/login/testLoginOK.html RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/login/testLoginOK.html
+10:01:32.324 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/login/testLoginOK.html
+10:01:32.341 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.341 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 1523
+Last-Modified: Fri, 06 May 2022 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.357 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-test.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/tests/login/testLoginOK.html?thisIsChrome=true&thisIsHTA=false
+If-Modified-Since: Mon, 09 May 2011 08:01:32 GMT
+
+
+10:01:32.358 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.358 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.358 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.359 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-test.css RESOURCE=/core/selenium-test.css
+10:01:32.359 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-test.css
+10:01:32.361 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.361 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 600
+Last-Modified: Mon, 09 May 2011 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:32.367 DEBUG [16] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/icons/pause.png HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/core/selenium.css
+
+
+10:01:32.367 DEBUG [16] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:32.367 DEBUG [16] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.367 DEBUG [16] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.369 DEBUG [16] org.mortbay.http.handler.ResourceHandler - PATH=/core/icons/pause.png RESOURCE=/core/icons/pause.png
+10:01:32.369 DEBUG [16] org.mortbay.http.handler.ResourceHandler - Looking for /core/icons/pause.png
+10:01:32.371 DEBUG [16] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:32.371 DEBUG [16] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:32 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: image/png
+Content-Length: 275
+Last-Modified: Mon, 09 May 2011 08:01:32 GMT
+Accept-Ranges: bytes
+
+
+10:01:34.397 DEBUG [13] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /favicon.ico HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Cookie: JSESSIONID=71EABE83C7650F6EC1970FA2D46A5615
+
+
+10:01:34.397 DEBUG [13] org.mortbay.http.HttpServer - Try HttpContext[/,/],0
+10:01:34.398 DEBUG [13] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.ProxyHandler in HttpContext[/,/]
+10:01:34.398 DEBUG [13] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.ProxyHandler in HttpContext[/,/]
+10:01:34.398 DEBUG [13] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 403 Forbidden+for+Proxy
+Date: Sun, 09 May 2010 08:01:34 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Content-Type: text/html
+Content-Length: 1244
+
+
+10:01:52.305 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/tests/login/createUsers.html?thisIsChrome=true&thisIsHTA=false HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Cookie: JSESSIONID=DEA875207883257E4D6CCD9D11EDECBC
+
+
+10:01:52.305 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:52.305 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:52.305 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:52.306 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/tests/login/createUsers.html RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/login/createUsers.html
+10:01:52.306 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/login/createUsers.html
+10:01:52.323 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:52.323 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:52 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 9589
+Last-Modified: Fri, 06 May 2022 08:01:52 GMT
+Accept-Ranges: bytes
+
+
+10:01:52.356 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-test.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/tests/login/createUsers.html?thisIsChrome=true&thisIsHTA=false
+If-Modified-Since: Mon, 09 May 2011 08:01:32 GMT
+Cookie: JSESSIONID=DEA875207883257E4D6CCD9D11EDECBC
+
+
+10:01:52.356 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:01:52.357 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:52.357 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:52.358 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-test.css RESOURCE=/core/selenium-test.css
+10:01:52.358 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-test.css
+10:01:52.360 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:01:52.361 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:01:52 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 600
+Last-Modified: Mon, 09 May 2011 08:01:52 GMT
+Accept-Ranges: bytes
+
+
+10:02:22.096 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/tests/casefolder/testCaseFolderDelegation.html?thisIsChrome=true&thisIsHTA=false HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Cookie: JSESSIONID=774AB6499D2FB1FBB71943808EE58246
+
+
+10:02:22.096 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:02:22.097 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:22.097 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:22.097 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/tests/casefolder/testCaseFolderDelegation.html RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/casefolder/testCaseFolderDelegation.html
+10:02:22.097 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/casefolder/testCaseFolderDelegation.html
+10:02:22.111 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:22.111 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:02:22 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 4255
+Last-Modified: Fri, 06 May 2022 08:02:22 GMT
+Accept-Ranges: bytes
+
+
+10:02:22.174 DEBUG [15] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-test.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/tests/casefolder/testCaseFolderDelegation.html?thisIsChrome=true&thisIsHTA=false
+If-Modified-Since: Mon, 09 May 2011 08:01:52 GMT
+Cookie: JSESSIONID=774AB6499D2FB1FBB71943808EE58246
+
+
+10:02:22.174 DEBUG [15] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:02:22.175 DEBUG [15] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:22.175 DEBUG [15] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:22.176 DEBUG [15] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-test.css RESOURCE=/core/selenium-test.css
+10:02:22.176 DEBUG [15] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-test.css
+10:02:22.178 DEBUG [15] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:22.179 DEBUG [15] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:02:22 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 600
+Last-Modified: Mon, 09 May 2011 08:02:22 GMT
+Accept-Ranges: bytes
+
+
+10:02:32.431 DEBUG [16] org.mortbay.http.HttpConnection - java.net.SocketTimeoutException: Read timed out
+10:02:34.457 DEBUG [13] org.mortbay.http.HttpConnection - java.net.SocketTimeoutException: Read timed out
+10:02:41.007 DEBUG [14] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/tests/filing/testFiling.html?thisIsChrome=true&thisIsHTA=false HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Cookie: JSESSIONID=109E3AC524E69231C7CFBEA298552412
+
+
+10:02:41.007 DEBUG [14] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:02:41.007 DEBUG [14] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:41.007 DEBUG [14] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:41.008 DEBUG [14] org.mortbay.http.handler.ResourceHandler - PATH=/tests/filing/testFiling.html RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/filing/testFiling.html
+10:02:41.008 DEBUG [14] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/tests/filing/testFiling.html
+10:02:41.016 DEBUG [14] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:41.016 DEBUG [14] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:02:41 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Content-Length: 7174
+Last-Modified: Fri, 06 May 2022 08:02:41 GMT
+Accept-Ranges: bytes
+
+
+10:02:41.124 DEBUG [12] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+GET /selenium-server/core/selenium-test.css HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/css,*/*;q=0.1
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Referer: http://localhost:14440/selenium-server/tests/filing/testFiling.html?thisIsChrome=true&thisIsHTA=false
+If-Modified-Since: Mon, 09 May 2011 08:02:22 GMT
+Cookie: JSESSIONID=109E3AC524E69231C7CFBEA298552412
+
+
+10:02:41.124 DEBUG [12] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:02:41.124 DEBUG [12] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:41.124 DEBUG [12] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:41.125 DEBUG [12] org.mortbay.http.handler.ResourceHandler - PATH=/core/selenium-test.css RESOURCE=/core/selenium-test.css
+10:02:41.125 DEBUG [12] org.mortbay.http.handler.ResourceHandler - Looking for /core/selenium-test.css
+10:02:41.127 DEBUG [12] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:02:41.127 DEBUG [12] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:02:41 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/css
+Content-Length: 600
+Last-Modified: Mon, 09 May 2011 08:02:41 GMT
+Accept-Ranges: bytes
+
+
+10:03:18.083 DEBUG [11] org.mortbay.http.HttpConnection - REQUEST from SocketListener0@0.0.0.0:14440:
+POST /selenium-server/postResults HTTP/1.1
+Host: localhost:14440
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); en; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9 Nuxeo-Selenium-Tester
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+keep-alive: 300
+Connection: keep-alive
+Cookie: JSESSIONID=BD8666C1FB5BCDFE9C3C4451CBFC6151
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 81488
+
+
+10:03:18.083 DEBUG [11] org.mortbay.http.HttpServer - Try HttpContext[/selenium-server,/selenium-server],0
+10:03:18.083 DEBUG [11] org.mortbay.http.HttpContext - Handler org.mortbay.http.handler.SecurityHandler in HttpContext[/selenium-server,/selenium-server]
+10:03:18.083 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.StaticContentHandler in HttpContext[/selenium-server,/selenium-server]
+10:03:18.086 INFO [11] org.mortbay.util.Credential - Checking Resource aliases
+10:03:18.086 DEBUG [11] org.mortbay.http.handler.ResourceHandler - PATH=/postResults RESOURCE=file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/MISSING%20RESOURCE
+10:03:18.087 DEBUG [11] org.mortbay.http.handler.ResourceHandler - Looking for file:/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium/MISSING%20RESOURCE
+10:03:18.088 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.SessionExtensionJsHandler in HttpContext[/selenium-server,/selenium-server]
+10:03:18.088 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.htmlrunner.SingleTestSuiteResourceHandler in HttpContext[/selenium-server,/selenium-server]
+10:03:18.089 DEBUG [11] org.mortbay.http.HttpContext - Handler org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler@36d251a3
+10:03:18.089 INFO [11] org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler - Received posted results
+10:03:18.486 DEBUG [11] sun.awt.X11.XToolkit - In setupModifierMap
+10:03:18.489 DEBUG [11] sun.awt.X11.XToolkit - metaMask = 0
+10:03:18.489 DEBUG [11] sun.awt.X11.XToolkit - altMask = 8
+10:03:18.489 DEBUG [11] sun.awt.X11.XToolkit - numLockMask = 16
+10:03:18.490 DEBUG [11] sun.awt.X11.XToolkit - modeSwitchMask = 128
+10:03:18.490 DEBUG [11] sun.awt.X11.XToolkit - modLockIsShiftLock = 0
+10:03:18.490 CONFIG [11] sun.awt.X11.backingStore.XToolkit - The system property sun.awt.backingStore is not set, by default backingStore=NotUseful
+10:03:18.519 DEBUG [11] sun.awt.X11.XNETProtocol - ### sun.awt.X11.XNETProtocol@65efb4be is active: true
+10:03:18.520 DEBUG [11] sun.awt.X11.XWM - _NET_WM_NAME is compiz
+10:03:18.523 DEBUG [11] sun.awt.X11.XWINProtocol - ### sun.awt.X11.XWINProtocol@649a8a68 is active: false
+10:03:18.523 DEBUG [11] sun.awt.X11.XNETProtocol - ### WM_NAME = compiz
+10:03:18.524 DEBUG [11] sun.awt.X11.XNETProtocol - ### WM_NAME = compiz
+10:03:18.524 DEBUG [11] sun.awt.X11.XNETProtocol - ### WM_NAME = compiz
+10:03:18.524 DEBUG [11] sun.awt.X11.XNETProtocol - ### WM_NAME = compiz
+10:03:18.526 DEBUG [11] sun.awt.X11.XProtocol - sun.awt.X11.XNETProtocol@65efb4be:_NET_SUPPORTED:368 supports [_NET_WM_WINDOW_OPACITY:429, UTF8_STRING:304, 306, 447, 311, 312, _NET_FRAME_EXTENTS:313, _NET_WM_NAME:319, 394, 395, 392, 393, 398, 399, 396, 397, 386, 384, 385, 390, 391, 389, 408, 403, 402, 401, 400, 407, 406, 405, 404, _NET_SUPPORTING_WM_CHECK:367, 372, 373, 374, 375, _NET_SUPPORTED:368, _NET_WM_STATE_SHADED:370, 371, 380, 381, 382, 383, _NET_WM_WINDOW_TYPE_DIALOG:376, 377, 378, _NET_WM_STATE_MAXIMIZED_VERT:327, _NET_WM_STATE_MODAL:326, _NET_WM_STATE_FULLSCREEN:325, _NET_WM_STATE_BELOW:324, _NET_WM_STATE_ABOVE:323, _NET_WM_STATE:322, 321, 335, _NET_WM_WINDOW_TYPE:334, 331, 450, 451, 330, _NET_WM_STATE_SKIP_TASKBAR:329, 448, _NET_WM_STATE_MAXIMIZED_HORZ:328, 449, 475, 336]
+10:03:18.527 DEBUG [11] sun.awt.X11.XWM - Window manager: Compiz
+10:03:18.670 DEBUG [11] org.mortbay.http.HttpContext - Handled by org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler@36d251a3
+10:03:18.671 DEBUG [11] org.mortbay.http.HttpConnection - RESPONSE:
+HTTP/1.1 200 OK
+Date: Sun, 09 May 2010 08:03:18 GMT
+Server: Jetty/5.1.x (Linux/2.6.32-22-generic amd64 java/1.6.0_20
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Content-Type: text/html
+Transfer-Encoding: chunked
+
+
+10:03:19.051 INFO [10] org.openqa.selenium.server.browserlaunchers.FirefoxChromeLauncher - Killing Firefox...
+10:03:19.074 DEBUG [12] org.mortbay.http.HttpConnection - EOFException()
+10:03:19.074 DEBUG [11] org.mortbay.http.HttpConnection - EOFException()
+10:03:19.074 DEBUG [14] org.mortbay.http.HttpConnection - EOFException()
+10:03:19.075 DEBUG [15] org.mortbay.http.HttpConnection - EOFException()
+10:03:19.125 INFO [17] org.openqa.selenium.server.SeleniumServer - Shutting down...
+10:03:19.126 DEBUG [17] org.mortbay.util.Container - Stopping org.mortbay.jetty.Server@86c347
+10:03:19.126 DEBUG [17] org.mortbay.util.ThreadedServer - closing ServerSocket[addr=0.0.0.0/0.0.0.0,port=0,localport=14440]

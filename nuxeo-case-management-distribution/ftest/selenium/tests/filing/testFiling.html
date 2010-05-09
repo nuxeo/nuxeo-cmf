@@ -56,13 +56,13 @@
 	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
-<!-- Verify automatic mailbox creation -->
+<!-- Verify automatic case folder creation -->
 <tr>
 	<td>verifyTextPresent</td>
 	<td>Cl - John Doe</td>
 	<td></td>
 </tr>
-<!-- Verify Manual mailbox creation -->
+<!-- Verify Manual case folder creation -->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Manage</td>
@@ -116,7 +116,7 @@
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@name='mailbox_delegation:nxl_correspondence_mailbox_managers:nxw_mailbox_users_suggest']</td>
+	<td>//input[@name='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggest']</td>
 	<td>bree</td>
 </tr>
 <tr>
@@ -126,8 +126,13 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='mailbox_delegation:nxl_correspondence_mailbox_managers:nxw_mailbox_users_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
 	<td>Bree Van de Kaamp</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
+	<td></td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -136,12 +141,22 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='mailbox_delegation:nxl_correspondence_mailbox_managers:nxw_mailbox_users_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox:suggest']/x:tbody/x:tr/x:td</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
 	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Bree Van de Kaamp</td>
+	<td>1000</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Bree Van de Kaamp</td>
 	<td></td>
 </tr>
 <tr>
@@ -188,6 +203,16 @@
 <tr>
 	<td>verifyTextPresent</td>
 	<td>You are logged as bree</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>virtualNavTreeTab:virtualNavTreeList:2:virtualNavTreeLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>John Doe</td>
 	<td></td>
 </tr>
 <tr>
@@ -246,6 +271,21 @@
 	<td></td>
 </tr>
 <tr>
+	<td>click</td>
+	<td>virtualNavTreeTab:virtualNavTreeList:3:virtualNavTreeLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>My classification trees</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>//*[@class='dataInputText']</td>
+	<td>label=Cl - John Doe</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>link=Cl - John Doe</td>
 	<td></td>
@@ -256,6 +296,16 @@
 	<td></td>
 </tr>
 <!-- delete Manual Classification Root -->
+<tr>
+	<td>click</td>
+	<td>virtualNavTreeTab:virtualNavTreeList:2:virtualNavTreeLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>My Case Folders</td>
+	<td></td>
+</tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=John Doe</td>
