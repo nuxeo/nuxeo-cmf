@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testMailboxEdition</title>
+<title>testPersonalCaseFolderEdition</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testMailboxEdition</td></tr>
+<tr><td rowspan="1" colspan="3">testPersonalCaseFolderEdition</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -29,12 +29,12 @@
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>jdoe</td>
+	<td>lbramard</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
-	<td>jdoe1</td>
+	<td>lbramard1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -53,17 +53,23 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>You are logged as jdoe</td>
+	<td>You are logged as lbramard</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Test Mailbox</td>
+	<td>link=Test personal Mailbox</td>
+	<td></td>
+</tr>
+<!-- check personal mailbox was not created again -->
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>link=Lucien Bramard</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Test Mailbox</td>
+	<td>link=Test personal Mailbox</td>
 	<td></td>
 </tr>
 <tr>
@@ -79,19 +85,25 @@
 <!-- check id -->
 <tr>
 	<td>verifyTextPresent</td>
-	<td>test-mailbox</td>
+	<td>user-lbramard</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_edit:nxl_correspondence_mailbox:nxw_mailbox_description</td>
-	<td>This is a test mailbox edited</td>
+	<td>document_edit:nxl_cm_casefolder:nxw_casefolder_description</td>
+	<td>This is a test personal mailbox edited</td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_type</td>
+	<td>document_create:nxl_cm_casefolder:nxw_casefolder_type</td>
 	<td></td>
 </tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@id='document_create:nxl_cm_casefolder:nxw_casefolder_owner_suggest']</td>
+	<td></td>
+</tr>
+<!-- add affiliated mailbox-->
 <tr>
 	<td>watchA4jRequests</td>
 	<td></td>
@@ -99,19 +111,18 @@
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@id='document_edit:nxl_correspondence_mailbox:nxw_mailbox_owner_suggest']</td>
-	<td>bree</td>
+	<td>//input[@name='document_edit:nxl_cm_casefolder:nxw_casefolder_affiliation_mailbox_suggest']</td>
+	<td>tes</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
 	<td>10000</td>
 	<td></td>
 </tr>
-<!-- change owner to bree -->
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_edit:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
-	<td>Bree Van de Kaamp</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_affiliation_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Mailbox</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -120,7 +131,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='document_edit:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_affiliation_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -128,20 +139,15 @@
 	<td>10000</td>
 	<td></td>
 </tr>
+<!-- add jdoe as user -->
 <tr>
-	<td>verifyText</td>
-	<td>document_edit:nxl_correspondence_mailbox:nxw_mailbox_owner_selectionOutput</td>
-	<td>Bree Van de Kaamp</td>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
 </tr>
-<tr>
-	<td>verifyValue</td>
-	<td>document_edit:nxl_correspondence_mailbox:nxw_mailbox_owner</td>
-	<td>bree</td>
-</tr>
-<!-- add back jdoe as user -->
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@name='document_edit:nxl_correspondence_mailbox_managers:nxw_mailbox_users_suggest']</td>
+	<td>//input[@name='document_edit:nxl_cm_casefolder_managers:nxw_casefolder_users_suggest']</td>
 	<td>doe</td>
 </tr>
 <tr>
@@ -151,7 +157,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_edit:nxl_correspondence_mailbox_managers:nxw_mailbox_users_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td>John Doe</td>
 </tr>
 <tr>
@@ -161,7 +167,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='document_edit:nxl_correspondence_mailbox_managers:nxw_mailbox_users_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -176,7 +182,7 @@
 </tr>
 <tr>
 	<td>assertTextPresent</td>
-	<td>Mailbox modified</td>
+	<td>CaseFolder modified</td>
 	<td></td>
 </tr>
 <tr>

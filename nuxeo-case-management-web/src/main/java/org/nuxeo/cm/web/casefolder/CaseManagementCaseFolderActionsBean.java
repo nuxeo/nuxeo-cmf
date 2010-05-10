@@ -80,7 +80,7 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementCaseFolderActionsBean extends
-        CaseManagementAbstractActionsBean implements Serializable {
+CaseManagementAbstractActionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -181,7 +181,7 @@ public class CaseManagementCaseFolderActionsBean extends
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     ComponentUtils.translate(context,
-                            "feedback.casemanagement.caseFolderIdAlreadyExists"),
+                    "feedback.casemanagement.caseFolderIdAlreadyExists"),
                     null);
             // also add global message?
             // context.addMessage(null, message);
@@ -196,8 +196,8 @@ public class CaseManagementCaseFolderActionsBean extends
     public void validatePersonalCaseFolderCreation(FacesContext context,
             UIComponent component, Object value) {
         Map<String, Object> attributes = component.getAttributes();
-        String mailboxTypeInputId = (String) attributes.get("mailboxTypeInputId");
-        String mailboxOwnerInputId = (String) attributes.get("mailboxOwnerInputId");
+        String mailboxTypeInputId = (String) attributes.get("caseFolderTypeInputId");
+        String mailboxOwnerInputId = (String) attributes.get("caseFolderOwnerInputId");
         if (mailboxTypeInputId == null || mailboxOwnerInputId == null) {
             log.error("Cannot validate personal mailbox creation: input id(s) not found");
             return;
@@ -224,7 +224,7 @@ public class CaseManagementCaseFolderActionsBean extends
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
-                                "feedback.casemanagement.personalCaseFolderAlreadyExists"),
+                        "feedback.casemanagement.personalCaseFolderAlreadyExists"),
                         null);
                 // also add global message?
                 // context.addMessage(null, message);
@@ -244,7 +244,7 @@ public class CaseManagementCaseFolderActionsBean extends
                 log.debug("Document " + newDocument.getName()
                         + " already created");
                 return navigationContext.navigateToDocument(newDocument,
-                        "after-create");
+                "after-create");
             }
             DocumentModel parentDocument = getParentCaseFolder(parentMailboxId);
             // reset the parent id
@@ -265,7 +265,7 @@ public class CaseManagementCaseFolderActionsBean extends
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                     parentDocument);
             return navigationContext.navigateToDocument(newDocument,
-                    "after-create");
+            "after-create");
         } catch (Throwable t) {
             throw new CaseManagementException(t);
         }
@@ -318,13 +318,13 @@ public class CaseManagementCaseFolderActionsBean extends
                 CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
             throw new CaseManagementException(
-                    "Cannot find any case folder root");
+            "Cannot find any case folder root");
         }
         return res.get(0);
     }
 
     protected DocumentModel getParentCaseFolder(String parentMailboxId)
-            throws ClientException {
+    throws ClientException {
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
@@ -333,7 +333,7 @@ public class CaseManagementCaseFolderActionsBean extends
             } catch (Exception e) {
                 log.error(String.format(
                         "Unable to find parent mailbox with id '%s', using default "
-                                + "mailbox root as parent", parentMailboxId));
+                        + "mailbox root as parent", parentMailboxId));
             }
         }
         if (mailboxDoc == null) {
@@ -412,7 +412,7 @@ public class CaseManagementCaseFolderActionsBean extends
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.delegation.modified"));
+                "feedback.casemanagement.delegation.modified"));
         EventManager.raiseEventsOnDocumentChange(mailbox.getDocument());
     }
 

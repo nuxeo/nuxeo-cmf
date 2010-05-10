@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testMailboxCreationWithParent</title>
+<title>testCaseFolderEdition</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testMailboxCreationWithParent</td></tr>
+<tr><td rowspan="1" colspan="3">testCaseFolderEdition</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -29,12 +29,12 @@
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>Administrator</td>
+	<td>jdoe</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
-	<td>Administrator</td>
+	<td>jdoe1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -53,27 +53,59 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>You are logged as Administrator</td>
+	<td>You are logged as jdoe</td>
+	<td></td>
+</tr>
+<!--   !WORKAROUND ;clickAndWait doesn't work, seems to freeze the test  -->
+<tr>
+	<td>click</td>
+	<td>//*[@src='img/CASE_FOLDER.png']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+	</tr> 
+<tr>
+	<td>verifyTextPresent</td>
+	<td>My Case Folders</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Mailboxes</td>
+	<td>link=Test Mailbox</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Mailboxes</td>
+	<td>link=Test Mailbox</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Create a mailbox</td>
+	<td>link=Manage</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Create a mailbox</td>
+	<td>link=Manage</td>
+	<td></td>
+</tr>
+<!-- check id -->
+<tr>
+	<td>verifyTextPresent</td>
+	<td>test-mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_edit:nxl_cm_casefolder:nxw_casefolder_description</td>
+	<td>This is a test mailbox edited</td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>document_create:nxl_cm_casefolder:nxw_casefolder_type</td>
 	<td></td>
 </tr>
 <tr>
@@ -83,18 +115,19 @@
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggest']</td>
-	<td>Tes</td>
+	<td>//input[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_owner_suggest']</td>
+	<td>bre</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
 	<td>10000</td>
 	<td></td>
 </tr>
+<!-- change owner to bree -->
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
-	<td>Test Mailbox</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Bree Van de Kaamp</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -103,7 +136,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_parent_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -112,29 +145,15 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_title</td>
-	<td>Test Mailbox Child</td>
+	<td>verifyText</td>
+	<td>document_edit:nxl_cm_casefolder:nxw_casefolder_owner_selectionOutput</td>
+	<td>Bree Van de Kaamp</td>
 </tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_description</td>
-	<td>This is a test mailbox with a parent</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_type</td>
-	<td>label=Generic</td>
-</tr>
-<tr>
-	<td>watchA4jRequests</td>
-	<td></td>
-	<td></td>
-</tr>
+<!-- add back jdoe as user -->
 <tr>
 	<td>typeKeys</td>
-	<td>document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggest</td>
-	<td>lin</td>
+	<td>//input[@name='document_edit:nxl_cm_casefolder:nxw_casefolder_owner_suggest']</td>
+	<td>doe</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
@@ -143,8 +162,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
-	<td>Linnet Scavo</td>
+	<td>//*[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>John Doe</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -153,7 +172,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='document_create:nxl_correspondence_mailbox:nxw_mailbox_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+        <td>//*[@id='document_edit:nxl_cm_casefolder:nxw_casefolder_owner_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -163,12 +182,12 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//input[@value='Create']</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTextPresent</td>
-	<td>Mailbox saved</td>
+	<td>CaseFolder modified</td>
 	<td></td>
 </tr>
 <tr>

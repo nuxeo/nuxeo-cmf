@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testMailboxWithParentPath</title>
+<title>testCaseFolderTabs</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testMailboxWithParentPath</td></tr>
+<tr><td rowspan="1" colspan="3">testCaseFolderTabs</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -23,18 +23,18 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/correspondence/mailboxes/test-mailbox/test-mailbox-child@mailbox_view</td>
+	<td>/nuxeo/</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>bree</td>
+	<td>jdoe</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
-	<td>bree1</td>
+	<td>jdoe1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -53,13 +53,33 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>You are logged as bree</td>
+	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
-
+<!-- Test Personal Mailbox Tabs -->
 <tr>
-	<td>verifyTextPresent</td>
-	<td>This is a test mailbox with a paren</td>
+	<td>verifyElementPresent</td>
+	<td>link=Inbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>link=Service mailbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Sent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Draft</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Manage</td>
 	<td></td>
 </tr>
 <tr>
