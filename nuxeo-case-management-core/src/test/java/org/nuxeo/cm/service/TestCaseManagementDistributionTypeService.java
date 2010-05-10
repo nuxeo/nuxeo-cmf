@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  *
  */
 public class TestCaseManagementDistributionTypeService extends
-        CaseManagementRepositoryTestCase {
+CaseManagementRepositoryTestCase {
 
     private static final String FOR_ACTION = "FOR_ACTION";
 
@@ -45,7 +45,7 @@ public class TestCaseManagementDistributionTypeService extends
 
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
-                "test-distribution-type-with-error-corresp-contrib.xml");
+        "test-distribution-type-with-error-corresp-contrib.xml");
         openSession();
     }
 
@@ -68,7 +68,7 @@ public class TestCaseManagementDistributionTypeService extends
                 correspDistributionTypeService.getExternalProperty(FOR_ACTION));
 
         assertEquals(
-                "initial_copy_external_particiapant_case_folders",
+                "initial_copy_external_participant_case_folders",
                 correspDistributionTypeService.getExternalProperty(FOR_INFORMATION));
     }
 

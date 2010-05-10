@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testGenericMailboxTabs</title>
+<title>testGenericCaseFolderTabs</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testGenericMailboxTabs</td></tr>
+<tr><td rowspan="1" colspan="3">testCaseFolderMailboxTabs</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -56,6 +56,22 @@
 	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
+<!--   !WORKAROUND ;clickAndWait doesn't work, seems to freeze the test  -->
+<tr>
+	<td>click</td>
+	<td>//*[@src='img/CASE_FOLDER.png']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+	</tr> 
+<tr>
+	<td>verifyTextPresent</td>
+	<td>My Case Folders</td>
+	<td></td>
+</tr>
 <tr>
 	<td>verifyElementPresent</td>
 	<td>link=Test Mailbox</td>
@@ -78,12 +94,12 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Service mailbox</td>
+	<td>link=Service case folder</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Service mailbox</td>
+	<td>link=Service case folder</td>
 	<td></td>
 </tr>
 <tr>

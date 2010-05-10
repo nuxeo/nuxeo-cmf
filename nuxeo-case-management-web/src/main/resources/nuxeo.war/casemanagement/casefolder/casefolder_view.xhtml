@@ -42,7 +42,7 @@
       <h:form styleClass="modeButton">
 
        <c:if test="#{currentCaseFolder.getProfiles().contains('cellule_courrier')}">
-         <nxh:commandLink action="#{correspMailboxActions.createDraftMail('CaseItem')}">
+         <nxh:commandLink action="#{cmCaseFolderActions.createDraftCaseItem('CaseItem')}">
             <h:outputText value="#{messages['label.casemanagement.action.createIncomingCaseManagementDocument']}"/>
          </nxh:commandLink>
        </c:if>

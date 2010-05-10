@@ -52,6 +52,8 @@
       <schema name="case_item" />
       <schema name="contact" />
       <schema name="uid" />
+      <schema name="file" />
+      <schema name="files" />
       <facet name="CaseItem" />
       <facet name="Commentable" />
     </doctype>

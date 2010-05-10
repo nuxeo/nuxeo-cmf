@@ -338,9 +338,6 @@
         <row>
           <widget>initial_copy_external_participant_casefolders</widget>
         </row>
-        <row>
-          <widget>reference</widget>
-        </row>
       </rows>
       <widget name="senders" type="list">
         <labels>
@@ -348,7 +345,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:senders</field>
+          <field>cmdoc:senders</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -370,7 +367,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:document_date</field>
+          <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -385,7 +382,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdoc:receive_date</field>
+          <field>cmdoc:receive_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -402,7 +399,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_internal_participant_casefolders</field>
+          <field>cmdist:initial_action_internal_participant_case_folders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -426,7 +423,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_internal_participant_casefolders</field>
+          <field>cmdist:initial_copy_internal_participant_case_folders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -442,7 +439,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_action_external_participant_casefolderders" type="list">
+      <widget name="initial_action_external_participant_casefolders" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.action
@@ -450,7 +447,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_action_external_participant_casefolders</field>
+          <field>cmdist:initial_action_external_participant_case_folders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -474,7 +471,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cdist:initial_copy_external_participant_casefolders</field>
+          <field>cmdist:initial_copy_external_participant_case_folders</field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -489,18 +486,6 @@
             </properties>
           </widget>
         </subWidgets>
-      </widget>
-      <widget name="reference" type="text">
-        <labels>
-          <label mode="any">label.casemanagement.document.reference</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>cdoc:reference</field>
-        </fields>
-        <properties widgetMode="edit">
-          <property name="styleClass">dataInputText</property>
-        </properties>
       </widget>
     </layout>
 
@@ -523,9 +508,6 @@
         </row>
         <row>
           <widget>receive_date</widget>
-        </row>
-        <row>
-          <widget>document_date</widget>
         </row>
         <row>
           <widget>contactsSenders</widget>
@@ -561,7 +543,7 @@
       </widget>
       <widget name="document_type" type="selectOneDirectory">
         <fields>
-          <field>cdoc:type</field>
+          <field>cmdoc:type</field>
         </fields>
         <labels>
           <label mode="any">label.correspondence.document.type</label>
@@ -642,21 +624,6 @@
         <translated>true</translated>
         <fields>
           <field>cmdoc:receive_date</field>
-        </fields>
-        <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
-        </properties>
-        <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
-        </properties>
-      </widget>
-      <widget name="document_date" type="datetime">
-        <labels>
-          <label mode="any">label.correspondence.document.document_date</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -985,7 +952,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_action_external_participant_casefolders</field>
+          <field>cmdist:initial_action_external_participant_case_folders</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1010,7 +977,7 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_copy_external_participant_casefolders</field>
+          <field>cmdist:initial_copy_external_participant_case_folders</field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1030,7 +997,7 @@
       <widget name="initial_action_internal_participant_casefolders"
         type="template">
         <fields>
-          <field>cmdist:initial_action_internal_participant_casefolders</field>
+          <field>cmdist:initial_action_internal_participant_case_folders</field>
         </fields>
         <labels>
           <label mode="any">
@@ -1051,7 +1018,7 @@
       <widget name="initial_copy_internal_participant_casefolders"
         type="template">
         <fields>
-          <field>cmdist:initial_copy_internal_participant_casefolders</field>
+          <field>cmdist:initial_copy_internal_participant_case_folders</field>
         </fields>
         <labels>
           <label mode="any">

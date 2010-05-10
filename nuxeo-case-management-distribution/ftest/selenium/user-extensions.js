@@ -1,6 +1,6 @@
 // set absolute path to current folder here, used in tests with file upload
 Selenium.prototype.doRetrieveTestFolderPath = function() {
-  storedVars['testfolderpath'] = "/home/arussel/Work/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium";
+  storedVars['testfolderpath'] = "/home/mariana/nuxeo/nuxeo-snapshot/addons/nuxeo-case-management/nuxeo-case-management-distribution/ftest/selenium";
 };
 
 // helper method to store current year/month/day

@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testIncomingDocumentCreation</title>
+<title>testCaseItemCreation</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testIncomingDocumentCreation</td></tr>
+<tr><td rowspan="1" colspan="3">testCaseItemCreation</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -34,12 +34,12 @@
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>bree</td>
+	<td>jdoe</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
-	<td>bree1</td>
+	<td>jdoe1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -58,7 +58,23 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>You are logged as bree</td>
+	<td>You are logged as jdoe</td>
+	<td></td>
+</tr>
+<!--   !WORKAROUND ;clickAndWait doesn't work, seems to freeze the test  -->
+<tr>
+	<td>click</td>
+	<td>//*[@src='img/CASE_FOLDER.png']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+	</tr> 
+<tr>
+	<td>verifyTextPresent</td>
+	<td>My Case Folders</td>
 	<td></td>
 </tr>
 <tr>
@@ -73,17 +89,17 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Create an incoming mail</td>
+	<td>link=Create a new case item</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Create an incoming mail</td>
+	<td>link=Create a new case item</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Create a new document Incoming mail</td>
+	<td>Create a new document CaseItem</td>
 	<td></td>
 </tr>
 <tr>
@@ -93,7 +109,7 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_title</td>
+	<td>document_create:nxl_cm_document:nxw_title</td>
 	<td>Test incoming mail</td>
 </tr>
 <tr>
@@ -103,7 +119,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_add</td>
+	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_add</td>
 	<td></td>
 </tr>
 <tr>
@@ -113,37 +129,37 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_name</td>
+	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_name</td>
 	<td>Name1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_surname</td>
+	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_surname</td>
 	<td>Surname1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_service</td>
+	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_service</td>
 	<td>Service1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_document_date</td>
+	<td>document_create:nxl_cm_document:nxw_document_date</td>
 	<td>${currentDay}/${currentMonth}/${currentYear} 00:00</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_receive_date</td>
+	<td>document_create:nxl_cm_document:nxw_receive_date</td>
 	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_sending_date</td>
+	<td>document_create:nxl_cm_document:nxw_sending_date</td>
 	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_head_correspondence_incoming_document:nxw_scan_date</td>
+	<td>document_create:nxl_cm_document:nxw_document_date</td>
 	<td>${currentDay}/${currentMonth}/${currentYear} 00:03</td>
 </tr>
 <tr>
@@ -153,7 +169,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_add</td>
+	<td>document_create:nxl_cm_document:nxw_contactsSenders:nxw_contactsSenders_add</td>
 	<td></td>
 </tr>
 <tr>
@@ -163,17 +179,17 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_name</td>
+	<td>document_create:nxl_cm_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_name</td>
 	<td>Name2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_surname</td>
+	<td>document_create:nxl_cm_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_surname</td>
 	<td>Surname2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_service</td>
+	<td>document_create:nxl_cm_document:nxw_contactsSenders:nxw_contactsSenders_list:0:nxw_contactsSenders_service</td>
 	<td>Service2</td>
 </tr>
 <tr>
@@ -183,13 +199,8 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_correspondence_document:nxw_reference</td>
+	<td>document_create:nxl_head_cm_document:nxw_reference</td>
 	<td>Test Mail reference</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_head_correspondence_incoming_document:nxw_scan_site</td>
-	<td>Test Mail scan site</td>
 </tr>
 <tr>
 	<td>click</td>
