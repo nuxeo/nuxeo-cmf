@@ -327,6 +327,9 @@
           <widget>receive_date</widget>
         </row>
         <row>
+          <widget>sending_date</widget>
+        </row>
+        <row>
           <widget>initial_action_internal_participant_casefolders</widget>
         </row>
         <row>
@@ -337,6 +340,9 @@
         </row>
         <row>
           <widget>initial_copy_external_participant_casefolders</widget>
+        </row>
+        <row>
+          <widget>reference</widget>
         </row>
       </rows>
       <widget name="senders" type="list">
@@ -383,6 +389,21 @@
         <translated>true</translated>
         <fields>
           <field>cmdoc:receive_date</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="sending_date" type="datetime">
+        <labels>
+          <label mode="any">label.casemanagement.document.sending_date</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cmdoc:sending_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -487,6 +508,18 @@
           </widget>
         </subWidgets>
       </widget>
+      <widget name="reference" type="text">
+        <labels>
+          <label mode="any">label.casemanagement.document.reference</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cmdoc:reference</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
     </layout>
 
     <layout name="cm_document">
@@ -504,7 +537,7 @@
           <widget>contactsParticipants</widget>
         </row>
         <row>
-          <widget>sending_date</widget>
+          <widget>document_date</widget>
         </row>
         <row>
           <widget>receive_date</widget>
@@ -517,12 +550,6 @@
         </row>
         <row>
           <widget>origin</widget>
-        </row>
-        <row>
-          <widget>reference</widget>
-        </row>
-        <row>
-          <widget>uid</widget>
         </row>
         <row>
           <widget>body</widget>
@@ -600,15 +627,13 @@
           </widget>
         </subWidgets>
       </widget>
-
-
-      <widget name="sending_date" type="datetime">
+      <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.sending_date</label>
+          <label mode="any">label.correspondence.document.document_date</label>
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdoc:sending_date</field>
+          <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
           <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
@@ -708,30 +733,6 @@
           <property name="styleClass">dataInputText</property>
         </properties>
       </widget>
-      <widget name="reference" type="text">
-        <labels>
-          <label mode="any">label.casemanagement.document.reference</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>cmdoc:reference</field>
-        </fields>
-        <properties widgetMode="edit">
-          <property name="styleClass">dataInputText</property>
-        </properties>
-      </widget>
-      <widget name="uid" type="text">
-        <labels>
-          <label mode="any">label.correspondence.document.uid</label>
-        </labels>
-        <fields>
-          <field>uid:uid</field>
-        </fields>
-        <widgetModes>
-          <mode value="create">hidden</mode>
-          <mode value="any">view</mode>
-        </widgetModes>
-      </widget>
       <widget name="body" type="htmltext">
         <labels>
           <label mode="any">label.casemanagement.document.body</label>
@@ -740,7 +741,6 @@
         <fields>
           <field>cmdoc:body</field>
         </fields>
-        list
       </widget>
     </layout>
 
@@ -1049,6 +1049,68 @@
         </properties>
       </widget>
 
+    </layout>
+    
+    <layout name="cm_relation_search">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>predicate</widget>
+        </row>
+        <row>
+          <widget>targetDocuments</widget>
+        </row>
+        <row>
+          <widget>comment</widget>
+        </row>
+      </rows>
+      <widget name="predicate" type="selectOneDirectory">
+        <fields>
+          <field>predicateUri</field>
+        </fields>
+        <labels>
+          <label mode="any">label.cm.relations.predicateUri</label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="any">
+          <property name="directoryName">predicates</property>
+          <property name="localize">true</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="required">true</property>
+        </properties>
+      </widget>
+      <widget name="targetDocuments" type="template">
+        <fields>
+          <field>targetCreationDocuments</field>
+        </fields>
+        <labels>
+          <label mode="any">
+            label.cm.relations.targetDocuments
+          </label>
+        </labels>
+        <translated>true</translated>
+        <properties mode="any">
+          <property name="required">true</property>
+          <property name="template">
+            /casemanagement_widgets/document_suggestion_widget_template.xhtml
+          </property>
+        </properties>
+      </widget>
+      <widget name="comment" type="textarea">
+        <fields>
+          <field>comment</field>
+        </fields>
+        <labels>
+          <label mode="any">label.relation.comment</label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="edit">
+          <property name="cssStyleClass">dataInputText</property>
+        </properties>
+      </widget>
     </layout>
 
   </extension>

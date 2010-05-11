@@ -7,13 +7,13 @@
 
     <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}" value="#{currentCaseItem}" />
     
-    <c:if test="#{!cmDocumentActions.editingMail and cmDocumentActions.canEditCurrentCaseItem}">
+    <c:if test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
       <h:commandButton styleClass="button"
         immediate="true" value="#{messages['label.cmondence.startEditing']}"
-        action="#{cmDocumentActions.startEditingMail()}" />
+        action="#{cmDocumentActions.startEditingCaseItem()}" />
     </c:if>
 
-    <c:if test="#{cmDocumentActions.editingMail}">
+    <c:if test="#{cmDocumentActions.editingCaseItem}">
       <table class="dataInput">
         <tbody>
           <tr>
@@ -31,7 +31,7 @@
         action="#{cmDocumentActions.save()}" />
       <h:commandButton styleClass="button"
         value="#{messages['command.cancel']}"
-        action="#{cmDocumentActions.backToMailbox()}"
+        action="#{cmDocumentActions.backToCaseFolder()}"
         immediate="true" />
     </c:if>
 

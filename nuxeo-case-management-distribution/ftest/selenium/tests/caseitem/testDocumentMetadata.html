@@ -28,18 +28,18 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/correspondence/mail/${currentYear}/${currentMonth}/${currentDay}/doc-test-incoming-mail@view_correspondence_document</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/doc-test-incoming-mail@view_cm_document</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>bree</td>
+	<td>jdoe</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
-	<td>bree1</td>
+	<td>jdoe1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -73,7 +73,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_properties:nxl_correspondence_document:nxw_title']</td>
+	<td>//*[@id='document_properties:nxl_cm_document:nxw_title']</td>
 	<td>Test incoming mail</td>
 </tr>
 <tr>
@@ -108,7 +108,7 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>*00:02</td>
+	<td>*00:03</td>
 	<td></td>
 </tr>
 <tr>
@@ -118,27 +118,12 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>*00:00</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
 	<td>Level 4 - private</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Test Mail reference</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
 	<td>//img[@title='hello.pdf [1 kB]']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>NXC-IN-${currentYear}-00001</td>
 	<td></td>
 </tr>
 <tr>

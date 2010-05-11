@@ -44,14 +44,6 @@
           </properties>
           <widget>cm_listing_sender</widget>
         </column>
-        <column>
-          <properties mode="any">
-            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
-            <property name="sortPropertyName">uid:uid</property>
-          </properties>
-          <widget>cm_listing_uid</widget>
-        </column>
       </columns>
     </layout>
     

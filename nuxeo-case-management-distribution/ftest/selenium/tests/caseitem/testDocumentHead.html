@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testOutgoingDocumentMetadata</title>
+<title>testDocumentHead</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testOutgoingDocumentMetadata</td></tr>
+<tr><td rowspan="1" colspan="3">testDocumentHead</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -24,6 +24,11 @@
 <tr>
 	<td>retrieveCurrentDateInfo</td>
 	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/doc-test-incoming-mail@view_cm_document</td>
 	<td></td>
 </tr>
 <tr>
@@ -52,73 +57,48 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Test Mailbox</td>
+	<td>verifyElementPresent</td>
+	<td>link=Distribution</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Draft</td>
+	<td>link=Distribution</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Test outgoing mail</td>
+	<td>verifyElementPresent</td>
+	<td>link=Test incoming mail</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForPageToLoad</td>
-	<td>1000</td>
+	<td>click</td>
+	<td>//div[@class=&quot;foldableBox&quot;]/h3/a</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Test outgoing mail</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Name2</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Surname2</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Service2</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Name1</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Service1</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td></td>
-	<td>Surname1</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Level 4 - private</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Contenu numérisé / PJ</td>
+	<td>pause</td>
+	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>hello.pdf</td>
+	<td>00:01</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>00:02</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>00:03</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Test Mail reference</td>
 	<td></td>
 </tr>
 <tr>

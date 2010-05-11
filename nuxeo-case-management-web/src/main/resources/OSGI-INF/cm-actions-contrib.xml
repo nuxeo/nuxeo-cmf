@@ -211,14 +211,14 @@
       <filter-id>not_anonymous</filter-id>
      </action>
 
-    <action id="newComment" link="#{correspCommentActions.addComment}"
+    <action id="newComment" link="#{cmCommentActions.addComment}"
       enabled="true" label="command.add">
-      <category>CM_COMMENT_ACTIONS</category>
+      <category>CASE_MANAGEMENT_COMMENT_ACTIONS</category>
     </action>
 
     <action id="cancelComment" link="#{commentManagerActions.cancelComment}"
       enabled="true" label="command.cancel">
-      <category>CM_COMMENT_ACTIONS</category>
+      <category>CASE_MANAGEMENT_COMMENT_ACTIONS</category>
     </action>
 
     <!-- end of envelope/document tab actions -->
@@ -328,7 +328,7 @@
     <filter id="isCaseItemOrCase">
       <rule grant="true">
         <facet>CaseItem</facet>
-        <facet>Casen</facet>
+        <facet>Case</facet>
       </rule>
     </filter>
 

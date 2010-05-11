@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testIncomingDocumentHead</title>
+<title>testCaseItemDistributionTabs</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testIncomingDocumentHead</td></tr>
+<tr><td rowspan="1" colspan="3">testCaseItemDistributionTabs</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -28,18 +28,18 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/correspondence/mail/${currentYear}/${currentMonth}/${currentDay}/doc-test-incoming-mail@view_correspondence_document</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/test-incoming-mail@view_cm_case</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>bree</td>
+	<td>jdoe</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
-	<td>bree1</td>
+	<td>jdoe1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -57,6 +57,26 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForPageToLoad</td>
+	<td>15000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1 document(s) in the envelope</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//h1</td>
+	<td>Test incoming mail</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//img[@alt='Initial Distribution']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>verifyElementPresent</td>
 	<td>link=Distribution</td>
 	<td></td>
@@ -68,42 +88,22 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Test incoming mail</td>
+	<td>link=Favorites</td>
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@class=&quot;foldableBox&quot;]/h3/a</td>
+	<td>clickAndWait</td>
+	<td>link=Favorites</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>2000</td>
+	<td>verifyElementPresent</td>
+	<td>link=Distribution list</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>00:00</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>00:01</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>00:03</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Test Mail reference</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Test Mail scan site</td>
+	<td>clickAndWait</td>
+	<td>link=Distribution list</td>
 	<td></td>
 </tr>
 <tr>

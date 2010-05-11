@@ -119,7 +119,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_add</td>
+	<td>document_create:nxl_cm_document:nxw_contactsParticipants:nxw_contactsParticipants_add</td>
 	<td></td>
 </tr>
 <tr>
@@ -129,38 +129,18 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_name</td>
+	<td>document_create:nxl_cm_document:nxw_contactsParticipants:nxw_contactsParticipants_list:0:nxw_contactsParticipants_name</td>
 	<td>Name1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_surname</td>
+	<td>document_create:nxl_cm_document:nxw_contactsParticipants:nxw_contactsParticipants_list:0:nxw_contactsParticipants_surname</td>
 	<td>Surname1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_contactsRecipients:nxw_contactsRecipients_list:0:nxw_contactsRecipients_service</td>
+	<td>document_create:nxl_cm_document:nxw_contactsParticipants:nxw_contactsParticipants_list:0:nxw_contactsParticipants_service</td>
 	<td>Service1</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_document_date</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:00</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_receive_date</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_sending_date</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_document_date</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:03</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -193,9 +173,19 @@
 	<td>Service2</td>
 </tr>
 <tr>
-	<td>watchA4jRequests</td>
-	<td></td>
-	<td></td>
+	<td>type</td> 
+	<td>document_create:nxl_head_cm_document:nxw_sending_date</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_head_cm_document:nxw_document_date_1</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_head_cm_document:nxw_receive_date_1</td>
+	<td>${currentDay}/${currentMonth}/${currentYear} 00:03</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -223,13 +213,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertTextPresent</td>
-	<td>Incoming mail saved</td>
+	<td>verifyTextPresent</td>
+	<td>CaseItem saved</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>&gt; Test incoming mail</td>
+	<td>Test incoming mail</td>
 	<td></td>
 </tr>
 <tr>
