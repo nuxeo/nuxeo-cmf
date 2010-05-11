@@ -3,6 +3,7 @@ package org.nuxeo.cm.usermanager;
 import java.util.List;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
@@ -45,7 +46,7 @@ public class TestCaseManagementUserManager extends
         assertNotNull(groups);
         assertEquals(2, groups.size());
         assertTrue(groups.contains("group_1"));
-        assertTrue(groups.contains("mailbox_user-user"));
+        assertTrue(groups.contains(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user"));
 
         pal = userManager.getPrincipal(user2);
         assertNotNull(pal);
@@ -55,9 +56,9 @@ public class TestCaseManagementUserManager extends
         assertNotNull(groups);
         assertEquals(2, groups.size());
         assertTrue(groups.contains("group_1"));
-        assertTrue(groups.contains("mailbox_user-user2"));
+        assertTrue(groups.contains(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2"));
 
-        NuxeoGroup grp = userManager.getGroup("mailbox_user-user2");
+        NuxeoGroup grp = userManager.getGroup(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2");
         assertNull(grp);
         grp = userManager.getGroup("user-user2");
         assertNull(grp);
