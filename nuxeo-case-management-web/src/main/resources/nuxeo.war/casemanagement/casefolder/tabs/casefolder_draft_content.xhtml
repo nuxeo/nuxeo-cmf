@@ -15,7 +15,7 @@
     </h:form>
     <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('CASE_FOLDER_DRAFT')}" >
 
-   <ui:decorate template="/incl/documents_layout_table.xhtml">
+   <ui:decorate template="casefolder_draftcaselink_table.xhtml">
       <ui:param name="documents" value="#{draftChildrenSelectModel}" />
       <ui:param name="showCheckboxes" value="#{true}" />
       <ui:param name="provider" value="#{provider}" />

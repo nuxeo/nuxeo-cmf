@@ -35,6 +35,7 @@ import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetCaseFoldersUnrestricted;
+import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -120,7 +121,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         List<CaseFolder> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
             throw new CaseManagementException(
-                    "Can't send post because sender mailbox does not exist.");
+            "Can't send post because sender mailbox does not exist.");
         }
 
         recipient = mailboxes.get(0);
@@ -152,6 +153,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         session.createDocument(doc);
         session.save();
         createdPost = doc.getAdapter(CaseLink.class);
+
     }
 
     /**

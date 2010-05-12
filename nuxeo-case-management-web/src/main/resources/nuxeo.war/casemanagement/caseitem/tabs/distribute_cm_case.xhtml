@@ -10,7 +10,7 @@
  <div class="tabsContent">
    <h2><h:outputText value="#{messages['label.casemanagement.distribution.view']}" /></h2>
       <c:if test="#{empty currentCaseFolder}">
-        <ui:include src="/casemanagement/casefolder/chose_current_casefolder.xhtml" />
+        <ui:include src="/casemanagement/caseitem/chose_current_casefolder.xhtml" />
       </c:if>
       <c:if test="#{!empty currentCaseFolder}">
         <ui:include src="/casemanagement/caseitem/chose_participants.xhtml" />

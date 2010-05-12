@@ -7,7 +7,7 @@
 
   <h3><h:outputText value="#{messages['title.history']}" /></h3>
 
-  <h:dataTable var="logEntry" value="#{emailLogEntries}" class="dataOutput"
+  <h:dataTable var="logEntry" value="#{caseItemLogEntries}" class="dataOutput"
     rowClasses="dataRowEven,dataRowOdd"
     columnClasses="historyActionColumn, historyDateTimeColumn, historyAuthorColumn, historyCommentColumn">
     <h:column>

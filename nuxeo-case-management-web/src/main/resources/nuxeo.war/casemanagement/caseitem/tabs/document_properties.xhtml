@@ -9,7 +9,7 @@
     
     <c:if test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
       <h:commandButton styleClass="button"
-        immediate="true" value="#{messages['label.cmondence.startEditing']}"
+        immediate="true" value="#{messages['label.casemanagement.startEditing']}"
         action="#{cmDocumentActions.startEditingCaseItem()}" />
     </c:if>
 
@@ -27,7 +27,7 @@
         </tbody> 
       </table>
       <h:commandButton styleClass="button"
-        value="#{messages['label.cmondence.save']}"
+        value="#{messages['label.casemanagement.save']}"
         action="#{cmDocumentActions.save()}" />
       <h:commandButton styleClass="button"
         value="#{messages['command.cancel']}"

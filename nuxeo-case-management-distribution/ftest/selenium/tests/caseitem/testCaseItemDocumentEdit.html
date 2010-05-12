@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testCaseItemDistributionTabs</title>
+<title>testMailDocumentEdit</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testCaseItemDistributionTabs</td></tr>
+<tr><td rowspan="1" colspan="3">testMailDocumentEdit</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -21,16 +21,7 @@
 	<td>/nuxeo/logout</td>
 	<td></td>
 </tr>
-<tr>
-	<td>retrieveCurrentDateInfo</td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/test-incoming-mail@view_cm_case</td>
-	<td></td>
-</tr>
+<!-- login as Bree-->
 <tr>
 	<td>type</td>
 	<td>username</td>
@@ -63,47 +54,98 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>1 document(s) in the case</td>
+	<td>You are logged as jdoe</td>
+	<td></td>
+</tr>
+<!-- look for mail in Inbox-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=John Doe</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Inbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Incoming mail for John, cc to Smith</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Incoming mail for John, cc to Smith</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Cancel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_properties:nxl_cm_document:nxw_title</td>
+	<td>an outgoing mail modified</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//form[@id='document_properties']/table[4]/tbody/tr/td[2]/textarea</td>
+	<td>Just modified the document</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//input[@value='Cancel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value='Edit']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//h1</td>
-	<td>Test incoming mail</td>
+	<td>document_properties:nxl_cm_document:nxw_title</td>
+	<td>an outgoing mail modified</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//img[@alt='Initial Distribution']</td>
+	<td>link=History</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>link=Distribution</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Distribution</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=Favorites</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Favorites</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=Distribution list</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Distribution list</td>
+	<td>verifyTextPresent</td>
+	<td>Just modified the document</td>
 	<td></td>
 </tr>
 <tr>
@@ -111,7 +153,6 @@
 	<td>link=Log out</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
