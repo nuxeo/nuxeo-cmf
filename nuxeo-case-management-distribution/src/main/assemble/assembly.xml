@@ -55,6 +55,12 @@
       <fileset 
 	 dir="${app.path}/server/default/deploy/nuxeo.ear/system"
 	 includes="nuxeo-opensocial-*"/> 
+      <fileset
+         dir="${app.path}/server/default/deploy/nuxeo.ear/system"
+         includes="nuxeo-spaces-*"/>
+      <fileset
+         dir="${app.path}/server/default/deploy/nuxeo.ear/system"
+         includes="nuxeo-webengine-gadgets-*"/>
       <fileset 
 	 dir="${app.path}/templates/common/config"
 	 includes="opensocial.properties default-opensocial-config.xml" />

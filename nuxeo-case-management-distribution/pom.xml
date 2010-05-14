@@ -23,20 +23,11 @@
   <profiles>
     <profile>
       <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <id>cm-dev</id>
-      <properties>
-        <assembly.name>cm-dev</assembly.name>
-      </properties>
-    </profile>
-    <profile>
-      <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <id>server</id>
       <properties>
-        <assembly.name>cm-dev</assembly.name>
+        <assembly.name>assemble</assembly.name>
       </properties>
     </profile>
   </profiles>
