@@ -23,7 +23,6 @@ package org.nuxeo.cm.casefolder;
  * MailboxHeader implementation
  *
  * @author Laurent Doguin
- *
  */
 public class CaseFolderHeaderImpl implements CaseFolderHeader {
 

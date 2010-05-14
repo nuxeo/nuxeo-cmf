@@ -30,26 +30,21 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * Mail envelope
  *
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public interface Case extends HasParticipants, Serializable {
 
     /**
-     * Gets the document model describing the envelope
+     * Gets the document model describing the envelope.
      */
     DocumentModel getDocument();
 
     /**
-     * get the items as document with the session of the envelope.
-     *
-     * @return
+     * Gets the items as document with the session of the envelope.
      */
     List<DocumentModel> getDocuments();
 
     /**
-     * get the items as document
-     *
-     * @return
+     * Gets the items as document
      */
     List<DocumentModel> getDocuments(CoreSession session);
 
@@ -94,16 +89,12 @@ public interface Case extends HasParticipants, Serializable {
             CoreSession session);
 
     /**
-     * Persist the envelope.
-     *
-     * @param session
+     * Persists the envelope.
      */
     void save(CoreSession session);
 
     /**
-     * Is this a draft envelope
-     *
-     * @param session
+     * Is this a draft envelope?
      */
     boolean isDraft() throws ClientException;
 

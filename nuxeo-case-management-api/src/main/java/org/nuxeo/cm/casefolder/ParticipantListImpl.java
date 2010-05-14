@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Mailing list implementation using a complex property value as backend
+ * Mailing list implementation using a complex property value as backend.
  *
  * @author Anahide Tchertchian
  *
@@ -38,7 +38,6 @@ public class ParticipantListImpl implements ParticipantsList {
     protected final Map<String, Serializable> mlDoc;
 
     public ParticipantListImpl(Map<String, Serializable> mlDoc) {
-        super();
         this.mlDoc = mlDoc;
     }
 

@@ -51,7 +51,6 @@ public class CaseLinkRequestImpl implements CaseLink {
             String subject, String comment, Case envelope,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients) {
-        super();
         this.sender = sender;
         this.date = date;
         this.subject = subject;

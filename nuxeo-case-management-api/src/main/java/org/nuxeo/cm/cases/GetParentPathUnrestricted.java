@@ -24,12 +24,11 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 
-
 /**
  * @author arussel
- *
  */
 public class GetParentPathUnrestricted extends UnrestrictedSessionRunner {
+
     protected String parentPath;
 
     public GetParentPathUnrestricted(CoreSession session) {

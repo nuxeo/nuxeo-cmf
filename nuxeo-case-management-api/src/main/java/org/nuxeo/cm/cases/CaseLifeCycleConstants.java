@@ -20,7 +20,6 @@ package org.nuxeo.cm.cases;
  * Mail envelope life cycle constants
  *
  * @author Anahide Tchertchian
- *
  */
 public class CaseLifeCycleConstants {
 
@@ -29,5 +28,8 @@ public class CaseLifeCycleConstants {
     public static final String STATE_SENT = "sent";
 
     public static final String TRANSITION_SEND = "send";
+
+    private CaseLifeCycleConstants() {
+    }
 
 }

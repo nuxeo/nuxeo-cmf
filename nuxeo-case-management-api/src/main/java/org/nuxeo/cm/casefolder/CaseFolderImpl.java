@@ -42,10 +42,9 @@ import org.nuxeo.ecm.core.schema.types.ListType;
 import org.nuxeo.ecm.core.schema.types.Type;
 
 /**
- * Mailbox implementation using a document model as backend
+ * Mailbox implementation using a document model as backend.
  *
  * @author Anahide Tchertchian
- *
  */
 public class CaseFolderImpl implements CaseFolder {
 
@@ -95,6 +94,7 @@ public class CaseFolderImpl implements CaseFolder {
         try {
             Object value = doc.getPropertyValue(property);
             if (value instanceof Long) {
+                // FIXME: this is extremely confusing.
                 return Integer.valueOf(((Long) value).toString());
             }
             return null;
@@ -222,7 +222,7 @@ public class CaseFolderImpl implements CaseFolder {
     }
 
     public List<String> getAllUsers() {
-        ArrayList<String> delegates = new ArrayList<String>();
+        List<String> delegates = new ArrayList<String>();
         List<String> users = getUsers();
         if (users != null) {
             delegates.addAll(users);
@@ -236,10 +236,7 @@ public class CaseFolderImpl implements CaseFolder {
 
     public boolean hasProfile(String profile) {
         List<String> profiles = getProfiles();
-        if (profiles != null && profiles.contains(profile)) {
-            return true;
-        }
-        return false;
+        return profiles != null && profiles.contains(profile);
     }
 
     @SuppressWarnings("unchecked")
@@ -410,4 +407,5 @@ public class CaseFolderImpl implements CaseFolder {
     public String getAffiliatedCaseFolderId() {
         return getStringProperty(CaseFolderConstants.AFFILIATED_CASE_FOLDER_ID);
     }
+
 }

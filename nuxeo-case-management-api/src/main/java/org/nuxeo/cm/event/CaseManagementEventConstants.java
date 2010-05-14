@@ -22,12 +22,10 @@ package org.nuxeo.cm.event;
 
 import java.util.Map;
 
-
 /**
  * Correspondence event names
  *
  * @author Anahide Tchertchian
- *
  */
 public class CaseManagementEventConstants {
 

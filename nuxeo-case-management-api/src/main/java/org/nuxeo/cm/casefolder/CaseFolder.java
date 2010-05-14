@@ -31,12 +31,11 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * Mailbox interface
  *
  * @author Anahide Tchertchian
- *
  */
 public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
 
     /**
-     * Returns the document model representing this mailbox
+     * Returns the document model representing this mailbox.
      */
     DocumentModel getDocument();
 
@@ -46,37 +45,37 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
     String getId();
 
     /**
-     * Sets id of the mailbox
+     * Sets id of the mailbox.
      */
     void setId(String id);
 
     /**
-     * Returns title of the mailbox
+     * Returns title of the mailbox.
      */
     String getTitle();
 
     /**
-     * Sets title of the mailbox
+     * Sets title of the mailbox.
      */
     void setTitle(String title);
 
     /**
-     * Returns description of the mailbox
+     * Returns description of the mailbox.
      */
     String getDescription();
 
     /**
-     * Sets description of the mailbox
+     * Sets description of the mailbox.
      */
     void setDescription(String description);
 
     /**
-     * Returns type of the mailbox
+     * Returns type of the mailbox.
      */
     String getType();
 
     /**
-     * Sets type of the mailbox
+     * Sets type of the mailbox.
      */
     void setType(String type);
 
@@ -159,7 +158,7 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
     /**
      * Add the given mailing list to this mailbox
      *
-     * @param ml the mailing list to add
+     * @param mailinglist the mailing list to add
      */
     void addParticipantList(ParticipantsList mailinglist);
 
@@ -188,7 +187,7 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
     boolean hasProfile(String profile);
 
     /**
-     * Sets the default confidentiality for iconming mails for this mailbox.
+     * Sets the default confidentiality for icoming mails for this mailbox.
      */
     void setConfidentiality(Integer confidentiality);
 

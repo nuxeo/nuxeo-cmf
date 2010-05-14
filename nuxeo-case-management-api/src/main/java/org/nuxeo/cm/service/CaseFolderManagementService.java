@@ -29,7 +29,6 @@ import org.nuxeo.ecm.core.api.CoreSession;
 
 /**
  * Correspondence service.
- *
  */
 public interface CaseFolderManagementService extends Serializable {
 
@@ -110,7 +109,6 @@ public interface CaseFolderManagementService extends Serializable {
      * users if needed.
      *
      * @param userId User id
-     *
      */
     List<CaseFolder> getUserCaseFolders(CoreSession session, String userId);
 
@@ -118,7 +116,6 @@ public interface CaseFolderManagementService extends Serializable {
      * Returns the personal mailbox of the given user.
      *
      * @param userId User id
-     * @throws ClientException
      */
     CaseFolder getUserPersonalCaseFolder(CoreSession session, String userId);
 
@@ -148,7 +145,6 @@ public interface CaseFolderManagementService extends Serializable {
      *
      * @param userId
      * @return true if the user has a personal mailbox
-     * @throws ClientException
      */
     boolean hasUserPersonalCaseFolder(CoreSession session, String userId);
 }

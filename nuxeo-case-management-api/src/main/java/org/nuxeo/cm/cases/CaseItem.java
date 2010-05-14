@@ -26,90 +26,73 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
- * Mail envelope item
+ * Mail envelope item.
  * <p>
  * Represents a document placed in an envelope.
  *
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public interface CaseItem extends HasParticipants, Serializable {
 
     /**
-     * the title of this item.
-     *
-     * @return
+     * Gets the title of this item.
      */
     String getTitle();
 
     void setTitle(String title);
 
     /**
-     * get the item was sent.
-     *
-     * @return
+     * Gets the date the item was sent.
      */
     Calendar getSendingDate();
 
     void setSendingDate(Calendar date);
 
     /**
-     * get the item was received.
-     *
-     * @return
+     * Gets the date item was received.
      */
     Calendar getReceiveDate();
 
     void setReceiveDate(Calendar date);
 
     /**
-     * get the item the item was imported into Nuxeo.
-     *
-     * @return
+     * Sets the item the item was imported into Nuxeo.
      */
     Calendar getImportDate();
 
     void setImportDate(Calendar date);
 
     /**
-     * get the date on the item.
-     *
-     * @return
+     * Gets the date on the item.
      */
     Calendar getDocumentDate();
 
     void setDocumentDate(Calendar date);
 
     /**
-     * get the confidentiality of the document. The default is 4.
-     *
-     * @return
+     * Gets the confidentiality of the document. The default is 4.
      */
     String getConfidentiality();
 
     void setConfidentiality(String cdf);
 
     /**
-     * get the origin of the document (email, scan ...)
-     *
-     * @return
+     * Gets the origin of the document (email, scan ...).
      */
     String getOrigin();
 
     void setOrigin(String origin);
 
     /**
-     * get the type of document.
-     *
-     * @return
+     * Get the type of document.
      */
     String getType();
 
     void setType(String type);
 
     /**
-     * get the envelope this document is in. This value only is only set when it
+     * Gets the envelope this document is in. This value only is only set when it
      * is coming from an envelope in the current session.
      *
      * @return the envelope or null if the document is not associated with an
@@ -120,13 +103,11 @@ public interface CaseItem extends HasParticipants, Serializable {
     void setCase(Case theCase);
 
     /**
-     * get the envelope in which this item should be shown if not associated
+     * Gets the envelope in which this item should be shown if not associated
      * with an envelope.
-     *
+     * <p>
      * If you find this item from a search, we still have to show it in an
      * envelope. This method tell us in which envelope to put it.
-     *
-     * @return
      */
     String getDefaultCaseId();
 
@@ -138,17 +119,18 @@ public interface CaseItem extends HasParticipants, Serializable {
     DocumentModel getDocument();
 
     /**
-     * Create a mail envelope with this item inside.
+     * Creates a mail envelope with this item inside.
      *
      * @param documentManager an open session.
-     * @param parent The folder in which the envelope will be created.
+     * @param parentPath the path to the folder in which the envelope will be created.
      * @return The created mail envelope.
      */
     Case createMailCase(CoreSession documentManager,
             String parentPath, String initialLifeCycleState);
 
     /**
-     * persist the item.
+     * Persists the item.
      */
     void save(CoreSession session);
+
 }

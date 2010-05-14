@@ -25,12 +25,10 @@ import java.util.Map;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
 
-
 /**
- * Wrapper for contact item
+ * Wrapper for contact item.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
- *
  */
 public class Contact implements Serializable, Comparable<Contact> {
 
@@ -55,16 +53,15 @@ public class Contact implements Serializable, Comparable<Contact> {
     protected String caseFolderId;
 
     public Contact() {
-        super();
     }
 
     public Contact(Map<? extends String, ? extends Serializable> m) {
         if (m != null) {
-            setName((String) m.get(CONTACT_FIELD.name.name()));
-            setEmail((String) m.get(CONTACT_FIELD.email.name()));
-            setSurname((String) m.get(CONTACT_FIELD.surname.name()));
-            setService((String) m.get(CONTACT_FIELD.service.name()));
-            setCaseFolderId((String) m.get(CONTACT_FIELD.caseFolderId.name()));
+            name = (String) m.get(CONTACT_FIELD.name.name());
+            email = (String) m.get(CONTACT_FIELD.email.name());
+            surname = (String) m.get(CONTACT_FIELD.surname.name());
+            service = (String) m.get(CONTACT_FIELD.service.name());
+            caseFolderId = (String) m.get(CONTACT_FIELD.caseFolderId.name());
         }
     }
 
@@ -93,16 +90,16 @@ public class Contact implements Serializable, Comparable<Contact> {
     public HashMap<String, Serializable> getContactMap() {
         HashMap<String, Serializable> m = new HashMap<String, Serializable>();
         if (name != null) {
-            m.put(CONTACT_FIELD.name.name(), getName());
+            m.put(CONTACT_FIELD.name.name(), name);
         }
         if (email != null) {
-            m.put(CONTACT_FIELD.email.name(), getEmail());
+            m.put(CONTACT_FIELD.email.name(), email);
         }
         if (surname != null) {
-            m.put(CONTACT_FIELD.surname.name(), getSurname());
+            m.put(CONTACT_FIELD.surname.name(), surname);
         }
         if (service != null) {
-            m.put(CONTACT_FIELD.service.name(), getService());
+            m.put(CONTACT_FIELD.service.name(), service);
         }
         if (caseFolderId != null) {
             m.put(CONTACT_FIELD.caseFolderId.name(),caseFolderId);
@@ -179,11 +176,11 @@ public class Contact implements Serializable, Comparable<Contact> {
             return null;
         }
         Contact contact = new Contact();
-        contact.setCaseFolderId(caseFolder.getId());
-        contact.setName(caseFolder.getTitle());
-        contact.setEmail(email);
-        contact.setService(service);
-        contact.setSurname(surname);
+        contact.caseFolderId = caseFolder.getId();
+        contact.name = caseFolder.getTitle();
+        contact.email = email;
+        contact.service = service;
+        contact.surname = surname;
         return contact;
     }
 

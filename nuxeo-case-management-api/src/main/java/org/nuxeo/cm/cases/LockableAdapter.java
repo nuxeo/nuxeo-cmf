@@ -34,9 +34,7 @@ public interface LockableAdapter extends Serializable {
             throws ClientException;
 
     /**
-     * Returns true if doc is locked by current user
-     *
-     * @throws ClientException
+     * Returns true if doc is locked by current user.
      */
     boolean isLockedByCurrentUser(CoreSession documentManager)
             throws ClientException;

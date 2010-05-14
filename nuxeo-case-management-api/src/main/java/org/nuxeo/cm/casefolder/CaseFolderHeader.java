@@ -35,12 +35,12 @@ public interface CaseFolderHeader extends Serializable, Comparable<CaseFolderHea
     String getId();
 
     /**
-     * Returns title of the mailbox
+     * Returns title of the mailbox.
      */
     String getTitle();
 
     /**
-     * Returns type of the mailbox
+     * Returns type of the mailbox.
      */
     String getType();
 

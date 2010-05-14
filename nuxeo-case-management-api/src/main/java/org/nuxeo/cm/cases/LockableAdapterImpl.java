@@ -32,9 +32,6 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 public class LockableAdapterImpl implements LockableAdapter {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     private static final Log log = LogFactory.getLog(LockableAdapterImpl.class);
@@ -90,22 +87,17 @@ public class LockableAdapterImpl implements LockableAdapter {
 
     /**
      * Returns true if doc is not locked or current user is locker
-     *
-     * @throws ClientException
      */
     public boolean isLocked(CoreSession documentManager) throws ClientException {
 
         Map<String, String> lockDetails = getDocumentLockDetails(documentManager);
 
         if (lockDetails != null && !lockDetails.isEmpty()) {
-
             NuxeoPrincipal userName = (NuxeoPrincipal) documentManager.getPrincipal();
             if (userName.getName().equals(lockDetails.get("LockActions.LOCKER"))) {
                 return false;
             }
-
             return true;
-
         }
 
         return false;
@@ -116,7 +108,6 @@ public class LockableAdapterImpl implements LockableAdapter {
         Map<String, String> lockDetails = getDocumentLockDetails(documentManager);
 
         if (lockDetails != null && !lockDetails.isEmpty()) {
-
             NuxeoPrincipal userName = (NuxeoPrincipal) documentManager.getPrincipal();
             if (userName.getName().equals(lockDetails.get("LockActions.LOCKER"))) {
                 return true;

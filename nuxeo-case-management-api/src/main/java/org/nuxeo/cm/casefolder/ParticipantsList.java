@@ -27,27 +27,26 @@ import java.util.Map;
  * A mailing list is a set of users/groups.
  *
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public interface ParticipantsList extends Serializable {
 
     /**
-     * Returns this mailing list id
+     * Returns this mailing list id.
      */
     String getId();
 
     /**
-     * Sets id of the mailing list
+     * Sets id of the mailing list.
      */
     void setId(String id);
 
     /**
-     * Returns title of the mailing list
+     * Returns title of the mailing list.
      */
     String getTitle();
 
     /**
-     * Sets title of the mailing list
+     * Sets title of the mailing list.
      */
     void setTitle(String title);
 
@@ -76,7 +75,7 @@ public interface ParticipantsList extends Serializable {
     void setCaseFolderIds(List<String> mailboxes);
 
     /**
-     * Gets the complew property map
+     * Gets the complete property map.
      */
     Map<String, Serializable> getMap();
 

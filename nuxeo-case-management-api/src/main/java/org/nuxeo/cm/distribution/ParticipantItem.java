@@ -26,7 +26,6 @@ import org.nuxeo.cm.casefolder.CaseFolderHeaderImpl;
 
 /**
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
- *
  */
 public class ParticipantItem extends CaseFolderHeaderImpl implements Serializable {
 
@@ -54,8 +53,9 @@ public class ParticipantItem extends CaseFolderHeaderImpl implements Serializabl
         if (obj == null) {
             return false;
         }
-        if (!this.getClass().equals(obj.getClass()))
+        if (!this.getClass().equals(obj.getClass())) {
             return false;
+        }
         ParticipantItem other = (ParticipantItem) obj;
         return safeStrEq(type, other.type) && safeStrEq(id, other.id)
                 && safeStrEq(title, other.title) && safeStrEq(type, other.type);

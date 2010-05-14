@@ -32,106 +32,77 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 /**
  * A CorrespondencePost represent a sent {@link Case} in a
  * {@link CaseFolder}.
- *
+ * <p>
  * When a Mailbox send a MailEnvelope, a CorrespondencePost is created in its
- * Mailbox and a {@link CorrepsondenceMessage} is created in each of the
+ * Mailbox and a {@link CorrespondenceMessage} is created in each of the
  * recipients Mailbox.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public interface CaseLink extends HasParticipants, Serializable {
 
     /**
-     * get the document model.
+     * Gets the document model.
      */
     DocumentModel getDocument();
 
     /**
-     * The id of the post.
-     *
-     * @return
+     * Gets the id of the post.
      */
     String getId();
 
     /**
-     * The subject.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the subject.
      */
     String getSubject();
 
     /**
-     * The comment.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the comment.
      */
     String getComment();
 
     /**
-     *The date.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the date.
      */
     Calendar getDate();
 
     /**
-     * The sender.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the sender.
      */
     String getSender();
 
     /**
-     * The sender mailbox id.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the sender mailbox id.
      */
     String getSenderCaseFolderId();
 
     /**
      * The mail envelope sent.
-     *
-     * @return
      */
     Case getCase(CoreSession session);
 
     /**
-     * The send date of the post.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the send date of the post.
      */
     Date getSentDate();
 
     /**
-     * The type of the message.
-     *
-     * @return
-     * @throws ClientException
+     * Gets the type of the message.
      */
     String getType();
 
     /**
-     * If this message has been read
-     *
-     * @return
-     * @throws ClientException
+     * Returns true if this message has been read.
      */
     boolean isRead();
 
     /**
-     * Persist the post
+     * Persists the post.
      */
     void save(CoreSession session);
 
     /**
-     * Is it a draft
+     * Is it a draft?
      */
     boolean isDraft();
 

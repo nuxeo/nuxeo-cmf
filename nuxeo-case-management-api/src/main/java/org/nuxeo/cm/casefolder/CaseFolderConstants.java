@@ -80,7 +80,7 @@ public class CaseFolderConstants {
 
     public static final String MAILBOX_DELETED_STATE = "deleted";
 
-    public static final List<CaseFolderHeader> getMailboxHeaderList(List<DocumentModel> docs) {
+    public static List<CaseFolderHeader> getMailboxHeaderList(List<DocumentModel> docs) {
         List<CaseFolderHeader> res = new ArrayList<CaseFolderHeader>();
         if (docs != null) {
             for (DocumentModel doc : docs) {
@@ -90,7 +90,7 @@ public class CaseFolderConstants {
         return res;
     }
 
-    public static final List<CaseFolder> getMailboxList(List<DocumentModel> docs) {
+    public static List<CaseFolder> getMailboxList(List<DocumentModel> docs) {
         List<CaseFolder> res = new ArrayList<CaseFolder>();
         if (docs != null) {
             for (DocumentModel doc : docs) {
@@ -99,5 +99,8 @@ public class CaseFolderConstants {
         }
         return res;
     }
+
+    private CaseFolderConstants() {
+    }    
 
 }

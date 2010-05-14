@@ -37,7 +37,6 @@ import org.nuxeo.cm.caselink.CaseLinkType;
  * Distribution information.
  * <p>
  * This class is used to gather information from the interface.
- * </p>
  *
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  */
@@ -213,22 +212,19 @@ public class DistributionInfo implements Serializable {
 
     @SuppressWarnings("unchecked")
     public boolean isEmpty(List list) {
-        if (list == null || list.isEmpty()) {
-            return true;
-        }
-        return false;
+        return list == null || list.isEmpty();
     }
 
     public boolean hasParticipants() {
         boolean res = true;
-        if (isEmpty(getForActionCaseFolders())
-                && isEmpty(getForActionParticipantLists())
+        if (isEmpty(forActionMailboxes)
+                && isEmpty(forActionMailingLists)
                 && isEmpty(getForActionFunctions())
-                && isEmpty(getForActionGroups())
-                && isEmpty(getForInformationCaseFolders())
-                && isEmpty(getForInformationParticipantLists())
+                && isEmpty(forActionGroups)
+                && isEmpty(forInformationMailboxes)
+                && isEmpty(forInformationMailingLists)
                 && isEmpty(getForInformationFunctions())
-                && isEmpty(getForInformationGroups())) {
+                && isEmpty(forInformationGroups)) {
             res = false;
         }
         return res;
@@ -236,10 +232,10 @@ public class DistributionInfo implements Serializable {
 
     public boolean hasActionParticipants() {
         boolean res = true;
-        if (isEmpty(getForActionCaseFolders())
-                && isEmpty(getForActionParticipantLists())
+        if (isEmpty(forActionMailboxes)
+                && isEmpty(forActionMailingLists)
                 && isEmpty(getForActionFunctions())
-                && isEmpty(getForActionGroups())) {
+                && isEmpty(forActionGroups)) {
             res = false;
         }
         return res;

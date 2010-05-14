@@ -32,9 +32,8 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Correspondence service.
- *
+ * <p>
  * Distributes an email to users/groups/mailboxes and manages mailboxes.
- *
  */
 public interface CaseDistributionService extends Serializable {
     /**

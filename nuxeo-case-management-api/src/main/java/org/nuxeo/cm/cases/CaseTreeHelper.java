@@ -31,12 +31,10 @@ import org.nuxeo.ecm.core.api.PathRef;
 
 /**
  * Helper for mail tree
- *
  * <p>
  * Emails and Mail envelopes are created within trees of folder.
  *
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public class CaseTreeHelper {
 
@@ -49,14 +47,14 @@ public class CaseTreeHelper {
      *
      * @return the last child created (day)
      */
-    public static final DocumentModel getOrCreateDateTreeFolder(
+    public static DocumentModel getOrCreateDateTreeFolder(
             CoreSession session, DocumentModel root, Date date,
             String folderType) throws ClientException {
         String subPath = new SimpleDateFormat("yyyy/MM/dd").format(date);
         return getOrCreatePath(session, root, subPath, folderType);
     }
 
-    public static final DocumentModel getOrCreatePath(CoreSession session,
+    public static DocumentModel getOrCreatePath(CoreSession session,
             DocumentModel root, String subPath, String folderType)
             throws ClientException {
         String[] pathSplit = subPath.split("/");
@@ -69,7 +67,7 @@ public class CaseTreeHelper {
         return child;
     }
 
-    public synchronized static final DocumentModel getOrCreate(
+    public static synchronized DocumentModel getOrCreate(
             CoreSession session, String rootPath, String id, String folderType)
             throws ClientException {
         String path = String.format("%s/%s", rootPath, id);

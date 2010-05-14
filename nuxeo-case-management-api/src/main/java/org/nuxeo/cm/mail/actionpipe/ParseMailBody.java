@@ -37,10 +37,9 @@ import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 
 
 /**
- * Parser for mail body
+ * Parser for mail body.
  *
  * @author Laurent Doguin
- *
  */
 public class ParseMailBody extends AbstractCaseManagementMailAction {
 
@@ -109,8 +108,6 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
     }
 
     /**
-     * @param toParse
-     * @param resultMap
      * @return true if the parsing is successful, otherwise false
      */
     protected static boolean parseEnglishBody(Matcher m,
@@ -153,8 +150,6 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
     }
 
     /**
-     * @param toParse
-     * @param resultMap
      * @return true if the parsing is successful, otherwise false
      */
     protected static boolean parseFrenchBody(Matcher m,

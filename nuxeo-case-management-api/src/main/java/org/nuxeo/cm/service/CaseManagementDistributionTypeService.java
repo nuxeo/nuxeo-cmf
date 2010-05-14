@@ -26,12 +26,11 @@ import org.nuxeo.ecm.core.api.ClientException;
 /**
  * <p>
  * This service is used to add Distribution Type.
- * </p>
  *
  * <p>
  * A distribution type is declared with an identifier and 3 schema properties
- * for
- * </p>
+ * for:
+ *
  * <ul>
  * <li>Internal initial recipients</li>
  * <li>External initial recipients</li>
@@ -39,7 +38,6 @@ import org.nuxeo.ecm.core.api.ClientException;
  * </ul>
  *
  * @author Nicolas Ulrich
- *
  */
 public interface CaseManagementDistributionTypeService extends Serializable {
 
@@ -51,9 +49,8 @@ public interface CaseManagementDistributionTypeService extends Serializable {
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
-     * @throws ClientException
      */
-    String getInternalProperty(final String distributionType) throws CaseManagementException;
+    String getInternalProperty(String distributionType) throws CaseManagementException;
 
     /**
      * Get the <b>initial external</b> recipients property corresponding to the
@@ -61,9 +58,8 @@ public interface CaseManagementDistributionTypeService extends Serializable {
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
-     * @throws CaseManagementException
      */
-    String getExternalProperty(final String distributionType) throws CaseManagementException;
+    String getExternalProperty(String distributionType) throws CaseManagementException;
 
     /**
      * Get the <b>all</b> recipients property corresponding to the distribution
@@ -71,8 +67,7 @@ public interface CaseManagementDistributionTypeService extends Serializable {
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
-     * @throws CaseManagementException
      */
-    String getAllProperty(final String distributionType) throws CaseManagementException;
+    String getAllProperty(String distributionType) throws CaseManagementException;
 
 }

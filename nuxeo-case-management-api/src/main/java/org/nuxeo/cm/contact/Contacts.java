@@ -30,21 +30,25 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 
-
-
 /**
  * A data structure representative for nxs:contacts complex type. It helps
  * setting/retrieving contacts data.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
- *
  */
 public class Contacts extends ArrayList<Contact> {
 
     private static final long serialVersionUID = 1L;
 
     public Contacts() {
-        super();
+    }
+
+    public Contacts(List<Map<String, Serializable>> data) {
+        if (data != null) {
+            for (Map<String, Serializable> item : data) {
+                addContact(new Contact(item));
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -57,15 +61,6 @@ public class Contacts extends ArrayList<Contact> {
             throw new ClientRuntimeException(e);
         }
         return new Contacts(data);
-    }
-
-    public Contacts(List<Map<String, Serializable>> data) {
-        super();
-        if (data != null) {
-            for (Map<String, Serializable> item : data) {
-                addContact(new Contact(item));
-            }
-        }
     }
 
     public void addContact(Contact contact) {
@@ -108,10 +103,9 @@ public class Contacts extends ArrayList<Contact> {
     }
 
     private List<String> getDatas(CONTACT_FIELD field) {
-        String name = null;
-        ArrayList<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<String>();
         for (Map<String, Serializable> contact : getContactsData()) {
-            name = (String) contact.get(field.name());
+            String name = (String) contact.get(field.name());
             if (name != null && !"".equals(name)) {
                 names.add(name);
             }
@@ -135,4 +129,5 @@ public class Contacts extends ArrayList<Contact> {
         result.deleteCharAt(result.length() - 1);
         return result.toString();
     }
+
 }

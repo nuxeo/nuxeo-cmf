@@ -44,7 +44,6 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CaseLinkImpl implements CaseLink {
 
@@ -56,8 +55,8 @@ public class CaseLinkImpl implements CaseLink {
 
     public CaseLinkImpl(DocumentModel doc,
             HasParticipants recipientAdapted) {
-        this.document = doc;
-        this.recipientAdapter = recipientAdapted;
+        document = doc;
+        recipientAdapter = recipientAdapted;
     }
 
     public String getComment() {

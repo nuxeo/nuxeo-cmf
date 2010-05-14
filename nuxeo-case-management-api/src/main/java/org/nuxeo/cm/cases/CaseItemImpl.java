@@ -36,7 +36,6 @@ import org.nuxeo.runtime.api.Framework;
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CaseItemImpl implements CaseItem {
 
@@ -50,7 +49,6 @@ public class CaseItemImpl implements CaseItem {
 
     public CaseItemImpl(DocumentModel document,
             HasParticipants recipientAdapter) {
-        super();
         this.document = document;
         this.recipientAdapter = recipientAdapter;
     }
@@ -217,13 +215,13 @@ public class CaseItemImpl implements CaseItem {
     }
 
     public Case createMailCase(CoreSession session,
-            String parentPath, String initialLifeCysleState) {
+            String parentPath, String initialLifeCycleState) {
         try {
             String emailTitle = getTitle();
             String envelopeid = IdUtils.generateId(emailTitle == null ? ""
                     : emailTitle);
             Case mailEnvelope = createEnvelope(session,
-                    parentPath, envelopeid, initialLifeCysleState);
+                    parentPath, envelopeid, initialLifeCycleState);
             mailEnvelope.addCaseItem(
                     document.getAdapter(CaseItem.class), session);
             mailEnvelope.save(session);
@@ -234,7 +232,7 @@ public class CaseItemImpl implements CaseItem {
     }
 
     protected Case createEnvelope(CoreSession session,
-            String parentPath, String id, String initialLifeCysleState)
+            String parentPath, String id, String initialLifeCycleState)
             throws ClientException {
 
         CaseManagementDocumentTypeService correspDocumentTypeService;
@@ -249,7 +247,7 @@ public class CaseItemImpl implements CaseItem {
         envelope.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
                 document.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME));
         // FIXME: make this constant available in nuxeo-core-api
-        envelope.putContextData("initialLifecycleState", initialLifeCysleState);
+        envelope.putContextData("initialLifecycleState", initialLifeCycleState);
         envelope = session.createDocument(envelope);
         return envelope.getAdapter(Case.class);
     }

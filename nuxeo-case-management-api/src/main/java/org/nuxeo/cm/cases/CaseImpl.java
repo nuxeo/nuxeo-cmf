@@ -34,10 +34,11 @@ import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.runtime.api.Framework;
 
+import static org.nuxeo.cm.cases.CaseConstants.CASE_FOLDER_DOCUMENTS_ID_TYPE;
+import static org.nuxeo.cm.cases.CaseConstants.CASE_SCHEMA;
 
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public class CaseImpl implements Case {
 
@@ -45,7 +46,7 @@ public class CaseImpl implements Case {
 
     boolean firstDocumentFlag;
 
-    Boolean incoming = null;
+    Boolean incoming;
 
     protected DocumentModel document;
 
@@ -53,9 +54,8 @@ public class CaseImpl implements Case {
 
     public CaseImpl(DocumentModel envelope,
             HasParticipants recipientsAdapater) {
-        super();
-        this.document = envelope;
-        this.recipientsAdapter = recipientsAdapater;
+        document = envelope;
+        recipientsAdapter = recipientsAdapater;
     }
 
     public DocumentModel getDocument() {
@@ -85,9 +85,7 @@ public class CaseImpl implements Case {
     protected List<String> getItemsId() {
         List<String> emailIds;
         try {
-            emailIds = (ArrayList<String>) document.getProperty(
-                    CaseConstants.CASE_SCHEMA,
-                    CaseConstants.CASE_FOLDER_DOCUMENTS_ID_TYPE);
+            emailIds = (List<String>) document.getProperty(CASE_SCHEMA, CASE_FOLDER_DOCUMENTS_ID_TYPE);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
@@ -129,8 +127,8 @@ public class CaseImpl implements Case {
 
     protected void saveItemsId(CoreSession session, List<String> itemsId) {
         try {
-            document.setProperty(CaseConstants.CASE_SCHEMA,
-                    CaseConstants.CASE_FOLDER_DOCUMENTS_ID_TYPE,
+            document.setProperty(CASE_SCHEMA,
+                    CASE_FOLDER_DOCUMENTS_ID_TYPE,
                     itemsId);
             session.saveDocument(document);
         } catch (ClientException e) {

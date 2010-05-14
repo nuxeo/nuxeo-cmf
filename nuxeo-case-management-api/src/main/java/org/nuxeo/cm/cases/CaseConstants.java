@@ -102,4 +102,9 @@ public class CaseConstants {
     public static final String FILENAME_PROPERTY_NAME = "file:filename";
 
     public static final String MAIN_INJECTION_ORIGIN = "mail";
+
+    // Constant utility class
+    private CaseConstants() {
+    }
+
 }

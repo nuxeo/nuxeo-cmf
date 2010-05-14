@@ -23,21 +23,23 @@ import java.io.Serializable;
  * Mail documents.
  *
  * @author Nicolas Ulrich
- *
  */
 public interface CaseManagementDocumentTypeService extends Serializable {
 
+    // FIXME: this javadoc is not consistent with the class-level javadoc.
     /**
-     * Get the core type of the Post
+     * Gets the core type of the Post
      *
      * @return The core type.
      */
     String getCaseLinkType();
 
+    // FIXME: this is the same as the javadoc above.
     /**
-     * Get the core type of the Post
+     * Gets the core type of the Post
      *
      * @return The core type.
      */
     String getCaseType();
+
 }

@@ -18,10 +18,11 @@ package org.nuxeo.cm.security;
 
 /**
  * @author arussel
- *
  */
 public class CaseManagementSecurityConstants {
+
     public static final String ACL_CASE_FOLDER_PREFIX = "casefolders";
 
     public static final String CASE_FOLDER_PREFIX = "casefolder_";
+
 }

@@ -34,7 +34,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author arussel
- *
  */
 public class HasParticipantsImpl implements HasParticipants {
 
@@ -47,7 +46,7 @@ public class HasParticipantsImpl implements HasParticipants {
     public HasParticipantsImpl(DocumentModel document) {
         this.document = document;
         try {
-            this.distributionType = Framework.getService(CaseManagementDistributionTypeService.class);
+            distributionType = Framework.getService(CaseManagementDistributionTypeService.class);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }

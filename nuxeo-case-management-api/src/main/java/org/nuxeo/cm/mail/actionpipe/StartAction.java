@@ -30,7 +30,6 @@ import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
  * <p>
  * Message is marked read so that it's not treated again. It's also flagged in
  * case the pipe does not finish because it cannot be treated correctly.
- * </p>
  *
  * @author Anahide Tchertchian
  */
@@ -40,12 +39,13 @@ public class StartAction extends AbstractCaseManagementMailAction {
         Message message = context.getMessage();
         if (message == null) {
             return false;
-        } else {
-            Flags flags = message.getFlags();
-            if (flags != null && flags.contains(Flag.SEEN)) {
-                return false;
-            }
         }
+
+        Flags flags = message.getFlags();
+        if (flags != null && flags.contains(Flag.SEEN)) {
+            return false;
+        }
+
         // mark message as seen
         message.setFlag(Flag.SEEN, true);
         // flag it in case it is not treated correctly

@@ -27,7 +27,6 @@ public class CaseManagementRuntimeException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public CaseManagementRuntimeException() {
-        super();
     }
 
     public CaseManagementRuntimeException(String message, Throwable cause) {
