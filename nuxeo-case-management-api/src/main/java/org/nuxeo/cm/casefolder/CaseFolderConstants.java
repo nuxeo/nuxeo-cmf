@@ -45,7 +45,7 @@ public class CaseFolderConstants {
     public static final String CASE_FOLDER_SCHEMA = "case_folder";
 
     public static final String ID_FIELD = "csfd:case_folder_id";
-    
+
     public static final String AFFILIATED_CASE_FOLDER_ID = "csfd:affiliated_case_folder_id";
 
     public static final String TITLE_FIELD = "dc:title";

@@ -43,7 +43,7 @@ import org.nuxeo.ecm.core.api.ClientException;
  */
 public interface CaseManagementDistributionTypeService extends Serializable {
 
-    public Set<String> getDistributionTypes();
+    Set<String> getDistributionTypes();
 
     /**
      * Get the <b>initial internal</b> recipients property corresponding to the
@@ -53,7 +53,7 @@ public interface CaseManagementDistributionTypeService extends Serializable {
      * @return The corresponding schema property name.
      * @throws ClientException
      */
-    public String getInternalProperty(final String distributionType) throws CaseManagementException;
+    String getInternalProperty(final String distributionType) throws CaseManagementException;
 
     /**
      * Get the <b>initial external</b> recipients property corresponding to the
@@ -63,7 +63,7 @@ public interface CaseManagementDistributionTypeService extends Serializable {
      * @return The corresponding schema property name.
      * @throws CaseManagementException
      */
-    public String getExternalProperty(final String distributionType) throws CaseManagementException;
+    String getExternalProperty(final String distributionType) throws CaseManagementException;
 
     /**
      * Get the <b>all</b> recipients property corresponding to the distribution
@@ -73,6 +73,6 @@ public interface CaseManagementDistributionTypeService extends Serializable {
      * @return The corresponding schema property name.
      * @throws CaseManagementException
      */
-    public String getAllProperty(final String distributionType) throws CaseManagementException;
+    String getAllProperty(final String distributionType) throws CaseManagementException;
 
 }

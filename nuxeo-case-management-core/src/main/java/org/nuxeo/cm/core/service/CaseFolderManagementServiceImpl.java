@@ -375,7 +375,7 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
 
     /**
      * Encapsulates lookup and exception management.
-     * 
+     *
      * @return The DirectoryService, guaranteed not null
      * @throws DirectoryException
      */

@@ -49,11 +49,6 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
         this.mailboxes = mailboxes;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.nuxeo.ecm.core.api.UnrestrictedSessionRunner#run()
-     */
     @Override
     public void run() throws ClientException {
         DocumentModel newDoc = session.createDocument(doc);

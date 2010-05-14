@@ -74,7 +74,7 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 
 /**
  * Handles mailboxes creation/edition and views.
- * 
+ *
  */
 @Name("cmCaseFolderActions")
 @Scope(ScopeType.CONVERSATION)
@@ -369,7 +369,7 @@ CaseManagementAbstractActionsBean implements Serializable {
 
     /**
      * Create a mail draft mail
-     * 
+     *
      * @param type
      * @return
      * @throws ClientException

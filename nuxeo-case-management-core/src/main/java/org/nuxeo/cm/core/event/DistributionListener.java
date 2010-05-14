@@ -46,10 +46,10 @@ import org.nuxeo.ecm.core.event.EventListener;
 /**
  * Listener for distribution events that sets recipient mailbox user/groups
  * rights on the envelope and related documents.
- * 
+ *
  * FIXME: this cannot be kept as is, otherwise new mailbox delegates won't be
  * able to access these documents.
- * 
+ *
  * @author Anahide Tchertchian
  */
 public class DistributionListener implements EventListener {

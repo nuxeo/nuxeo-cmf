@@ -35,7 +35,7 @@ public interface CaseManagementDocumentActions extends Serializable {
      * Document will be created in a hierarchy yyyy/mm/dd below current document
      * (mail root)
      */
-    public String createCaseItemInCase() throws ClientException;
+    String createCaseItemInCase() throws ClientException;
 
     /**
      * Return the Layout Mode for the current user. If the user can write the
@@ -43,18 +43,18 @@ public interface CaseManagementDocumentActions extends Serializable {
      *
      * @throws ClientException
      */
-    public String getCaseItemLayoutMode() throws ClientException;
+    String getCaseItemLayoutMode() throws ClientException;
 
     /**
      * Check if the current user can edit the document (right + lock)
      *
      * @throws ClientException
      */
-    public boolean getCanEditCurrentCaseItem() throws ClientException;
+    boolean getCanEditCurrentCaseItem() throws ClientException;
 
     /**
      * Saves changes hold by the changeableDocument document model.
      */
-    public void updateCurrentCaseItem() throws ClientException;
+    void updateCurrentCaseItem() throws ClientException;
 
 }

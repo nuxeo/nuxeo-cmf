@@ -33,7 +33,7 @@ import org.nuxeo.cm.service.CaseFolderManagementService;
 /**
  * Correspondence service business delegate, exposing the service to the seam
  * layer.
- * 
+ *
  * @author Anahide Tchertchian
  */
 @Name("caseFolderManagementService")

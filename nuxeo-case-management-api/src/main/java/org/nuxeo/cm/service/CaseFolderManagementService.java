@@ -52,7 +52,7 @@ public interface CaseFolderManagementService extends Serializable {
      *
      * @param muid mailbox id
      */
-    public boolean hasCaseFolder(String muid);
+    boolean hasCaseFolder(String muid);
 
     /**
      * Returns the mailbox header with given unique identifier.
@@ -140,7 +140,7 @@ public interface CaseFolderManagementService extends Serializable {
      *
      * @param userId
      */
-    public List<CaseFolder> createPersonalCaseFolders(CoreSession session,
+    List<CaseFolder> createPersonalCaseFolders(CoreSession session,
             String userId);
 
     /**
@@ -152,4 +152,3 @@ public interface CaseFolderManagementService extends Serializable {
      */
     boolean hasUserPersonalCaseFolder(CoreSession session, String userId);
 }
-

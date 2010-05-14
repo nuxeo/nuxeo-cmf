@@ -40,11 +40,6 @@ public class GetParentPathUnrestricted extends UnrestrictedSessionRunner {
         return parentPath;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.nuxeo.ecm.core.api.UnrestrictedSessionRunner#run()
-     */
     @Override
     public void run() throws ClientException {
         // Retrieve the MailRoot folder

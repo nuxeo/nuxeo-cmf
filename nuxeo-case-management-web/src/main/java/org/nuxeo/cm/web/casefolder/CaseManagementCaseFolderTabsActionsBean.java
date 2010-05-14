@@ -43,9 +43,9 @@ import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 
 /**
  * Handle tabs behaviors for Mailbox View and Mailbox Management.
- * 
+ *
  * @author nulrich
- * 
+ *
  */
 @Name("cmCaseFolderTabsActionsBean")
 @Scope(ScopeType.CONVERSATION)
@@ -153,7 +153,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
 
     /**
      * Set the current tab (Action) for Mailbox Management
-     * 
+     *
      * @param actionId
      * @throws ClientException
      */
@@ -169,7 +169,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
 
     /**
      * Set the current tab (Action) for Mailbox View
-     * 
+     *
      * @param actionId
      * @throws ClientException
      */
@@ -184,7 +184,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
 
     /**
      * Set the current tab (Action) for Distribution Envelope view
-     * 
+     *
      * @param actionId
      * @throws ClientException
      */

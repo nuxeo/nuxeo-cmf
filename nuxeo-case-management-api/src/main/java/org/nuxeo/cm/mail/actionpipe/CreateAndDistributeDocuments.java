@@ -55,7 +55,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Transforms received email in a set of document models and distribute them.
- * 
+ *
  * @author Laurent Doguin
  */
 public class CreateAndDistributeDocuments extends

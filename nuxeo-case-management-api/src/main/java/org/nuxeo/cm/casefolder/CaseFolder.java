@@ -83,12 +83,12 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
     /**
      * Returns owner of the mailbox.
      */
-    public String getOwner();
+    String getOwner();
 
     /**
      * Sets owner of the mailbox.
      */
-    public void setOwner(String owner);
+    void setOwner(String owner);
 
     /**
      * Gets the list of member users of this mailbox.

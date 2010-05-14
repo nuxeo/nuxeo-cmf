@@ -29,7 +29,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.api.Framework;
 /**
  * @author arussel
- * 
+ *
  */
 @Name("caseDistributionService")
 @Scope(APPLICATION)

@@ -44,7 +44,7 @@ import org.nuxeo.ecm.platform.audit.web.listener.ejb.LinkedDocument;
 
 /**
  * Retrieves log entries for current case folder
- * 
+ *
  * @author Anahide Tchertchian
  */
 @Name("cmHistoryActions")

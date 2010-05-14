@@ -31,7 +31,7 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 
 /**
  * @author Nulrich
- * 
+ *
  */
 public class TestModel extends SQLRepositoryTestCase {
 
@@ -96,5 +96,5 @@ public class TestModel extends SQLRepositoryTestCase {
 
     }
 
-   
+
 }

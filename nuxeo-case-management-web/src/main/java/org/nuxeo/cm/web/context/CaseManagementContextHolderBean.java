@@ -33,10 +33,10 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Minimal context holder.
- * 
+ *
  * <p>
  * Has to stay light-weight to be easily injected in other components.
- * 
+ *
  * @author Anahide Tchertchian
  */
 @Name("cmContextHolder")

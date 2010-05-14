@@ -32,12 +32,12 @@ public interface CaseManagementDocumentTypeService extends Serializable {
      *
      * @return The core type.
      */
-    public String getCaseLinkType();
+    String getCaseLinkType();
 
     /**
      * Get the core type of the Post
      *
      * @return The core type.
      */
-    public String getCaseType();
+    String getCaseType();
 }

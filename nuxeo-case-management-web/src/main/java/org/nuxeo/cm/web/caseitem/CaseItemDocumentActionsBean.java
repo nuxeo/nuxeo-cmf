@@ -53,7 +53,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * @author Anahide Tchertchian
- * 
+ *
  */
 @Name("cmDocumentActions")
 @Scope(ScopeType.CONVERSATION)
