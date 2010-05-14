@@ -39,7 +39,6 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
  * provider name.
  *
  * @author nulrich
- *
  */
 public abstract class CaseManagementAbstractActionsBean extends
         CaseManagementContextBoundInstance {
@@ -57,15 +56,10 @@ public abstract class CaseManagementAbstractActionsBean extends
     protected PagedDocumentsProvider resultsProvider;
 
     /**
-     * Retrieve a SelectDataModel in the cache from it the provider name
-     *
-     * @param providerName
-     * @return
-     * @throws ClientException
+     * Retrieves a SelectDataModel in the cache from it the provider name.
      */
     protected SelectDataModel getSelectDataModelFromProvider(
-            final String providerName) throws ClientException {
-
+            String providerName) throws ClientException {
         ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance(RESULTS_PROVIDERS_CACHE);
 
         resultsProvider = resultsProvidersCache.get(providerName);

@@ -226,12 +226,11 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
         emailDoc.setPathInfo(parentPath, docName);
-        DocumentModel mail;
         try {
             CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
                     session, emailDoc, mailboxes);
             mailCreator.runUnrestricted();
-            mail = session.getDocument(mailCreator.getDocRef());
+            DocumentModel mail = session.getDocument(mailCreator.getDocRef());
             // Create envelope
             CreateCaseUnrestricted envelopeCreator = new CreateCaseUnrestricted(
                     session, mail.getAdapter(CaseItem.class), parentPath, mailboxes);

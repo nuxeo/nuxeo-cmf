@@ -52,7 +52,7 @@ public class CaseFolderImpl implements CaseFolder {
 
     private static final Log log = LogFactory.getLog(CaseFolder.class);
 
-    protected DocumentModel doc;
+    protected final DocumentModel doc;
 
     public CaseFolderImpl(DocumentModel doc) {
         this.doc = doc;

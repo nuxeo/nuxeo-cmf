@@ -26,7 +26,7 @@ import org.nuxeo.cm.casefolder.CaseFolderImpl;
  * @author Anahide Tchertchian
  *
  */
-public class MockCaseFolder extends CaseFolderImpl implements CaseFolder  {
+public class MockCaseFolder extends CaseFolderImpl {
 
     private static final long serialVersionUID = 1L;
 

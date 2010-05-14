@@ -329,8 +329,7 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
             log.debug(String.format("Parsing date '%s'", dateString));
             SimpleDateFormat sdf = new SimpleDateFormat(ENGLISH_DATE_FORMAT,
                     Locale.ENGLISH);
-            Date date;
-            date = sdf.parse(dateString.trim());
+            Date date = sdf.parse(dateString.trim());
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
 

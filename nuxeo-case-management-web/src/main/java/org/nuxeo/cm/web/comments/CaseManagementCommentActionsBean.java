@@ -69,8 +69,7 @@ CaseManagementContextBoundInstance {
 
     @Factory(value = "caseItemThreadedComments", scope = EVENT)
     public List<ThreadEntry> getCommentsAsThread() throws ClientException {
-        List<ThreadEntry> entries = commentManagerActions.getCommentsAsThread(getCurrentCaseItem());
-        return entries;
+        return commentManagerActions.getCommentsAsThread(getCurrentCaseItem());
     }
 
     public List<Action> getActionsForComment() {

@@ -65,15 +65,14 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Name("cmDistributionActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementDistributionActionsBean extends
-CaseManagementContextBoundInstance implements Serializable {
+public class CaseManagementDistributionActionsBean extends CaseManagementContextBoundInstance {
+
+    public static final String DISTRIBUTION_ACTION_TABS_CATEGORY = "DISTRIBUTION_TABS";
 
     private static final long serialVersionUID = 1L;
 
     @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(CaseManagementDistributionActionsBean.class);
-
-    public static final String DISTRIBUTION_ACTION_TABS_CATEGORY = "DISTRIBUTION_TABS";
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -145,13 +144,13 @@ CaseManagementContextBoundInstance implements Serializable {
                         "feedback.casemanagement.distribution.invalidCurrentCaseFolder"));
                 return null;
             }
-            DocumentModel emailDoc = null;
-            Case envelope = null;
-            envelope = getCurrentCase();
-            if (CaseLinkMode.ENTIRE_ENVELOPE.equals(mode)) {
+
+            Case envelope = getCurrentCase();
+            DocumentModel emailDoc;
+            if (mode == CaseLinkMode.ENTIRE_ENVELOPE) {
                 envelopeDoc = envelope.getDocument();
                 emailDoc = envelope.getFirstItem(documentManager).getDocument();
-            } else if (CaseLinkMode.DOC_ONLY.equals(mode)) {
+            } else if (mode == CaseLinkMode.DOC_ONLY) {
                 emailDoc = getCurrentCaseItem();
                 // XXX: user same parent than current email for new envelope,
                 // maybe to change.

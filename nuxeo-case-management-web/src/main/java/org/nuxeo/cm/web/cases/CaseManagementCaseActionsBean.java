@@ -40,13 +40,12 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * @author Nicolas Ulrich
- *
  */
 @Name("cmCaseActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementCaseActionsBean extends
-        CaseManagementAbstractActionsBean implements Serializable {
+        CaseManagementAbstractActionsBean {
 
     private static final long serialVersionUID = 1L;
 
@@ -61,7 +60,6 @@ public class CaseManagementCaseActionsBean extends
 
     /**
      * @return true if this envelope is still in draft
-     * @throws ClientException
      */
     public boolean isInitialCase() throws ClientException {
         Case env = getCurrentCase();
@@ -74,17 +72,14 @@ public class CaseManagementCaseActionsBean extends
     }
 
     /**
-     * Remove a mail from the current envelope
+     * Removes a mail from the current envelope.
      *
      * @param doc the mail to remove
-     * @throws ClientException
      */
     public void removeCaseItem(DocumentModel doc) throws ClientException {
-
         Case currentEnvelope = getCurrentCase();
         CaseItem item = doc.getAdapter(CaseItem.class);
         currentEnvelope.removeCaseItem(item, documentManager);
-
     }
 
 }

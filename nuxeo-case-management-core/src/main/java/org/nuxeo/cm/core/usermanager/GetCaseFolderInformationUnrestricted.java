@@ -34,9 +34,9 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 public class GetCaseFolderInformationUnrestricted extends
         UnrestrictedSessionRunner {
 
-    protected CaseFolderManagementService service;
+    protected final CaseFolderManagementService service;
 
-    protected String caseFolderId;
+    protected final String caseFolderId;
 
     protected List<String> members;
 

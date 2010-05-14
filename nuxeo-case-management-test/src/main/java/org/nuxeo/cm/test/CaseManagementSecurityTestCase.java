@@ -47,7 +47,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
 
@@ -133,7 +132,6 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
     }
 
     public DocumentModel getMailEnvelopeModel() throws Exception {
-
         CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
@@ -145,9 +143,7 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
         return mailEnvelopeModel;
     }
 
-    public void createDraftPost(CaseFolder mb, Case envelope)
-    throws Exception {
-
+    public void createDraftPost(CaseFolder mb, Case envelope) throws Exception {
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
@@ -215,4 +211,5 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
         mailRootdoc.setACP(acp, true);
         session.save();
     }
+
 }

@@ -28,4 +28,7 @@ public class CaseManagementWebConstants {
     public static final String MANAGE_CASE_FOLDER_ACTION_LIST = "MANAGE_CASE_FOLDER_ACTION_LIST";
     public static final String DISTRIBUTION_CASE_ACTION_LIST = "DISTRIBUTION_CASE_ACTION_LIST";
 
+    private CaseManagementWebConstants() {
+    }
+
 }

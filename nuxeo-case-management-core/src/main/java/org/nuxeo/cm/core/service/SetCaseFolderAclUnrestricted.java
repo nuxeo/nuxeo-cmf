@@ -43,7 +43,7 @@ import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
 public class SetCaseFolderAclUnrestricted extends UnrestrictedSessionRunner {
 
     // Mailbox document model
-    protected DocumentRef ref;
+    protected final DocumentRef ref;
 
     public SetCaseFolderAclUnrestricted(CoreSession session, DocumentRef ref) {
         super(session);
@@ -58,9 +58,8 @@ public class SetCaseFolderAclUnrestricted extends UnrestrictedSessionRunner {
         ACL mailACL = new ACLImpl(mb.getId());
         List<String> total = mb.getAllUsersAndGroups();
         if (!total.isEmpty()) {
-            ACE ace;
             for (String user : total) {
-                ace = new ACE(user, SecurityConstants.READ_WRITE, true);
+                ACE ace = new ACE(user, SecurityConstants.READ_WRITE, true);
                 localACL.add(ace);
                 mailACL.add(ace);
             }

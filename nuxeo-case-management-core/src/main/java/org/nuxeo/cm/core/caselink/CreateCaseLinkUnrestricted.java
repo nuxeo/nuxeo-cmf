@@ -35,7 +35,6 @@ import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetCaseFoldersUnrestricted;
-import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;

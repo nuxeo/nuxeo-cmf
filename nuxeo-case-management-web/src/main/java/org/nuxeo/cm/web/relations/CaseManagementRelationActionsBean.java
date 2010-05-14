@@ -76,7 +76,7 @@ import org.nuxeo.runtime.api.Framework;
 
 
 /**
- * Retrieves relations for current email
+ * Retrieves relations for current email.
  *
  * @author Anahide Tchertchian
  */
@@ -314,7 +314,7 @@ CaseManagementContextBoundInstance {
     throws ClientException {
         try {
             QueryModel qm = queryModelActions.get(CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL);
-            Object[] params = new Object[] { getCurrentCaseItem().getId(), input };
+            Object[] params = { getCurrentCaseItem().getId(), input };
             PagedDocumentsProvider pageProvider = qm.getResultsProvider(
                     documentManager, params, null);
             return pageProvider.getCurrentPage();

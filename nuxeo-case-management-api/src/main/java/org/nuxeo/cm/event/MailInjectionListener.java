@@ -56,7 +56,7 @@ import org.nuxeo.runtime.api.Framework;
  */
 public class MailInjectionListener implements EventListener {
 
-    private static Log log = LogFactory.getLog(MailInjectionListener.class);
+    private static final Log log = LogFactory.getLog(MailInjectionListener.class);
 
     private static final String INBOX = "INBOX";
 

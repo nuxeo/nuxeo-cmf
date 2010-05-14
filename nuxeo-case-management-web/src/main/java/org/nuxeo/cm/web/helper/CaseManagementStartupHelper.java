@@ -104,4 +104,5 @@ public class CaseManagementStartupHelper extends StartupHelper {
             }
         }
     }
+
 }

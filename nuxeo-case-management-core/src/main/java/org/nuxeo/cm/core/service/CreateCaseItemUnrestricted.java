@@ -35,9 +35,9 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
  */
 public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
 
-    protected DocumentModel doc;
+    protected final DocumentModel doc;
 
-    protected List<CaseFolder> mailboxes;
+    protected final List<CaseFolder> mailboxes;
 
     protected DocumentRef ref;
 

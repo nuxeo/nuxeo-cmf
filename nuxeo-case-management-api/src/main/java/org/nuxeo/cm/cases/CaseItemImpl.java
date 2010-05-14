@@ -43,9 +43,9 @@ public class CaseItemImpl implements CaseItem {
 
     protected Case envelope;
 
-    protected HasParticipants recipientAdapter;
+    protected final HasParticipants recipientAdapter;
 
-    protected DocumentModel document;
+    protected final DocumentModel document;
 
     public CaseItemImpl(DocumentModel document,
             HasParticipants recipientAdapter) {

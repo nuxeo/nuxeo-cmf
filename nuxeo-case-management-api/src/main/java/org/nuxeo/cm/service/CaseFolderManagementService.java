@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderHeader;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 
 /**

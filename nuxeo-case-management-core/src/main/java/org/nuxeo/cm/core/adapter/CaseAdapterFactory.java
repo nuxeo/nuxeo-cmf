@@ -19,7 +19,6 @@
 package org.nuxeo.cm.core.adapter;
 
 import org.nuxeo.cm.cases.HasParticipants;
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseImpl;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;

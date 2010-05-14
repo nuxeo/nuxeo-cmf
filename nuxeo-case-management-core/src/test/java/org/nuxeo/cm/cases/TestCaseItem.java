@@ -70,11 +70,13 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         Calendar date = GregorianCalendar.getInstance();
         String title = "my title";
         String cdf = "4";
+
         item.setTitle(title);
         item.setConfidentiality(cdf);
         item.setSendingDate(date);
         item.save(session);
         closeSession();
+
         openSession();
         DocumentModel model = session.getDocument(new IdRef(id));
         HasParticipants adapter = model.getAdapter(HasParticipants.class);
@@ -90,6 +92,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         assertNotNull(envelope);
         String id = envelope.getDocument().getId();
         closeSession();
+
         openSession();
         DocumentModel model = session.getDocument(new IdRef(id));
         HasParticipants adapter = model.getAdapter(HasParticipants.class);

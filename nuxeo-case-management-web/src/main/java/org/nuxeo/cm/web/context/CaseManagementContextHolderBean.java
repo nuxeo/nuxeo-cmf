@@ -33,7 +33,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Minimal context holder.
- *
  * <p>
  * Has to stay light-weight to be easily injected in other components.
  *
@@ -71,7 +70,7 @@ public class CaseManagementContextHolderBean implements
     public DocumentModel getCurrentCaseItem() throws ClientException {
         if (currentEmail == null && currentEnvelope != null) {
             // lazily fetch current email
-            setCurrentCaseItem(currentEnvelope.getFirstItem(documentManager).getDocument());
+            currentEmail = currentEnvelope.getFirstItem(documentManager).getDocument();
         }
         return currentEmail;
     }

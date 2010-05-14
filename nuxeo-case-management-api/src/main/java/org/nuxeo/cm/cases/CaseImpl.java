@@ -48,14 +48,14 @@ public class CaseImpl implements Case {
 
     Boolean incoming;
 
-    protected DocumentModel document;
+    protected final DocumentModel document;
 
-    protected HasParticipants recipientsAdapter;
+    protected final HasParticipants recipientsAdapter;
 
     public CaseImpl(DocumentModel envelope,
-            HasParticipants recipientsAdapater) {
+            HasParticipants recipientsAdapter) {
         document = envelope;
-        recipientsAdapter = recipientsAdapater;
+        this.recipientsAdapter = recipientsAdapter;
     }
 
     public DocumentModel getDocument() {

@@ -21,7 +21,6 @@ package org.nuxeo.cm.web.casefolder;
 
 import static org.jboss.seam.ScopeType.EVENT;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -45,13 +44,12 @@ import org.nuxeo.ecm.platform.ui.web.api.WebActions;
  * Handle tabs behaviors for Mailbox View and Mailbox Management.
  *
  * @author nulrich
- *
  */
 @Name("cmCaseFolderTabsActionsBean")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementCaseFolderTabsActionsBean extends
-        CaseManagementContextBoundInstance implements Serializable {
+        CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -152,10 +150,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
     }
 
     /**
-     * Set the current tab (Action) for Mailbox Management
-     *
-     * @param actionId
-     * @throws ClientException
+     * Sets the current tab (Action) for Mailbox Management.
      */
     public void setCurrentViewCaseFolderAction(String actionId)
             throws ClientException {
@@ -168,10 +163,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
     }
 
     /**
-     * Set the current tab (Action) for Mailbox View
-     *
-     * @param actionId
-     * @throws ClientException
+     * Sets the current tab (Action) for Mailbox View.
      */
     public void setCurrentManageCaseFolderAction(String actionId)
             throws ClientException {
@@ -183,10 +175,7 @@ public class CaseManagementCaseFolderTabsActionsBean extends
     }
 
     /**
-     * Set the current tab (Action) for Distribution Envelope view
-     *
-     * @param actionId
-     * @throws ClientException
+     * Sets the current tab (Action) for Distribution Envelope view.
      */
     public void setCurrentDistributionCaseAction(String actionId)
             throws ClientException {

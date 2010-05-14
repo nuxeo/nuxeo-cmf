@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.ecm.core.api.ClientException;
 
 
 /**

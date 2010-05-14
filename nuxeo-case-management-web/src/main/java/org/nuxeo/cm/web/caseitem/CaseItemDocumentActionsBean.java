@@ -116,7 +116,6 @@ public class CaseItemDocumentActionsBean extends
 
         TypeInfo typeInfo = envelopeDocModel.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
-
     }
 
     protected String getParentFolderPath() throws ClientException {
@@ -129,8 +128,9 @@ public class CaseItemDocumentActionsBean extends
 
         DocumentModel currentEmail = getCurrentCaseItem();
 
-        if (currentEmail == null)
+        if (currentEmail == null) {
             return false;
+        }
 
         LockableAdapter lockableMail = currentEmail.getAdapter(LockableAdapter.class);
         if (lockableMail.isLocked(documentManager)) {
@@ -143,7 +143,6 @@ public class CaseItemDocumentActionsBean extends
         }
 
         return false;
-
     }
 
     /**
@@ -158,7 +157,6 @@ public class CaseItemDocumentActionsBean extends
                 resourcesAccessor.getMessages().get(DOCUMENT_MODIFIED),
                 resourcesAccessor.getMessages().get(currentEmail.getType()));
         EventManager.raiseEventsOnDocumentChange(currentEmail.getDocument());
-
     }
 
     public boolean isCurrentCaseItemPreviewAvailable() throws ClientException {
@@ -188,7 +186,6 @@ public class CaseItemDocumentActionsBean extends
             }
             editingMail = true;
         }
-
     }
 
     public void quitEditingMail() throws ClientException {
@@ -232,4 +229,5 @@ public class CaseItemDocumentActionsBean extends
             DocumentModel newEmail) throws ClientException {
         editingMail = false;
     }
+
 }

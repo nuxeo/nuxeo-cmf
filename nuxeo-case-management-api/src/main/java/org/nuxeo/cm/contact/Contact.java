@@ -36,7 +36,7 @@ public class Contact implements Serializable, Comparable<Contact> {
         name, email, surname, service, caseFolderId
     }
 
-    private static final CONTACT_FIELD[] FIELDS_FOR_FULLTEXT_INDEXING = new CONTACT_FIELD[] {
+    private static final CONTACT_FIELD[] FIELDS_FOR_FULLTEXT_INDEXING = {
             CONTACT_FIELD.name, CONTACT_FIELD.email, CONTACT_FIELD.surname,
             CONTACT_FIELD.service, CONTACT_FIELD.caseFolderId };
 

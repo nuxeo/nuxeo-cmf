@@ -33,7 +33,6 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.casefolder.CaseFolderHeader;
-import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.cm.service.CaseFolderManagementService;
@@ -77,7 +76,7 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
 
     protected EventProducer eventProducer;
 
-    protected Map<String, Serializable> context = null;
+    protected Map<String, Serializable> context;
 
 
     public CaseFolder getCaseFolder(CoreSession session, String muid) {

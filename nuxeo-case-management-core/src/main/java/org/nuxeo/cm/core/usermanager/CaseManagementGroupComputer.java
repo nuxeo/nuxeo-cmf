@@ -49,8 +49,7 @@ import org.nuxeo.runtime.api.Framework;
  *
  * @author Anahide Tchertchian
  */
-public class CaseManagementGroupComputer extends AbstractGroupComputer
-        implements GroupComputer {
+public class CaseManagementGroupComputer extends AbstractGroupComputer {
 
     public static final ThreadLocal<Boolean> disableRetrieveCaseFolders = new ThreadLocal<Boolean>();
 
@@ -168,11 +167,9 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer
     }
 
     protected CoreSession openCoreSession(String username) {
-        Repository repository;
         try {
             String repositoryName = getRepoName();
-            repository = Framework.getService(RepositoryManager.class).getRepository(
-                    repositoryName);
+            Repository repository = Framework.getService(RepositoryManager.class).getRepository(repositoryName);
             if (repository == null) {
                 throw new ClientException("Cannot get repository: "
                         + repositoryName);

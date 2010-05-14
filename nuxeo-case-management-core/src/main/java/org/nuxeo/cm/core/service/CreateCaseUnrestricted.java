@@ -38,11 +38,11 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
  */
 public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
 
-    protected CaseItem item;
+    protected final CaseItem item;
+    protected final String parentPath;
+    protected final List<CaseFolder> mailboxes;
 
     protected DocumentRef ref;
-    protected String parentPath;
-    protected List<CaseFolder> mailboxes;
 
     public CreateCaseUnrestricted(CoreSession session, CaseItem item, String parentPath, List<CaseFolder> mailboxes) {
         super(session);

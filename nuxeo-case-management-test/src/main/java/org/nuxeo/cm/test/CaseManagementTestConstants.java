@@ -21,7 +21,6 @@ package org.nuxeo.cm.test;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class CaseManagementTestConstants {
 

@@ -17,6 +17,7 @@
  * $Id$
  */
 
+// FIXME: typoi package name
 package org.nuxeo.cm.web.histrory;
 
 import static org.jboss.seam.ScopeType.EVENT;
@@ -204,7 +205,7 @@ CaseManagementContextBoundInstance {
     // FIXME: optimize....
     protected List<LogEntry> distributionPostFilter(
             List<? extends LogEntry> logEntries) throws AuditException {
-        ArrayList<LogEntry> distLogEntries = new ArrayList<LogEntry>();
+        List<LogEntry> distLogEntries = new ArrayList<LogEntry>();
 
         if (logEntries == null) {
             return null;
@@ -222,7 +223,7 @@ CaseManagementContextBoundInstance {
     // FIXME: optimize....
     protected List<LogEntry> everyThingElseThanDistributionPostFilter(
             List<? extends LogEntry> logEntries) throws AuditException {
-        ArrayList<LogEntry> otherLogEntries = new ArrayList<LogEntry>();
+        List<LogEntry> otherLogEntries = new ArrayList<LogEntry>();
 
         if (logEntries == null) {
             return null;

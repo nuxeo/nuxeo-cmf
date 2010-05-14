@@ -143,7 +143,6 @@ public class CreateAndDistributeDocuments extends
         String parentPath = parent.getPathAsString();
         List<Blob> blobs = (List<Blob>) context.get(ATTACHMENTS_KEY);
         boolean first = true;
-        CaseItem item;
         Case envelope = null;
         for (Blob blob : blobs) {
             DocumentModel emailDoc = session.createDocumentModel(getCorrespondenceDocumentTypeToCreate());
@@ -214,7 +213,7 @@ public class CreateAndDistributeDocuments extends
 
             emailDoc = session.createDocument(emailDoc);
 
-            item = emailDoc.getAdapter(CaseItem.class);
+            CaseItem item = emailDoc.getAdapter(CaseItem.class);
             item.save(session);
             if (first) {
                 envelope = item.createMailCase(session,

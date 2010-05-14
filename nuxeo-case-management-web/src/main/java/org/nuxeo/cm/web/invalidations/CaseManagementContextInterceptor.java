@@ -63,7 +63,6 @@ public class CaseManagementContextInterceptor extends AbstractInterceptor {
                 }
             }
         }
-        return;
     }
 
     protected CaseManagementContextHolder getCaseManagementContextHolder() {

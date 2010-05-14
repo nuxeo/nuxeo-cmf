@@ -28,11 +28,11 @@ public class CaseFolderHeaderImpl implements CaseFolderHeader {
 
     private static final long serialVersionUID = 1L;
 
-    protected String title;
+    protected final String title;
 
-    protected String id;
+    protected final String id;
 
-    protected String type;
+    protected final String type;
 
     public CaseFolderHeaderImpl(String id, String title, String type) {
         this.title = title;

@@ -36,7 +36,7 @@ public class LockableAdapterImpl implements LockableAdapter {
 
     private static final Log log = LogFactory.getLog(LockableAdapterImpl.class);
 
-    protected DocumentModel document;
+    protected final DocumentModel document;
 
     public LockableAdapterImpl(DocumentModel document) {
         this.document = document;

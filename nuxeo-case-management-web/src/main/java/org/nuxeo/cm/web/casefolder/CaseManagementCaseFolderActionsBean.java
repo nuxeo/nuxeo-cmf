@@ -22,7 +22,6 @@ package org.nuxeo.cm.web.casefolder;
 
 import static org.jboss.seam.ScopeType.EVENT;
 
-import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,13 +73,11 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 
 /**
  * Handles mailboxes creation/edition and views.
- *
  */
 @Name("cmCaseFolderActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementCaseFolderActionsBean extends
-CaseManagementAbstractActionsBean implements Serializable {
+public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractActionsBean {
 
     private static final long serialVersionUID = 1L;
 
@@ -132,9 +129,9 @@ CaseManagementAbstractActionsBean implements Serializable {
     }
 
     /**
-     * Returns all mailboxes for logged user
+     * Returns all mailboxes for logged user.
      */
-    @Factory(value = "userCaseFolders", scope = ScopeType.EVENT)
+    @Factory(value = "userCaseFolders", scope = EVENT)
     public List<CaseFolder> getUserCaseFolders() throws CaseManagementException {
         if (userMailboxes == null) {
             userMailboxes = new ArrayList<CaseFolder>();
@@ -351,7 +348,7 @@ CaseManagementAbstractActionsBean implements Serializable {
     }
 
     public void resetParentMailboxId() {
-        setParentCaseFolderId(null);
+        parentMailboxId = null;
     }
 
     /**
@@ -368,11 +365,7 @@ CaseManagementAbstractActionsBean implements Serializable {
     }
 
     /**
-     * Create a mail draft mail
-     *
-     * @param type
-     * @return
-     * @throws ClientException
+     * Creates a mail draft mail.
      */
     public String createDraftCaseItem(String type) throws ClientException {
 
