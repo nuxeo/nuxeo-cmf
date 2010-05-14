@@ -241,10 +241,10 @@
 
   <scm>
     <connection>
-      scm:svn:http://hg.nuxeo.org/nuxeo-case-management
+      scm:hg:http://hg.nuxeo.org/nuxeo-case-management
     </connection>
     <developerConnection>
-      scm:svn:https://hg.nuxeo.org/nuxeo-case-management
+      scm:hg:https://hg.nuxeo.org/nuxeo-case-management
     </developerConnection>
     <url>http://hg.nuxeo.org/nuxeo-case-management/</url>
   </scm>
