@@ -27,15 +27,13 @@ import org.nuxeo.runtime.model.DefaultComponent;
  *
  */
 public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
-        implements CaseManagementDocumentTypeService {
+implements CaseManagementDocumentTypeService {
 
     private static final long serialVersionUID = 1L;
 
     private String postDocType;
 
     private String envelopeDocType;
-
-    private String responseOutgoingDocType;
 
     @Override
     public void activate(ComponentContext context) throws Exception {
@@ -45,7 +43,7 @@ public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
     @Override
     public void registerContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+    throws Exception {
 
         CaseManagementDocumentTypeDescriptor distributionType = ((CaseManagementDocumentTypeDescriptor) contribution);
 
@@ -55,10 +53,6 @@ public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
 
         if (distributionType.envelopeDocType != null) {
             envelopeDocType = distributionType.envelopeDocType;
-        }
-
-        if (distributionType.outgoingDocType != null) {
-            responseOutgoingDocType = distributionType.outgoingDocType;
         }
 
     }
@@ -76,10 +70,6 @@ public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
 
     public String getCaseLinkType() {
         return this.postDocType;
-    }
-
-    public String getResponseOutgoingDocType() {
-        return this.responseOutgoingDocType;
     }
 
 }

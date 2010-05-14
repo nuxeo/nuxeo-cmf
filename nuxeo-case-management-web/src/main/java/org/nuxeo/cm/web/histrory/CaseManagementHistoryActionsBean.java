@@ -89,12 +89,10 @@ CaseManagementContextBoundInstance {
     public List<? extends LogEntry> computeLogEntries() throws AuditException {
         if (logEntries == null) {
             try {
-                if (getCurrentCase() != null) {
-                    DocumentModel currentEmail = getCurrentCase().getDocument();
-                    if (currentEmail != null) {
-                        logEntries = contentHistoryActions.computeLogEntries(currentEmail);
-                        logEntries = this.everyThingElseThanDistributionPostFilter(logEntries);
-                    }
+                DocumentModel currentEmail = getCurrentCaseItem();
+                if (currentEmail != null) {
+                    logEntries = contentHistoryActions.computeLogEntries(currentEmail);
+                    logEntries = this.everyThingElseThanDistributionPostFilter(logEntries);
                 }
             } catch (ClientException e) {
                 throw new AuditException(e);
@@ -108,12 +106,10 @@ CaseManagementContextBoundInstance {
     throws AuditException {
         if (distributionLogEntries == null) {
             try {
-                if (getCurrentCase() != null) {
-                    DocumentModel currentEmail = getCurrentCase().getDocument();
-                    if (currentEmail != null) {
-                        distributionLogEntries = contentHistoryActions.computeLogEntries(currentEmail);
-                        distributionLogEntries = distributionPostFilter(distributionLogEntries);
-                    }
+                DocumentModel currentEmail = getCurrentCaseItem();
+                if (currentEmail != null) {
+                    distributionLogEntries = contentHistoryActions.computeLogEntries(currentEmail);
+                    distributionLogEntries = distributionPostFilter(distributionLogEntries);
                 }
             } catch (ClientException e) {
                 throw new AuditException(e);

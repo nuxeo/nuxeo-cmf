@@ -19,7 +19,7 @@ package org.nuxeo.cm.service;
 import java.io.Serializable;
 
 /**
- * Used to setup the core type of the Post, Envelope, Outgoing Mail and Incoming
+ * Used to setup the core type of the Post, Envelope and Incoming
  * Mail documents.
  *
  * @author Nicolas Ulrich

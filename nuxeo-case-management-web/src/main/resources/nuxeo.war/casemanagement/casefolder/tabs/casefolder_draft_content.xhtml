@@ -6,13 +6,6 @@
   xmlns:nxu="http://nuxeo.org/nxweb/util">
 
   <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
-    <h:form>
-      <nxh:commandButton
-        styleClass="button" type="submit"
-        action="#{cmCaseFolderActions.createDraftCaseItem('CaseItem')}"
-        value="#{messages['label.casemanagement.action.createOutgoingCaseManagementDocument']}"
-      />
-    </h:form>
     <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('CASE_FOLDER_DRAFT')}" >
 
    <ui:decorate template="casefolder_draftcaselink_table.xhtml">

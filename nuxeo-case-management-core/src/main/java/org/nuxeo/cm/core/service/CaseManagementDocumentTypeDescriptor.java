@@ -32,7 +32,4 @@ public class CaseManagementDocumentTypeDescriptor {
     @XNode("postDocType")
     protected String postDocType;
 
-    @XNode("outgoingDocType")
-    protected String outgoingDocType;
-
 }

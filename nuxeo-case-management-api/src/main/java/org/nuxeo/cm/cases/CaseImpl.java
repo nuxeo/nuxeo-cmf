@@ -47,8 +47,6 @@ public class CaseImpl implements Case {
 
     Boolean incoming = null;
 
-    Boolean outgoing = null;
-
     protected DocumentModel document;
 
     protected HasParticipants recipientsAdapter;
