@@ -47,7 +47,6 @@ public class TestCaseLink extends CaseManagementRepositoryTestCase {
         assertNotNull(post);
         DocumentModel doc = post.getDocument();
         assertNotNull(doc);
-        assertEquals(doc.getType(),
-                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
+        assertEquals(CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE, doc.getType());
     }
 }

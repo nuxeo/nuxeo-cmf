@@ -22,10 +22,8 @@ package org.nuxeo.cm.service;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 
-
 /**
  * @author Nicolas Ulrich
- *
  */
 public class TestCaseManagementDocumentTypeService extends
         CaseManagementRepositoryTestCase {
@@ -43,10 +41,8 @@ public class TestCaseManagementDocumentTypeService extends
     }
 
     public void testGetAllProperty() throws ClientException {
-
         assertEquals("Case",
                 correspDocumentTypeService.getCaseType());
-
         assertEquals("CaseLink",
                 correspDocumentTypeService.getCaseLinkType());
     }

@@ -34,7 +34,6 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class TestCaseFolder extends SQLRepositoryTestCase {
 
@@ -189,8 +188,10 @@ public class TestCaseFolder extends SQLRepositoryTestCase {
         assertEquals(Arrays.asList(new String[] { "fav1" }), mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "newmlid", }),
                 mb.getParticipantListIds());
+
         List<ParticipantsList> mls = mb.getParticipantLists();
         assertEquals(1, mls.size());
+
         ml = mls.get(0);
         assertEquals("newmlid", ml.getId());
         assertEquals("new ml title", ml.getTitle());
@@ -198,7 +199,6 @@ public class TestCaseFolder extends SQLRepositoryTestCase {
         assertEquals(Arrays.asList(new String[] { "mb1" }), ml.getCaseFolderIds());
 
         assertEquals((Integer) 3, mb.getConfidentiality());
-
     }
 
 }

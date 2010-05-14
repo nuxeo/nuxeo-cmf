@@ -41,7 +41,6 @@ import org.nuxeo.runtime.api.Framework;
  * Get mailboxes using an unrestricted session and the given muids.
  *
  * @author Laurent Doguin
- *
  */
 public class GetCaseFoldersUnrestricted extends UnrestrictedSessionRunner {
 
@@ -51,7 +50,7 @@ public class GetCaseFoldersUnrestricted extends UnrestrictedSessionRunner {
 
     protected List<CaseFolder> mailboxes;
 
-    final protected List<String> muids;
+    protected final List<String> muids;
 
     public GetCaseFoldersUnrestricted(CoreSession session, List<String> muids) {
         super(session);

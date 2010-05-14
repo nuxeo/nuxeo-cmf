@@ -26,7 +26,6 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
@@ -41,7 +40,6 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
     }
 
     public void testRoots() throws Exception {
-
         DocumentModel root = session.getRootDocument();
 
         DocumentModelList rootChildren = session.getChildren(root.getRef());
@@ -59,4 +57,5 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
         DocumentModel mailboxRoot = domainChildren.get(1);
         assertEquals(CASE_FOLDER_FOLDER, mailboxRoot.getPathAsString());
     }
+
 }

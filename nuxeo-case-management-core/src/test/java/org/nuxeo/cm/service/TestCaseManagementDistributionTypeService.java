@@ -30,7 +30,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 
 /**
  * @author Nicolas Ulrich
- *
  */
 public class TestCaseManagementDistributionTypeService extends
 CaseManagementRepositoryTestCase {
@@ -58,7 +57,6 @@ CaseManagementRepositoryTestCase {
     public void testGetAllProperty() throws ClientException {
         assertEquals("all_action_participant_case_folders",
                 correspDistributionTypeService.getAllProperty(FOR_ACTION));
-
         assertEquals("all_copy_participant_case_folders",
                 correspDistributionTypeService.getAllProperty(FOR_INFORMATION));
     }
@@ -66,17 +64,14 @@ CaseManagementRepositoryTestCase {
     public void testGetExternalProperty() throws ClientException {
         assertEquals("initial_action_external_participant_case_folders",
                 correspDistributionTypeService.getExternalProperty(FOR_ACTION));
-
         assertEquals(
                 "initial_copy_external_participant_case_folders",
                 correspDistributionTypeService.getExternalProperty(FOR_INFORMATION));
     }
 
     public void testGetInternalProperty() throws ClientException {
-
         assertEquals("initial_action_internal_participant_case_folders",
                 correspDistributionTypeService.getInternalProperty(FOR_ACTION));
-
         assertEquals(
                 "initial_copy_internal_participant_case_folders",
                 correspDistributionTypeService.getInternalProperty(FOR_INFORMATION));
@@ -97,4 +92,5 @@ CaseManagementRepositoryTestCase {
         } catch (ClientException e) {
         }
     }
+
 }

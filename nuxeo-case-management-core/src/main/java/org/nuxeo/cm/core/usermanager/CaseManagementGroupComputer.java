@@ -54,7 +54,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer
 
     public static final ThreadLocal<Boolean> disableRetrieveCaseFolders = new ThreadLocal<Boolean>();
 
-    protected static CaseFolderManagementService cfms = null;
+    protected static CaseFolderManagementService cfms;
 
     /**
      * Returns an empty list for efficiency

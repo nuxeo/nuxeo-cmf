@@ -22,10 +22,8 @@ import org.nuxeo.cm.cases.LockableAdapterImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
-
 /**
  * @author nicolas ulrich
- *
  */
 public class LockableAdapterFactory implements DocumentAdapterFactory {
 
@@ -36,7 +34,6 @@ public class LockableAdapterFactory implements DocumentAdapterFactory {
     }
 
     protected void checkDocument(DocumentModel doc) {
-
     }
 
 }

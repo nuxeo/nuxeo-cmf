@@ -41,6 +41,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
  *
  */
 public class TestCaseItem extends CaseManagementRepositoryTestCase {
+
     protected CaseItem item;
 
     @Override
@@ -94,7 +95,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         HasParticipants adapter = model.getAdapter(HasParticipants.class);
         envelope = new CaseImpl(model, adapter);
         assertNotNull(envelope);
-        assertEquals(envelope.getCaseItems(session).size(), 1);
+        assertEquals(1, envelope.getCaseItems(session).size());
     }
 
     @SuppressWarnings("deprecation")
@@ -140,6 +141,6 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         doc = session.getDocument(doc.getRef());
         lockableDocument = doc.getAdapter(LockableAdapter.class);
         assertFalse(lockableDocument.isLocked(session));
-
     }
+
 }

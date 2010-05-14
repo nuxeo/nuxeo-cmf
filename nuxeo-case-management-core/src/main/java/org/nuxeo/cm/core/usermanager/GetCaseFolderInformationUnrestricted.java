@@ -30,7 +30,6 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  *
  * @author arussel
  * @author Anahide Tchertchian
- *
  */
 public class GetCaseFolderInformationUnrestricted extends
         UnrestrictedSessionRunner {

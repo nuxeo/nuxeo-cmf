@@ -49,16 +49,18 @@ public class TestCaseManagementUserManager extends
                 session, user).get(0);
         assertNotNull(mailbox);
         assertTrue(correspCaseFolderService.hasCaseFolder(mailbox.getId()));
+
         CaseFolder mailbox2 = correspCaseFolderService.createPersonalCaseFolders(
                 session, user2).get(0);
         assertNotNull(mailbox2);
         assertTrue(correspCaseFolderService.hasCaseFolder(mailbox2.getId()));
-
         assertTrue(userManager instanceof UserManagerWithComputedGroups);
+
         NuxeoPrincipal pal = userManager.getPrincipal(user);
         assertNotNull(pal);
         assertTrue(pal instanceof NuxeoPrincipalImpl);
         assertFalse(pal.isAdministrator());
+
         List<String> groups = pal.getGroups();
         assertNotNull(groups);
         assertEquals(2, groups.size());
@@ -69,6 +71,7 @@ public class TestCaseManagementUserManager extends
         assertNotNull(pal);
         assertTrue(pal instanceof NuxeoPrincipalImpl);
         assertFalse(pal.isAdministrator());
+
         groups = pal.getGroups();
         assertNotNull(groups);
         assertEquals(2, groups.size());
@@ -77,9 +80,9 @@ public class TestCaseManagementUserManager extends
 
         NuxeoGroup grp = userManager.getGroup(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2");
         assertNull(grp);
+
         grp = userManager.getGroup("user-user2");
         assertNull(grp);
-
     }
 
 }

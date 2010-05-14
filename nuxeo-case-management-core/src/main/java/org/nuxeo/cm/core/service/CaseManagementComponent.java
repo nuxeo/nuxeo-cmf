@@ -27,10 +27,8 @@ import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
-
 /**
  * @author Anahide Tchertchian
- *
  */
 public class CaseManagementComponent extends DefaultComponent {
 

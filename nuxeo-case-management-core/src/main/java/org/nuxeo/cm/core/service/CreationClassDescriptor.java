@@ -24,7 +24,6 @@ import org.nuxeo.common.xmap.annotation.XObject;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 @XObject("contribution")
 public class CreationClassDescriptor {

@@ -43,7 +43,6 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  * A creator of {@link CaseLink}.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
@@ -124,10 +123,7 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     }
 
     /**
-     * Set the values of the document.
-     *
-     * @param doc
-     * @throws ClientException
+     * Sets the values of the document.
      */
     protected void setPostValues(DocumentModel doc) throws ClientException {
         // FIXME: use CorrespondencePost setters

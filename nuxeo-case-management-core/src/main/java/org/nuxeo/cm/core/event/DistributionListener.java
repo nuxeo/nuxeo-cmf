@@ -46,7 +46,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 /**
  * Listener for distribution events that sets recipient mailbox user/groups
  * rights on the envelope and related documents.
- *
+ * <p>
  * FIXME: this cannot be kept as is, otherwise new mailbox delegates won't be
  * able to access these documents.
  *
@@ -82,9 +82,9 @@ public class DistributionListener implements EventListener {
     public static class SetEnvelopeAclUnrestricted extends
             UnrestrictedSessionRunner {
 
-        final protected Case envelope;
+        protected final Case envelope;
 
-        final protected Map<String, List<String>> recipients;
+        protected final Map<String, List<String>> recipients;
 
         public SetEnvelopeAclUnrestricted(CoreSession session,
                 Case envelope, Map<String, List<String>> recipients) {
@@ -124,7 +124,6 @@ public class DistributionListener implements EventListener {
                     session.setACP(doc.getRef(), acp, true);
                 }
             }
-
         }
 
     }

@@ -35,7 +35,6 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
  * may not have access to them.
  *
  * @author Laurent Doguin
- *
  */
 public class SearchCaseFoldersHeadersUnrestricted extends
         SearchCaseFoldersUnrestricted {

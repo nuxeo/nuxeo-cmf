@@ -21,10 +21,8 @@ import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
-
 /**
  * @author Nicolas Ulrich
- *
  */
 public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
 implements CaseManagementDocumentTypeService {
@@ -41,11 +39,10 @@ implements CaseManagementDocumentTypeService {
     }
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-    throws Exception {
+    public void registerContribution(Object contribution, String extensionPoint,
+            ComponentInstance contributor) throws Exception {
 
-        CaseManagementDocumentTypeDescriptor distributionType = ((CaseManagementDocumentTypeDescriptor) contribution);
+        CaseManagementDocumentTypeDescriptor distributionType = (CaseManagementDocumentTypeDescriptor) contribution;
 
         if (distributionType.postDocType != null) {
             postDocType = distributionType.postDocType;
@@ -54,7 +51,6 @@ implements CaseManagementDocumentTypeService {
         if (distributionType.envelopeDocType != null) {
             envelopeDocType = distributionType.envelopeDocType;
         }
-
     }
 
     @Override
@@ -65,11 +61,11 @@ implements CaseManagementDocumentTypeService {
     }
 
     public String getCaseType() {
-        return this.envelopeDocType;
+        return envelopeDocType;
     }
 
     public String getCaseLinkType() {
-        return this.postDocType;
+        return postDocType;
     }
 
 }

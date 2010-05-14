@@ -27,10 +27,8 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
-
 /**
  * @author ldoguin
- *
  */
 public class CaseFolderHeaderAdapterFactory implements DocumentAdapterFactory {
 

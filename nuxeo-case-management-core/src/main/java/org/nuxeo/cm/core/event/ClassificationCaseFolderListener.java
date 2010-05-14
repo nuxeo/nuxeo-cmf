@@ -73,7 +73,6 @@ public class ClassificationCaseFolderListener implements EventListener {
                 CoreInstance.getInstance().close(coreSession);
             }
         }
-
     }
 
     protected CoreSession getCoreSession() throws Exception {
@@ -84,4 +83,5 @@ public class ClassificationCaseFolderListener implements EventListener {
         Repository repo = mgr.getDefaultRepository();
         return repo.open();
     }
+
 }

@@ -21,7 +21,6 @@ import org.nuxeo.common.xmap.annotation.XObject;
 
 /**
  * @author Nicolas Ulrich
- *
  */
 @XObject("documentType")
 public class CaseManagementDocumentTypeDescriptor {

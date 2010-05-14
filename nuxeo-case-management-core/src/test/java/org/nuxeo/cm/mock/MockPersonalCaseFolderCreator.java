@@ -51,7 +51,6 @@ public class MockPersonalCaseFolderCreator implements CaseFolderCreator {
         List<CaseFolder> mailboxes = new ArrayList<CaseFolder>();
 
         try {
-
             UserManager userManager = Framework.getService(UserManager.class);
             if (userManager == null) {
                 throw new CaseManagementException("User manager not found");
@@ -81,7 +80,6 @@ public class MockPersonalCaseFolderCreator implements CaseFolderCreator {
         }
 
         return mailboxes;
-
     }
 
 }

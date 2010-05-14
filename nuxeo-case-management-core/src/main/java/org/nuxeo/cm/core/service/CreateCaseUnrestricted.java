@@ -35,7 +35,6 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
  * @author arussel
- *
  */
 public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
 
@@ -52,11 +51,6 @@ public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
         this.mailboxes = mailboxes;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.nuxeo.ecm.core.api.UnrestrictedSessionRunner#run()
-     */
     @Override
     public void run() throws ClientException {
         Case env = item.createMailCase(session, parentPath, null);

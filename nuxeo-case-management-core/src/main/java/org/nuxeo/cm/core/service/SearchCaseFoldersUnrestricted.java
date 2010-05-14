@@ -39,7 +39,6 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  *
  * @author Anahide Tchertchian
  * @author Laurent Doguin
- *
  */
 public class SearchCaseFoldersUnrestricted extends UnrestrictedSessionRunner {
 
@@ -47,9 +46,9 @@ public class SearchCaseFoldersUnrestricted extends UnrestrictedSessionRunner {
 
     protected List<CaseFolder> mailboxes;
 
-    final protected String pattern;
+    protected final String pattern;
 
-    final protected String type;
+    protected final String type;
 
     public SearchCaseFoldersUnrestricted(CoreSession session, String pattern,
             String type) {

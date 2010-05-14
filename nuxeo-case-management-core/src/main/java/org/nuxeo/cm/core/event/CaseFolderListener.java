@@ -65,4 +65,5 @@ public class CaseFolderListener implements EventListener {
                 session, doc.getRef());
         sessionCreator.runUnrestricted();
     }
+
 }

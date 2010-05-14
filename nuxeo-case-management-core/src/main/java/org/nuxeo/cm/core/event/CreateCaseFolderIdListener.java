@@ -89,10 +89,10 @@ public class CreateCaseFolderIdListener implements EventListener {
         if (id == null) {
             String title = mb.getTitle();
             if (title != null) {
-                id = IdUtils.generateId(mb.getTitle());
+                id = IdUtils.generateId(title);
                 if (correspService.hasCaseFolder(id)) {
                     // add timestamp
-                    id += "_" + String.valueOf(new Date().getTime());
+                    id += "_" + new Date().getTime();
                 }
             } else {
                 id = String.valueOf(new Date().getTime());

@@ -33,9 +33,9 @@ import org.nuxeo.ecm.core.api.IdRef;
 
 /**
  * @author arussel
- *
  */
 public class TestCase extends CaseManagementRepositoryTestCase {
+
     protected Case envelope;
 
     protected CaseItem item1;
@@ -58,7 +58,7 @@ public class TestCase extends CaseManagementRepositoryTestCase {
     public void testGetDocument() {
         DocumentModel doc = envelope.getDocument();
         assertNotNull(doc);
-        assertEquals(doc.getType(), CaseConstants.CASE_TYPE);
+        assertEquals(CaseConstants.CASE_TYPE, doc.getType());
     }
 
     public void testItemsMethods() throws ClientException {
@@ -70,18 +70,23 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         List<CaseItem> items = envelope.getCaseItems(session);
         assertNotNull(items);
         assertEquals(1, items.size());
+
         envelope.addCaseItem(item2, session);
         envelope.save(session);
         closeSession();
         openSession();
-        assertEquals(envelope.getCaseItems(session).size(), 2);
+        assertEquals(2, envelope.getCaseItems(session).size());
         assertEquals(envelope.getFirstItem(session), item1);
+
         envelope.moveUpEmailsInCase(Collections.singletonList(item2), session);
         assertEquals(envelope.getFirstItem(session), item2);
+
         envelope.moveDownEmailsInCase(Collections.singletonList(item1), session);
         assertEquals(envelope.getFirstItem(session), item2);
+
         envelope.moveDownEmailsInCase(Collections.singletonList(item2), session);
         assertEquals(envelope.getFirstItem(session), item1);
+
         envelope.moveDownEmailsInCase(Collections.singletonList(item1), session);
         closeSession();
         openSession();
@@ -89,7 +94,8 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         envelope = new CaseImpl(document, adapter);
         openSession();
-        assertEquals(envelope.getCaseItems(session).size(), 2);
+        assertEquals(2, envelope.getCaseItems(session).size());
         assertEquals(envelope.getFirstItem(session), item1);
     }
+
 }

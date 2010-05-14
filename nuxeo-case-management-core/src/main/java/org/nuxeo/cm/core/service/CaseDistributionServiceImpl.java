@@ -62,7 +62,6 @@ import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDesc
 import org.nuxeo.ecm.platform.relations.api.ResourceAdapter;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * Correspondence service core implementation
  */
@@ -72,10 +71,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     private static final Log log = LogFactory.getLog(CaseDistributionServiceImpl.class);
 
-
     protected EventProducer eventProducer;
 
-    protected Map<String, Serializable> context = null;
+    protected Map<String, Serializable> context;
 
     public CaseLink sendCase(CoreSession session,
             CaseLink postRequest, boolean isInitial) {
@@ -87,9 +85,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
-
     }
-
 
     protected CoreSession getCoreSession() {
 
@@ -121,7 +117,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
 
         return session;
-
     }
 
     protected void closeCoreSession(CoreSession coreSession) {
@@ -131,11 +126,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     /**
-     * Execute a query model
+     * Executes a query model.
      *
      * @param queryModel The name of the query model
      * @return the corresponding documentModels
-     * @throws CaseManagementException
      */
     protected DocumentModelList executeQueryModel(CoreSession session,
             String queryModel) {
@@ -143,12 +137,11 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     /**
-     * Execute a query model
+     * Executes a query model.
      *
      * @param queryModel The name of the query model
      * @param params params if the query model
      * @return the corresponding documentModels
-     * @throws CaseManagementException
      */
     protected DocumentModelList executeQueryModel(CoreSession session,
             String queryModel, Object[] params) {
@@ -171,14 +164,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             throw new CaseManagementRuntimeException(e);
         }
         return list;
-
     }
-
 
     protected List<CaseLink> getPosts(CoreSession coreSession,
             long offset, long limit, String query) {
         List<CaseLink> posts = new ArrayList<CaseLink>();
-        DocumentModelList result = null;
+        DocumentModelList result;
 
         try {
             result = coreSession.query(query, null, limit, offset, false);
@@ -192,7 +183,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
         return posts;
     }
-
 
     public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
             CaseFolder mailbox, long offset, long limit) {
@@ -236,7 +226,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
         emailDoc.setPathInfo(parentPath, docName);
-        DocumentModel mail = null;
+        DocumentModel mail;
         try {
             CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
                     session, emailDoc, mailboxes);
@@ -257,6 +247,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             DocumentModel emailDoc, String parentPath) {
         return createCase(session, emailDoc, parentPath, new ArrayList<CaseFolder>());
     }
+
     public CaseLink createDraftCaseLink(CoreSession session,
             CaseFolder mailbox, Case envelope) {
         try {
@@ -345,7 +336,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     /**
-     * Retrieve and cache the Event Producer Service
+     * Retrieves and caches the Event Producer Service.
      *
      * @return The Event Producer Service
      * @throws Exception
@@ -372,7 +363,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             super(session);
             this.postRequest = postRequest;
             this.isInitial = isInitial;
-
         }
 
         @Override
@@ -500,6 +490,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         public CaseLink getPost() {
             return post;
         }
-
     }
+
 }

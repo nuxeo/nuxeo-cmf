@@ -28,23 +28,24 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 
+import static org.nuxeo.cm.event.CaseManagementEventConstants.EVENT_CONTEXT_CASE;
+import static org.nuxeo.cm.event.CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class AfterCaseSentEventListener implements EventListener {
 
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         Map<String, Serializable> properties = event.getContext().getProperties();
-        Case envelope = (Case) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
+        Case envelope = (Case) properties.get(EVENT_CONTEXT_CASE);
         if (envelope == null) {
             return;
         }
         Map<String, List<String>> internalRecipients = (Map<String, List<String>>) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS);
         Map<String, List<String>> externalRecipients = (Map<String, List<String>>) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_EXTERNAL_PARTICIPANTS);
-        boolean isInitial = (Boolean) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL);
+        boolean isInitial = (Boolean) properties.get(EVENT_CONTEXT_IS_INITIAL);
 
         // Set Envelope recipients
         setRecipients(envelope, isInitial, internalRecipients, externalRecipients);
@@ -75,7 +76,6 @@ public class AfterCaseSentEventListener implements EventListener {
 
         item.addParticipants(internalRecipients);
         item.addParticipants(externalRecipients);
-
     }
 
 }

@@ -35,10 +35,9 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 
 
 /**
- * Test the distribution process
+ * Test the distribution process.
  *
  * @author Nicolas Ulrich
- *
  */
 public class TestDistribution extends
 CaseManagementRepositoryTestCase {
@@ -171,7 +170,5 @@ CaseManagementRepositoryTestCase {
                 initialReceiverMailbox.getId()));
         assertTrue(item.getAllParticipants().get(CaseLinkType.FOR_INFORMATION.toString()).contains(
                 receiverMailbox1.getId()));
-
-
     }
 }

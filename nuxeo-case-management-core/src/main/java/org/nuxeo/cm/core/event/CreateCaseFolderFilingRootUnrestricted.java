@@ -33,13 +33,12 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  * mode.
  *
  * @author ldoguin
- *
  */
 public class CreateCaseFolderFilingRootUnrestricted extends
         UnrestrictedSessionRunner {
 
     // Mailbox document model
-    final protected DocumentModel doc;
+    protected final DocumentModel doc;
 
     public CreateCaseFolderFilingRootUnrestricted(CoreSession session,
             DocumentModel doc) {

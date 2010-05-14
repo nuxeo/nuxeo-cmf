@@ -22,10 +22,8 @@ import org.nuxeo.cm.cases.HasParticipantsImpl;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
-
 /**
  * @author nicolas ulrich
- *
  */
 public class HasParticipantsAdapterFactory implements DocumentAdapterFactory {
 

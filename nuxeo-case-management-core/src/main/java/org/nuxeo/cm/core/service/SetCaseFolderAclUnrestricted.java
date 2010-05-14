@@ -39,7 +39,6 @@ import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
  *
  * @author nulrich
  * @author ldoguin
- *
  */
 public class SetCaseFolderAclUnrestricted extends UnrestrictedSessionRunner {
 

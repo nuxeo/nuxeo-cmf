@@ -44,12 +44,10 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * A creator of {@link CaseLink}.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
@@ -125,7 +123,6 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         }
 
         recipient = mailboxes.get(0);
-        DocumentModel doc = null;
         CaseManagementDocumentTypeService correspDocumentTypeService;
         try {
             correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
@@ -134,7 +131,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         }
 
         recipient = mailboxes.get(0);
-        doc = session.createDocumentModel(
+        DocumentModel doc = session.createDocumentModel(
                 recipient.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(),
                 correspDocumentTypeService.getCaseLinkType());
@@ -153,14 +150,10 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         session.createDocument(doc);
         session.save();
         createdPost = doc.getAdapter(CaseLink.class);
-
     }
 
     /**
-     * Set the values of the document.
-     *
-     * @param doc
-     * @throws ClientException
+     * Sets the values of the document.
      */
     protected void setPostValues(DocumentModel doc) throws ClientException {
         // FIXME: use CorrespondencePost setters

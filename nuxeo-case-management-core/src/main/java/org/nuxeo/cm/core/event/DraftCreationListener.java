@@ -25,15 +25,14 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.EventListener;
 
-
 /**
  * @author arussel
- *
  */
 public class DraftCreationListener extends AbstractDraftListener implements
         EventListener {
     private static final Log log = LogFactory.getLog(DraftCreationListener.class);
 
+    @Override
     protected Log getLog() {
         return log;
     }
@@ -49,4 +48,5 @@ public class DraftCreationListener extends AbstractDraftListener implements
     protected String getEventName() {
         return EventNames.afterDraftCreated.name();
     }
+
 }

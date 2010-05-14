@@ -81,7 +81,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
 
 
     public CaseFolder getCaseFolder(CoreSession session, String muid) {
-
         if (muid == null) {
             return null;
         }
@@ -99,9 +98,7 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         }
 
         return res.get(0).getAdapter(CaseFolder.class);
-
     }
-
 
     public CaseFolder getCaseFolder(String muid) {
         CoreSession session = null;
@@ -111,15 +108,10 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         } finally {
             closeCoreSession(session);
         }
-
     }
 
-
     public boolean hasCaseFolder(String muid) {
-        if (getCaseFolderHeader(muid) == null) {
-            return false;
-        }
-        return true;
+        return getCaseFolderHeader(muid) != null;
     }
 
 
@@ -127,6 +119,7 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         if (muid == null) {
             return null;
         }
+
         List<String> muids = new ArrayList<String>();
         muids.add(muid);
         List<CaseFolderHeader> mailboxesHeaders = getCaseFoldersHeaders(muids);
@@ -135,7 +128,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         } else {
             return mailboxesHeaders.get(0);
         }
-
     }
 
     public List<CaseFolder> getCaseFolders(CoreSession session,
@@ -148,7 +140,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         List<DocumentModel> docs = new ArrayList<DocumentModel>();
 
         for (String muid : muids) {
-
             DocumentModelList res = executeQueryModel(session,
                     QUERY_GET_CASE_FOLDER_FROM_ID, new Object[] { muid });
 
@@ -162,12 +153,9 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
             }
 
             docs.add(res.get(0));
-
         }
         return CaseFolderConstants.getMailboxList(docs);
-
     }
-
 
     public List<CaseFolderHeader> getCaseFoldersHeaders(List<String> muids) {
         CoreSession session = null;
@@ -184,7 +172,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         }
     }
 
-
     public List<CaseFolderHeader> getCaseFoldersHeaders(CoreSession session,
             List<String> muids) {
         GetCaseFoldersHeadersUnrestricted sessionSearch = new GetCaseFoldersHeadersUnrestricted(
@@ -199,7 +186,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
 
 
     public List<CaseFolder> getCaseFolders(List<String> muids) {
-
         CoreSession session = null;
         try {
             session = getCoreSession();
@@ -207,12 +193,9 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         } finally {
             closeCoreSession(session);
         }
-
     }
 
-
     public List<CaseFolder> getUserCaseFolders(CoreSession session, String user) {
-
         // return all mailboxes user has access to
         DocumentModelList res = executeQueryModel(session,
                 QUERY_GET_ALL_CASE_FOLDER);
@@ -230,15 +213,12 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         Collections.sort(mailboxes);
 
         return mailboxes;
-
     }
-
 
     public CaseFolder getUserPersonalCaseFolder(CoreSession session, String user) {
         String mailboxId = getUserPersonalCaseFolderId(user);
         return getCaseFolder(session, mailboxId);
     }
-
 
     public List<CaseFolder> createPersonalCaseFolders(CoreSession session, String user) {
         if (personalMailboxCreator == null) {
@@ -261,8 +241,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
             throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
     }
-
-
 
     public CaseFolder getUserPersonalCaseFolderForEmail(CoreSession session,
             String userEmail) {
@@ -305,7 +283,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         return null;
     }
 
-
     public List<CaseFolderHeader> searchCaseFolders(String pattern, String type) {
         SearchCaseFoldersHeadersUnrestricted sessionSearch = new SearchCaseFoldersHeadersUnrestricted(
                 getCoreSession(), pattern, type);
@@ -315,25 +292,21 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
             throw new CaseManagementRuntimeException(e);
         }
         return sessionSearch.getMailboxesHeaders();
-
     }
-
 
     public boolean hasUserPersonalCaseFolder(CoreSession session, String userId) {
         // FIXME: shouldn't check be unrestricted?
-        return (getUserPersonalCaseFolder(session, userId) != null);
+        return getUserPersonalCaseFolder(session, userId) != null;
     }
 
     /**
-     * Retrieve the Personal Mailbox Id from the Mailbox Creator
+     * Retrieves the Personal Mailbox Id from the Mailbox Creator.
      *
      * @param user Owner of the mailbox
-     *
      * @return The personal Mailbox Id
-     * @throws ClientException
      */
     public String getUserPersonalCaseFolderId(String user) {
-        UserManager userManager = null;
+        UserManager userManager;
         try {
             userManager = Framework.getService(UserManager.class);
         } catch (Exception e) {
@@ -342,7 +315,8 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         if (userManager == null) {
             throw new CaseManagementRuntimeException("User manager not found");
         }
-        DocumentModel userModel = null;
+
+        DocumentModel userModel;
         try {
             userModel = userManager.getUserModel(user);
         } catch (ClientException e) {
@@ -354,8 +328,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         }
         return personalMailboxCreator.getPersonalCaseFolderId(userModel);
     }
-
-
 
     protected Directory getUserDirectory() {
         try {
@@ -377,7 +349,6 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
      * Encapsulates lookup and exception management.
      *
      * @return The DirectoryService, guaranteed not null
-     * @throws DirectoryException
      */
     protected DirectoryService getDirService() {
         try {
@@ -390,14 +361,11 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         }
     }
 
-
-
     /**
-     * Execute a query model
+     * Executes a query model.
      *
      * @param queryModel The name of the query model
      * @return the corresponding documentModels
-     * @throws CaseManagementException
      */
     protected DocumentModelList executeQueryModel(CoreSession session,
             String queryModel) {
@@ -405,17 +373,16 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
     }
 
     /**
-     * Execute a query model
+     * Executes a query model.
      *
      * @param queryModel The name of the query model
      * @param params params if the query model
      * @return the corresponding documentModels
-     * @throws CaseManagementException
      */
     protected DocumentModelList executeQueryModel(CoreSession session,
             String queryModel, Object[] params) {
         // TODO use session query instead of query model
-        QueryModelService qmService = null;
+        QueryModelService qmService;
         try {
             qmService = Framework.getService(QueryModelService.class);
         } catch (Exception e) {
@@ -426,19 +393,17 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         }
         QueryModelDescriptor qmd = qmService.getQueryModelDescriptor(queryModel);
         QueryModel qm = new QueryModel(qmd);
-        DocumentModelList list = null;
+        DocumentModelList list;
         try {
             list = qm.getDocuments(session, params);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
         return list;
-
     }
 
     protected CoreSession getCoreSession() {
-
-        RepositoryManager mgr = null;
+        RepositoryManager mgr;
         try {
             mgr = Framework.getService(RepositoryManager.class);
         } catch (Exception e) {
@@ -446,11 +411,11 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
         }
         if (mgr == null) {
             throw new CaseManagementRuntimeException(
-            "Cannot find RepostoryManager");
+            "Cannot find RepositoryManager");
         }
         Repository repo = mgr.getDefaultRepository();
 
-        CoreSession session = null;
+        CoreSession session;
         try {
             if (context == null) {
                 session = repo.open();
@@ -460,22 +425,18 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
             } else {
                 session = repo.open(context);
             }
-
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
 
         return session;
-
     }
-
 
     protected void closeCoreSession(CoreSession coreSession) {
         if (coreSession != null) {
             CoreInstance.getInstance().close(coreSession);
         }
     }
-
 
     CaseFolderCreator getPersonalMailboxCreator() {
         return personalMailboxCreator;
@@ -484,6 +445,5 @@ public class CaseFolderManagementServiceImpl implements CaseFolderManagementServ
     void setPersonalMailboxCreator(CaseFolderCreator personalMailboxCreator) {
         this.personalMailboxCreator = personalMailboxCreator;
     }
-
 
 }

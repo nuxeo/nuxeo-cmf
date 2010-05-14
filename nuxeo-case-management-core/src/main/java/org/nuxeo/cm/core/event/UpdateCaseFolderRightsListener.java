@@ -28,7 +28,6 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-
 /**
  * Listener for mailbox events that sets user/groups rights when mailbox is
  * created/edited.
@@ -38,7 +37,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 public class UpdateCaseFolderRightsListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
-        DocumentEventContext docCtx = null;
+        DocumentEventContext docCtx;
         if (event.getContext() instanceof DocumentEventContext) {
             docCtx = (DocumentEventContext) event.getContext();
         } else {
@@ -55,7 +54,6 @@ public class UpdateCaseFolderRightsListener implements EventListener {
         SetCaseFolderAclUnrestricted sessionCreator = new SetCaseFolderAclUnrestricted(
                 session, doc.getRef());
         sessionCreator.runUnrestricted();
-
     }
 
 }

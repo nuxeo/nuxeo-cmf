@@ -25,10 +25,12 @@ import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
+import static org.nuxeo.cm.cases.CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA;
+import static org.nuxeo.cm.cases.CaseConstants.CASE_ITEM_FACET;
+import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTION_SCHEMA;
 
 /**
  * @author arussel
- *
  */
 public class CaseItemAdapterFactory implements DocumentAdapterFactory {
 
@@ -40,19 +42,17 @@ public class CaseItemAdapterFactory implements DocumentAdapterFactory {
     }
 
     protected void checkDocument(DocumentModel doc) {
-        if (!doc.hasFacet(CaseConstants.CASE_ITEM_FACET)) {
+        if (!doc.hasFacet(CASE_ITEM_FACET)) {
             throw new CaseManagementRuntimeException(
-                    "Document should have facet " + CaseConstants.CASE_ITEM_FACET);
+                    "Document should have facet " + CASE_ITEM_FACET);
         }
-        if (!doc.hasSchema(CaseConstants.DISTRIBUTION_SCHEMA)) {
+        if (!doc.hasSchema(DISTRIBUTION_SCHEMA)) {
             throw new CaseManagementRuntimeException(
-                    "Document should have schema "
-                            + CaseConstants.DISTRIBUTION_SCHEMA);
+                    "Document should have schema " + DISTRIBUTION_SCHEMA);
         }
-        if (!doc.hasSchema(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA)) {
+        if (!doc.hasSchema(CASE_ITEM_DOCUMENT_SCHEMA)) {
             throw new CaseManagementRuntimeException(
-                    "Document should have schema "
-                            + CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA);
+                    "Document should have schema " + CASE_ITEM_DOCUMENT_SCHEMA);
         }
     }
 

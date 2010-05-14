@@ -30,12 +30,11 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
-
 /**
  * @author arussel
- *
  */
 public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
+
     protected DocumentModel doc;
 
     protected List<CaseFolder> mailboxes;

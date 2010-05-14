@@ -40,7 +40,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class DefaultCaseFolderCreator implements CaseFolderCreator {
 
@@ -53,16 +52,8 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
         return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId);
     }
 
-    /*
-     * This implementation only create a Personal Mailbox.
-     *
-     * (non-Javadoc)
-     *
-     * @see com.nuxeo.correspondence.service.MailboxCreator#createMailboxes(org.nuxeo
-     *      .ecm.core.api.CoreSession, java.lang.String)
-     */
     public List<CaseFolder> createCaseFolders(CoreSession session, String user)
-    throws CaseManagementException {
+            throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CM_DEFAULT_CASE_FOLDER_CREATOR_SKIP);
         if (skipCreation != null

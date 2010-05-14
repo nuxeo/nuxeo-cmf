@@ -32,12 +32,10 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * Listen to loginSuccess event and create the personal mailbox if needed
  *
  * @author Nicolas Ulrich
- *
  */
 public class SuccessLoginListener implements EventListener {
 
@@ -47,8 +45,7 @@ public class SuccessLoginListener implements EventListener {
         try {
             CaseFolderManagementService nxcService = Framework.getService(CaseFolderManagementService.class);
             if (nxcService == null) {
-                throw new CaseManagementException(
-                "CorrespondenceService not found.");
+                throw new CaseManagementException("CorrespondenceService not found.");
             }
 
             SimplePrincipal principal = (SimplePrincipal) event.getContext().getPrincipal();
@@ -61,7 +58,6 @@ public class SuccessLoginListener implements EventListener {
         } catch (Exception e) {
             log.error("Error during personal mailbox creation.", e);
         }
-
     }
 
     protected CoreSession getCoreSession() throws Exception {

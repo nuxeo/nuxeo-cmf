@@ -92,4 +92,5 @@ public abstract class AbstractDraftListener {
         draft.setPropertyValue(CaseLinkConstants.SENDER_FIELD,
                 principal.getName());
     }
+
 }

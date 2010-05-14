@@ -31,7 +31,6 @@ import org.nuxeo.runtime.model.DefaultComponent;
 
 /**
  * @author Nicolas Ulrich
- *
  */
 public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
         implements CaseManagementDistributionTypeService {
@@ -65,7 +64,6 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
                 distributionType.internalRecipientsProperty);
 
         values.put(distributionType.name, properties);
-
     }
 
     @Override
@@ -74,16 +72,8 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
 
         CaseManagementDistributionTypeDescriptor distributionType = ((CaseManagementDistributionTypeDescriptor) contribution);
         values.remove(distributionType.name);
-
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.nuxeo.correspondence.service.CorrespondenceDistributionTypeService
-     * #getAllProperty(java.lang.String)
-     */
     public String getAllProperty(String distributionType)
             throws CaseManagementException {
 
@@ -92,37 +82,16 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.nuxeo.correspondence.service.CorrespondenceDistributionTypeService
-     * #getDistributionTypes()
-     */
     public Set<String> getDistributionTypes() {
         return values.keySet();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.nuxeo.correspondence.service.CorrespondenceDistributionTypeService
-     * #getExternalProperty(java.lang.String)
-     */
     public String getExternalProperty(String distributionType)
             throws CaseManagementException {
         checkValue(distributionType, EXTERNAL_PROPERTY);
         return values.get(distributionType).get(EXTERNAL_PROPERTY);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.nuxeo.correspondence.service.CorrespondenceDistributionTypeService
-     * #getInternalProperty(java.lang.String)
-     */
     public String getInternalProperty(String distributionType)
             throws CaseManagementException {
         checkValue(distributionType, INTERNAL_PROPERTY);
@@ -131,17 +100,15 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
 
     protected void checkValue(String distributionType, int distributionProperty)
             throws CaseManagementException {
-
         if (!values.containsKey(distributionType)) {
             throw new CaseManagementException(
-                    String.format("Unknow distribution type (%s). Check your DistributionTypeService contributions", distributionType));
+                    String.format("Unknown distribution type (%s). Check your DistributionTypeService contributions", distributionType));
         }
 
         if (values.get(distributionType).get(distributionProperty) == null) {
             throw new CaseManagementException(
                     String.format("'%s' property is undefined. Check your DistributionTypeService contributions", distributionProperty));
         }
-
     }
 
 }

@@ -28,10 +28,8 @@ import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
-
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class TestParticipants extends CaseManagementRepositoryTestCase {
 
@@ -56,6 +54,7 @@ public class TestParticipants extends CaseManagementRepositoryTestCase {
                 CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
         assertNotNull(doc);
+
         CaseLink post = doc.getAdapter(CaseLink.class);
         post.addInitialInternalParticipants(recipients1);
         post.addParticipants(recipients1);
@@ -73,6 +72,7 @@ public class TestParticipants extends CaseManagementRepositoryTestCase {
         assertEquals(2, allRecipients.size());
         assertEquals(2, allRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
         assertEquals(4, allRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
+
         Map<String, List<String>> initialRecipients = post.getInitialInternalParticipants();
         assertNotNull(initialRecipients);
         assertEquals(2, initialRecipients.size());

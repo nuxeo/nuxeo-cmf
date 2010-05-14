@@ -37,12 +37,10 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * A creator of {@link CaseLink}.
  *
  * @author Nicolas Ulrich
- *
  */
 public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
@@ -68,7 +66,6 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-
         CaseManagementDocumentTypeService correspDocumentTypeService;
         try {
             correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
@@ -86,10 +83,7 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     }
 
     /**
-     * Set the values of the document.
-     *
-     * @param doc
-     * @throws ClientException
+     * Sets the values of the document.
      */
     protected void setPostValues(DocumentModel doc) throws ClientException {
         // FIXME: use CorrespondencePost setters

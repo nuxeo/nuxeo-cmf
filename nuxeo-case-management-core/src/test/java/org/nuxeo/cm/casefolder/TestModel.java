@@ -28,10 +28,8 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.DocumentModelImpl;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 
-
 /**
  * @author Nulrich
- *
  */
 public class TestModel extends SQLRepositoryTestCase {
 
@@ -44,7 +42,6 @@ public class TestModel extends SQLRepositoryTestCase {
                 "OSGI-INF/cm-core-types-contrib.xml");
 
         openSession();
-
     }
 
     @Override
@@ -57,7 +54,6 @@ public class TestModel extends SQLRepositoryTestCase {
         DocumentModel folder = new DocumentModelImpl("/", "testfolder",
                 "Folder");
         return session.createDocument(folder);
-
     }
 
     public void testCaseItemCreation() throws Exception {
@@ -93,8 +89,6 @@ public class TestModel extends SQLRepositoryTestCase {
                 "CaseLink");
         dispatch.setPropertyValue("cslk:caseDocumentId", envelope.getId());
         dispatch = session.createDocument(dispatch);
-
     }
-
 
 }

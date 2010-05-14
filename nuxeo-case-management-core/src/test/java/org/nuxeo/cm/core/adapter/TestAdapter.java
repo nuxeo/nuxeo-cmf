@@ -30,6 +30,12 @@ public class TestAdapter extends SQLRepositoryTestCase {
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     protected DocumentModel createDocument(String type) throws ClientException {
         DocumentModel model = session.createDocumentModel("/",
                 UUID.randomUUID().toString(), type);
@@ -65,9 +71,4 @@ public class TestAdapter extends SQLRepositoryTestCase {
         assertNotNull(post);
     }
 
-    @Override
-    public void tearDown() throws Exception {
-        closeSession();
-        super.tearDown();
-    }
 }

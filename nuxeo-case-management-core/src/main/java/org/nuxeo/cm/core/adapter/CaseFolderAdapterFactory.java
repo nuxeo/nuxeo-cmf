@@ -26,10 +26,8 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
-
 /**
  * @author arussel
- *
  */
 public class CaseFolderAdapterFactory implements DocumentAdapterFactory {
 
@@ -63,4 +61,5 @@ public class CaseFolderAdapterFactory implements DocumentAdapterFactory {
         }
         return true;
     }
+
 }
