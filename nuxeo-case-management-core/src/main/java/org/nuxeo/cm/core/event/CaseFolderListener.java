@@ -23,6 +23,7 @@ import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_CREATED;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_UPDATED;
 
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.core.service.SetCaseFolderAclUnrestricted;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -56,7 +57,7 @@ public class CaseFolderListener implements EventListener {
         // set all rights to mailbox users
 
         DocumentModel doc = docCtx.getSourceDocument();
-        if (!CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE.equals(doc.getType())) {
+        if(!doc.hasFacet(CaseConstants.CASE_FOLDER_FACET)){
             return;
         }
 

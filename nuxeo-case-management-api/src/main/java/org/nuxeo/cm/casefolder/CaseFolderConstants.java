@@ -38,7 +38,7 @@ public class CaseFolderConstants {
 
     public static final String CASE_FOLDER_FACET = "CaseFolder";
 
-    public static final String CASE_TYPE = "CorrespondenceEnvelope";
+    public static final String CASE_TYPE = "Case";
 
     public static final String CASE_FOLDER_ROOT_DOCUMENT_TYPE = "CaseFolderRoot";
 
@@ -101,6 +101,6 @@ public class CaseFolderConstants {
     }
 
     private CaseFolderConstants() {
-    }    
+    }
 
 }

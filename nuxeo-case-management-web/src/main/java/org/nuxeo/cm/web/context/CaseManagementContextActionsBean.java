@@ -40,7 +40,7 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
 @Name("cmContextActions")
 @Scope(ScopeType.CONVERSATION)
 public class CaseManagementContextActionsBean implements Serializable,
-        CaseManagementContextActions {
+CaseManagementContextActions {
 
     private static final long serialVersionUID = 1L;
 
@@ -76,7 +76,7 @@ public class CaseManagementContextActionsBean implements Serializable,
     public void currentDocumentChanged(DocumentModel newDocument) {
         if (newDocument != null) {
             // mailbox case
-            if (CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE.equals(newDocument.getType())) {
+            if(newDocument.hasFacet(CaseConstants.CASE_FOLDER_FACET)){
                 cmContextHolder.setCurrentCaseFolder(newDocument.getAdapter(CaseFolder.class));
             }
             // document cases
