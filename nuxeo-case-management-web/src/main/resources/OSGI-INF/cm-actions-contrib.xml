@@ -341,7 +341,7 @@
 
     <filter id="hideFromCaseFolder">
       <rule grant="false">
-          <type>CaseFolder</type>
+          <facet>CaseFolder</facet>
         </rule>
     </filter>
     

@@ -3,7 +3,7 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
 
   <h:form id="document_files" enctype="multipart/form-data">
-    <nxl:layout name="files" mode="#{correspDocumentActions.getEmailLayoutMode()}" value="#{currentCaseItem}" />
+    <nxl:layout name="files" mode="#{cmDocumentActions.getCaseItemLayoutMode()}" value="#{currentCaseItem}" />
 
     <c:if test="#{cmDocumentActions.canEditCurrentCaseItem}">
 

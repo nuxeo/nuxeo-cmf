@@ -552,6 +552,9 @@
           <widget>origin</widget>
         </row>
         <row>
+          <widget>reference</widget>
+        </row>
+        <row>
           <widget>body</widget>
         </row>
       </rows>
@@ -728,6 +731,18 @@
         <fields>
           list
           <field>cmdoc:origin</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="reference" type="text">
+        <labels>
+          <label mode="any">label.casemanagement.document.reference</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>cmdoc:reference</field>
         </fields>
         <properties widgetMode="edit">
           <property name="styleClass">dataInputText</property>
