@@ -25,10 +25,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.runtime.api.Framework;
 
 
 /**
@@ -70,7 +72,7 @@ public class SearchCaseFoldersUnrestricted extends UnrestrictedSessionRunner {
     protected DocumentModelList queryMailboxes() throws ClientException {
         String query = String.format(
                 "SELECT * FROM %s WHERE %s ILIKE '%%%s%%' AND ecm:currentLifeCycleState != '%s'",
-                CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE,
+                getCaseFolderType(),
                 CaseFolderConstants.TITLE_FIELD, pattern,
                 CaseFolderConstants.MAILBOX_DELETED_STATE);
         if (type != null) {
@@ -83,8 +85,19 @@ public class SearchCaseFoldersUnrestricted extends UnrestrictedSessionRunner {
         return session.query(query);
     }
 
+
     public List<CaseFolder> getMailboxes() {
         return mailboxes;
+    }
+
+    private String getCaseFolderType() throws ClientException {
+        CaseManagementDocumentTypeService correspDocumentTypeService;
+        try {
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
+        return correspDocumentTypeService.getCaseFolderType();
     }
 
 }

@@ -7,6 +7,8 @@
     <documentType>
       <envelopeDocType>Case</envelopeDocType>
       <postDocType>CaseLink</postDocType>
+      <caseFolderDocType>CaseFolder</caseFolderDocType>
+      <caseItemDocType>CaseItem</caseItemDocType>
     </documentType>
 
   </extension>

@@ -26,8 +26,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.casefolder.CaseFolderImpl;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CaseFolderCreator;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -53,7 +55,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
     }
 
     public List<CaseFolder> createCaseFolders(CoreSession session, String user)
-            throws CaseManagementException {
+    throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CM_DEFAULT_CASE_FOLDER_CREATOR_SKIP);
         if (skipCreation != null
@@ -76,7 +78,7 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
             }
 
             // Create the personal mailbox for the user
-            DocumentModel mailboxModel = session.createDocumentModel(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
+            DocumentModel mailboxModel = session.createDocumentModel(getCaseFolderType());
             CaseFolder mailbox = mailboxModel.getAdapter(CaseFolder.class);
 
             // Set mailbox properties
@@ -132,4 +134,13 @@ public class DefaultCaseFolderCreator implements CaseFolderCreator {
         }
     }
 
+    private String getCaseFolderType() throws ClientException {
+        CaseManagementDocumentTypeService correspDocumentTypeService;
+        try {
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
+        return correspDocumentTypeService.getCaseFolderType();
+    }
 }

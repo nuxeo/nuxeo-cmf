@@ -29,6 +29,10 @@ implements CaseManagementDocumentTypeService {
 
     private static final long serialVersionUID = 1L;
 
+    private String caseFolderDocType;
+
+    private String caseItemDocType;
+
     private String postDocType;
 
     private String envelopeDocType;
@@ -51,6 +55,14 @@ implements CaseManagementDocumentTypeService {
         if (distributionType.envelopeDocType != null) {
             envelopeDocType = distributionType.envelopeDocType;
         }
+
+        if(distributionType.caseFolderDocType !=null){
+            caseFolderDocType = distributionType.caseFolderDocType;
+        }
+
+        if(distributionType.caseItemDocType !=null){
+            caseItemDocType = distributionType.caseItemDocType;
+        }
     }
 
     @Override
@@ -66,6 +78,14 @@ implements CaseManagementDocumentTypeService {
 
     public String getCaseLinkType() {
         return postDocType;
+    }
+
+    public String getCaseFolderType(){
+        return caseFolderDocType;
+    }
+
+    public String getCaseItemType(){
+        return caseItemDocType;
     }
 
 }

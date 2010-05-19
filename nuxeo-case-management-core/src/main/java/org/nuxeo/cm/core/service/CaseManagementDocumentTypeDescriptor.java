@@ -31,4 +31,10 @@ public class CaseManagementDocumentTypeDescriptor {
     @XNode("postDocType")
     protected String postDocType;
 
+    @XNode("caseFolderDocType")
+    protected String caseFolderDocType;
+
+    @XNode("caseItemDocType")
+    protected String caseItemDocType;
+
 }
