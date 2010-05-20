@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<component name="com.nuxeo.correspondence.schemas">
+<component name="org.nuxeo.cm.schemas">
 
   <require>org.nuxeo.ecm.core.CoreExtensions</require>
 
