@@ -60,8 +60,8 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
 public class CaseItemDocumentActionsBean extends
-        CaseManagementContextBoundInstance implements
-        CaseManagementDocumentActions {
+CaseManagementContextBoundInstance implements
+CaseManagementDocumentActions {
 
     private static final String DOCUMENT_SAVED = "document_saved";
 
@@ -72,8 +72,6 @@ public class CaseItemDocumentActionsBean extends
     @In(create = true)
     protected transient NavigationContext navigationContext;
 
-    @In(create = true, required = false)
-    protected transient CoreSession documentManager;
 
     @In(create = true)
     protected transient CaseDistributionService caseDistributionService;

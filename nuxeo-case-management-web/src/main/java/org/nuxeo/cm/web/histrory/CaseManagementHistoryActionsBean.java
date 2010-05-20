@@ -73,9 +73,6 @@ CaseManagementContextBoundInstance {
     @In(create = true)
     protected transient ContentHistoryActions contentHistoryActions;
 
-    @In(create = true, required = false)
-    protected transient CoreSession documentManager;
-
     protected void resetCurrentEmailCache(DocumentModel cachedEmail,
             DocumentModel newEmail) throws ClientException {
         logEntries = null;

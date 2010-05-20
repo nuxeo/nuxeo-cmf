@@ -74,9 +74,6 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
     @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(CaseManagementDistributionActionsBean.class);
 
-    @In(create = true, required = false)
-    protected transient CoreSession documentManager;
-
     @In(required = true, create = true)
     protected transient NavigationContext navigationContext;
 

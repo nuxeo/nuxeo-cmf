@@ -52,9 +52,6 @@ CaseManagementContextBoundInstance {
 
     public static final String CASE_MANAGEMENT_COMMENT_ACTIONS = "CASE_MANAGEMENT_COMMENT_ACTIONS";
 
-    @In(create = true, required = false)
-    protected transient CoreSession documentManager;
-
     @In(create = true)
     protected transient CommentManagerActions commentManagerActions;
 

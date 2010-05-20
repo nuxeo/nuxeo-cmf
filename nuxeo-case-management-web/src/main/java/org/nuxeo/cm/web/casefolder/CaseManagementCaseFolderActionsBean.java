@@ -58,7 +58,6 @@ import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
@@ -92,9 +91,6 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
     protected static String CASE_FOLDER_PLANS = "CASE_FOLDER_PLANS";
 
     protected static final Log log = LogFactory.getLog(CaseManagementCaseFolderActionsBean.class);
-
-    @In(create = true, required = false)
-    protected transient CoreSession documentManager;
 
     @In(create = true)
     protected NavigationContext navigationContext;
