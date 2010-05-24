@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<component name="com.nuxeo.correspondence.lifecycle">
+<component name="org.nuxeo.cm.lifecycle">
 
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
     point="lifecycle">
