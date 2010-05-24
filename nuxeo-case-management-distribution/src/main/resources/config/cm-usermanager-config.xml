@@ -7,7 +7,7 @@
   <extension target="org.nuxeo.ecm.platform.usermanager.UserService"
     point="userManager">
 
-    <userManager class="org.nuxeo.cm.core.usermanager.CaseManagementUserManagerImpl">
+    <userManager class="org.nuxeo.ecm.platform.usermanager.UserManagerImpl">
 
       <defaultAdministratorId>Administrator</defaultAdministratorId>
 
