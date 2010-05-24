@@ -18,4 +18,3 @@ target
 *.iws
 log.txt
 derby.log
-nuxeo-case-management-distribution/ftest/selenium/user-extensions.js
