@@ -51,6 +51,7 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
@@ -60,6 +61,7 @@ import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.UserAction;
@@ -412,6 +414,15 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
 
     public String openDraft(String envelopeId) throws ClientException {
         return navigationContext.navigateToId(envelopeId);
+    }
+
+    public String readCaseLink(String caseLinkId, String caseDocumentId, Boolean read) throws ClientException {
+        if (!read) {
+            DocumentModel caseLink = documentManager.getDocument(new IdRef(caseLinkId));
+            caseLink.setPropertyValue(CaseLinkConstants.IS_READ_FIELD, Boolean.TRUE);
+            documentManager.saveDocument(caseLink);
+        }
+        return navigationContext.navigateToId(caseDocumentId);
     }
 
 }

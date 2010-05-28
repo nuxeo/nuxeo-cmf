@@ -61,8 +61,8 @@
         </f:facet>
         <div class="popupTarget" docRef="#{row.data.ref}">
           <!-- Title -->
-          <h:commandLink value="#{nxd:titleOrId(row.data)}"
-             action="#{navigationContext.navigateToId(row.data.cslk.caseDocumentId)}" />
+          <h:commandLink value="#{nxd:titleOrId(row.data)}" styleClass="#{nxu:test(row.data.cslk.isRead, '', 'boldLabel')}"
+             action="#{cmCaseFolderActions.readCaseLink(row.data.ref, row.data.cslk.caseDocumentId, row.data.cslk.isRead)}" />
         </div>
 
       </nxu:column>
