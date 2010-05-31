@@ -14,12 +14,21 @@
   <artifactId>nuxeo-case-management-facade</artifactId>
   <name>Case Management Facade</name>
   <description>Case Management Facade</description>
+  <packaging>ejb</packaging>
 
   <dependencies>
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>jboss-annotations-ejb3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb-api</artifactId>
+    </dependency>   
   </dependencies>
 
 </project>

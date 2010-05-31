@@ -5,3 +5,4 @@ Bundle-SymbolicName: org.nuxeo.cm.facade;singleton=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Nuxeo
 Require-Bundle: org.nuxeo.cm.core
+Nuxeo-Component: OSGI-INF/cm-platform-contrib.xml.
