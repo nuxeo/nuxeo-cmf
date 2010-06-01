@@ -21,6 +21,7 @@ package org.nuxeo.cm.core.event;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +34,7 @@ import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
@@ -46,9 +48,6 @@ import org.nuxeo.ecm.core.event.EventListener;
 /**
  * Listener for distribution events that sets recipient mailbox user/groups
  * rights on the envelope and related documents.
- * <p>
- * FIXME: this cannot be kept as is, otherwise new mailbox delegates won't be
- * able to access these documents.
  *
  * @author Anahide Tchertchian
  */
@@ -68,7 +67,6 @@ public class DistributionListener implements EventListener {
         if (recipients == null) {
             return;
         }
-
         try {
             SetEnvelopeAclUnrestricted session = new SetEnvelopeAclUnrestricted(
                     eventCtx.getCoreSession(), envelope, recipients);
@@ -86,6 +84,12 @@ public class DistributionListener implements EventListener {
 
         protected final Map<String, List<String>> recipients;
 
+        protected Set<String> allMailboxIds = new HashSet<String>();
+
+        protected List<ACE> newACEs = new LinkedList<ACE>();
+
+        protected String confidentiality;
+
         public SetEnvelopeAclUnrestricted(CoreSession session,
                 Case envelope, Map<String, List<String>> recipients) {
             super(session);
@@ -95,37 +99,60 @@ public class DistributionListener implements EventListener {
 
         @Override
         public void run() throws ClientException {
-            Set<String> allMailboxIds = new HashSet<String>();
             for (Map.Entry<String, List<String>> recipient : recipients.entrySet()) {
                 allMailboxIds.addAll(recipient.getValue());
             }
-
             if (!allMailboxIds.isEmpty()) {
                 List<DocumentModel> docs = new ArrayList<DocumentModel>();
                 DocumentModel envelopeDoc = envelope.getDocument();
                 if (envelopeDoc != null) {
                     docs.add(envelopeDoc);
                 }
+                CaseItem firstCaseItem = envelope.getFirstItem(session);
+                confidentiality = firstCaseItem.getConfidentiality();
                 List<CaseItem> items = envelope.getCaseItems(session);
                 for (CaseItem item : items) {
                     DocumentModel doc = item.getDocument();
                     docs.add(doc);
                 }
-                for (DocumentModel doc : docs) {
-                    doc = session.getDocument(doc.getRef());
-                    ACP acp = doc.getACP();
-                    ACL mailboxACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
-                    for (String mailboxId : allMailboxIds) {
-                        mailboxACL.add(new ACE(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + mailboxId,
-                                SecurityConstants.READ_WRITE, true));
-                    }
-                    acp.removeACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
-                    acp.addACL(mailboxACL);
-                    session.setACP(doc.getRef(), acp, true);
+                setRightsOnCaseItems(docs);
+            }
+        }
+
+        protected void setRightsOnCaseItems(List<DocumentModel> docs) throws ClientException{
+            for (DocumentModel doc : docs) {
+                doc = session.getDocument(doc.getRef());
+                ACP acp = doc.getACP();
+                ACL mailboxACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
+                List<ACE> newACE = getNewACEs();
+                mailboxACL.addAll(newACE);
+                acp.removeACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
+                acp.addACL(mailboxACL);
+                session.setACP(doc.getRef(), acp, true);
+                DocumentModelList children = session.getChildren(doc.getRef());
+                if (children != null && !children.isEmpty()) {
+                    setRightsOnCaseItems(children);
                 }
             }
         }
 
+        protected List<ACE> getNewACEs(){
+            if (newACEs == null || newACEs.isEmpty()) {
+                // compute private ace
+                for (String mailboxId : allMailboxIds) {
+                    newACEs.add(new ACE(
+                            CaseManagementSecurityConstants.CASE_FOLDER_PREFIX
+                                    + mailboxId, SecurityConstants.READ_WRITE,
+                            true));
+                }
+                // set public ACE if needed
+                if (CaseManagementSecurityConstants.PUBLIC_SECURITY_LEVEL.equals(confidentiality)) {
+                    newACEs.add(new ACE(SecurityConstants.EVERYONE,
+                            SecurityConstants.READ, true));
+                }
+            }
+            return newACEs;
+        }
     }
 
 }

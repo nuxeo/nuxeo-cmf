@@ -25,4 +25,6 @@ public class CaseManagementSecurityConstants {
 
     public static final String CASE_FOLDER_PREFIX = "casefolder_";
 
+    public static final String PUBLIC_SECURITY_LEVEL = "1";
+
 }
