@@ -26,24 +26,23 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
-import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
-import org.nuxeo.ecm.platform.usermanager.UserManager;
-import org.nuxeo.runtime.api.Framework;
-
 import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
-import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
+import org.nuxeo.ecm.platform.usermanager.UserManager;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Anahide Tchertchian
  */
-public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
+public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
     protected UserManager userManager;
 
@@ -76,36 +75,42 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     protected Case envelope1;
 
     public CaseManagementRepositoryTestCase() {
-        super(null);
+        super();
     }
 
     public CaseManagementRepositoryTestCase(String name) {
-        super(name);
+        super();
+    }
+
+
+    @Override
+    protected void deployRepositoryContrib() throws Exception {
+         super.deployRepositoryContrib();
+
+         // deploy repository manager
+         deployBundle("org.nuxeo.ecm.core.api");
+
+         // deploy search
+         deployBundle("org.nuxeo.ecm.platform.search.api");
+
+         // deploy api and core bundles
+         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
+         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
+
+         // needed for users
+         deployBundle("org.nuxeo.ecm.directory");
+         deployBundle("org.nuxeo.ecm.platform.usermanager");
+         deployBundle("org.nuxeo.ecm.directory.types.contrib");
+         deployBundle("org.nuxeo.ecm.directory.sql");
+         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
+
+         // needed for default hierarchy
+         deployBundle("org.nuxeo.ecm.platform.content.template");
     }
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
-        // deploy repository manager
-        deployBundle("org.nuxeo.ecm.core.api");
-
-        // deploy search
-        deployBundle("org.nuxeo.ecm.platform.search.api");
-
-        // deploy api and core bundles
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
-
-        // needed for users
-        deployBundle("org.nuxeo.ecm.directory");
-        deployBundle("org.nuxeo.ecm.platform.usermanager");
-        deployBundle("org.nuxeo.ecm.directory.types.contrib");
-        deployBundle("org.nuxeo.ecm.directory.sql");
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
-
-        // needed for default hierarchy
-        deployBundle("org.nuxeo.ecm.platform.content.template");
 
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);

@@ -41,14 +41,14 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
-import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
+import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Anahide Tchertchian
  */
-public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
+public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
 
     protected UserManager userManager;
 
@@ -73,17 +73,16 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
     protected static DocumentModel mailEnvelopItemeModel;
 
     public CaseManagementSecurityTestCase() {
-        super(null);
+        super();
     }
 
     public CaseManagementSecurityTestCase(String name) {
-        super(name);
+        super();
     }
 
     @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
+    protected void deployRepositoryContrib() throws Exception {
+        super.deployRepositoryContrib();
         // deploy repository manager
         deployBundle("org.nuxeo.ecm.core.api");
 
@@ -105,6 +104,11 @@ public class CaseManagementSecurityTestCase extends SQLRepositoryTestCase {
         // needed for default hierarchy
         deployBundle("org.nuxeo.ecm.platform.content.template");
 
+    }
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 

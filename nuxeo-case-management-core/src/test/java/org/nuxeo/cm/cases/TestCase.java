@@ -19,12 +19,6 @@ package org.nuxeo.cm.cases;
 import java.util.Collections;
 import java.util.List;
 
-import org.nuxeo.cm.cases.HasParticipants;
-import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.cases.CaseImpl;
-import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.cases.CaseItemImpl;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -90,12 +84,12 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         envelope.moveDownEmailsInCase(Collections.singletonList(item1), session);
         closeSession();
         openSession();
-        DocumentModel document =session.getDocument(new IdRef(envId));
+        DocumentModel document = session.getDocument(new IdRef(envId));
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         envelope = new CaseImpl(document, adapter);
         openSession();
         assertEquals(2, envelope.getCaseItems(session).size());
-        assertEquals(envelope.getFirstItem(session), item1);
+        assertEquals(envelope.getFirstItem(session), item2);
     }
 
 }
