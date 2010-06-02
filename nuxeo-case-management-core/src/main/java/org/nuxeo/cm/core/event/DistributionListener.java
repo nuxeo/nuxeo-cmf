@@ -34,7 +34,6 @@ import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
@@ -109,6 +108,10 @@ public class DistributionListener implements EventListener {
                     docs.add(envelopeDoc);
                 }
                 CaseItem firstCaseItem = envelope.getFirstItem(session);
+                if (firstCaseItem == null) {
+                    //should not happen, can't distribute
+                    throw new ClientException("Case has no CaseItem.");
+                }
                 confidentiality = firstCaseItem.getConfidentiality();
                 List<CaseItem> items = envelope.getCaseItems(session);
                 for (CaseItem item : items) {
@@ -129,10 +132,6 @@ public class DistributionListener implements EventListener {
                 acp.removeACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
                 acp.addACL(mailboxACL);
                 session.setACP(doc.getRef(), acp, true);
-                DocumentModelList children = session.getChildren(doc.getRef());
-                if (children != null && !children.isEmpty()) {
-                    setRightsOnCaseItems(children);
-                }
             }
         }
 
