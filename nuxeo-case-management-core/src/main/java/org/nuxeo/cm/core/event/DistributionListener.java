@@ -109,8 +109,8 @@ public class DistributionListener implements EventListener {
                 }
                 CaseItem firstCaseItem = envelope.getFirstItem(session);
                 if (firstCaseItem == null) {
-                    //should not happen, can't distribute
-                    throw new ClientException("Case has no CaseItem.");
+                    //no case item, no rights to set.
+                    return;
                 }
                 confidentiality = firstCaseItem.getConfidentiality();
                 List<CaseItem> items = envelope.getCaseItems(session);
