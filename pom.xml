@@ -146,6 +146,12 @@
         <version>${pom.version}</version>
         <scope>test</scope>
       </dependency>
+      <!-- nuxeo platform importer-->
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-importer-core</artifactId>
+        <version>${nuxeo.platform.version}</version>
+      </dependency>
 
       <!-- CMIS integration -->
       <!-- CMIS nuxeo chemistry -->

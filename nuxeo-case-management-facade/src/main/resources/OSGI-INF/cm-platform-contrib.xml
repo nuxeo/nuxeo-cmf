@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.cm.service.bindings" version="1.0">
 
-  <extension target="org.nuxeo.runtime.api.ServiceManagement" point="services">
+<extension target="org.nuxeo.runtime.api.ServiceManagement" point="services">
 
   <service class="org.nuxeo.cm.service.CaseFolderManagementService" group="platform">
     <locator>%CaseFolderManagementBean</locator>

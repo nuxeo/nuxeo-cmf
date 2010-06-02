@@ -24,4 +24,5 @@ Nuxeo-Component: OSGI-INF/cm-framework.xml,
  OSGI-INF/cm-distribution-type-contrib.xml,
  OSGI-INF/cm-document-type-service.xml,
  OSGI-INF/cm-document-type-contrib.xml,
- OSGI-INF/cm-service.xml
+ OSGI-INF/cm-service.xml,
+ OSGI-INF/cm-importer-service.xml

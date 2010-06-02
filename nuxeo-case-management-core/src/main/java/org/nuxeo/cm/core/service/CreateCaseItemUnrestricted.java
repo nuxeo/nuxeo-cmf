@@ -31,6 +31,8 @@ import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
+ * 
+ * Creates a new caseItem document from a given document model
  * @author arussel
  */
 public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
@@ -51,6 +53,7 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
     @Override
     public void run() throws ClientException {
         DocumentModel newDoc = session.createDocument(doc);
+        newDoc.copyContent(doc);
         ACP acp = newDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
         for (CaseFolder mailbox : mailboxes) {

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.importer.CaseManagementImporter">
+   
+   <extension target="org.nuxeo.cm.service.importer.CaseManagementImporterService" point="importer">
+   	<importInfo>
+    	<destionationCaseFolderPath>/case-management/case-folder-root/user1-lambda</destionationCaseFolderPath>
+         <noImportingThreads>5</noImportingThreads>
+         <importerDocumentModelfactory>org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory</importerDocumentModelfactory>
+        <folderPath>src/test/resources</folderPath>
+     </importInfo>
+   </extension>
+   
+
+</component>

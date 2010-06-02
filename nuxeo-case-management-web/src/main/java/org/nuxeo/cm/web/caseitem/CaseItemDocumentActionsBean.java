@@ -95,6 +95,7 @@ CaseManagementDocumentActions {
 
         Case envelope = caseDistributionService.createCase(
                 documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentCaseFolder()));
+        emailDoc = envelope.getFirstItem(documentManager).getDocument();
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 envelope.getDocument().getId());
