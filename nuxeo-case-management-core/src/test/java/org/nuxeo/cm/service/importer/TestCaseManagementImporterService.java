@@ -29,7 +29,9 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.common.utils.FileNamePattern;
 import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * @author Mariana Cedica
@@ -37,12 +39,26 @@ import org.nuxeo.runtime.api.Framework;
 public class TestCaseManagementImporterService extends
         CaseManagementRepositoryTestCase {
 
+
     @Override
     public void setUp() throws Exception {
+        database = DatabasePostgreSQL.INSTANCE;
         super.setUp();
-        deployContrib("org.nuxeo.cm.core.test",
-                "test-cm-default-importer-contrib.xml");
+        // since we are using multiple threads in order to import and create docs we need to make sure that the repository is 
+        // correctly  initialized  (in the database) and that means the transaction  in which these docs are created is committed
+        // force commit transaction
+        closeSession();
+        TransactionHelper.commitOrRollbackTransaction();
         openSession();
+    }
+    
+    @Override
+    protected void deployRepositoryContrib() throws Exception {
+        // TODO Auto-generated method stub
+        super.deployRepositoryContrib();
+        deployBundle("org.nuxeo.ecm.platform.audit.api");
+        deployContrib("org.nuxeo.cm.core.test",
+        "test-cm-default-importer-contrib.xml");
     }
 
     public void testImporter() throws Exception {

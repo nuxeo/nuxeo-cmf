@@ -108,5 +108,10 @@ public class CaseManagementEventConstants {
     public static final String EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID = "eventContextAffiliatedCaseFolderId";
 
     public static final String EVENT_CONTEXT_CASE_FOLDER_ID = "eventContextCaseFolderId";
+    
+    public static final String EVENT_CASE_MANAGEMENET_IMPORT = "eventCmImport";
+    
+    public static final String EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY = "cmImportCategory";
+    
 
 }

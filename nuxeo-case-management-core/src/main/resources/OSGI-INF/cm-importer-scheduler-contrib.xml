@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<component
+  name="org.nuxeo.cm.service.importer.SchedulerContrib">
+
+  <require>org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService</require>
+  
+	<extension
+		target="org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService"
+		point="schedule">
+		<code>
+			<schedule id="importerSchedule">
+				<username>system</username>
+				<event>eventCmImport</event>
+				<eventCategory>cmImportCategory</eventCategory>
+				<!-- Every 5 minutes -->
+				<cronExpression>0 0/5 * * * ?</cronExpression>
+			</schedule>
+		</code>
+	</extension>
+
+   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+	 point="listener">
+			<listener name="importerListener" async="false" postCommit="false"
+			class="org.nuxeo.cm.core.event.CaseManagementImporterListener">
+		</listener>
+   </extension>
+  
+</component>

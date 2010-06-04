@@ -36,6 +36,8 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
 
     private static final long serialVersionUID = 4984067871511405259L;
 
+    CaseManagementImporterDescriptor importInfo;
+
     private String destionationCaseFolderPath;
 
     private String noImportingThreads;
@@ -54,7 +56,7 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
             String extensionPoint, ComponentInstance contributor)
             throws Exception {
 
-        CaseManagementImporterDescriptor importInfo = (CaseManagementImporterDescriptor) contribution;
+        importInfo = (CaseManagementImporterDescriptor) contribution;
 
         if (importInfo.destionationCaseFolderPath != null) {
             destionationCaseFolderPath = importInfo.destionationCaseFolderPath;
@@ -80,22 +82,35 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
         destionationCaseFolderPath = null;
         noImportingThreads = null;
         importerDocumentModelfactoryClass = null;
+        importInfo = null;
     }
 
     public void importDocuments() throws ClientException {
         try {
+            // check if any importers are configured
+            if (!importerConfigured()){
+                log.warn("No there is no importer configured!");
+                return ;
+            }
             new CaseManagementImporter(destionationCaseFolderPath,
                     noImportingThreads, folderPath,
                     getImporterDocumentModelFactory()).importDocuments();
         } catch (Exception e) {
             log.error(e);
             throw new ClientException(e);
-        } 
+        }
     }
 
     public final CaseManagementCaseItemDocumentFactory getImporterDocumentModelFactory()
             throws IllegalAccessException, InstantiationException {
         return importerDocumentModelfactoryClass.newInstance();
+    }
+
+    private boolean importerConfigured() {
+        if (importInfo != null) {
+            return true;
+        }
+        return false;
     }
 
 }
