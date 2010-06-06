@@ -42,7 +42,7 @@ public class TestCaseManagementImporterService extends
 
     @Override
     public void setUp() throws Exception {
-        database = DatabasePostgreSQL.INSTANCE;
+    
         super.setUp();
         // since we are using multiple threads in order to import and create docs we need to make sure that the repository is 
         // correctly  initialized  (in the database) and that means the transaction  in which these docs are created is committed

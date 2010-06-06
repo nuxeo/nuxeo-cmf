@@ -152,7 +152,12 @@
         <artifactId>nuxeo-platform-importer-core</artifactId>
         <version>${nuxeo.platform.version}</version>
       </dependency>
-
+      <dependency>
+        <groupId>org.nuxeo.runtime</groupId>
+        <artifactId>nuxeo-runtime-jtajca</artifactId>
+        <version>${nuxeo.core.version}</version>
+        <scope>test</scope>
+      </dependency>
       <!-- CMIS integration -->
       <!-- CMIS nuxeo chemistry -->
       <dependency>

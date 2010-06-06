@@ -23,6 +23,7 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.runtime.transaction.TransactionHelper;
 
 
 /**
@@ -82,12 +83,13 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         assertEquals(envelope.getFirstItem(session), item1);
 
         envelope.moveDownEmailsInCase(Collections.singletonList(item1), session);
+        session.save();
         closeSession();
+        TransactionHelper.commitOrRollbackTransaction();
         openSession();
         DocumentModel document = session.getDocument(new IdRef(envId));
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         envelope = new CaseImpl(document, adapter);
-        openSession();
         assertEquals(2, envelope.getCaseItems(session).size());
         assertEquals(envelope.getFirstItem(session), item2);
     }

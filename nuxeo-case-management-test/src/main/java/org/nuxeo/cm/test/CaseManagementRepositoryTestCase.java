@@ -35,9 +35,11 @@ import org.nuxeo.cm.service.CaseFolderManagementService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * @author Anahide Tchertchian
@@ -110,7 +112,9 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
+        database = DatabasePostgreSQL.INSTANCE;
         super.setUp();
+     
 
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);

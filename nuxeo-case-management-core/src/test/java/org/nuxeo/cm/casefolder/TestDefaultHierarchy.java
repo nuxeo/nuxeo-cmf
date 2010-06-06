@@ -23,15 +23,21 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
-
 /**
  * @author Anahide Tchertchian
  */
 public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
     private static final String CASE_MANAGEMENT = "/case-management";
-    private static final String CASE_FOLDER_FOLDER = CASE_MANAGEMENT + "/case-folder-root";
+
+    private static final String CASE_FOLDER_FOLDER = CASE_MANAGEMENT
+            + "/case-folder-root";
+
     private static final String CASE = CASE_MANAGEMENT + "/case-root";
+
+    private static final String CASE_ROOT_TYPE = "CaseRoot";
+
+    private static final String CASE_ROOT_FOLDER_TYPE = "CaseFolderRoot";
 
     @Override
     public void setUp() throws Exception {
@@ -52,10 +58,17 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
         assertEquals(2, domainChildren.size());
 
         DocumentModel mailRoot = domainChildren.get(0);
-        assertEquals(CASE, mailRoot.getPathAsString());
-
         DocumentModel mailboxRoot = domainChildren.get(1);
-        assertEquals(CASE_FOLDER_FOLDER, mailboxRoot.getPathAsString());
+        
+        // don't assume that the clidren's order will be the same on all databases
+        if (CASE_ROOT_TYPE.equals(mailRoot.getType())) {
+            assertEquals(CASE, mailRoot.getPathAsString());
+            assertEquals(CASE_FOLDER_FOLDER, mailboxRoot.getPathAsString());
+        } else {
+            assertEquals(CASE, mailboxRoot.getPathAsString());
+            assertEquals(CASE_FOLDER_FOLDER, mailRoot.getPathAsString());
+        }
+
     }
 
 }
