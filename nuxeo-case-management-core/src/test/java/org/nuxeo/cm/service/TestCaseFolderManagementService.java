@@ -171,10 +171,6 @@ public class TestCaseFolderManagementService extends CaseManagementRepositoryTes
         // assertFalse(mailboxes.isEmpty());
     }
 
-    public CaseFolder getPersonalCaseFolder(String name) throws Exception {
-        return correspCaseFolderService.createPersonalCaseFolders(session, name).get(0);
-    }
-
     public void testSendCase() throws Exception {
         CaseFolder senderMailbox = getPersonalCaseFolder(user1);
         assertNotNull(senderMailbox);

@@ -39,7 +39,6 @@ import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
@@ -50,18 +49,17 @@ import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
-
 /**
  * @author Anahide Tchertchian
- *
+ * 
  */
 @Name("cmDocumentActions")
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
 public class CaseItemDocumentActionsBean extends
-CaseManagementContextBoundInstance implements
-CaseManagementDocumentActions {
+        CaseManagementContextBoundInstance implements
+        CaseManagementDocumentActions {
 
     private static final String DOCUMENT_SAVED = "document_saved";
 
@@ -71,7 +69,6 @@ CaseManagementDocumentActions {
 
     @In(create = true)
     protected transient NavigationContext navigationContext;
-
 
     @In(create = true)
     protected transient CaseDistributionService caseDistributionService;
@@ -88,13 +85,25 @@ CaseManagementDocumentActions {
     protected Boolean editingMail = false;
 
     public String createCaseItemInCase() throws ClientException {
-        // The new mail
-        DocumentModel emailDoc = navigationContext.getChangeableDocument();
-
         String parentPath = getParentFolderPath();
-
-        Case envelope = caseDistributionService.createCase(
-                documentManager, emailDoc, parentPath, Collections.singletonList(getCurrentCaseFolder()));
+        DocumentModel emailDoc = navigationContext.getChangeableDocument();
+        // The new mail
+        Case kase = getCurrentCase();
+        if (kase != null) {// adding a case item in a case
+            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(documentManager, kase, parentPath, emailDoc);
+            emailDoc = newCaseItem.getDocument();
+            emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                    CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
+                    getCurrentCase().getDocument().getId());
+            documentManager.saveDocument(emailDoc);
+            documentManager.save();
+            TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
+            return typeInfo.getDefaultView();
+        }
+        // creating a case item in a case
+        Case envelope = caseDistributionService.createCase(documentManager,
+                emailDoc, parentPath,
+                Collections.singletonList(getCurrentCaseFolder()));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -118,7 +127,8 @@ CaseManagementDocumentActions {
     }
 
     protected String getParentFolderPath() throws ClientException {
-        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(documentManager);
+        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
+                documentManager);
         runner.runUnrestricted();
         return runner.getParentPath();
     }

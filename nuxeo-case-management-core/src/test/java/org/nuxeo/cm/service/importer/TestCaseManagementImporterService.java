@@ -29,7 +29,6 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.common.utils.FileNamePattern;
 import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
@@ -95,11 +94,6 @@ public class TestCaseManagementImporterService extends
             }
         }
 
-    }
-
-    private CaseFolder getPersonalCaseFolder(String username) throws Exception {
-        return correspCaseFolderService.createPersonalCaseFolders(session,
-                username).get(0);
     }
 
     private CaseManagementImporterService getCaseManagementImporterService()

@@ -21,7 +21,6 @@ package org.nuxeo.cm.core.event;
 
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_CREATED;
 
-import org.nuxeo.cm.casefolder.CaseFolderConstants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreInstance;

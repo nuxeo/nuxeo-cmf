@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderConstants;
-import org.nuxeo.cm.casefolder.CaseFolderImpl;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CaseFolderCreator;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;

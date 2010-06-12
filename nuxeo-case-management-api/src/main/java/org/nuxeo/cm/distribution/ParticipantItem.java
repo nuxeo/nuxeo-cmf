@@ -19,8 +19,6 @@
 
 package org.nuxeo.cm.distribution;
 
-import java.io.Serializable;
-
 import org.nuxeo.cm.casefolder.CaseFolderHeaderImpl;
 
 

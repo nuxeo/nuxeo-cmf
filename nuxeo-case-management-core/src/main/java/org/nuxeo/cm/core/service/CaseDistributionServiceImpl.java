@@ -75,8 +75,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     protected Map<String, Serializable> context;
 
-    public CaseLink sendCase(CoreSession session,
-            CaseLink postRequest, boolean isInitial) {
+    public CaseLink sendCase(CoreSession session, CaseLink postRequest,
+            boolean isInitial) {
         try {
             SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(
                     session, postRequest, isInitial);
@@ -97,7 +97,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
         if (mgr == null) {
             throw new CaseManagementRuntimeException(
-            "Cannot find RepostoryManager");
+                    "Cannot find RepostoryManager");
         }
         Repository repo = mgr.getDefaultRepository();
 
@@ -166,8 +166,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return list;
     }
 
-    protected List<CaseLink> getPosts(CoreSession coreSession,
-            long offset, long limit, String query) {
+    protected List<CaseLink> getPosts(CoreSession coreSession, long offset,
+            long limit, String query) {
         List<CaseLink> posts = new ArrayList<CaseLink>();
         DocumentModelList result;
 
@@ -191,8 +191,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
         String query = String.format(
                 "SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=0",
-                mailbox.getDocument().getId(),
-                CaseLinkConstants.IS_SENT_FIELD);
+                mailbox.getDocument().getId(), CaseLinkConstants.IS_SENT_FIELD);
         return getPosts(coreSession, offset, limit, query);
     }
 
@@ -203,8 +202,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
         String query = String.format(
                 "SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=1",
-                mailbox.getDocument().getId(),
-                CaseLinkConstants.IS_SENT_FIELD);
+                mailbox.getDocument().getId(), CaseLinkConstants.IS_SENT_FIELD);
         return getPosts(coreSession, offset, limit, query);
     }
 
@@ -215,13 +213,32 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
         String query = String.format(
                 "SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=1",
-                mailbox.getDocument().getId(),
-                CaseLinkConstants.IS_DRAFT_FIELD);
+                mailbox.getDocument().getId(), CaseLinkConstants.IS_DRAFT_FIELD);
         return getPosts(coreSession, offset, limit, query);
     }
 
-    public Case createCase(CoreSession session,
-            DocumentModel emailDoc, String parentPath, List<CaseFolder> mailboxes) {
+    public CaseItem addCaseItemToCase(CoreSession session, Case kase,
+            String parentPath, DocumentModel emailDoc) {
+        CaseItem item = emailDoc.getAdapter(CaseItem.class);
+        String docName = IdUtils.generateId("doc " + item.getTitle());
+        emailDoc.setPathInfo(parentPath, docName);
+        try {
+            CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
+                    session, emailDoc, kase);
+            mailCreator.runUnrestricted();
+            DocumentModel mail = session.getDocument(mailCreator.getDocRef());
+            CaseItem newCaseItem = mail.getAdapter(CaseItem.class);
+            kase.addCaseItem(newCaseItem, session);
+            newCaseItem.save(session);
+            kase.save(session);
+            return newCaseItem;
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+    }
+
+    public Case createCase(CoreSession session, DocumentModel emailDoc,
+            String parentPath, List<CaseFolder> mailboxes) {
         // Save the new mail in the MailRoot folder
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
@@ -233,7 +250,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             DocumentModel mail = session.getDocument(mailCreator.getDocRef());
             // Create envelope
             CreateCaseUnrestricted envelopeCreator = new CreateCaseUnrestricted(
-                    session, mail.getAdapter(CaseItem.class), parentPath, mailboxes);
+                    session, mail.getAdapter(CaseItem.class), parentPath,
+                    mailboxes);
             envelopeCreator.runUnrestricted();
             DocumentModel envelopeDoc = session.getDocument(envelopeCreator.getDocumentRef());
             return envelopeDoc.getAdapter(Case.class);
@@ -242,9 +260,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
-    public Case createCase(CoreSession session,
-            DocumentModel emailDoc, String parentPath) {
-        return createCase(session, emailDoc, parentPath, new ArrayList<CaseFolder>());
+    public Case createCase(CoreSession session, DocumentModel emailDoc,
+            String parentPath) {
+        return createCase(session, emailDoc, parentPath,
+                new ArrayList<CaseFolder>());
     }
 
     public CaseLink createDraftCaseLink(CoreSession session,
@@ -253,8 +272,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
             Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
             eventProperties.put(
-                    CaseManagementEventConstants.EVENT_CONTEXT_CASE,
-                    envelope);
+                    CaseManagementEventConstants.EVENT_CONTEXT_CASE, envelope);
             eventProperties.put("category",
                     CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
             fireEvent(session, envelope, eventProperties,
@@ -263,7 +281,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     session.getRepositoryName(),
                     (String) envelope.getDocument().getPropertyValue(
                             CaseConstants.TITLE_PROPERTY_NAME), envelope,
-                            mailbox);
+                    mailbox);
             runner.runUnrestricted();
             CaseLink draft = runner.getCreatedPost();
             eventProperties.put(
@@ -284,8 +302,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         String query = String.format(
                 "SELECT * FROM Document WHERE ecm:parentId ='%s' AND %s='%s' and %s=1",
                 mailbox.getDocument().getId(),
-                CaseLinkConstants.CASE_DOCUMENT_ID_FIELD,
-                envelopeId, CaseLinkConstants.IS_DRAFT_FIELD);
+                CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, envelopeId,
+                CaseLinkConstants.IS_DRAFT_FIELD);
         List<CaseLink> result = getPosts(coreSession, 0, 0, query);
         int size = result.size();
         if (size > 1) {
@@ -357,8 +375,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
         protected CaseLink post;
 
-        public SendPostUnrestricted(CoreSession session,
-                CaseLink postRequest, boolean isInitial) {
+        public SendPostUnrestricted(CoreSession session, CaseLink postRequest,
+                boolean isInitial) {
             super(session);
             this.postRequest = postRequest;
             this.isInitial = isInitial;
@@ -400,8 +418,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     }
                     eventProperties.put(
                             CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_
-                            + type, StringUtils.join(mailboxTitles,
-                            ", "));
+                                    + type, StringUtils.join(mailboxTitles,
+                                    ", "));
                 }
 
                 eventProperties.put(
@@ -444,7 +462,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
                         if (draft == null) {
                             throw new CaseManagementException(
-                            "No draft for an initial send.");
+                                    "No draft for an initial send.");
                         }
 
                         UpdateCaseLinkUnrestricted createPostUnrestricted = new UpdateCaseLinkUnrestricted(

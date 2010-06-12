@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -111,6 +112,12 @@ public class CaseDistributionBean implements CaseDistributionService {
                     "Unable to retreive CaseDistributionService");
         }
         return caseDistributionService;
+    }
+
+    public CaseItem addCaseItemToCase(CoreSession session, Case kase,
+            String parentPath, DocumentModel emailDoc) {
+        return getCaseDistributionService().addCaseItemToCase(session, kase,
+                parentPath, emailDoc);
     }
 
 }

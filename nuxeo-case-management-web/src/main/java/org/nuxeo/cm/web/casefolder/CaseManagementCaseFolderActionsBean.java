@@ -78,7 +78,8 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 @Name("cmCaseFolderActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractActionsBean {
+public class CaseManagementCaseFolderActionsBean extends
+        CaseManagementAbstractActionsBean {
 
     private static final long serialVersionUID = 1L;
 
@@ -176,7 +177,7 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     ComponentUtils.translate(context,
-                    "feedback.casemanagement.caseFolderIdAlreadyExists"),
+                            "feedback.casemanagement.caseFolderIdAlreadyExists"),
                     null);
             // also add global message?
             // context.addMessage(null, message);
@@ -219,7 +220,7 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,
-                        "feedback.casemanagement.personalCaseFolderAlreadyExists"),
+                                "feedback.casemanagement.personalCaseFolderAlreadyExists"),
                         null);
                 // also add global message?
                 // context.addMessage(null, message);
@@ -239,7 +240,7 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
                 log.debug("Document " + newDocument.getName()
                         + " already created");
                 return navigationContext.navigateToDocument(newDocument,
-                "after-create");
+                        "after-create");
             }
             DocumentModel parentDocument = getParentCaseFolder(parentMailboxId);
             // reset the parent id
@@ -260,7 +261,7 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                     parentDocument);
             return navigationContext.navigateToDocument(newDocument,
-            "after-create");
+                    "after-create");
         } catch (Throwable t) {
             throw new CaseManagementException(t);
         }
@@ -313,13 +314,13 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
                 CaseFolderConstants.CASE_FOLDER_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
             throw new CaseManagementException(
-            "Cannot find any case folder root");
+                    "Cannot find any case folder root");
         }
         return res.get(0);
     }
 
     protected DocumentModel getParentCaseFolder(String parentMailboxId)
-    throws ClientException {
+            throws ClientException {
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
@@ -328,7 +329,7 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
             } catch (Exception e) {
                 log.error(String.format(
                         "Unable to find parent mailbox with id '%s', using default "
-                        + "mailbox root as parent", parentMailboxId));
+                                + "mailbox root as parent", parentMailboxId));
             }
         }
         if (mailboxDoc == null) {
@@ -365,34 +366,37 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
     /**
      * Creates a mail draft mail.
      */
+    public String addCaseItem(String type) throws ClientException {
+        DocumentModel changeableDocument = documentManager.createDocumentModel(type);
+        navigationContext.setChangeableDocument(changeableDocument);
+        return navigationContext.getActionResult(changeableDocument,
+                UserAction.CREATE);
+    }
+
+    /**
+     * Creates a mail draft mail.
+     */
     public String createDraftCaseItem(String type) throws ClientException {
+        Map<String, Object> context = new HashMap<String, Object>();
 
-        try {
-            Map<String, Object> context = new HashMap<String, Object>();
+        // Set the path of MailRoot
+        context.put(CoreEventConstants.PARENT_PATH,
+                CaseConstants.CASE_ROOT_DOCUMENT_PATH);
+        context.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
+                getCurrentCaseFolder().getId());
+        context.put(
+                CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
+                getCurrentCaseFolder().getAffiliatedCaseFolderId());
 
-            // Set the path of MailRoot
-            context.put(CoreEventConstants.PARENT_PATH,
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH);
-            context.put(
-                    CaseManagementEventConstants.EVENT_CONTEXT_CASE_FOLDER_ID,
-                    getCurrentCaseFolder().getId());
-            context.put(
-                    CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID,
-                    getCurrentCaseFolder().getAffiliatedCaseFolderId());
+        // Create the new Mail document model in the MailRoot
+        DocumentModel changeableDocument = documentManager.createDocumentModel(
+                type, context);
 
-            // Create the new Mail document model in the MailRoot
-            DocumentModel changeableDocument = documentManager.createDocumentModel(
-                    type, context);
+        navigationContext.setChangeableDocument(changeableDocument);
 
-            navigationContext.setChangeableDocument(changeableDocument);
-
-            // Redirect to the creation form
-            return navigationContext.getActionResult(changeableDocument,
-                    UserAction.CREATE);
-
-        } catch (Throwable t) {
-            throw ClientException.wrap(t);
-        }
+        // Redirect to the creation form
+        return navigationContext.getActionResult(changeableDocument,
+                UserAction.CREATE);
     }
 
     /**
@@ -403,7 +407,7 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
-                "feedback.casemanagement.delegation.modified"));
+                        "feedback.casemanagement.delegation.modified"));
         EventManager.raiseEventsOnDocumentChange(mailbox.getDocument());
     }
 
@@ -416,10 +420,13 @@ public class CaseManagementCaseFolderActionsBean extends CaseManagementAbstractA
         return navigationContext.navigateToId(envelopeId);
     }
 
-    public String readCaseLink(String caseLinkId, String caseDocumentId, Boolean read) throws ClientException {
+    public String readCaseLink(String caseLinkId, String caseDocumentId,
+            Boolean read) throws ClientException {
         if (!read) {
-            DocumentModel caseLink = documentManager.getDocument(new IdRef(caseLinkId));
-            caseLink.setPropertyValue(CaseLinkConstants.IS_READ_FIELD, Boolean.TRUE);
+            DocumentModel caseLink = documentManager.getDocument(new IdRef(
+                    caseLinkId));
+            caseLink.setPropertyValue(CaseLinkConstants.IS_READ_FIELD,
+                    Boolean.TRUE);
             documentManager.saveDocument(caseLink);
         }
         return navigationContext.navigateToId(caseDocumentId);

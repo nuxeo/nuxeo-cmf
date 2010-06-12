@@ -59,7 +59,7 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
         SourceNode sourceNode = new FileSourceNode(folderPath);
         try {
             GenericMultiThreadedImporter importer = new GenericMultiThreadedImporter(
-                    sourceNode, destionationCaseFolderPath, 50, new Integer(
+                    sourceNode, destionationCaseFolderPath, null, 50, new Integer(
                             noImportingThreads),getLogger());
             //TODO : bachSize?
             cmCaseItemDocFactory.setDestionationCaseFolderPath(destionationCaseFolderPath);

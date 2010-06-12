@@ -19,8 +19,6 @@
 
 package org.nuxeo.cm.web.cases;
 
-import java.io.Serializable;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;

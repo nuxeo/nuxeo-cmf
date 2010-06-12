@@ -39,7 +39,6 @@ import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * @author Anahide Tchertchian
@@ -188,6 +187,10 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
         session.saveDocument(doc);
         session.save();
+    }
+
+    public CaseFolder getPersonalCaseFolder(String name) throws Exception {
+        return correspCaseFolderService.createPersonalCaseFolders(session, name).get(0);
     }
 
 }

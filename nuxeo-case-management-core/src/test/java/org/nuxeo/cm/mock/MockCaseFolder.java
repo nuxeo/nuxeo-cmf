@@ -19,7 +19,6 @@
 
 package org.nuxeo.cm.mock;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.casefolder.CaseFolderImpl;
 
 /**

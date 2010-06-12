@@ -179,7 +179,7 @@
       <category>VIEW_CASE_FOLDER_ACTION_LIST</category>
     </action>
 
-    <!-- Mail Distribution actions -->
+    <!-- Case Management actions -->
 
     <action id="initial_distribute_correspondence_envelope"
       link="distribution_cm_case"
@@ -197,6 +197,12 @@
       <filter-id>isNotCmInitialCase</filter-id>
     </action>
 
+    <action id="addCaseItem"
+      link="#{cmCaseFolderActions.addCaseItem('CaseItem')}"
+      enabled="true" label="label.casemanagement.addCaseItem" icon="/icons/action_add.gif">
+      <category>SUBVIEW_UPPER_LIST</category>
+      <filter-id>isCmCase</filter-id>
+    </action>
     <!-- End Mail Distribution actions -->
     <!-- remove usual comment tab for correspondance documents -->
     <action id="view_comments">

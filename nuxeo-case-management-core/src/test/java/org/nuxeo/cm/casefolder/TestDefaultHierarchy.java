@@ -37,8 +37,6 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
     private static final String CASE_ROOT_TYPE = "CaseRoot";
 
-    private static final String CASE_ROOT_FOLDER_TYPE = "CaseFolderRoot";
-
     @Override
     public void setUp() throws Exception {
         super.setUp();
