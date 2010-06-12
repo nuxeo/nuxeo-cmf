@@ -39,18 +39,18 @@
       </p>
       
       <h:form styleClass="modeButton">
-        <nxh:commandLink action="#{cmCaseFolderTabsActionsBean.openCaseFolderView()}">
+        <nxh:commandLink action="#{cmMailboxTabsActionsBean.openMailboxView()}">
             <h:outputText value="View"/>
         </nxh:commandLink>
       </h:form>
       <div style="clear:both"></div>
 
-      <ui:include src="/casemanagement/casefolder/casefolder_manage_action_tabs.xhtml"/>
+      <ui:include src="/casemanagement/mailbox/mailbox_manage_action_tabs.xhtml"/>
       <div style="clear:both"></div>
       
       <div class="tabsContent">
-         <c:if test="#{cmCaseFolderTabsActionsBean.currentManageCaseFolderAction != null}">
-           <ui:include src="#{cmCaseFolderTabsActionsBean.currentManageCaseFolderAction.link}" />
+         <c:if test="#{cmMailboxTabsActionsBean.currentManageMailboxAction != null}">
+           <ui:include src="#{cmMailboxTabsActionsBean.currentManageMailboxAction.link}" />
          </c:if>
       </div>
 

@@ -3,10 +3,10 @@
   xmlns:nxu="http://nuxeo.org/nxweb/util"
   xmlns:nxd="http://nuxeo.org/nxweb/document">
   <h:form>
-    <nxu:dataList layout="unorderedList" var="tab" value="#{viewCaseFolderActionTabs}"
-      itemStyleClass="#{nxu:test(currentViewCaseFolderAction == tab, 'selected', '')}">
+    <nxu:dataList layout="unorderedList" var="tab" value="#{viewMailboxActionTabs}"
+      itemStyleClass="#{nxu:test(currentViewMailboxAction == tab, 'selected', '')}">
       <h:commandLink  value="#{messages[tab.label]}"
-	  action="#{cmCaseFolderTabsActionsBean.setCurrentViewCaseFolderAction(tab.id)}" />
+	  action="#{cmMailboxTabsActionsBean.setCurrentViewMailboxAction(tab.id)}" />
     </nxu:dataList>
   </h:form>
 </div>

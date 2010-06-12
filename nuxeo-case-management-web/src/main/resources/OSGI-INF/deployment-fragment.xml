@@ -13,20 +13,20 @@
   <extension target="faces-config#NAVIGATION">
 
     <navigation-case>
-      <from-outcome>casefolder_view</from-outcome>
-      <to-view-id>/casemanagement/casefolder/casefolder_view.xhtml</to-view-id>
+      <from-outcome>mailbox_view</from-outcome>
+      <to-view-id>/casemanagement/mailbox/mailbox_view.xhtml</to-view-id>
       <redirect />
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>casefolder_manage</from-outcome>
-      <to-view-id>/casemanagement/casefolder/casefolder_manage.xhtml</to-view-id>
+      <from-outcome>mailbox_manage</from-outcome>
+      <to-view-id>/casemanagement/mailbox/mailbox_manage.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
-      <from-outcome>casefolder_create</from-outcome>
-      <to-view-id>/casemanagement/casefolder/casefolder_create.xhtml</to-view-id>
+      <from-outcome>mailbox_create</from-outcome>
+      <to-view-id>/casemanagement/mailbox/mailbox_create.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

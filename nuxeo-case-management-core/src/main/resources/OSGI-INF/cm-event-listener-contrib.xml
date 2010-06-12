@@ -6,7 +6,7 @@
 
 
     <listener name="classificationListener" async="false" postCommit="true"
-      class="org.nuxeo.cm.core.event.ClassificationCaseFolderListener"
+      class="org.nuxeo.cm.core.event.ClassificationMailboxListener"
       priority="120">
     </listener>
 
@@ -16,14 +16,14 @@
       <event>loginSuccess</event>
     </listener>
 
-    <listener name="createCaseFolderd" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.CreateCaseFolderIdListener"
+    <listener name="createMailboxd" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CreateMailboxIdListener"
       priority="160">
       <event>aboutToCreate</event>
     </listener>
 
-    <listener name="updateCaseFolderRights" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.UpdateCaseFolderRightsListener"
+    <listener name="updateMailboxRights" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.UpdateMailboxRightsListener"
       priority="170">
       <event>documentCreated</event>
       <event>documentModified</event>

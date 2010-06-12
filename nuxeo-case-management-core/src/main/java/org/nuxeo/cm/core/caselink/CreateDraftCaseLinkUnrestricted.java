@@ -28,7 +28,7 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 import java.util.Calendar;
 import java.util.UUID;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
@@ -50,14 +50,14 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected final Case envelope;
 
-    protected final CaseFolder sender;
+    protected final Mailbox sender;
 
     public CaseLink getCreatedPost() {
         return createdPost;
     }
 
     public CreateDraftCaseLinkUnrestricted(String repositoryName, String subject,
-            Case envelope, CaseFolder sender) {
+            Case envelope, Mailbox sender) {
         super(repositoryName);
         this.envelope = envelope;
         this.subject = subject;

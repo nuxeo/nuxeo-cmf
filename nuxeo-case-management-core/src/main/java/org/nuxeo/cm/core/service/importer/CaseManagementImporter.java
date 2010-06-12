@@ -33,7 +33,7 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
 
     private static final Log log = LogFactory.getLog(CaseManagementImporter.class);
 
-    private String destionationCaseFolderPath;
+    private String destionationMailboxPath;
 
     private String noImportingThreads;
 
@@ -41,10 +41,10 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
 
     private CaseManagementCaseItemDocumentFactory cmCaseItemDocFactory;
 
-    public CaseManagementImporter(String destionationCaseFolderPath,
+    public CaseManagementImporter(String destionationMailboxPath,
             String noImportingThreads, String folderPath,
             CaseManagementCaseItemDocumentFactory factory) {
-        this.destionationCaseFolderPath = destionationCaseFolderPath;
+        this.destionationMailboxPath = destionationMailboxPath;
         this.noImportingThreads = noImportingThreads;
         this.folderPath = folderPath;
         this.cmCaseItemDocFactory = factory;
@@ -59,10 +59,10 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
         SourceNode sourceNode = new FileSourceNode(folderPath);
         try {
             GenericMultiThreadedImporter importer = new GenericMultiThreadedImporter(
-                    sourceNode, destionationCaseFolderPath, null, 50, new Integer(
+                    sourceNode, destionationMailboxPath, null, 50, new Integer(
                             noImportingThreads),getLogger());
             //TODO : bachSize?
-            cmCaseItemDocFactory.setDestionationCaseFolderPath(destionationCaseFolderPath);
+            cmCaseItemDocFactory.setDestionationMailboxPath(destionationMailboxPath);
             importer.setFactory(cmCaseItemDocFactory);
             // TODO : add the type checker?
             doRun(importer, Boolean.TRUE);

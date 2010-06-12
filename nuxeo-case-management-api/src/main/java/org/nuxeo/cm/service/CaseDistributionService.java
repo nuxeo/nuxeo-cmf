@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
@@ -45,25 +45,25 @@ public interface CaseDistributionService extends Serializable {
      * Returns the sent posts for given mailbox
      */
     List<CaseLink> getSentCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit);
+            Mailbox mailbox, long offset, long limit);
 
     /**
      * Returns the received posts for given mailbox
      */
     List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit);
+            Mailbox mailbox, long offset, long limit);
 
     /**
      * Returns the draft posts for given mailbox
      */
     List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit);
+            Mailbox mailbox, long offset, long limit);
 
     /**
      * Returns the draft post of an envelope in given mailbox. Returns null if
      * post is not found.
      */
-    CaseLink getDraftCaseLink(CoreSession session, CaseFolder mailbox,
+    CaseLink getDraftCaseLink(CoreSession session, Mailbox mailbox,
             String envelopeId);
 
     /**
@@ -98,12 +98,12 @@ public interface CaseDistributionService extends Serializable {
      * @return a MailEnvelope containing default MailItem.
      */
     Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath, List<CaseFolder> mailboxes);
+            String parentPath, List<Mailbox> mailboxes);
 
     /**
      * Create a draft post for an envelope in given mailbox.
      */
-    CaseLink createDraftCaseLink(CoreSession session, CaseFolder mailbox,
+    CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
             Case envelope);
 
     /**

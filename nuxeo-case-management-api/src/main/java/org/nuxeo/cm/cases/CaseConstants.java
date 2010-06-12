@@ -37,7 +37,7 @@ public class CaseConstants {
 
     public static final String CASE_FACET = "Case";
 
-    public static final String CASE_FOLDER_FACET = "CaseFolder";
+    public static final String CASE_FOLDER_FACET = "Mailbox";
 
     public static final String CASE_ITEM_FACET = "CaseItem";
 

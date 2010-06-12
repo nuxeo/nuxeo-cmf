@@ -28,8 +28,8 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.casefolder.CaseFolderHeader;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.Case;
@@ -185,7 +185,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit) {
+            Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
@@ -196,7 +196,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public List<CaseLink> getSentCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit) {
+            Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
@@ -207,7 +207,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit) {
+            Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
@@ -238,7 +238,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath, List<CaseFolder> mailboxes) {
+            String parentPath, List<Mailbox> mailboxes) {
         // Save the new mail in the MailRoot folder
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
@@ -263,11 +263,11 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     public Case createCase(CoreSession session, DocumentModel emailDoc,
             String parentPath) {
         return createCase(session, emailDoc, parentPath,
-                new ArrayList<CaseFolder>());
+                new ArrayList<Mailbox>());
     }
 
     public CaseLink createDraftCaseLink(CoreSession session,
-            CaseFolder mailbox, Case envelope) {
+            Mailbox mailbox, Case envelope) {
         try {
 
             Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
@@ -295,7 +295,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public CaseLink getDraftCaseLink(CoreSession coreSession,
-            CaseFolder mailbox, String envelopeId) {
+            Mailbox mailbox, String envelopeId) {
         if (mailbox == null) {
             return null;
         }
@@ -387,11 +387,11 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
             try {
                 String senderMailboxId = postRequest.getSender();
-                GetCaseFoldersUnrestricted getMailboxesUnrestricted = new GetCaseFoldersUnrestricted(
+                GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                         session, senderMailboxId);
                 getMailboxesUnrestricted.run();
-                List<CaseFolder> senderMailboxes = getMailboxesUnrestricted.getMailboxes();
-                CaseFolder senderMailbox = null;
+                List<Mailbox> senderMailboxes = getMailboxesUnrestricted.getMailboxes();
+                Mailbox senderMailbox = null;
                 if (senderMailboxes != null && !senderMailboxes.isEmpty()) {
                     senderMailbox = senderMailboxes.get(0);
                 }
@@ -409,10 +409,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 for (String type : internalRecipientIds.keySet()) {
                     // TODO: optimize;
                     mailboxTitles.clear();
-                    List<CaseFolderHeader> mailboxesHeaders = new CaseFolderManagementServiceImpl().getCaseFoldersHeaders(
+                    List<MailboxHeader> mailboxesHeaders = new MailboxManagementServiceImpl().getMailboxesHeaders(
                             session, internalRecipientIds.get(type));
                     if (senderMailboxes != null) {
-                        for (CaseFolderHeader mailboxHeader : mailboxesHeaders) {
+                        for (MailboxHeader mailboxHeader : mailboxesHeaders) {
                             mailboxTitles.add(mailboxHeader.getTitle());
                         }
                     }

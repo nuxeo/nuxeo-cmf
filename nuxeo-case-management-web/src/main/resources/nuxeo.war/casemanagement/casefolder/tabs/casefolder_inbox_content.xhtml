@@ -6,7 +6,7 @@
   <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
     <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('CASE_FOLDER_INBOX')}" >
 
-    <ui:decorate template="casefolder_caselink_table.xhtml">
+    <ui:decorate template="mailbox_caselink_table.xhtml">
       <ui:param name="documents" value="#{inboxChildrenSelectModel}" />
       <ui:param name="showCheckboxes" value="#{true}" />
       <ui:param name="provider" value="#{provider}" />

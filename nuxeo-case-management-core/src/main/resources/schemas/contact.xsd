@@ -12,7 +12,7 @@
       <xs:element name="surname" type="xs:string" />
       <xs:element name="service" type="xs:string" />
       <xs:element name="email" type="xs:string" />
-      <xs:element name="caseFolderId" type="xs:string" />
+      <xs:element name="mailboxId" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
 

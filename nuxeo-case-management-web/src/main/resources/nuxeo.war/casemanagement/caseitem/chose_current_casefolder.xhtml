@@ -6,17 +6,17 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
 
   <h2><h:outputText
-    value="#{messages['label.casemanagement.distribution.chooseCaseFolder']}" /></h2>
+    value="#{messages['label.casemanagement.distribution.chooseMailbox']}" /></h2>
 
   <div><i><h:outputText
-    value="#{messages['label.casemanagement.distribution.chooseCaseFolderHelp']}" /></i></div>
+    value="#{messages['label.casemanagement.distribution.chooseMailboxHelp']}" /></i></div>
 
   <h:form>
-    <h:dataTable id="available_casefolders" var="casefolder" value="#{userCaseFolders}"
-      rendered="#{!empty userCaseFolders}">
+    <h:dataTable id="available_mailboxes" var="mailbox" value="#{userMailboxes}"
+      rendered="#{!empty userMailboxes}">
       <h:column>
-        <h:commandLink value="#{casefolder.title}"
-          action="#{cmContextHolder.setCurrentCaseFolder(caseFolder)}" />
+        <h:commandLink value="#{mailbox.title}"
+          action="#{cmContextHolder.setCurrentMailbox(mailbox)}" />
       </h:column>
     </h:dataTable>
 
@@ -25,8 +25,8 @@
       immediate="true" styleClass="button" />
   </h:form>
 
-  <f:subview rendered="#{empty userCaseFolders}">
-    <div class="userCaseFoldersEmptyMessage"><h:outputText
+  <f:subview rendered="#{empty userMailboxes}">
+    <div class="userMailboxesEmptyMessage"><h:outputText
       value="#{messages['label.correspondence.mailboxes.empty']}" /></div>
   </f:subview>
 

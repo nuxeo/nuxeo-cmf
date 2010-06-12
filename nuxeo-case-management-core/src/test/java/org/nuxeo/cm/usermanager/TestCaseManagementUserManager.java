@@ -19,7 +19,7 @@ package org.nuxeo.cm.usermanager;
 
 import java.util.List;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
@@ -45,15 +45,15 @@ public class TestCaseManagementUserManager extends
     }
 
     public void testGetPrincipalGroups() throws Exception {
-        CaseFolder mailbox = correspCaseFolderService.createPersonalCaseFolders(
+        Mailbox mailbox = correspMailboxService.createPersonalMailboxes(
                 session, user).get(0);
         assertNotNull(mailbox);
-        assertTrue(correspCaseFolderService.hasCaseFolder(mailbox.getId()));
+        assertTrue(correspMailboxService.hasMailbox(mailbox.getId()));
 
-        CaseFolder mailbox2 = correspCaseFolderService.createPersonalCaseFolders(
+        Mailbox mailbox2 = correspMailboxService.createPersonalMailboxes(
                 session, user2).get(0);
         assertNotNull(mailbox2);
-        assertTrue(correspCaseFolderService.hasCaseFolder(mailbox2.getId()));
+        assertTrue(correspMailboxService.hasMailbox(mailbox2.getId()));
         assertTrue(userManager instanceof UserManagerWithComputedGroups);
 
         NuxeoPrincipal pal = userManager.getPrincipal(user);

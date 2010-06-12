@@ -16,7 +16,7 @@
  */
 package org.nuxeo.cm.service;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
@@ -36,7 +36,7 @@ public class TestCaseManagementDistributionService extends
     }
 
     public void testAddCaseItemToCase() throws Exception {
-        CaseFolder senderMailbox = getPersonalCaseFolder(user1);
+        Mailbox senderMailbox = getPersonalMailbox(user1);
         assertNotNull(senderMailbox);
         DocumentModel emailDoc = getMailEnvelopeItem().getDocument();
         Case kase = distributionService.createCase(session, emailDoc, "/");

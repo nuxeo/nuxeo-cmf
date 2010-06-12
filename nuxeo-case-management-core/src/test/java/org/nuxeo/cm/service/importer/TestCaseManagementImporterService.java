@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
@@ -65,21 +65,21 @@ public class TestCaseManagementImporterService extends
         CaseManagementImporterService importerService = getCaseManagementImporterService();
         assertNotNull(importerService);
 
-        // import to a personal caseFolder
-        CaseFolder destinationCaseFolder = getPersonalCaseFolder(user1);
-        assertNotNull(destinationCaseFolder);
+        // import to a personal mailbox
+        Mailbox destinationMailbox = getPersonalMailbox(user1);
+        assertNotNull(destinationMailbox);
         assertEquals("/case-management/case-folder-root/user1-lambda",
-                destinationCaseFolder.getDocument().getPathAsString());
+                destinationMailbox.getDocument().getPathAsString());
 
         importerService.importDocuments();
         List<File> resourcesFiles = collectResourceFiles();
 
-        // Retrieve the post in the initial receiver casefolder
-        List<CaseLink> postInCaseFolder = distributionService.getReceivedCaseLinks(
-                session, destinationCaseFolder, 0, 0);
+        // Retrieve the post in the initial receiver mailbox
+        List<CaseLink> postInMailbox = distributionService.getReceivedCaseLinks(
+                session, destinationMailbox, 0, 0);
         // test only for xml resources
         List<String> resourceTitles = resourceFilesTitles(resourcesFiles);
-        for (CaseLink caseLink : postInCaseFolder) {
+        for (CaseLink caseLink : postInMailbox) {
             Case caseFromPost = caseLink.getCase(session);
             List<CaseItem> itemsInCase = caseFromPost.getCaseItems(session);
             assertEquals(1, itemsInCase.size());

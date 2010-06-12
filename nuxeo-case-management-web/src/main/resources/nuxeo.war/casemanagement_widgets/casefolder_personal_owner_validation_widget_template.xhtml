@@ -4,12 +4,12 @@
 
 <c:if test="#{widget.mode == 'edit'}">
 
-  <h:inputHidden value="needed" validator="#{cmCaseFolderActions.validatePersonalCaseFolderCreation}"
+  <h:inputHidden value="needed" validator="#{cmMailboxActions.validatePersonalMailboxCreation}"
     id="#{widget.id}">
-    <f:attribute name="caseFolderTypeInputId"
-      value="#{layout.widgetMap['casefolder_type'].id}" />
-    <f:attribute name="caseFolderOwnerInputId"
-      value="#{layout.widgetMap['casefolder_owner'].id}" />
+    <f:attribute name="mailboxTypeInputId"
+      value="#{layout.widgetMap['mailbox_type'].id}" />
+    <f:attribute name="mailboxOwnerInputId"
+      value="#{layout.widgetMap['mailbox_owner'].id}" />
   </h:inputHidden>
   <h:message for="#{widget.id}" styleClass="errorMessage" />
 

@@ -4,9 +4,9 @@
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgets">
 
-    <widget name="casefolder_id" type="text">
+    <widget name="mailbox_id" type="text">
       <labels>
-        <label mode="any">label.casefolder.id</label>
+        <label mode="any">label.mailbox.id</label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -18,14 +18,14 @@
       </widgetModes>
       <properties widgetMode="edit">
         <property name="validator">
-          #{cmCaseFolderActions.validateMailboxId}
+          #{cmMailboxActions.validateMailboxId}
         </property>
         <property name="required">true</property>
         <property name="styleClass">dataInputText</property>
       </properties>
     </widget>
 
-    <widget name="casefolder_title" type="text">
+    <widget name="mailbox_title" type="text">
       <labels>
         <label mode="any">title</label>
       </labels>
@@ -39,7 +39,7 @@
       </properties>
     </widget>
 
-    <widget name="casefolder_description" type="textarea">
+    <widget name="mailbox_description" type="textarea">
       <labels>
         <label mode="any">description</label>
       </labels>
@@ -52,9 +52,9 @@
       </properties>
     </widget>
 
-    <widget name="casefolder_type" type="template">
+    <widget name="mailbox_type" type="template">
       <labels>
-        <label mode="any">label.casefolder.type</label>
+        <label mode="any">label.mailbox.type</label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -67,7 +67,7 @@
       </widgetModes>
       <properties mode="any">
         <property name="template">
-          /casemanagement_widgets/casefolder_type_widget_template.xhtml
+          /casemanagement_widgets/mailbox_type_widget_template.xhtml
         </property>
       </properties>
       <properties widgetMode="edit">
@@ -76,7 +76,7 @@
       </properties>
     </widget>
 
-    <widget name="casefolder_profiles" type="selectManyDirectory">
+    <widget name="mailbox_profiles" type="selectManyDirectory">
       <fields>
         <field>csfd:profiles</field>
       </fields>
@@ -86,7 +86,7 @@
       <translated>true</translated>
       <properties widgetMode="any">
         <!-- TODO: restrict values according to current user accreditation -->
-        <property name="directoryName">cm_casefolder_profile</property>
+        <property name="directoryName">cm_mailbox_profile</property>
         <property name="localize">true</property>
       </properties>
       <properties widgetMode="edit">
@@ -95,9 +95,9 @@
       </properties>
     </widget>
 
-    <widget name="casefolder_affiliation" type="template">
+    <widget name="mailbox_affiliation" type="template">
       <labels>
-        <label mode="any">label.casefolder.affiliatedCaseFolder</label>
+        <label mode="any">label.mailbox.affiliatedMailbox</label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -105,17 +105,17 @@
       </fields>
       <properties mode="any">
         <property name="template">
-          /casemanagement_widgets/single_casefolder_suggestion_widget_template.xhtml
+          /casemanagement_widgets/single_mailbox_suggestion_widget_template.xhtml
         </property>
       </properties>
       <properties mode="edit">
-        <property name="casefolderSuggestionSearchType">generic</property>
+        <property name="mailboxSuggestionSearchType">generic</property>
       </properties>
     </widget>
 
-    <widget name="casefolder_parent" type="template">
+    <widget name="mailbox_parent" type="template">
       <labels>
-        <label mode="any">label.casemanagement.parentCaseFolder</label>
+        <label mode="any">label.casemanagement.parentMailbox</label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -128,20 +128,20 @@
       </widgetModes>
       <properties mode="any">
         <property name="template">
-          /casemanagement_widgets/parent_casefolder_suggestion_widget_template.xhtml
+          /casemanagement_widgets/parent_mailbox_suggestion_widget_template.xhtml
         </property>
       </properties>
     </widget>
 
-    <widget name="casefolder_owner" type="template">
+    <widget name="mailbox_owner" type="template">
       <fields>
         <field>csfd:owner</field>
       </fields>
       <labels>
-        <label mode="any">label.casefolder.owner</label>
+        <label mode="any">label.mailbox.owner</label>
       </labels>
       <translated>true</translated>
-      <!-- do not change a personal casefolder owner -->
+      <!-- do not change a personal mailbox owner -->
       <widgetModes>
         <mode value="create">edit</mode>
         <mode value="edit">
@@ -159,10 +159,10 @@
       </properties>
     </widget>
 
-    <!-- XXX: depends on casefolder_owner and casefolder_type widget names:
-      throws an error when trying to create a personal casefolder for a user
+    <!-- XXX: depends on mailbox_owner and mailbox_type widget names:
+      throws an error when trying to create a personal mailbox for a user
       who already has one -->
-    <widget name="casefolder_validate_personal_owner" type="template">
+    <widget name="mailbox_validate_personal_owner" type="template">
       <labels>
         <label mode="any"></label>
       </labels>
@@ -173,17 +173,17 @@
       </widgetModes>
       <properties widgetMode="edit">
         <property name="template">
-          /casemanagement_widgets/casefolder_personal_owner_validation_widget_template.xhtml
+          /casemanagement_widgets/mailbox_personal_owner_validation_widget_template.xhtml
         </property>
       </properties>
     </widget>
 
-    <widget name="casefolder_users" type="template">
+    <widget name="mailbox_users" type="template">
       <fields>
         <field>csfd:users</field>
       </fields>
       <labels>
-        <label mode="any">label.casefolder.users</label>
+        <label mode="any">label.mailbox.users</label>
       </labels>
       <translated>true</translated>
       <properties mode="any">
@@ -196,12 +196,12 @@
       </properties>
     </widget>
 
-    <widget name="casefolder_groups" type="template">
+    <widget name="mailbox_groups" type="template">
       <fields>
         <field>csfd:groups</field>
       </fields>
       <labels>
-        <label mode="any">label.casefolder.groups</label>
+        <label mode="any">label.mailbox.groups</label>
       </labels>
       <translated>true</translated>
       <properties mode="any">
@@ -219,51 +219,51 @@
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="layouts">
 
-    <layout name="cm_casefolder">
+    <layout name="cm_mailbox">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
       <rows>
         <row>
-          <widget>casefolder_id</widget>
+          <widget>mailbox_id</widget>
         </row>
         <row>
-          <widget>casefolder_title</widget>
+          <widget>mailbox_title</widget>
         </row>
         <row>
-          <widget>casefolder_description</widget>
+          <widget>mailbox_description</widget>
         </row>
         <row>
-          <widget>casefolder_type</widget>
+          <widget>mailbox_type</widget>
         </row>
         <row>
-          <widget>casefolder_owner</widget>
+          <widget>mailbox_owner</widget>
         </row>
         <row>
-          <widget>casefolder_validate_personal_owner</widget>
+          <widget>mailbox_validate_personal_owner</widget>
         </row>
         <row>
-          <widget>casefolder_profiles</widget>
+          <widget>mailbox_profiles</widget>
         </row>
         <row>
-          <widget>casefolder_parent</widget>
+          <widget>mailbox_parent</widget>
         </row>
         <row>
-          <widget>casefolder_affiliation</widget>
+          <widget>mailbox_affiliation</widget>
         </row>
       </rows>
     </layout>
 
-    <layout name="cm_casefolder_managers">
+    <layout name="cm_mailbox_managers">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml</template>
       </templates>
       <rows>
         <row>
-          <widget>casefolder_users</widget>
+          <widget>mailbox_users</widget>
         </row>
         <row>
-          <widget>casefolder_groups</widget>
+          <widget>mailbox_groups</widget>
         </row>
       </rows>
     </layout>
@@ -288,11 +288,11 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>forActionCaseFolders</field>
+          <field>forActionMailboxes</field>
         </fields>
         <properties mode="any">
           <property name="template">
-            /casemanagement_widgets/casefolder_suggestion_widget_template.xhtml
+            /casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
           </property>
         </properties>
       </widget>
@@ -302,11 +302,11 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>forInformationCaseFolders</field>
+          <field>forInformationMailboxes</field>
         </fields>
         <properties mode="any">
           <property name="template">
-            /casemanagement_widgets/casefolder_suggestion_widget_template.xhtml
+            /casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
           </property>
         </properties>
       </widget>
@@ -330,16 +330,16 @@
           <widget>sending_date</widget>
         </row>
         <row>
-          <widget>initial_action_internal_participant_casefolders</widget>
+          <widget>initial_action_internal_participant_mailboxes</widget>
         </row>
         <row>
-          <widget>initial_copy_internal_participant_casefolders</widget>
+          <widget>initial_copy_internal_participant_mailboxes</widget>
         </row>
         <row>
-          <widget>initial_action_external_participant_casefolders</widget>
+          <widget>initial_action_external_participant_mailboxes</widget>
         </row>
         <row>
-          <widget>initial_copy_external_participant_casefolders</widget>
+          <widget>initial_copy_external_participant_mailboxes</widget>
         </row>
         <row>
           <widget>reference</widget>
@@ -412,7 +412,7 @@
           <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
         </properties>
       </widget>
-      <widget name="initial_action_internal_participant_casefolders" type="list">
+      <widget name="initial_action_internal_participant_mailboxes" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.internal.action
@@ -436,7 +436,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_internal_participant_casefolders" type="list">
+      <widget name="initial_copy_internal_participant_mailboxes" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.internal.information
@@ -460,7 +460,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_action_external_participant_casefolders" type="list">
+      <widget name="initial_action_external_participant_mailboxes" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.action
@@ -484,7 +484,7 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_external_participant_casefolders" type="list">
+      <widget name="initial_copy_external_participant_mailboxes" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.information
@@ -942,16 +942,16 @@
 
       <rows>
         <row>
-          <widget>initial_action_external_participant_casefolders</widget>
+          <widget>initial_action_external_participant_mailboxes</widget>
         </row>
         <row>
-          <widget>initial_copy_external_participant_casefolders</widget>
+          <widget>initial_copy_external_participant_mailboxes</widget>
         </row>
         <row>
-          <widget>initial_action_internal_participant_casefolders</widget>
+          <widget>initial_action_internal_participant_mailboxes</widget>
         </row>
         <row>
-          <widget>initial_copy_internal_participant_casefolders</widget>
+          <widget>initial_copy_internal_participant_mailboxes</widget>
         </row>
         <row>
           <widget>comment</widget>
@@ -959,7 +959,7 @@
       </rows>
 
 
-      <widget name="initial_action_external_participant_casefolders" type="list">
+      <widget name="initial_action_external_participant_mailboxes" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.action
@@ -984,7 +984,7 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_copy_external_participant_casefolders" type="list">
+      <widget name="initial_copy_external_participant_mailboxes" type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.information
@@ -1009,7 +1009,7 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_action_internal_participant_casefolders"
+      <widget name="initial_action_internal_participant_mailboxes"
         type="template">
         <fields>
           <field>cmdist:initial_action_internal_participant_case_folders</field>
@@ -1030,7 +1030,7 @@
         </properties>
       </widget>
 
-      <widget name="initial_copy_internal_participant_casefolders"
+      <widget name="initial_copy_internal_participant_mailboxes"
         type="template">
         <fields>
           <field>cmdist:initial_copy_internal_participant_case_folders</field>

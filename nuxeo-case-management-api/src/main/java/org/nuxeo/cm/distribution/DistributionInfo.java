@@ -76,11 +76,11 @@ public class DistributionInfo implements Serializable {
         this.mode = mode;
     }
 
-    public List<ParticipantItem> getFavoriteCaseFolders() {
+    public List<ParticipantItem> getFavoriteMailboxes() {
         return favoriteMailboxes;
     }
 
-    public void setFavoriteCaseFolders(List<ParticipantItem> favoriteMailboxes) {
+    public void setFavoriteMailboxes(List<ParticipantItem> favoriteMailboxes) {
         this.favoriteMailboxes = favoriteMailboxes;
         // order them
         Collections.sort(this.favoriteMailboxes,
@@ -110,19 +110,19 @@ public class DistributionInfo implements Serializable {
         this.comment = comment;
     }
 
-    public List<String> getForActionCaseFolders() {
+    public List<String> getForActionMailboxes() {
         return forActionMailboxes;
     }
 
-    public void setForActionCaseFolders(List<String> forActionPersonalMailboxes) {
+    public void setForActionMailboxes(List<String> forActionPersonalMailboxes) {
         this.forActionMailboxes = forActionPersonalMailboxes;
     }
 
-    public List<String> getForInformationCaseFolders() {
+    public List<String> getForInformationMailboxes() {
         return forInformationMailboxes;
     }
 
-    public void setForInformationCaseFolders(
+    public void setForInformationMailboxes(
             List<String> forInformationPersonalMailboxes) {
         this.forInformationMailboxes = forInformationPersonalMailboxes;
     }
@@ -146,7 +146,7 @@ public class DistributionInfo implements Serializable {
 
     // presentation helpers
 
-    public List<String> getAllForActionCaseFolders() {
+    public List<String> getAllForActionMailboxes() {
         String type = CaseLinkType.FOR_ACTION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
@@ -173,7 +173,7 @@ public class DistributionInfo implements Serializable {
         return null;
     }
 
-    public List<String> getAllForInformationCaseFolders() {
+    public List<String> getAllForInformationMailboxes() {
         String type = CaseLinkType.FOR_INFORMATION.getStringType();
         Set<String> mailboxes = new HashSet<String>();
         if (favoriteMailboxes != null && !favoriteMailboxes.isEmpty()) {
@@ -204,9 +204,9 @@ public class DistributionInfo implements Serializable {
         // TODO: add other info (mailing lists, etc...)
         Map<String, List<String>> res = new HashMap<String, List<String>>();
         res.put(CaseLinkType.FOR_ACTION.name(),
-                getAllForActionCaseFolders());
+                getAllForActionMailboxes());
         res.put(CaseLinkType.FOR_INFORMATION.name(),
-                getAllForInformationCaseFolders());
+                getAllForInformationMailboxes());
         return res;
     }
 

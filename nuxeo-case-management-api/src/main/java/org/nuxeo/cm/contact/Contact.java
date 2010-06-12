@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 
 /**
  * Wrapper for contact item.
@@ -33,12 +33,12 @@ import org.nuxeo.cm.casefolder.CaseFolder;
 public class Contact implements Serializable, Comparable<Contact> {
 
     public enum CONTACT_FIELD {
-        name, email, surname, service, caseFolderId
+        name, email, surname, service, mailboxId
     }
 
     private static final CONTACT_FIELD[] FIELDS_FOR_FULLTEXT_INDEXING = {
             CONTACT_FIELD.name, CONTACT_FIELD.email, CONTACT_FIELD.surname,
-            CONTACT_FIELD.service, CONTACT_FIELD.caseFolderId };
+            CONTACT_FIELD.service, CONTACT_FIELD.mailboxId };
 
     private static final long serialVersionUID = 1L;
 
@@ -50,7 +50,7 @@ public class Contact implements Serializable, Comparable<Contact> {
 
     protected String service;
 
-    protected String caseFolderId;
+    protected String mailboxId;
 
     public Contact() {
     }
@@ -61,7 +61,7 @@ public class Contact implements Serializable, Comparable<Contact> {
             email = (String) m.get(CONTACT_FIELD.email.name());
             surname = (String) m.get(CONTACT_FIELD.surname.name());
             service = (String) m.get(CONTACT_FIELD.service.name());
-            caseFolderId = (String) m.get(CONTACT_FIELD.caseFolderId.name());
+            mailboxId = (String) m.get(CONTACT_FIELD.mailboxId.name());
         }
     }
 
@@ -101,8 +101,8 @@ public class Contact implements Serializable, Comparable<Contact> {
         if (service != null) {
             m.put(CONTACT_FIELD.service.name(), service);
         }
-        if (caseFolderId != null) {
-            m.put(CONTACT_FIELD.caseFolderId.name(),caseFolderId);
+        if (mailboxId != null) {
+            m.put(CONTACT_FIELD.mailboxId.name(),mailboxId);
         }
         return m;
     }
@@ -139,12 +139,12 @@ public class Contact implements Serializable, Comparable<Contact> {
         this.service = service;
     }
 
-    public String getCaseFolderIdd() {
-        return caseFolderId;
+    public String getMailboxIdd() {
+        return mailboxId;
     }
 
-    public void setCaseFolderId(String caseFolderId) {
-        this.caseFolderId = caseFolderId;
+    public void setMailboxId(String mailboxId) {
+        this.mailboxId = mailboxId;
     }
 
     @Override
@@ -170,14 +170,14 @@ public class Contact implements Serializable, Comparable<Contact> {
         return this.asStringForIndexing().compareTo(other.asStringForIndexing());
     }
 
-    public static Contact getContactForMailbox(CaseFolder caseFolder, String email,
+    public static Contact getContactForMailbox(Mailbox mailbox, String email,
             String service, String surname) {
-        if (caseFolder == null) {
+        if (mailbox == null) {
             return null;
         }
         Contact contact = new Contact();
-        contact.caseFolderId = caseFolder.getId();
-        contact.name = caseFolder.getTitle();
+        contact.mailboxId = mailbox.getId();
+        contact.name = mailbox.getTitle();
         contact.email = email;
         contact.service = service;
         contact.surname = surname;

@@ -31,7 +31,7 @@
       <fields>
         <field>data</field>
         <field>data.id</field>
-        <field>data.cslk.senderCaseFolderId</field>
+        <field>data.cslk.senderMailboxId</field>
       </fields>
     </widget>
     

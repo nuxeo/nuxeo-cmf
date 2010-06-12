@@ -71,14 +71,14 @@
       <pattern>
         SELECT * FROM Document WHERE csfd:case_folder_id=? 
         AND ecm:currentLifeCycleState != 'deleted' 
-        AND ecm:mixinType = 'CaseFolder'
+        AND ecm:mixinType = 'Mailbox'
       </pattern>
     </queryModel>
 
     <queryModel name="GET_ALL_CASE_FOLDER">
       <pattern>
         SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' 
-        AND ecm:mixinType = 'CaseFolder'
+        AND ecm:mixinType = 'Mailbox'
       </pattern>
     </queryModel>
 

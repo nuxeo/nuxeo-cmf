@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://cm.nuxeo.com/schemas/casefolder/"
-  xmlns:cmxs="http://cm.nuxeo.com/schemas/casefolder/"
+  targetNamespace="http://cm.nuxeo.com/schemas/mailbox/"
+  xmlns:cmxs="http://cm.nuxeo.com/schemas/mailbox/"
   xmlns:nxs="http://cm.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
@@ -31,7 +31,7 @@
         maxOccurs="unbounded" />
       <xs:element name="description" type="xs:string" minOccurs="0"
         maxOccurs="unbounded" />
-      <xs:element name="casefolder" type="cmxs:stringArray" minOccurs="0"
+      <xs:element name="mailbox" type="cmxs:stringArray" minOccurs="0"
         maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>

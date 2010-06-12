@@ -103,7 +103,7 @@ public class CaseItemDocumentActionsBean extends
         // creating a case item in a case
         Case envelope = caseDistributionService.createCase(documentManager,
                 emailDoc, parentPath,
-                Collections.singletonList(getCurrentCaseFolder()));
+                Collections.singletonList(getCurrentMailbox()));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -111,7 +111,7 @@ public class CaseItemDocumentActionsBean extends
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
         caseDistributionService.createDraftCaseLink(documentManager,
-                getCurrentCaseFolder(), envelope);
+                getCurrentMailbox(), envelope);
         documentManager.save();
 
         facesMessages.add(FacesMessage.SEVERITY_INFO,
@@ -220,7 +220,7 @@ public class CaseItemDocumentActionsBean extends
         return mode;
     }
 
-    public String backToCaseFolder() throws ClientException {
+    public String backToMailbox() throws ClientException {
         quitEditingMail();
         DocumentModel doc = getCurrentCaseItem();
         TypeInfo typeInfo = doc.getAdapter(TypeInfo.class);

@@ -7,30 +7,30 @@
     <type id="File" remove="true" />
     <type id="Note" remove="true" />
 
-    <type id="CaseFolderRoot">
-      <label>label.casemanagement.type.CaseManagementCaseFolderRoot</label>
+    <type id="MailboxRoot">
+      <label>label.casemanagement.type.CaseManagementMailboxRoot</label>
       <icon>/icons/folder.gif</icon>
       <default-view>view_documents</default-view>
       <subtypes>
-        <type>CaseFolder</type>
+        <type>Mailbox</type>
       </subtypes>
       <layouts mode="any">
         <layout>heading</layout>
       </layouts>
     </type>
 
-    <type id="CaseFolder">
-      <label>label.casemanagement.type.CaseManagementCaseFolder</label>
+    <type id="Mailbox">
+      <label>label.casemanagement.type.CaseManagementMailbox</label>
       <icon>/icons/correspondence_mailbox.png</icon>
-      <default-view>casefolder_view</default-view>
-      <create-view>casefolder_create</create-view>
+      <default-view>mailbox_view</default-view>
+      <create-view>mailbox_create</create-view>
       <layouts mode="any">
-        <layout>cm_casefolder</layout>
-        <layout>cm_casefolder_managers</layout>
+        <layout>cm_mailbox</layout>
+        <layout>cm_mailbox_managers</layout>
       </layouts>
       <layouts mode="edit">
-        <layout>cm_casefolder</layout>
-        <layout>cm_casefolder_managers</layout>
+        <layout>cm_mailbox</layout>
+        <layout>cm_mailbox_managers</layout>
       </layouts>
     </type>
 

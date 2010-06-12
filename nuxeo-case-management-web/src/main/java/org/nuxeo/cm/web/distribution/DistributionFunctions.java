@@ -25,9 +25,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.casefolder.CaseFolderHeader;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
 
@@ -46,20 +46,20 @@ public class DistributionFunctions {
         return StringUtils.join(collection.iterator(), separator);
     }
 
-    public static String getCaseFolderTitle(String mailboxId) {
-        CaseFolderHeader mailboxHeader = getCaseFolderHeader(mailboxId);
+    public static String getMailboxTitle(String mailboxId) {
+        MailboxHeader mailboxHeader = getMailboxHeader(mailboxId);
         if (mailboxHeader != null) {
             return mailboxHeader.getTitle();
         }
         return mailboxId;
     }
 
-    public static String getCaseFolderTitles(List<String> mailboxIds,
+    public static String getMailboxTitles(List<String> mailboxIds,
             String separator, Boolean sorted) {
-        List<CaseFolderHeader> mailboxes = getCaseFolderHeaders(mailboxIds);
+        List<MailboxHeader> mailboxes = getMailboxHeaders(mailboxIds);
         if (mailboxes != null) {
             List<String> titles = new ArrayList<String>();
-            for (CaseFolderHeader mb : mailboxes) {
+            for (MailboxHeader mb : mailboxes) {
                 titles.add(mb.getTitle());
             }
             if (sorted) {
@@ -70,41 +70,41 @@ public class DistributionFunctions {
         return null;
     }
 
-    public static CaseFolder getCaseFolder(DocumentModel mailboxDoc) {
-        return mailboxDoc.getAdapter(CaseFolder.class);
+    public static Mailbox getMailbox(DocumentModel mailboxDoc) {
+        return mailboxDoc.getAdapter(Mailbox.class);
     }
 
-    public static CaseFolder getCaseFolder(String mailboxId) {
+    public static Mailbox getMailbox(String mailboxId) {
         try {
-            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
-            return service.getCaseFolder(mailboxId);
+            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+            return service.getMailbox(mailboxId);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static CaseFolderHeader getCaseFolderHeader(String mailboxId) {
+    public static MailboxHeader getMailboxHeader(String mailboxId) {
         try {
-            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
-            return service.getCaseFolderHeader(mailboxId);
+            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+            return service.getMailboxHeader(mailboxId);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static List<CaseFolder> getCaseFolders(List<String> mailboxIds) {
+    public static List<Mailbox> getMailboxes(List<String> mailboxIds) {
         try {
-            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
-            return service.getCaseFolders(mailboxIds);
+            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+            return service.getMailboxes(mailboxIds);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static List<CaseFolderHeader> getCaseFolderHeaders(List<String> mailboxIds) {
+    public static List<MailboxHeader> getMailboxHeaders(List<String> mailboxIds) {
         try {
-            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
-            return service.getCaseFoldersHeaders(mailboxIds);
+            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+            return service.getMailboxesHeaders(mailboxIds);
         } catch (Exception e) {
             return null;
         }

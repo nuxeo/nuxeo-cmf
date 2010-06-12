@@ -12,30 +12,30 @@
     </function-signature>
   </function>
   <function>
-    <function-name>caseFolders</function-name>
+    <function-name>mailboxes</function-name>
     <function-class>
       org.nuxeo.cm.web.distribution.DistributionFunctions
     </function-class>
     <function-signature>
-      java.util.List getCaseFolders(java.util.List)
+      java.util.List getMailboxes(java.util.List)
     </function-signature>
   </function>
   <function>
-    <function-name>caseFolderTitle</function-name>
+    <function-name>mailboxTitle</function-name>
     <function-class>
       org.nuxeo.cm.web.distribution.DistributionFunctions
     </function-class>
     <function-signature>
-      java.lang.String getCaseFolderTitle(java.lang.String)
+      java.lang.String getMailboxTitle(java.lang.String)
     </function-signature>
   </function>
   <function>
-    <function-name>caseFolderTitles</function-name>
+    <function-name>mailboxTitles</function-name>
     <function-class>
       org.nuxeo.cm.web.distribution.DistributionFunctions
     </function-class>
     <function-signature>
-      java.lang.String getCaseFolderTitles(java.util.List, java.lang.String,
+      java.lang.String getMailboxTitles(java.util.List, java.lang.String,
       java.lang.Boolean)
     </function-signature>
   </function>

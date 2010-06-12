@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<component name="org.nuxeo.cm.service.caseFolderManagement">
+<component name="org.nuxeo.cm.service.mailboxManagement">
 
   <implementation
     class="org.nuxeo.cm.core.service.CaseManagementComponent" />
 
   <service>
-    <provide interface="org.nuxeo.cm.service.CaseFolderManagementService" />
+    <provide interface="org.nuxeo.cm.service.MailboxManagementService" />
   </service>
 
   <extension-point name="mailboxCreator">

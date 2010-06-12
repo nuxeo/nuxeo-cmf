@@ -12,7 +12,7 @@
     <documentation>
       Sets one domain by default, in each domain a CaseItemFolder is
       created (will hold case items in date hierarchies) and a
-      CaseFolderRoot (will hold case folders).
+      MailboxRoot (will hold case folders).
     </documentation>
 
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateFactory"
@@ -33,7 +33,7 @@
       <template>
         <templateItem typeName="CaseRoot" id="case-root"
           title="Case" />
-        <templateItem typeName="CaseFolderRoot" id="case-folder-root"
+        <templateItem typeName="MailboxRoot" id="case-folder-root"
           title="Case Folder" />
       </template>
     </factoryBinding>

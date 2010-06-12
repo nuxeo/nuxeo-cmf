@@ -9,7 +9,7 @@
   
 <c:if test="#{widget.mode != 'edit'}">
   <h:outputText
-    value="#{cm:caseFolderTitle(cmCaseFolderActions.currentCaseFolderParent)}" />
+    value="#{cm:mailboxTitle(cmMailboxActions.currentMailboxParent)}" />
 </c:if>
 
 <c:if test="#{widget.mode == 'edit'}">
@@ -22,9 +22,9 @@
     value="#{nxu:test(!empty widget.properties.requestDelay, widget.properties.requestDelay, '100')}" />
 
   <a4j:region renderRegionOnly="true">
-    <h:panelGrid id="#{widget.id}_casefolder_panel" columns="3">
+    <h:panelGrid id="#{widget.id}_mailbox_panel" columns="3">
       <h:panelGroup>
-        <span id="#{widget.id}_casefolder_suggestDiv">
+        <span id="#{widget.id}_mailbox_suggestDiv">
           <h:inputText id="#{widget.id}_mailbox_suggest"
             onkeydown="if (event.keyCode == 13) {return false;}" />
         </span>
@@ -35,25 +35,25 @@
         </a4j:status>
         <rich:suggestionbox id="#{widget.id}_mailbox_suggestionBox"
           for="#{widget.id}_mailbox_suggest" tokens=""
-          suggestionAction="#{cmCaseFolderActions.getCaseFolderSuggestions}"
+          suggestionAction="#{cmMailboxActions.getMailboxSuggestions}"
           var="result" fetchValue=""
           nothingLabel="#{messages['label.content.empty.search']}"
           minChars="#{minChars}" frequency="#{frequency}"
           requestDelay="#{requestDelay}">
-          <f:param name="casefolderSuggestionSearchType"
-            value="#{widget.properties['casefolderSuggestionSearchType']}" />
+          <f:param name="mailboxSuggestionSearchType"
+            value="#{widget.properties['mailboxSuggestionSearchType']}" />
           <a4j:support event="onselect"
-            focus="#{widget.id}_casefolder_suggest" bypassUpdates="true"
-            reRender="#{widget.id}_casefolder_region">
-            <f:param name="casefolderSuggestionSearchType"
-              value="#{widget.properties['casefolderSuggestionSearchType']}" />
+            focus="#{widget.id}_mailbox_suggest" bypassUpdates="true"
+            reRender="#{widget.id}_mailbox_region">
+            <f:param name="mailboxSuggestionSearchType"
+              value="#{widget.properties['mailboxSuggestionSearchType']}" />
             <f:setPropertyActionListener value="#{result.id}"
                   target="#{suggestionActions.selectedValue}" />
             <nxu:actionListenerMethod value="#{suggestionActions.addSingleBoundSelection}" />
             <f:param name="suggestionSelectionHiddenId"
-              value="#{widget.id}_casefolderId" />
+              value="#{widget.id}_mailboxId" />
             <f:param name="suggestionSelectionOutputId"
-              value="#{widget.id}_casefolder" />
+              value="#{widget.id}_mailbox" />
             <f:param name="suggestionSelectionDeleteId"
               value="#{widget.id}_selection_reset" />
           </a4j:support>
@@ -68,24 +68,24 @@
           value="#{minChars} #{messages['label.suggestion.help.minChars.end']}" />
       </h:panelGroup>
 
-      <h:panelGroup id="#{widget.id}_casefolder_region">
+      <h:panelGroup id="#{widget.id}_mailbox_region">
         <a4j:commandLink id="#{widget.id}_selection_reset"
           actionListener="#{suggestionActions.clearSingleSelection}"
           ignoreDupResponses="true" ajaxSingle="true" bypassUpdates="true"
-          reRender="#{widget.id}_casefolder_region"
+          reRender="#{widget.id}_mailbox_region"
           rendered="#{!empty field_0}">
           <h:graphicImage id="#{widget.id}_delete"
             value="/icons/action_delete.gif" rendered="false" />
           <f:param name="suggestionSelectionOutputId"
-            value="#{widget.id}_casefolder" />
+            value="#{widget.id}_mailbox" />
           <f:param name="suggestionSelectionHiddenId"
-            value="#{widget.id}_casefolderId" />
+            value="#{widget.id}_mailboxId" />
           <f:param name="suggestionSelectionDeleteId"
             value="#{widget.id}_selection_reset" />
         </a4j:commandLink>
-        <h:outputText id="#{widget.id}_casefolder" />
+        <h:outputText id="#{widget.id}_mailbox" />
         <h:inputHidden id="#{widget.id}" value="#{field_0}" />
-        <h:message for="#{widget.id}_casefolderId" styleClass="errorMessage" />
+        <h:message for="#{widget.id}_mailboxId" styleClass="errorMessage" />
       </h:panelGroup>
 
     </h:panelGrid>

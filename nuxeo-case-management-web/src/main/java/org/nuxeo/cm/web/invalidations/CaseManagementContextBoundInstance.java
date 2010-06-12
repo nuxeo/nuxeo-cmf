@@ -22,7 +22,7 @@ package org.nuxeo.cm.web.invalidations;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.annotations.In;
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.web.context.CaseManagementContextHolder;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -54,24 +54,24 @@ public abstract class CaseManagementContextBoundInstance implements
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
-    protected CaseFolder cachedMailbox;
+    protected Mailbox cachedMailbox;
 
     protected Case cachedEnvelope;
 
     protected DocumentModel cachedEmail;
 
     @CaseManagementContextChecker
-    public void onCaseFolderContextChange(
+    public void onMailboxContextChange(
             CaseManagementContextHolder correspContextHolder)
             throws ClientException {
         if (correspContextHolder == null) {
             log.error("Cannot check context: instance is null");
             return;
         }
-        CaseFolder currentMailbox = correspContextHolder.getCurrentCaseFolder();
-        if (hasCacheKeyChanged(generateCaseFolderCacheKey(cachedMailbox),
-                generateCaseFolderCacheKey(currentMailbox))) {
-            resetCaseFolderCache(cachedMailbox, currentMailbox);
+        Mailbox currentMailbox = correspContextHolder.getCurrentMailbox();
+        if (hasCacheKeyChanged(generateMailboxCacheKey(cachedMailbox),
+                generateMailboxCacheKey(currentMailbox))) {
+            resetMailboxCache(cachedMailbox, currentMailbox);
             cachedMailbox = currentMailbox;
         }
         Case currentEnvelope = correspContextHolder.getCurrentCase();
@@ -109,7 +109,7 @@ public abstract class CaseManagementContextBoundInstance implements
         return key;
     }
 
-    protected String generateCaseFolderCacheKey(CaseFolder mailbox)
+    protected String generateMailboxCacheKey(Mailbox mailbox)
             throws ClientException {
         String key = null;
         if (mailbox != null) {
@@ -144,7 +144,7 @@ public abstract class CaseManagementContextBoundInstance implements
         return cachedEnvelope;
     }
 
-    public CaseFolder getCachedCaseFolder() throws ClientException {
+    public Mailbox getCachedMailbox() throws ClientException {
         return cachedMailbox;
     }
 
@@ -156,11 +156,11 @@ public abstract class CaseManagementContextBoundInstance implements
         return cmContextHolder.getCurrentCase();
     }
 
-    public CaseFolder getCurrentCaseFolder() throws ClientException {
-        return cmContextHolder.getCurrentCaseFolder();
+    public Mailbox getCurrentMailbox() throws ClientException {
+        return cmContextHolder.getCurrentMailbox();
     }
 
-    protected void resetCaseFolderCache(CaseFolder cachedMailbox, CaseFolder newMailbox)
+    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
             throws ClientException {
         // do nothing: to implement in subclasses
     }

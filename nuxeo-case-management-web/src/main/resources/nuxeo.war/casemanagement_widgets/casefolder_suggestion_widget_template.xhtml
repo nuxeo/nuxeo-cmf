@@ -40,19 +40,19 @@
           </a4j:status>
           <rich:suggestionbox id="#{widget.id}_suggestionBox"
             for="#{widget.id}_suggest" tokens=""
-            suggestionAction="#{cmCaseFolderActions.getCaseFolderSuggestions}"
+            suggestionAction="#{cmMailboxActions.getMailboxSuggestions}"
             var="result"
             fetchValue=""
             nothingLabel="#{messages['label.content.empty.search']}"
             minChars="#{minChars}" frequency="#{frequency}" requestDelay="#{requestDelay}">
-            <f:param name="caseFolderSuggestionSearchType"
-              value="#{widget.properties['caseFolderSuggestionSearchType']}" />
+            <f:param name="mailboxSuggestionSearchType"
+              value="#{widget.properties['mailboxSuggestionSearchType']}" />
             <a4j:support event="onselect"
               focus="#{widget.id}_suggest"
               bypassUpdates="true"
               reRender="#{widget.id}_listRegion">
-              <f:param name="caseFolderSuggestionSearchType"
-                value="#{widget.properties['caseFolderSuggestionSearchType']}" />
+              <f:param name="mailboxSuggestionSearchType"
+                value="#{widget.properties['mailboxSuggestionSearchType']}" />
               <f:setPropertyActionListener value="#{result.id}"
                     target="#{suggestionActions.selectedValue}" />
               <nxu:actionListenerMethod value="#{suggestionActions.addBoundSelectionToList}" />
@@ -82,7 +82,7 @@
                     <f:param name="index" value="#{model.rowIndex}" />
                     <f:param name="type" value="remove" />
                   </a4j:commandLink>
-                  <h:outputText value="#{cm:caseFolderTitle(model.rowData)}" />
+                  <h:outputText value="#{cm:mailboxTitle(model.rowData)}" />
                 </h:panelGrid>
               </h:panelGroup>
             </nxu:inputList>

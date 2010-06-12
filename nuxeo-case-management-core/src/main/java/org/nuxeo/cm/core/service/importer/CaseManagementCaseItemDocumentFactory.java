@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
@@ -42,7 +42,7 @@ import org.nuxeo.runtime.api.Framework;
 *
 * Implementation for CaseManagement factory; each time a file is found
 * a new caseItem is created  and the corresponding case; the case is sent
-* to the specified destionationCaseFolder
+* to the specified destionationMailbox
 *
 * @author Mariana Cedica
 *
@@ -50,7 +50,7 @@ import org.nuxeo.runtime.api.Framework;
 public class CaseManagementCaseItemDocumentFactory extends
         DefaultDocumentModelFactory {
 
-    private String destionationCaseFolderPath;
+    private String destionationMailboxPath;
 
     private CaseDistributionService caseDistributionService;
 
@@ -79,14 +79,14 @@ public class CaseManagementCaseItemDocumentFactory extends
                 node, getCaseManagementDocumentTypeService().getCaseItemType());
         Case caseDoc = caseDistributionService.createCase(session, caseItemDoc,
                 getCaseRootPath(session),
-                Collections.singletonList(getDestinationCaseFolder(session)));
+                Collections.singletonList(getDestinationMailbox(session)));
         // Retrieve the new created caseItem doc in order to set properties on
         // it
         caseItemDoc = caseDoc.getFirstItem(session).getDocument();
         setPropertiesOnImport(session, caseItemDoc, caseDoc);
-        // create the corresponding caseLink in the receiver caseFolder
+        // create the corresponding caseLink in the receiver mailbox
         caseDistributionService.createDraftCaseLink(session,
-                getDestinationCaseFolder(session), caseDoc);
+                getDestinationMailbox(session), caseDoc);
         return caseItemDoc;
     }
 
@@ -146,11 +146,11 @@ public class CaseManagementCaseItemDocumentFactory extends
         return caseDistributionService;
     }
 
-    private CaseFolder getDestinationCaseFolder(CoreSession session)
+    private Mailbox getDestinationMailbox(CoreSession session)
             throws ClientException {
-        DocumentModel docDestinationCaseFolder = session.getDocument(new PathRef(
-                destionationCaseFolderPath));
-        return docDestinationCaseFolder.getAdapter(CaseFolder.class);
+        DocumentModel docDestinationMailbox = session.getDocument(new PathRef(
+                destionationMailboxPath));
+        return docDestinationMailbox.getAdapter(Mailbox.class);
     }
 
     private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
@@ -161,12 +161,12 @@ public class CaseManagementCaseItemDocumentFactory extends
         return caseManagementDocumentTypeService;
     }
 
-    public String getDestionationCaseFolderPath() {
-        return destionationCaseFolderPath;
+    public String getDestionationMailboxPath() {
+        return destionationMailboxPath;
     }
 
-    public void setDestionationCaseFolderPath(String destionationCaseFolderPath) {
-        this.destionationCaseFolderPath = destionationCaseFolderPath;
+    public void setDestionationMailboxPath(String destionationMailboxPath) {
+        this.destionationMailboxPath = destionationMailboxPath;
     }
 
 }

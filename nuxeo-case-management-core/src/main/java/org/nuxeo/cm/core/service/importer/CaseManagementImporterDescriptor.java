@@ -25,8 +25,8 @@ import org.nuxeo.common.xmap.annotation.XObject;
 @XObject("importInfo")
 public class CaseManagementImporterDescriptor {
     
-     @XNode("destionationCaseFolderPath")
-     protected String  destionationCaseFolderPath;
+     @XNode("destionationMailboxPath")
+     protected String  destionationMailboxPath;
      
      @XNode("noImportingThreads")
      protected String noImportingThreads;

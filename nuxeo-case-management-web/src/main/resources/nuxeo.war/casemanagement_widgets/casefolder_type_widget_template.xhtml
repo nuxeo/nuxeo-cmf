@@ -8,9 +8,9 @@
 
   <c:if test="#{widget.mode != 'edit'}">
 
-    <h:outputText value="#{messages['label.casefolder.type.personal']}"
+    <h:outputText value="#{messages['label.mailbox.type.personal']}"
       rendered="#{field_0 == 'personal'}" />
-    <h:outputText value="#{messages['label.casefolder.type.generic']}"
+    <h:outputText value="#{messages['label.mailbox.type.generic']}"
       rendered="#{field_0 == 'generic'}" />
 
   </c:if>
@@ -21,9 +21,9 @@
       id="#{widget.id}" styleClass="widget.properties['styleClass']"
       required="#{widget.properties['required']}">
       <f:selectItem itemValue="personal"
-        itemLabel="#{messages['label.casefolder.type.personal']}"  />
+        itemLabel="#{messages['label.mailbox.type.personal']}"  />
       <f:selectItem itemValue="generic"
-        itemLabel="#{messages['label.casefolder.type.generic']}"  />
+        itemLabel="#{messages['label.mailbox.type.generic']}"  />
     </h:selectOneListbox>
     <h:message for="#{widget.id}" styleClass="errorMessage" />
 

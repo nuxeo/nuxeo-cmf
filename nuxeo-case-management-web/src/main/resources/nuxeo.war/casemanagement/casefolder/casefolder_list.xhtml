@@ -8,42 +8,42 @@
   rendered="#{!currentUser.anonymous}">
 
   <h:panelGroup>
-    <div class="userCaseFolders">
-    <div class="userCaseFoldersContent">
+    <div class="userMailboxes">
+    <div class="userMailboxesContent">
     
     <h4><h:outputText value="#{messages['label.mailBoxListTitle']}" /></h4>
 
     <div>
-    <f:subview rendered="#{!empty userCaseFolders}">
-      <nxu:dataList var="caseFolder" value="#{userCaseFolders}"
+    <f:subview rendered="#{!empty userMailboxes}">
+      <nxu:dataList var="mailbox" value="#{userMailboxes}"
         layout="unorderedList"
-        itemStyleClass="#{nxu:test(caseFolder.document.csfd.case_folder_id == currentCaseFolder.id, 'selected', '')}">
-        <f:subview rendered="#{caseFolder.document.csfd.case_folder_id == currentCaseFolder.id}">
-          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}" tab="view"
+        itemStyleClass="#{nxu:test(mailbox.document.csfd.case_folder_id == currentMailbox.id, 'selected', '')}">
+        <f:subview rendered="#{mailbox.document.csfd.case_folder_id == currentMailbox.id}">
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
               newConversation="true" target="_BLANK">
             <img src="icons/external.gif" style="vertical-align: top"
                  alt="#{messages['permalink.newTab']}"
                  title="#{messages['permalink.newTab']}" />
           </nxd:restDocumentLink>
-          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}" tab="view">
-            <nxh:outputText value="#{caseFolder.document.dublincore.title}" />
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view">
+            <nxh:outputText value="#{mailbox.document.dublincore.title}" />
           </nxd:restDocumentLink>
         </f:subview>
-        <f:subview rendered="#{caseFolder.document.csfd.case_folder_id != currentCaseFolder.id}">
-          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}" tab="view"
+        <f:subview rendered="#{mailbox.document.csfd.case_folder_id != currentMailbox.id}">
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
             newConversation="true" target="_BLANK">
             <img src="icons/external.gif" style="vertical-align: top"
               alt="#{messages['permalink.newTab']}"
               title="#{messages['permalink.newTab']}" />
           </nxd:restDocumentLink>
-          <nxd:restDocumentLink styleClass="permalink" document="#{caseFolder.document}">
-            <nxh:outputText value="#{caseFolder.document.dublincore.title}" />
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}">
+            <nxh:outputText value="#{mailbox.document.dublincore.title}" />
           </nxd:restDocumentLink>
         </f:subview>
       </nxu:dataList>
-    </f:subview> <f:subview rendered="#{empty userCaseFolders}">
-      <div class="userCaseFoldersEmptyMessage"><h:outputText
-        value="#{messages['label.casemanagement.caseFolders.empty']}" /></div>
+    </f:subview> <f:subview rendered="#{empty userMailboxes}">
+      <div class="userMailboxesEmptyMessage"><h:outputText
+        value="#{messages['label.casemanagement.mailboxes.empty']}" /></div>
     </f:subview></div>
     </div>
 

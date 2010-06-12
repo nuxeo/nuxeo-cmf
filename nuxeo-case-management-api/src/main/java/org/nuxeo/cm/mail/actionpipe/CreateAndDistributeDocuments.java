@@ -31,7 +31,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
@@ -43,7 +43,7 @@ import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -81,9 +81,9 @@ public class CreateAndDistributeDocuments extends
         Contacts origCcRecipients = (Contacts) context.get(ORIGINAL_CC_RECIPIENTS_KEY);
         Calendar origReceptionDate = (Calendar) context.get(ORIGINAL_RECEPTION_DATE_KEY);
 
-        CaseFolderManagementService caseFolderManagemenetService = Framework.getService(CaseFolderManagementService.class);
+        MailboxManagementService mailboxManagemenetService = Framework.getService(MailboxManagementService.class);
 
-        CaseFolder senderMailbox = caseFolderManagemenetService.getUserPersonalCaseFolderForEmail(
+        Mailbox senderMailbox = mailboxManagemenetService.getUserPersonalMailboxForEmail(
                 session, senderEmail);
         if (senderMailbox == null) {
             // cannot find mailbox for user who forwarded => abort
@@ -97,7 +97,7 @@ public class CreateAndDistributeDocuments extends
         // senders
         Contacts internalOrigSenders = new Contacts();
         Contacts externalOrigSenders = new Contacts();
-        fillContactInformation(session, caseFolderManagemenetService,
+        fillContactInformation(session, mailboxManagemenetService,
                 origSenders, internalOrigSenders, externalOrigSenders);
         List<String> origSendersMailboxesId = new LinkedList<String>();
         origSendersMailboxesId.addAll(internalOrigSenders.getMailboxes());
@@ -105,7 +105,7 @@ public class CreateAndDistributeDocuments extends
         // recipients for action
         Contacts internalOrigToRecipients = new Contacts();
         Contacts externalOrigToRecipients = new Contacts();
-        fillContactInformation(session, caseFolderManagemenetService,
+        fillContactInformation(session, mailboxManagemenetService,
                 origToRecipients, internalOrigToRecipients,
                 externalOrigToRecipients);
         Set<String> mailboxesForAction = new LinkedHashSet<String>();
@@ -118,16 +118,16 @@ public class CreateAndDistributeDocuments extends
         // recipients for information
         Contacts internalOrigCcRecipients = new Contacts();
         Contacts externalOrigCcRecipients = new Contacts();
-        fillContactInformation(session, caseFolderManagemenetService,
+        fillContactInformation(session, mailboxManagemenetService,
                 origCcRecipients, internalOrigCcRecipients,
                 externalOrigCcRecipients);
         Set<String> mailboxesForInformation = new LinkedHashSet<String>();
         mailboxesForInformation.addAll(internalOrigCcRecipients.getMailboxes());
 
         DistributionInfo distributionInfo = new DistributionInfo();
-        distributionInfo.setForActionCaseFolders(new ArrayList<String>(
+        distributionInfo.setForActionMailboxes(new ArrayList<String>(
                 mailboxesForAction));
-        distributionInfo.setForInformationCaseFolders(new ArrayList<String>(
+        distributionInfo.setForInformationMailboxes(new ArrayList<String>(
                 mailboxesForInformation));
 
         // Create Documents
@@ -244,13 +244,13 @@ public class CreateAndDistributeDocuments extends
     }
 
     protected void fillContactInformation(CoreSession session,
-            CaseFolderManagementService correspondenceService,
+            MailboxManagementService correspondenceService,
             Contacts originalContacts, Contacts internalContacts,
             Contacts externalContacts) {
         if (originalContacts != null) {
             for (Contact origContact : originalContacts) {
                 String origContactEmail = origContact.getEmail();
-                CaseFolder origContactMailbox = correspondenceService.getUserPersonalCaseFolderForEmail(
+                Mailbox origContactMailbox = correspondenceService.getUserPersonalMailboxForEmail(
                         session, origContactEmail);
                 if (origContactMailbox != null) {
                     Contact newOrigSender = Contact.getContactForMailbox(

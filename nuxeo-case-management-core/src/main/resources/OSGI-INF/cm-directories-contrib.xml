@@ -4,7 +4,7 @@
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory"
     point="directories">
 
-    <directory name="cm_casefolder_profile">
+    <directory name="cm_mailbox_profile">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
       <cacheTimeout>3600</cacheTimeout>

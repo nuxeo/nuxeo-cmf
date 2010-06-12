@@ -96,7 +96,7 @@ public class CaseLinkRequestImpl implements CaseLink {
         return subject;
     }
 
-    public String getSenderCaseFolderId() {
+    public String getSenderMailboxId() {
         return null;
     }
 

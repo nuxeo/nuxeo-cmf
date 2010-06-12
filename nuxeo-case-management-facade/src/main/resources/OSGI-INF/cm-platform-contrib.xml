@@ -3,8 +3,8 @@
 
 <extension target="org.nuxeo.runtime.api.ServiceManagement" point="services">
 
-  <service class="org.nuxeo.cm.service.CaseFolderManagementService" group="platform">
-    <locator>%CaseFolderManagementBean</locator>
+  <service class="org.nuxeo.cm.service.MailboxManagementService" group="platform">
+    <locator>%MailboxManagementBean</locator>
   </service>
 
   <service class="org.nuxeo.cm.service.CaseDistributionService" group="platform">

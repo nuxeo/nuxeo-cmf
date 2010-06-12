@@ -28,9 +28,9 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.international.LocaleSelector;
-import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.service.CaseFolderManagementService;
-import org.nuxeo.cm.web.casefolder.CaseManagementCaseFolderActionsBean;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.cm.web.mailbox.CaseManagementMailboxActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -57,7 +57,7 @@ public class CaseManagementStartupHelper extends StartupHelper {
     private static final Log log = LogFactory.getLog(CaseManagementStartupHelper.class);
 
     @In(create = true)
-    protected transient CaseManagementCaseFolderActionsBean cmCaseFolderActions;
+    protected transient CaseManagementMailboxActionsBean cmMailboxActions;
 
     @In(create = true)
     protected transient NuxeoPrincipal currentNuxeoPrincipal;
@@ -70,10 +70,10 @@ public class CaseManagementStartupHelper extends StartupHelper {
         String page = super.initServerAndFindStartupPage();
         initCurrentDomain();
         try {
-            CaseFolderManagementService service = Framework.getService(CaseFolderManagementService.class);
+            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             // select mailbox to display
             final String user = currentNuxeoPrincipal.getName();
-            CaseFolder userMailbox = service.getUserPersonalCaseFolder(documentManager, user);
+            Mailbox userMailbox = service.getUserPersonalMailbox(documentManager, user);
             if (userMailbox != null) {
                 page = navigationContext.navigateToDocument(userMailbox.getDocument());
             }

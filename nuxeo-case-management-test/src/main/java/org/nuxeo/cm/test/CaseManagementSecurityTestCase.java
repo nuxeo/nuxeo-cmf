@@ -26,13 +26,13 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
@@ -54,7 +54,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
 
     protected CaseDistributionService caseDistributionService;
 
-    protected CaseFolderManagementService caseFolderManagementService;
+    protected MailboxManagementService mailboxManagementService;
 
     protected static final String administrator = "Administrator";
 
@@ -115,8 +115,8 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         caseDistributionService = Framework.getService(CaseDistributionService.class);
         assertNotNull(caseDistributionService);
 
-        caseFolderManagementService = Framework.getService(CaseFolderManagementService.class);
-        assertNotNull(caseFolderManagementService);
+        mailboxManagementService = Framework.getService(MailboxManagementService.class);
+        assertNotNull(mailboxManagementService);
     }
 
     protected DocumentModel createDocument(String type, String id)
@@ -147,7 +147,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         return mailEnvelopeModel;
     }
 
-    public void createDraftPost(CaseFolder mb, Case envelope) throws Exception {
+    public void createDraftPost(Mailbox mb, Case envelope) throws Exception {
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
@@ -162,8 +162,8 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         session.save();
     }
 
-    protected CaseFolder createPersonalMailbox(String name) throws Exception {
-        return caseFolderManagementService.createPersonalCaseFolders(session, name).get(0);
+    protected Mailbox createPersonalMailbox(String name) throws Exception {
+        return mailboxManagementService.createPersonalMailboxes(session, name).get(0);
     }
 
     protected CaseItem getMailEnvelopeItem() throws Exception {
@@ -184,7 +184,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         return mailEnvelopItemeModel;
     }
 
-    public Case createMailDocumentInEnvelope(CaseFolder mailbox)
+    public Case createMailDocumentInEnvelope(Mailbox mailbox)
     throws Exception {
         // The new mail
 

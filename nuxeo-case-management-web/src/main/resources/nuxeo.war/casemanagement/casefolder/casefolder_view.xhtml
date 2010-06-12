@@ -41,25 +41,25 @@
       
       <h:form styleClass="modeButton">
 
-       <c:if test="#{currentCaseFolder.getProfiles().contains('cellule_courrier')}">
-         <nxh:commandLink action="#{cmCaseFolderActions.createDraftCaseItem('CaseItem')}">
+       <c:if test="#{currentMailbox.getProfiles().contains('cellule_courrier')}">
+         <nxh:commandLink action="#{cmMailboxActions.createDraftCaseItem('CaseItem')}">
             <h:outputText value="#{messages['label.casemanagement.action.createIncomingCaseManagementDocument']}"/>
          </nxh:commandLink>
        </c:if>
 
-       <nxh:commandLink action="#{cmCaseFolderTabsActionsBean.openCaseFolderManage()}">
+       <nxh:commandLink action="#{cmMailboxTabsActionsBean.openMailboxManage()}">
          <h:outputText value="#{messages['label.casemanagement.action.manage']}"/>
        </nxh:commandLink>
 
       </h:form>
       <div style="clear:both"></div>
 
-      <ui:include src="/casemanagement/casefolder/casefolder_view_action_tabs.xhtml"/>
+      <ui:include src="/casemanagement/mailbox/mailbox_view_action_tabs.xhtml"/>
       <div style="clear:both"></div>
       
       <div class="tabsContent">
-         <c:if test="#{cmCaseFolderTabsActionsBean.currentViewCaseFolderAction != null}">
-           <ui:include src="#{cmCaseFolderTabsActionsBean.currentViewCaseFolderAction.link}" />
+         <c:if test="#{cmMailboxTabsActionsBean.currentViewMailboxAction != null}">
+           <ui:include src="#{cmMailboxTabsActionsBean.currentViewMailboxAction.link}" />
          </c:if>
       </div>
 

@@ -9,10 +9,10 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
  <div class="tabsContent">
    <h2><h:outputText value="#{messages['label.casemanagement.distribution.view']}" /></h2>
-      <c:if test="#{empty currentCaseFolder}">
-        <ui:include src="/casemanagement/caseitem/chose_current_casefolder.xhtml" />
+      <c:if test="#{empty currentMailbox}">
+        <ui:include src="/casemanagement/caseitem/chose_current_mailbox.xhtml" />
       </c:if>
-      <c:if test="#{!empty currentCaseFolder}">
+      <c:if test="#{!empty currentMailbox}">
         <ui:include src="/casemanagement/caseitem/chose_participants.xhtml" />
       </c:if>
     </div>

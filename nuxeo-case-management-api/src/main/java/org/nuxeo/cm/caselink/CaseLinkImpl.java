@@ -105,7 +105,7 @@ public class CaseLinkImpl implements CaseLink {
         return getPropertyValue(SUBJECT_FIELD);
     }
 
-    public String getSenderCaseFolderId() {
+    public String getSenderMailboxId() {
         return getPropertyValue(SENDER_CASE_FOLDER_ID_FIELD);
     }
 

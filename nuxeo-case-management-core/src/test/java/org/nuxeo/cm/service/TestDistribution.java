@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
@@ -48,16 +48,16 @@ CaseManagementRepositoryTestCase {
         openSession();
     }
 
-    public CaseFolder getPersonalMailbox(String name) throws Exception {
-        return correspCaseFolderService.createPersonalCaseFolders(session, name).get(0);
+    public Mailbox getPersonalMailbox(String name) throws Exception {
+        return correspMailboxService.createPersonalMailboxes(session, name).get(0);
     }
 
     public void testSendEnvelope() throws Exception {
 
         // Initialize mailboxes
-        CaseFolder initialSender = getPersonalMailbox(user1);
-        CaseFolder initialReceiverMailbox = getPersonalMailbox(user2);
-        CaseFolder receiverMailbox1 = getPersonalMailbox(user3);
+        Mailbox initialSender = getPersonalMailbox(user1);
+        Mailbox initialReceiverMailbox = getPersonalMailbox(user2);
+        Mailbox receiverMailbox1 = getPersonalMailbox(user3);
 
         // Create an envelope
         Case envelope = getMailEnvelope();

@@ -28,7 +28,7 @@ import javax.ejb.Stateless;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
@@ -56,37 +56,37 @@ public class CaseDistributionBean implements CaseDistributionService {
     }
 
     public Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath, List<CaseFolder> mailboxes) {
+            String parentPath, List<Mailbox> mailboxes) {
         return getCaseDistributionService().createCase(session, emailDoc,
                 parentPath, mailboxes);
     }
 
     public CaseLink createDraftCaseLink(CoreSession session,
-            CaseFolder mailbox, Case envelope) {
+            Mailbox mailbox, Case envelope) {
         return getCaseDistributionService().createDraftCaseLink(session,
                 mailbox, envelope);
     }
 
-    public CaseLink getDraftCaseLink(CoreSession session, CaseFolder mailbox,
+    public CaseLink getDraftCaseLink(CoreSession session, Mailbox mailbox,
             String envelopeId) {
         return getCaseDistributionService().getDraftCaseLink(session, mailbox,
                 envelopeId);
     }
 
     public List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit) {
+            Mailbox mailbox, long offset, long limit) {
         return getCaseDistributionService().getDraftCaseLinks(coreSession,
                 mailbox, offset, limit);
     }
 
     public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit) {
+            Mailbox mailbox, long offset, long limit) {
         return getCaseDistributionService().getReceivedCaseLinks(coreSession,
                 mailbox, offset, limit);
     }
 
     public List<CaseLink> getSentCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit) {
+            Mailbox mailbox, long offset, long limit) {
         return getCaseDistributionService().getSentCaseLinks(coreSession,
                 mailbox, offset, limit);
     }

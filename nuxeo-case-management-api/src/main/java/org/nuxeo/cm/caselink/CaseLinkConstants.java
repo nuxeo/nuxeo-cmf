@@ -55,7 +55,7 @@ public class CaseLinkConstants {
     /**
      * The xpath the sender mailbox id.
      */
-    public static final String SENDER_CASE_FOLDER_ID_FIELD = "cslk:senderCaseFolderId";
+    public static final String SENDER_CASE_FOLDER_ID_FIELD = "cslk:senderMailboxId";
 
     /**
      * The xpath of the sender.

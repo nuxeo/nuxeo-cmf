@@ -18,7 +18,7 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
@@ -40,11 +40,11 @@ public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
 
     protected final CaseItem item;
     protected final String parentPath;
-    protected final List<CaseFolder> mailboxes;
+    protected final List<Mailbox> mailboxes;
 
     protected DocumentRef ref;
 
-    public CreateCaseUnrestricted(CoreSession session, CaseItem item, String parentPath, List<CaseFolder> mailboxes) {
+    public CreateCaseUnrestricted(CoreSession session, CaseItem item, String parentPath, List<Mailbox> mailboxes) {
         super(session);
         this.item = item;
         this.parentPath = parentPath;
@@ -57,7 +57,7 @@ public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
         DocumentModel doc = env.getDocument();
         ACP acp = doc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
-        for (CaseFolder mailbox : mailboxes) {
+        for (Mailbox mailbox : mailboxes) {
             acl.add(new ACE(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX
                     + mailbox.getId(), SecurityConstants.READ_WRITE, true));
         }
