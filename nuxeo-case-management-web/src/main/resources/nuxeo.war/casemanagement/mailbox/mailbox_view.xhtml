@@ -7,6 +7,7 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:c="http://java.sun.com/jstl/core"
   xmlns:nxthemes="http://nuxeo.org/nxthemes"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
   xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
   xmlns:nxd="http://nuxeo.org/nxweb/document"
   xmlns:nxh="http://nuxeo.org/nxweb/html">
@@ -20,7 +21,7 @@
 
   <ui:define name="body">
     <div>
-
+    <ui:include src="/select_document_type.xhtml"/>
     <h:panelGroup rendered="#{currentDocument.version}">
       <h1>
       <h:outputText value="#{nxd:titleOrId(versionedActions.sourceDocument)}"/>
@@ -38,20 +39,36 @@
       <p class="currentDocumentDescription float">
         <h:outputText value="#{currentDocument.dublincore.description}"/>
       </p>
-      
-      <h:form styleClass="modeButton">
 
-       <c:if test="#{currentMailbox.getProfiles().contains('cellule_courrier')}">
-         <nxh:commandLink action="#{cmMailboxActions.createDraftCaseItem('CaseItem')}">
-            <h:outputText value="#{messages['label.casemanagement.action.createIncomingCaseManagementDocument']}"/>
-         </nxh:commandLink>
-       </c:if>
-
-       <nxh:commandLink action="#{cmMailboxTabsActionsBean.openMailboxManage()}">
-         <h:outputText value="#{messages['label.casemanagement.action.manage']}"/>
-       </nxh:commandLink>
-
+      <h:form id="mailboxActionsListForm">
+        <nxu:methodResult name="actions" value="#{webActions.getActionsList('MAILBOX_ACTION_UPPER_LIST')}">
+          <f:subview rendered="#{!empty actions}">
+            <div class="action_bar">
+            <nxu:dataList layout="unorderedList" var="action" value="#{actions}">
+            <nxh:commandLink action="#{action.getLink()}">
+              <h:graphicImage value="#{action.icon}"
+                title="#{messages[action.label]}"
+                alt="#{messages[action.label]}" />
+                <h:outputText value="#{messages[action.label]}" />
+            </nxh:commandLink>
+            </nxu:dataList>
+            </div>
+          </f:subview>
+        </nxu:methodResult>
+        <nxu:methodResult name="actions" value="#{webActions.getActionsList('MAILBOX_ACTION_UPPER_LIST_HREF')}">
+          <f:subview rendered="#{!empty actions}">
+            <div class="action_bar">
+            <nxu:dataList layout="unorderedList" var="action" value="#{actions}">
+            <a href="#{action.getLink()}">
+                <h:graphicImage value="#{action.icon}" />
+                <h:outputText value="#{messages[action.label]}" />
+              </a>
+            </nxu:dataList>
+            </div>
+          </f:subview>
+        </nxu:methodResult>
       </h:form>
+
       <div style="clear:both"></div>
 
       <ui:include src="/casemanagement/mailbox/mailbox_view_action_tabs.xhtml"/>

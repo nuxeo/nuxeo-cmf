@@ -32,6 +32,9 @@
         <layout>cm_mailbox</layout>
         <layout>cm_mailbox_managers</layout>
       </layouts>
+      <subtypes>
+        <type>CaseItem</type>
+      </subtypes>
     </type>
 
     <type id="CaseRoot">
@@ -79,6 +82,7 @@
       <icon>/icons/correspondence_mail.png</icon>
       <default-view>view_cm_document</default-view>
       <create-view>create_cm_document</create-view>
+      <category>CaseItemDocument</category>
       <layouts mode="view">
         <layout>cm_document</layout>
         <layout>file</layout>

@@ -236,6 +236,21 @@
       <category>MANAGE_CASE_FOLDER_ACTION_LIST</category>
       
     </action>
+
+    <action id="SHOW_MANAGE_MAILBOX_ACTION" link="#{cmMailboxTabsActionsBean.openMailboxManage()}"
+      label="label.casemanagement.action.manage"
+      enabled="true">
+      <category>MAILBOX_ACTION_UPPER_LIST</category>
+    </action>
+
+    <action id="newCaseItemDocument"
+      link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
+      label="action.new.document"
+      enabled="true">
+      <category>MAILBOX_ACTION_UPPER_LIST_HREF</category>
+      <filter-id>canCreateCase</filter-id>
+    </action>
+
     <!-- End of Mailbox Management Actions -->
 
     <!-- Classification integration -->
@@ -291,6 +306,12 @@
       </rule>
     </filter>
 
+    <filter id="canCreateCase">
+      <rule grant="true">
+        <condition>#{currentMailbox.getProfiles().contains('cellule_courrier')}</condition>
+      </rule>
+    </filter>
+   
     <filter id="isCmCase">
       <rule grant="true">
         <facet>Case</facet>
