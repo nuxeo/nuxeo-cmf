@@ -18,11 +18,6 @@
 		</code>
 	</extension>
 
-   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
-	 point="listener">
-			<listener name="importerListener" async="false" postCommit="false"
-			class="org.nuxeo.cm.core.event.CaseManagementImporterListener">
-		</listener>
-   </extension>
   
 </component>
+
