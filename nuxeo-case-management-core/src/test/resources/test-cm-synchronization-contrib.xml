@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.synchronization.test.contrib">
+
+  <extension target="org.nuxeo.cm.core.service.synchronization.CaseFolderSynchronizationService" point="directoryToCaseFolder">
+
+    <userToCaseFolder>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalCFTitleGenerator</titleGenerator>
+    </userToCaseFolder>
+
+
+    <groupToCaseFolder>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupCFTitleGenerator</titleGenerator>
+    </groupToCaseFolder>
+
+  </extension>
+
+</component>

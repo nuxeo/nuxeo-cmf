@@ -74,8 +74,8 @@ public class TestCaseManagementUserManager extends
 
         groups = pal.getGroups();
         assertNotNull(groups);
-        assertEquals(2, groups.size());
-        assertTrue(groups.contains("group_1"));
+        assertEquals(4, groups.size());
+        assertTrue(groups.contains("group_2"));
         assertTrue(groups.contains(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2"));
 
         NuxeoGroup grp = userManager.getGroup(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2");

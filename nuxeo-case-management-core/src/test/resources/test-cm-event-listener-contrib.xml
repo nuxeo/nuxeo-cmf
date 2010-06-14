@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.test.eventContrib">
+
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+    point="listener">
+
+    <listener name="caseFolderSyncTestListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.service.synchronization.CaseFolderSyncTestListener"
+      priority="120">
+      <event>onCaseFolderCreated</event>
+      <event>onCaseFolderUpdated</event>
+      <event>onCaseFolderDeleted</event>
+    </listener>
+
+  </extension>
+
+</component>

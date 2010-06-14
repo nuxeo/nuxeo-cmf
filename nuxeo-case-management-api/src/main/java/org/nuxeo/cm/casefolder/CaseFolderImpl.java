@@ -23,6 +23,7 @@ package org.nuxeo.cm.casefolder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.cm.service.synchronization.CaseFolderSynchronizationConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -100,6 +102,14 @@ public class CaseFolderImpl implements CaseFolder {
             return null;
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
+        }
+    }
+
+    protected Calendar getDateProperty(String property) {
+        try {
+            return (Calendar) doc.getPropertyValue(property);
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
         }
     }
 
@@ -406,6 +416,46 @@ public class CaseFolderImpl implements CaseFolder {
 
     public String getAffiliatedCaseFolderId() {
         return getStringProperty(CaseFolderConstants.AFFILIATED_CASE_FOLDER_ID);
+    }
+
+    public String getSynchronizeState() {
+        return getStringProperty(CaseFolderConstants.SYNCHRONIZED_STATE_FIELD);
+    }
+
+    public void setSynchronizeState(String state) {
+        setPropertyValue(CaseFolderConstants.SYNCHRONIZED_STATE_FIELD, state);
+    }
+
+    public Boolean isSynchronized(){
+        if (CaseFolderSynchronizationConstants.synchronisedState.synchronised.toString().equals(getSynchronizeState())){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getSynchronizerId() {
+        return getStringProperty(CaseFolderConstants.SYNCHRONIZER_ID_FIELD);
+    }
+
+    public void setSynchronizerId(String synchronizerId) {
+        setPropertyValue(CaseFolderConstants.SYNCHRONIZER_ID_FIELD, synchronizerId);
+    }
+
+    public Calendar getLastSyncUpdate() {
+        return getDateProperty(CaseFolderConstants.LAST_SYNC_UPDATE_FIELD);
+    }
+
+    public void setLastSyncUpdate(Calendar now) {
+        setPropertyValue(CaseFolderConstants.LAST_SYNC_UPDATE_FIELD, now);
+    }
+
+    public String getOrigin() {
+        return getStringProperty(CaseFolderConstants.ORIGIN_FIELD);
+    }
+
+    public void setOrigin(String origin) {
+        setPropertyValue(CaseFolderConstants.ORIGIN_FIELD, origin);
     }
 
 }

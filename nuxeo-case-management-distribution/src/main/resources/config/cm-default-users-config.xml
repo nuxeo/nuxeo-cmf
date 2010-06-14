@@ -20,7 +20,7 @@
       <autoincrementIdField>false</autoincrementIdField>
       <dataFile>config/cm_default_users.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
-      <querySizeLimit>15</querySizeLimit>
+      <querySizeLimit>0</querySizeLimit>
 
       <references>
         <inverseReference field="groups" directory="groupDirectory"

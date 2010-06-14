@@ -34,6 +34,10 @@ public class CaseFolderConstants {
         personal, generic
     }
 
+    public enum updatePolicy {
+        merge, override
+    }
+
     public static final String CASE_FOLDER_DOCUMENT_TYPE = "CaseFolder";
 
     public static final String CASE_FOLDER_FACET = "CaseFolder";
@@ -70,6 +74,14 @@ public class CaseFolderConstants {
 
     public static final String CONFIDENTIALITY_FIELD = "csfd:defaultconfidentiality";
 
+    public static final String LAST_SYNC_UPDATE_FIELD = "csfd:lastSyncUpdate";
+
+    public static final String ORIGIN_FIELD = "csfd:origin";
+
+    public static final String SYNCHRONIZER_ID_FIELD = "csfd:synchronizerId";
+
+    public static final String SYNCHRONIZED_STATE_FIELD = "csfd:synchronizedState";
+
     public static final String PARTICIPANTLIST_ID_FIELD = "plid";
 
     public static final String MAILINGLIST_TITLE_FIELD = "title";
@@ -79,6 +91,10 @@ public class CaseFolderConstants {
     public static final String MAILINGLIST_CASE_FOLDER_FIELD = "casefolder";
 
     public static final String MAILBOX_DELETED_STATE = "deleted";
+
+    public static final String GROUP_UPDATE_SYNC_POLICY_PROPERTY = "cm.onGroupDirectoryUpdate";
+
+    public static final String SYNC_BATCH_SIZE_PROPERTY = "cm.caseFolders.updateBatchSize";
 
     public static List<CaseFolderHeader> getMailboxHeaderList(List<DocumentModel> docs) {
         List<CaseFolderHeader> res = new ArrayList<CaseFolderHeader>();

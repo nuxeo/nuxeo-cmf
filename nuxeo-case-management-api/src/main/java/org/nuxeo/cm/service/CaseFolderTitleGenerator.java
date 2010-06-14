@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2010 Nuxeo SA (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2010 Nuxeo SAS (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,26 +12,24 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     Anahide Tchertchian
+ *     Laurent Doguin
+ *
+ * $Id$
  */
-package org.nuxeo.cm.cases;
+
+package org.nuxeo.cm.service;
+
+import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.model.PropertyException;
 
 /**
- * Mail envelope life cycle constants
+ * Interface for creation of personal mailbox.
  *
- * @author Anahide Tchertchian
+ * @author Laurent Doguin
  */
-public class CaseLifeCycleConstants {
+public interface CaseFolderTitleGenerator {
 
-    public static final String STATE_DRAFT = "draft";
-
-    public static final String STATE_SENT = "sent";
-
-    public static final String TRANSITION_SEND = "send";
-
-    public static final String TRANSITION_DELETE = "delete";
-
-    private CaseLifeCycleConstants() {
-    }
+    String getCaseFolderTitle(DocumentModel directoryEntry) throws PropertyException, ClientException;
 
 }

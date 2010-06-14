@@ -13,7 +13,7 @@
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-distribution</artifactId>
   <packaging>pom</packaging>
-  <name>Case Management distributionn</name>
+  <name>Case Management distribution</name>
   <description>Case Management distribution</description>
 
   <properties>

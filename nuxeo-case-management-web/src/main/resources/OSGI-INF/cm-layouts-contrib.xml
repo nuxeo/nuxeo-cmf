@@ -214,6 +214,67 @@
       </properties>
     </widget>
 
+    <widget name="casefolder_lastSyncUpdate" type="text">
+      <widgetModes>
+        <mode value="any">view</mode>
+        <mode value="create">hidden</mode>
+      </widgetModes>
+      <labels>
+        <label mode="any">label.casefolder.synchronizer.lastSyncUpdate</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>csfd:lastSyncUpdate</field>
+      </fields>
+    </widget>
+
+    <widget name="casefolder_sync_id" type="text">
+      <widgetModes>
+        <mode value="any">view</mode>
+        <mode value="create">hidden</mode>
+      </widgetModes>
+      <labels>
+        <label mode="any">label.casefolder.synchronizer.id</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>csfd:synchronizerId</field>
+      </fields>
+    </widget>
+
+    <widget name="casefolder_origin" type="text">
+      <widgetModes>
+        <mode value="any">view</mode>
+        <mode value="create">hidden</mode>
+      </widgetModes>
+      <labels>
+        <label mode="any">label.casefolder.origin</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>csfd:origin</field>
+      </fields>
+    </widget>
+
+
+    <widget name="casefolder_sync_state" type="selectOneDirectory">
+      <fields>
+        <field>csfd:synchronizedState</field>
+      </fields>
+      <labels>
+        <label mode="any">label.casefolder.synchronizer.state</label>
+      </labels>
+      <translated>true</translated>
+      <properties widgetMode="any">
+        <property name="directoryName">cm_casefolder_sync_state</property>
+        <property name="localize">true</property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="notDisplayDefaultOption">true</property>
+        <property name="ordering">label</property>
+      </properties>
+    </widget>
+
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
@@ -250,6 +311,18 @@
         </row>
         <row>
           <widget>casefolder_affiliation</widget>
+        </row>
+        <row>
+          <widget>casefolder_sync_state</widget>
+        </row>
+        <row>
+          <widget>casefolder_lastSyncUpdate</widget>
+        </row>
+        <row>
+          <widget>casefolder_origin</widget>
+        </row>
+        <row>
+          <widget>casefolder_sync_id</widget>
         </row>
       </rows>
     </layout>

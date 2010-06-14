@@ -4,6 +4,18 @@
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory"
     point="directories">
 
+    <directory name="cm_casefolder_sync_state">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <table>correspondence_mailbox_sync_state</table>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <dataFile>directories/case_folder_sync_state.csv</dataFile>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+    </directory>
+    
     <directory name="cm_casefolder_profile">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -15,7 +27,7 @@
       <dataFile>directories/case_folder_profile.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-    
+
     <directory name="cm_document_type">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>

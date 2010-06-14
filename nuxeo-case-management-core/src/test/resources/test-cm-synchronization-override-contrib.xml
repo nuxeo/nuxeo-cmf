@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cm.service.synchronization.override.test.contrib">
+
+  <extension target="org.nuxeo.cm.core.service.synchronization.CaseFolderSynchronizationService" point="directoryToCaseFolder">
+
+    <userToCaseFolder>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalCFTitleGenerator</titleGenerator>
+    </userToCaseFolder>
+
+
+    <groupToCaseFolder enabled="false">
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupCFTitleGenerator</titleGenerator>
+    </groupToCaseFolder>
+
+    <directoryToCaseFolder directoryName="uncompleteContrib" >
+      <directoryEntryIdField>fieldName</directoryEntryIdField>
+    </directoryToCaseFolder>
+  </extension>
+
+</component>

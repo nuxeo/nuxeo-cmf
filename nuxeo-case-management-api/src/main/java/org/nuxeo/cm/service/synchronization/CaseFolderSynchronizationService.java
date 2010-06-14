@@ -12,26 +12,24 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     Anahide Tchertchian
+ *     Laurent Doguin
  */
-package org.nuxeo.cm.cases;
+package org.nuxeo.cm.service.synchronization;
+
+import java.io.Serializable;
+import java.util.Map;
 
 /**
- * Mail envelope life cycle constants
  *
- * @author Anahide Tchertchian
+ * @author Laurent Doguin
  */
-public class CaseLifeCycleConstants {
+public interface CaseFolderSynchronizationService extends Serializable {
 
-    public static final String STATE_DRAFT = "draft";
+    void doSynchronize() throws Exception;
 
-    public static final String STATE_SENT = "sent";
+    Map<String, CaseFolderDirectorySynchronizationDescriptor> getSynchronizerMap();
 
-    public static final String TRANSITION_SEND = "send";
+    CaseFolderUserSynchronizationDescriptor getUserSynchronizer();
 
-    public static final String TRANSITION_DELETE = "delete";
-
-    private CaseLifeCycleConstants() {
-    }
-
+    CaseFolderGroupSynchronizationDescriptor getGroupSynchronizer();
 }

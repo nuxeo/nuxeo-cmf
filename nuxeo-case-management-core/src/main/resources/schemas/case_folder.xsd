@@ -45,5 +45,11 @@
 
   <xs:element name="participantlists" type="cmxs:participantlists" />
 
+  <xs:element name="lastSyncUpdate" type="xs:date" />
+  <xs:element name="origin" type="xs:string" default="" />
+  <xs:element name="synchronizerId" type="xs:string" />
+  <xs:element name="synchronizedState" type="xs:string" default="unsynchronised" />
+
+
 </xs:schema>
 

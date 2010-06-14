@@ -21,6 +21,7 @@
 package org.nuxeo.cm.casefolder;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import org.nuxeo.cm.exception.CaseManagementException;
@@ -219,4 +220,58 @@ public interface CaseFolder extends Serializable, Comparable<CaseFolder> {
      * @return the affiliated mailbox id. null if not affiliated mailbox exists.
      */
     String getAffiliatedCaseFolderId();
+
+    /**
+     * @return CaseFolder current synchronized state
+     */
+    String getSynchronizeState();
+
+    /**
+     * Sets synchronize state of the caseFolder
+     */
+    void setSynchronizeState(String state);
+
+    /**
+     * @return true if case folder is synchronized
+     */
+    Boolean isSynchronized();
+
+    /**
+     * @return case folder's synchronizer ID.
+     */
+    String getSynchronizerId();
+
+    /**
+     * Set the given string parameter as case folder's synchronizer ID.
+     *
+     * @param synchronizerId
+     */
+    void setSynchronizerId(String synchronizerId);
+
+    /**
+     * @return the last time this case folder has been updated by the
+     *         synchronziation service.
+     */
+    Calendar getLastSyncUpdate();
+
+    /**
+     * Sets the last time this case folder has been updated by the
+     * synchronziation service.
+     *
+     * @param now
+     */
+    void setLastSyncUpdate(Calendar now);
+
+    /**
+     * @return The name of the directory from which it has been synchronized or
+     *         an empty string if it has been created.
+     */
+    String getOrigin();
+
+    /**
+     * Sets the origin of the CaseFolder.
+     * @param origin
+     */
+    void setOrigin(String origin);
+
 }

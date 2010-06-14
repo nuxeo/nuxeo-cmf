@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.core.service.synchronization.CaseFolderSynchronizationService">
+
+  <documentation>
+  The Case Management Synchronization Service allows to synchronize
+  directory entries with CaseFolder. 
+  @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
+  </documentation>
+  
+  <implementation class="org.nuxeo.cm.core.service.synchronization.CaseFolderSynchronizationServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.cm.service.synchronization.CaseFolderSynchronizationService" />
+  </service>
+
+  <extension-point name="directoryToCaseFolder">
+
+    <documentation>
+    Used to synchronize a directory with CaseFolders.
+    Contributions for this extension point are of the 
+    form:
+    <code>
+    <userToCaseFolder directoryName="userDirectory" enabled="true" >
+      <directoryEntryIdField>fieldName</directoryEntryIdField>
+      <caseFolderIdField>fieldName</caseFolderIdField>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalCFTitleGenerator</titleGenerator>
+    </userToCaseFolder>
+    <groupToCaseFolder directoryName="groupDirectory">
+      <directoryEntryIdField>fieldName</directoryEntryIdField>
+      <caseFolderIdField>fieldName</caseFolderIdField>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupCFTitleGenerator</titleGenerator>
+    </groupToCaseFolder>
+    <directoryToCaseFolder directoryName="directoryName" enabled="true" >
+      <directoryEntryIdField>fieldName</directoryEntryIdField>
+      <caseFolderIdField>fieldName</caseFolderIdField>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.CFTitleGenerator</titleGenerator>
+    </directoryToCaseFolder>
+    </code>
+    </documentation>
+
+
+    <object class="org.nuxeo.cm.service.synchronization.CaseFolderUserSynchronizationDescriptor" />
+    <object class="org.nuxeo.cm.service.synchronization.CaseFolderGroupSynchronizationDescriptor" />
+    <object class="org.nuxeo.cm.service.synchronization.CaseFolderDirectorySynchronizationDescriptor" />
+  </extension-point>
+
+</component>

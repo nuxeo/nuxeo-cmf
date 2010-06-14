@@ -53,6 +53,30 @@
       <event>draftUpdated</event>
     </listener>
 
+    <listener name="caseFolderSynchronizationListener" async="true" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.CaseFolderSynchronizationListener"
+      priority="10">
+      <event>syncCaseFolder</event>
+    </listener>
+
+    <listener name="caseFolderCreatedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.CaseFolderCreatedListener"
+      priority="2">
+      <event>onCaseFolderCreated</event>
+    </listener>
+
+    <listener name="caseFolderUpdatedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.CaseFolderUpdatedListener"
+      priority="3">
+      <event>onCaseFolderUpdated</event>
+    </listener>
+
+    <listener name="caseFolderDeletedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.CaseFolderDeletedListener"
+      priority="4">
+      <event>onCaseFolderDeleted</event>
+    </listener>
+
   </extension>
 
 </component>

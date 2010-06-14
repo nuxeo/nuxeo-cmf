@@ -21,3 +21,12 @@ directory.
 
 To copy the jar file to the created server:
 ant deploy-jar
+
+MailBoxes Synchronization
+-------------------------
+
+Directories used with synchronization should be configured with unlimited querySizeLimit
+because the directory API has no batching features.
+
+Default contribution uses userManager to synchronize group and users. Do not forget to 
+properly configure the querySize for them too.

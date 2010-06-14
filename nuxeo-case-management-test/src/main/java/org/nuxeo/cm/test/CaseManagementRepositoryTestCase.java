@@ -39,7 +39,6 @@ import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * @author Anahide Tchertchian
@@ -114,7 +113,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
     public void setUp() throws Exception {
         database = DatabasePostgreSQL.INSTANCE;
         super.setUp();
-     
+
 
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
