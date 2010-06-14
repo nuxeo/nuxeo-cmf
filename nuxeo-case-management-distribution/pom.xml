@@ -111,7 +111,10 @@
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-annotations-web</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-importer-core</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

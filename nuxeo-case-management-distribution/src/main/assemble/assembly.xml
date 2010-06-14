@@ -69,7 +69,7 @@
     <copy todir="${app.path}/server/default/deploy/nuxeo.ear/plugins">
       <artifact:set groupId="org.nuxeo.cm" type="jar" />
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
-      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-importer-*"/>
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
     </copy>
     <!-- Deploy custom configuration -->
     <copy todir="${app.path}/templates/common" overwrite="true">
