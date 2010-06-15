@@ -23,13 +23,13 @@ import java.util.List;
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CaseManagementImporterService;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.common.utils.FileNamePattern;
 import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
@@ -39,29 +39,36 @@ import org.nuxeo.runtime.transaction.TransactionHelper;
 public class TestCaseManagementImporterService extends
         CaseManagementRepositoryTestCase {
 
-
     @Override
     public void setUp() throws Exception {
-    
+
         super.setUp();
-        // since we are using multiple threads in order to import and create docs we need to make sure that the repository is 
-        // correctly  initialized  (in the database) and that means the transaction  in which these docs are created is committed
+        // since we are using multiple threads in order to import and create
+        // docs we need to make sure that the repository is
+        // correctly initialized (in the database) and that means the
+        // transaction in which these docs are created is committed
         // force commit transaction
         closeSession();
         TransactionHelper.commitOrRollbackTransaction();
         openSession();
     }
-    
+
     @Override
     protected void deployRepositoryContrib() throws Exception {
         // TODO Auto-generated method stub
         super.deployRepositoryContrib();
         deployBundle("org.nuxeo.ecm.platform.audit.api");
         deployContrib("org.nuxeo.cm.core.test",
-        "test-cm-default-importer-contrib.xml");
+                "test-cm-default-importer-contrib.xml");
     }
 
     public void testImporter() throws Exception {
+
+        File classResources = FileUtils.getFileFromURL(Thread.currentThread().getContextClassLoader().getResource(
+                "."));
+        File rootDir = new File(classResources.getAbsolutePath().substring(0,
+                classResources.getAbsolutePath().indexOf("target/"))
+                + "/src/test/resources/import-src/");
 
         CaseManagementImporterService importerService = getCaseManagementImporterService();
         assertNotNull(importerService);
@@ -73,12 +80,12 @@ public class TestCaseManagementImporterService extends
                 destinationCaseFolder.getDocument().getPathAsString());
 
         importerService.importDocuments();
-        List<File> resourcesFiles = collectResourceFiles();
+        List<File> resourcesFiles = collectResourceFiles(rootDir);
 
         // Retrieve the post in the initial receiver casefolder
         List<CaseLink> postInCaseFolder = distributionService.getReceivedCaseLinks(
                 session, destinationCaseFolder, 0, 0);
-        // test only for xml resources
+        // test only for pdf resources
         List<String> resourceTitles = resourceFilesTitles(resourcesFiles);
         for (CaseLink caseLink : postInCaseFolder) {
             Case caseFromPost = caseLink.getCase(session);
@@ -88,12 +95,17 @@ public class TestCaseManagementImporterService extends
                     itemsInCase.get(0).getDefaultCaseId());
             assertNotNull(itemsInCase.get(0).getDocument().getPropertyValue(
                     "file:filename"));
-            if (itemsInCase.get(0).getTitle().endsWith("xml")) {
-                assertTrue(resourceTitles.contains(itemsInCase.get(0).getTitle()));
-                assertTrue(resourceTitles.contains((String) itemsInCase.get(0).getDocument().getPropertyValue(
+            if (itemsInCase.get(0).getTitle().endsWith("pdf")) {
+                assertTrue(resourceTitles.contains(CaseConstants.DOCUMENT_IMPORTED_PREFIX
+                        + itemsInCase.get(0).getTitle()));
+                assertTrue(resourceTitles.contains(CaseConstants.DOCUMENT_IMPORTED_PREFIX + (String) itemsInCase.get(0).getDocument().getPropertyValue(
                         "file:filename")));
             }
         }
+        // during the import the file names were changed to _imported_ in order
+        // to avoid importing them twice, we have to restore them back
+        testImportedFilNames(rootDir);
+        restoreTestFiles(rootDir);
 
     }
 
@@ -111,12 +123,10 @@ public class TestCaseManagementImporterService extends
         }
     }
 
-    private List<File> collectResourceFiles() {
+    private List<File> collectResourceFiles(File rootDir) {
         List<File> testFiles = new ArrayList<File>();
-        // collect only xml resource files
-        FileUtils.collectFiles(
-                FileUtils.getFileFromURL(Thread.currentThread().getContextClassLoader().getResource(
-                        ".")), new FileNamePattern("*.xml"), testFiles);
+        // collect only pdf resource files
+        FileUtils.collectFiles(rootDir, new FileNamePattern("*.pdf"), testFiles);
         return testFiles;
     }
 
@@ -126,6 +136,34 @@ public class TestCaseManagementImporterService extends
             titles.add(file.getName());
         }
         return titles;
+    }
+
+    private void testImportedFilNames(File rootDir) {
+        for (File child : rootDir.listFiles()) {
+            if (child.isFile() && child.getName().endsWith("pdf")) {
+                assertTrue(child.getName().startsWith(
+                        CaseConstants.DOCUMENT_IMPORTED_PREFIX));
+            } else if (child.isDirectory()) {
+                testImportedFilNames(child);
+            }
+        }
+    }
+
+    private void restoreTestFiles(File rootFiles) {
+        // during the import the file names were changed to _imported_ in order
+        // to avoid importing them twice, we have to restore them back
+        for (File child : rootFiles.listFiles()) {
+            if (child.isFile()
+                    && child.getName().startsWith(
+                            CaseConstants.DOCUMENT_IMPORTED_PREFIX)) {
+                child.renameTo(new File(child.getAbsolutePath().replace(
+                        child.getName(),
+                        child.getName().replace(
+                                CaseConstants.DOCUMENT_IMPORTED_PREFIX, ""))));
+            } else if (child.isDirectory()) {
+                restoreTestFiles(child);
+            }
+        }
     }
 
 }

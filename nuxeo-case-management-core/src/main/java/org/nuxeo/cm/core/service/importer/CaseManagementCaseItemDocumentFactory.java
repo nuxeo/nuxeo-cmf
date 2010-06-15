@@ -16,45 +16,54 @@
  */
 package org.nuxeo.cm.core.service.importer;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
+import org.nuxeo.ecm.core.event.EventProducer;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.importer.factories.DefaultDocumentModelFactory;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
-*
-* Implementation for CaseManagement factory; each time a file is found
-* a new caseItem is created  and the corresponding case; the case is sent
-* to the specified destionationCaseFolder
-*
-* @author Mariana Cedica
-*
-*/
+ * 
+ * Implementation for CaseManagement factory; each time a file is found a new
+ * caseItem is created and the corresponding case; the case is sent to the
+ * specified destionationCaseFolder
+ * 
+ * @author Mariana Cedica
+ * 
+ */
 public class CaseManagementCaseItemDocumentFactory extends
         DefaultDocumentModelFactory {
 
     private String destionationCaseFolderPath;
-
+    
     private CaseDistributionService caseDistributionService;
 
     private CaseManagementDocumentTypeService caseManagementDocumentTypeService;
+    
+    private EventProducer eventProducer;
 
     @Override
     public DocumentModel createFolderishNode(CoreSession session,
@@ -68,6 +77,14 @@ public class CaseManagementCaseItemDocumentFactory extends
         return createCaseItemInCase(session, node);
     }
 
+    @Override
+    protected String getMimeType(String name) {
+        if (name.endsWith(".pdf")) {
+            return "application/pdf";
+        }
+        return super.getMimeType(name);
+    }
+
     protected DocumentModel createCaseItemInCase(CoreSession session,
             SourceNode node) throws Exception {
         caseDistributionService = getCaseDistributionService();
@@ -77,6 +94,11 @@ public class CaseManagementCaseItemDocumentFactory extends
         String caseRootPath = getCaseRootPath(session);
         DocumentModel caseItemDoc = defaultCreateNodeDoc(session, caseRootPath,
                 node, getCaseManagementDocumentTypeService().getCaseItemType());
+        if (caseItemDoc == null) {
+            // skip importing this node
+            return null;
+        }
+
         Case caseDoc = caseDistributionService.createCase(session, caseItemDoc,
                 getCaseRootPath(session),
                 Collections.singletonList(getDestinationCaseFolder(session)));
@@ -87,20 +109,30 @@ public class CaseManagementCaseItemDocumentFactory extends
         // create the corresponding caseLink in the receiver caseFolder
         caseDistributionService.createDraftCaseLink(session,
                 getDestinationCaseFolder(session), caseDoc);
+        
+        // dont't forget to notify the istener that the caseItem was created
+        notifyCaseImported(session, caseItemDoc, node);
         return caseItemDoc;
     }
 
     protected DocumentModel defaultCreateNodeDoc(CoreSession session,
             String parentPath, SourceNode node, String docType)
             throws Exception {
-
         BlobHolder bh = node.getBlobHolder();
         String mimeType = bh.getBlob().getMimeType();
         if (mimeType == null) {
             mimeType = getMimeType(node.getName());
         }
+        // add check for pdf
 
         String name = getValidNameFromFileName(node.getName());
+        if (name.startsWith(CaseConstants.DOCUMENT_IMPORTED_PREFIX)
+                || !mimeType.equals("application/pdf")) {
+            // this file was already imported or is not a pdf file
+            // skip import
+            return null;
+        }
+
         String fileName = node.getName();
 
         Map<String, Object> options = new HashMap<String, Object>();
@@ -116,6 +148,7 @@ public class CaseManagementCaseItemDocumentFactory extends
                 doc.setPropertyValue(pName, props.get(pName));
             }
         }
+
         return doc;
     }
 
@@ -161,6 +194,7 @@ public class CaseManagementCaseItemDocumentFactory extends
         return caseManagementDocumentTypeService;
     }
 
+
     public String getDestionationCaseFolderPath() {
         return destionationCaseFolderPath;
     }
@@ -169,4 +203,39 @@ public class CaseManagementCaseItemDocumentFactory extends
         this.destionationCaseFolderPath = destionationCaseFolderPath;
     }
 
+    
+    private void notifyCaseImported(CoreSession coreSession,
+            DocumentModel caseItemDoc, SourceNode node) {
+        // fire event that this doc was imported
+        Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
+        eventProperties.put(
+                "category",
+                CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY);
+        eventProperties.put(
+                CaseManagementEventConstants.EVENT_CASE_MANAGEMENT_CASE_ITEM_SOURCE_PATH,
+                node.getSourcePath());
+        fireEvent(coreSession, caseItemDoc, eventProperties,
+                CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_CASE_IMPORT);
+    }
+    
+    protected void fireEvent(CoreSession coreSession, DocumentModel  doc,
+            Map<String, Serializable> eventProperties, String eventName) {
+        try {
+            DocumentEventContext envContext = new DocumentEventContext(
+                    coreSession, coreSession.getPrincipal(),
+                    doc);
+            envContext.setProperties(eventProperties);
+            getEventProducer().fireEvent(envContext.newEvent(eventName));
+
+        } catch (Exception e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+    }
+    
+    protected EventProducer getEventProducer() throws Exception {
+        if (eventProducer == null) {
+            eventProducer = Framework.getService(EventProducer.class);
+        }
+        return eventProducer;
+    }
 }

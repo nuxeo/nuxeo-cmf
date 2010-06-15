@@ -7,7 +7,7 @@
     	<destionationCaseFolderPath>/case-management/case-folder-root/user1-lambda</destionationCaseFolderPath>
          <noImportingThreads>5</noImportingThreads>
          <importerDocumentModelfactory>org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory</importerDocumentModelfactory>
-        <folderPath>src/test/resources</folderPath>
+        <folderPath>src/test/resources/import-src/</folderPath>
      </importInfo>
    </extension>
    

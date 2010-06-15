@@ -106,6 +106,8 @@ public class CaseConstants {
     public static final String MAIN_INJECTION_ORIGIN = "mail";
     
     public static final String DOCUMENT_DEFAULT_CASE_ID_PROPERTY_NAME = "cmdoc:defaultCaseId";
+    
+    public static final String DOCUMENT_IMPORTED_PREFIX = "imported-";
 
     // Constant utility class
     private CaseConstants() {

@@ -4,8 +4,13 @@
 
    <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
 	 point="listener">
-			<listener name="importerListener" async="false" postCommit="false"
+		<listener name="importerListener" async="false" postCommit="false"
 			class="org.nuxeo.cm.core.event.CaseManagementImporterListener">
+		   <event>eventCmImport</event>
+		</listener>	
+		 <listener name="importerCaseListener" async="false" postCommit="false"
+			class="org.nuxeo.cm.core.event.CaseManagementCaseImporterListener">
+		      <event>eventCmCaseImport</event>
 		</listener>
    </extension>
   

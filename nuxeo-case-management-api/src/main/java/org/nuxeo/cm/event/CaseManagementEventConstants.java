@@ -56,7 +56,13 @@ public class CaseManagementEventConstants {
          * DocumentEventContext carrying the Envelope. The draft is available as
          * EVENT_CONTEXT_DRAFT.
          */
-        draftUpdated
+        draftUpdated,
+        /**
+         * Event sent after a caseItem was imported. EventContext is a
+         * DocumentEventContext carrying the document. 
+         */
+        caseItemImported
+        
     }
 
     // event context
@@ -113,5 +119,7 @@ public class CaseManagementEventConstants {
     
     public static final String EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY = "cmImportCategory";
     
-
+    public static final String EVENT_CASE_MANAGEMENET_CASE_IMPORT = "eventCmCaseImport";
+    
+    public static final String EVENT_CASE_MANAGEMENT_CASE_ITEM_SOURCE_PATH = "cmSourcePath";
 }
