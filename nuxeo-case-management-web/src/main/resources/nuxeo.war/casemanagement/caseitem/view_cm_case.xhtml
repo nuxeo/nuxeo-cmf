@@ -43,7 +43,13 @@
             </div>
           </div>
         </h:panelGroup>
-
+    <a4j:region id="documentViewRegion">
+      <a4j:outputPanel id="documentViewPanel">
+      <h:form>
+        <ui:include src="/incl/tagging.xhtml"/>
+        </h:form>
+    </a4j:outputPanel>
+    </a4j:region>
         <h:panelGroup id="case_content">
           <ui:insert name="case_content">
             <ui:include src="cm_case_actions_tabs.xhtml" />

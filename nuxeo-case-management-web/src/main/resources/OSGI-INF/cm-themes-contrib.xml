@@ -25,7 +25,7 @@
 
     <view name="Correspondence logo" template-engine="jsf-facelets">
       <format-type>widget</format-type>
-      <template>incl/logo_case-management.xhtml</template>
+      <template>incl/logo_case_management.xhtml</template>
     </view>
  
   </extension>

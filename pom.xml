@@ -36,7 +36,7 @@
     <module>nuxeo-case-management-lang</module>
     <module>nuxeo-case-management-facade</module>
     <module>nuxeo-case-management-web</module>
-    <module>nuxeo-case-management-distribution</module>
+    <!--module>nuxeo-case-management-distribution</module-->
   </modules>
 
   <dependencyManagement>
@@ -97,6 +97,11 @@
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-platform-annotations-core-contrib</artifactId>
+        <version>${nuxeo.features.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-virtualnavigation-web</artifactId>
         <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>

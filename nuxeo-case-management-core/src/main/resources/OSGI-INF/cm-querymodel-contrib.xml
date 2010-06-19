@@ -82,6 +82,24 @@
       </pattern>
     </queryModel>
 
+    <queryModel name="byType" docType="CaseItem">
+      <max>10</max>
+      <whereClause>
+        <predicate parameter="cmdoc:type" operator="STARTSWITH">
+          <field schema="case_item" name="type" />
+        </predicate>
+        <fixedPart>
+	        ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState !='deleted' AND ecm:mixinType = 'CaseItem'
+        </fixedPart>
+        </whereClause>
+      <sortColumn>
+        <field schema="advanced_search" name="sortColumn" />
+      </sortColumn>
+      <sortAscending>
+        <field schema="advanced_search" name="sortAscending" />
+      </sortAscending>
+    </queryModel>
+
   </extension>
 
 </component>

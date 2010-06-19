@@ -25,6 +25,12 @@
     </navigation-case>
     
     <navigation-case>
+      <from-outcome>type_virtual_navigation</from-outcome>
+      <to-view-id>/casemanagement/type_virtual_navigation.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+
+    <navigation-case>
       <from-outcome>mailbox_create</from-outcome>
       <to-view-id>/casemanagement/mailbox/mailbox_create.xhtml</to-view-id>
       <redirect />
