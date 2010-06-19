@@ -34,7 +34,7 @@ public class TestCaseManagementDocumentTypeService extends
 
         /*
          * deployContrib(
-         * CorrespondenceTestConstants.CORRESPONDENCE_CORE_TEST_BUNDLE,
+         * CorrespondenceTestConstants.CASEMANAGEMENT_CORE_TEST_BUNDLE,
          * "test-distribution-type-with-error-corresp-contrib.xml");
          */
         openSession();

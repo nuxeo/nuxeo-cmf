@@ -53,7 +53,7 @@ public class CaseDistributionServiceBusinessDelegate implements
                 service = Framework.getService(CaseDistributionService.class);
             } catch (Exception e) {
                 throw new ClientException(
-                        "Error connecting to correspondence service", e);
+                        "Error connecting to casemanagement service", e);
             }
             if (service == null) {
                 throw new ClientException("Correspondence service not bound");

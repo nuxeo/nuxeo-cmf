@@ -119,13 +119,13 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Gets a users sublist of delegates that should be notified when new
-     * correspondence has arrived in this mailbox.
+     * casemanagement has arrived in this mailbox.
      */
     List<String> getNotifiedUsers();
 
     /**
      * Sets a users sublist of delegates that should be notified when new
-     * correspondence has arrived in this mailbox.
+     * casemanagement has arrived in this mailbox.
      */
     void setNotifiedUsers(List<String> users);
 

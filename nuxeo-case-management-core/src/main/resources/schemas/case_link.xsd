@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
   targetNamespace="http://cm.nuxeo.com/schemas/caselink/"
-  xmlns:cmxs="http://correspondence.nuxeo.com/schemas/caselink/"
-  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+  xmlns:cmxs="http://case-management.nuxeo.com/schemas/caselink/"
+  xmlns:nxs="http://case-management.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
 

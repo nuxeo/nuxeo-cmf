@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<component name="com.nuxeo.correspondence.directories">
+<component name="com.nuxeo.case-management.directories">
 
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory"
     point="directories">
@@ -9,7 +9,7 @@
       <dataSource>java:/nxsqldirectory</dataSource>
       <cacheTimeout>3600</cacheTimeout>
       <cacheMaxSize>1000</cacheMaxSize>
-      <table>correspondence_mailbox_sync_state</table>
+      <table>casemanagement_mailbox_sync_state</table>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
       <dataFile>directories/mailbox_sync_state.csv</dataFile>
@@ -21,7 +21,7 @@
       <dataSource>java:/nxsqldirectory</dataSource>
       <cacheTimeout>3600</cacheTimeout>
       <cacheMaxSize>1000</cacheMaxSize>
-      <table>correspondence_mailbox_profile</table>
+      <table>casemanagement_mailbox_profile</table>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
       <dataFile>directories/mailbox_profile.csv</dataFile>
@@ -45,7 +45,7 @@
       <dataSource>java:/nxsqldirectory</dataSource>
       <cacheTimeout>3600</cacheTimeout>
       <cacheMaxSize>1000</cacheMaxSize>
-      <table>correspondence_confidentiality</table>
+      <table>casemanagement_confidentiality</table>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
       <dataFile>directories/cm_confidentiality.csv</dataFile>

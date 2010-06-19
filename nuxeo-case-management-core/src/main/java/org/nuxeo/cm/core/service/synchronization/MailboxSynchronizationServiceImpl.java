@@ -210,7 +210,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     }
                 }
                 log.info("Looking for deleted group entries");
-                handleDeletedMailboxs(directoryName, now, coreSession);
+                handleDeletedMailboxes(directoryName, now, coreSession);
                 log.info("Group directory has been synchronized");
             } else {
                 log.error("Could not find GroupTitleGenerator, abort group directory synchronization.");
@@ -248,7 +248,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     }
                 }
                 log.debug(String.format("Updated %d/%d mailboxes", count, total));
-                handleDeletedMailboxs(directoryName, now, coreSession);
+                handleDeletedMailboxes(directoryName, now, coreSession);
                 log.info("User directory has been synchronized");
             } else {
                 log.error("Could not find UserTitleGenerator, abort user directory synchronization.");
@@ -291,7 +291,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             log.debug("New Transaction started during Mailbox synchronization");
                         }
                     }
-                    log.debug(String.format("Updated %d/%d group Mailboxs",
+                    log.debug(String.format("Updated %d/%d group Mailboxes",
                             count, total));
                 }
             }
@@ -334,7 +334,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         log.debug("New Transaction started during Mailbox synchronization");
                     }
                 }
-                log.debug(String.format("Updated %d/%d user Mailboxs",
+                log.debug(String.format("Updated %d/%d user Mailboxes",
                         count, total));
             }
         } catch (Exception e) {
@@ -454,19 +454,19 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         }
     }
 
-    protected void handleDeletedMailboxs(String directoryName, Calendar now,
+    protected void handleDeletedMailboxes(String directoryName, Calendar now,
             CoreSession coreSession) throws ClientException {
         String dateLiteral = DateLiteral.dateTimeFormatter.print(now.getTimeInMillis());
         String query = String.format(QUERY_GET_DELETED_MAILBOX,
                 directoryName, dateLiteral);
-        DocumentModelList deletedMailboxs = coreSession.query(query);
-        if (deletedMailboxs == null) {
+        DocumentModelList deletedMailboxes = coreSession.query(query);
+        if (deletedMailboxes == null) {
             return;
         }
         Mailbox cf;
         String synchronizerId;
         Map<String, Serializable> eventProperties;
-        for (DocumentModel mailboxDoc : deletedMailboxs) {
+        for (DocumentModel mailboxDoc : deletedMailboxes) {
             cf = mailboxDoc.getAdapter(Mailbox.class);
             if (cf == null) {
                 log.error(String.format(

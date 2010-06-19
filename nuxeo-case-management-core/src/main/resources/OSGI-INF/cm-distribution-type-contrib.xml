@@ -2,7 +2,7 @@
 
 <component name="org.nuxeo.cm.service.distributionType">
 
-  <extension target="com.nuxeo.correspondence.DistributionTypeService" point="distributionType">
+  <extension target="com.nuxeo.case-management.DistributionTypeService" point="distributionType">
 
     <distributionType>
       <name>FOR_ACTION</name>

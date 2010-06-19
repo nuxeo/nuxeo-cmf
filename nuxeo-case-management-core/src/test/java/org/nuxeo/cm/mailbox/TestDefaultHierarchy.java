@@ -57,8 +57,9 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
         DocumentModel mailRoot = domainChildren.get(0);
         DocumentModel mailboxRoot = domainChildren.get(1);
-        
-        // don't assume that the clidren's order will be the same on all databases
+
+        // don't assume that the clidren's order will be the same on all
+        // databases
         if (CASE_ROOT_TYPE.equals(mailRoot.getType())) {
             assertEquals(CASE, mailRoot.getPathAsString());
             assertEquals(MAILBOX_FOLDER, mailboxRoot.getPathAsString());

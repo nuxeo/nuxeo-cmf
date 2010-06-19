@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.case-management.themes">
+  
+  <require>org.nuxeo.theme.core</require>
+  <require>org.nuxeo.theme.fragments</require>
+  <require>org.nuxeo.theme.html</require>
+  <require>org.nuxeo.theme.jsf</require>
+  <require>org.nuxeo.theme.nuxeo.default</require>
+  
+  <!-- views -->
+  <extension target="org.nuxeo.theme.services.ThemeService" point="views">
+    
+    <!-- displays the mailboxes in left menu -->    
+    <view name="mailboxes list" template-engine="jsf-facelets">
+      <format-type>widget</format-type>
+      <template>casemanagement/mailbox/mailbox_list.xhtml</template>
+    </view>
+    
+    <!-- displays the user classification roots in left menu -->
+    <view name="classification tree" template-engine="jsf-facelets">
+      <format-type>widget</format-type>
+      <template>classification/classification_tree_explorer.xhtml</template>
+    </view>
+
+    <view name="Correspondence logo" template-engine="jsf-facelets">
+      <format-type>widget</format-type>
+      <template>incl/logo_case-management.xhtml</template>
+    </view>
+ 
+  </extension>
+
+  <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
+
+    <theme>
+      <src>themes/theme-case-management.xml</src>
+    </theme>
+
+  </extension>
+
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="applications">
+
+    <application root="/nuxeo">
+
+      <negotiation>
+        <strategy>nuxeo5</strategy>
+        <default-engine>default</default-engine>
+        <default-theme>case-management/default</default-theme>
+        <default-perspective>default</default-perspective>
+      </negotiation>
+
+    </application>
+
+  </extension>
+
+  <!-- Styles presets -->
+  <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
+
+    <palette name="Correspondence borders"
+      src="themes/palettes/case-management-borders.properties" category="border" />
+    <palette name="Correspondence backgrounds"
+      src="themes/palettes/case-management-backgrounds.properties" category="background" />
+    <palette name="Correspondence fonts" src="themes/palettes/case-management-fonts.properties"
+      category="font" />
+    <palette name="Correspondence colors" src="themes/palettes/case-management-colors.properties"
+      category="color" />
+
+   </extension>
+
+</component>

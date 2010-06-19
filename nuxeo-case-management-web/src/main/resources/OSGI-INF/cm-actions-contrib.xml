@@ -181,7 +181,7 @@
 
     <!-- Case Management actions -->
 
-    <action id="initial_distribute_correspondence_envelope"
+    <action id="initial_distribute_case-management_envelope"
       link="distribution_cm_case"
       label="label.casemanagement.action.initialDistributionRequest"
       order="10">
@@ -192,7 +192,7 @@
     <action id="distribute_cm_case"
       link="distribution_cm_case"
       label="label.casemanagement.action.distributionRequest"
-      icon="/icons/correspondence_distribute.gif" order="10">
+      icon="/icons/case-management_distribute.gif" order="10">
       <category>SUBVIEW_UPPER_LIST</category>
       <filter-id>isNotCmInitialCase</filter-id>
     </action>
@@ -273,7 +273,7 @@
     <action id="TAB_DISTRIBUTION_PARTICIPANTS"
       link="/casemanagement/caseitem/tabs/distribute_cm_case.xhtml"
       label="label.casemanagement.action.distributionRequest"
-      icon="/icons/correspondence_distribute.gif" order="10">
+      icon="/icons/case-management_distribute.gif" order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
     </action>
@@ -281,7 +281,7 @@
     <action id="TAB_DISTRIBUTION_FAVORITES"
       link="/incl/tabs/document_content.xhtml"
       label="label.casemanagement.action.distributionFavorites"
-      icon="/icons/correspondence_distribute.gif" order="10">
+      icon="/icons/case-management_distribute.gif" order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
     </action>
@@ -289,7 +289,7 @@
     <action id="TAB_DISTRIBUTION_LISTS"
       link="/incl/tabs/document_content.xhtml"
       label="label.casemanagement.action.distributionLists"
-      icon="/icons/correspondence_distribute.gif" order="10">
+      icon="/icons/case-management_distribute.gif" order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
     </action>

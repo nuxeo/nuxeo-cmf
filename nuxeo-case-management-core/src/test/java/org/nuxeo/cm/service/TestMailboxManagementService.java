@@ -26,22 +26,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
-
 /**
  * @author Anahide Tchertchian
  */
-public class TestMailboxManagementService extends CaseManagementRepositoryTestCase {
+public class TestMailboxManagementService extends
+        CaseManagementRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
@@ -52,8 +52,8 @@ public class TestMailboxManagementService extends CaseManagementRepositoryTestCa
     public void testDefaultPersonalMailboxCreation() throws Exception {
 
         correspMailboxService.createPersonalMailboxes(session, "toto");
-        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(session,
-        "toto");
+        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(
+                session, "toto");
         assertTrue(mailboxes.isEmpty());
 
         correspMailboxService.createPersonalMailboxes(session, user);
@@ -72,10 +72,10 @@ public class TestMailboxManagementService extends CaseManagementRepositoryTestCa
         // override creation behaviour
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
-        "test-personalmailbox-creator-corresp-contrib.xml");
+                "test-personalmailbox-creator-corresp-contrib.xml");
 
-        List<Mailbox> mailboxes = correspMailboxService.createPersonalMailboxes(session,
-                user);
+        List<Mailbox> mailboxes = correspMailboxService.createPersonalMailboxes(
+                session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
 
@@ -116,7 +116,8 @@ public class TestMailboxManagementService extends CaseManagementRepositoryTestCa
         // Create an other mailbox
         createMailbox();
 
-        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(session, user);
+        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(
+                session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(2, mailboxes.size());
 
@@ -190,13 +191,11 @@ public class TestMailboxManagementService extends CaseManagementRepositoryTestCa
         assertTrue(distributionService.getDraftCaseLink(session, senderMailbox,
                 envelope.getDocument().getId()).isDraft());
 
-        CaseLink postRequest = new CaseLinkRequestImpl(
-                senderMailbox.getId(), Calendar.getInstance(),
-                "Check this out", "it is a bit boring", envelope, recipients,
-                null);
+        CaseLink postRequest = new CaseLinkRequestImpl(senderMailbox.getId(),
+                Calendar.getInstance(), "Check this out", "it is a bit boring",
+                envelope, recipients, null);
 
-        CaseLink post = distributionService.sendCase(session,
-                postRequest, true);
+        CaseLink post = distributionService.sendCase(session, postRequest, true);
         assertNotNull(post);
         assertFalse(post.isDraft());
         assertEquals("user1", post.getSender());

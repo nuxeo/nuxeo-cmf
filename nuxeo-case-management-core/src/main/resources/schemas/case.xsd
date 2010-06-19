@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
   targetNamespace="http://cm.nuxeo.com/schemas/case/"
   xmlns:cmxs="http://cm.nuxeo.com/schemas/case/"
-  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+  xmlns:nxs="http://casemanagement.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
 

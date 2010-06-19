@@ -60,9 +60,9 @@ public class MailInjectionListener implements EventListener {
 
     private static final String INBOX = "INBOX";
 
-    private static final String IMPORT_MAILBOX = "correspondenceImport";
+    private static final String IMPORT_MAILBOX = "casemanagementImport";
 
-    private static final String MAILBOX_PIPE = "correspondenceMailBox";
+    private static final String MAILBOX_PIPE = "casemanagementMailBox";
 
     public void handleEvent(Event event) throws ClientException {
 
@@ -97,7 +97,7 @@ public class MailInjectionListener implements EventListener {
                     AbstractCaseManagementMailAction.MIMETYPE_SERVICE_KEY,
                     Framework.getService(MimetypeRegistry.class));
             initialExecutionContext.put(
-                    AbstractCaseManagementMailAction.CORRESPONDENCE_SERVICE_KEY,
+                    AbstractCaseManagementMailAction.CASEMANAGEMENT_SERVICE_KEY,
                     Framework.getService(CaseDistributionService.class));
 
             // open store

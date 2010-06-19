@@ -16,7 +16,7 @@
   <extension-point name="directoryToMailbox">
 
     <documentation>
-    Used to synchronize a directory with Mailboxs.
+    Used to synchronize a directory with Mailboxes.
     Contributions for this extension point are of the 
     form:
     <code>

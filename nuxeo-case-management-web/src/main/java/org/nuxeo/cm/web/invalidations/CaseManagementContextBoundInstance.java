@@ -32,7 +32,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Base class for Seam beans that would like to invalidate some cached
- * information based on correspondence context changes.
+ * information based on casemanagement context changes.
  * <p>
  * Subclasses have to override its methods to invalidated their fields
  * accordingly.

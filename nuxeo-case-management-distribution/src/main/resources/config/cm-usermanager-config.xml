@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<component name="com.nuxeo.correspondence.usermanager.config">
+<component name="com.nuxeo.case-management.usermanager.config">
 
   <require>org.nuxeo.ecm.platform.usermanager.UserManagerImpl</require>
 

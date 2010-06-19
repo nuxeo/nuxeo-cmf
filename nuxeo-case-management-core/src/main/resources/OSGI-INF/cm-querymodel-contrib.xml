@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<component name="com.nuxeo.correspondence.querymodel">
+<component name="com.nuxeo.casemanagement.querymodel">
 
   <extension
     target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"

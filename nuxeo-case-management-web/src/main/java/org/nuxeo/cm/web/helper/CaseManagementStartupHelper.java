@@ -42,7 +42,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Overwrite default StartupHelper to provide custom startup page for
- * correspondence.
+ * casemanagement.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  *

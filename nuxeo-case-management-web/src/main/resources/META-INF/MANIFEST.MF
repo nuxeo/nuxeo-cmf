@@ -15,4 +15,5 @@ Nuxeo-Component: OSGI-INF/cm-layouts-contrib.xml,
   OSGI-INF/cm-url-contrib.xml,
   OSGI-INF/cm-resultsprovider-contrib.xml,
   OSGI-INF/cm-table-layout-contrib.xml,
-  OSGI-INF/cm-table-widget-contrib.xml
+  OSGI-INF/cm-table-widget-contrib.xml,
+  OSGI-INF/cm-themes-contrib.xml

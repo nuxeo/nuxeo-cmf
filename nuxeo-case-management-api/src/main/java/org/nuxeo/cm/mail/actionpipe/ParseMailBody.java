@@ -172,8 +172,8 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
         // 10: Cc :
         // 11: Anahide Tchertchian; Oriane TIAN; Alain Escaffre
         // 12: Objet :
-        // 13: [correspondence] courriel test pour fonctionnalité "transfert de
-        // courriel vers correspondence" Ceci est un courriel de test
+        // 13: [casemanagement] courriel test pour fonctionnalité "transfert de
+        // courriel vers casemanagement" Ceci est un courriel de test
 
         Contacts origSenders = parseContacts(m.group(3));
         if (origSenders != null && !origSenders.isEmpty()) {

@@ -14,7 +14,7 @@
  * Contributors:
  *     <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  *
- * $Id: AbstractcorrespondenceMailAction.java 11688 2008-11-10 10:13:13Z cbaican $
+ * $Id: AbstractcasemanagementMailAction.java 11688 2008-11-10 10:13:13Z cbaican $
  */
 
 package org.nuxeo.cm.mail.actionpipe;
@@ -25,7 +25,7 @@ import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 import org.nuxeo.ecm.platform.mail.action.MessageAction;
 
 /**
- * Helper for correspondence actions
+ * Helper for casemanagement actions
  *
  * @author Laurent Doguin
  */
@@ -35,7 +35,7 @@ public abstract class AbstractCaseManagementMailAction implements MessageAction 
 
     public static final String MIMETYPE_SERVICE_KEY = "mimetypeService";
 
-    public static final String CORRESPONDENCE_SERVICE_KEY = "correspondenceService";
+    public static final String CASEMANAGEMENT_SERVICE_KEY = "casemanagementService";
 
     public static final String MESSAGE_ID_KEY = "messageId";
 

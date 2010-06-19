@@ -21,7 +21,7 @@ package org.nuxeo.cm.cases;
 
 /**
  * @author Anahide Tchertchian
- *
+ * 
  */
 public class CaseConstants {
 
@@ -75,15 +75,15 @@ public class CaseConstants {
 
     public static final String DOCUMENT_IMPORT_DATE = "import_date";
 
-    public static final String DOCUMENT_IMPORT_DATE_PROPERTY_NAME  = "cmdoc:import_date";
+    public static final String DOCUMENT_IMPORT_DATE_PROPERTY_NAME = "cmdoc:import_date";
 
     public static final String DOCUMENT_ORIGIN = "origin";
 
-    public static final String DOCUMENT_ORIGIN_PROPERTY_NAME  = "cmdoc:origin";
+    public static final String DOCUMENT_ORIGIN_PROPERTY_NAME = "cmdoc:origin";
 
     public static final String DOCUMENT_RECEIVE_DATE = "receive_date";
 
-    public static final String DOCUMENT_RECEIVE_DATE_PROPERTY_NAME  = "cmdoc:receive_date";
+    public static final String DOCUMENT_RECEIVE_DATE_PROPERTY_NAME = "cmdoc:receive_date";
 
     public static final String DOCUMENT_SENDING_DATE = "sending_date";
 
@@ -104,9 +104,9 @@ public class CaseConstants {
     public static final String FILENAME_PROPERTY_NAME = "file:filename";
 
     public static final String MAIN_INJECTION_ORIGIN = "mail";
-    
+
     public static final String DOCUMENT_DEFAULT_CASE_ID_PROPERTY_NAME = "cmdoc:defaultCaseId";
-    
+
     public static final String DOCUMENT_IMPORTED_PREFIX = "imported-";
 
     // Constant utility class

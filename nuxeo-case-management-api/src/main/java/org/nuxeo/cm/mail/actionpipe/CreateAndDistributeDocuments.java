@@ -31,7 +31,8 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
@@ -40,8 +41,7 @@ import org.nuxeo.cm.cases.CaseTreeHelper;
 import org.nuxeo.cm.contact.Contact;
 import org.nuxeo.cm.contact.Contacts;
 import org.nuxeo.cm.distribution.DistributionInfo;
-import org.nuxeo.cm.caselink.CaseLink;
-import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.common.utils.IdUtils;
@@ -55,7 +55,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Transforms received email in a set of document models and distribute them.
- *
+ * 
  * @author Laurent Doguin
  */
 public class CreateAndDistributeDocuments extends
@@ -97,8 +97,8 @@ public class CreateAndDistributeDocuments extends
         // senders
         Contacts internalOrigSenders = new Contacts();
         Contacts externalOrigSenders = new Contacts();
-        fillContactInformation(session, mailboxManagemenetService,
-                origSenders, internalOrigSenders, externalOrigSenders);
+        fillContactInformation(session, mailboxManagemenetService, origSenders,
+                internalOrigSenders, externalOrigSenders);
         List<String> origSendersMailboxesId = new LinkedList<String>();
         origSendersMailboxesId.addAll(internalOrigSenders.getMailboxes());
 
@@ -244,13 +244,12 @@ public class CreateAndDistributeDocuments extends
     }
 
     protected void fillContactInformation(CoreSession session,
-            MailboxManagementService correspondenceService,
-            Contacts originalContacts, Contacts internalContacts,
-            Contacts externalContacts) {
+            MailboxManagementService mailboxService, Contacts originalContacts,
+            Contacts internalContacts, Contacts externalContacts) {
         if (originalContacts != null) {
             for (Contact origContact : originalContacts) {
                 String origContactEmail = origContact.getEmail();
-                Mailbox origContactMailbox = correspondenceService.getUserPersonalMailboxForEmail(
+                Mailbox origContactMailbox = mailboxService.getUserPersonalMailboxForEmail(
                         session, origContactEmail);
                 if (origContactMailbox != null) {
                     Contact newOrigSender = Contact.getContactForMailbox(

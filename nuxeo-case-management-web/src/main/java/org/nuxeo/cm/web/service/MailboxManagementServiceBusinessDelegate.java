@@ -53,7 +53,7 @@ public class MailboxManagementServiceBusinessDelegate implements
                 service = Framework.getService(MailboxManagementService.class);
             } catch (Exception e) {
                 throw new ClientException(
-                        "Error connecting to correspondence service", e);
+                        "Error connecting to casemanagement service", e);
             }
             if (service == null) {
                 throw new ClientException("Correspondence service not bound");
