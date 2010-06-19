@@ -1,0 +1,23 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util">
+
+  <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
+    <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('MAILBOX_INBOX')}" >
+
+    <ui:decorate template="mailbox_caselink_table.xhtml">
+      <ui:param name="documents" value="#{inboxChildrenSelectModel}" />
+      <ui:param name="showCheckboxes" value="#{true}" />
+      <ui:param name="provider" value="#{provider}" />
+      <ui:param name="providerName" value="MAILBOX_INBOX" />
+      <ui:param name="listName" value="CURRENT_SELECTION" />
+      <ui:param name="layoutName" value="cm_caselink" />
+      <ui:define name="buttons">
+      </ui:define>
+    </ui:decorate>
+
+  </nxu:methodResult>
+  </c:if>
+  
+</div>

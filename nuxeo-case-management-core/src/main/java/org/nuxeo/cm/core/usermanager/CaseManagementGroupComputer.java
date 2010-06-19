@@ -28,10 +28,10 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.repository.Repository;
@@ -39,21 +39,20 @@ import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfo;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfoCallbackHandler;
 import org.nuxeo.ecm.platform.computedgroups.AbstractGroupComputer;
-import org.nuxeo.ecm.platform.computedgroups.GroupComputer;
 import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * Group computer for case management, adding case folders ids to the user
+ * Group computer for case management, adding mailboxes ids to the user
  * virtual groups so that it can be used for permissions resolution.
  *
  * @author Anahide Tchertchian
  */
 public class CaseManagementGroupComputer extends AbstractGroupComputer {
 
-    public static final ThreadLocal<Boolean> disableRetrieveCaseFolders = new ThreadLocal<Boolean>();
+    public static final ThreadLocal<Boolean> disableRetrieveMailboxes = new ThreadLocal<Boolean>();
 
-    protected static CaseFolderManagementService cfms;
+    protected static MailboxManagementService cfms;
 
     /**
      * Returns an empty list for efficiency
@@ -63,7 +62,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     }
 
     /**
-     * Returns an empty list as case folders are not searchable
+     * Returns an empty list as mailboxes are not searchable
      */
     @Override
     public List<String> searchGroups(Map<String, Serializable> filter,
@@ -72,10 +71,10 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     }
 
     public List<String> getGroupMembers(String groupName) throws Exception {
-        GetCaseFolderInformationUnrestricted runner = new GetCaseFolderInformationUnrestricted(
+        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getService(), groupName);
         runner.runUnrestricted();
-        return runner.getCaseFolderMembers();
+        return runner.getMailboxMembers();
     }
 
     /**
@@ -86,8 +85,8 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
             throws Exception {
         if (nuxeoPrincipal != null) {
 
-            if (!Boolean.TRUE.equals(disableRetrieveCaseFolders.get())) {
-                disableRetrieveCaseFolders.set(true);
+            if (!Boolean.TRUE.equals(disableRetrieveMailboxes.get())) {
+                disableRetrieveMailboxes.set(true);
                 CoreSession session = null;
                 LoginContext loginContext = null;
                 try {
@@ -95,20 +94,20 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     loginContext = loginOnContext(username);
                     session = openCoreSession(username);
                     // TODO: optimize, retrieving ids directly on service (?)
-                    List<CaseFolder> caseFolders = getService().getUserCaseFolders(
+                    List<Mailbox> mailboxes = getService().getUserMailboxes(
                             session, nuxeoPrincipal.getName());
 
                     List<String> res = new ArrayList<String>();
-                    if (caseFolders != null) {
-                        for (CaseFolder folder : caseFolders) {
-                            res.add(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX
+                    if (mailboxes != null) {
+                        for (Mailbox folder : mailboxes) {
+                            res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX
                                     + folder.getId());
                         }
                     }
                     return res;
                 } finally {
                     closeCoreSession(session);
-                    disableRetrieveCaseFolders.remove();
+                    disableRetrieveMailboxes.remove();
                     if (loginContext != null) {
                         loginContext.logout();
                     }
@@ -121,17 +120,17 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     }
 
     public List<String> getParentsGroupNames(String groupName) throws Exception {
-        GetCaseFolderInformationUnrestricted runner = new GetCaseFolderInformationUnrestricted(
+        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getService(), groupName);
         runner.runUnrestricted();
-        return runner.getCaseFolderParentNames();
+        return runner.getMailboxParentNames();
     }
 
     public List<String> getSubGroupsNames(String groupName) throws Exception {
-        GetCaseFolderInformationUnrestricted runner = new GetCaseFolderInformationUnrestricted(
+        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getService(), groupName);
         runner.runUnrestricted();
-        return runner.getCaseFolderSubFolderNames();
+        return runner.getMailboxSubFolderNames();
     }
 
     /**
@@ -142,9 +141,9 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return false;
     }
 
-    protected CaseFolderManagementService getService() {
+    protected MailboxManagementService getService() {
         if (cfms == null) {
-            cfms = Framework.getLocalService(CaseFolderManagementService.class);
+            cfms = Framework.getLocalService(MailboxManagementService.class);
         }
         return cfms;
     }

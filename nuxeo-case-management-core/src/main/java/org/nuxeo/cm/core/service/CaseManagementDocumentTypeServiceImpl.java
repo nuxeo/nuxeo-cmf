@@ -29,7 +29,7 @@ implements CaseManagementDocumentTypeService {
 
     private static final long serialVersionUID = 1L;
 
-    private String caseFolderDocType;
+    private String mailboxDocType;
 
     private String caseItemDocType;
 
@@ -56,8 +56,8 @@ implements CaseManagementDocumentTypeService {
             envelopeDocType = distributionType.envelopeDocType;
         }
 
-        if(distributionType.caseFolderDocType !=null){
-            caseFolderDocType = distributionType.caseFolderDocType;
+        if(distributionType.mailboxDocType !=null){
+            mailboxDocType = distributionType.mailboxDocType;
         }
 
         if(distributionType.caseItemDocType !=null){
@@ -80,8 +80,8 @@ implements CaseManagementDocumentTypeService {
         return postDocType;
     }
 
-    public String getCaseFolderType(){
-        return caseFolderDocType;
+    public String getMailboxType(){
+        return mailboxDocType;
     }
 
     public String getCaseItemType(){

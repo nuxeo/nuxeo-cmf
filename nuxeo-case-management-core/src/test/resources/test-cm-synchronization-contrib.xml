@@ -2,16 +2,16 @@
 
 <component name="org.nuxeo.cm.service.synchronization.test.contrib">
 
-  <extension target="org.nuxeo.cm.core.service.synchronization.CaseFolderSynchronizationService" point="directoryToCaseFolder">
+  <extension target="org.nuxeo.cm.core.service.synchronization.MailboxSynchronizationService" point="directoryToMailbox">
 
-    <userToCaseFolder>
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalCFTitleGenerator</titleGenerator>
-    </userToCaseFolder>
+    <userToMailbox>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator</titleGenerator>
+    </userToMailbox>
 
 
-    <groupToCaseFolder>
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupCFTitleGenerator</titleGenerator>
-    </groupToCaseFolder>
+    <groupToMailbox>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupMailboxTitleGenerator</titleGenerator>
+    </groupToMailbox>
 
   </extension>
 

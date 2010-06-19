@@ -2,20 +2,20 @@
 
 <component name="org.nuxeo.cm.service.synchronization.override.test.contrib">
 
-  <extension target="org.nuxeo.cm.core.service.synchronization.CaseFolderSynchronizationService" point="directoryToCaseFolder">
+  <extension target="org.nuxeo.cm.core.service.synchronization.MailboxSynchronizationService" point="directoryToMailbox">
 
-    <userToCaseFolder>
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalCFTitleGenerator</titleGenerator>
-    </userToCaseFolder>
+    <userToMailbox>
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator</titleGenerator>
+    </userToMailbox>
 
 
-    <groupToCaseFolder enabled="false">
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupCFTitleGenerator</titleGenerator>
-    </groupToCaseFolder>
+    <groupToMailbox enabled="false">
+      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupMailboxTitleGenerator</titleGenerator>
+    </groupToMailbox>
 
-    <directoryToCaseFolder directoryName="uncompleteContrib" >
+    <directoryToMailbox directoryName="uncompleteContrib" >
       <directoryEntryIdField>fieldName</directoryEntryIdField>
-    </directoryToCaseFolder>
+    </directoryToMailbox>
   </extension>
 
 </component>

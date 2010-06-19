@@ -21,14 +21,14 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
 import java.util.UUID;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
@@ -50,14 +50,14 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected final Case envelope;
 
-    protected final CaseFolder sender;
+    protected final Mailbox sender;
 
     public CaseLink getCreatedPost() {
         return createdPost;
     }
 
     public CreateDraftCaseLinkUnrestricted(String repositoryName, String subject,
-            Case envelope, CaseFolder sender) {
+            Case envelope, Mailbox sender) {
         super(repositoryName);
         this.envelope = envelope;
         this.subject = subject;
@@ -93,7 +93,7 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
                 envelope.getDocument().getRepositoryName());
         doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
-        doc.setPropertyValue(SENDER_CASE_FOLDER_ID_FIELD, sender.getId());
+        doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());
         doc.setPropertyValue(SENDER_FIELD, sender.getId());
         doc.setPropertyValue(IS_SENT_FIELD, false);

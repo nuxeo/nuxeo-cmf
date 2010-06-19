@@ -7,7 +7,7 @@
     <documentType>
       <envelopeDocType>Case</envelopeDocType>
       <postDocType>CaseLink</postDocType>
-      <caseFolderDocType>CaseFolder</caseFolderDocType>
+      <mailboxDocType>Mailbox</mailboxDocType>
       <caseItemDocType>CaseItem</caseItemDocType>
     </documentType>
 

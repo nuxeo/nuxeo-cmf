@@ -1,0 +1,21 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+
+<div class="tabsContent">
+  
+  <h:form id="mailbox_delegation">
+    <nxl:layout name="cm_mailbox_managers" mode="edit"
+      value="#{changeableDocument}" />
+      
+    <h:commandButton value="#{messages['label.casemanagement.save']}"
+      action="#{cmMailboxActions.updateManagerTabMailbox()}"
+      styleClass="button" />
+  
+  </h:form>
+</div>
+
+</div>

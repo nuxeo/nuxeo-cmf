@@ -2,10 +2,10 @@
 
 <component name="org.nuxeo.cm.service.test.mailboxCreator">
 
-  <extension target="org.nuxeo.cm.service.caseFolderManagement" point="mailboxCreator">
+  <extension target="org.nuxeo.cm.service.mailboxManagement" point="mailboxCreator">
 
     <contribution
-      class="org.nuxeo.cm.mock.MockPersonalCaseFolderCreator" />
+      class="org.nuxeo.cm.mock.MockPersonalMailboxCreator" />
 
   </extension>
 

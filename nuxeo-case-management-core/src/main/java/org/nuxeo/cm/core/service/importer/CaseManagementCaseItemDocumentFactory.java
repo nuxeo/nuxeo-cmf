@@ -16,24 +16,20 @@
  */
 package org.nuxeo.cm.core.service.importer;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
-import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -49,7 +45,7 @@ import org.nuxeo.runtime.api.Framework;
  * 
  * Implementation for CaseManagement factory; each time a file is found a new
  * caseItem is created and the corresponding case; the case is sent to the
- * specified destionationCaseFolder
+ * specified destionationMailbox
  * 
  * @author Mariana Cedica
  * 
@@ -57,12 +53,12 @@ import org.nuxeo.runtime.api.Framework;
 public class CaseManagementCaseItemDocumentFactory extends
         DefaultDocumentModelFactory {
 
-    private String destionationCaseFolderPath;
-    
+    private String destionationMailboxPath;
+
     private CaseDistributionService caseDistributionService;
 
     private CaseManagementDocumentTypeService caseManagementDocumentTypeService;
-    
+
     private EventProducer eventProducer;
 
     @Override
@@ -101,15 +97,14 @@ public class CaseManagementCaseItemDocumentFactory extends
 
         Case caseDoc = caseDistributionService.createCase(session, caseItemDoc,
                 getCaseRootPath(session),
-                Collections.singletonList(getDestinationCaseFolder(session)));
+                Collections.singletonList(getDestinationMailbox(session)));
         // Retrieve the new created caseItem doc in order to set properties on
         // it
         caseItemDoc = caseDoc.getFirstItem(session).getDocument();
         setPropertiesOnImport(session, caseItemDoc, caseDoc);
-        // create the corresponding caseLink in the receiver caseFolder
+        // create the corresponding caseLink in the receiver mailbox
         caseDistributionService.createDraftCaseLink(session,
-                getDestinationCaseFolder(session), caseDoc);
-        
+                getDestinationMailbox(session), caseDoc);
         // dont't forget to notify the istener that the caseItem was created
         notifyCaseImported(session, caseItemDoc, node);
         return caseItemDoc;
@@ -179,11 +174,11 @@ public class CaseManagementCaseItemDocumentFactory extends
         return caseDistributionService;
     }
 
-    private CaseFolder getDestinationCaseFolder(CoreSession session)
+    private Mailbox getDestinationMailbox(CoreSession session)
             throws ClientException {
-        DocumentModel docDestinationCaseFolder = session.getDocument(new PathRef(
-                destionationCaseFolderPath));
-        return docDestinationCaseFolder.getAdapter(CaseFolder.class);
+        DocumentModel docDestinationMailbox = session.getDocument(new PathRef(
+                destionationMailboxPath));
+        return docDestinationMailbox.getAdapter(Mailbox.class);
     }
 
     private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
@@ -194,16 +189,14 @@ public class CaseManagementCaseItemDocumentFactory extends
         return caseManagementDocumentTypeService;
     }
 
-
-    public String getDestionationCaseFolderPath() {
-        return destionationCaseFolderPath;
+    public String getDestionationMailboxPath() {
+        return destionationMailboxPath;
     }
 
-    public void setDestionationCaseFolderPath(String destionationCaseFolderPath) {
-        this.destionationCaseFolderPath = destionationCaseFolderPath;
+    public void setDestionationMailboxPath(String destionationMailboxPath) {
+        this.destionationMailboxPath = destionationMailboxPath;
     }
 
-    
     private void notifyCaseImported(CoreSession coreSession,
             DocumentModel caseItemDoc, SourceNode node) {
         // fire event that this doc was imported
@@ -217,13 +210,12 @@ public class CaseManagementCaseItemDocumentFactory extends
         fireEvent(coreSession, caseItemDoc, eventProperties,
                 CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_CASE_IMPORT);
     }
-    
-    protected void fireEvent(CoreSession coreSession, DocumentModel  doc,
+
+    protected void fireEvent(CoreSession coreSession, DocumentModel doc,
             Map<String, Serializable> eventProperties, String eventName) {
         try {
             DocumentEventContext envContext = new DocumentEventContext(
-                    coreSession, coreSession.getPrincipal(),
-                    doc);
+                    coreSession, coreSession.getPrincipal(), doc);
             envContext.setProperties(eventProperties);
             getEventProducer().fireEvent(envContext.newEvent(eventName));
 
@@ -231,7 +223,7 @@ public class CaseManagementCaseItemDocumentFactory extends
             throw new CaseManagementRuntimeException(e);
         }
     }
-    
+
     protected EventProducer getEventProducer() throws Exception {
         if (eventProducer == null) {
             eventProducer = Framework.getService(EventProducer.class);

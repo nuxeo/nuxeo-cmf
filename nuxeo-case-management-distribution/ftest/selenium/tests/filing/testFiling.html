@@ -56,13 +56,13 @@
 	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
-<!-- Verify automatic case folder creation -->
+<!-- Verify automatic mailbox creation -->
 <tr>
 	<td>verifyTextPresent</td>
 	<td>Cl - John Doe</td>
 	<td></td>
 </tr>
-<!-- Verify Manual case folder creation -->
+<!-- Verify Manual mailbox creation -->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Manage</td>
@@ -116,7 +116,7 @@
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@name='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggest']</td>
+	<td>//input[@name='mailbox_delegation:nxl_cm_mailbox_managers:nxw_mailbox_users_suggest']</td>
 	<td>bree</td>
 </tr>
 <tr>
@@ -126,12 +126,12 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
 	<td>Bree Van de Kaamp</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox']/div[1]/div/table/tbody/tr/td/div</td>
 	<td></td>
 </tr>
 <tr>
@@ -141,7 +141,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//*[@id='mailbox_delegation:nxl_cm_casefolder_managers:nxw_casefolder_users_suggestionBox:suggest']/x:tbody/x:tr/x:td</td>
+	<td>//*[@id='mailbox_delegation:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox:suggest']/x:tbody/x:tr/x:td</td>
 	<td></td>
 </tr>
 <tr>
@@ -303,7 +303,7 @@
 </tr>
 <tr>
 	<td>waitForTextPresent</td>
-	<td>My Case Folders</td>
+	<td>My Mailboxs</td>
 	<td></td>
 </tr>
 <tr>

@@ -26,8 +26,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -76,8 +75,8 @@ CaseManagementContextActions {
     public void currentDocumentChanged(DocumentModel newDocument) {
         if (newDocument != null) {
             // mailbox case
-            if(newDocument.hasFacet(CaseConstants.CASE_FOLDER_FACET)){
-                cmContextHolder.setCurrentCaseFolder(newDocument.getAdapter(CaseFolder.class));
+            if(newDocument.hasFacet(CaseConstants.MAILBOX_FACET)){
+                cmContextHolder.setCurrentMailbox(newDocument.getAdapter(Mailbox.class));
             }
             // document cases
             if (newDocument.hasFacet(CaseConstants.CASE_FACET)) {

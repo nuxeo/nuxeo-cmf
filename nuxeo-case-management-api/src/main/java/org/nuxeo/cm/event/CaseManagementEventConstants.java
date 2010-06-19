@@ -67,9 +67,9 @@ public class CaseManagementEventConstants {
 
     // event context
     /**
-     * The sender (of type {@link CaseFolder} )
+     * The sender (of type {@link Mailbox} )
      */
-    public static final String EVENT_CONTEXT_SENDER_CASE_FOLDER = "eventContextSender";
+    public static final String EVENT_CONTEXT_SENDER_MAILBOX = "eventContextSender";
 
     /**
      * The subject (of type @ String} )
@@ -93,7 +93,7 @@ public class CaseManagementEventConstants {
 
     /**
      * The recipients (of type {@link Map} with key {@link String} and value a
-     * {@link List} of {@link CaseFolder} )
+     * {@link List} of {@link Mailbox} )
      */
     public static final String EVENT_CONTEXT_INTERNAL_PARTICIPANTS = "eventContextParticipants";
 
@@ -111,9 +111,9 @@ public class CaseManagementEventConstants {
 
     public static final String EVENT_CONTEXT_EXTERNAL_PARTICIPANTS = "eventContextExternalParticipants";
 
-    public static final String EVENT_CONTEXT_AFFILIATED_CASE_FOLDER_ID = "eventContextAffiliatedCaseFolderId";
+    public static final String EVENT_CONTEXT_AFFILIATED_MAILBOX_ID = "eventContextAffiliatedMailboxId";
 
-    public static final String EVENT_CONTEXT_CASE_FOLDER_ID = "eventContextCaseFolderId";
+    public static final String EVENT_CONTEXT_MAILBOX_ID = "eventContextMailboxId";
     
     public static final String EVENT_CASE_MANAGEMENET_IMPORT = "eventCmImport";
     

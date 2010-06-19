@@ -22,7 +22,7 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -54,7 +54,7 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected final Case envelope;
 
-    protected final CaseFolder sender;
+    protected final Mailbox sender;
 
     protected final String recipientId;
 
@@ -66,7 +66,7 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected final boolean isInitial;
 
-    protected CaseFolder recipient;
+    protected Mailbox recipient;
 
     public CaseLink getUpdatedPost() {
         return post;
@@ -85,7 +85,7 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * @param isInitial Is it an initial sent?
      */
     public UpdateCaseLinkUnrestricted(CoreSession session, String subject,
-            String comment, Case envelope, CaseFolder sender,
+            String comment, Case envelope, Mailbox sender,
             String recipientId, Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial, CaseLink post) {
@@ -133,7 +133,7 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
                 envelope.getDocument().getRepositoryName());
         doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
-        doc.setPropertyValue(SENDER_CASE_FOLDER_ID_FIELD, sender.getId());
+        doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
         doc.setPropertyValue(SENDER_FIELD, sender.getOwner());
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());
         doc.setPropertyValue(COMMENT_FIELD, comment);

@@ -1,0 +1,4 @@
+id,label,obsolete
+"synchronized","label.casemanagement.directories.mailbox_state.synchronized","0"
+"unsynchronized","label.casemanagement.directories.mailbox_state.unsynchronized","0"
+"doublon","label.casemanagement.directories.mailbox_state.doublon","0"

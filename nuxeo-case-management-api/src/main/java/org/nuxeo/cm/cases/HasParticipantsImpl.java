@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
@@ -192,9 +192,9 @@ public class HasParticipantsImpl implements HasParticipants {
         return recipients;
     }
 
-    protected List<String> getCaseFolderIds(List<CaseFolder> list) {
+    protected List<String> getMailboxIds(List<Mailbox> list) {
         List<String> result = new ArrayList<String>();
-        for (CaseFolder mailbox : list) {
+        for (Mailbox mailbox : list) {
             result.add(mailbox.getId());
         }
         return result;

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://cm.nuxeo.com/schemas/mailbox/"
+  xmlns:cmxs="http://cm.nuxeo.com/schemas/mailbox/"
+  xmlns:nxs="http://cm.nuxeo.com/schemas/base/">
+
+  <xs:include schemaLocation="base.xsd" />
+
+  <xs:element name="mailbox_id" type="xs:string" />
+  <xs:element name="type" type="xs:string" />
+  <xs:element name="owner" type="xs:string" />
+
+  <xs:element name="affiliated_mailbox_id" type="xs:string" />
+
+  <xs:element name="users" type="cmxs:stringArray" />
+  <xs:element name="groups" type="cmxs:stringArray" />
+
+  <xs:element name="notified_users" type="cmxs:stringArray" />
+
+  <xs:element name="favorites" type="cmxs:stringArray" />
+
+  <xs:element name="profiles" type="cmxs:stringArray" />
+
+  <xs:element name="defaultconfidentiality" type="xs:int" default="4" />
+
+  <xs:complexType name="participantlist">
+    <xs:sequence>
+      <xs:element name="plid" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xs:element name="title" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xs:element name="description" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xs:element name="mailbox_id" type="cmxs:stringArray" minOccurs="0"
+        maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="participantlists">
+    <xs:sequence>
+      <xs:element name="plist" type="cmxs:participantlist" minOccurs="0"
+        maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="participantlists" type="cmxs:participantlists" />
+
+  <xs:element name="lastSyncUpdate" type="xs:date" />
+  <xs:element name="origin" type="xs:string" default="" />
+  <xs:element name="synchronizerId" type="xs:string" />
+  <xs:element name="synchronizedState" type="xs:string" default="unsynchronised" />
+
+
+</xs:schema>
+

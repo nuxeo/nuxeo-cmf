@@ -6,7 +6,7 @@
 
 
     <listener name="classificationListener" async="false" postCommit="true"
-      class="org.nuxeo.cm.core.event.ClassificationCaseFolderListener"
+      class="org.nuxeo.cm.core.event.ClassificationMailboxListener"
       priority="120">
     </listener>
 
@@ -16,14 +16,14 @@
       <event>loginSuccess</event>
     </listener>
 
-    <listener name="createCaseFolderd" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.CreateCaseFolderIdListener"
+    <listener name="createMailboxd" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CreateMailboxIdListener"
       priority="160">
       <event>aboutToCreate</event>
     </listener>
 
-    <listener name="updateCaseFolderRights" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.UpdateCaseFolderRightsListener"
+    <listener name="updateMailboxRights" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.UpdateMailboxRightsListener"
       priority="170">
       <event>documentCreated</event>
       <event>documentModified</event>
@@ -53,28 +53,28 @@
       <event>draftUpdated</event>
     </listener>
 
-    <listener name="caseFolderSynchronizationListener" async="true" postCommit="false"
-      class="org.nuxeo.cm.core.event.synchronization.CaseFolderSynchronizationListener"
+    <listener name="mailboxSynchronizationListener" async="true" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.MailboxSynchronizationListener"
       priority="10">
-      <event>syncCaseFolder</event>
+      <event>syncMailbox</event>
     </listener>
 
-    <listener name="caseFolderCreatedListener" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.synchronization.CaseFolderCreatedListener"
+    <listener name="mailboxCreatedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.MailboxCreatedListener"
       priority="2">
-      <event>onCaseFolderCreated</event>
+      <event>onMailboxCreated</event>
     </listener>
 
-    <listener name="caseFolderUpdatedListener" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.synchronization.CaseFolderUpdatedListener"
+    <listener name="mailboxUpdatedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.MailboxUpdatedListener"
       priority="3">
-      <event>onCaseFolderUpdated</event>
+      <event>onMailboxUpdated</event>
     </listener>
 
-    <listener name="caseFolderDeletedListener" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.synchronization.CaseFolderDeletedListener"
+    <listener name="mailboxDeletedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.synchronization.MailboxDeletedListener"
       priority="4">
-      <event>onCaseFolderDeleted</event>
+      <event>onMailboxDeleted</event>
     </listener>
 
   </extension>

@@ -21,7 +21,7 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_READ_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENT_DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
@@ -105,8 +105,8 @@ public class CaseLinkImpl implements CaseLink {
         return getPropertyValue(SUBJECT_FIELD);
     }
 
-    public String getSenderCaseFolderId() {
-        return getPropertyValue(SENDER_CASE_FOLDER_ID_FIELD);
+    public String getSenderMailboxId() {
+        return getPropertyValue(SENDER_MAILBOX_ID_FIELD);
     }
 
     public Date getSentDate() {

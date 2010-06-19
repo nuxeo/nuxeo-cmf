@@ -126,10 +126,10 @@ public class DistributionListener implements EventListener {
             for (DocumentModel doc : docs) {
                 doc = session.getDocument(doc.getRef());
                 ACP acp = doc.getACP();
-                ACL mailboxACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
+                ACL mailboxACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                 List<ACE> newACE = getNewACEs();
                 mailboxACL.addAll(newACE);
-                acp.removeACL(CaseManagementSecurityConstants.ACL_CASE_FOLDER_PREFIX);
+                acp.removeACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                 acp.addACL(mailboxACL);
                 session.setACP(doc.getRef(), acp, true);
             }
@@ -140,7 +140,7 @@ public class DistributionListener implements EventListener {
                 // compute private ace
                 for (String mailboxId : allMailboxIds) {
                     newACEs.add(new ACE(
-                            CaseManagementSecurityConstants.CASE_FOLDER_PREFIX
+                            CaseManagementSecurityConstants.MAILBOX_PREFIX
                                     + mailboxId, SecurityConstants.READ_WRITE,
                             true));
                 }

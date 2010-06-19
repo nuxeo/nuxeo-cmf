@@ -1,0 +1,32 @@
+<div xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxdir="http://nuxeo.org/nxdirectory"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:rich="http://richfaces.org/rich">
+
+  <c:if test="#{widget.mode != 'edit'}">
+
+    <h:outputText value="#{messages['label.mailbox.type.personal']}"
+      rendered="#{field_0 == 'personal'}" />
+    <h:outputText value="#{messages['label.mailbox.type.generic']}"
+      rendered="#{field_0 == 'generic'}" />
+
+  </c:if>
+
+  <c:if test="#{widget.mode == 'edit'}">
+
+    <h:selectOneListbox value="#{field_0}"
+      id="#{widget.id}" styleClass="widget.properties['styleClass']"
+      required="#{widget.properties['required']}">
+      <f:selectItem itemValue="personal"
+        itemLabel="#{messages['label.mailbox.type.personal']}"  />
+      <f:selectItem itemValue="generic"
+        itemLabel="#{messages['label.mailbox.type.generic']}"  />
+    </h:selectOneListbox>
+    <h:message for="#{widget.id}" styleClass="errorMessage" />
+
+  </c:if>
+
+</div>

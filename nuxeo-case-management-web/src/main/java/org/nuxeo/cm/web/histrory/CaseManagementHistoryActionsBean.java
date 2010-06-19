@@ -36,7 +36,6 @@ import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.audit.api.AuditException;
 import org.nuxeo.ecm.platform.audit.api.LogEntry;
@@ -44,7 +43,7 @@ import org.nuxeo.ecm.platform.audit.web.listener.ContentHistoryActions;
 import org.nuxeo.ecm.platform.audit.web.listener.ejb.LinkedDocument;
 
 /**
- * Retrieves log entries for current case folder
+ * Retrieves log entries for current mailbox
  *
  * @author Anahide Tchertchian
  */

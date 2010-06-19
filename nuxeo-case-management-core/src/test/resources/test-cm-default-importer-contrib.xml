@@ -4,7 +4,7 @@
    
    <extension target="org.nuxeo.cm.service.importer.CaseManagementImporterService" point="importer">
    	<importInfo>
-    	<destionationCaseFolderPath>/case-management/case-folder-root/user1-lambda</destionationCaseFolderPath>
+    	<destionationMailboxPath>/case-management/mailbox-root/user1-lambda</destionationMailboxPath>
          <noImportingThreads>5</noImportingThreads>
          <importerDocumentModelfactory>org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory</importerDocumentModelfactory>
         <folderPath>src/test/resources/import-src/</folderPath>

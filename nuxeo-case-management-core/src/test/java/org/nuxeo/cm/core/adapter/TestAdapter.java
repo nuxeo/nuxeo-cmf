@@ -5,8 +5,8 @@ package org.nuxeo.cm.core.adapter;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
-import org.nuxeo.cm.casefolder.CaseFolderConstants;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.CaseConstants;
@@ -56,10 +56,10 @@ public class TestAdapter extends SQLRepositoryTestCase {
         assertNotNull(mailEnvelope);
     }
 
-    public void testGetCaseFolderAdapter() throws ClientException {
-        DocumentModel doc = createDocument(CaseFolderConstants.CASE_FOLDER_DOCUMENT_TYPE);
+    public void testGetMailboxAdapter() throws ClientException {
+        DocumentModel doc = createDocument(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
         assertNotNull(doc);
-        CaseFolder mailbox = doc.getAdapter(CaseFolder.class);
+        Mailbox mailbox = doc.getAdapter(Mailbox.class);
         assertNotNull(mailbox);
     }
 

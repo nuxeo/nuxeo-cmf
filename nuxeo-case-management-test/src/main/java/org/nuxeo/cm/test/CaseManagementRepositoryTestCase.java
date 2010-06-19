@@ -26,12 +26,12 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -47,7 +47,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
     protected UserManager userManager;
 
-    protected CaseFolderManagementService correspCaseFolderService;
+    protected MailboxManagementService correspMailboxService;
 
     protected CaseDistributionService distributionService;
 
@@ -121,8 +121,8 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
         distributionService = Framework.getService(CaseDistributionService.class);
         assertNotNull(distributionService);
 
-        correspCaseFolderService = Framework.getService(CaseFolderManagementService.class);
-        assertNotNull(correspCaseFolderService);
+        correspMailboxService = Framework.getService(MailboxManagementService.class);
+        assertNotNull(correspMailboxService);
 
         correspDistributionTypeService = Framework.getService(CaseManagementDistributionTypeService.class);
         assertNotNull(correspDistributionTypeService);
@@ -174,7 +174,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
         return mailEnvelopeItemModel;
     }
 
-    public void createDraftPost(CaseFolder mb, Case envelope) throws Exception {
+    public void createDraftPost(Mailbox mb, Case envelope) throws Exception {
         DocumentModel model = session.createDocumentModel(
                 mb.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
@@ -187,6 +187,10 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
         session.saveDocument(doc);
         session.save();
+    }
+
+    public Mailbox getPersonalMailbox(String name) throws Exception {
+        return correspMailboxService.createPersonalMailboxes(session, name).get(0);
     }
 
 }

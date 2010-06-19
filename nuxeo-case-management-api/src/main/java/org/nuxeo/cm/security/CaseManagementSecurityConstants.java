@@ -21,9 +21,9 @@ package org.nuxeo.cm.security;
  */
 public class CaseManagementSecurityConstants {
 
-    public static final String ACL_CASE_FOLDER_PREFIX = "casefolders";
+    public static final String ACL_MAILBOX_PREFIX = "mailboxes";
 
-    public static final String CASE_FOLDER_PREFIX = "casefolder_";
+    public static final String MAILBOX_PREFIX = "mailbox_";
 
     public static final String PUBLIC_SECURITY_LEVEL = "1";
 

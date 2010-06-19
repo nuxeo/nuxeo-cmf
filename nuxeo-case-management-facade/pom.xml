@@ -14,7 +14,6 @@
   <artifactId>nuxeo-case-management-facade</artifactId>
   <name>Case Management Facade</name>
   <description>Case Management Facade</description>
-  <packaging>ejb</packaging>
 
   <dependencies>
     <dependency>

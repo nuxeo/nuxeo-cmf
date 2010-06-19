@@ -34,7 +34,7 @@ import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.runtime.api.Framework;
 
-import static org.nuxeo.cm.cases.CaseConstants.CASE_FOLDER_DOCUMENTS_ID_TYPE;
+import static org.nuxeo.cm.cases.CaseConstants.MAILBOX_DOCUMENTS_ID_TYPE;
 import static org.nuxeo.cm.cases.CaseConstants.CASE_SCHEMA;
 
 /**
@@ -85,7 +85,7 @@ public class CaseImpl implements Case {
     protected List<String> getItemsId() {
         List<String> emailIds;
         try {
-            emailIds = (List<String>) document.getProperty(CASE_SCHEMA, CASE_FOLDER_DOCUMENTS_ID_TYPE);
+            emailIds = (List<String>) document.getProperty(CASE_SCHEMA, MAILBOX_DOCUMENTS_ID_TYPE);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
@@ -128,7 +128,7 @@ public class CaseImpl implements Case {
     protected void saveItemsId(CoreSession session, List<String> itemsId) {
         try {
             document.setProperty(CASE_SCHEMA,
-                    CASE_FOLDER_DOCUMENTS_ID_TYPE,
+                    MAILBOX_DOCUMENTS_ID_TYPE,
                     itemsId);
             session.saveDocument(document);
         } catch (ClientException e) {

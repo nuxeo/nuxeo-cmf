@@ -19,8 +19,6 @@
 
 package org.nuxeo.cm.web.cases;
 
-import java.io.Serializable;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
@@ -30,7 +28,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.web.casefolder.CaseManagementAbstractActionsBean;
+import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.ecm.core.api.ClientException;

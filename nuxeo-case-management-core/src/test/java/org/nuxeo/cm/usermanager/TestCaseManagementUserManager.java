@@ -19,7 +19,7 @@ package org.nuxeo.cm.usermanager;
 
 import java.util.List;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
@@ -45,15 +45,15 @@ public class TestCaseManagementUserManager extends
     }
 
     public void testGetPrincipalGroups() throws Exception {
-        CaseFolder mailbox = correspCaseFolderService.createPersonalCaseFolders(
+        Mailbox mailbox = correspMailboxService.createPersonalMailboxes(
                 session, user).get(0);
         assertNotNull(mailbox);
-        assertTrue(correspCaseFolderService.hasCaseFolder(mailbox.getId()));
+        assertTrue(correspMailboxService.hasMailbox(mailbox.getId()));
 
-        CaseFolder mailbox2 = correspCaseFolderService.createPersonalCaseFolders(
+        Mailbox mailbox2 = correspMailboxService.createPersonalMailboxes(
                 session, user2).get(0);
         assertNotNull(mailbox2);
-        assertTrue(correspCaseFolderService.hasCaseFolder(mailbox2.getId()));
+        assertTrue(correspMailboxService.hasMailbox(mailbox2.getId()));
         assertTrue(userManager instanceof UserManagerWithComputedGroups);
 
         NuxeoPrincipal pal = userManager.getPrincipal(user);
@@ -65,7 +65,7 @@ public class TestCaseManagementUserManager extends
         assertNotNull(groups);
         assertEquals(2, groups.size());
         assertTrue(groups.contains("group_1"));
-        assertTrue(groups.contains(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user"));
+        assertTrue(groups.contains(CaseManagementSecurityConstants.MAILBOX_PREFIX + "user-user"));
 
         pal = userManager.getPrincipal(user2);
         assertNotNull(pal);
@@ -76,9 +76,9 @@ public class TestCaseManagementUserManager extends
         assertNotNull(groups);
         assertEquals(4, groups.size());
         assertTrue(groups.contains("group_2"));
-        assertTrue(groups.contains(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2"));
+        assertTrue(groups.contains(CaseManagementSecurityConstants.MAILBOX_PREFIX + "user-user2"));
 
-        NuxeoGroup grp = userManager.getGroup(CaseManagementSecurityConstants.CASE_FOLDER_PREFIX + "user-user2");
+        NuxeoGroup grp = userManager.getGroup(CaseManagementSecurityConstants.MAILBOX_PREFIX + "user-user2");
         assertNull(grp);
 
         grp = userManager.getGroup("user-user2");

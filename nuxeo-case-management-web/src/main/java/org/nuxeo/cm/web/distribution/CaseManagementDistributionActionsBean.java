@@ -19,7 +19,6 @@
 
 package org.nuxeo.cm.web.distribution;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,7 +34,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkMode;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
@@ -45,12 +44,11 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.distribution.ParticipantItem;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
@@ -81,7 +79,7 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
     protected transient CaseDistributionService caseDistributionService;
 
     @In(create = true)
-    protected transient CaseFolderManagementService caseFolderManagementService;
+    protected transient MailboxManagementService mailboxManagementService;
 
     @In(create = true)
     protected WebActions webActions;
@@ -99,17 +97,17 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
         if (distributionInfo == null) {
             distributionInfo = new DistributionInfo();
             // initialize quick items values
-            CaseFolder currentMailbox = getCurrentCaseFolder();
+            Mailbox currentMailbox = getCurrentMailbox();
             List<String> favs = currentMailbox.getFavorites();
             if (favs != null && !favs.isEmpty()) {
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    ParticipantItem item = (ParticipantItem) caseFolderManagementService.getCaseFolderHeader(fav);
+                    ParticipantItem item = (ParticipantItem) mailboxManagementService.getMailboxHeader(fav);
                     item.setMessageType(CaseLinkType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
-                distributionInfo.setFavoriteCaseFolders(favoriteMailboxes);
+                distributionInfo.setFavoriteMailboxes(favoriteMailboxes);
             }
             // entire envelope by default
             distributionInfo.setMode(CaseLinkMode.ENTIRE_ENVELOPE.getStringType());
@@ -133,12 +131,12 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
                         "feedback.casemanagement.distribution.invalidMode"));
                 return null;
             }
-            CaseFolder currentMailbox = getCurrentCaseFolder();
+            Mailbox currentMailbox = getCurrentMailbox();
             if (currentMailbox == null) {
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.distribution.invalidCurrentCaseFolder"));
+                        "feedback.casemanagement.distribution.invalidCurrentMailbox"));
                 return null;
             }
 

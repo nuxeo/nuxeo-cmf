@@ -23,12 +23,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-
 
 /**
  * Correspondence service.
@@ -39,62 +39,76 @@ public interface CaseDistributionService extends Serializable {
     /**
      * Send an envelope to a mailbox.
      */
-    CaseLink sendCase(CoreSession session,
-            CaseLink postRequest, boolean initial);
+    CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean initial);
 
     /**
      * Returns the sent posts for given mailbox
      */
     List<CaseLink> getSentCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit);
+            Mailbox mailbox, long offset, long limit);
 
     /**
      * Returns the received posts for given mailbox
      */
     List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit);
+            Mailbox mailbox, long offset, long limit);
 
     /**
      * Returns the draft posts for given mailbox
      */
     List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
-            CaseFolder mailbox, long offset, long limit);
+            Mailbox mailbox, long offset, long limit);
 
     /**
      * Returns the draft post of an envelope in given mailbox. Returns null if
      * post is not found.
      */
-    CaseLink getDraftCaseLink(CoreSession session, CaseFolder mailbox,
+    CaseLink getDraftCaseLink(CoreSession session, Mailbox mailbox,
             String envelopeId);
 
     /**
-     * @param session
-     * @param changeableDocument
-     * @param parentPath the path where the document and its envelope are created
-     * @return a MailEnvelope containing default MailItem.
+     * Add a CaseItem to a Case
+     *
+     * @param session The core session
+     * @param kase The case in which the CaseItem will be added
+     * @param parentPath The path in which the CaseItem will be created
+     * @param emailDoc The document model for the CaseItem
+     * @return
      */
-    Case createCase(CoreSession session,
-            DocumentModel emailDoc, String parentPath);
+    CaseItem addCaseItemToCase(CoreSession session, Case kase,
+            String parentPath, DocumentModel emailDoc);
 
     /**
-     * @param mailboxes The list of mailboxes in which the document will be seen.
      * @param session
      * @param changeableDocument
-     * @param parentPath the path where the document and its envelope are created
+     * @param parentPath the path where the document and its envelope are
+     *            created
      * @return a MailEnvelope containing default MailItem.
      */
-    Case createCase(CoreSession session,
-            DocumentModel emailDoc, String parentPath, List<CaseFolder> mailboxes);
+    Case createCase(CoreSession session, DocumentModel emailDoc,
+            String parentPath);
+
+    /**
+     * @param mailboxes The list of mailboxes in which the document will be
+     *            seen.
+     * @param session
+     * @param changeableDocument
+     * @param parentPath the path where the document and its envelope are
+     *            created
+     * @return a MailEnvelope containing default MailItem.
+     */
+    Case createCase(CoreSession session, DocumentModel emailDoc,
+            String parentPath, List<Mailbox> mailboxes);
 
     /**
      * Create a draft post for an envelope in given mailbox.
      */
-    CaseLink createDraftCaseLink(CoreSession session, CaseFolder mailbox,
+    CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
             Case envelope);
 
     /**
      * Throw a core event.
-     *
+     * 
      * @param session The session use in the event context and to get the
      *            principal.
      * @param name the name of the event
@@ -103,4 +117,5 @@ public interface CaseDistributionService extends Serializable {
      */
     void notify(CoreSession session, String name, DocumentModel document,
             Map<String, Serializable> eventProperties);
+
 }

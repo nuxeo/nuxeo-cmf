@@ -1,0 +1,60 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jstl/core" class="menu"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"><h:form
+  rendered="#{!currentUser.anonymous}">
+
+  <h:panelGroup>
+    <div class="userMailboxes">
+    <div class="userMailboxesContent">
+    
+    <h4><h:outputText value="#{messages['label.mailBoxListTitle']}" /></h4>
+
+    <div>
+    <f:subview rendered="#{!empty userMailboxes}">
+      <nxu:dataList var="mailbox" value="#{userMailboxes}"
+        layout="unorderedList"
+        itemStyleClass="#{nxu:test(mailbox.document.mlbx.mailbox_id == currentMailbox.id, 'selected', '')}">
+        <f:subview rendered="#{mailbox.document.mlbx.mailbox_id == currentMailbox.id}">
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
+              newConversation="true" target="_BLANK">
+            <img src="icons/external.gif" style="vertical-align: top"
+                 alt="#{messages['permalink.newTab']}"
+                 title="#{messages['permalink.newTab']}" />
+          </nxd:restDocumentLink>
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view">
+            <nxh:outputText value="#{mailbox.document.dublincore.title}" />
+          </nxd:restDocumentLink>
+        </f:subview>
+        <f:subview rendered="#{mailbox.document.mlbx.mailbox_id != currentMailbox.id}">
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
+            newConversation="true" target="_BLANK">
+            <img src="icons/external.gif" style="vertical-align: top"
+              alt="#{messages['permalink.newTab']}"
+              title="#{messages['permalink.newTab']}" />
+          </nxd:restDocumentLink>
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}">
+            <nxh:outputText value="#{mailbox.document.dublincore.title}" />
+          </nxd:restDocumentLink>
+        </f:subview>
+      </nxu:dataList>
+    </f:subview> <f:subview rendered="#{empty userMailboxes}">
+      <div class="userMailboxesEmptyMessage"><h:outputText
+        value="#{messages['label.casemanagement.mailboxes.empty']}" /></div>
+    </f:subview></div>
+    </div>
+
+    <!-- Bottom of the rounded box -->
+
+    <p class="nobottomgap"></p>
+    </div>
+
+    <div class="bottom-left"></div>
+    <div class="bottom-right"></div>
+
+  </h:panelGroup>
+
+</h:form></div>

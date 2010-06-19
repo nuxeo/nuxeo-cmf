@@ -16,7 +16,7 @@
   <xs:element name="sender" type="xs:string" />
   <xs:element name="type" type="xs:string" />
   <xs:element name="typeInfo" type="xs:string" />
-  <xs:element name="senderCaseFolderId" type="xs:string" />
+  <xs:element name="senderMailboxId" type="xs:string" />
   <xs:element name="sentDate" type="xs:date" />
   <xs:element name="draft" type="xs:boolean" default="false" />
 

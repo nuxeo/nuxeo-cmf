@@ -37,7 +37,7 @@ public class CaseConstants {
 
     public static final String CASE_FACET = "Case";
 
-    public static final String CASE_FOLDER_FACET = "CaseFolder";
+    public static final String MAILBOX_FACET = "Mailbox";
 
     public static final String CASE_ITEM_FACET = "CaseItem";
 
@@ -47,23 +47,23 @@ public class CaseConstants {
 
     public static final String DISTRIBUTION_SCHEMA = "distribution";
 
-    public static final String DISTRIBUTION_RECIPIENT_MAILBOXES = "cmdist:particpant_case_folders";
+    public static final String DISTRIBUTION_RECIPIENT_MAILBOXES = "cmdist:particpant_mailboxes";
 
     public static final String DISTRIBUTION_TYPE_PARTICIPANT_TYPE = "type";
 
-    public static final String DISTRIBUTION_TYPE_PARTICIPANTS_CASE_FOLDERS = "participants_case_folders";
+    public static final String DISTRIBUTION_TYPE_PARTICIPANTS_MAILBOXS = "participants_mailboxes";
 
-    public static final String INITIAL_ACTION_INTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_action_internal_participant_case_folders";
+    public static final String INITIAL_ACTION_INTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_action_internal_participant_mailboxes";
 
-    public static final String INITIAL_COPY_INTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_copy_internal_participant_case_folders";
+    public static final String INITIAL_COPY_INTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_copy_internal_participant_mailboxes";
 
-    public static final String INITIAL_ACTION_EXTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_action_external_participant_case_folders";
+    public static final String INITIAL_ACTION_EXTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_action_external_participant_mailboxes";
 
-    public static final String INITIAL_COPY_EXTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_copy_external_participant_case_folders";
+    public static final String INITIAL_COPY_EXTERNAL_PARTICIPANTS_PROPERTY_NAME = "cmdist:initial_copy_external_participant_mailboxes";
 
-    public static final String ALL_ACTION_PARTICIPANTS_PROPERTY_NAME = "cmdist:all_action_participant_case_folders";
+    public static final String ALL_ACTION_PARTICIPANTS_PROPERTY_NAME = "cmdist:all_action_participant_mailboxes";
 
-    public static final String ALL_COPY_PARTICIPANTS_PROPERTY_NAME = "cmdist:all_copy_participant_case_folders";
+    public static final String ALL_COPY_PARTICIPANTS_PROPERTY_NAME = "cmdist:all_copy_participant_mailboxes";
 
     public static final String DOCUMENT_CONFIDENTIALITY = "confidentiality";
 
@@ -91,9 +91,9 @@ public class CaseConstants {
 
     public static final String DOCUMENT_REFERENCE_PROPERTY_NAME = "cmdoc:reference";
 
-    public static final String CASE_FOLDER_DOCUMENTS_ID_TYPE = "documentsId";
+    public static final String MAILBOX_DOCUMENTS_ID_TYPE = "documentsId";
 
-    public static final String CASE_FOLDER_DOCUMENTS_ID_PROPERTY_NAME = "case:documentsId";
+    public static final String MAILBOX_DOCUMENTS_ID_PROPERTY_NAME = "case:documentsId";
 
     public static final String CONTACTS_SENDERS = "cmct:sendersContacts";
 

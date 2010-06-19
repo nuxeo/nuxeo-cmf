@@ -4,12 +4,12 @@
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
     point="listener">
 
-    <listener name="caseFolderSyncTestListener" async="false" postCommit="false"
-      class="org.nuxeo.cm.service.synchronization.CaseFolderSyncTestListener"
+    <listener name="mailboxSyncTestListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.service.synchronization.MailboxSyncTestListener"
       priority="120">
-      <event>onCaseFolderCreated</event>
-      <event>onCaseFolderUpdated</event>
-      <event>onCaseFolderDeleted</event>
+      <event>onMailboxCreated</event>
+      <event>onMailboxUpdated</event>
+      <event>onMailboxDeleted</event>
     </listener>
 
   </extension>

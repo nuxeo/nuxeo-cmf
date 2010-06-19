@@ -42,7 +42,7 @@ public interface CaseManagementDocumentTypeService extends Serializable {
      */
     String getCaseType();
 
-    public String getCaseFolderType();
+    public String getMailboxType();
 
     public String getCaseItemType();
 

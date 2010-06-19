@@ -25,7 +25,7 @@ import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
 /**
- * CaseManagementImporter service for importing case in a specified CaseFolder
+ * CaseManagementImporter service for importing case in a specified Mailbox
  * 
  * @author Mariana Cedica
  */
@@ -38,7 +38,7 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
 
     CaseManagementImporterDescriptor importInfo;
 
-    private String destionationCaseFolderPath;
+    private String destionationMailboxPath;
 
     private String noImportingThreads;
 
@@ -58,8 +58,8 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
 
         importInfo = (CaseManagementImporterDescriptor) contribution;
 
-        if (importInfo.destionationCaseFolderPath != null) {
-            destionationCaseFolderPath = importInfo.destionationCaseFolderPath;
+        if (importInfo.destionationMailboxPath != null) {
+            destionationMailboxPath = importInfo.destionationMailboxPath;
         }
 
         if (importInfo.noImportingThreads != null) {
@@ -79,7 +79,7 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
     @Override
     public void unregisterContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor) {
-        destionationCaseFolderPath = null;
+        destionationMailboxPath = null;
         noImportingThreads = null;
         importerDocumentModelfactoryClass = null;
         importInfo = null;
@@ -92,7 +92,7 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
                 log.warn("No there is no importer configured!");
                 return ;
             }
-            new CaseManagementImporter(destionationCaseFolderPath,
+            new CaseManagementImporter(destionationMailboxPath,
                     noImportingThreads, folderPath,
                     getImporterDocumentModelFactory()).importDocuments();
         } catch (Exception e) {

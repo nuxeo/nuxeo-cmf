@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 
 /**
  * @author arussel
@@ -31,7 +31,7 @@ public interface HasParticipants extends Serializable {
      * Adds to the list of recipients.
      *
      * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link CaseFolder}
+     *            list of {@link Mailbox}
      */
     void addParticipants(Map<String, List<String>> recipients);
 
@@ -39,7 +39,7 @@ public interface HasParticipants extends Serializable {
      * Adds to the list of initial internal recipients.
      *
      * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link CaseFolder}
+     *            list of {@link Mailbox}
      */
     void addInitialInternalParticipants(Map<String, List<String>> recipients);
 
@@ -47,7 +47,7 @@ public interface HasParticipants extends Serializable {
      * Adds to the list of initial external recipients.
      *
      * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link CaseFolder}
+     *            list of {@link Mailbox}
      */
     void addInitialExternalParticipants(Map<String, List<String>> recipients);
 

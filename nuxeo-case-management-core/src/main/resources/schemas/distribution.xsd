@@ -9,7 +9,7 @@
   <xs:complexType name="type_participant">
     <xs:sequence>
       <xs:element name="type" type="xs:string" />
-      <xs:element name="participant_case_folders" type="cmxs:stringList" />
+      <xs:element name="participant_mailboxes" type="cmxs:stringList" />
     </xs:sequence>
   </xs:complexType>
 
@@ -19,13 +19,13 @@
         minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="initial_action_internal_participant_case_folders" type="cmxs:stringList" />
-  <xs:element name="initial_copy_internal_participant_case_folders" type="cmxs:stringList" />
-  <xs:element name="initial_action_external_participant_case_folders" type="cmxs:stringList" />
-  <xs:element name="initial_copy_external_participant_case_folders" type="cmxs:stringList" />
+  <xs:element name="initial_action_internal_participant_mailboxes" type="cmxs:stringList" />
+  <xs:element name="initial_copy_internal_participant_mailboxes" type="cmxs:stringList" />
+  <xs:element name="initial_action_external_participant_mailboxes" type="cmxs:stringList" />
+  <xs:element name="initial_copy_external_participant_mailboxes" type="cmxs:stringList" />
 
-  <xs:element name="all_action_participant_case_folders" type="cmxs:stringList" />
-  <xs:element name="all_copy_participant_case_folders" type="cmxs:stringList" />
+  <xs:element name="all_action_participant_mailboxes" type="cmxs:stringList" />
+  <xs:element name="all_copy_participant_mailboxes" type="cmxs:stringList" />
   
 </xs:schema>
 

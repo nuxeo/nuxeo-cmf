@@ -21,8 +21,8 @@ package org.nuxeo.cm.core.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.service.CaseFolderCreator;
-import org.nuxeo.cm.service.CaseFolderManagementService;
+import org.nuxeo.cm.service.MailboxCreator;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -42,18 +42,18 @@ public class CaseManagementComponent extends DefaultComponent {
 
     protected static final String MESSAGE_FACTORY_EXTENSION_POINT = "messageFactory";
 
-    protected CaseFolderManagementServiceImpl service;
+    protected MailboxManagementServiceImpl service;
 
     @Override
     public void activate(ComponentContext context) throws Exception {
         super.activate(context);
-        this.service = new CaseFolderManagementServiceImpl();
+        this.service = new MailboxManagementServiceImpl();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getAdapter(Class<T> adapter) {
-        if (adapter.isAssignableFrom(CaseFolderManagementService.class)) {
+        if (adapter.isAssignableFrom(MailboxManagementService.class)) {
             return (T) service;
         }
         return null;
@@ -69,8 +69,8 @@ public class CaseManagementComponent extends DefaultComponent {
             // Thread context loader is not working in isolated EARs
             Object creator = CaseManagementComponent.class.getClassLoader().loadClass(
                     className).newInstance();
-            if (creator instanceof CaseFolderCreator) {
-                service.setPersonalMailboxCreator((CaseFolderCreator) creator);
+            if (creator instanceof MailboxCreator) {
+                service.setPersonalMailboxCreator((MailboxCreator) creator);
             } else {
                 log.error("Invalid contribution to personal mailbox creator: "
                         + className);

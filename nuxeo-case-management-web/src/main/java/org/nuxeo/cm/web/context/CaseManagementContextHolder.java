@@ -21,7 +21,7 @@ package org.nuxeo.cm.web.context;
 
 import java.io.Serializable;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  */
 public interface CaseManagementContextHolder extends Serializable {
 
-    CaseFolder getCurrentCaseFolder() throws ClientException;
+    Mailbox getCurrentMailbox() throws ClientException;
 
     Case getCurrentCase() throws ClientException;
 

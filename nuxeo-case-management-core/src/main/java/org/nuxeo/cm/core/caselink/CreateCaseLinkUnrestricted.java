@@ -22,7 +22,7 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_CASE_FOLDER_ID_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
@@ -31,10 +31,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.nuxeo.cm.casefolder.CaseFolder;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.core.service.GetCaseFoldersUnrestricted;
+import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -58,7 +58,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected final Case envelope;
 
-    protected final CaseFolder sender;
+    protected final Mailbox sender;
 
     protected final String recipientId;
 
@@ -72,7 +72,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected CaseLink draft;
 
-    protected CaseFolder recipient;
+    protected Mailbox recipient;
 
     public CaseLink getCreatedPost() {
         return createdPost;
@@ -93,7 +93,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      */
     public CreateCaseLinkUnrestricted(CaseLink draft,
             CoreSession session, String subject, String comment,
-            Case envelope, CaseFolder sender, String recipientId,
+            Case envelope, Mailbox sender, String recipientId,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial) {
@@ -112,10 +112,10 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        GetCaseFoldersUnrestricted getMailboxesUnrestricted = new GetCaseFoldersUnrestricted(
+        GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                 session, recipientId);
         getMailboxesUnrestricted.run();
-        List<CaseFolder> mailboxes = getMailboxesUnrestricted.getMailboxes();
+        List<Mailbox> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
             throw new CaseManagementException(
             "Can't send post because sender mailbox does not exist.");
@@ -163,7 +163,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
         if (sender != null) {
-            doc.setPropertyValue(SENDER_CASE_FOLDER_ID_FIELD, sender.getId());
+            doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
             doc.setPropertyValue(SENDER_FIELD, sender.getOwner());
         }
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());
