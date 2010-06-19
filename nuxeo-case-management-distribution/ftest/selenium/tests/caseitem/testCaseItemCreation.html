@@ -61,17 +61,6 @@
 	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
-<!--   !WORKAROUND ;clickAndWait doesn't work, seems to freeze the test  -->
-<tr>
-	<td>click</td>
-	<td>//*[@src='img/MAILBOX.png']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>4000</td>
-	<td></td>
-	</tr> 
 <tr>
 	<td>verifyTextPresent</td>
 	<td>My Mailboxes</td>
@@ -89,17 +78,17 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Create a new case item</td>
+	<td>link=New</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseDown</td>
+	<td>link=New</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Create a new case item</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Create a new document CaseItem</td>
+	<td>link=label.casemanagement.type.IncomingCaseManagementDocument</td>
 	<td></td>
 </tr>
 <tr>
@@ -173,7 +162,7 @@
 	<td>Service2</td>
 </tr>
 <tr>
-	<td>type</td> 
+	<td>type</td>
 	<td>document_create:nxl_head_cm_document:nxw_sending_date</td>
 	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
 </tr>

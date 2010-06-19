@@ -9,7 +9,7 @@
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testMailboxMailboxTabs</td></tr>
+<tr><td rowspan="1" colspan="3">testGenericMailboxTabs</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -56,17 +56,6 @@
 	<td>You are logged as jdoe</td>
 	<td></td>
 </tr>
-<!--   !WORKAROUND ;clickAndWait doesn't work, seems to freeze the test  -->
-<tr>
-	<td>click</td>
-	<td>//*[@src='img/MAILBOX.png']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>4000</td>
-	<td></td>
-	</tr> 
 <tr>
 	<td>verifyTextPresent</td>
 	<td>My Mailboxes</td>
