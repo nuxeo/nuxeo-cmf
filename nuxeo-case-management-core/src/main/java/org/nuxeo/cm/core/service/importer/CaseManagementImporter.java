@@ -18,7 +18,7 @@ package org.nuxeo.cm.core.service.importer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.platform.importer.base.GenericMultiThreadedImporter;
 import org.nuxeo.ecm.platform.importer.executor.AbstractImporterExecutor;
 import org.nuxeo.ecm.platform.importer.source.FileSourceNode;
@@ -55,20 +55,20 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
         return log;
     }
 
-    public void importDocuments() throws ClientException {
+    public void importDocuments() {
         SourceNode sourceNode = new FileSourceNode(folderPath);
+        GenericMultiThreadedImporter importer;
         try {
-            GenericMultiThreadedImporter importer = new GenericMultiThreadedImporter(
+            importer = new GenericMultiThreadedImporter(
                     sourceNode, destionationMailboxPath, 50, new Integer(
-                            noImportingThreads),getLogger());
-            //TODO : bachSize?
+                            noImportingThreads), getLogger());
+            // TODO : bachSize?
             cmCaseItemDocFactory.setDestionationMailboxPath(destionationMailboxPath);
             importer.setFactory(cmCaseItemDocFactory);
             // TODO : add the type checker?
             doRun(importer, Boolean.TRUE);
         } catch (Exception e) {
-            log.error(e);
-            throw new ClientException(e);
+            throw new CaseManagementRuntimeException(e);
         }
     }
 

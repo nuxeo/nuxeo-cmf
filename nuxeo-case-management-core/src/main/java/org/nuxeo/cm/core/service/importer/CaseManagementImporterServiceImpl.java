@@ -18,8 +18,8 @@ package org.nuxeo.cm.core.service.importer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.CaseManagementImporterService;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -85,32 +85,28 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
         importInfo = null;
     }
 
-    public void importDocuments() throws ClientException {
-        try {
-            // check if any importers are configured
-            if (!importerConfigured()){
-                log.warn("No there is no importer configured!");
-                return ;
-            }
-            new CaseManagementImporter(destionationMailboxPath,
-                    noImportingThreads, folderPath,
-                    getImporterDocumentModelFactory()).importDocuments();
-        } catch (Exception e) {
-            log.error(e);
-            throw new ClientException(e);
+    public void importDocuments() {
+        // check if any importers are configured
+        if (!importerConfigured()) {
+            log.warn("No there is no importer configured!");
+            return;
         }
+        new CaseManagementImporter(destionationMailboxPath, noImportingThreads,
+                folderPath, getImporterDocumentModelFactory()).importDocuments();
     }
 
-    public final CaseManagementCaseItemDocumentFactory getImporterDocumentModelFactory()
-            throws IllegalAccessException, InstantiationException {
-        return importerDocumentModelfactoryClass.newInstance();
+    public final CaseManagementCaseItemDocumentFactory getImporterDocumentModelFactory() {
+        try {
+            return importerDocumentModelfactoryClass.newInstance();
+        } catch (InstantiationException e) {
+            throw new CaseManagementRuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
     }
 
     private boolean importerConfigured() {
-        if (importInfo != null) {
-            return true;
-        }
-        return false;
-    }
+        return importInfo != null;
+     }
 
 }
