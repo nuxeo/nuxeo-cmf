@@ -30,10 +30,10 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.mailbox.MailboxHeader;
-import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -78,7 +78,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
 
     protected Map<String, Serializable> context;
 
-
     public Mailbox getMailbox(CoreSession session, String muid) {
         if (muid == null) {
             return null;
@@ -113,7 +112,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return getMailboxHeader(muid) != null;
     }
 
-
     public MailboxHeader getMailboxHeader(String muid) {
         if (muid == null) {
             return null;
@@ -129,8 +127,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         }
     }
 
-    public List<Mailbox> getMailboxes(CoreSession session,
-            List<String> muids) {
+    public List<Mailbox> getMailboxes(CoreSession session, List<String> muids) {
 
         if (muids == null) {
             return null;
@@ -183,7 +180,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return sessionSearch.getMailboxesHeaders();
     }
 
-
     public List<Mailbox> getMailboxes(List<String> muids) {
         CoreSession session = null;
         try {
@@ -219,10 +215,11 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return getMailbox(session, mailboxId);
     }
 
-    public List<Mailbox> createPersonalMailboxes(CoreSession session, String user) {
+    public List<Mailbox> createPersonalMailboxes(CoreSession session,
+            String user) {
         if (personalMailboxCreator == null) {
             throw new CaseManagementRuntimeException(
-            "Cannot create personal mailbox: missing creator configuration");
+                    "Cannot create personal mailbox: missing creator configuration");
         }
         // First check if mailbox exists using unrestricted session to
         // avoid creating multiple personal mailboxes for a given user in
@@ -231,7 +228,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         if (hasMailbox(muid)) {
             log.error(String.format(
                     "Cannot create personal mailbox for user '%s': "
-                    + "it already exists with id '%s'", user, muid));
+                            + "it already exists with id '%s'", user, muid));
             return Arrays.asList(getMailbox(muid));
         }
         try {
@@ -322,7 +319,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             throw new CaseManagementRuntimeException(e);
         }
         if (userModel == null) {
-            log.warn(String.format("No User by that name. Maybe a wrong id or virtual user"));
+            log.debug(String.format("No User by that name. Maybe a wrong id or virtual user"));
             return null;
         }
         return personalMailboxCreator.getPersonalMailboxId(userModel);
@@ -410,7 +407,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         }
         if (mgr == null) {
             throw new CaseManagementRuntimeException(
-            "Cannot find RepositoryManager");
+                    "Cannot find RepositoryManager");
         }
         Repository repo = mgr.getDefaultRepository();
 

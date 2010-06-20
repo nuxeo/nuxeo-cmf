@@ -24,11 +24,11 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.exception.CaseManagementException;
-import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -37,7 +37,6 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
-
 
 /**
  * @author Anahide Tchertchian
@@ -54,7 +53,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
     }
 
     public List<Mailbox> createMailboxes(CoreSession session, String user)
-    throws CaseManagementException {
+            throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CM_DEFAULT_MAILBOX_CREATOR_SKIP);
         if (skipCreation != null
@@ -72,7 +71,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
 
             DocumentModel userModel = userManager.getUserModel(user);
             if (userModel == null) {
-                log.warn(String.format("No User by that name. Maybe a wrong id or virtual user"));
+                log.debug(String.format("No User by that name. Maybe a wrong id or virtual user"));
                 return Collections.emptyList();
             }
 
@@ -92,7 +91,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
                     MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
             if (res == null || res.isEmpty()) {
                 throw new CaseManagementException(
-                "Cannot find any mailbox folder");
+                        "Cannot find any mailbox folder");
             }
 
             mailboxModel.setPathInfo(res.get(0).getPathAsString(),
@@ -114,7 +113,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
     }
 
     protected String getUserDisplayName(DocumentModel userModel)
-    throws ClientException {
+            throws ClientException {
         String schemaName = getUserSchemaName();
         String first = (String) userModel.getProperty(schemaName, "firstName");
         String last = (String) userModel.getProperty(schemaName, "lastName");
