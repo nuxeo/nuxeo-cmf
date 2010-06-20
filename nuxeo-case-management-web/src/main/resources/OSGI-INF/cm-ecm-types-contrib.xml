@@ -56,9 +56,8 @@
       <views>
         <view id="edit_case" value="edit_case" />
       </views>
-
       <subtypes>
-        <type>Folder</type>
+        <type>CaseItem</type>
       </subtypes>
       <layouts mode="any">
         <layout>heading</layout>

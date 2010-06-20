@@ -5,6 +5,7 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
   xmlns:nxthemes="http://nuxeo.org/nxthemes"
   xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
   xmlns:nxd="http://nuxeo.org/nxweb/document"
@@ -20,6 +21,7 @@
 
   <ui:define name="body">
 
+    <ui:include src="/select_document_type.xhtml"/>
     <ui:decorate template="view_cm_case_template.xhtml">
       <ui:define name="case_body">
 
@@ -47,7 +49,20 @@
       <a4j:outputPanel id="documentViewPanel">
       <h:form>
         <ui:include src="/incl/tagging.xhtml"/>
+        <nxu:methodResult name="actions" value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST_HREF')}">
+          <f:subview rendered="#{!empty actions}">
+            <div class="action_bar">
+            <nxu:dataList layout="unorderedList" var="action" value="#{actions}">
+            <a href="#{action.getLink()}">
+                <h:graphicImage value="#{action.icon}" />
+                <h:outputText value="#{messages[action.label]}" />
+              </a>
+            </nxu:dataList>
+            </div>
+          </f:subview>
+        </nxu:methodResult>
         </h:form>
+        
     </a4j:outputPanel>
     </a4j:region>
         <h:panelGroup id="case_content">

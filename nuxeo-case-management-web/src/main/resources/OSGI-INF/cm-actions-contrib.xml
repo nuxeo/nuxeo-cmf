@@ -198,9 +198,10 @@
     </action>
 
     <action id="addCaseItem"
-      link="#{cmMailboxActions.addCaseItem('CaseItem')}"
-      enabled="true" label="label.casemanagement.addCaseItem" icon="/icons/action_add.gif">
-      <category>SUBVIEW_UPPER_LIST</category>
+      link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
+      label="action.new.document"
+      enabled="true">
+      <category>CASE_ACTION_UPPER_LIST_HREF</category>
       <filter-id>isCmCase</filter-id>
     </action>
     <!-- End Mail Distribution actions -->
