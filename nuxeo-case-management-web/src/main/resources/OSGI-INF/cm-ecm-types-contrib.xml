@@ -77,7 +77,7 @@
     </type>
 
     <type id="CaseItem">
-      <label>label.casemanagement.type.IncomingCaseManagementDocument</label>
+      <label>label.casemanagement.type.CaseItemDocument</label>
       <icon>/icons/case-management_mail.png</icon>
       <default-view>view_cm_document</default-view>
       <create-view>create_cm_document</create-view>

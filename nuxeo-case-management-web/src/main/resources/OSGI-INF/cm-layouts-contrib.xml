@@ -442,7 +442,7 @@
       </widget>
       <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.case-management.document.document_date</label>
+          <label mode="any">label.casemanagement.document.document_date</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -649,7 +649,7 @@
           <field>cmdoc:type</field>
         </fields>
         <labels>
-          <label mode="any">label.case-management.document.type</label>
+          <label mode="any">label.casemanagement.document.type</label>
         </labels>
         <translated>true</translated>
         <properties widgetMode="any">
@@ -679,7 +679,7 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.name</label>
+              <label mode="any">label.casemanagement.document.name</label>
             </labels>
             <fields>
               <field>name</field>
@@ -687,7 +687,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname</label>
             </labels>
             <fields>
               <field>surname</field>
@@ -695,7 +695,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.service</label>
+              <label mode="any">label.casemanagement.document.service</label>
             </labels>
             <fields>
               <field>service</field>
@@ -705,7 +705,7 @@
       </widget>
       <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.case-management.document.document_date</label>
+          <label mode="any">label.casemanagement.document.document_date</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -749,7 +749,7 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.name</label>
+              <label mode="any">label.casemanagement.document.name</label>
             </labels>
             <fields>
               <field>name</field>
@@ -757,7 +757,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname</label>
             </labels>
             <fields>
               <field>surname</field>
@@ -765,7 +765,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.service</label>
+              <label mode="any">label.casemanagement.document.service</label>
             </labels>
             <fields>
               <field>service</field>
@@ -871,7 +871,7 @@
       </widget>
       <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.case-management.document.document_date</label>
+          <label mode="any">label.casemanagement.document.document_date</label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -900,7 +900,7 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.name</label>
+              <label mode="any">label.casemanagement.document.name</label>
             </labels>
             <fields>
               <field>name</field>
@@ -908,7 +908,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname</label>
             </labels>
             <fields>
               <field>surname</field>
@@ -916,7 +916,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.service</label>
+              <label mode="any">label.casemanagement.document.service</label>
             </labels>
             <fields>
               <field>service</field>
@@ -929,7 +929,7 @@
           <field>cmdoc:type</field>
         </fields>
         <labels>
-          <label mode="any">label.case-management.document.type</label>
+          <label mode="any">label.casemanagement.document.type</label>
         </labels>
         <translated>true</translated>
         <properties widgetMode="any">
@@ -981,7 +981,7 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.name</label>
+              <label mode="any">label.casemanagement.document.name</label>
             </labels>
             <fields>
               <field>name</field>
@@ -989,7 +989,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname</label>
             </labels>
             <fields>
               <field>surname</field>
@@ -997,7 +997,7 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.case-management.document.service</label>
+              <label mode="any">label.casemanagement.document.service</label>
             </labels>
             <fields>
               <field>service</field>
