@@ -20,8 +20,7 @@
 
   <extension target="org.nuxeo.ecm.webapp.pagination.ResultsProviderService"
     point="model">
-
     <resultsProvider name="byType" farm="queryModelActions" />
-
   </extension>
+
 </component>

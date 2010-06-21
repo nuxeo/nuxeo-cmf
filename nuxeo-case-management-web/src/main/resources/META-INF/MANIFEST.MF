@@ -7,7 +7,8 @@ Bundle-Vendor: Nuxeo
 Require-Bundle: org.nuxeo.cm.api,
   org.nuxeo.ecm.platform.ui,
   org.nuxeo.ecm.platform.audit.web,
-  org.nuxeo.ecm.relations.web
+  org.nuxeo.ecm.relations.web,
+  org.nuxeo.ecm.webapp.base
 Nuxeo-RequiredBy: org.nuxeo.ecm.war
 Nuxeo-Component: OSGI-INF/cm-layouts-contrib.xml,
   OSGI-INF/cm-ecm-types-contrib.xml,
