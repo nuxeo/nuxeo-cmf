@@ -44,8 +44,8 @@ public interface CaseDistributionService extends Serializable {
     /**
      * Returns the sent posts for given mailbox
      */
-    List<CaseLink> getSentCaseLinks(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit);
+    List<CaseLink> getSentCaseLinks(CoreSession coreSession, Mailbox mailbox,
+            long offset, long limit);
 
     /**
      * Returns the received posts for given mailbox
@@ -54,10 +54,20 @@ public interface CaseDistributionService extends Serializable {
             Mailbox mailbox, long offset, long limit);
 
     /**
+     *Returns all the case links for this kase in this mailbox.
+     *
+     * @param session
+     * @param mailbox if <code>null</code> returns the links of all mailboxes.
+     * @param kase
+     * @return
+     */
+    List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox, Case kase);
+
+    /**
      * Returns the draft posts for given mailbox
      */
-    List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit);
+    List<CaseLink> getDraftCaseLinks(CoreSession coreSession, Mailbox mailbox,
+            long offset, long limit);
 
     /**
      * Returns the draft post of an envelope in given mailbox. Returns null if
@@ -108,7 +118,7 @@ public interface CaseDistributionService extends Serializable {
 
     /**
      * Throw a core event.
-     * 
+     *
      * @param session The session use in the event context and to get the
      *            principal.
      * @param name the name of the event

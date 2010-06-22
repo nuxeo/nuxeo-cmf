@@ -195,6 +195,7 @@
       icon="/icons/case-management_distribute.gif" order="10">
       <category>SUBVIEW_UPPER_LIST</category>
       <filter-id>isNotCmInitialCase</filter-id>
+      <filter-id>canDistributeCase</filter-id>
     </action>
 
     <action id="addCaseItem"
@@ -385,6 +386,11 @@
       </rule>
     </filter>
 
+    <filter id="canDistributeCase">
+      <rule grant="true">
+        <condition>#{cmDistributionActions.canDistributeCase()}</condition>
+      </rule>
+    </filter>
   </extension>
 
 </component>

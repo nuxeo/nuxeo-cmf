@@ -120,4 +120,9 @@ public class CaseDistributionBean implements CaseDistributionService {
                 parentPath, emailDoc);
     }
 
+    public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
+            Case kase) {
+        return getCaseDistributionService().getCaseLinks(session, mailbox, kase);
+    }
+
 }

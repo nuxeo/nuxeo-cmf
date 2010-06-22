@@ -54,7 +54,6 @@ import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
-
 /**
  * Distribution actions bean.
  *
@@ -63,7 +62,8 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Name("cmDistributionActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementDistributionActionsBean extends CaseManagementContextBoundInstance {
+public class CaseManagementDistributionActionsBean extends
+        CaseManagementContextBoundInstance {
 
     public static final String DISTRIBUTION_ACTION_TABS_CATEGORY = "DISTRIBUTION_TABS";
 
@@ -119,16 +119,18 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
         DocumentModel envelopeDoc = null;
         if (distributionInfo != null) {
             if (!distributionInfo.hasParticipants()) {
-                facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                facesMessages.add(
+                        FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.distribution.noParticipants"));
+                                "feedback.casemanagement.distribution.noParticipants"));
                 return null;
             }
             CaseLinkMode mode = CaseLinkMode.valueOfString(distributionInfo.getMode());
             if (mode == null) {
-                facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                facesMessages.add(
+                        FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.distribution.invalidMode"));
+                                "feedback.casemanagement.distribution.invalidMode"));
                 return null;
             }
             Mailbox currentMailbox = getCurrentMailbox();
@@ -136,7 +138,7 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.distribution.invalidCurrentMailbox"));
+                                "feedback.casemanagement.distribution.invalidCurrentMailbox"));
                 return null;
             }
 
@@ -151,7 +153,8 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
                 // maybe to change.
                 DocumentModel parent = documentManager.getDocument(emailDoc.getParentRef());
                 CaseItem item = emailDoc.getAdapter(CaseItem.class);
-                item.createMailCase(documentManager, parent.getPathAsString(), null);
+                item.createMailCase(documentManager, parent.getPathAsString(),
+                        null);
                 // FIXME: Null value here
                 envelopeDoc = envelope.getDocument();
             }
@@ -159,7 +162,7 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.distribution.invalidCase"));
+                                "feedback.casemanagement.distribution.invalidCase"));
                 return null;
             }
             Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
@@ -178,7 +181,7 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
-                        "feedback.corresp.distribution.noFinalRecipients"));
+                                "feedback.corresp.distribution.noFinalRecipients"));
                 return null;
             }
             envelope.save(documentManager);
@@ -189,11 +192,18 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
             resetWizard();
             facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
-                    "feedback.casemanagement.distribution.done"));
+                            "feedback.casemanagement.distribution.done"));
         }
         // navigate to default view
         webActions.resetCurrentTab();
         return navigationContext.navigateToDocument(envelopeDoc);
+    }
+
+    public boolean canDistributeCase() throws ClientException {
+        Case kase = getCurrentCase();
+        List<CaseLink> links = caseDistributionService.getCaseLinks(
+                documentManager, null, kase);
+        return !links.isEmpty();
     }
 
     /**
@@ -216,8 +226,8 @@ public class CaseManagementDistributionActionsBean extends CaseManagementContext
     }
 
     @Override
-    protected void resetCaseCache(Case cachedEnvelope,
-            Case newEnvelope) throws ClientException {
+    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
+            throws ClientException {
         resetWizard();
     }
 

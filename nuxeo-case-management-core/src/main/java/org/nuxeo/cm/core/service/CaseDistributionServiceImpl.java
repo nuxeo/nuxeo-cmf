@@ -195,6 +195,18 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return getPosts(coreSession, offset, limit, query);
     }
 
+    public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
+            Case kase) {
+        String query = String.format(
+                "SELECT * FROM Document WHERE ecm:mixinType = 'CaseLink' and cslk:caseDocumentId = '%s'",
+                kase.getDocument().getId());
+        if (mailbox != null) {
+            query += String.format(" and ecm:parentId = '%s'",
+                    mailbox.getDocument().getId());
+        }
+        return getPosts(session, 0, 0, query);
+    }
+
     public List<CaseLink> getSentCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
@@ -266,8 +278,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 new ArrayList<Mailbox>());
     }
 
-    public CaseLink createDraftCaseLink(CoreSession session,
-            Mailbox mailbox, Case envelope) {
+    public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
+            Case envelope) {
         try {
 
             Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
@@ -294,8 +306,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
-    public CaseLink getDraftCaseLink(CoreSession coreSession,
-            Mailbox mailbox, String envelopeId) {
+    public CaseLink getDraftCaseLink(CoreSession coreSession, Mailbox mailbox,
+            String envelopeId) {
         if (mailbox == null) {
             return null;
         }
