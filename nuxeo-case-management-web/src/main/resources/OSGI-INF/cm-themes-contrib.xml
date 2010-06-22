@@ -23,9 +23,14 @@
       <template>classification/classification_tree_explorer.xhtml</template>
     </view>
 
-    <view name="Correspondence logo" template-engine="jsf-facelets">
+    <view name="Case Management logo" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>incl/logo_case_management.xhtml</template>
+    </view>
+    
+    <view name="Print and ZIP buttons" template-engine="jsf-facelets">
+      <format-type>widget</format-type>
+      <template>incl/print_zip_buttons.xhtml</template>
     </view>
  
   </extension>
@@ -49,6 +54,10 @@
         <default-theme>case-management/default</default-theme>
         <default-perspective>default</default-perspective>
       </negotiation>
+      
+      <view id="/user_dashboard.xhtml">
+        <theme>case-management/user_dashboard</theme>
+      </view>
 
     </application>
 
@@ -57,13 +66,13 @@
   <!-- Styles presets -->
   <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
 
-    <palette name="Correspondence borders"
+    <palette name="Case Management borders"
       src="themes/palettes/case-management-borders.properties" category="border" />
-    <palette name="Correspondence backgrounds"
+    <palette name="Case Management backgrounds"
       src="themes/palettes/case-management-backgrounds.properties" category="background" />
-    <palette name="Correspondence fonts" src="themes/palettes/case-management-fonts.properties"
+    <palette name="Case Management fonts" src="themes/palettes/case-management-fonts.properties"
       category="font" />
-    <palette name="Correspondence colors" src="themes/palettes/case-management-colors.properties"
+    <palette name="Case Management colors" src="themes/palettes/case-management-colors.properties"
       category="color" />
 
    </extension>

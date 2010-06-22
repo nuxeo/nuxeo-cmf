@@ -5,41 +5,40 @@
       <section>
         <cell>
           <!-- logo -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
         <cell>
           <!-- user services -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
         <cell>
           <!-- Include -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
       </section>
       <section>
         <cell>
           <!-- tree view -->
-          <fragment perspectives="default" type="generic fragment" />
+          <fragment perspectives="default" type="generic fragment"/>
           <!-- mailbox list -->
-          <fragment perspectives="default" type="generic fragment" />
+          <fragment perspectives="default" type="generic fragment"/>
           <!-- classification tree -->
-          <fragment perspectives="default" type="generic fragment" />
+          <fragment perspectives="default" type="generic fragment"/>
           <!-- clip board -->
-          <fragment perspectives="default" type="generic fragment" />
+          <fragment perspectives="default" type="generic fragment"/>
           <!-- calendar -->
-          <fragment perspectives="view_calendar" type="generic fragment" />
+          <fragment perspectives="view_calendar" type="generic fragment"/>
         </cell>
         <cell>
-          <!-- breadcrumbs -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- main area -->
-          <fragment type="region fragment" />
+          <fragment type="region fragment"/>
         </cell>
       </section>
       <section>
         <cell>
           <!-- copyrights -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
       </section>
     </page>
@@ -47,11 +46,11 @@
       <section>
         <cell>
           <!-- main area -->
-          <fragment type="region fragment" />
+          <fragment type="region fragment"/>
         </cell>
         <cell>
           <!-- Include -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
       </section>
     </page>
@@ -59,48 +58,47 @@
       <section>
         <cell>
           <!-- logo -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
         <cell>
           <!-- user services -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
         <cell>
           <!-- includes -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
       </section>
       <section>
         <cell>
-          <!-- breadcrumbs -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
       </section>
       <section>
         <cell>
           <!-- user tasks -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- user processes -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- user workspaces -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- user sites -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
         <cell>
           <!-- user documents -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- last documents -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- last published document -->
-          <fragment type="generic fragment" />
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
+          <fragment type="generic fragment"/>
         </cell>
       </section>
       <section>
         <cell>
           <!-- copyrights -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
         </cell>
       </section>
     </page>
@@ -108,29 +106,27 @@
       <section>
         <cell>
           <!-- includes -->
-          <fragment type="generic fragment" />
-          <!-- breadcrumbs -->
-          <fragment type="generic fragment" />
+          <fragment type="generic fragment"/>
           <!-- main area -->
-          <fragment type="region fragment" />
+          <fragment type="region fragment"/>
         </cell>
       </section>
     </page>
   </layout>
   <properties element="page[1]/section[2]/cell[2]/fragment[2]">
     <name>body</name>
-    <defaultBody />
-    <defaultSrc />
+    <defaultBody/>
+    <defaultSrc/>
   </properties>
   <properties element="page[2]/section[1]/cell[1]/fragment[1]">
     <name>body</name>
-    <defaultBody />
-    <defaultSrc />
+    <defaultBody/>
+    <defaultSrc/>
   </properties>
-  <properties element="page[4]/section[1]/cell[1]/fragment[3]">
+  <properties element="page[4]/section[1]/cell[1]/fragment[2]">
     <name>body</name>
-    <defaultBody />
-    <defaultSrc />
+    <defaultBody/>
+    <defaultSrc/>
   </properties>
   <formats>
     <layout element="page[1]">
@@ -144,8 +140,7 @@
     </layout>
     <layout element="page[1]/section[1]/cell[1]">
       <width>18%</width>
-      <text-align>center</text-align>
-      <padding>0px 0px 0px 5px</padding>
+      <padding>2px 0px 0px 0px</padding>
     </layout>
     <layout element="page[1]/section[1]/cell[2]">
       <width>82%</width>
@@ -180,7 +175,7 @@
     <layout element="page[2]/section[1]">
       <width>100%</width>
     </layout>
-    <layout element="page[2]/section[1]/cell[1]" />
+    <layout element="page[2]/section[1]/cell[1]"/>
     <layout element="page[2]/section[1]/cell[2]">
       <width>0%</width>
     </layout>
@@ -193,8 +188,7 @@
     </layout>
     <layout element="page[3]/section[1]/cell[1]">
       <width>18%</width>
-      <padding>0px 0px 0px 5px</padding>
-      <text-align>center</text-align>
+      <padding>2px 0px 0px 0px</padding>
     </layout>
     <layout element="page[3]/section[1]/cell[2]">
       <width>82%</width>
@@ -203,20 +197,16 @@
     <layout element="page[3]/section[1]/cell[3]">
       <width>0%</width>
     </layout>
-    <layout element="page[3]/section[2]">
-      <width>100%</width>
-    </layout>
-    <layout element="page[3]/section[2]/cell[1]" />
     <layout element="page[3]/section[3]">
       <width>100%</width>
     </layout>
     <layout element="page[3]/section[3]/cell[1]">
       <width>50%</width>
-      <padding>20px</padding>
+      <padding>5px 20px 20px 20px</padding>
     </layout>
     <layout element="page[3]/section[3]/cell[2]">
       <width>50%</width>
-      <padding>20px</padding>
+      <padding>5px 20px 20px 20px</padding>
     </layout>
     <layout element="page[3]/section[4]">
       <width>100%</width>
@@ -231,36 +221,56 @@
     <layout element="page[4]/section[1]">
       <width>100%</width>
     </layout>
-    <layout element="page[4]/section[1]/cell[1]" />
+    <layout element="page[4]/section[1]/cell[1]"/>
+    <layout element="page[3]/section[2]">
+      <width>100%</width>
+    </layout>
+    <layout element="page[3]/section[2]/cell[1]">
+      <width>100%</width>
+    </layout>
     <widget element="">
       <view>theme view</view>
-      <icon>${org.nuxeo.ecm.contextPath}/icons/favicon.png</icon>
+      <icon>/nuxeo/icons/favicon.png</icon>
       <charset>utf-8</charset>
     </widget>
-    <widget element="page[1]|page[2]|page[3]|page[4]">
+    <widget element="page[1]">
       <view>page frame</view>
     </widget>
-    <widget
-      element="page[1]/section[1]|page[1]/section[2]|page[1]/section[3]|page[2]/section[1]|page[3]/section[1]|page[3]/section[2]|page[3]/section[3]|page[3]/section[4]|page[4]/section[1]">
+    <widget element="page[1]/section[1]">
       <view>section frame</view>
     </widget>
-    <widget
-      element="page[1]/section[1]/cell[1]|page[1]/section[1]/cell[2]|page[1]/section[1]/cell[3]|page[1]/section[3]/cell[1]|page[2]/section[1]/cell[1]|page[3]/section[1]/cell[1]|page[3]/section[1]/cell[2]|page[3]/section[1]/cell[3]|page[3]/section[2]/cell[1]|page[3]/section[3]/cell[1]|page[3]/section[3]/cell[2]|page[3]/section[4]/cell[1]|page[4]/section[1]/cell[1]">
+    <widget element="page[1]/section[2]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[1]/section[3]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[1]/section[1]/cell[2]">
       <view>cell frame</view>
     </widget>
-    <widget
-      element="page[1]/section[1]/cell[2]/fragment[1]|page[3]/section[1]/cell[2]/fragment[1]">
-      <view>User services (Galaxy theme)</view>
+    <widget element="page[1]/section[1]/cell[3]">
+      <view>cell frame</view>
     </widget>
-    <widget
-      element="page[1]/section[1]/cell[3]/fragment[1]|page[3]/section[1]/cell[3]/fragment[1]">
-      <view>nuxeo5 includes</view>
+    <widget element="page[1]/section[3]/cell[1]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[1]/section[1]/cell[1]">
+      <view>cell frame</view>
     </widget>
     <widget element="page[1]/section[2]/cell[1]">
       <view>cell frame</view>
     </widget>
     <widget element="page[1]/section[2]/cell[2]">
       <view>cell frame</view>
+    </widget>
+    <widget element="page[1]/section[1]/cell[1]/fragment[1]">
+      <view>Case Management logo</view>
+    </widget>
+    <widget element="page[1]/section[1]/cell[2]/fragment[1]">
+      <view>User services (Galaxy theme)</view>
+    </widget>
+    <widget element="page[1]/section[1]/cell[3]/fragment[1]">
+      <view>nuxeo5 includes</view>
     </widget>
     <widget element="page[1]/section[2]/cell[1]/fragment[1]">
       <view>nuxeo5 tree explorer</view>
@@ -277,23 +287,67 @@
     <widget element="page[1]/section[2]/cell[1]/fragment[5]">
       <view>nuxeo5 calendar actions</view>
     </widget>
-    <widget element="page[1]/section[2]/cell[2]/fragment[1]">
-      <view>nuxeo5 breadcrumbs</view>
-    </widget>
-    <widget
-      element="page[1]/section[2]/cell[2]/fragment[2]|page[2]/section[1]/cell[1]/fragment[1]">
+    <widget element="page[1]/section[2]/cell[2]/fragment[2]">
       <view>facelet region</view>
     </widget>
-    <widget
-      element="page[1]/section[3]/cell[1]/fragment[1]|page[3]/section[4]/cell[1]/fragment[1]">
+    <widget element="page[1]/section[3]/cell[1]/fragment[1]">
       <view>Nuxeo DM footer (Galaxy Theme)</view>
+    </widget>
+    <!-- Page 2 -->
+    <widget element="page[2]">
+      <view>page frame</view>
+    </widget>
+    <widget element="page[2]/section[1]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[2]/section[1]/cell[1]">
+      <view>cell frame</view>
     </widget>
     <widget element="page[2]/section[1]/cell[2]/fragment[1]">
       <view>nuxeo5 includes</view>
     </widget>
-    <!-- Page 3 / Section 2 breadcrumb -->
-    <widget element="page[3]/section[2]/cell[1]/fragment[1]">
-      <view>nuxeo5 breadcrumbs</view>
+    <widget element="page[2]/section[1]/cell[1]/fragment[1]">
+      <view>facelet region</view>
+    </widget>
+    <!-- Page 3 -->
+    <widget element="page[3]">
+      <view>page frame</view>
+    </widget>
+    <widget element="page[3]/section[1]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[3]/section[3]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[3]/section[4]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[3]/section[1]/cell[2]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[1]/cell[3]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[3]/cell[1]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[3]/cell[2]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[4]/cell[1]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[1]/cell[1]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[1]/cell[1]/fragment[1]">
+      <view>Case Management logo</view>
+    </widget>
+    <widget element="page[3]/section[1]/cell[2]/fragment[1]">
+      <view>User services (Galaxy theme)</view>
+    </widget>
+    <widget element="page[3]/section[1]/cell[3]/fragment[1]">
+      <view>nuxeo5 includes</view>
     </widget>
     <widget element="page[3]/section[3]/cell[1]/fragment[1]">
       <view>nuxeo5 user tasks</view>
@@ -304,6 +358,9 @@
     <widget element="page[3]/section[3]/cell[1]/fragment[3]">
       <view>nuxeo5 user workspaces</view>
     </widget>
+    <widget element="page[3]/section[3]/cell[1]/fragment[4]">
+      <view>nuxeo5 user sites</view>
+    </widget>
     <widget element="page[3]/section[3]/cell[2]/fragment[1]">
       <view>nuxeo5 user documents</view>
     </widget>
@@ -313,33 +370,47 @@
     <widget element="page[3]/section[3]/cell[2]/fragment[3]">
       <view>nuxeo5 last published documents</view>
     </widget>
+    <widget element="page[3]/section[3]/cell[2]/fragment[4]">
+      <view>nuxeo5 user sections</view>
+    </widget>
+    <widget element="page[3]/section[4]/cell[1]/fragment[1]">
+      <view>Nuxeo DM footer (Galaxy Theme)</view>
+    </widget>
     <!-- Page 4 : print page -->
+    <widget element="page[4]">
+      <view>page frame</view>
+    </widget>
+    <widget element="page[4]/section[1]">
+      <view>section frame</view>
+    </widget>
+    <widget element="page[4]/section[1]/cell[1]">
+      <view>cell frame</view>
+    </widget>
     <widget element="page[4]/section[1]/cell[1]/fragment[1]">
       <view>nuxeo5 includes</view>
     </widget>
     <widget element="page[4]/section[1]/cell[1]/fragment[2]">
-      <view>nuxeo5 breadcrumbs</view>
-    </widget>
-    <widget element="page[4]/section[1]/cell[1]/fragment[3]">
       <view>facelet region</view>
     </widget>
-    <widget element="page[3]/section[3]/cell[2]/fragment[4]">
-      <view>nuxeo5 user sections</view>
+    <widget element="page[1]/section[2]/cell[2]/fragment[1]">
+      <view>Print and ZIP buttons</view>
     </widget>
-    <widget element="page[3]/section[3]/cell[1]/fragment[4]">
-      <view>nuxeo5 user sites</view>
+    <widget element="page[3]/section[2]">
+      <view>section frame</view>
     </widget>
-     <widget
-      element="page[1]/section[1]/cell[1]/fragment[1]|page[3]/section[1]/cell[1]/fragment[1]">
-      <view>Correspondence logo</view>
+    <widget element="page[3]/section[2]/cell[1]">
+      <view>cell frame</view>
+    </widget>
+    <widget element="page[3]/section[2]/cell[1]/fragment[1]">
+      <view>Print and ZIP buttons</view>
     </widget>
     <!-- buttons -->
     <style name="default buttons">
       <selector path="input.button">
-        <font preset="default (Correspondence fonts)" />
+        <font preset="default (Case Management fonts)"/>
         <color>#333333</color>
-        <border preset="buttons (Correspondence borders)" />
-        <background preset="buttons (Correspondence backgrounds)" />
+        <border preset="buttons (Case Management borders)"/>
+        <background preset="buttons (Case Management backgrounds)"/>
         <margin>5px 10px 10px 0px</margin>
         <padding>2px 5px 2px 5px</padding>
         <cursor>pointer</cursor>
@@ -348,67 +419,18 @@
         <color>#000000</color>
         <border-color>#92999e</border-color>
       </selector>
-      <selector
-        path="input.button[disabled=disabled], input.button[disabled=disabled]:hover">
+      <selector path="input.button[disabled=disabled], input.button[disabled=disabled]:hover">
         <color>#ccc</color>
-      </selector>
-    </style>
-    <style name="breadcrumbs style">
-      <selector path="">
-        <border-bottom preset="breadcrumb (Correspondence borders)" />
-        <background preset="breadcrumb (Correspondence backgrounds)" />
-        <padding>3px 7px</padding>
-      </selector>
-      <selector path="div">
-        <font preset="small (Correspondence fonts)" />
-        <margin>0</margin>
-        <line-height>1.25em</line-height>
-        <padding>0</padding>
-      </selector>
-      <selector path="a">
-        <color>#666666</color>
-        <text-decoration>none</text-decoration>
-      </selector>
-      <selector path="a:visited">
-        <color>#666666</color>
-      </selector>
-      <selector path="a:active">
-        <color>#666666</color>
-      </selector>
-      <selector path="a:hover">
-        <color>#666666</color>
-        <text-decoration>underline</text-decoration>
-      </selector>
-      <selector
-        path=".breadcrumbs a, .breadcrumbs a:link, .breadcrumbs a:visited">
-        <font-weight>normal</font-weight>
-        <text-decoration>none</text-decoration>
-      </selector>
-      <selector path=".breadcrumbs a:hover, .breadcrumbs a:active">
-        <font-weight>normal</font-weight>
-        <text-decoration>underline</text-decoration>
       </selector>
       <selector path=".printButton">
         <float>right</float>
-        <padding-right>1px</padding-right>
-      </selector>
-      <selector path=".printButton div a img">
-        <margin-left>5px</margin-left>
-      </selector>
-      <selector path=".printButton .liveEditCreateButtons">
-        <margin-right>5px</margin-right>
-        <border-right>1px solid #ccc</border-right>
-        <padding-right>8px</padding-right>
-      </selector>
-      <selector path=".breadcrumbs">
-        <font-size>9px</font-size>
-        <padding>5px 4px 0px 0px</padding>
-        <float>left</float>
+        <padding>5px 5px 0</padding>
+        <text-align>right</text-align>
       </selector>
     </style>
     <style inherit="default buttons" name="default tabs">
       <selector path=".tabsBar">
-        <border-bottom preset="tabsbar (Correspondence borders)" />
+        <border-bottom preset="tabsbar (Case Management borders)"/>
         <width>100%</width>
         <margin-top>5px</margin-top>
         <line-height>normal</line-height>
@@ -427,40 +449,39 @@
       </selector>
       <selector path=".tabsBar a, .tabsBar a:hover, .tabsBar a:visited">
         <color>#0066CC</color>
-        <border preset="tabisnotselected (Correspondence borders)" />
-        <background preset="white (Correspondence backgrounds)" />
+        <border preset="tabisnotselected (Case Management borders)"/>
+        <background preset="white (Case Management backgrounds)"/>
         <text-decoration>none</text-decoration>
         <font-weight>normal</font-weight>
         <display>block</display>
         <padding>3px 7px</padding>
         <float>left</float>
       </selector>
-      <selector
-        path=".tabsBar li.selected a, .tabsBar li.selected a:hover, .tabsBar li.selected a:visited">
+      <selector path=".tabsBar li.selected a, .tabsBar li.selected a:hover, .tabsBar li.selected a:visited">
         <color>#ffffff</color>
-        <border preset="tabiselected (Correspondence borders)" />
-        <background preset="tabiselected (Correspondence backgrounds)" />
+        <border preset="tabiselected (Case Management borders)"/>
+        <background preset="tabiselected (Case Management backgrounds)"/>
       </selector>
       <selector path=".tabsBar li a:hover">
         <color>#ffffff</color>
-        <background preset="tabiselected (Correspondence backgrounds)" />
+        <background preset="tabiselected (Case Management backgrounds)"/>
       </selector>
       <selector path=".subtabsBar">
-        <border-bottom preset="subtabsbar (Correspondence borders)"/>
-        <font preset="default (Correspondence fonts)"/>
+        <border-bottom preset="subtabsbar (Case Management borders)"/>
+        <font preset="default (Case Management fonts)"/>
       </selector>
       <selector path=".subtabsBar a, .subtabsBar a:hover, .subtabsBar a:visited">
-        <color preset="blue.link (Correspondence colors)" />
-        <border preset="subtabinotselected (Correspondence borders)"/>
+        <color preset="blue.link (Case Management colors)"/>
+        <border preset="subtabinotselected (Case Management borders)"/>
       </selector>
       <selector path=".subtabsBar li a:hover">
-        <color preset="gray.dark (Correspondence colors)" />
-        <background preset="subtabiselected (Correspondence backgrounds)"/>
+        <color preset="gray.dark (Case Management colors)"/>
+        <background preset="subtabiselected (Case Management backgrounds)"/>
       </selector>
       <selector path=".subtabsBar li.selected a, .subtabsBar li.selected a:hover, .subtabsBar li.selected a:visited">
-        <color preset="gray.dark (Correspondence colors)" />
-        <border preset="subtabiselected (Correspondence borders)"/>
-        <background preset="subtabiselected (Correspondence backgrounds)"/>
+        <color preset="gray.dark (Case Management colors)"/>
+        <border preset="subtabiselected (Case Management borders)"/>
+        <background preset="subtabiselected (Case Management backgrounds)"/>
       </selector>
     </style>
     <style inherit="default tabs" name="common style 1">
@@ -479,17 +500,13 @@
         <font-size>13px</font-size>
       </selector>
       <selector path=".directoryBack">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/arrow_left.gif) 3px 1px no-repeat
-        </background>
+        <background>url(/nuxeo/icons/arrow_left.gif) 3px 1px no-repeat</background>
         <padding>2px 2px 2px 20px</padding>
       </selector>
       <selector path=".errorMessage">
         <color>#000</color>
         <border>1px solid #666</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/warning.gif) 2px 3px no-repeat #FFCC33
-        </background>
+        <background>url(/nuxeo/icons/warning.gif) 2px 3px no-repeat #FFCC33</background>
         <width>480px</width>
         <margin>2px 0 2px 0</margin>
         <padding>3px 3px 3px 23px</padding>
@@ -502,9 +519,7 @@
       <selector path=".infoMessage">
         <color>#003399</color>
         <border>1px solid #0066cc</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/tip.gif) 2px 3px no-repeat #f2f7fc
-        </background>
+        <background>url(/nuxeo/icons/tip.gif) 2px 3px no-repeat #f2f7fc</background>
         <margin-bottom>5px</margin-bottom>
         <padding>5px 5px 5px 23px</padding>
         <display>block</display>
@@ -555,15 +570,13 @@
         <vertical-align>top</vertical-align>
         <text-align>center</text-align>
       </selector>
-      <selector
-        path="table.dataOutput thead th a, table.dataOutput thead th a:hover, table.dataOutput thead th a:active, table.dataOutput thead th a:visited">
+      <selector path="table.dataOutput thead th a, table.dataOutput thead th a:hover, table.dataOutput thead th a:active, table.dataOutput thead th a:visited">
         <color>#606161</color>
       </selector>
       <selector path=".boldColumn">
         <font-weight>bold !important</font-weight>
       </selector>
-      <selector
-        path=".facesStatusMessage ul, .infoFeedback ul, .warningFeedback ul, .errorFeedback ul">
+      <selector path=".facesStatusMessage ul, .infoFeedback ul, .warningFeedback ul, .errorFeedback ul">
         <list-style-type>none</list-style-type>
         <width>200px</width>
         <padding>10px</padding>
@@ -573,9 +586,7 @@
         <background-color>#fff</background-color>
       </selector>
       <selector path=".warningMessage">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/warning.gif) 2px 3px no-repeat #FFCC33
-        </background>
+        <background>url(/nuxeo/icons/warning.gif) 2px 3px no-repeat #FFCC33</background>
         <width>500px</width>
         <margin>2px 0 2px 0</margin>
         <border>1px solid #666</border>
@@ -602,7 +613,7 @@
         <background-color>#ddeeff</background-color>
       </selector>
       <selector path="a:visited">
-        <color preset="link.visited (Nuxeo psd colors)" />
+        <color preset="link.visited (Case Management colors)"/>
       </selector>
       <selector path=".dataInput textarea, .dataInput .dataInputText">
         <width>500px</width>
@@ -621,8 +632,8 @@
         <padding>10px !important</padding>
       </selector>
       <selector path=".dataList td">
-        <border-bottom preset="tablelines (Correspondence borders)" />
-        <border-top preset="tablelines (Correspondence borders)" />
+        <border-bottom preset="tablelines (Case Management borders)"/>
+        <border-top preset="tablelines (Case Management borders)"/>
         <padding>5px 3px</padding>
       </selector>
       <selector path=".dataOutput td table td">
@@ -636,25 +647,31 @@
         <float>left</float>
       </selector>
       <selector path=".modeButton a">
-        <background-color>#EEEFF0</background-color>
-        <border>1px solid #CCC</border>
-        <padding>4px 5px</padding>
         <color>#333</color>
+        <border>1px solid #CCC</border>
+        <background-color>#EEEFF0</background-color>
+        <padding>4px 5px</padding>
         <font-size>9px</font-size>
         <float>right</float>
       </selector>
       <selector path=".dataInput">
         <margin-top>5px</margin-top>
       </selector>
+      <selector path=".classificationView">
+        <width>100%</width>
+      </selector>
+      <selector path=".classificationView .labelColumn">
+        <text-align>left</text-align>
+      </selector>
       <selector path="div">
-        <font preset="default (Correspondence fonts)" />
+        <font preset="default (Case Management fonts)"/>
         <margin>0</margin>
         <line-height>1.25em</line-height>
         <padding>0</padding>
       </selector>
       <selector path=".listingLayoutSelector">
-        <float>right</float>
         <margin>11px 0 10px</margin>
+        <float>right</float>
       </selector>
       <!-- rich faces tree -->
       <selector path=".dr-tree-h-ic-div">
@@ -686,9 +703,9 @@
         <margin-top>0px</margin-top>
       </selector>
       <selector path=".dataList thead th">
-        <border-bottom preset="tablelines (Correspondence borders)" />
+        <border-bottom preset="tablelines (Case Management borders)"/>
         <color>#606161</color>
-        <background preset="tablethead (Correspondence backgrounds)" />
+        <background preset="tablethead (Case Management backgrounds)"/>
         <padding>5px 3px</padding>
         <text-align>left</text-align>
       </selector>
@@ -724,8 +741,7 @@
       <selector path=".dataInput .button">
         <margin>0 10px 0 0</margin>
       </selector>
-      <selector
-        path=".wizardFrame .templatePreview .templatePreviewDescription">
+      <selector path=".wizardFrame .templatePreview .templatePreviewDescription">
         <font-style>italic</font-style>
       </selector>
       <selector path=".pageNavigationControls">
@@ -739,8 +755,7 @@
         <border-collapse>collapse</border-collapse>
         <margin>0</margin>
       </selector>
-      <selector
-        path=".dataInput .fieldColumn table.mceEditor .mceToolbarBottom">
+      <selector path=".dataInput .fieldColumn table.mceEditor .mceToolbarBottom">
         <background-color>#ddeeff</background-color>
       </selector>
       <selector path=".wizardFrame .wizardButtonBar">
@@ -754,14 +769,14 @@
         <width>40px</width>
       </selector>
       <selector path="a, a:link">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:active">
-        <color preset="link.active (Nuxeo psd colors)" />
+        <color preset="link.active (Case Management colors)"/>
       </selector>
       <selector path="a:hover">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>underline</text-decoration>
       </selector>
       <selector path="table">
@@ -792,16 +807,15 @@
         <padding>20px</padding>
       </selector>
       <selector path=".pictureBookItemTitle">
-        <font preset="small (Correspondence fonts)" />
+        <font preset="small (Case Management fonts)"/>
         <background-color>#2A90F6</background-color>
         <padding>5px 0</padding>
       </selector>
-      <selector
-        path=".pictureBookItemTitle a, .pictureBookItemTitle a:hover, .pictureBookItemTitle a:visited">
+      <selector path=".pictureBookItemTitle a, .pictureBookItemTitle a:hover, .pictureBookItemTitle a:visited">
         <color>#001986</color>
       </selector>
       <selector path=".slideshowContent">
-        <padding>10px 0px 5px 0px</padding>
+        <padding>10px 0px 5px 50px</padding>
       </selector>
       <selector path=".slideshowContent h3">
         <padding>8px 0px 5px 70px</padding>
@@ -814,59 +828,45 @@
         <padding>0px</padding>
       </selector>
       <selector path=".slideShowControl input.button[disabled=disabled]">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/img/button_disabled.gif) 0 0 repeat-x #ebeff4
-        </background>
+        <background>url(/nuxeo/img/button_disabled.gif) 0 0 repeat-x #ebeff4</background>
         <border-color>#ccc #999 #999 #ccc</border-color>
         <cursor>default</cursor>
       </selector>
       <selector path=".slideShowControl .indexPicture">
         <margin>0px 3px 4px 0px</margin>
       </selector>
-      <selector path=".slideshowContent">
-        <padding>10px 0px 5px 50px</padding>
-      </selector>
-      <selector path=".slideshowContent h3">
-        <padding>8px 0px 5px 70px</padding>
-      </selector>
       <selector path=".rightsAdd">
         <margin>10px 0 10px 0</margin>
       </selector>
       <selector path=".foldableBox">
-        <border preset="tabisnotselected (Correspondence borders)" />
-        <background preset="tabiselected (Correspondence backgrounds)" />
+        <border preset="tabisnotselected (Case Management borders)"/>
+        <background preset="tabiselected (Case Management backgrounds)"/>
         <margin-bottom>20px</margin-bottom>
       </selector>
       <selector path=".foldableBox h3">
-        <border-bottom preset="tabiselected (Correspondence borders)" />
-        <color preset="white (Nuxeo psd colors)" />
+        <border-bottom preset="tabiselected (Case Management borders)"/>
+        <color preset="white (Case Management colors)"/>
         <padding>3px 3px 3px 18px</padding>
         <font-size>11px</font-size>
       </selector>
       <selector path=".foldableBox h3.folded">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/arrow_folded.gif) top left no-repeat
-        </background>
+        <background>url(/nuxeo/icons/arrow_folded.gif) top left no-repeat</background>
       </selector>
-      <selector
-        path=".foldableBox h3 a:link, .foldableBox h3 a:visited, .foldableBox h3 a:hover, .foldableBox h3 a:visited:hover">
-        <color preset="white (Nuxeo psd colors)" />
+      <selector path=".foldableBox h3 a:link, .foldableBox h3 a:visited, .foldableBox h3 a:hover, .foldableBox h3 a:visited:hover">
+        <color preset="white (Case Management colors)"/>
       </selector>
       <selector path=".foldableBox h3.unfolded">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/arrow_unfolded.gif) top left no-repeat
-        </background>
+        <background>url(/nuxeo/icons/arrow_unfolded.gif) top left no-repeat</background>
       </selector>
       <selector path=".foldableBox h3 a">
-        <color preset="white (Nuxeo psd colors)" />
+        <color preset="white (Case Management colors)"/>
         <display>block</display>
       </selector>
       <selector path=".foldableBox .boxBody">
         <background>#ffffff</background>
         <padding>10px</padding>
       </selector>
-      <selector
-        path=".relationCreateFieldColumn, .fieldColumn, .workflowFieldColumn">
+      <selector path=".relationCreateFieldColumn, .fieldColumn, .workflowFieldColumn">
         <vertical-align>top</vertical-align>
       </selector>
       <selector path=".commentQuote">
@@ -879,9 +879,7 @@
         <font>bold 11px Verdana, sans-serif</font>
         <color>#000</color>
         <border>2px solid #666</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/warning.gif) 4px 5px no-repeat #FFCC33
-        </background>
+        <background>url(/nuxeo/icons/warning.gif) 4px 5px no-repeat #FFCC33</background>
         <padding>7px 7px 7px 24px</padding>
       </selector>
       <selector path=".vocabularyEntryContent .currentDocumentInformation">
@@ -901,9 +899,7 @@
         <font>bold 11px Verdana, sans-serif</font>
         <color>#000</color>
         <border>2px solid #666</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/warning.gif) 4px 5px no-repeat #FFCC33
-        </background>
+        <background>url(/nuxeo/icons/warning.gif) 4px 5px no-repeat #FFCC33</background>
         <padding>7px 7px 7px 24px</padding>
       </selector>
       <selector path=".wizardFrame .templatePreview img">
@@ -914,15 +910,14 @@
         <border>0px solid #FFF</border>
         <padding>7px 4px</padding>
       </selector>
-      <selector
-        path=".dataInput textarea, .dataInput .dataInputText, .dataInput .dataInputTextNoSize">
+      <selector path=".dataInput textarea, .dataInput .dataInputText, .dataInput .dataInputTextNoSize">
         <font>normal 11px Verdana, sans-serif</font>
         <border>1px normal #666</border>
         <vertical-align>top</vertical-align>
         <padding>4px</padding>
       </selector>
       <selector path="h4, h5, h6">
-        <font preset="title4+ (Correspondence fonts)" />
+        <font preset="title4+ (Case Management fonts)"/>
       </selector>
       <selector path=".relationCommentList">
         <background>transparent</background>
@@ -931,9 +926,7 @@
         <font>bold 11px Verdana, sans-serif</font>
         <color>#003399</color>
         <border>2px solid #0066cc</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/info.gif) 4px 5px no-repeat #f2f7fc
-        </background>
+        <background>url(/nuxeo/icons/info.gif) 4px 5px no-repeat #f2f7fc</background>
         <padding>7px 7px 7px 24px</padding>
       </selector>
       <selector path=".pageNavigationControls input">
@@ -944,7 +937,7 @@
       </selector>
       <selector path=".commentAuthor">
         <color>#666</color>
-        <background>url(${org.nuxeo.ecm.contextPath}/icons/comment.gif) no-repeat 4px 4px</background>
+        <background>url(/nuxeo/icons/comment.gif) no-repeat 4px 4px</background>
         <font-weight>bold</font-weight>
         <padding>5px 3px 3px 24px</padding>
       </selector>
@@ -962,9 +955,9 @@
         <border-width>1px</border-width>
       </selector>
       <selector path="table.dataOutput thead th">
-        <border-bottom preset="tablelines (Correspondence borders)" />
+        <border-bottom preset="tablelines (Case Management borders)"/>
         <color>#606161</color>
-        <background preset="tablethead (Correspondence backgrounds)" />
+        <background preset="tablethead (Case Management backgrounds)"/>
         <padding>5px 3px</padding>
         <text-align>left</text-align>
       </selector>
@@ -992,6 +985,7 @@
       </selector>
       <selector path=".dataOutput2Columns td">
         <vertical-align>top</vertical-align>
+        <padding>5px 3px</padding>
       </selector>
       <selector path=".selectDocumentType td a img">
         <margin-right>4px</margin-right>
@@ -1009,16 +1003,13 @@
         <margin-right>4px</margin-right>
         <vertical-align>top</vertical-align>
       </selector>
-      <selector
-        path=".relationCreateFieldColumn table, .fieldColumn table, .workflowFieldColumn table">
+      <selector path=".relationCreateFieldColumn table, .fieldColumn table, .workflowFieldColumn table">
         <border>0px none #fff</border>
         <vertical-align>top</vertical-align>
         <margin>0 0 0 0</margin>
       </selector>
       <selector path=".required">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/required.gif) top right no-repeat
-        </background>
+        <background>url(/nuxeo/icons/required.gif) top right no-repeat</background>
         <padding-right>8px</padding-right>
       </selector>
       <selector path=".archiveTabContent .dataInput">
@@ -1034,17 +1025,9 @@
         <border-width>1px</border-width>
       </selector>
       <selector path=".dataOutput td">
-        <border-bottom preset="tablelines (Correspondence borders)" />
-        <border-top preset="tablelines (Correspondence borders)" />
+        <border-bottom preset="tablelines (Case Management borders)"/>
+        <border-top preset="tablelines (Case Management borders)"/>
         <padding>5px 3px</padding>
-      </selector>
-      <selector path=".dataOutput2Columns td">
-        <vertical-align>top</vertical-align>
-        <padding>5px 3px</padding>
-      </selector>
-      <selector path=".selectDocumentType td a img">
-        <margin-right>4px</margin-right>
-        <vertical-align>top</vertical-align>
       </selector>
       <selector path=".relationObjectColumn">
         <width>100px</width>
@@ -1061,8 +1044,7 @@
       <selector path=".smallButtonsGadget">
         <margin>0 0 5px 100px</margin>
       </selector>
-      <selector
-        path=".relationCreateLabelColumn, .labelColumn, .workflowLabelColumn">
+      <selector path=".relationCreateLabelColumn, .labelColumn, .workflowLabelColumn">
         <text-align>right</text-align>
       </selector>
       <selector path=".workflowLabelColumn">
@@ -1070,7 +1052,7 @@
       </selector>
       <selector path="h2">
         <color>#4a4a4a</color>
-        <font preset="title 2 (Correspondence fonts)" />
+        <font preset="title 2 (Case Management fonts)"/>
         <padding>0.5em 1em 0.5em 0</padding>
       </selector>
       <selector path=".dataInput select">
@@ -1078,8 +1060,7 @@
         <vertical-align>top</vertical-align>
         <padding>2px 1px 2px 1px</padding>
       </selector>
-      <selector
-        path=".dataInput .fieldColumn table.mceEditor .mceEditorIframe">
+      <selector path=".dataInput .fieldColumn table.mceEditor .mceEditorIframe">
         <background-color>#fff</background-color>
         <border-color>#333 #999 #999 #333</border-color>
         <padding>5px</padding>
@@ -1105,11 +1086,11 @@
         <display>none</display>
       </selector>
       <selector path=".action_bar a">
-        <background preset="buttons (Correspondence backgrounds)" />
-        <font preset="default (Correspondence fonts)" />
+        <background preset="buttons (Case Management backgrounds)"/>
+        <font preset="default (Case Management fonts)"/>
         <float>left</float>
         <text-decoration>none</text-decoration>
-        <border preset="buttons (Correspondence borders)" />
+        <border preset="buttons (Case Management borders)"/>
         <color>#333333</color>
         <padding>4px 7px</padding>
         <margin-right>10px</margin-right>
@@ -1133,9 +1114,7 @@
         <padding>5px</padding>
       </selector>
       <selector path=".rightsAddManager">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/img/rightsadd_bar.gif) no-repeat center
-        </background>
+        <background>url(/nuxeo/img/rightsadd_bar.gif) no-repeat center</background>
         <width>100%</width>
         <margin>3px 0 0 0</margin>
       </selector>
@@ -1159,7 +1138,7 @@
       </selector>
       <selector path="h1">
         <color>#4a4a4a</color>
-        <font preset="title1 (Correspondence fonts)" />
+        <font preset="title1 (Case Management fonts)"/>
         <overflow>auto</overflow>
       </selector>
       <selector path=".dataRowEven">
@@ -1192,15 +1171,13 @@
       </selector>
       <selector path="h3">
         <color>#4a4a4a</color>
-        <font preset="title3 (Correspondence fonts)" />
+        <font preset="title3 (Case Management fonts)"/>
         <margin>0</margin>
         <padding>13px 0px 10px 0px</padding>
       </selector>
       <selector path=".directoryFilter, .searchField">
         <border>1px normal #666</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/search.gif) 2px 2px no-repeat #FFF
-        </background>
+        <background>url(/nuxeo/icons/search.gif) 2px 2px no-repeat #FFF</background>
         <margin>0 5px 10px 0</margin>
         <padding>3px 3px 3px 20px</padding>
         <font-size>11px</font-size>
@@ -1211,7 +1188,7 @@
         <padding>2px 1px 2px 1px</padding>
       </selector>
       <selector path=".dataRowOdd">
-        <background preset="tableevenlines (Correspondence backgrounds)" />
+        <background preset="tableevenlines (Case Management backgrounds)"/>
       </selector>
       <selector path="table.dataOutput th a img">
         <vertical-align>bottom</vertical-align>
@@ -1223,15 +1200,11 @@
       </selector>
       <!-- Style for Resume Tab -->
       <selector path="h3.summaryTitle">
-        <border-bottom preset="summary (Galaxy borders)" />
-        <color preset="gray.dark (Galaxy colors)" />
+        <border-bottom preset="summary (Galaxy borders)"/>
+        <color preset="gray.dark (Galaxy colors)"/>
         <font preset="title3 (Galaxy fonts)"/>
         <margin>0px 0px 10px 0px</margin>
         <padding>17px 0px 3px 0px</padding>
-      </selector>
-      <selector path=".description_block">
-      </selector>
-      <selector path=".description_block h3.summaryTitle">
       </selector>
       <selector path=".dublincore_block table.floatingLeftTable">
         <margin-right>100px</margin-right>
@@ -1261,21 +1234,19 @@
         <padding>0px 5px</padding>
       </selector>
       <selector path=".note_content_block">
-        <padding>15px</padding>
         <border>1px solid #D7D7D7</border>
         <margin-top>20px</margin-top>
-      </selector>
-      <selector path=".relation_block">
+        <padding>15px</padding>
       </selector>
       <selector path=".lockFile_block, .restoreFile_block">
         <padding>0px 0px 10px</padding>
       </selector>
       <selector path=".summary_locked">
-        <color preset="red (Galaxy colors)" />
+        <color preset="red (Galaxy colors)"/>
         <font-weight>bold</font-weight>
       </selector>
       <selector path=".summary_unlocked">
-        <color preset="green (Galaxy colors)" />
+        <color preset="green (Galaxy colors)"/>
         <font-weight>bold</font-weight>
       </selector>
       <selector path=".lockDetail, .DetailList">
@@ -1287,8 +1258,8 @@
       </selector>
       <selector path=".actions_block">
         <border>1px solid #DEDEDE</border>
-        <padding>10px 7px 3px</padding>
         <margin>10px 0</margin>
+        <padding>10px 7px 3px</padding>
       </selector>
       <selector path=".comments_block .commentBlock">
         <border>none</border>
@@ -1313,13 +1284,13 @@
         <border>1px solid #aaa</border>
       </selector>
       <selector path=".summary_div_0">
-        <float>left</float>
         <width>62%</width>
+        <float>left</float>
       </selector>
       <selector path=".summary_div_1">
-        <float>right</float>
         <width>33%</width>
         <padding>10px 0</padding>
+        <float>right</float>
       </selector>
       <selector path=".summary_div_1 h3.summaryTitle">
         <color>#848484</color>
@@ -1340,8 +1311,7 @@
       <selector path="input">
         <display>none</display>
       </selector>
-      <selector
-        path=".dataOutput .iconColumn img, .dataInput .iconColumn img, .dataList .iconColumn img">
+      <selector path=".dataOutput .iconColumn img, .dataInput .iconColumn img, .dataList .iconColumn img">
         <display>block</display>
       </selector>
       <selector path=".fieldColumn">
@@ -1372,8 +1342,8 @@
         <display>none</display>
       </selector>
       <selector path=".dataOutput td, .dataList td">
-        <border-bottom preset="tablelines (Correspondence borders)" />
-        <border-top preset="tablelines (Correspondence borders)" />
+        <border-bottom preset="tablelines (Case Management borders)"/>
+        <border-top preset="tablelines (Case Management borders)"/>
         <padding>5px 3px</padding>
       </selector>
       <selector path=".dataOutput2Columns td">
@@ -1392,42 +1362,36 @@
         <display>none</display>
       </selector>
     </style>
-    <!-- commmon to both fragments -->
-    <style
-      element="page[4]/section[1]/cell[1]/fragment[2]|page[4]/section[1]/cell[1]/fragment[3]"
-      inherit="common style 2" />
     <!-- General -->
-    <style element="page[1]|page[2]|page[3]">
+    <style element="page[1]">
       <selector path="img" view="page frame">
         <border>0</border>
       </selector>
     </style>
     <!-- Banner -->
-    <style element="page[1]/section[1]|page[3]/section[1]">
+    <style element="page[1]/section[1]">
       <selector path="" view="section frame">
-        <border-bottom preset="topbar (Correspondence borders)" />
-        <background preset="topbar (Correspondence backgrounds)" />
+        <border-bottom preset="topbar (Case Management borders)"/>
+        <background preset="topbar (Case Management backgrounds)"/>
       </selector>
     </style>
     <!-- Logo -->
     <style element="page[1]/section[1]/cell[1]/fragment[1]">
-      <selector path="form" view="Correspondence logo">
+      <selector path="form" view="Case Management logo">
         <margin>0</margin>
         <padding>0</padding>
       </selector>
     </style>
     <style element="page[3]/section[1]/cell[1]/fragment[1]">
-      <selector path="form" view="Correspondence logo">
+      <selector path="form" view="Case Management logo">
         <margin>0</margin>
         <padding>0</padding>
       </selector>
     </style>
     <!-- user services -->
-    <style
-      element="page[1]/section[1]/cell[2]/fragment[1]|page[3]/section[1]/cell[2]/fragment[1]"
-      inherit="default buttons">
+    <style element="page[1]/section[1]/cell[2]/fragment[1]" inherit="default buttons">
       <selector path="div" view="User services (Galaxy theme)">
-        <font preset="small (Correspondence fonts)" />
+        <font preset="small (Case Management fonts)"/>
         <color>#cecece</color>
         <margin>0</margin>
         <padding>2px 2px 0px 0px</padding>
@@ -1439,25 +1403,20 @@
       <selector path=".userActions" view="User services (Galaxy theme)">
         <padding-top>11px</padding-top>
       </selector>
-      <selector path=".directoryFilter, .searchField"
-        view="User services (Galaxy theme)">
+      <selector path=".directoryFilter, .searchField" view="User services (Galaxy theme)">
         <border>1px normal #666</border>
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/search.gif) 2px 2px no-repeat #FFF
-        </background>
+        <background>url(/nuxeo/icons/search.gif) 2px 2px no-repeat #FFF</background>
         <margin>0 5px 10px 0</margin>
         <padding>3px 3px 3px 20px</padding>
         <font-size>11px</font-size>
       </selector>
-      <selector path="a, a:link, a:visited"
-        view="User services (Galaxy theme)">
+      <selector path="a, a:link, a:visited" view="User services (Galaxy theme)">
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:hover, a:active" view="User services (Galaxy theme)">
         <text-decoration>underline</text-decoration>
       </selector>
-      <selector path="a, a:link, a:visited, a:hover, a:active"
-        view="User services (Galaxy theme)">
+      <selector path="a, a:link, a:visited, a:hover, a:active" view="User services (Galaxy theme)">
         <color>#ffffff</color>
       </selector>
       <selector path="img" view="User services (Galaxy theme)">
@@ -1465,14 +1424,12 @@
         <margin-right>2px</margin-right>
         <vertical-align>middle</vertical-align>
       </selector>
-      <selector path=".advancedSearchLink"
-        view="User services (Galaxy theme)">
+      <selector path=".advancedSearchLink" view="User services (Galaxy theme)">
         <margin>0 2px 0 0</margin>
         <padding>0</padding>
         <line-height>1%</line-height>
       </selector>
-      <selector path=".userServices .button"
-        view="User services (Galaxy theme)">
+      <selector path=".userServices .button" view="User services (Galaxy theme)">
         <margin-right>4px</margin-right>
       </selector>
       <selector path="form" view="User services (Galaxy theme)">
@@ -1483,33 +1440,31 @@
     <!-- Left side -->
     <style element="page[1]/section[2]">
       <selector path="" view="section frame">
-        <border-top preset="whitethin (Correspondence borders)" />
+        <border-top preset="whitethin (Case Management borders)"/>
       </selector>
     </style>
     <style element="page[1]/section[2]/cell[1]">
       <selector path="" view="cell frame">
-        <border-right preset="leftcolumn (Correspondence borders)" />
+        <border-right preset="leftcolumn (Case Management borders)"/>
       </selector>
     </style>
-    <style element="page[1]/section[2]/cell[1]/fragment[1]"
-      inherit="common style 1">
-      <selector path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset"
-        view="nuxeo5 tree explorer">
+    <style element="page[1]/section[2]/cell[1]/fragment[1]" inherit="common style 1">
+      <selector
+        path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset" view="nuxeo5 tree explorer">
         <margin>0</margin>
         <padding>0</padding>
       </selector>
-      <selector path=".treeLink a, .treeLink a:link, .treeLink a:visited"
-        view="nuxeo5 tree explorer">
+      <selector
+        path=".treeLink a, .treeLink a:link, .treeLink a:visited" view="nuxeo5 tree explorer">
         <font-weight>normal</font-weight>
         <text-decoration>none</text-decoration>
       </selector>
-      <selector path=".treeLink a:hover, .treeLink a:active"
-        view="nuxeo5 tree explorer">
+      <selector path=".treeLink a:hover, .treeLink a:active" view="nuxeo5 tree explorer">
         <font-weight>normal</font-weight>
         <text-decoration>underline</text-decoration>
       </selector>
       <selector path="" view="nuxeo5 tree explorer">
-        <font preset="default (Correspondence fonts)" />
+        <font preset="default (Case Management fonts)"/>
         <margin>0</margin>
         <line-height>1.25em</line-height>
         <padding>5px 0</padding>
@@ -1519,13 +1474,13 @@
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:visited" view="nuxeo5 tree explorer">
-        <color preset="link.visited (Nuxeo psd colors)" />
+        <color preset="link.visited (Case Management colors)"/>
       </selector>
       <selector path="a:active" view="nuxeo5 tree explorer">
         <color>#112b8c</color>
       </selector>
       <selector path="a:hover" view="nuxeo5 tree explorer">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>underline</text-decoration>
       </selector>
       <selector path=".dropInto" view="nuxeo5 tree explorer">
@@ -1550,8 +1505,7 @@
         <margin-bottom>2px</margin-bottom>
         <padding>2px</padding>
       </selector>
-      <selector path=".cell img, .clipboardFunction img"
-        view="nuxeo5 tree explorer">
+      <selector path=".cell img, .clipboardFunction img" view="nuxeo5 tree explorer">
         <vertical-align>middle</vertical-align>
       </selector>
       <selector path=".cell .iconImage" view="nuxeo5 tree explorer">
@@ -1581,7 +1535,7 @@
         <padding>10px 0px</padding>
       </selector>
       <selector path="div" view="nuxeo5 tree explorer">
-        <font preset="default (Correspondence fonts)" />
+        <font preset="default (Case Management fonts)"/>
       </selector>
       <selector path="td.dr-tree-h-text" view="nuxeo5 tree explorer">
         <white-space>wrap</white-space>
@@ -1610,59 +1564,58 @@
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:visited" view="mailboxes list">
-        <color preset="link.visited (Nuxeo psd colors)" />
+        <color preset="link.visited (Case Management colors)"/>
       </selector>
       <selector path="a:active" view="mailboxes list">
         <color>#112b8c</color>
       </selector>
       <selector path="a:hover" view="mailboxes list">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>underline</text-decoration>
       </selector>
-      <selector path="h4">
-        <font>normal 13px "Lucida Grande", Verdana, sans-serif</font>
+      <selector path="h4" view="mailboxes list">
         <border-bottom>1px dotted #ccc</border-bottom>
-        <padding>2px 5px</padding>
+        <font>normal 13px "Lucida Grande", Verdana, sans-serif</font>
         <margin>20px 0px 8px</margin>
+        <padding>2px 5px</padding>
       </selector>
     </style>
     <style element="page[1]/section[2]/cell[1]/fragment[3]" inherit="common style 1">
-      <selector path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset" view="classification tree">
+      <selector
+        path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset" view="classification tree">
         <margin>0</margin>
         <padding>0</padding>
       </selector>
-      <selector path="h4">
-        <font>normal 13px "Lucida Grande", Verdana, sans-serif</font>
+      <selector path="h4" view="classification tree">
         <border-bottom>1px dotted #ccc</border-bottom>
-        <padding>2px 5px</padding>
+        <font>normal 13px "Lucida Grande", Verdana, sans-serif</font>
         <margin>20px 0px 8px</margin>
+        <padding>2px 5px</padding>
       </selector>
     </style>
     <style element="page[1]/section[2]/cell[1]/fragment[4]" inherit="default tabs">
       <selector path="div" view="nuxeo5 clip board">
-        <font preset="small (Correspondence fonts)" />
+        <font preset="small (Case Management fonts)"/>
       </selector>
       <selector path="a" view="nuxeo5 clip board">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:visited" view="nuxeo5 clip board">
-        <color preset="link.visited (Nuxeo psd colors)" />
+        <color preset="link.visited (Case Management colors)"/>
       </selector>
       <selector path="a:active" view="nuxeo5 clip board">
-        <color preset="link.active (Nuxeo psd colors)" />
+        <color preset="link.active (Case Management colors)"/>
       </selector>
       <selector path="a:hover" view="nuxeo5 clip board">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>underline</text-decoration>
       </selector>
       <selector path=".dropInto" view="nuxeo5 clip board">
         <background-color>#adf</background-color>
       </selector>
       <selector path=".dropIntoClipboardCopy" view="nuxeo5 clip board">
-        <background>
-          url(${org.nuxeo.ecm.contextPath}/icons/action_clipboard_copy.gif) no-repeat 98% 3% #adf
-        </background>
+        <background>url(/nuxeo/icons/action_clipboard_copy.gif) no-repeat 98% 3% #adf</background>
       </selector>
       <selector path="#clipboardCopy" view="nuxeo5 clip board">
         <padding>3px</padding>
@@ -1674,8 +1627,7 @@
         <margin-bottom>2px</margin-bottom>
         <padding>2px</padding>
       </selector>
-      <selector path=".cell img, .clipboardFunction img"
-        view="nuxeo5 clip board">
+      <selector path=".cell img, .clipboardFunction img" view="nuxeo5 clip board">
         <vertical-align>middle</vertical-align>
       </selector>
       <selector path=".cell .iconImage" view="nuxeo5 clip board">
@@ -1706,57 +1658,46 @@
       </selector>
     </style>
     <!-- Main cell -->
-    <style element="page[1]/section[2]/cell[2]|page[2]/section[1]/cell[1]">
+    <style element="page[1]/section[2]/cell[2]">
       <selector path="" view="cell frame">
-        <background preset="maincell (Correspondence backgrounds)" />
-        <border-left preset="whitethin (Correspondence borders)" />
+        <background preset="maincell (Case Management backgrounds)"/>
+        <border-left preset="whitethin (Case Management borders)"/>
       </selector>
     </style>
-    <style element="page[3]/section[2]/cell[1]" />
-    <style element="page[3]/section[2]/cell[1]/fragment[1]"
-      inherit="breadcrumbs style">
-      <selector path="" view="nuxeo5 breadcrumbs">
-        <padding>5px 22px</padding>
-      </selector>
-    </style>
-    <style element="page[1]/section[2]/cell[2]/fragment[1]"
-      inherit="breadcrumbs style" />
     <!-- Footer -->
-    <style element="page[1]/section[3]|page[3]/section[4]">
+    <style element="page[1]/section[3]">
       <selector path="" view="section frame">
-        <border-top preset="topbar (Correspondence borders)" />
+        <border-top preset="topbar (Case Management borders)"/>
       </selector>
     </style>
-    <style
-      element="page[1]/section[3]/cell[1]/fragment[1]|page[3]/section[4]/cell[1]/fragment[1]"
-      inherit="default buttons">
+    <style element="page[1]/section[3]/cell[1]/fragment[1]" inherit="default buttons">
       <selector path="form, p" view="Nuxeo DM footer (Galaxy Theme)">
         <margin>0</margin>
         <padding>0</padding>
       </selector>
       <selector path="" view="Nuxeo DM footer (Galaxy Theme)">
-        <font preset="small (Correspondence fonts)" />
-        <color preset="medium (Nuxeo psd colors)" />
+        <font preset="small (Case Management fonts)"/>
+        <color preset="medium (Case Management colors)"/>
         <padding>5px 15px 5px 5px</padding>
       </selector>
-      <selector path="div" view="Nuxeo DM footer (Correspondence Theme)">
+      <selector path="div" view="Nuxeo DM footer (Galaxy Theme)">
         <margin>0</margin>
         <line-height>1.25em</line-height>
         <padding>0</padding>
-        <font-size preset="small (Correspondence fonts)" />
+        <font-size preset="small (Case Management fonts)"/>
       </selector>
       <selector path="a" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:visited" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link.visited (Nuxeo psd colors)" />
+        <color preset="link.visited (Case Management colors)"/>
       </selector>
       <selector path="a:active" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link.active (Nuxeo psd colors)" />
+        <color preset="link.active (Case Management colors)"/>
       </selector>
       <selector path="a:hover" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link (Nuxeo psd colors)" />
+        <color preset="link (Case Management colors)"/>
         <text-decoration>underline</text-decoration>
       </selector>
       <selector path="input.langSelect" view="Nuxeo DM footer (Galaxy Theme)">
@@ -1764,14 +1705,12 @@
       </selector>
     </style>
     <!-- main fragment for default page & popup -->
-    <style
-      element="page[1]/section[2]/cell[2]/fragment[2]|page[2]/section[1]/cell[1]/fragment[1]"
-      inherit="common style 1">
+    <style element="page[1]/section[2]/cell[2]/fragment[2]" inherit="common style 1">
       <selector path="" view="facelet region">
-        <padding>7px</padding>
+        <padding>0px 7px 7px 7px</padding>
       </selector>
       <selector path="div.syndicationButton" view="facelet region">
-        <background preset="rss (Correspondence backgrounds)" />
+        <background preset="rss (Case Management backgrounds)"/>
         <margin-bottom>5px</margin-bottom>
         <margin-top>10px</margin-top>
         <font-size>9px</font-size>
@@ -1780,128 +1719,377 @@
       <selector path=".syndicationContainer" view="facelet region">
         <height>30px</height>
       </selector>
-      <selector path="div.syndicationButton div.syndicationLinks"
-        view="facelet region">
+      <selector path="div.syndicationButton div.syndicationLinks" view="facelet region">
         <color>rgb(241, 242, 243)</color>
-        <font preset="small (Correspondence fonts)" />
+        <font preset="small (Case Management fonts)"/>
         <padding>2px 4px</padding>
       </selector>
-      <selector path="div.syndicationButton div.syndicationLinks a"
-        view="facelet region">
+      <selector path="div.syndicationButton div.syndicationLinks a" view="facelet region">
         <color>rgb(255, 255, 255)</color>
         <text-decoration>none</text-decoration>
       </selector>
-      <selector path=".enveloppeTitleArea">
-        <background preset="bleuvif (Correspondence backgrounds)" />
-        <min-height>50px</min-height>
+      <selector path=".enveloppeTitleArea" view="facelet region">
         <height>50px</height>
+        <min-height>50px</min-height>
+        <background preset="bleuvif (Case Management backgrounds)"/>
         <overflow>visible</overflow>
       </selector>
-      <selector path=".documentSwitch">
-        <float>right</float>
+      <selector path=".documentSwitch" view="facelet region">
         <padding-top>5px</padding-top>
+        <float>right</float>
         <padding-right>10px</padding-right>
         <text-align>center</text-align>
       </selector>
-      <selector path=".documentSwitch select">
+      <selector path=".documentSwitch select" view="facelet region">
         <margin-bottom>5px</margin-bottom>
       </selector>
-      <selector path=".documentSwitch p">
+      <selector path=".documentSwitch p" view="facelet region">
         <color>#fff</color>
         <text-align>center</text-align>
       </selector>
-      <selector path=".documentSwitch p a img">
+      <selector path=".documentSwitch p a img" view="facelet region">
         <vertical-align>middle</vertical-align>
       </selector>
-      <selector path=".prevEnveloppe, .nextEnveloppe">
+      <selector path=".prevEnveloppe, .nextEnveloppe" view="facelet region">
         <padding>8px</padding>
       </selector>
-      <selector path=".prevEnveloppe">
+      <selector path=".prevEnveloppe" view="facelet region">
         <float>left</float>
       </selector>
-      <selector path=".nextEnveloppe">
+      <selector path=".nextEnveloppe" view="facelet region">
         <float>right</float>
       </selector>
-      <selector path=".email_header">
+      <selector path=".email_header" view="facelet region">
         <margin>0</margin>
         <padding>0 15px</padding>
       </selector>
-      <selector path=".email_header .dataInput">
-        <margin-top>0</margin-top>
+      <selector path=".email_header .dataInput" view="facelet region">
         <margin-right>30px</margin-right>
+        <margin-top>0</margin-top>
       </selector>
-      <selector path=".email_header .dataInput td">
+      <selector path=".email_header .dataInput td" view="facelet region">
         <padding>0</padding>
       </selector>
-      <selector path=".email_header .dataInput td.labelColumn">
-        <padding-right>5px</padding-right>
+      <selector path=".email_header .dataInput td.labelColumn" view="facelet region">
         <width>200px</width>
+        <padding-right>5px</padding-right>
       </selector>
-      <selector path=".email_header .foldableBox">
-        <background preset="bistre (Correspondence backgrounds)" />
-        <border preset="grisfin (Correspondence borders)" />
+      <selector path=".email_header .foldableBox" view="facelet region">
+        <border preset="grisfin (Case Management borders)"/>
+        <background preset="bistre (Case Management backgrounds)"/>
         <margin-bottom>5px</margin-bottom>
         <margin-top>5px</margin-top>
       </selector>
-      <selector path=".email_header_actions">
-        <float>right</float>
-        <padding>0</padding>
+      <selector path=".email_header_actions" view="facelet region">
         <margin>0px 0px 0px 0px</margin>
+        <padding>0</padding>
+        <float>right</float>
       </selector>
-      <selector path=".email_header_actions a">
+      <selector path=".email_header_actions a" view="facelet region">
         <background-color>#fff</background-color>
       </selector>
-      <selector path=".email_header_actions a img">
+      <selector path=".email_header_actions a img" view="facelet region">
         <float>left</float>
       </selector>
       <selector
-        path=".tabsBar .email_header_actions a, .tabsBar .email_header_actions a:hover, .tabsBar .email_header_actions a:visited">
-        <background preset="bleugristresclair (Correspondence backgrounds)" />
-        <margin-top>1px</margin-top>
+        path=".tabsBar .email_header_actions a, .tabsBar .email_header_actions a:hover, .tabsBar .email_header_actions a:visited" view="facelet region">
         <margin-left>1px</margin-left>
+        <background preset="bleugristresclair (Case Management backgrounds)"/>
+        <margin-top>1px</margin-top>
       </selector>
       <selector
-        path=".email_header .foldableBox h3, .email_header .foldableBox h3.unfolded">
-        <background-color>transparent</background-color>
+        path=".email_header .foldableBox h3, .email_header .foldableBox h3.unfolded" view="facelet region">
         <border>none</border>
-        <font-size>11px</font-size>
+        <background-color>transparent</background-color>
         <margin-bottom>0</margin-bottom>
+        <font-size>11px</font-size>
       </selector>
       <selector
-        path=".foldableBox h3 a:link, .foldableBox h3 a:visited, .foldableBox h3 a:hover, .foldableBox h3 a:visited:hover">
+        path=".foldableBox h3 a:link, .foldableBox h3 a:visited, .foldableBox h3 a:hover, .foldableBox h3 a:visited:hover" view="facelet region">
         <color>#fff</color>
       </selector>
-      <selector path=".email_header .foldableBox .boxBody">
+      <selector path=".email_header .foldableBox .boxBody" view="facelet region">
         <background-color>transparent</background-color>
       </selector>
-      <selector path=".currentEmailActions">
+      <selector path=".currentEmailActions" view="facelet region">
         <padding-left>20px</padding-left>
       </selector>
     </style>
     <!-- main fragment for user dashboard -->
-    <style element="page[3]/section[3]/cell[1]|page[3]/section[3]/cell[2]"
-      inherit="common style 1">
+    <style element="page[3]/section[3]/cell[1]" inherit="common style 1">
       <selector path=".syndicationContainer" view="cell frame">
         <height>30px</height>
       </selector>
       <selector path="div.syndicationButton" view="facelet region">
-        <background preset="rss (Correspondence backgrounds)" />
+        <background preset="rss (Case Management backgrounds)"/>
         <margin-bottom>5px</margin-bottom>
         <margin-top>10px</margin-top>
         <font-size>9px</font-size>
         <float>right</float>
       </selector>
-      <selector path="div.syndicationButton div.syndicationLinks"
-        view="facelet region">
+      <selector path="div.syndicationButton div.syndicationLinks" view="facelet region">
         <color>rgb(241, 242, 243)</color>
-        <font preset="small (Correspondence fonts)" />
+        <font preset="small (Case Management fonts)"/>
         <padding>2px 4px</padding>
       </selector>
-      <selector path="div.syndicationButton div.syndicationLinks a"
-        view="facelet region">
+      <selector path="div.syndicationButton div.syndicationLinks a" view="facelet region">
         <color>rgb(255, 255, 255)</color>
         <text-decoration>none</text-decoration>
       </selector>
     </style>
+    <!-- General -->
+    <style element="page[2]">
+      <selector path="img" view="page frame">
+        <border>0</border>
+      </selector>
+    </style>
+    <!-- Main cell -->
+    <style element="page[2]/section[1]/cell[1]">
+      <selector path="" view="cell frame">
+        <background preset="maincell (Case Management backgrounds)"/>
+        <border-left preset="whitethin (Case Management borders)"/>
+      </selector>
+    </style>
+    <!-- main fragment for default page & popup -->
+    <style element="page[2]/section[1]/cell[1]/fragment[1]" inherit="common style 1">
+      <selector path="" view="facelet region">
+        <padding>7px</padding>
+      </selector>
+      <selector path="div.syndicationButton" view="facelet region">
+        <background preset="rss (Case Management backgrounds)"/>
+        <margin-bottom>5px</margin-bottom>
+        <margin-top>10px</margin-top>
+        <font-size>9px</font-size>
+        <float>right</float>
+      </selector>
+      <selector path=".syndicationContainer" view="facelet region">
+        <height>30px</height>
+      </selector>
+      <selector path="div.syndicationButton div.syndicationLinks" view="facelet region">
+        <font preset="small (Case Management fonts)"/>
+        <color>rgb(241, 242, 243)</color>
+        <padding>2px 4px</padding>
+      </selector>
+      <selector path="div.syndicationButton div.syndicationLinks a" view="facelet region">
+        <color>rgb(255, 255, 255)</color>
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path=".enveloppeTitleArea" view="facelet region">
+        <height>50px</height>
+        <min-height>50px</min-height>
+        <background preset="bleuvif (Case Management backgrounds)"/>
+        <overflow>visible</overflow>
+      </selector>
+      <selector path=".documentSwitch" view="facelet region">
+        <padding-top>5px</padding-top>
+        <float>right</float>
+        <text-align>center</text-align>
+        <padding-right>10px</padding-right>
+      </selector>
+      <selector path=".documentSwitch select" view="facelet region">
+        <margin-bottom>5px</margin-bottom>
+      </selector>
+      <selector path=".documentSwitch p" view="facelet region">
+        <color>#fff</color>
+        <text-align>center</text-align>
+      </selector>
+      <selector path=".documentSwitch p a img" view="facelet region">
+        <vertical-align>middle</vertical-align>
+      </selector>
+      <selector path=".prevEnveloppe, .nextEnveloppe" view="facelet region">
+        <padding>8px</padding>
+      </selector>
+      <selector path=".prevEnveloppe" view="facelet region">
+        <float>left</float>
+      </selector>
+      <selector path=".nextEnveloppe" view="facelet region">
+        <float>right</float>
+      </selector>
+      <selector path=".email_header" view="facelet region">
+        <margin>0</margin>
+        <padding>0 15px</padding>
+      </selector>
+      <selector path=".email_header .dataInput" view="facelet region">
+        <margin-right>30px</margin-right>
+        <margin-top>0</margin-top>
+      </selector>
+      <selector path=".email_header .dataInput td" view="facelet region">
+        <padding>0</padding>
+      </selector>
+      <selector path=".email_header .dataInput td.labelColumn" view="facelet region">
+        <width>200px</width>
+        <padding-right>5px</padding-right>
+      </selector>
+      <selector path=".email_header .foldableBox" view="facelet region">
+        <border preset="grisfin (Case Management borders)"/>
+        <background preset="bistre (Case Management backgrounds)"/>
+        <margin-bottom>5px</margin-bottom>
+        <margin-top>5px</margin-top>
+      </selector>
+      <selector path=".email_header_actions" view="facelet region">
+        <margin>0px 0px 0px 0px</margin>
+        <padding>0</padding>
+        <float>right</float>
+      </selector>
+      <selector path=".email_header_actions a" view="facelet region">
+        <background-color>#fff</background-color>
+      </selector>
+      <selector path=".email_header_actions a img" view="facelet region">
+        <float>left</float>
+      </selector>
+      <selector
+        path=".tabsBar .email_header_actions a, .tabsBar .email_header_actions a:hover, .tabsBar .email_header_actions a:visited" view="facelet region">
+        <margin-left>1px</margin-left>
+        <background preset="bleugristresclair (Case Management backgrounds)"/>
+        <margin-top>1px</margin-top>
+      </selector>
+      <selector
+        path=".email_header .foldableBox h3, .email_header .foldableBox h3.unfolded" view="facelet region">
+        <border>none</border>
+        <margin-bottom>0</margin-bottom>
+        <background-color>transparent</background-color>
+        <font-size>11px</font-size>
+      </selector>
+      <selector
+        path=".foldableBox h3 a:link, .foldableBox h3 a:visited, .foldableBox h3 a:hover, .foldableBox h3 a:visited:hover" view="facelet region">
+        <color>#fff</color>
+      </selector>
+      <selector path=".email_header .foldableBox .boxBody" view="facelet region">
+        <background-color>transparent</background-color>
+      </selector>
+      <selector path=".currentEmailActions" view="facelet region">
+        <padding-left>20px</padding-left>
+      </selector>
+    </style>
+    <!-- General -->
+    <style element="page[3]">
+      <selector path="img" view="page frame">
+        <border>0</border>
+      </selector>
+    </style>
+    <!-- Banner -->
+    <style element="page[3]/section[1]">
+      <selector path="" view="section frame">
+        <border-bottom preset="topbar (Case Management borders)"/>
+        <background preset="topbar (Case Management backgrounds)"/>
+      </selector>
+    </style>
+    <!-- user services -->
+    <style element="page[3]/section[1]/cell[2]/fragment[1]" inherit="default buttons">
+      <selector path="div" view="User services (Galaxy theme)">
+        <color>#cecece</color>
+        <font preset="small (Case Management fonts)"/>
+        <margin>0</margin>
+        <line-height>185%</line-height>
+        <padding>2px 2px 0px 0px</padding>
+      </selector>
+      <selector path=".searchService" view="User services (Galaxy theme)">
+        <float>right</float>
+      </selector>
+      <selector path=".userActions" view="User services (Galaxy theme)">
+        <padding-top>11px</padding-top>
+      </selector>
+      <selector path=".directoryFilter, .searchField" view="User services (Galaxy theme)">
+        <border>1px normal #666</border>
+        <background>url(/nuxeo/icons/search.gif) 2px 2px no-repeat #FFF</background>
+        <margin>0 5px 10px 0</margin>
+        <font-size>11px</font-size>
+        <padding>3px 3px 3px 20px</padding>
+      </selector>
+      <selector path="a, a:link, a:visited" view="User services (Galaxy theme)">
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path="a:hover, a:active" view="User services (Galaxy theme)">
+        <text-decoration>underline</text-decoration>
+      </selector>
+      <selector path="a, a:link, a:visited, a:hover, a:active" view="User services (Galaxy theme)">
+        <color>#ffffff</color>
+      </selector>
+      <selector path="img" view="User services (Galaxy theme)">
+        <margin-left>5px</margin-left>
+        <margin-right>2px</margin-right>
+        <vertical-align>middle</vertical-align>
+      </selector>
+      <selector path=".advancedSearchLink" view="User services (Galaxy theme)">
+        <margin>0 2px 0 0</margin>
+        <line-height>1%</line-height>
+        <padding>0</padding>
+      </selector>
+      <selector path=".userServices .button" view="User services (Galaxy theme)">
+        <margin-right>4px</margin-right>
+      </selector>
+      <selector path="form" view="User services (Galaxy theme)">
+        <margin>0</margin>
+        <padding>0</padding>
+      </selector>
+    </style>
+    <!-- main fragment for user dashboard -->
+    <style element="page[3]/section[3]/cell[2]" inherit="common style 1">
+      <selector path=".syndicationContainer" view="cell frame">
+        <height>30px</height>
+      </selector>
+      <selector path="div.syndicationButton" view="facelet region">
+        <background preset="rss (Case Management backgrounds)"/>
+        <margin-bottom>5px</margin-bottom>
+        <margin-top>10px</margin-top>
+        <font-size>9px</font-size>
+        <float>right</float>
+      </selector>
+      <selector path="div.syndicationButton div.syndicationLinks" view="facelet region">
+        <font preset="small (Case Management fonts)"/>
+        <color>rgb(241, 242, 243)</color>
+        <padding>2px 4px</padding>
+      </selector>
+      <selector path="div.syndicationButton div.syndicationLinks a" view="facelet region">
+        <color>rgb(255, 255, 255)</color>
+        <text-decoration>none</text-decoration>
+      </selector>
+    </style>
+    <!-- Footer -->
+    <style element="page[3]/section[4]">
+      <selector path="" view="section frame">
+        <border-top preset="topbar (Case Management borders)"/>
+      </selector>
+    </style>
+    <style element="page[3]/section[4]/cell[1]/fragment[1]" inherit="default buttons">
+      <selector path="form, p" view="Nuxeo DM footer (Galaxy Theme)">
+        <margin>0</margin>
+        <padding>0</padding>
+      </selector>
+      <selector path="" view="Nuxeo DM footer (Galaxy Theme)">
+        <color preset="medium (Case Management colors)"/>
+        <font preset="small (Case Management fonts)"/>
+        <padding>5px 15px 5px 5px</padding>
+      </selector>
+      <selector path="div" view="Nuxeo DM footer (Galaxy Theme)">
+        <margin>0</margin>
+        <font-size preset="small (Case Management fonts)"/>
+        <padding>0</padding>
+        <line-height>1.25em</line-height>
+      </selector>
+      <selector path="a" view="Nuxeo DM footer (Galaxy Theme)">
+        <color preset="link (Case Management colors)"/>
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path="a:visited" view="Nuxeo DM footer (Galaxy Theme)">
+        <color preset="link.visited (Case Management colors)"/>
+      </selector>
+      <selector path="a:active" view="Nuxeo DM footer (Galaxy Theme)">
+        <color preset="link.active (Case Management colors)"/>
+      </selector>
+      <selector path="a:hover" view="Nuxeo DM footer (Galaxy Theme)">
+        <color preset="link (Case Management colors)"/>
+        <text-decoration>underline</text-decoration>
+      </selector>
+      <selector path="input.langSelect" view="Nuxeo DM footer (Galaxy Theme)">
+        <margin>9px 5px 0px 5px</margin>
+      </selector>
+    </style>
+    <!-- commmon to both fragments -->
+    <style element="page[4]/section[1]/cell[1]/fragment[2]" inherit="common style 2"/>
+    <style element="page[1]/section[2]/cell[2]/fragment[1]" inherit="default buttons"/>
+    <style element="page[3]/section[2]"/>
+    <style element="page[3]/section[2]/cell[1]"/>
+    <style element="page[3]/section[2]/cell[1]/fragment[1]" inherit="default buttons"/>
   </formats>
 </theme>

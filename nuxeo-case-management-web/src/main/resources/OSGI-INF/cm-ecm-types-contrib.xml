@@ -51,7 +51,8 @@
 
     <type id="Case">
       <label>label.casemanagement.type.CaseManagementCase</label>
-      <icon>/icons/case-management_envelope.png</icon>
+      <icon>/icons/case.png</icon>
+      <bigIcon>/icons/case_100.png</bigIcon>
       <default-view>view_cm_case</default-view>
       <views>
         <view id="edit_case" value="edit_case" />
@@ -66,7 +67,8 @@
 
     <type id="CaseLink">
       <label>label.case-management.type.CorrespondencePost</label>
-      <icon>/icons/case-management_mail.png</icon>
+      <icon>/icons/case.png</icon>
+      <bigIcon>/icons/case_100.png</bigIcon>
       <default-view>view_documents</default-view>
       <views>
         <view id="distribution_caselink" value="distribution_caselink" />
@@ -78,7 +80,8 @@
 
     <type id="CaseItem">
       <label>label.casemanagement.type.CaseItemDocument</label>
-      <icon>/icons/case-management_mail.png</icon>
+      <icon>/icons/case_item.png</icon>
+      <bigIcon>/icons/case_item_100.png</bigIcon>
       <default-view>view_cm_document</default-view>
       <create-view>create_cm_document</create-view>
       <category>CaseItemDocument</category>
