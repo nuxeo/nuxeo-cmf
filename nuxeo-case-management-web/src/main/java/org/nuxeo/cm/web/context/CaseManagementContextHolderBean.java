@@ -77,6 +77,8 @@ public class CaseManagementContextHolderBean implements
 
     public void setCurrentMailbox(Mailbox currentMailbox) {
         this.currentMailbox = currentMailbox;
+        this.currentEnvelope = null;
+        this.currentEmail = null;
     }
 
     public void setCurrentCase(Case currentEnvelope) {
