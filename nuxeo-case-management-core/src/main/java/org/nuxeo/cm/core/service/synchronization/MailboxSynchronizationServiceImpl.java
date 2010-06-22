@@ -38,10 +38,10 @@ import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants;
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationService;
 import org.nuxeo.cm.service.synchronization.MailboxUserSynchronizationDescriptor;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
@@ -162,98 +162,24 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
     }
 
     public void doSynchronize() throws Exception {
-        CoreSession coreSession = getCoreSession();
-        UserManager userManager = Framework.getService(UserManager.class);
-        if (userManager == null) {
-            throw new CaseManagementException("User manager not found");
+        RepositoryManager mgr;
+        try {
+            mgr = Framework.getService(RepositoryManager.class);
+        } catch (Exception e) {
+            throw new CaseManagementRuntimeException(e);
         }
 
-        Calendar now;
-        String directoryName;
-        MailboxTitleGenerator titleGenerator;
-        String directoryIdField;
+        if (mgr == null) {
+            throw new CaseManagementRuntimeException(
+                    "Cannot find RepositoryManager");
+        }
         String batchSize = Framework.getProperty(MailboxConstants.SYNC_BATCH_SIZE_PROPERTY);
         if (batchSize != null && !"".equals(batchSize)) {
             this.batchSize = Integer.parseInt(batchSize);
         }
-
-        // synchronize group
-        if (groupSynchronizer != null && groupSynchronizer.isEnabled()) {
-            titleGenerator = groupSynchronizer.getTitleGenerator();
-            if (titleGenerator != null) {
-                now = GregorianCalendar.getInstance();
-                directoryName = userManager.getGroupDirectoryName();
-                directoryIdField = userManager.getGroupIdField();
-                List<String> topLevelgroups = userManager.getTopLevelGroups();
-                Map<String, List<String>> topBatch = new HashMap<String, List<String>>();
-                topBatch.put("", topLevelgroups);
-                log.info("Start groups synchronization");
-                count = 0;
-                total = userManager.getGroupIds().size();
-                boolean txStarted = false;
-                try {
-                    txStarted = TransactionHelper.startTransaction();
-                    log.debug("New Transaction started during Mailbox synchronization");
-                    synchronizeGroupList(topBatch, directoryName,
-                            directoryIdField, now, userManager, titleGenerator,
-                            coreSession, txStarted);
-                } catch (Exception e) {
-                    if (txStarted) {
-                        TransactionHelper.setTransactionRollbackOnly();
-                    }
-                    throw new CaseManagementRuntimeException(
-                            "Group synchronization failed", e);
-                } finally {
-                    if (txStarted) {
-                        TransactionHelper.commitOrRollbackTransaction();
-                        log.debug("Transaction ended during Mailbox synchronization");
-                    }
-                }
-                log.info("Looking for deleted group entries");
-                handleDeletedMailboxes(directoryName, now, coreSession);
-                log.info("Group directory has been synchronized");
-            } else {
-                log.error("Could not find GroupTitleGenerator, abort group directory synchronization.");
-            }
-        }
-        // synchronize users
-        if (userSynchronizer != null && userSynchronizer.isEnabled()) {
-            titleGenerator = userSynchronizer.getTitleGenerator();
-            if (titleGenerator != null) {
-                now = new GregorianCalendar();
-                directoryName = userManager.getUserDirectoryName();
-                directoryIdField = userManager.getUserIdField();
-                List<String> userIds = userManager.getUserIds();
-                log.debug("Start users synchronization");
-                count = 0;
-                total = userIds.size();
-
-                boolean txStarted = false;
-                try {
-                    txStarted = TransactionHelper.startTransaction();
-                    log.debug("New Transaction started during Mailbox synchronization");
-                    synchronizeUserList(userIds, directoryName,
-                            directoryIdField, now, userManager, titleGenerator,
-                            coreSession, txStarted);
-                } catch (Exception e) {
-                    if (txStarted) {
-                        TransactionHelper.setTransactionRollbackOnly();
-                    }
-                    throw new CaseManagementRuntimeException(
-                            "User synchronization failed", e);
-                } finally {
-                    if (txStarted) {
-                        TransactionHelper.commitOrRollbackTransaction();
-                        log.debug("Transaction ended during Mailbox synchronization");
-                    }
-                }
-                log.debug(String.format("Updated %d/%d mailboxes", count, total));
-                handleDeletedMailboxes(directoryName, now, coreSession);
-                log.info("User directory has been synchronized");
-            } else {
-                log.error("Could not find UserTitleGenerator, abort user directory synchronization.");
-            }
-        }
+        Repository repo = mgr.getDefaultRepository();
+        SynchronizeSessionRunner runner = new SynchronizeSessionRunner(repo.getName());
+        runner.runUnrestricted();
     }
 
     protected void synchronizeGroupList(Map<String, List<String>> groupMap,
@@ -334,8 +260,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         log.debug("New Transaction started during Mailbox synchronization");
                     }
                 }
-                log.debug(String.format("Updated %d/%d user Mailboxes",
-                        count, total));
+                log.debug(String.format("Updated %d/%d user Mailboxes", count,
+                        total));
             }
         } catch (Exception e) {
             if (txStarted) {
@@ -395,8 +321,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     // throw onMailboxUpdated
                     cf.setLastSyncUpdate(now);
                     coreSession.saveDocument(cfDoc);
-                    log.debug(String.format("Update Mailbox %s",
-                            synchronizerId));
+                    log.debug(String.format("Update Mailbox %s", synchronizerId));
                     notify(
                             MailboxSynchronizationConstants.EventNames.onMailboxUpdated.toString(),
                             cf.getDocument(), eventProperties, coreSession);
@@ -457,8 +382,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
     protected void handleDeletedMailboxes(String directoryName, Calendar now,
             CoreSession coreSession) throws ClientException {
         String dateLiteral = DateLiteral.dateTimeFormatter.print(now.getTimeInMillis());
-        String query = String.format(QUERY_GET_DELETED_MAILBOX,
-                directoryName, dateLiteral);
+        String query = String.format(QUERY_GET_DELETED_MAILBOX, directoryName,
+                dateLiteral);
         DocumentModelList deletedMailboxes = coreSession.query(query);
         if (deletedMailboxes == null) {
             return;
@@ -507,8 +432,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         } else if (mailboxDocs.size() > 1) {
             // more than one mailbox for given Id
             // Should not happen
-            log.error(String.format(
-                    "Found more than one Mailbox for id %s", id));
+            log.error(String.format("Found more than one Mailbox for id %s", id));
             return null;
         }
         DocumentModel mailboxDoc = mailboxDocs.get(0);
@@ -572,34 +496,113 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         return eventProducer;
     }
 
-    protected CoreSession getCoreSession() {
-        RepositoryManager mgr;
-        try {
-            mgr = Framework.getService(RepositoryManager.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
+    private class SynchronizeSessionRunner extends UnrestrictedSessionRunner {
+        public SynchronizeSessionRunner(String repository) {
+            super(repository);
         }
 
-        if (mgr == null) {
-            throw new CaseManagementRuntimeException(
-                    "Cannot find RepositoryManager");
-        }
-        Repository repo = mgr.getDefaultRepository();
+        @Override
+        public void run() throws ClientException {
+            UserManager userManager;
+            try {
+                userManager = Framework.getService(UserManager.class);
+            } catch (Exception e) {
+                throw new CaseManagementRuntimeException(e);
+            }
+            if (userManager == null) {
+                throw new CaseManagementException("User manager not found");
+            }
 
-        CoreSession session;
-        try {
-            session = repo.open();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+            Calendar now;
+            String directoryName;
+            MailboxTitleGenerator titleGenerator;
+            String directoryIdField;
 
-        return session;
+            // synchronize group
+            if (groupSynchronizer != null && groupSynchronizer.isEnabled()) {
+                try {
+                    titleGenerator = groupSynchronizer.getTitleGenerator();
+                } catch (Exception e) {
+                    throw new CaseManagementRuntimeException(e);
+                }
+                if (titleGenerator != null) {
+                    now = GregorianCalendar.getInstance();
+                    directoryName = userManager.getGroupDirectoryName();
+                    directoryIdField = userManager.getGroupIdField();
+                    List<String> topLevelgroups = userManager.getTopLevelGroups();
+                    Map<String, List<String>> topBatch = new HashMap<String, List<String>>();
+                    topBatch.put("", topLevelgroups);
+                    log.info("Start groups synchronization");
+                    count = 0;
+                    total = userManager.getGroupIds().size();
+                    boolean txStarted = false;
+                    try {
+                        txStarted = TransactionHelper.startTransaction();
+                        log.debug("New Transaction started during Mailbox synchronization");
+                        synchronizeGroupList(topBatch, directoryName,
+                                directoryIdField, now, userManager, titleGenerator,
+                                session, txStarted);
+                    } catch (Exception e) {
+                        if (txStarted) {
+                            TransactionHelper.setTransactionRollbackOnly();
+                        }
+                        throw new CaseManagementRuntimeException(
+                                "Group synchronization failed", e);
+                    } finally {
+                        if (txStarted) {
+                            TransactionHelper.commitOrRollbackTransaction();
+                            log.debug("Transaction ended during Mailbox synchronization");
+                        }
+                    }
+                    log.info("Looking for deleted group entries");
+                    handleDeletedMailboxes(directoryName, now, session);
+                    log.info("Group directory has been synchronized");
+                } else {
+                    log.error("Could not find GroupTitleGenerator, abort group directory synchronization.");
+                }
+            }
+            // synchronize users
+            if (userSynchronizer != null && userSynchronizer.isEnabled()) {
+                try {
+                    titleGenerator = userSynchronizer.getTitleGenerator();
+                } catch (Exception e) {
+                    throw new CaseManagementRuntimeException(e);
+                }
+                if (titleGenerator != null) {
+                    now = new GregorianCalendar();
+                    directoryName = userManager.getUserDirectoryName();
+                    directoryIdField = userManager.getUserIdField();
+                    List<String> userIds = userManager.getUserIds();
+                    log.debug("Start users synchronization");
+                    count = 0;
+                    total = userIds.size();
+
+                    boolean txStarted = false;
+                    try {
+                        txStarted = TransactionHelper.startTransaction();
+                        log.debug("New Transaction started during Mailbox synchronization");
+                        synchronizeUserList(userIds, directoryName,
+                                directoryIdField, now, userManager, titleGenerator,
+                                session, txStarted);
+                    } catch (Exception e) {
+                        if (txStarted) {
+                            TransactionHelper.setTransactionRollbackOnly();
+                        }
+                        throw new CaseManagementRuntimeException(
+                                "User synchronization failed", e);
+                    } finally {
+                        if (txStarted) {
+                            TransactionHelper.commitOrRollbackTransaction();
+                            log.debug("Transaction ended during Mailbox synchronization");
+                        }
+                    }
+                    log.debug(String.format("Updated %d/%d mailboxes", count, total));
+                    handleDeletedMailboxes(directoryName, now, session);
+                    log.info("User directory has been synchronized");
+                } else {
+                    log.error("Could not find UserTitleGenerator, abort user directory synchronization.");
+                }
+            }
+        }
     }
-
-    protected void closeCoreSession(CoreSession coreSession) {
-        if (coreSession != null) {
-            CoreInstance.getInstance().close(coreSession);
-        }
-    }
-
 }
