@@ -29,6 +29,12 @@
       <event>documentModified</event>
     </listener>
 
+    <listener name="updateClassificationRights" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.UpdateClassificationRootRightsListener"
+      priority="170">
+      <event>documentCreated</event>
+    </listener>
+
     <listener name="distributionlistener" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.DistributionListener"
       priority="180">

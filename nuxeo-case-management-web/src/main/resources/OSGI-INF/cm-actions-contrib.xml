@@ -125,27 +125,6 @@
       
     </action>
 
-    <action id="TAB_MAILBOX_NOTIFICATION" link="/incl/tabs/document_content.xhtml" order="22"
-      label="label.casemanagement.notificationMailbox" enabled="true"
-      icon="/icons/file.gif">
-      <category>MANAGE_MAILBOX_ACTION_LIST</category>
-      
-    </action>
-
-    <action id="TAB_MAILBOX_FAVORITES" link="/incl/tabs/document_content.xhtml" order="23"
-      label="label.casemanagement.favoritesMailbox" enabled="true"
-      icon="/icons/file.gif">
-      <category>MANAGE_MAILBOX_ACTION_LIST</category>
-      
-    </action>
-
-    <action id="TAB_MAILBOX_LISTES" link="/incl/tabs/document_content.xhtml" order="24"
-      label="label.casemanagement.listesMailbox" enabled="true"
-      icon="/icons/file.gif">
-      <category>MANAGE_MAILBOX_ACTION_LIST</category>
-      
-    </action>
-
     <!-- Mailbox View Action -->
     <action id="TAB_MAILBOX_INBOX" link="/casemanagement/mailbox/tabs/mailbox_inbox_content.xhtml" order="20"
       label="label.casemanagement.inboxMailbox" enabled="true"
@@ -172,6 +151,12 @@
       <category>VIEW_MAILBOX_ACTION_LIST</category>
     </action>
 
+    <action id="SHOW_MANAGE_MAILBOX_ACTION" link="/casemanagement/mailbox/mailbox_manage.xhtml"
+      label="label.casemanagement.action.manage"
+      enabled="true"
+      order="24">
+      <category>VIEW_MAILBOX_ACTION_LIST</category>
+    </action>
     <!-- Case Management actions -->
 
     <action id="distribute_cm_case"
@@ -221,12 +206,6 @@
       icon="/icons/file.gif">
       <category>MANAGE_MAILBOX_ACTION_LIST</category>
       
-    </action>
-
-    <action id="SHOW_MANAGE_MAILBOX_ACTION" link="#{cmMailboxTabsActionsBean.openMailboxManage()}"
-      label="label.casemanagement.action.manage"
-      enabled="true">
-      <category>MAILBOX_ACTION_UPPER_LIST</category>
     </action>
 
     <action id="newCaseItemDocument"
