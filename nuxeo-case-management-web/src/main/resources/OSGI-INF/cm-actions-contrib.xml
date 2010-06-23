@@ -256,10 +256,11 @@
     <!-- End of Mailbox Management Actions -->
 
     <!-- Classification integration -->
-    <action id="classification_request" link="classification_request"
-      label="label.casemanagement.action.classificationRequest"
-      icon="/icons/icone_classement.gif" order="30">
-      <category>SUBVIEW_UPPER_LIST</category>
+    <action id="CLASSIFICATION_REQUEST" 
+            link="/casemanagement/caseitem/tabs/classification_request.xhtml"
+            label="label.casemanagement.action.classificationRequest"
+            icon="/icons/icone_classement.gif" order="72">
+      <category>VIEW_ACTION_LIST</category>
       <filter-id>isNotCmInitialCase</filter-id>
     </action>
 

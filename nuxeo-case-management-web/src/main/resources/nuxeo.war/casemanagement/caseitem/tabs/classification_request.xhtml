@@ -1,0 +1,59 @@
+<div class="tabsContent" 
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxh="http://nuxeo.org/nxweb/html">
+    <h2><h:outputText
+      value="#{messages['label.casemanagement.action.classificationRequestTitle']}" /></h2>
+    <h:form rendered="#{empty currentEditableClassificationTree}">
+      <h:outputText
+        value="#{messages['label.correspondence.classification.noClassificationTree']}" />
+    </h:form>
+    <a4j:form rendered="#{!empty currentEditableClassificationTree}" ajaxSubmit="true">
+      <table class="dataInput">
+        <tbody>
+      
+          <tr>
+            <td>
+              <h4>
+                <h:outputText
+                value="#{messages['label.classification.tree']}" />
+              </h4>
+            </td>
+          </tr>
+          <tr>
+            <td class="fieldColumn">
+              <h:selectOneListbox class="dataInputText" size="1"
+                value="#{currentEditableClassificationRootId}"
+                valueChangeListener="#{classificationActions.editableClassificationRootSelected}">
+                <nxu:selectItems value="#{editableClassificationRoots}"
+                  var="editableRoot"
+                  itemValue="#{editableRoot.id}"
+                  itemLabel="#{editableRoot.dublincore.title}" />
+                <a4j:support event="onchange" reRender="editableClassificationTree"
+                  ignoreDupResponses="true" bypassUpdates="true" />
+              </h:selectOneListbox>
+
+              <ui:decorate template="/classification/editable_classification_tree_explorer.xhtml">
+                <ui:param name="classificationTree" value="#{currentEditableClassificationTree}" />
+                <ui:define name="classification_command">
+                  <a4j:commandLink immediate="true"
+                    action="#{classificationActions.classify(node)}"
+                    reRender="classification_message"
+                    ignoreDupResponses="true" bypassUpdates="true">
+                    <h:outputText value="#{messages['label.classification.classifyHere']}" />
+                  </a4j:commandLink>
+                </ui:define>
+              </ui:decorate>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </a4j:form>
+    </div>
+    
