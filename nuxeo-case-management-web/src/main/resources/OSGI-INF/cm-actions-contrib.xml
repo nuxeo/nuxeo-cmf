@@ -5,7 +5,7 @@
   <require>org.nuxeo.ecm.platform.notifications.web.actions</require>
   <require>org.nuxeo.ecm.platform.forum.actions</require>
   <require>org.nuxeo.ecm.platform.comment.actions</require>
-
+  <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
@@ -34,7 +34,7 @@
     <!-- remove useless -->
     <action id="newDocument" enabled="false" />
     <action id="newFile" enabled="false" />
-
+    <action id="SHOW_PERSONAL_WORKSPACE" enabled="false" />
     <action id="TAB_CONTENT">
       <filter-id>hideFromMailbox</filter-id>
     </action> 
