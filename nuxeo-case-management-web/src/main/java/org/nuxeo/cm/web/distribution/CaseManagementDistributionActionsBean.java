@@ -201,6 +201,9 @@ public class CaseManagementDistributionActionsBean extends
 
     public boolean canDistributeCase() throws ClientException {
         Case kase = getCurrentCase();
+        if(kase == null) {
+            return false;
+        }
         List<CaseLink> links = caseDistributionService.getCaseLinks(
                 documentManager, null, kase);
         return !links.isEmpty();

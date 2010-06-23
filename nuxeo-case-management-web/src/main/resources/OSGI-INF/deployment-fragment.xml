@@ -35,14 +35,6 @@
       <to-view-id>/casemanagement/mailbox/mailbox_create.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
-    <navigation-case>
-      <from-outcome>distribution_cm_case</from-outcome>
-      <to-view-id>
-        /casemanagement/caseitem/distribution_cm_case.xhtml
-      </to-view-id>
-      <redirect />
-    </navigation-case>
 
     <navigation-case>
       <from-outcome>create_cm_document</from-outcome>

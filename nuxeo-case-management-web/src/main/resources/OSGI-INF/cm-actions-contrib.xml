@@ -60,13 +60,6 @@
       <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_DISTRIBUTION_HISTORY"
-      link="/casemanagement/caseitem/tabs/document_distribution_history.xhtml"
-      order="20" label="label.casemanagement.tab.distributionHistory">
-      <category>VIEW_ACTION_LIST</category>
-      <filter-id>isCaseItemOrCase</filter-id>
-    </action>
-
     <action id="TAB_RELATIONS">
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
@@ -181,20 +174,11 @@
 
     <!-- Case Management actions -->
 
-    <action id="initial_distribute_case-management_envelope"
-      link="distribution_cm_case"
-      label="label.casemanagement.action.initialDistributionRequest"
-      order="10">
-      <category>SUBVIEW_UPPER_LIST</category>
-      <filter-id>isCmInitialCase</filter-id>
-    </action>
-
     <action id="distribute_cm_case"
-      link="distribution_cm_case"
+      link="/casemanagement/caseitem/tabs/distribute_cm_case.xhtml"
       label="label.casemanagement.action.distributionRequest"
       icon="/icons/case-management_distribute.gif" order="10">
-      <category>SUBVIEW_UPPER_LIST</category>
-      <filter-id>isNotCmInitialCase</filter-id>
+      <category>VIEW_ACTION_LIST</category>
       <filter-id>canDistributeCase</filter-id>
     </action>
 
