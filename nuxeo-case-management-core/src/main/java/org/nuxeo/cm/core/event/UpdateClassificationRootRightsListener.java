@@ -19,7 +19,6 @@
 
 package org.nuxeo.cm.core.event;
 
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.classification.api.ClassificationConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;

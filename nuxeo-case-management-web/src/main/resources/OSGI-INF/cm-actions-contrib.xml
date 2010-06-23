@@ -212,7 +212,7 @@
       link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
       label="action.new.document"
       enabled="true">
-      <category>MAILBOX_ACTION_UPPER_LIST_HREF</category>
+      <category>DRAFT_ACTION_UPPER_LIST_HREF</category>
       <filter-id>canCreateCase</filter-id>
     </action>
 

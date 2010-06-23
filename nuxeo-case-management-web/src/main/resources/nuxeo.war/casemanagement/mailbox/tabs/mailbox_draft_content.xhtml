@@ -1,30 +1,45 @@
-<div xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:nxh="http://nuxeo.org/nxweb/html"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:c="http://java.sun.com/jstl/core"
-  xmlns:nxu="http://nuxeo.org/nxweb/util">
-
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:nxh="http://nuxeo.org/nxweb/html" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core" xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:f="http://java.sun.com/jsf/core">
+  <h:form>
+    <nxu:methodResult name="actions"
+      value="#{webActions.getActionsList('DRAFT_ACTION_UPPER_LIST_HREF')}">
+      <f:subview rendered="#{!empty actions}">
+        <div class="action_bar">
+          <nxu:dataList layout="unorderedList" var="action"
+            value="#{actions}">
+            <a href="#{action.getLink()}">
+              <h:graphicImage value="#{action.icon}" />
+              <h:outputText value="#{messages[action.label]}" />
+            </a>
+          </nxu:dataList>
+        </div>
+      </f:subview>
+    </nxu:methodResult>
+  </h:form>
+  <div style="clear:both"></div>
   <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
-    <nxu:methodResult name="provider" value="#{resultsProvidersCache.get('MAILBOX_DRAFT')}" >
+    <nxu:methodResult name="provider"
+      value="#{resultsProvidersCache.get('MAILBOX_DRAFT')}">
 
-   <ui:decorate template="mailbox_draftcaselink_table.xhtml">
-      <ui:param name="documents" value="#{draftChildrenSelectModel}" />
-      <ui:param name="showCheckboxes" value="#{true}" />
-      <ui:param name="provider" value="#{provider}" />
-      <ui:param name="providerName" value="MAILBOX_DRAFT" />
-      <ui:param name="listName" value="CURRENT_SELECTION" />
-       <ui:param name="layoutName" value="cm_draft_caselink" />
-      <ui:define name="buttons">
-        <ui:include src="/incl/clipboard.xhtml" />
-      </ui:define>
-    </ui:decorate>
+      <ui:decorate template="mailbox_draftcaselink_table.xhtml">
+        <ui:param name="documents" value="#{draftChildrenSelectModel}" />
+        <ui:param name="showCheckboxes" value="#{true}" />
+        <ui:param name="provider" value="#{provider}" />
+        <ui:param name="providerName" value="MAILBOX_DRAFT" />
+        <ui:param name="listName" value="CURRENT_SELECTION" />
+        <ui:param name="layoutName" value="cm_draft_caselink" />
+        <ui:define name="buttons">
+          <ui:include src="/incl/clipboard.xhtml" />
+        </ui:define>
+      </ui:decorate>
 
-  </nxu:methodResult>
+    </nxu:methodResult>
   </c:if>
-  
+
   <c:if test="#{currentDocument.currentLifeCycleState == 'deleted'}">
-    <ui:include src="/incl/tabs/document_trash_content.xhtml" /> 
+    <ui:include src="/incl/tabs/document_trash_content.xhtml" />
   </c:if>
-  
+
 </div>
