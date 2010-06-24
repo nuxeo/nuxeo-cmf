@@ -41,7 +41,7 @@ public class DraftCreationListener extends AbstractDraftListener implements
     protected void updateDraft(DocumentModel draft, DocumentModel firstDoc,
             DocumentModel envelope, Principal principal) throws ClientException {
         super.updateDraft(draft, firstDoc, envelope, principal);
-        draft.setPropertyValue("uid:uid", firstDoc.getPropertyValue("uid:uid"));
+        draft.setPropertyValue("uid:uid", firstDoc.getPropertyValue("cmdoc:reference"));
     }
 
     @Override
