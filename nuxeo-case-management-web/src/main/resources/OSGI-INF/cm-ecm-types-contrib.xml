@@ -98,7 +98,6 @@
       </layouts>
       <layouts mode="any">
         <layout>cm_document</layout>
-        <layout>head_cm_document</layout>
         <layout>file</layout>
       </layouts>
     </type>
