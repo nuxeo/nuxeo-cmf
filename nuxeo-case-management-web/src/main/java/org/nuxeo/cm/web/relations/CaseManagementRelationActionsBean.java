@@ -90,7 +90,7 @@ CaseManagementContextBoundInstance {
 
     private static final Log log = LogFactory.getLog(CaseManagementRelationActionsBean.class);
 
-    public static final String CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL = "CURRENT_EMAIL_RELATION_SEARCH";
+    public static final String CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL = "CURRENT_CASE_ITEM_RELATION_SEARCH";
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -313,7 +313,7 @@ CaseManagementContextBoundInstance {
     public List<DocumentModel> getDocumentRelationSuggestions(Object input)
     throws ClientException {
         try {
-            QueryModel qm = queryModelActions.get(CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL);
+            QueryModel qm = queryModelActions.get(CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL);
             Object[] params = { getCurrentCaseItem().getId(), input };
             PagedDocumentsProvider pageProvider = qm.getResultsProvider(
                     documentManager, params, null);

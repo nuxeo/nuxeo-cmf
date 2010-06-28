@@ -100,6 +100,16 @@
       </sortAscending>
     </queryModel>
 
+    <queryModel name="CURRENT_CASE_ITEM_RELATION_SEARCH">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:mixinType = 'CaseItem'
+        AND ecm:currentLifeCycleState != 'deleted' AND ecm:uuid != ? AND
+        ecm:fulltext LIKE ?
+      </pattern>
+      <sortable value="true" defaultSortColumn="dc:title"
+        defaultSortAscending="true" />
+      <max>20</max>
+    </queryModel>
   </extension>
 
 </component>

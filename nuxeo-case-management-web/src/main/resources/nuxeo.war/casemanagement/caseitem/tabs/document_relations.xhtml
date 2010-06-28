@@ -50,7 +50,7 @@
       <f:facet name="header">
         <h:outputText value="#{messages['label.relation.object']}" />
       </f:facet>
-      <ui:include src="/relation_node_template.xhtml">
+      <ui:include src="/casemanagement/caseitem/cm_relation_node_template.xhtml">
         <ui:param name="statement" value="#{statement}" />
         <ui:param name="node" value="#{statement.objectInfo}" />
       </ui:include>
@@ -124,7 +124,7 @@
       <f:facet name="header">
         <h:outputText value="#{messages['label.relation.object']}" />
       </f:facet>
-      <ui:include src="/relation_node_template.xhtml">
+      <ui:include src="/casemanagement/caseitem/cm_relation_node_template.xhtml">
         <ui:param name="statement" value="#{statement}" />
         <ui:param name="node" value="#{statement.subjectInfo}" />
       </ui:include>
