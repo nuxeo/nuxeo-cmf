@@ -6,7 +6,6 @@
     point="types">
     <classifiable type="CaseItem" />
     <classifiable type="Case" />
-    <classifiable type="CaseLink" />
   </extension>
 
 </component>

@@ -6,6 +6,7 @@
   <require>org.nuxeo.ecm.platform.forum.actions</require>
   <require>org.nuxeo.ecm.platform.comment.actions</require>
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
+  <require>org.nuxeo.ecm.classification.web.actions</require>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
@@ -226,6 +227,8 @@
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isNotCmInitialCase</filter-id>
     </action>
+
+    <action id="CURRENT_SELECTION_CLASSIFICATION" enabled="false" />
 
     <action id="newClassificationRoot">
       <filter id="newMailboxClassificationRoot">
