@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
@@ -43,6 +44,7 @@ import org.nuxeo.ecm.platform.comment.web.ThreadEntry;
  */
 @Name("cmCommentActions")
 @Scope(CONVERSATION)
+@Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
 public class CaseManagementCommentActionsBean extends
 CaseManagementContextBoundInstance {
@@ -54,7 +56,8 @@ CaseManagementContextBoundInstance {
     @In(create = true)
     protected transient CommentManagerActions commentManagerActions;
 
-    protected void resetCurrentEmailCache(DocumentModel cachedEmail,
+    @Override
+    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail,
             DocumentModel newEmail) throws ClientException {
         commentManagerActions.documentChanged();
     }
