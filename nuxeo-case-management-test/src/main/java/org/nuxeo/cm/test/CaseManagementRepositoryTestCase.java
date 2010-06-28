@@ -103,6 +103,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
          deployBundle("org.nuxeo.ecm.platform.usermanager");
          deployBundle("org.nuxeo.ecm.directory.types.contrib");
          deployBundle("org.nuxeo.ecm.directory.sql");
+         deployBundle("org.nuxeo.ecm.webapp.core");
          deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 
          // needed for default hierarchy

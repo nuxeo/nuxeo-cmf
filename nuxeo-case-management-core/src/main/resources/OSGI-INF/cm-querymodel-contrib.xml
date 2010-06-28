@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <component name="com.nuxeo.casemanagement.querymodel">
-  <require>org.nuxeo.ecm.webapp.querymodel.DefaultQueryModels</require>
+  <!--require>org.nuxeo.ecm.webapp.querymodel.DefaultQueryModels</require-->
   <extension
     target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"
     point="model">
