@@ -226,7 +226,7 @@ public class CaseItemDocumentActionsBean extends
 
     public String backToMailbox() throws ClientException {
         quitEditingMail();
-        DocumentModel doc = getCurrentCaseItem();
+        DocumentModel doc = getCurrentCase().getDocument();
         TypeInfo typeInfo = doc.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
     }
