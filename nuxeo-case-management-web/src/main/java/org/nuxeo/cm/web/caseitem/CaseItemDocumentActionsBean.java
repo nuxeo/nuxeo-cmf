@@ -51,7 +51,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * @author Anahide Tchertchian
- * 
+ *
  */
 @Name("cmDocumentActions")
 @Scope(ScopeType.CONVERSATION)
@@ -177,7 +177,11 @@ public class CaseItemDocumentActionsBean extends
     }
 
     public boolean isEditingCaseItem() throws ClientException {
-        LockableAdapter lockable = getCurrentCaseItem().getAdapter(
+        DocumentModel caseItem = getCurrentCaseItem();
+        if(caseItem == null) {
+            return false;
+        }
+        LockableAdapter lockable = caseItem.getAdapter(
                 LockableAdapter.class);
         if (lockable.isLockedByCurrentUser(documentManager)) {
             return Boolean.valueOf(true);

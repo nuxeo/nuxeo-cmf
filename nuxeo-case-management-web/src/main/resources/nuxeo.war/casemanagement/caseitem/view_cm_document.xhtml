@@ -30,28 +30,8 @@
         <h:outputText value="#{currentDocument.dublincore.description}"/>
       </p>
 
-      <h:panelGroup id="caseitem_header">
-        <div class="foldableBox">
-          <h3 class="folded">
-            <a onclick="return toggleBox(this)" href="#nogo">#{currentCaseItem.dublincore.title}</a>
-          </h3>
-          <div class="boxBody" style="display: none;">
-            <table>
-              <tbody>
-                <tr>
-                  <td valign="top">
-                    <nxl:documentLayout mode="header" value="#{currentCaseItem}" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </h:panelGroup>
-
       <h:panelGroup id="case_content">
         <ui:insert name="case_content">
-          <ui:include src="cm_case_actions_tabs.xhtml" />
           <div style="clear: both"></div>
           <div class="tabsContent">
             <ui:include src="#{webActions.currentTabAction.link}" />

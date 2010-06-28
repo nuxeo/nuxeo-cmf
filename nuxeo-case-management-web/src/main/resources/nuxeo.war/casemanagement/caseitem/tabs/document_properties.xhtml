@@ -1,16 +1,36 @@
-<div xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:c="http://java.sun.com/jstl/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+<div xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util">
 
   <h:form id="document_properties" enctype="multipart/form-data">
+    <a4j:region id="documentViewRegion">
+      <a4j:outputPanel id="documentViewPanel">
+        <nxu:methodResult name="actions"
+          value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST_HREF')}">
+          <f:subview rendered="#{!empty actions}">
+            <div class="action_bar nofloat">
+              <nxu:dataList layout="unorderedList" var="action"
+                value="#{actions}">
+                <a href="#{action.getLink()}">
+                  <h:graphicImage value="#{action.icon}" />
+                  <h:outputText value="#{messages[action.label]}" />
+                </a>
+              </nxu:dataList>
+            </div>
+          </f:subview>
+        </nxu:methodResult>
 
-    <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}" value="#{currentCaseItem}" />
-    
-    <c:if test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
-      <h:commandButton styleClass="button"
-        immediate="true" value="#{messages['label.casemanagement.startEditing']}"
-        action="#{cmDocumentActions.startEditingCaseItem()}" />
+        <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
+          value="#{currentCaseItem}" />
+        <ui:include src="/incl/tagging.xhtml" />
+
+      </a4j:outputPanel>
+    </a4j:region>
+    <c:if
+      test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
+      <h:commandButton styleClass="button" immediate="true"
+        value="#{messages['label.casemanagement.startEditing']}" action="#{cmDocumentActions.startEditingCaseItem()}" />
     </c:if>
 
     <c:if test="#{cmDocumentActions.editingCaseItem}">
@@ -21,17 +41,16 @@
               <h:outputText value="#{messages['label.comment']}" />
             </td>
             <td class="fieldColumn">
-              <h:inputTextarea value="#{currentCaseItem.contextData['request/comment']}" />
+              <h:inputTextarea
+                value="#{currentCaseItem.contextData['request/comment']}" />
             </td>
           </tr>
-        </tbody> 
+        </tbody>
       </table>
       <h:commandButton styleClass="button"
-        value="#{messages['label.casemanagement.save']}"
-        action="#{cmDocumentActions.save()}" />
+        value="#{messages['label.casemanagement.save']}" action="#{cmDocumentActions.save()}" />
       <h:commandButton styleClass="button"
-        value="#{messages['command.cancel']}"
-        action="#{cmDocumentActions.backToMailbox()}"
+        value="#{messages['command.cancel']}" action="#{cmDocumentActions.backToMailbox()}"
         immediate="true" />
     </c:if>
 
