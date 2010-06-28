@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <component name="com.nuxeo.casemanagement.querymodel">
-
+  <require>org.nuxeo.ecm.webapp.querymodel.DefaultQueryModels</require>
   <extension
     target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"
     point="model">
@@ -110,6 +110,17 @@
         defaultSortAscending="true" />
       <max>20</max>
     </queryModel>
+
+    <queryModel name="SIMPLE_SEARCH">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:fulltext LIKE ? AND ecm:mixinType !=
+        'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseItem'
+      </pattern>
+      <max>10</max>
+      <sortable value="true" />
+    </queryModel>
+    
   </extension>
 
 </component>
