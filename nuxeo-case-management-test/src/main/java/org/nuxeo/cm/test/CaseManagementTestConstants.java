@@ -34,4 +34,14 @@ public class CaseManagementTestConstants {
 
     public static final String CASE_MANAGEMENT_TEST_BUNDLE = "org.nuxeo.cm.test";
 
+    public static final String DIRECTORY_BUNDLE = "org.nuxeo.ecm.directory";
+
+    public static final String USERMANAGER_BUNDLE = "org.nuxeo.ecm.platform.usermanager";
+
+    public static final String TYPES_BUNDLE = "org.nuxeo.ecm.directory.types.contrib";
+
+    public static final String DIRECTORY_SQL_BUNDLE = "org.nuxeo.ecm.directory.sql";
+
+    public static final String TEMPLATE_BUNDLE = "org.nuxeo.ecm.platform.content.template";
+
 }

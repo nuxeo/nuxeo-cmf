@@ -92,17 +92,16 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         // deploy api and core bundles
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
-        deployBundle("org.nuxeo.casemanagement.core");
 
         // needed for users
-        deployBundle("org.nuxeo.ecm.directory");
-        deployBundle("org.nuxeo.ecm.platform.usermanager");
-        deployBundle("org.nuxeo.ecm.directory.types.contrib");
-        deployBundle("org.nuxeo.ecm.directory.sql");
+        deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
+        deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);
+        deployBundle(CaseManagementTestConstants.TYPES_BUNDLE);
+        deployBundle(CaseManagementTestConstants.DIRECTORY_SQL_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 
         // needed for default hierarchy
-        deployBundle("org.nuxeo.ecm.platform.content.template");
+        deployBundle(CaseManagementTestConstants.TEMPLATE_BUNDLE);
 
     }
 
@@ -120,7 +119,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
     }
 
     protected DocumentModel createDocument(String type, String id)
-    throws Exception {
+            throws Exception {
         DocumentModel document = session.createDocumentModel(type);
         document.setPathInfo("/", id);
         document = session.createDocument(document);
@@ -163,7 +162,8 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
     }
 
     protected Mailbox createPersonalMailbox(String name) throws Exception {
-        return mailboxManagementService.createPersonalMailboxes(session, name).get(0);
+        return mailboxManagementService.createPersonalMailboxes(session, name).get(
+                0);
     }
 
     protected CaseItem getMailEnvelopeItem() throws Exception {
@@ -179,13 +179,12 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         if (mailEnvelopItemeModel == null) {
             mailEnvelopItemeModel = session.createDocumentModel("/",
                     UUID.randomUUID().toString(),
-            "IncomingCorrespondenceDocument");
+                    "IncomingCorrespondenceDocument");
         }
         return mailEnvelopItemeModel;
     }
 
-    public Case createMailDocumentInEnvelope(Mailbox mailbox)
-    throws Exception {
+    public Case createMailDocumentInEnvelope(Mailbox mailbox) throws Exception {
         // The new mail
 
         DocumentModel emailDoc = getMailEnvelopeItemModel();
@@ -194,8 +193,8 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
                 session);
         runner.runUnrestricted();
         session.save();
-        Case envelope = caseDistributionService.createCase(session,
-                emailDoc, runner.getParentPath());
+        Case envelope = caseDistributionService.createCase(session, emailDoc,
+                runner.getParentPath());
 
         // Create the Draft post in the mailbox
         caseDistributionService.createDraftCaseLink(session, mailbox, envelope);
