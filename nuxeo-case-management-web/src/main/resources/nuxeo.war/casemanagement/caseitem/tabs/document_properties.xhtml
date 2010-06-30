@@ -1,15 +1,16 @@
 <div xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jstl/core"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
   xmlns:nxl="http://nuxeo.org/nxforms/layout" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:nxu="http://nuxeo.org/nxweb/util">
+  xmlns:nxh="http://nuxeo.org/nxweb/html" xmlns:nxu="http://nuxeo.org/nxweb/util">
 
   <h:form id="document_properties" enctype="multipart/form-data">
     <a4j:region id="documentViewRegion">
       <a4j:outputPanel id="documentViewPanel">
-        <nxu:methodResult name="actions"
-          value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST_HREF')}">
-          <f:subview rendered="#{!empty actions}">
-            <div class="action_bar nofloat">
+        <div class="action_bar nofloat">
+
+          <nxu:methodResult name="actions"
+            value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST_HREF')}">
+            <f:subview rendered="#{!empty actions}">
               <nxu:dataList layout="unorderedList" var="action"
                 value="#{actions}">
                 <a href="#{action.getLink()}">
@@ -17,9 +18,21 @@
                   <h:outputText value="#{messages[action.label]}" />
                 </a>
               </nxu:dataList>
-            </div>
-          </f:subview>
-        </nxu:methodResult>
+            </f:subview>
+          </nxu:methodResult>
+          <nxu:methodResult name="actions"
+            value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST')}">
+            <f:subview rendered="#{!empty actions}">
+              <nxu:dataList layout="unorderedList" var="action"
+                value="#{actions}">
+                <nxh:commandLink action="#{action.getLink()}"
+                  id="caseActionUpperListLink">
+                  <h:outputText value="#{messages[action.label]}" />
+                </nxh:commandLink>
+              </nxu:dataList>
+            </f:subview>
+          </nxu:methodResult>
+        </div>
         <div style="clear:both;"></div>
         <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
           value="#{currentCaseItem}" />
