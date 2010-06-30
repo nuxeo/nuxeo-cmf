@@ -83,38 +83,40 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
         super();
     }
 
-
     @Override
     protected void deployRepositoryContrib() throws Exception {
-         super.deployRepositoryContrib();
+        super.deployRepositoryContrib();
 
-         // deploy repository manager
-         deployBundle("org.nuxeo.ecm.core.api");
+        // deploy repository manager
+        deployBundle("org.nuxeo.ecm.core.api");
 
-         // deploy search
-         deployBundle("org.nuxeo.ecm.platform.search.api");
+        // deploy search
+        deployBundle("org.nuxeo.ecm.platform.search.api");
 
-         // deploy api and core bundles
-         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
-         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
+        // deploy api and core bundles
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
 
-         // needed for users
-         deployBundle("org.nuxeo.ecm.directory");
-         deployBundle("org.nuxeo.ecm.platform.usermanager");
-         deployBundle("org.nuxeo.ecm.directory.types.contrib");
-         deployBundle("org.nuxeo.ecm.directory.sql");
-         deployBundle("org.nuxeo.ecm.webapp.core");
-         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
+        // needed for users
+        deployBundle("org.nuxeo.ecm.directory");
+        deployBundle("org.nuxeo.ecm.platform.usermanager");
+        deployBundle("org.nuxeo.ecm.directory.types.contrib");
+        deployBundle("org.nuxeo.ecm.directory.sql");
+        deployBundle("org.nuxeo.ecm.webapp.core");
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 
-         // needed for default hierarchy
-         deployBundle("org.nuxeo.ecm.platform.content.template");
+        // needed for default hierarchy
+        deployBundle("org.nuxeo.ecm.platform.content.template");
+    }
+
+    public void setTestDatabase() {
+        database = DatabasePostgreSQL.INSTANCE;
     }
 
     @Override
     public void setUp() throws Exception {
-        database = DatabasePostgreSQL.INSTANCE;
+        setTestDatabase();
         super.setUp();
-
 
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
@@ -133,7 +135,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
     }
 
     protected DocumentModel createDocument(String type, String id)
-    throws Exception {
+            throws Exception {
         DocumentModel document = session.createDocumentModel(type);
         document.setPathInfo("/", id);
         document = session.createDocument(document);
@@ -160,7 +162,8 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
         CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
-            mailEnvelopeModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+            mailEnvelopeModel = session.createDocumentModel(
+                    CaseConstants.CASE_ROOT_DOCUMENT_PATH,
                     UUID.randomUUID().toString(),
                     correspDocumentTypeService.getCaseType());
         }
@@ -169,8 +172,10 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
     public DocumentModel getMailEnvelopeItemModel() throws Exception {
         if (mailEnvelopeItemModel == null) {
-            mailEnvelopeItemModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    UUID.randomUUID().toString(),CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
+            mailEnvelopeItemModel = session.createDocumentModel(
+                    CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+                    UUID.randomUUID().toString(),
+                    CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         }
         return mailEnvelopeItemModel;
     }
@@ -191,7 +196,8 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
     }
 
     public Mailbox getPersonalMailbox(String name) throws Exception {
-        return correspMailboxService.createPersonalMailboxes(session, name).get(0);
+        return correspMailboxService.createPersonalMailboxes(session, name).get(
+                0);
     }
 
 }
