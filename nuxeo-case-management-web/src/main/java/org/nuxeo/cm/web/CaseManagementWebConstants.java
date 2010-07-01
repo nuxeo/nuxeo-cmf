@@ -23,10 +23,16 @@ package org.nuxeo.cm.web;
 public class CaseManagementWebConstants {
 
     public static final String VIEW_MAILBOX_ACTION_LIST = "VIEW_MAILBOX_ACTION_LIST";
+
     public static final String MAILBOX_VIEW = "mailbox_view";
+
     public static final String MAILBOX_MANAGE = "mailbox_manage";
+
     public static final String MANAGE_MAILBOX_ACTION_LIST = "MANAGE_MAILBOX_ACTION_LIST";
+
     public static final String DISTRIBUTION_CASE_ACTION_LIST = "DISTRIBUTION_CASE_ACTION_LIST";
+
+    public static final String CREATE_NEW_CASE_KEY = "createNewCaseKey";
 
     private CaseManagementWebConstants() {
     }

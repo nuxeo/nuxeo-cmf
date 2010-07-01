@@ -36,6 +36,7 @@ import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -89,7 +90,7 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
         // The new mail
         Case kase = getCurrentCase();
-        if (kase != null) {// adding a case item in a case
+        if (kase != null && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {// adding a case item in a case
             CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(documentManager, kase, parentPath, emailDoc);
             emailDoc = newCaseItem.getDocument();
             emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,

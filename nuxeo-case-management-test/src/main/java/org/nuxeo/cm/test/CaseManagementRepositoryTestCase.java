@@ -35,6 +35,7 @@ import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
 import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
@@ -110,7 +111,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
     }
 
     public void setTestDatabase() {
-        database = DatabasePostgreSQL.INSTANCE;
+        database = DatabaseH2.INSTANCE;
     }
 
     @Override
