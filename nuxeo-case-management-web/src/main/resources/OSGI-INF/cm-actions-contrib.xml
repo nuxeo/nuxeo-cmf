@@ -84,6 +84,18 @@
       <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
+    <action id="SAVE_CASE_ACTION"
+    	link="#{cmDocumentActions.save()"
+    	label="label.casemanagement.save">
+      <category>CASE_ACTION_BOTTOM_LIST</category>
+    </action>
+
+    <action id="CANCEL_CASE_ACTION"
+      link="#{cmDocumentActions.backToMailbox()}"
+      label="command.cancel">
+      <category>CASE_ACTION_BOTTOM_LIST</category>   
+    </action>
+
     <action id="TAB_CONTENT_HISTORY">
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>

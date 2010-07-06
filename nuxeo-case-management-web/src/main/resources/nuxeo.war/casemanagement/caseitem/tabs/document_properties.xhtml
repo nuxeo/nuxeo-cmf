@@ -61,11 +61,34 @@
           </tr>
         </tbody>
       </table>
-      <h:commandButton styleClass="button"
-        value="#{messages['label.casemanagement.save']}" action="#{cmDocumentActions.save()}" />
-      <h:commandButton styleClass="button"
-        value="#{messages['command.cancel']}" action="#{cmDocumentActions.backToMailbox()}"
-        immediate="true" />
+
+      <div class="action_bar nofloat">
+
+        <nxu:methodResult name="actions"
+          value="#{webActions.getActionsList('CASE_ACTION_BOTTOM_LIST_HREF')}">
+          <f:subview rendered="#{!empty actions}">
+            <nxu:dataList layout="unorderedList" var="action"
+              value="#{actions}">
+              <a href="#{action.getLink()}">
+                <h:graphicImage value="#{action.icon}" />
+                <h:outputText value="#{messages[action.label]}" />
+              </a>
+            </nxu:dataList>
+          </f:subview>
+        </nxu:methodResult>
+        <nxu:methodResult name="actions"
+          value="#{webActions.getActionsList('CASE_ACTION_BOTTOM_LIST')}">
+          <f:subview rendered="#{!empty actions}">
+            <nxu:dataList layout="unorderedList" var="action"
+              value="#{actions}">
+              <nxh:commandLink action="#{action.getLink()}"
+                id="caseActionUpperListLink">
+                <h:outputText value="#{messages[action.label]}" />
+              </nxh:commandLink>
+            </nxu:dataList>
+          </f:subview>
+        </nxu:methodResult>
+      </div>
     </c:if>
 
   </h:form>

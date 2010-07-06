@@ -6,7 +6,7 @@ user_pref("capability.principal.codebase.p0.id", "http://localhost:8080/nuxeo/")
 user_pref("capability.principal.codebase.p0.subjectName", "");
 
 // Set english as default language
-user_pref("general.useragent.locale", "en");
+user_pref("general.useragent.locale", "en-GB");
 user_pref("intl.accept_languages", "en");
 
 // Speed up firefox by pipelining requests on a single connection
