@@ -36,7 +36,6 @@ import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
-import org.nuxeo.ecm.core.storage.sql.DatabasePostgreSQL;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
