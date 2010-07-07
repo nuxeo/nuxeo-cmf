@@ -227,15 +227,19 @@ public class CaseItemDocumentActionsBean extends
 
     public String backToMailbox() throws ClientException {
         quitEditingMail();
+        return returnToDocView();
+    }
+
+    protected String returnToDocView() throws ClientException {
         DocumentModel doc = getCurrentCase().getDocument();
         TypeInfo typeInfo = doc.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
     }
 
-    public void save() throws ClientException {
+    public String save() throws ClientException {
         quitEditingMail();
         updateCurrentCaseItem();
-
+        return returnToDocView();
     }
 
     @Override

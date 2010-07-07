@@ -85,7 +85,7 @@
     </action>
 
     <action id="SAVE_CASE_ACTION"
-    	link="#{cmDocumentActions.save()"
+    	link="#{cmDocumentActions.save()}"
     	label="label.casemanagement.save">
       <category>CASE_ACTION_BOTTOM_LIST</category>
     </action>
