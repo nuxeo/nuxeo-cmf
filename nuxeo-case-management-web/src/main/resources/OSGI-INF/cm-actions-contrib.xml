@@ -20,7 +20,7 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_EDIT">
+    <action id="TAB_EDIT"> 
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 

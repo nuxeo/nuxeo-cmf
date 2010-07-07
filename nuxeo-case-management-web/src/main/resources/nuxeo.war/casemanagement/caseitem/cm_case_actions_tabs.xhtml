@@ -33,15 +33,6 @@
             </nxh:commandLink>
           </nxu:dataList>
         </f:subview>
-        <f:subview rendered="#{currentCaseItem.file.content != null}">
-        <nxh:outputLink value="#{nxd:fileUrl('downloadFile', currentCaseItem, 'file:content', currentEmail.file.filename)}">
-          <nxh:graphicImage
-            value="#{nxd:fileIconPath(currentCaseItem.file.content)}"
-            rendered="#{! empty nxd:fileIconPath(currentCaseItem.file.content)}"
-            alt="#{messages['label.document.download']}"
-            title="#{currentCaseItem.file.filename} [#{nxu:printFileSize(currentCaseItem.file.content.length)}]" />
-      </nxh:outputLink>
-    </f:subview>
       </nxu:methodResult>
     </h:form>
 
