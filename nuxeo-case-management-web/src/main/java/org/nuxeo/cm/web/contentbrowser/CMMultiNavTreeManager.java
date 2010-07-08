@@ -33,7 +33,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author arussel
- * 
+ *
  */
 @Name("multiNavTreeManager")
 @Scope(CONVERSATION)
@@ -48,7 +48,7 @@ public class CMMultiNavTreeManager extends MultiNavTreeManager {
 
     @Create
     public void create() {
-        setSelectedNavigationTree("TAG_CLOUD");
+        setSelectedNavigationTree(currentUser.isAdministrator() ? STD_NAV_TREE : "TAG_CLOUD");
     }
 
     @Override
