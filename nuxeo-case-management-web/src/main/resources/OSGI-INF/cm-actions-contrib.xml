@@ -71,17 +71,16 @@
       <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_FILES">
-      <filter-id>isNotCaseItemOrCase</filter-id>
+    <action id="CM_TAB_FILES_EDIT" link="/casemanagement/caseitem/tabs/document_files_edit.xhtml"
+      order="43" label="action.view.files">
+      <category>VIEW_ACTION_LIST</category>
+      <filter-id>canEditCaseItem</filter-id>
+      <filter-id>mutable_document</filter-id>
+      <filter-id>isCaseItemOrCase</filter-id>
     </action>
+
     <action id="TAB_FILES_EDIT">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action>
-    <action id="TAB_CASE_MANAGEMENT_FILES"
-      link="/casemanagement/caseitem/tabs/document_files.xhtml" order="40"
-      label="label.casemanagement.tab.files">
-      <category>VIEW_ACTION_LIST</category>
-      <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
     <action id="SAVE_CASE_ACTION"
@@ -368,6 +367,12 @@
     <filter id="canDistributeCase">
       <rule grant="true">
         <condition>#{cmDistributionActions.canDistributeCase()}</condition>
+      </rule>
+    </filter>
+
+    <filter id="canEditCaseItem">
+      <rule grant="true">
+        <condition>#{cmDocumentActions.canEditCurrentCaseItem}</condition>
       </rule>
     </filter>
   </extension>
