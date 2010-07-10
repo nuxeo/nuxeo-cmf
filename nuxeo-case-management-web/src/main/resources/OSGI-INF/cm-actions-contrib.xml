@@ -83,6 +83,18 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
+    <action id="CASE_CREATE" 
+      link="#{cmDocumentActions.createCaseItemInCase}"
+      label="command.create">
+      <category>CASE_CREATE_BOTTOM_LIST</category>
+    </action>
+
+    <action id="CASE_CREATE_CANCEL" 
+      link="#{cmDocumentActions.save()}"
+      label="command.cancel">
+      <category>CASE_CREATE_BOTTOM_LIST</category>
+    </action>
+
     <action id="SAVE_CASE_ACTION"
     	link="#{cmDocumentActions.save()}"
     	label="label.casemanagement.save">
