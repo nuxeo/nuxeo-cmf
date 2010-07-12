@@ -30,6 +30,7 @@
     <module>nuxeo-case-management-lang</module>
     <module>nuxeo-case-management-facade</module>
     <module>nuxeo-case-management-web</module>
+    <module>nuxeo-case-management-distribution</module>
   </modules>
 
   <dependencyManagement>
