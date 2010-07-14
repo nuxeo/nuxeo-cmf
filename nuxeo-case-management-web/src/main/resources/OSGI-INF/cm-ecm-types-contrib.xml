@@ -63,6 +63,9 @@
       <layouts mode="any">
         <layout>heading</layout>
       </layouts>
+      <layouts mode="summary">
+        <layout>summary_current_case_layout</layout>
+      </layouts> 
     </type>
 
     <type id="CaseLink">

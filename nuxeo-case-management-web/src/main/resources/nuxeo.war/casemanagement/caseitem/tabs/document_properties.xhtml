@@ -6,8 +6,9 @@
   <h:form id="document_properties" enctype="multipart/form-data">
     <a4j:region id="documentViewRegion">
       <a4j:outputPanel id="documentViewPanel">
-        <div class="action_bar nofloat">
 
+        <!-- Action for the case -->
+        <div class="action_bar nofloat">
           <nxu:methodResult name="actions"
             value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST_HREF')}">
             <f:subview rendered="#{!empty actions}">
@@ -33,104 +34,12 @@
             </f:subview>
           </nxu:methodResult>
         </div>
-
         <div style="clear:both;"></div>
-        <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
-          value="#{currentCaseItem}" />
-        <h:panelGroup>
-          <h:panelGrid columns="2" columnClasses="labelColumn, fieldColumn"
-            rendered="#{currentCaseItem.files.files != null and not empty currentCaseItem.files.files}">
-            <h:outputText
-              value=" #{messages['label.summary.download.attachments']}" />
-
-            <nxu:inputList value="#{currentCaseItem.files.files}"
-              id="files_input" model="model">
-              <h:panelGroup>
-                <div>
-                  <nxh:outputLink
-                    value="#{nxd:complexFileUrl('downloadFile', currentCaseItem, 'files:files', model.rowIndex, 'file', currentCaseItem.files.files[model.rowIndex].filename)}">
-                    <nxh:graphicImage
-                      value="#{nxd:fileIconPath(currentCaseItem.files.files[model.rowIndex].file)}"
-                      rendered="#{! empty nxd:fileIconPath(currentCaseItem.files.files[model.rowIndex].file)}" />
-                    <nxh:outputText
-                      value="#{currentCaseItem.files.files[model.rowIndex].filename}" />
-                    <h:outputText
-                      value=" (#{nxu:printFileSize(currentCaseItem.files.files[model.rowIndex].file.length)})" />
-                  </nxh:outputLink>
-                  <nxu:methodResult name="hasPDFCapabilities"
-                    value="#{conversionActions.isExportableToPDF(currentCaseItem.files.files[model.rowIndex].file)}">
-                    <h:panelGroup rendered="#{hasPDFCapabilities}">
-                      <h:commandLink
-                        action="#{conversionActions.generatePdfFile}">
-                        <f:param name="fileFieldFullName"
-                          value="#{nxd:propertyPath('files:files', model.rowIndex, 'file')}" />
-                        <f:param name="filename"
-                          value="#{currentCaseItem.files.files[model.rowIndex].filename}" />
-                        <nxh:graphicImage value="/icons/pdf.png"
-                          title="#{messages['label.document.generatePdf']}" />
-                      </h:commandLink>
-                    </h:panelGroup>
-                  </nxu:methodResult>
-                </div>
-              </h:panelGroup>
-            </nxu:inputList>
-          </h:panelGrid>
-        </h:panelGroup>
-        <div style="clear:both;"></div>
-        <ui:include src="/incl/tagging.xhtml" />
+        <!-- view of the current case item -->
+        <nxl:layout value="#{currentDocument}" mode="view"
+          name="#{currentDocumentSummaryLayout}" />
 
       </a4j:outputPanel>
     </a4j:region>
-    <c:if
-      test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
-      <h:commandButton styleClass="button" immediate="true"
-        value="#{messages['label.casemanagement.startEditing']}" action="#{cmDocumentActions.startEditingCaseItem()}" />
-    </c:if>
-
-    <c:if test="#{cmDocumentActions.editingCaseItem}">
-      <table class="dataInput">
-        <tbody>
-          <tr>
-            <td class="labelColumn">
-              <h:outputText value="#{messages['label.comment']}" />
-            </td>
-            <td class="fieldColumn">
-              <h:inputTextarea
-                value="#{currentCaseItem.contextData['request/comment']}" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="action_bar nofloat">
-
-        <nxu:methodResult name="actions"
-          value="#{webActions.getActionsList('CASE_ACTION_BOTTOM_LIST_HREF')}">
-          <f:subview rendered="#{!empty actions}">
-            <nxu:dataList layout="unorderedList" var="action"
-              value="#{actions}">
-              <a href="#{action.getLink()}">
-                <h:graphicImage value="#{action.icon}" />
-                <h:outputText value="#{messages[action.label]}" />
-              </a>
-            </nxu:dataList>
-          </f:subview>
-        </nxu:methodResult>
-        <nxu:methodResult name="actions"
-          value="#{webActions.getActionsList('CASE_ACTION_BOTTOM_LIST')}">
-          <f:subview rendered="#{!empty actions}">
-            <nxu:dataList layout="unorderedList" var="action"
-              value="#{actions}">
-              <nxh:commandLink action="#{action.getLink()}"
-                id="caseActionUpperListLink">
-                <h:outputText value="#{messages[action.label]}" />
-              </nxh:commandLink>
-            </nxu:dataList>
-          </f:subview>
-        </nxu:methodResult>
-      </div>
-    </c:if>
-
   </h:form>
-
 </div>
