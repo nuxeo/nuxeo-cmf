@@ -1289,7 +1289,7 @@
       </selector>
       <selector path=".summary_div_1">
         <width>33%</width>
-        <padding>10px 0</padding>
+        <padding>2px 0</padding>
         <float>right</float>
       </selector>
       <selector path=".summary_div_1 h3.summaryTitle">

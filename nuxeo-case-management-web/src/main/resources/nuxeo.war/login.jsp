@@ -42,7 +42,7 @@ table.loginForm {
   }
 
 .leftColumn {
-  width:300px;
+  width:400px;
   }
 
 H1 {
@@ -156,8 +156,8 @@ nxthemes css is not used in login.jsp */
 
 .labelCorp a {
   text-decoration:none;
-  color:#9a9a9a;
-  font:normal 9px "Lucida Grande", sans-serif;
+  color:#d7d7d7;
+  font:normal 11px "Lucida Grande", sans-serif;
   padding-top:0px;
   }
 
@@ -165,12 +165,13 @@ nxthemes css is not used in login.jsp */
   text-decoration:underline;
   }
 
-
+.news_container {
+  text-align:left;
+}
 .block_container {
-  margin-right:50px;
   border:none;
   height:500px;
-  width:350px;
+  width:365px;
   overflow:auto;
   background-color:#ffffff;
   opacity:0.8;
@@ -203,19 +204,25 @@ nxthemes css is not used in login.jsp */
        <td align="right" class="leftColumn">
        <div class="labelCorp">
        <ul>
-                    <li><a href="http://www.nuxeo.com/">
-                      <fmt:message bundle="${messages}" key="label.login.visitNuxeoCom" />
-                    </a></li>
-                    <li><a href="http://nuxeo.com/subscription/connect">
-                      <fmt:message bundle="${messages}" key="label.login.getSupport" />
-                    </a></li>
-                    <li><a href="http://www.nuxeo.org/">
-                      <fmt:message bundle="${messages}" key="label.login.joinTheCommunity" />
-                    </a></li>
-                    <li><a href="http://www.nuxeo.org/xwiki/bin/view/Main/QuickStart/">
-                      <fmt:message bundle="${messages}" key="label.login.quickStart" />
-                    </a></li>
-                </ul>
+            <li>
+              <a onclick="window.open(this.href); return false;"
+                href="http://www.nuxeo.com/en/subscription/connect?utm_source=cmf&amp;utm_medium=login-page-top&amp;utm_campaign=products">
+                <fmt:message bundle="${messages}" key="label.login.getSupport" />
+              </a>
+            </li>
+            <li>
+              <a onclick="window.open(this.href); return false;"
+                href="http://www.nuxeo.org/discussions/index.jspa?utm_source=cmf&amp;utm_medium=login-page-top&amp;utm_campaign=products">
+                <fmt:message bundle="${messages}" key="label.login.forums" />
+              </a>
+            </li>
+            <li>
+              <a onclick="window.open(this.href); return false;"
+                href="https://doc.nuxeo.com/display/CMDOC/Home?utm_source=cmf&amp;utm_medium=login-page-top&amp;utm_campaign=products">
+                <fmt:message bundle="${messages}" key="label.login.documentation" />
+              </a>
+            </li>
+          </ul>
                 <div style="clear:both;" />
           </div>
        </td>

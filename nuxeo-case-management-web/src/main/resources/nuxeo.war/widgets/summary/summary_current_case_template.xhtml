@@ -1,9 +1,14 @@
 <div xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jstl/core"
   xmlns:nxl="http://nuxeo.org/nxforms/layout" xmlns:nxu="http://nuxeo.org/nxweb/util"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:nxh="http://nuxeo.org/nxweb/html">
-  <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
+    
+    <h3 class="summaryTitle">
+      <h:outputText value="#{messages['label.summary.metadata']}" />
+    </h3>
+    
+    <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
     value="#{currentCaseItem}" />
-
+    
   <c:if
     test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
     <h:commandButton styleClass="button" immediate="true"
