@@ -1076,6 +1076,7 @@
         <margin>0</margin>
         <padding>0px 10px 0 0</padding>
         <list-style>none</list-style>
+        <float>left</float>
       </selector>
       <selector path=".action_bar li">
         <margin>0</margin>

@@ -38,7 +38,7 @@ if ("en".equals(language)) {
 <!--
  body {
   font: normal 11px "Lucida Grande", sans-serif;
-  background: url("<%=context%>/img/theme_galaxy/boston.jpg") no-repeat scroll center -100px #000000;
+  background: url("/nuxeo/img/login_bg.jpg") no-repeat scroll center bottom #000000;
   color: #343434;
   }
 
@@ -50,7 +50,7 @@ if ("en".equals(language)) {
   }
 
 .topBar img {
-  margin-left:20px;
+  margin-left:30px;
   }
 
 table.loginForm {
@@ -217,26 +217,26 @@ nxthemes css is not used in login.jsp */
   <tbody>
     <tr class="topBar">
       <td>
-        <img width="316" height="36" alt="Nuxeo Document Management" src="<%=context%>/img/theme_galaxy/nuxeo_5.2_login.png"/>
+        <img src="<%=context%>/img/casemanagement_logo1.png" alt="Nuxeo Case Management" width="324" height="36"/>
       </td>
       <td align="right" class="leftColumn">
         <div class="labelCorp">
           <ul>
             <li>
               <a onclick="window.open(this.href); return false;"
-                href="http://www.nuxeo.com/en/subscription/connect?utm_source=dm&amp;utm_medium=login-page-top&amp;utm_campaign=products">
+                href="http://www.nuxeo.com/en/subscription/connect?utm_source=cmf&amp;utm_medium=login-page-top&amp;utm_campaign=products">
                 <fmt:message bundle="${messages}" key="label.login.getSupport" />
               </a>
             </li>
             <li>
               <a onclick="window.open(this.href); return false;"
-                href="http://www.nuxeo.org/discussions/index.jspa?utm_source=dm&amp;utm_medium=login-page-top&amp;utm_campaign=products">
+                href="http://www.nuxeo.org/discussions/index.jspa?utm_source=cmf&amp;utm_medium=login-page-top&amp;utm_campaign=products">
                 <fmt:message bundle="${messages}" key="label.login.forums" />
               </a>
             </li>
             <li>
               <a onclick="window.open(this.href); return false;"
-                href="https://doc.nuxeo.com/display/DMDOC/Nuxeo+DM+-+Documentation+Center?utm_source=dm&amp;utm_medium=login-page-top&amp;utm_campaign=products">
+                href="https://doc.nuxeo.com/display/CMDOC/Home?utm_source=cmf&amp;utm_medium=login-page-top&amp;utm_campaign=products">
                 <fmt:message bundle="${messages}" key="label.login.documentation" />
               </a>
             </li>
@@ -372,7 +372,7 @@ nxthemes css is not used in login.jsp */
         <% if (!request.getHeader("User-Agent").contains("Nuxeo-Selenium-Tester")) { %>
           <iframe class="block_container" style="visibility:hidden"
             onload="javascript:this.style.visibility='visible';"
-            src="http://www.nuxeo.com/embedded/dm-login"></iframe>
+            src="http://www.nuxeo.com/embedded/cm-login"></iframe>
         <% } %>
       </td>
     </tr>
