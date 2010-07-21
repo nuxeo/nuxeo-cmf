@@ -89,22 +89,10 @@
       <category>CASE_CREATE_BOTTOM_LIST</category>
     </action>
 
-    <action id="CASE_CREATE_CANCEL" 
-      link="#{cmDocumentActions.save()}"
-      label="command.cancel">
-      <category>CASE_CREATE_BOTTOM_LIST</category>
-    </action>
-
     <action id="SAVE_CASE_ACTION"
     	link="#{cmDocumentActions.save()}"
     	label="label.casemanagement.save">
       <category>CASE_ACTION_BOTTOM_LIST</category>
-    </action>
-
-    <action id="CANCEL_CASE_ACTION"
-      link="#{cmDocumentActions.backToMailbox()}"
-      label="command.cancel">
-      <category>CASE_ACTION_BOTTOM_LIST</category>   
     </action>
 
     <action id="TAB_CONTENT_HISTORY">

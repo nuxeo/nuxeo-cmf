@@ -55,6 +55,10 @@
           </nxu:dataList>
         </f:subview>
       </nxu:methodResult>
+      <nxh:commandLink immediate="true" action="#{cmDocumentActions.backToMailbox()}"
+        id="cancelCaseAction">
+        <h:outputText value="#{messages['command.cancel']}" />
+      </nxh:commandLink>
     </div>
   </c:if>
 </div>
