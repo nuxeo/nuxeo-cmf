@@ -19,7 +19,7 @@
   <description>The parent module for Nuxeo Case Management Framework</description>
 
   <properties>
-    <nuxeo.cm.version>${pom.version}</nuxeo.cm.version>
+    <nuxeo.cm.version>1.2-SNAPSHOT</nuxeo.cm.version>
     <nuxeo.platform.version>5.4.0-SNAPSHOT</nuxeo.platform.version>
   </properties>
 
@@ -107,37 +107,37 @@
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-core</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-facade</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-web</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-ear</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-lang</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-test</artifactId>
-        <version>${pom.version}</version>
+        <version>${nuxeo.cm.version}</version>
         <scope>test</scope>
       </dependency>
       <!-- nuxeo platform importer-->
