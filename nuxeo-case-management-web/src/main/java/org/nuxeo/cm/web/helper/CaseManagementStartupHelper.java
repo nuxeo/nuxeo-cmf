@@ -27,7 +27,6 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.international.LocaleSelector;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.web.mailbox.CaseManagementMailboxActionsBean;
@@ -38,7 +37,6 @@ import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.webapp.helpers.StartupHelper;
 import org.nuxeo.runtime.api.Framework;
-
 
 /**
  * Overwrite default StartupHelper to provide custom startup page for
@@ -62,9 +60,6 @@ public class CaseManagementStartupHelper extends StartupHelper {
     @In(create = true)
     protected transient NuxeoPrincipal currentNuxeoPrincipal;
 
-    @In(create = true)
-    protected transient LocaleSelector localeSelector;
-
     @Override
     public String initServerAndFindStartupPage() throws ClientException {
         String page = super.initServerAndFindStartupPage();
@@ -73,7 +68,8 @@ public class CaseManagementStartupHelper extends StartupHelper {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             // select mailbox to display
             final String user = currentNuxeoPrincipal.getName();
-            Mailbox userMailbox = service.getUserPersonalMailbox(documentManager, user);
+            Mailbox userMailbox = service.getUserPersonalMailbox(
+                    documentManager, user);
             if (userMailbox != null) {
                 page = navigationContext.navigateToDocument(userMailbox.getDocument());
             }

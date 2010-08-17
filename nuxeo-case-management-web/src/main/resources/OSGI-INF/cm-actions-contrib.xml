@@ -161,6 +161,7 @@
       label="label.casemanagement.draftMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
+      <filter-id>canCreateCase</filter-id>
     </action>
 
     <action id="SHOW_MANAGE_MAILBOX_ACTION" link="/casemanagement/mailbox/mailbox_manage.xhtml"
