@@ -31,21 +31,22 @@ import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkMode;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.distribution.ParticipantItem;
-import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -60,6 +61,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
  * @author Anahide Tchertchian
  */
 @Name("cmDistributionActions")
+@Install(precedence = Install.FRAMEWORK)
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementDistributionActionsBean extends
