@@ -306,6 +306,20 @@
       </rule>
     </filter>
 
+    <filter id="isDraft">
+      <rule grant="true">
+        <facet>Case</facet>
+        <condition>#{currentCase.isDraft()}</condition>
+      </rule>
+    </filter>
+
+    <filter id="isNotDraft">
+      <rule grant="false">
+        <facet>Case</facet>
+        <condition>#{currentCase.isDraft()}</condition>
+      </rule>
+    </filter>
+
     <filter id="isNotCmInitialCase">
       <rule grant="true">
         <facet>Case</facet>
