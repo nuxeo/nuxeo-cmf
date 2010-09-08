@@ -25,7 +25,6 @@
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
             <property name="sortPropertyName">dc:title</property>
           </properties>
           <widget>cm_mailbox_inbox_listing_title_link</widget>
@@ -33,14 +32,12 @@
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
           </properties>
           <widget>cm_listing_sending_date</widget>
         </column>
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
           </properties>
           <widget>cm_listing_sender</widget>
         </column>
@@ -66,7 +63,6 @@
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
             <property name="sortPropertyName">dc:title</property>
           </properties>
           <widget>cm_mailbox_draft_listing_title_link</widget>
@@ -93,7 +89,6 @@
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
             <property name="sortPropertyName">uid:uid</property>
           </properties>
           <widget>cm_listing_uid</widget>
@@ -101,7 +96,6 @@
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
             <property name="sortPropertyName">dc:title</property>
           </properties>
           <widget>cm_mailbox_listing_title_link</widget>
@@ -109,14 +103,12 @@
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
           </properties>
           <widget>cm_listing_sender</widget>
         </column>
         <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
-            <property name="columnStyleClass">iconColumn</property>
           </properties>
           <widget>cm_listing_sending_date</widget>
         </column>
