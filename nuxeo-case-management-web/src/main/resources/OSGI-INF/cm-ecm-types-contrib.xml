@@ -38,6 +38,9 @@
       <contentViews category="inbox">
         <contentView>mailbox_inbox_content</contentView>
       </contentViews>
+      <contentViews category="draft_content">
+        <contentView>mailbox_draft_content</contentView>
+      </contentViews>
       <contentViews category="sent">
         <contentView>mailbox_sent_content</contentView>
       </contentViews>

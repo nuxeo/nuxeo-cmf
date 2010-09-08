@@ -20,10 +20,19 @@
   </h:form>
   <div style="clear:both"></div>
   <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
-    <nxu:methodResult name="provider"
-      value="#{resultsProvidersCache.get('MAILBOX_DRAFT')}">
+   <c:choose>
+      <c:when test="#{documentContentViewActions.hasContentViewSupport(currentDocument, 'draft_content')}">
+        
+        <ui:include src="/incl/document_content_view.xhtml">
+          <ui:param name="contentViewCategory" value="draft_content" />
+        </ui:include>
+  
+      </c:when>
+      <c:otherwise> 
+      <nxu:methodResult name="provider"
+       value="#{resultsProvidersCache.get('MAILBOX_DRAFT')}">
 
-      <ui:decorate template="/incl/documents_layout_table.xhtml">
+       <ui:decorate template="/incl/documents_layout_table.xhtml">
         <ui:param name="documents" value="#{draftChildrenSelectModel}" />
         <ui:param name="showCheckboxes" value="#{true}" />
         <ui:param name="provider" value="#{provider}" />
@@ -35,7 +44,9 @@
         </ui:define>
       </ui:decorate>
 
-    </nxu:methodResult>
+      </nxu:methodResult>
+     </c:otherwise>
+    </c:choose>
   </c:if>
 
   <c:if test="#{currentDocument.currentLifeCycleState == 'deleted'}">
