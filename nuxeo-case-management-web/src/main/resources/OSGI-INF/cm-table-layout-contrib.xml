@@ -6,7 +6,7 @@
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="layouts">
-    <layout name="cm_caselink">
+    <layout name="cm_inbox_caselink">
       <templates>
         <template mode="any">/layouts/layout_listing_template.xhtml</template>
       </templates>
@@ -28,7 +28,7 @@
             <property name="columnStyleClass">iconColumn</property>
             <property name="sortPropertyName">dc:title</property>
           </properties>
-          <widget>cm_listing_title_link</widget>
+          <widget>cm_mailbox_inbox_listing_title_link</widget>
         </column>
         <column>
           <properties mode="any">
@@ -69,7 +69,56 @@
             <property name="columnStyleClass">iconColumn</property>
             <property name="sortPropertyName">dc:title</property>
           </properties>
-          <widget>cm_listing_title_link</widget>
+          <widget>cm_mailbox_draft_listing_title_link</widget>
+        </column>
+      </columns>
+    </layout>
+
+    <layout name="cm_sent_caselink">
+      <templates>
+        <template mode="any">/layouts/layout_listing_template.xhtml</template>
+      </templates>
+      <properties mode="any">
+        <property name="showListingHeader">true</property>
+        <property name="showRowEvenOddClass">true</property>
+      </properties>
+      <columns>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">false</property>
+            <property name="columnStyleClass">iconColumn</property>
+          </properties>
+          <widget>cm_icon_type</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="columnStyleClass">iconColumn</property>
+            <property name="sortPropertyName">uid:uid</property>
+          </properties>
+          <widget>cm_listing_uid</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="columnStyleClass">iconColumn</property>
+            <property name="sortPropertyName">dc:title</property>
+          </properties>
+          <widget>cm_mailbox_listing_title_link</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="columnStyleClass">iconColumn</property>
+          </properties>
+          <widget>cm_listing_sender</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="columnStyleClass">iconColumn</property>
+          </properties>
+          <widget>cm_listing_sending_date</widget>
         </column>
       </columns>
     </layout>
