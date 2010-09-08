@@ -35,6 +35,21 @@
       <subtypes>
         <type>CaseItem</type>
       </subtypes>
+      <contentViews category="inbox">
+        <contentView>mailbox_inbox_content</contentView>
+      </contentViews>
+      <contentViews category="sent">
+        <contentView>mailbox_sent_content</contentView>
+      </contentViews>
+      <contentViews category="service">
+        <contentView>mailbox_service_content</contentView>
+      </contentViews>
+      <contentViews category="content">
+        <contentView>document_content</contentView>
+      </contentViews>
+      <contentViews category="trash_content">
+        <contentView>document_trash_content</contentView>
+      </contentViews>
     </type>
 
     <type id="CaseRoot">

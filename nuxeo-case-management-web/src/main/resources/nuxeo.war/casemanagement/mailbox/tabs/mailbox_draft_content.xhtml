@@ -23,7 +23,7 @@
     <nxu:methodResult name="provider"
       value="#{resultsProvidersCache.get('MAILBOX_DRAFT')}">
 
-      <ui:decorate template="mailbox_draftcaselink_table.xhtml">
+      <ui:decorate template="/incl/documents_layout_table.xhtml">
         <ui:param name="documents" value="#{draftChildrenSelectModel}" />
         <ui:param name="showCheckboxes" value="#{true}" />
         <ui:param name="provider" value="#{provider}" />
