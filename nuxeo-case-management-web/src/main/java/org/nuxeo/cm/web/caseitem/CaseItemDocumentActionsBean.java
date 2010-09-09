@@ -29,6 +29,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.cases.LockableAdapter;
@@ -42,12 +43,14 @@ import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
+import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.platform.forms.layout.api.BuiltinModes;
 import org.nuxeo.ecm.platform.preview.seam.PreviewActionBean;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
+import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
@@ -122,7 +125,8 @@ public class CaseItemDocumentActionsBean extends
         // Navigate to the created envelope
         DocumentModel envelopeDocModel = envelope.getDocument();
         navigationContext.navigateToDocument(envelopeDocModel);
-
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                documentManager.getDocument(new PathRef(parentPath)));
         TypeInfo typeInfo = envelopeDocModel.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
     }
