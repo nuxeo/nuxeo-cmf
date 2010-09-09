@@ -31,6 +31,8 @@ public class GetParentPathUnrestricted extends UnrestrictedSessionRunner {
 
     protected String parentPath;
 
+    protected DocumentModel parent;
+    
     public GetParentPathUnrestricted(CoreSession session) {
         super(session);
     }
@@ -39,15 +41,18 @@ public class GetParentPathUnrestricted extends UnrestrictedSessionRunner {
         return parentPath;
     }
 
+    public DocumentModel getParentDocument(){
+        return parent;
+    }
+    
     @Override
     public void run() throws ClientException {
         // Retrieve the MailRoot folder
         DocumentModel mailRootdoc = session.getDocument(new PathRef(
                 CaseConstants.CASE_ROOT_DOCUMENT_PATH));
-
         // Create (or retrieve) the current MailRoot folder (/mail/YYYY/MM/DD)
         Date now = new Date();
-        DocumentModel parent = CaseTreeHelper.getOrCreateDateTreeFolder(
+        parent = CaseTreeHelper.getOrCreateDateTreeFolder(
                 session, mailRootdoc, now, CaseConstants.CASE_TREE_TYPE);
         session.save();
         parentPath = parent.getPathAsString();
