@@ -38,7 +38,7 @@ if ("en".equals(language)) {
 <!--
  body {
   font: normal 11px "Lucida Grande", sans-serif;
-  background: url("/nuxeo/img/login_bg.jpg") no-repeat scroll center bottom #000000;
+  background: url("<%=context%>/img/login_bg.jpg") no-repeat scroll center bottom #000000;
   color: #343434;
   }
 
