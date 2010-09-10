@@ -189,7 +189,108 @@
         /widgets/listing/listing_cm_text_dis_history_copy_recepients_widget_template.xhtml
       </property>
     </widgetType>
-   
+    
+    <widgetType name="listing_cm_relations_outgoing_predicate">
+      <documentation>
+        This widget type displays the prdicate in a relation
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+          statement.predicate.uri
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_relations_outgoing_predicate_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+    <widgetType name="listing_cm_relations_incoming_predicate">
+      <documentation>
+        This widget type displays the prdicate in a relation
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+          statement.predicate.uri
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_relations_incoming_predicate_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+   <widgetType name="listing_cm_relations_object">
+      <documentation>
+        This widget type displays the prdicate in a relation
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+          statement.
+          </li>
+          <li>
+          statement.objectInfo
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_relations_object_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+    <widgetType name="listing_cm_relations_comment">
+      <documentation>
+        This widget type displays the comment in a relation
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+          statement.
+          </li>
+          <li>
+          statement.comment
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_relations_comment_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+    <widgetType name="listing_cm_relations_actions">
+      <documentation>
+        This widget type displays the actions that a user can perform on the documents from
+        relation
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+          statement.
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_relations_actions_widget_template.xhtml
+      </property>
+    </widgetType>
    
   </extension>
 
@@ -366,6 +467,80 @@
       </fields>
     </widget>
 
+     <widget name="cm_relations_outgoing_predicate" type="listing_cm_relations_outgoing_predicate">
+      <labels>
+        <label mode="any">label.relation.predicate</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.predicate.uri</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_relations_incoming_predicate" type="listing_cm_relations_incoming_predicate">
+      <labels>
+        <label mode="any">label.relation.predicate</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.predicate.uri</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_relations_object" type="listing_cm_relations_object">
+      <labels>
+        <label mode="any">label.relation.object</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+        <field>data.objectInfo</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_relations_comment" type="listing_cm_relations_comment">
+      <labels>
+        <label mode="any">label.relation.comment</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+        <field>data.comment</field>
+      </fields>
+    </widget>
+
+    <widget name="cm_relations_actions" type="listing_cm_relations_actions">
+      <labels>
+        <label mode="any">label.operations</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_relations_date" type="datetime">
+      <labels>
+        <label mode="any">label.content.header.created</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.creationDate</field>
+      </fields>
+      <properties widgetMode="any">
+        <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+      </properties>
+    </widget>
+    
+    <widget name="cm_relations_author" type="text">
+      <labels>
+        <label mode="any">label.content.header.author</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.author</field>
+      </fields>
+    </widget>
   </extension>
 
 </component>

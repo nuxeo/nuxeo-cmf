@@ -3,6 +3,7 @@
 
   <require>org.nuxeo.ecm.platform.actions</require>
   <require>org.nuxeo.ecm.platform.notifications.web.actions</require>
+  <require>org.nuxeo.ecm.platform.actions.relations.web</require>
   <require>org.nuxeo.ecm.platform.forum.actions</require>
   <require>org.nuxeo.ecm.platform.comment.actions</require>
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
@@ -61,14 +62,14 @@
       <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_RELATIONS">
+  <!--  <action id="TAB_RELATIONS">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action>
-    <action id="TAB_CASE_MANAGEMENT_RELATIONS"
+    </action> -->
+    <action id="TAB_RELATIONS"
       link="/casemanagement/caseitem/tabs/document_relations.xhtml" order="30"
       label="label.casemanagement.tab.relations">
       <category>VIEW_ACTION_LIST</category>
-      <filter-id>isCaseItemOrCase</filter-id>
+    <!--  <filter-id>isCaseItemOrCase</filter-id> -->
     </action>
 
     <action id="CM_TAB_FILES_EDIT" link="/casemanagement/caseitem/tabs/document_files_edit.xhtml"

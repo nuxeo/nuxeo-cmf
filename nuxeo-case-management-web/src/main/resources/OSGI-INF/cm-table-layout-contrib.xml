@@ -199,6 +199,96 @@
         </columns>
     </layout>
     
+     <layout name="cm_outgoing_relations">
+      <templates>
+        <template mode="any">/layouts/layout_listing_template.xhtml</template>
+      </templates>
+      <properties mode="any">
+        <property name="showListingHeader">true</property>
+        <property name="showRowEvenOddClass">true</property>
+      </properties>
+      <columns>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_outgoing_predicate</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_object</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_date</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_author</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_comment</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_actions</widget>
+        </column>
+        </columns>
+    </layout>
+    
+     <layout name="cm_incoming_relations">
+      <templates>
+        <template mode="any">/layouts/layout_listing_template.xhtml</template>
+      </templates>
+      <properties mode="any">
+        <property name="showListingHeader">true</property>
+        <property name="showRowEvenOddClass">true</property>
+      </properties>
+      <columns>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_incoming_predicate</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_object</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_date</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_author</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_relations_comment</widget>
+        </column>
+        </columns>
+    </layout>
+    
 
   </extension>
 
