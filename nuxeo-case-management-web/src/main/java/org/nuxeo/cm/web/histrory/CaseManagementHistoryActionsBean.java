@@ -41,6 +41,8 @@ import org.nuxeo.ecm.platform.audit.api.AuditException;
 import org.nuxeo.ecm.platform.audit.api.LogEntry;
 import org.nuxeo.ecm.platform.audit.web.listener.ContentHistoryActions;
 import org.nuxeo.ecm.platform.audit.web.listener.ejb.LinkedDocument;
+import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
+import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 
 /**
  * Retrieves log entries for current mailbox
@@ -98,6 +100,11 @@ CaseManagementContextBoundInstance {
         return logEntries;
     }
 
+    @Factory(value = "caseItemLogEntriesSelectModel", scope = EVENT)
+    public SelectDataModel computeSelectDataModelLogEntries() throws ClientException{
+        return new SelectDataModelImpl("cm_history", computeLogEntries(), null);
+    }
+    
     @Factory(value = "caseItemDistributionLogEntries", scope = EVENT)
     public List<? extends LogEntry> computeDistributionLogEntries()
     throws AuditException {
@@ -113,6 +120,11 @@ CaseManagementContextBoundInstance {
             }
         }
         return distributionLogEntries;
+    }
+    
+    @Factory(value = "caseItemDistributionLogEntriesSelectModel", scope = EVENT)
+    public SelectDataModel computeSelectModelDistributionLogEntries() throws ClientException {
+        return new SelectDataModelImpl("cm_distribution_history", computeDistributionLogEntries(), null);
     }
 
     @Factory(value = "caseItemLogEntriesComments", scope = EVENT)

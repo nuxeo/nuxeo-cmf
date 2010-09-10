@@ -5,7 +5,6 @@
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgettypes">
     <widgetType name="listing_cm_title_link">
-
       <documentation>
         This widget type displays a link to navigate to a case.
         <br />
@@ -31,7 +30,6 @@
       <property name="template">
         /widgets/listing/listing_cm_title_link_widget_template.xhtml
       </property>
-
     </widgetType>
 
     <widgetType name="listing_inbox_title_link">
@@ -96,6 +94,102 @@
       </property>
 
     </widgetType>
+    
+    <widgetType name="listing_cm_text_history_action">
+      <documentation>
+        This widget type displays a action logged by the audit.
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+            first field maps the entryId for the entryLog
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_history_action_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+     <widgetType name="listing_cm_text_history_username">
+      <documentation>
+        This widget type displays the username for a given principal
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+            first field maps the principalName 
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_username_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+    <widgetType name="listing_cm_text_distribution_history_comment">
+      <documentation>
+        This widget type displays a comment logged by the audit.
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+            first field maps the logEntry 
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_dis_history_comment_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+    <widgetType name="listing_cm_text_distribution_action_recipient">
+      <documentation>
+        This widget type displays the action recipients logged by the audit.
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+           first field maps the logEntry 
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_dis_history_action_recepients_widget_template.xhtml
+      </property>
+    </widgetType>
+    
+    <widgetType name="listing_cm_text_distribution_copy_recipient">
+      <documentation>
+        This widget type displays the copy recipients logged by the audit.
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+           first field maps the logEntry 
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_text_dis_history_copy_recepients_widget_template.xhtml
+      </property>
+    </widgetType>
+   
    
   </extension>
 
@@ -198,7 +292,79 @@
         <field>data.uid.uid</field>
       </fields>
     </widget>
+    
+   <widget name="cm_history_action" type="listing_cm_text_history_action">
+    <labels>
+        <label mode="any">label.performedAction</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.eventId</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_history_date" type="datetime">
+      <labels>
+        <label mode="any">label.time</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.eventDate</field>
+      </fields>
+      <properties widgetMode="any">
+        <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+      </properties>
+    </widget>
 
+   <widget name="cm_history_username" type="listing_cm_text_history_username">
+      <labels>
+        <label mode="any">label.username</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.principalName</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_distribution_history_comment" type="listing_cm_text_distribution_history_comment">
+      <labels>
+        <label mode="any">label.comment</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.id</field>
+      </fields>
+    </widget>
+    
+     <widget name="cm_history_comment" type="text">
+      <labels>
+        <label mode="any">label.comment</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.comment</field>
+      </fields>
+    </widget>
+    
+    <widget name="cm_distribution_history_action_recipients" type="listing_cm_text_distribution_action_recipient">
+      <labels>
+        <label mode="any">label.casemanagement.distribution.history.actionParticipants</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+      </fields>
+    </widget>
+    
+     <widget name="cm_distribution_history_copy_recipients" type="listing_cm_text_distribution_copy_recipient">
+      <labels>
+        <label mode="any">label.casemanagement.distribution.history.copyParticipants</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+      </fields>
+    </widget>
 
   </extension>
 
