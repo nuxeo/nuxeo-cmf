@@ -99,8 +99,11 @@ public class CaseManagementDistributionActionsBean extends
         if (distributionInfo == null) {
             distributionInfo = new DistributionInfo();
             // initialize quick items values
+            List<String> favs = null;
             Mailbox currentMailbox = getCurrentMailbox();
-            List<String> favs = currentMailbox.getFavorites();
+            if (currentMailbox != null) {
+                favs = currentMailbox.getFavorites();
+            }
             if (favs != null && !favs.isEmpty()) {
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
@@ -117,14 +120,27 @@ public class CaseManagementDistributionActionsBean extends
         return distributionInfo;
     }
 
+    public boolean validateDistributionParticipants() {
+        if (!distributionInfo.hasParticipants()) {
+            facesMessages.add(
+                    FacesMessage.SEVERITY_ERROR,
+                    resourcesAccessor.getMessages().get(
+                            "feedback.casemanagement.distribution.noParticipants"));
+            return false;
+        }
+        return true;
+    }
+
+    public String validateWizard(DistributionInfo distributionInfo)
+            throws ClientException {
+        this.distributionInfo = distributionInfo;
+        return validateWizard();
+    }
+
     public String validateWizard() throws ClientException {
         DocumentModel envelopeDoc = null;
         if (distributionInfo != null) {
-            if (!distributionInfo.hasParticipants()) {
-                facesMessages.add(
-                        FacesMessage.SEVERITY_ERROR,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.casemanagement.distribution.noParticipants"));
+            if (!validateDistributionParticipants()) {
                 return null;
             }
             CaseLinkMode mode = CaseLinkMode.valueOfString(distributionInfo.getMode());
@@ -143,7 +159,6 @@ public class CaseManagementDistributionActionsBean extends
                                 "feedback.casemanagement.distribution.invalidCurrentMailbox"));
                 return null;
             }
-
             Case envelope = getCurrentCase();
             DocumentModel emailDoc;
             if (mode == CaseLinkMode.ENTIRE_ENVELOPE) {
@@ -168,16 +183,13 @@ public class CaseManagementDistributionActionsBean extends
                 return null;
             }
             Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
-
             CaseLink postRequest = new CaseLinkRequestImpl(
                     currentMailbox.getId(),
                     Calendar.getInstance(),
                     (String) envelopeDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
                     distributionInfo.getComment(), envelope, recipients, null);
-
             caseDistributionService.sendCase(documentManager, postRequest,
                     envelope.isDraft());
-
             // check there were actual recipients
             if (recipients.isEmpty()) {
                 facesMessages.add(

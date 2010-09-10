@@ -299,6 +299,49 @@
       </properties>
     </widget>
 
+		<widget name="action_participants" type="template">
+			<labels>
+				<label mode="any">label.casemanagement.distribution.actionParticipants</label>
+			</labels>
+			<translated>true</translated>
+			<fields>
+				<field>forActionMailboxes</field>
+			</fields>
+			<properties mode="any">
+				<property name="template">
+					/casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
+				</property>
+			</properties>
+		</widget>
+	
+		<widget name="copy_participants" type="template">
+			<labels>
+				<label mode="any">label.distribution.copyParticipants</label>
+			</labels>
+			<translated>true</translated>
+			<fields>
+				<field>forInformationMailboxes</field>
+			</fields>
+			<properties mode="any">
+				<property name="template">
+					/casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
+				</property>
+			</properties>
+		</widget>
+	
+		<widget name="distribution_comment" type="textarea">
+			<fields>
+				<field>comment</field>
+			</fields>
+			<labels>
+				<label mode="any">label.relation.comment</label>
+			</labels>
+			<translated>true</translated>
+			<properties widgetMode="edit">
+				<property name="cssStyleClass">dataInputText</property>
+			</properties>
+		</widget>
+
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
@@ -376,37 +419,10 @@
         <row>
           <widget>copy_participants</widget>
         </row>
+        <row>
+          <widget>distribution_comment</widget>
+        </row>
       </rows>
-      <widget name="action_participants" type="template">
-        <labels>
-          <label mode="any">
-            label.casemanagement.distribution.actionParticipants
-          </label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>forActionMailboxes</field>
-        </fields>
-        <properties mode="any">
-          <property name="template">
-            /casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
-          </property>
-        </properties>
-      </widget>
-      <widget name="copy_participants" type="template">
-        <labels>
-          <label mode="any">label.distribution.copyParticipants</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>forInformationMailboxes</field>
-        </fields>
-        <properties mode="any">
-          <property name="template">
-            /casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
-          </property>
-        </properties>
-      </widget>
     </layout>
 
     <layout name="head_cm_document">

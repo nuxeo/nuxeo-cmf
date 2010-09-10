@@ -1,51 +1,31 @@
 <div xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
   xmlns:nxu="http://nuxeo.org/nxweb/util"
-  xmlns:nxdir="http://nuxeo.org/nxdirectory"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
 
   <h:form id="distribution_participants">
-
-    <table class="distributionTable" cellspacing="0" cellpadding="0">
-      <tbody>
-        <tr class="selectionRow">
-          <td class="main" valign="top" colspan="3">
-            <nxl:layout name="cm_participants" mode="edit"
-              value="#{distributionInfo}" />
-          </td>
-        </tr>
-        <tr class="commandRow">          
-          <td class="comment" valign="top">
-            <table class="dataInput">
-              <tr>
-                <td class="labelColumn">
-                  <h:outputText value="#{messages['label.comment']}" styleClass="labelClass" />
-                </td>
-                <td class="fieldColumn">
-                  <h:inputTextarea id="comment" value="#{distributionInfo.comment}" />
-                </td>
-              </tr>
-              <tr>
-                <td class="labelColumn">
-                </td>
-                <td class="fieldColumn">
-                  <h:commandButton value="#{messages['label.casemanagement.distribution.send']}"
-              										 action="#{cmDistributionActions.validateWizard}"
-              										 styleClass="button" />
-              
-            		  <h:commandButton value="#{messages['command.cancel']}"
-              										 action="#{cmDistributionActions.cancelWizard}"
-              										 immediate="true" styleClass="button" />
-                </td>
-              </tr>
-            </table>    
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div>
+	    <nxl:layout name="cm_participants" mode="edit"
+	      value="#{distributionInfo}" />
+    </div>
+    <div style="clear:both;"></div>
+        
+    <div class="action_bar nofloat">
+      <nxu:methodResult name="actions"
+        value="#{webActions.getActionsList('DISTRIBUTION_ACTION_BOTTOM_LIST')}">
+        <f:subview rendered="#{!empty actions}">
+          <nxu:dataList layout="unorderedList" var="action"
+            value="#{actions}">
+            <nxh:commandLink action="#{action.getLink()}"
+              id="distributionActionUpperListLink">
+              <h:outputText value="#{messages[action.label]}" />
+            </nxh:commandLink>
+          </nxu:dataList>
+       </f:subview>
+      </nxu:methodResult>
+    </div>
+    <div style="clear:both;"></div>
   </h:form>
 
 </div>

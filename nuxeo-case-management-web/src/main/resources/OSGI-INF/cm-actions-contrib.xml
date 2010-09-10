@@ -180,6 +180,20 @@
       <filter-id>canDistributeCase</filter-id>
     </action>
 
+    <action id="distributeAction" enabled="true"
+      link="#{cmDistributionActions.validateWizard}"
+      label="label.casemanagement.distribution.send"
+      order="10">
+      <category>DISTRIBUTION_ACTION_BOTTOM_LIST</category>
+    </action>
+
+    <action id="cancelDistribution" enabled="true"
+      link="#{cmDistributionActions.cancelWizard}"
+      label="command.cancel"
+      order="20">
+      <category>DISTRIBUTION_ACTION_BOTTOM_LIST</category>
+    </action>
+
     <action id="addCaseItem"
       link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
       label="action.new.document"
