@@ -9,6 +9,17 @@
 
         value="#{messages['command.createClassificationRoot']}" />
     </h:form>
+    
+    <c:choose>
+      <c:when test="#{documentContentViewActions.hasContentViewSupport(currentDocument, 'plans')}">
+
+        <ui:include src="/incl/document_content_view.xhtml">
+          <ui:param name="contentViewCategory" value="plans" />
+        </ui:include>
+  
+      </c:when>
+    <c:otherwise> 
+    
     <nxu:methodResult name="provider"
       value="#{resultsProvidersCache.get('MAILBOX_PLANS')}">
 
@@ -24,6 +35,9 @@
       </ui:decorate>
 
     </nxu:methodResult>
+    
+    </c:otherwise>
+    </c:choose>
   </c:if>
 
 </div>

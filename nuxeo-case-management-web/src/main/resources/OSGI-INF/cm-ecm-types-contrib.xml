@@ -47,6 +47,9 @@
       <contentViews category="service">
         <contentView>mailbox_service_content</contentView>
       </contentViews>
+      <contentViews category="plans">
+        <contentView>mailbox_plans_content</contentView>
+      </contentViews>
       <contentViews category="content">
         <contentView>document_content</contentView>
       </contentViews>
