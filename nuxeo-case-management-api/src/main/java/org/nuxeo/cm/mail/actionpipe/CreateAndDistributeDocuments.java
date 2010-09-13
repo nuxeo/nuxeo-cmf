@@ -40,7 +40,7 @@ import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.cases.CaseTreeHelper;
 import org.nuxeo.cm.contact.Contact;
 import org.nuxeo.cm.contact.Contacts;
-import org.nuxeo.cm.distribution.DistributionInfo;
+import org.nuxeo.cm.distribution.CMFDistributionInfo;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.MailboxManagementService;
@@ -55,7 +55,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Transforms received email in a set of document models and distribute them.
- * 
+ *
  * @author Laurent Doguin
  */
 public class CreateAndDistributeDocuments extends
@@ -124,7 +124,7 @@ public class CreateAndDistributeDocuments extends
         Set<String> mailboxesForInformation = new LinkedHashSet<String>();
         mailboxesForInformation.addAll(internalOrigCcRecipients.getMailboxes());
 
-        DistributionInfo distributionInfo = new DistributionInfo();
+        CMFDistributionInfo distributionInfo = new CMFDistributionInfo();
         distributionInfo.setForActionMailboxes(new ArrayList<String>(
                 mailboxesForAction));
         distributionInfo.setForInformationMailboxes(new ArrayList<String>(

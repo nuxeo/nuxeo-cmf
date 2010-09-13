@@ -42,6 +42,7 @@ import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.distribution.CMFDistributionInfo;
 import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.distribution.ParticipantItem;
 import org.nuxeo.cm.mailbox.Mailbox;
@@ -97,7 +98,7 @@ public class CaseManagementDistributionActionsBean extends
     @Factory(value = "distributionInfo", scope = ScopeType.EVENT)
     public DistributionInfo getDistributionInfo() throws ClientException {
         if (distributionInfo == null) {
-            distributionInfo = new DistributionInfo();
+            distributionInfo = new CMFDistributionInfo();
             // initialize quick items values
             List<String> favs = null;
             Mailbox currentMailbox = getCurrentMailbox();
