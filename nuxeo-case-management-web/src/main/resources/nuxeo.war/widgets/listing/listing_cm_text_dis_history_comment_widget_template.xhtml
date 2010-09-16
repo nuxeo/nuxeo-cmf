@@ -1,0 +1,31 @@
+<f:subview id="#{widget.id}"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
+  xmlns:h="http://java.sun.com/jsf/html">
+
+  <div class="dataOutput">
+       <pre class="historyRecipient">
+        <h:outputText value="#{messages[caseItemDistributionLogEntriesComments[field_0]]}" />
+      </pre>
+      <f:subview rendered="#{(caseItemDistibutionEntriesLogLinkedDocs[field_0])!=null}">
+        <h:outputText value="   " />
+        <nxu:graphicImage value="/icons/lock.gif"
+          rendered="#{(distributionLogEntriesLinkedDocs[field_0]).brokenDocument}"
+          alt="#{(caseItemDistibutionEntriesLogLinkedDocs[field_0]).documentRef}" />
+        <nxd:restDocumentLink
+          document="#{(caseItemDistibutionEntriesLogLinkedDocs[field_0]).document}"
+          rendered="#{!(caseItemDistibutionEntriesLogLinkedDocs[field_0]).brokenDocument}">
+          <nxu:graphicImage
+            value="#{nxd:iconPath((caseItemDistibutionEntriesLogLinkedDocs[field_0]).document)}"
+            alt="#{(caseItemDistibutionEntriesLogLinkedDocs[field_0]).document.type}">
+          </nxu:graphicImage>
+        </nxd:restDocumentLink>
+      </f:subview>
+  </div>
+
+</f:subview>
+
+

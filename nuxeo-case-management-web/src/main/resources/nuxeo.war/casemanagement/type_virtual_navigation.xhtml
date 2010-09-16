@@ -16,30 +16,26 @@
     <div id="content">
 
       <h3>
-        <h:outputText value="#{messages['label.virtualnavigation.subjects']}" />
+        <h:outputText value="#{messages['label.virtualnavigation.byType']}" />
       </h3>
 
-      <nxu:set var="provider" cache="true"
-        value="#{searchResults.getProvider('byType')}">
-        <nxu:set var="documents" cache="true"
-          value="#{searchResults.getResultsSelectModel('byType')}">
 
-          <ui:decorate template="/incl/documents_layout_table.xhtml">
-            <ui:param name="listName" value="CURRENT_SELECTION" />
-            <ui:param name="layoutName" value="document_virtual_navigation_listing" />
-            <ui:define name="buttons">
-              <ui:include src="/incl/clipboard.xhtml" />
-            </ui:define>
-            <ui:define name="syndication_buttons">
-              <ui:include src="/incl/syndication_buttons.xhtml">
-                <ui:param name="type" value="search" />
-              </ui:include>
-            </ui:define>
-          </ui:decorate>
-
-        </nxu:set>
+     <nxu:set var="contentViewListIndex" value="0">
+     <nxu:set var="contentViewName" value="byType">
+    
+        <ui:decorate template="/incl/content_view.xhtml">
+          <ui:define name="content_view_header_after_selector" />
+          <ui:define name="syndication_buttons">
+            <c:if test="false">syndication currently broken with content views</c:if>
+            <ui:include src="/incl/syndication_buttons.xhtml">
+              <ui:param name="type" value="search" />
+            </ui:include>
+          </ui:define>
+        </ui:decorate>
+      
       </nxu:set>
-
+      </nxu:set>
+    
     </div>
 
   </ui:define>
