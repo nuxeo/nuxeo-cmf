@@ -19,8 +19,6 @@
 
 package org.nuxeo.cm.web.relations;
 
-import static org.jboss.seam.ScopeType.EVENT;
-
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -37,7 +35,6 @@ import javax.faces.event.ActionEvent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -208,7 +205,7 @@ CaseManagementContextBoundInstance {
     public SelectDataModel getIncomingStatementsInfoSelectModel() throws ClientException{
         return new SelectDataModelImpl("cm_incoming_relations", getIncomingStatementsInfo(), null);
     }
-    
+
     public List<StatementInfo> getOutgoingStatementsInfo()
     throws ClientException {
         if (outgoingStatementsInfo != null) {
@@ -234,8 +231,8 @@ CaseManagementContextBoundInstance {
     public SelectDataModel getOutgoingStatementsInfoSelectModel() throws ClientException {
         return new SelectDataModelImpl("cm_outgoing_relations", getOutgoingStatementsInfo(), null);
     }
-    
-    
+
+
     public void resetStatements() {
         incomingStatements = null;
         incomingStatementsInfo = null;

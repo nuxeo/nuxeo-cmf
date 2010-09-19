@@ -34,9 +34,12 @@
     </action>
 
     <!-- remove useless -->
-    <action id="newDocument" enabled="false" />
+    <action id="newDocument">
+      <filter-id>isNotCmCase</filter-id>
+      <filter-id>isNotCaseItem</filter-id>
+      <filter-id>isNotMailbox</filter-id>
+    </action>
     <action id="newFile" enabled="false" />
-    <action id="SHOW_PERSONAL_WORKSPACE" enabled="false" />
     <action id="TAB_CONTENT">
       <filter-id>hideFromMailbox</filter-id>
     </action> 
@@ -344,6 +347,18 @@
       </rule>
     </filter>
     
+    <filter id="isMailbox">
+      <rule grant="true">
+        <facet>Mailbox</facet>
+      </rule>
+    </filter>
+
+    <filter id="isNotMailbox">
+      <rule grant="false">
+        <facet>Mailbox</facet>
+      </rule>
+    </filter>
+   
     <filter id="isNotCmCase">
       <rule grant="false">
         <facet>Case</facet>

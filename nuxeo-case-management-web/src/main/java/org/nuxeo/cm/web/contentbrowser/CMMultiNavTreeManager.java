@@ -24,11 +24,13 @@ import java.util.List;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.virtualnavigation.action.MultiNavTreeManager;
 import org.nuxeo.ecm.virtualnavigation.action.NavTreeDescriptor;
 import org.nuxeo.ecm.virtualnavigation.service.NavTreeService;
+import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -41,30 +43,49 @@ public class CMMultiNavTreeManager extends MultiNavTreeManager {
 
     private static final long serialVersionUID = 1L;
 
-    protected List<NavTreeDescriptor> availableNavigationTrees;
-
-    @In(create = true, required = false)
+    @In(create = true)
     protected NuxeoPrincipal currentUser;
+
+    protected List<NavTreeDescriptor> personnalNavTree;
+
+    protected List<NavTreeDescriptor> outsideNavTree;
+
+    protected List<NavTreeDescriptor> currentNavTree;
 
     @Create
     public void create() {
-        setSelectedNavigationTree(currentUser.isAdministrator() ? STD_NAV_TREE : "TAG_CLOUD");
+        outsideNavTree = getNavTree(currentUser.isAdministrator());
+        personnalNavTree = getNavTree(true);
+        setSelectedNavigationTree((currentUser.isAdministrator()) ? STD_NAV_TREE
+                : "TAG_CLOUD");
+        currentNavTree = outsideNavTree;
+    }
+
+    protected List<NavTreeDescriptor> getNavTree(boolean includeStdNav) {
+        List<NavTreeDescriptor> result = new ArrayList<NavTreeDescriptor>();
+        if (includeStdNav) {
+            result.add(new NavTreeDescriptor(STD_NAV_TREE, STD_NAV_TREE_LABEL));
+        }
+        NavTreeService navTreeService = Framework.getLocalService(NavTreeService.class);
+        result.addAll(navTreeService.getTreeDescriptors());
+        return result;
     }
 
     @Override
     public List<NavTreeDescriptor> getAvailableNavigationTrees() {
-        if (availableNavigationTrees == null) {
-            availableNavigationTrees = new ArrayList<NavTreeDescriptor>();
-            if (currentUser.isAdministrator()) {
-                availableNavigationTrees.add(new NavTreeDescriptor(
-                        STD_NAV_TREE, STD_NAV_TREE_LABEL));
-            }
-            // add registred additional tress
-            NavTreeService navTreeService = Framework.getLocalService(NavTreeService.class);
-            availableNavigationTrees.addAll(navTreeService.getTreeDescriptors());
-
-        }
-        return availableNavigationTrees;
+        return currentNavTree;
     }
 
+    @Observer(EventNames.GO_PERSONAL_WORKSPACE)
+    public void switchToPersonnal() {
+        currentNavTree = personnalNavTree;
+        setSelectedNavigationTree(STD_NAV_TREE);
+    }
+
+    @Observer(EventNames.GO_HOME)
+    public void switchToOutside() {
+        currentNavTree = outsideNavTree;
+        setSelectedNavigationTree((currentUser.isAdministrator()) ? STD_NAV_TREE
+                : "TAG_CLOUD");
+    }
 }
