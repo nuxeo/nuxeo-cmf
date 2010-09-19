@@ -75,6 +75,7 @@
       <artifact:set groupId="org.nuxeo.cm" type="jar" />
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-document-routing-*"/>
     </copy>
     <!-- Deploy custom configuration -->
     <copy todir="${app.path}/templates/" overwrite="true">
