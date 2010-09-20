@@ -3,6 +3,7 @@
 <component name="org.nuxeo.cm.schemas">
 
   <require>org.nuxeo.ecm.core.CoreExtensions</require>
+  <require>org.nuxeo.ecm.platform.routing.CoreExtensions</require>
 
   <extension target="org.nuxeo.ecm.core.schema.TypeService"
     point="schema">
@@ -26,6 +27,10 @@
 
     <schema name="contact" src="schemas/contact.xsd"
       prefix="cmct" />
+      
+    <schema name="routing_task" src="schemas/routing_task.xsd"
+      prefix="rtsk"/>  
+  
   </extension>
 
   <extension target="org.nuxeo.ecm.core.schema.TypeService"
@@ -85,6 +90,23 @@
       <schema name="case_link" />
       <facet name="CaseLink" />
     </doctype>
+    
+    <doctype name ="Task" extends="Step">
+      <schema name="routing_task" />
+    </doctype>
+    
+    <doctype name ="GenericMailboxTask" extends="Step">
+      <schema name="routing_task" />
+    </doctype>
+    
+    <doctype name ="PersonalMailboxTask" extends="Step">
+      <schema name="routing_task" />
+    </doctype>
+ 
+    <doctype name ="SimpleDistributionTask" extends="Step">
+      <schema name="routing_task" />
+    </doctype>
+
 
   </extension>
 </component>

@@ -52,5 +52,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
     
+     <directory name="cm_routing_task_type">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <table>cm_routing_task_type</table>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <dataFile>directories/routing_task_type.csv</dataFile>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+    </directory>
+    
   </extension>
 </component>

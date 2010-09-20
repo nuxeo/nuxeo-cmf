@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="com.nuxeo.case-management.types">
 
+  <require>org.nuxeo.ecm.platform.routing.types</require>
+
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
 
     <!-- remove useless -->
@@ -125,7 +127,123 @@
         <layout>file</layout>
       </layouts>
     </type>
+    
+   <type id="Task" coreType="Task">
+      <label>Task</label>
+      <icon>/icons/file.gif</icon>
+      <bigIcon>/icons/file_100.png</bigIcon>
+      <category>SimpleDocument</category>
+      <description>File.description</description>
+      <default-view>view_documents</default-view>
+      <layouts mode="any">
+        <layout>heading</layout>
+        <layout>step</layout>
+        <layout>routing_task</layout>
+        <layout>all_maiboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>heading</layout>
+        <layout>dublincore</layout>
+        <layout>step</layout>
+        <layout>routing_task</layout>
+        <layout>all_maiboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="view" />
+   </type>
 
+   <type id="GenericMailboxTask" coreType="GenericMailboxTask">
+      <label>GenericMailboxTask</label>
+      <icon>/icons/file.gif</icon>
+      <bigIcon>/icons/file_100.png</bigIcon>
+      <category>SimpleDocument</category>
+      <description>File.description</description>
+      <default-view>view_documents</default-view>
+      <layouts mode="any">
+        <layout>heading</layout>
+        <layout>step</layout>
+        <layout>routing_task</layout>
+        <layout>generic_mailboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>heading</layout>
+        <layout>dublincore</layout>
+        <layout>step</layout>
+        <layout>routing_task</layout>
+        <layout>generic_mailboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="view" />
+   </type>
+   
+   <type id="PersonalMailboxTask" coreType="PersonalMailboxTask">
+      <label>PersonalMailboxTask</label>
+      <icon>/icons/file.gif</icon>
+      <bigIcon>/icons/file_100.png</bigIcon>
+      <category>SimpleDocument</category>
+      <description>File.description</description>
+      <default-view>view_documents</default-view>
+      <layouts mode="any">
+        <layout>heading</layout>
+        <layout>step</layout>
+        <layout>routing_task</layout>
+        <layout>personal_mailboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>heading</layout>
+        <layout>dublincore</layout>
+        <layout>step</layout>
+        <layout>routing_task</layout>
+        <layout>personal_mailboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="view" />
+   </type>
+   
+   <type id="SimpleDistributionTask" coreType="SimpleDistributionTask">
+      <label>SimpleDistributionTask</label>
+      <icon>/icons/file.gif</icon>
+      <bigIcon>/icons/file_100.png</bigIcon>
+      <category>SimpleDocument</category>
+      <description>File.description</description>
+      <default-view>view_documents</default-view>
+      <layouts mode="any">
+        <layout>heading</layout>
+        <layout>step</layout>
+        <layout>all_maiboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>heading</layout>
+        <layout>dublincore</layout>
+        <layout>step</layout>
+        <layout>all_maiboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="view" />
+   </type>
+   
+   <type id="StepFolder">
+     <subtypes>
+       <type>StepFolder</type>
+       <type>Task</type>
+       <type>GenericMailboxTask</type>
+       <type>PersonalMailboxTask</type>
+       <type>SimpleDistributionTask</type>
+      </subtypes>
+      <deniedSubtypes>
+        <type>Step</type>
+      </deniedSubtypes>
+   </type>
+   
+   <type id="DocumentRoute">
+     <subtypes>
+       <type>StepFolder</type>
+       <type>Task</type>
+       <type>GenericMailboxTask</type>
+       <type>PersonalMailboxTask</type>
+       <type>SimpleDistributionTask</type>
+      </subtypes>
+      <deniedSubtypes>
+        <type>Step</type>
+      </deniedSubtypes>
+   </type>
+  
   </extension>
 
 </component>

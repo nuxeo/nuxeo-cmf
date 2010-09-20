@@ -7,11 +7,6 @@
   xmlns:rich="http://richfaces.org/rich"
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
   
-<c:if test="#{widget.mode != 'edit'}">
-  <h:outputText
-    value="#{cm:mailboxTitle(cmMailboxActions.currentMailboxParent)}" />
-</c:if>
-
 <c:if test="#{widget.mode == 'edit'}">
 
   <c:set var="minChars"
@@ -83,8 +78,8 @@
           <f:param name="suggestionSelectionDeleteId"
             value="#{widget.id}_selection_reset" />
         </a4j:commandLink>
-        <h:outputText id="#{widget.id}_mailbox" />
-        <h:inputHidden id="#{widget.id}" value="#{field_0}" />
+        <h:inputHidden id="#{widget.id}_mailboxId" value="#{field_0}" />
+         <h:outputText id="#{widget.id}_mailbox" value="#{field_0}"/>
         <h:message for="#{widget.id}_mailboxId" styleClass="errorMessage" />
       </h:panelGroup>
 

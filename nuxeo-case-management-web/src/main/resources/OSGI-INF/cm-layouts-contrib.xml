@@ -1256,7 +1256,147 @@
       </rows>
     </layout>
     
-
+    <layout name="routing_task">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>type</widget>
+        </row>
+        <row>
+          <widget>dueDate</widget>
+        </row>
+        <row>
+          <widget>actionnable</widget>
+        </row>
+      </rows>
+      <widget name="type" type="selectOneDirectory">
+        <fields>
+          <field>rtsk:type</field>
+        </fields>
+        <labels>
+          <label mode="any">label.casemanagement.routing.task.type</label>
+        </labels>
+        <translated>true</translated>
+        <properties widgetMode="any">
+          <property name="directoryName">cm_routing_task_type</property>
+          <property name="localize">true</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="notDisplayDefaultOption">true</property>
+          <property name="ordering">label</property>
+          <property name="required">true</property>
+        </properties>
+      </widget>
+      <widget name="dueDate" type="datetime">
+        <labels>
+          <label mode="any">label.casemanagement.routing.task.dueDate</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>rtsk:dueDate</field>
+        </fields>
+        <properties widgetMode="view">
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+        <properties widgetMode="edit">
+          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+        </properties>
+      </widget>
+      <widget name="actionnable" type="checkbox">
+        <translated>true</translated>
+        <labels>
+          <label mode="any">label.casemanagement.routing.task.actionnable</label>
+        </labels>
+        <fields>
+          <field>rtsk:actionnable</field>
+        </fields>
+      </widget>
+    </layout>
+    
+    <layout name="generic_mailboxes_routing_task">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>distribution_mailbox</widget>
+        </row>
+      </rows>
+      <widget name="distribution_mailbox" type="template">
+       <labels>
+        <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+       </labels>
+       <translated>true</translated>
+       <fields>
+        <field>rtsk:distributionMailboxId</field>
+       </fields>
+       <properties mode="any">
+        <property name="template">
+          /casemanagement_widgets/single_mailbox_suggestion_widget_template.xhtml
+        </property>
+       	 <property name="mailboxSuggestionSearchType">generic</property>
+       </properties>
+    </widget>
+    </layout>
+    
+    <layout name="personal_mailboxes_routing_task">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>distribution_mailbox</widget>
+        </row>
+      </rows>
+      <widget name="distribution_mailbox" type="template">
+       <labels>
+        <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+       </labels>
+       <translated>true</translated>
+       <fields>
+        <field>rtsk:distributionMailboxId</field>
+       </fields>
+       <properties mode="any">
+        <property name="template">
+          /casemanagement_widgets/single_mailbox_suggestion_widget_template.xhtml
+        </property>
+       <property name="mailboxSuggestionSearchType">personal</property>
+       </properties>
+    </widget>
+    </layout>
+    
+    <layout name="all_maiboxes_routing_task">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>distribution_mailbox</widget>
+        </row>
+      </rows>
+      <widget name="distribution_mailbox" type="template">
+       <labels>
+        <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+       </labels>
+       <translated>true</translated>
+       <fields>
+        <field>rtsk:distributionMailboxId</field>
+       </fields>
+       <properties mode="any">
+        <property name="template">
+          /casemanagement_widgets/single_mailbox_suggestion_widget_template.xhtml
+        </property>
+       <property name="mailboxSuggestionSearchType"></property>
+       </properties>
+    </widget>
+    </layout>
+    
   </extension>
 
 </component>
