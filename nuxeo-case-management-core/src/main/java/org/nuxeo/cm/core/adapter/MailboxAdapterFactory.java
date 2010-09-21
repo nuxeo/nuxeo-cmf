@@ -31,8 +31,7 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class MailboxAdapterFactory implements DocumentAdapterFactory {
 
-    @SuppressWarnings("unchecked")
-    public Object getAdapter(DocumentModel doc, Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
         if (checkDocument(doc)) {
             return new MailboxImpl(doc);
         } else {

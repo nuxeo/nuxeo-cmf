@@ -209,8 +209,7 @@ public class CMFDistributionInfo implements DistributionInfo {
         return res;
     }
 
-    @SuppressWarnings("unchecked")
-    public boolean isEmpty(List list) {
+    public boolean isEmpty(@SuppressWarnings("rawtypes") List list) {
         return list == null || list.isEmpty();
     }
 

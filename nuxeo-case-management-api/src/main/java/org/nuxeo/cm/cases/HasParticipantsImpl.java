@@ -177,7 +177,7 @@ public class HasParticipantsImpl implements HasParticipants {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     protected List<String> getRecipients(String recipientsXpath) {
 
         List<String> recipients = null;

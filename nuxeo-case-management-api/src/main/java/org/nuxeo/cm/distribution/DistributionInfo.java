@@ -47,7 +47,7 @@ public interface DistributionInfo extends Serializable {
 
     public Map<String, List<String>> getAllParticipants();
 
-    public boolean isEmpty(List list);
+    public boolean isEmpty(@SuppressWarnings("rawtypes") List list);
 
     public boolean hasParticipants();
 

@@ -33,8 +33,7 @@ import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTION_SCHEMA;
  */
 public class CaseAdapterFactory implements DocumentAdapterFactory {
 
-    @SuppressWarnings("unchecked")
-    public Object getAdapter(DocumentModel doc, Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new CaseImpl(doc, adapter);
