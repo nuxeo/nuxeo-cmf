@@ -86,19 +86,19 @@
       <facet name="CaseLink" />
     </doctype>
 
-    <doctype name="Task" extends="Step">
+    <doctype name="DistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
     </doctype>
 
-    <doctype name="GenericMailboxTask" extends="Step">
+    <doctype name="GenericDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
     </doctype>
 
-    <doctype name="PersonalMailboxTask" extends="Step">
+    <doctype name="PersonalDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
     </doctype>
 
-    <doctype name="SimpleDistributionTask" extends="Step">
+    <doctype name="DistributionStep" extends="DocumentRouteStep">
       <schema name="routing_task" />
     </doctype>
 

@@ -1268,9 +1268,6 @@
         <row>
           <widget>dueDate</widget>
         </row>
-        <row>
-          <widget>actionnable</widget>
-        </row>
       </rows>
       <widget name="type" type="selectOneDirectory">
         <fields>

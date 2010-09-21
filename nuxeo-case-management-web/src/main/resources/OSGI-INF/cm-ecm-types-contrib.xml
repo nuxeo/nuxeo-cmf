@@ -128,8 +128,8 @@
       </layouts>
     </type>
     
-   <type id="Task" coreType="Task">
-      <label>Task</label>
+   <type id="DistributionTask" coreType="DistributionTask">
+      <label>DistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -151,8 +151,8 @@
       <layouts mode="view" />
    </type>
 
-   <type id="GenericMailboxTask" coreType="GenericMailboxTask">
-      <label>GenericMailboxTask</label>
+   <type id="GenericDistributionTask" coreType="GenericDistributionTask">
+      <label>GenericDistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -174,8 +174,8 @@
       <layouts mode="view" />
    </type>
    
-   <type id="PersonalMailboxTask" coreType="PersonalMailboxTask">
-      <label>PersonalMailboxTask</label>
+   <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
+      <label>PersonalDistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -197,8 +197,8 @@
       <layouts mode="view" />
    </type>
    
-   <type id="SimpleDistributionTask" coreType="SimpleDistributionTask">
-      <label>SimpleDistributionTask</label>
+   <type id="DistributionStep" coreType="DistributionStep">
+      <label>DistributionStep</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -221,10 +221,10 @@
    <type id="StepFolder">
      <subtypes>
        <type>StepFolder</type>
-       <type>Task</type>
-       <type>GenericMailboxTask</type>
-       <type>PersonalMailboxTask</type>
-       <type>SimpleDistributionTask</type>
+       <type>DistributionTask</type>
+       <type>GenericDistributionTask</type>
+       <type>PersonalDistributionTask</type>
+       <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
         <type>Step</type>
@@ -234,10 +234,10 @@
    <type id="DocumentRoute">
      <subtypes>
        <type>StepFolder</type>
-       <type>Task</type>
-       <type>GenericMailboxTask</type>
-       <type>PersonalMailboxTask</type>
-       <type>SimpleDistributionTask</type>
+       <type>DistributionTask</type>
+       <type>GenericDistributionTask</type>
+       <type>PersonalDistributionTask</type>
+       <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
         <type>Step</type>
