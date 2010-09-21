@@ -13,24 +13,19 @@
     <schema name="distribution" src="schemas/distribution.xsd"
       prefix="cmdist" />
 
-    <schema name="case_item" src="schemas/case_item.xsd"
-      prefix="cmdoc" />
+    <schema name="case_item" src="schemas/case_item.xsd" prefix="cmdoc" />
 
-    <schema name="case" src="schemas/case.xsd"
-      prefix="case" />
+    <schema name="case" src="schemas/case.xsd" prefix="case" />
 
-    <schema name="case_link" src="schemas/case_link.xsd"
-      prefix="cslk" />
+    <schema name="case_link" src="schemas/case_link.xsd" prefix="cslk" />
 
-    <schema name="mailbox" src="schemas/mailbox.xsd"
-      prefix="mlbx" />
+    <schema name="mailbox" src="schemas/mailbox.xsd" prefix="mlbx" />
 
-    <schema name="contact" src="schemas/contact.xsd"
-      prefix="cmct" />
-      
+    <schema name="contact" src="schemas/contact.xsd" prefix="cmct" />
+
     <schema name="routing_task" src="schemas/routing_task.xsd"
-      prefix="rtsk"/>  
-  
+      prefix="rtsk" />
+
   </extension>
 
   <extension target="org.nuxeo.ecm.core.schema.TypeService"
@@ -90,20 +85,20 @@
       <schema name="case_link" />
       <facet name="CaseLink" />
     </doctype>
-    
-    <doctype name ="Task" extends="Step">
+
+    <doctype name="Task" extends="Step">
       <schema name="routing_task" />
     </doctype>
-    
-    <doctype name ="GenericMailboxTask" extends="Step">
+
+    <doctype name="GenericMailboxTask" extends="Step">
       <schema name="routing_task" />
     </doctype>
-    
-    <doctype name ="PersonalMailboxTask" extends="Step">
+
+    <doctype name="PersonalMailboxTask" extends="Step">
       <schema name="routing_task" />
     </doctype>
- 
-    <doctype name ="SimpleDistributionTask" extends="Step">
+
+    <doctype name="SimpleDistributionTask" extends="Step">
       <schema name="routing_task" />
     </doctype>
 

@@ -44,6 +44,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         super.setUp();
 
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
+        deployBundle("org.nuxeo.ecm.platform.routing.core");
         // create mailbox at server root
         openSession();
     }

@@ -40,7 +40,7 @@ public class TestModel extends SQLRepositoryTestCase {
         // deploy type contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-core-types-contrib.xml");
-
+        deployBundle("org.nuxeo.ecm.platform.routing.core");
         openSession();
     }
 
