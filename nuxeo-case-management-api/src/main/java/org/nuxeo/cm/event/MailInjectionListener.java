@@ -70,7 +70,7 @@ public class MailInjectionListener implements EventListener {
         try {
             mailService = Framework.getService(MailService.class);
         } catch (Exception e) {
-            throw new RuntimeException("Could not get Mailbox service.");
+            throw new RuntimeException("Could not get Mailbox service.", e);
         }
         MessageActionPipe pipe = mailService.getPipe(MAILBOX_PIPE);
 
@@ -116,18 +116,20 @@ public class MailInjectionListener implements EventListener {
             session.save();
 
         } catch (Exception e) {
-            log.error(e);
+            log.error(e, e);
         } finally {
             if (rootFolder != null && rootFolder.isOpen()) {
                 try {
                     rootFolder.close(true);
                 } catch (MessagingException e) {
+                    log.error(e.getMessage(), e);
                 }
             }
             if (loginContext != null) {
                 try {
                     loginContext.logout();
                 } catch (LoginException e) {
+                    log.error(e.getMessage(), e);
                 }
             }
             if (session != null) {
