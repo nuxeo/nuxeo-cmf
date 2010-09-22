@@ -19,7 +19,7 @@ package org.nuxeo.cm.operation;
 import java.util.Map;
 import java.util.Properties;
 
-import org.nuxeo.cm.caselink.AcionnableCaseLink;
+import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.core.annotations.Context;
@@ -49,7 +49,7 @@ public class StepToCaseLinkMappingOperation {
     protected Properties mappingProperties;
 
     public void mapCaseLinkOperation() {
-        AcionnableCaseLink link = (AcionnableCaseLink) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
+        ActionableCaseLink link = (ActionableCaseLink) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
         link.setActionnable(actionnable);
         DocumentModel linkDoc = link.getDocument();
         DocumentRouteStep step = (DocumentRouteStep) context.get(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY);

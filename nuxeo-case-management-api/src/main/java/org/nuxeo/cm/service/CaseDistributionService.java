@@ -127,5 +127,9 @@ public interface CaseDistributionService extends Serializable {
      */
     void notify(CoreSession session, String name, DocumentModel document,
             Map<String, Serializable> eventProperties);
-
+    
+    /**
+     * Send an case to a mailbox.
+     */
+    CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean initial, boolean actionable);
 }

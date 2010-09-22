@@ -18,24 +18,33 @@
  */
 package org.nuxeo.cm.core.adapter;
 
+import org.nuxeo.cm.caselink.ActionableCaseLinkImpl;
 import org.nuxeo.cm.caselink.CaseLinkImpl;
 import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
+import org.nuxeo.ecm.core.api.model.PropertyException;
 
 import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_LINK_FACET;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_LINK_SCHEMA;
 import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTION_SCHEMA;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_ACTIONABLE_FIELD;
 
 /**
  * @author arussel
  */
 public class CaseLinkAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc,
+            @SuppressWarnings("rawtypes") Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
+        if (isActionable(doc)){
+            return new ActionableCaseLinkImpl(doc, adapter);
+        }
         return new CaseLinkImpl(doc, adapter);
     }
 
@@ -54,4 +63,17 @@ public class CaseLinkAdapterFactory implements DocumentAdapterFactory {
         }
     }
 
+    protected boolean isActionable(DocumentModel doc) {
+        try {
+            Boolean actionable = (Boolean) doc.getPropertyValue(IS_ACTIONABLE_FIELD);
+            if (actionable == null) {
+                return false;
+            }
+            return actionable.booleanValue();
+        } catch (PropertyException e) {
+            throw new ClientRuntimeException(e);
+        } catch (ClientException e) {
+            throw new ClientRuntimeException(e);
+        }
+    }
 }

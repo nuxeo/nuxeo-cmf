@@ -20,11 +20,17 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.DUE_DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.DUE_DATE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.REFUSAL_OPERATION_CHAIN_ID;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.VALIDATION_OPERATION_CHAIN_ID;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.TASK_TYPE_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.AUTOMATIC_VALIDATION_FIELD;
 
 import java.util.Calendar;
 import java.util.List;
@@ -73,6 +79,8 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     protected CaseLink draft;
 
     protected Mailbox recipient;
+    
+    protected boolean isActionable;
 
     public CaseLink getCreatedPost() {
         return createdPost;
@@ -110,6 +118,40 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         this.isInitial = isInitial;
     }
 
+    /**
+     * @param draft The draft used to sent this envelope
+     * @param repositoryName The name of the repository in which the
+     *            {@link CaseLink} will be created.
+     * @param subject The subject of the post.
+     * @param comment The comment of the post.
+     * @param envelope The envelope sent.
+     * @param mailbox The mailbox of the sender.
+     * @param internalRecipients A map of recipients keyed by type of Message
+     *            and keyed with a list of mailboxes.
+     * @param isSent The post can be Sent or Received
+     * @param isInitial Is it an initial sent?
+     * @param isActionable ?
+     */
+    public CreateCaseLinkUnrestricted(CaseLink draft,
+            CoreSession session, String subject, String comment,
+            Case envelope, Mailbox sender, String recipientId,
+            Map<String, List<String>> internalRecipients,
+            Map<String, List<String>> externalRecipients, boolean isSent,
+            boolean isInitial, boolean isActionable) {
+        super(session);
+        this.draft = draft;
+        this.comment = comment;
+        this.envelope = envelope;
+        this.subject = subject;
+        this.sender = sender;
+        this.recipientId = recipientId;
+        this.internalRecipients = internalRecipients;
+        this.externalRecipients = externalRecipients;
+        this.isSent = isSent;
+        this.isInitial = isInitial;
+        this.isActionable = isActionable;
+    }
+    
     @Override
     public void run() throws ClientException {
         GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
@@ -142,6 +184,10 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
             post.addInitialInternalParticipants(internalRecipients);
             post.addInitialExternalParticipants(externalRecipients);
         }
+        
+        if(isActionable){
+            setActionableValues(doc);
+        }
         post.addParticipants(internalRecipients);
         post.addParticipants(externalRecipients);
 
@@ -173,5 +219,13 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // envelope
         // doc.setPropertyValue(ENVELOPE_ID_FIELD,
         // envelope.getDocument().getPropertyValue("uid:uid"));
+    }
+    
+    
+    /***
+     * Sets the properties if the caseLink is actionable
+     * @throws ClientException
+     */
+    protected void setActionableValues(DocumentModel doc) throws ClientException {
     }
 }

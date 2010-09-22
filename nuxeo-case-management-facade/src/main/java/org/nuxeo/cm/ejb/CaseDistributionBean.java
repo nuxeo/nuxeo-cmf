@@ -104,6 +104,12 @@ public class CaseDistributionBean implements CaseDistributionService {
                 initial);
     }
 
+    public CaseLink sendCase(CoreSession session, CaseLink postRequest,
+            boolean initial, boolean isActionable) {
+        return getCaseDistributionService().sendCase(session, postRequest,
+                initial, isActionable);
+    }
+    
     private CaseDistributionService getCaseDistributionService() {
         caseDistributionService = Framework.getLocalService(CaseDistributionService.class);
         if (caseDistributionService == null) {

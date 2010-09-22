@@ -16,15 +16,26 @@
  */
 package org.nuxeo.cm.caselink;
 
+import java.util.Date;
+
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public interface AcionnableCaseLink extends CaseLink {
+public interface ActionableCaseLink extends CaseLink {
 
     /**
      * @param actionnable
      */
 
+   Date getDueDate();
+   
+   Boolean isAutomaticValidation();
+   
+   String getTaskType();
+   
+   String getvalidationOperationChainId();
+   
+   String getRefusalOperationChainId();
 
 }

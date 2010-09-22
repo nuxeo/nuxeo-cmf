@@ -86,6 +86,18 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             throw new CaseManagementRuntimeException(e);
         }
     }
+    
+    public CaseLink sendCase(CoreSession session, CaseLink postRequest,
+            boolean isInitial, boolean actionable) {
+        try {
+            SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(
+                    session, postRequest, isInitial, actionable);
+            sendPostUnrestricted.runUnrestricted();
+            return sendPostUnrestricted.getPost();
+        } catch (Exception e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+    }
 
     protected CoreSession getCoreSession() {
 
@@ -386,6 +398,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         protected EventProducer eventProducer;
 
         protected CaseLink post;
+        
+        protected boolean isActionable = false;
 
         public SendPostUnrestricted(CoreSession session, CaseLink postRequest,
                 boolean isInitial) {
@@ -394,6 +408,14 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             this.isInitial = isInitial;
         }
 
+        public SendPostUnrestricted(CoreSession session, CaseLink postRequest,
+                boolean isInitial, boolean isActionable) {
+            super(session);
+            this.postRequest = postRequest;
+            this.isInitial = isInitial;
+            this.isActionable = isActionable;
+        }
+        
         @Override
         public void run() throws CaseManagementException {
 
@@ -492,7 +514,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                             null, session, subject, comment, envelope,
                             senderMailbox, senderMailbox.getId(),
                             internalRecipientIds, externalRecipients, true,
-                            isInitial);
+                            isInitial, isActionable);
                     createPostUnrestricted.run();
                     post = createPostUnrestricted.getCreatedPost();
                 }

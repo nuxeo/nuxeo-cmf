@@ -34,6 +34,58 @@
         </state>
       </states>
     </lifecycle>
+    
+     <lifecycle name="caselink" defaultInitial="draft">
+      <transitions>
+        <transition name="toProject" destinationState="project">
+          <description>the model is project</description>
+        </transition>
+        <transition name="toToDo" destinationState="todo">
+          <description>the element is on Todo state</description>
+        </transition>
+        <transition name="toDone" destinationState="done">
+          <description>the element finishes</description>
+        </transition>
+        <transition name="toDelete" destinationState="deleted">
+          <description>the element is deleted</description>
+        </transition>
+        <transition name="toDelete" destinationState="deleted">
+          <description>the element is deleted</description>
+        </transition>
+        <transition name="backToProject" destinationState="project">
+          <description>Recover the document from trash</description>
+        </transition>
+      </transitions>
+      <states>
+        <state name="draft" description="Default state" initial="true">
+          <transitions>
+            <transition>toProject</transition>
+            <transition>toToDo</transition>
+          </transitions>
+        </state>
+        <state name="project" description="Default projet state">
+          <transitions>
+            <transition>toDelete</transition>
+          </transitions>
+        </state>
+        <state name="todo" description="ToDo state">
+          <transitions>
+            <transition>toDone</transition>
+          </transitions>
+        </state>
+        <state name="done" description="The element is done">
+          <transitions>
+          	<transition>toDelete</transition>
+          </transitions>
+        </state>
+        <state name="deleted" description="Document is deleted">
+          <transitions>
+            <transition>backToProject</transition>
+          </transitions>
+        </state>
+      </states>
+     </lifecycle>
+    
   </extension>
 
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
@@ -43,7 +95,7 @@
       <type name="Mailbox">default</type>
       <type name="CaseRoot">default</type>
       <type name="Case">case</type>
-      <type name="CaseLink">default</type>
+      <type name="CaseLink">caselink</type>
       <type name="CaseItem">default</type>
       <type name="DistributionTask">documentRouteElement</type>
       <type name="GenericDistributionTask">documentRouteElement</type>

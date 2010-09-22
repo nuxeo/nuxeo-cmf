@@ -101,5 +101,16 @@ public class CaseLinkConstants {
      * The xpath of the isDraft indicator
      */
     public static final String IS_DRAFT_FIELD = "cslk:draft";
-
+    
+    public static final String DUE_DATE_FIELD = "acslk:dueDate";
+    
+    public static final String IS_ACTIONABLE_FIELD = "acslk:isActionable";
+    
+    public static final String TASK_TYPE_FIELD = "acslk:itaskType";
+    
+    public static final String VALIDATION_OPERATION_CHAIN_ID = "acslk:validationOperationChainId";
+    
+    public static final String REFUSAL_OPERATION_CHAIN_ID = "acslk:refusalOperationChainId";
+    
+    public static final String AUTOMATIC_VALIDATION_FIELD = "acslk:automaticValidation";
 }
