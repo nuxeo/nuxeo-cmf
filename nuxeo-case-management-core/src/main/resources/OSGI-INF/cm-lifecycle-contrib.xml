@@ -45,6 +45,10 @@
       <type name="Case">case</type>
       <type name="CaseLink">default</type>
       <type name="CaseItem">default</type>
+      <type name="DistributionTask">documentRouteElement</type>
+      <type name="GenericDistributionTask">documentRouteElement</type>
+      <type name="PersonalDistributionTask">documentRouteElement</type>
+      <type name="DistributionStep">documentRouteElement</type>
     </types>
   </extension>
 

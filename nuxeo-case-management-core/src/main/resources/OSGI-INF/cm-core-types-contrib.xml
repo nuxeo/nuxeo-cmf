@@ -88,18 +88,22 @@
 
     <doctype name="DistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
+      <facet name ="RouteStep"/>
     </doctype>
 
     <doctype name="GenericDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
+      <facet name ="RouteStep"/>
     </doctype>
 
     <doctype name="PersonalDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
+      <facet name ="RouteStep"/>
     </doctype>
 
     <doctype name="DistributionStep" extends="DocumentRouteStep">
       <schema name="routing_task" />
+      <facet name ="RouteStep"/>
     </doctype>
 
 
