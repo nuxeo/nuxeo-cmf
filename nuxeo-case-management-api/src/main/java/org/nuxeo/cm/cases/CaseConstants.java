@@ -21,9 +21,10 @@ package org.nuxeo.cm.cases;
 
 /**
  * @author Anahide Tchertchian
- * 
+ *
  */
 public class CaseConstants {
+
 
     public static final String CASE_TREE_TYPE = "Folder";
 
@@ -108,6 +109,11 @@ public class CaseConstants {
     public static final String DOCUMENT_DEFAULT_CASE_ID_PROPERTY_NAME = "cmdoc:defaultCaseId";
 
     public static final String DOCUMENT_IMPORTED_PREFIX = "imported-";
+
+    //operation
+    public static final String OPERATION_CASE_LINK_KEY = "operation.case.link.key";
+
+    public static final String CASE_MANAGEMENT_OPERATION_CATEGORY = "CaseManagement";
 
     // Constant utility class
     private CaseConstants() {

@@ -164,4 +164,9 @@ public class CaseLinkImpl implements CaseLink {
         return recipientAdapter.getInitialInternalParticipants();
     }
 
+    @Override
+    public void setActionnable(boolean actionnable) {
+        throw new UnsupportedOperationException();
+    }
+
 }

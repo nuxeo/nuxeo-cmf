@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.usermanager.operationChain.contrib">
+
+ <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
+    point="chains">
+    <chain id="createActionnableCaseLink">
+      <operation id="Case.Management.Step.CaseLink.Mapping">
+        <param name="actionnable" type="boolean">true</param>
+        <param name="mappingProperties" type="Properties">
+        dc:title=dc:title
+        </param>
+      </operation>
+    </chain>
+  </extension>
+
+</component>

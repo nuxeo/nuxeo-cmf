@@ -147,4 +147,9 @@ public class CaseLinkRequestImpl implements CaseLink {
         throw new UnsupportedOperationException("Not implemented");
     }
 
+    @Override
+    public void setActionnable(boolean actionnable) {
+        throw new UnsupportedOperationException();
+    }
+
 }

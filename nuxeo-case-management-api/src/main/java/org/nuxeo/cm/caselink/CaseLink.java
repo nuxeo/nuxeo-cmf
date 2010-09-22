@@ -27,10 +27,8 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
-
 /**
- * A CorrespondencePost represent a sent {@link Case} in a
- * {@link Mailbox}.
+ * A CorrespondencePost represent a sent {@link Case} in a {@link Mailbox}.
  * <p>
  * When a Mailbox send a MailEnvelope, a CorrespondencePost is created in its
  * Mailbox and a {@link CorrespondenceMessage} is created in each of the
@@ -105,4 +103,5 @@ public interface CaseLink extends HasParticipants, Serializable {
      */
     boolean isDraft();
 
+    void setActionnable(boolean actionnable);
 }
