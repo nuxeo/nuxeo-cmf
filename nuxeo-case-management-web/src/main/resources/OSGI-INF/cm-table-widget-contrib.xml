@@ -291,6 +291,39 @@
         /widgets/listing/listing_cm_text_relations_actions_widget_template.xhtml
       </property>
     </widgetType>
+    
+    <widgetType name="listing_cm_inbox_actionable_case_link_actions">
+
+      <documentation>
+        This widget type displays 2 links to approve or reject a task
+        <br />
+        It requires the following fields configuration:
+        <ul>
+          <li>
+            first field maps the document model, it will be used to display the
+            document link and its title
+          </li>
+          <li>
+            second field maps the unique id to be used for contextual menu (e.g.
+            the document model id)
+          </li>
+          <li>
+            third field maps the caseLink's caseDocumentId.
+          </li>
+          <li>
+            fouth field maps the isRead property of a caseLink.
+          </li>
+        </ul>
+      </documentation>
+
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_inbox_actionable_case_link_actions_template.xhtml
+      </property>
+
+    </widgetType>
    
   </extension>
 
@@ -541,6 +574,19 @@
         <field>data.author</field>
       </fields>
     </widget>
+    
+    <widget name="cm_inbox_actionable_case_link_actions"
+      type="listing_cm_inbox_actionable_case_link_actions">
+      <labels>
+        <label mode="any">label.casemanagement.distribution.task.operations</label>
+      </labels>
+      <fields>
+        <field>data</field>
+        <field>data.acslk.validationOperationChainId</field>
+        <field>data.acslk.refusalOperationChainId</field>
+      </fields>
+    </widget>
+    
   </extension>
 
 </component>

@@ -41,6 +41,12 @@
           </properties>
           <widget>cm_listing_sender</widget>
         </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_inbox_actionable_case_link_actions</widget>
+        </column> 
       </columns>
     </layout>
     
