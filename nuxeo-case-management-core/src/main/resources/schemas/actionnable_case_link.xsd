@@ -7,7 +7,6 @@
  <xs:include schemaLocation="base.xsd" />
 
  <xs:element name="dueDate" type="xs:date"/>
- <xs:element name="isActionable" type="xs:boolean"/>
  <xs:element name="automaticValidation" type="xs:boolean" default="false"/>
  <xs:element name="taskType" type="xs:string"/>
  <xs:element name="validationOperationChainId" type="xs:string"/>

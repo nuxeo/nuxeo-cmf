@@ -26,17 +26,22 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.ecm.automation.AutomationService;
+import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
@@ -54,6 +59,10 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
     protected CaseManagementDistributionTypeService correspDistributionTypeService;
 
     protected CaseManagementDocumentTypeService correspDocumentTypeService;
+
+    protected DocumentRoutingService routingService;
+
+    protected AutomationService automationService;
 
     protected static final String administrator = "Administrator";
 
@@ -97,6 +106,7 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
         deployBundle("org.nuxeo.ecm.platform.routing.core");
+        deployBundle("org.nuxeo.ecm.automation.core");
 
         // needed for users
         deployBundle("org.nuxeo.ecm.directory");
@@ -108,6 +118,9 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
 
         // needed for default hierarchy
         deployBundle("org.nuxeo.ecm.platform.content.template");
+
+        routingService = Framework.getService(DocumentRoutingService.class);
+        automationService = Framework.getService(AutomationService.class);
     }
 
     public void setTestDatabase() {
@@ -199,6 +212,14 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
     public Mailbox getPersonalMailbox(String name) throws Exception {
         return correspMailboxService.createPersonalMailboxes(session, name).get(
                 0);
+    }
+
+    public DocumentModel createDocumentModel(CoreSession session, String name,
+            String type, String path) throws ClientException {
+        DocumentModel route1 = session.createDocumentModel(path, name, type);
+        route1.setPropertyValue(DocumentRoutingConstants.TITLE_PROPERTY_NAME,
+                name);
+        return session.createDocument(route1);
     }
 
 }

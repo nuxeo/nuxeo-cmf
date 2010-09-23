@@ -41,7 +41,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 
-
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
@@ -53,8 +52,7 @@ public class CaseLinkImpl implements CaseLink {
 
     protected DocumentModel document;
 
-    public CaseLinkImpl(DocumentModel doc,
-            HasParticipants recipientAdapted) {
+    public CaseLinkImpl(DocumentModel doc, HasParticipants recipientAdapted) {
         document = doc;
         recipientAdapter = recipientAdapted;
     }
@@ -166,7 +164,14 @@ public class CaseLinkImpl implements CaseLink {
 
     @Override
     public void setActionnable(boolean actionnable) {
-        throw new UnsupportedOperationException();
+        try {
+            document.setPropertyValue(CaseLinkConstants.IS_ACTIONABLE_FIELD,
+                    actionnable);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

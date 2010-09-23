@@ -1,0 +1,12 @@
+<component name="org.nuxeo.cm.typeChainMapping.contrib"
+  version="1.0">
+
+  <extension target="org.nuxeo.ecm.platform.routing.service"
+    point="chainsToType">
+    <mapping documentType="DistributionTask" chainId="DistributionTaskChain" />
+    <mapping documentType="GenericDistributionTask" chainId="GenericDistributionTaskChain" />
+    <mapping documentType="PersonalDistributionTask" chainId="PersonalDistributionTaskChain" />
+    <mapping documentType="DistributionStep" chainId="DistributionStepChain" />
+  </extension>
+
+</component>

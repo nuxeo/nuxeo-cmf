@@ -16,15 +16,20 @@
  */
 package org.nuxeo.cm.operation;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import org.nuxeo.cm.caselink.ActionableCaseLink;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
+import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
+import org.nuxeo.ecm.automation.core.util.Properties;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
@@ -48,23 +53,30 @@ public class StepToCaseLinkMappingOperation {
     @Param(name = "mappingProperties")
     protected Properties mappingProperties;
 
+    @OperationMethod
     public void mapCaseLinkOperation() {
-        ActionableCaseLink link = (ActionableCaseLink) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
+        CaseLink link = (CaseLink) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
         link.setActionnable(actionnable);
         DocumentModel linkDoc = link.getDocument();
         DocumentRouteStep step = (DocumentRouteStep) context.get(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY);
         DocumentModel stepDoc = step.getDocument();
-        for(Map.Entry<Object, Object> prop: mappingProperties.entrySet()) {
-            String linkXPath = (String) prop.getKey();
-            String stepXPath = (String) prop.getValue();
-            try {
-                linkDoc.setPropertyValue(linkXPath, stepDoc.getPropertyValue(stepXPath));
-            } catch (PropertyException e) {
-                throw new RuntimeException(e);
-            } catch (ClientException e) {
-                throw new RuntimeException(e);
+        Map<String, List<String>> recipients = new HashMap<String, List<String>>();
+        String recipient;
+        try {
+            recipient = (String) step.getDocument().getPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME);
+            recipients.put(CaseLinkType.FOR_ACTION.name(),
+                    Arrays.asList(new String[] { recipient }));
+            link.addParticipants(recipients);
+            for (Map.Entry<String, String> prop : mappingProperties.entrySet()) {
+                String linkXPath = prop.getKey();
+                String stepXPath = prop.getValue();
+                linkDoc.setPropertyValue(linkXPath,
+                        stepDoc.getPropertyValue(stepXPath));
             }
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
         }
-        link.save(context.getCoreSession());
     }
 }

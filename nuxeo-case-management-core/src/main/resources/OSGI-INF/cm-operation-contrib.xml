@@ -3,8 +3,9 @@
 
   <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
     point="operations">
-    <operation
-      class="org.nuxeo.cm.operation.StepToCaseLinkMappingOperation" />
+    <operation class="org.nuxeo.cm.operation.StepToCaseLinkMappingOperation" />
+    <operation class="org.nuxeo.cm.operation.CreateCaseLinkOperation" />
+    <operation class="org.nuxeo.cm.operation.DistributionOperation" />
   </extension>
 
 </component>

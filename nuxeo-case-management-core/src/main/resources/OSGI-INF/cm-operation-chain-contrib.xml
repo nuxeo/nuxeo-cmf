@@ -1,15 +1,53 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.cm.usermanager.operationChain.contrib">
 
- <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
     point="chains">
-    <chain id="createActionnableCaseLink">
+    <chain id="DistributionTaskChain">
+      <operation id="Case.Management.CreateCaseLink" />
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
-        dc:title=dc:title
+        </param>
+        <param name="leavingChainsProperties" type="Properties">
+          validate=validateChain
+          refuse=refuseChain
         </param>
       </operation>
+      <operation id="Case.Management.Distribution" />
+    </chain>
+    <chain id="GenericDistributionTaskChain">
+      <operation id="Case.Management.CreateCaseLink" />
+      <operation id="Case.Management.Step.CaseLink.Mapping">
+        <param name="actionnable" type="boolean">true</param>
+        <param name="mappingProperties" type="Properties">
+        </param>
+        <param name="leavingChainsProperties" type="Properties">
+          validate=validateChain
+          refuse=refuseChain
+        </param>
+      </operation>
+      <operation id="Case.Management.Distribution" />
+    </chain>
+    <chain id="PersonalDistributionTaskChain">
+      <operation id="Case.Management.CreateCaseLink" />
+      <operation id="Case.Management.Step.CaseLink.Mapping">
+        <param name="actionnable" type="boolean">true</param>
+        <param name="mappingProperties" type="Properties">
+        </param>
+        <param name="leavingChainsProperties" type="Properties">
+          validate=validateChain
+          refuse=refuseChain
+        </param>
+      </operation>
+      <operation id="Case.Management.Distribution" />
+    </chain>
+    <chain id="DistributionStepChain">
+      <operation id="Case.Management.CreateCaseLink" />
+      <operation id="Case.Management.Step.CaseLink.Mapping">
+        <param name="actionnable" type="boolean">false</param>
+      </operation>
+      <operation id="Case.Management.Distribution" />
     </chain>
   </extension>
 

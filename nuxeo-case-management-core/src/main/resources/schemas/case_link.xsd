@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://cm.nuxeo.com/schemas/caselink/"
-  xmlns:cmxs="http://case-management.nuxeo.com/schemas/caselink/"
+  targetNamespace="http://cm.nuxeo.com/schemas/caselink/" xmlns:cmxs="http://case-management.nuxeo.com/schemas/caselink/"
   xmlns:nxs="http://case-management.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
-
+  <xs:element name="isActionable" type="xs:boolean" />
   <xs:element name="comment" type="xs:string" />
   <xs:element name="date" type="xs:date" />
   <xs:element name="caseDocumentId" type="xs:string" />

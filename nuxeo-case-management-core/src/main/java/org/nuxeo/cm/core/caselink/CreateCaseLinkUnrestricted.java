@@ -20,28 +20,22 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.DUE_DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.DUE_DATE_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.REFUSAL_OPERATION_CHAIN_ID;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.VALIDATION_OPERATION_CHAIN_ID;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.TASK_TYPE_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.AUTOMATIC_VALIDATION_FIELD;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
 import org.nuxeo.cm.exception.CaseManagementException;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -79,7 +73,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     protected CaseLink draft;
 
     protected Mailbox recipient;
-    
+
     protected boolean isActionable;
 
     public CaseLink getCreatedPost() {
@@ -151,7 +145,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         this.isInitial = isInitial;
         this.isActionable = isActionable;
     }
-    
+
     @Override
     public void run() throws ClientException {
         GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
@@ -184,7 +178,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
             post.addInitialInternalParticipants(internalRecipients);
             post.addInitialExternalParticipants(externalRecipients);
         }
-        
+
         if(isActionable){
             setActionableValues(doc);
         }
@@ -220,8 +214,8 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // doc.setPropertyValue(ENVELOPE_ID_FIELD,
         // envelope.getDocument().getPropertyValue("uid:uid"));
     }
-    
-    
+
+
     /***
      * Sets the properties if the caseLink is actionable
      * @throws ClientException

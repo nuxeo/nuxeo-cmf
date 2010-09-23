@@ -32,7 +32,7 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
 
 /**
  * Processing actions for an actionable case link
- * 
+ *
  * @author <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
  * */
 @Name("actionableCaseLinkActions")

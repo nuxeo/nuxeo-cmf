@@ -25,7 +25,6 @@ package org.nuxeo.cm.cases;
  */
 public class CaseConstants {
 
-
     public static final String CASE_TREE_TYPE = "Folder";
 
     public static final String CASE_ROOT_DOCUMENT_PATH = "/case-management/case-root";
@@ -110,10 +109,29 @@ public class CaseConstants {
 
     public static final String DOCUMENT_IMPORTED_PREFIX = "imported-";
 
-    //operation
+    // operation
     public static final String OPERATION_CASE_LINK_KEY = "operation.case.link.key";
 
     public static final String CASE_MANAGEMENT_OPERATION_CATEGORY = "CaseManagement";
+
+    public static final String OPERATION_CHAIN_DISTRIBUTION_TASK_CHAIN = "DistributionTaskChain";
+
+    public static final String OPERATION_CHAIN_GENERIC_DISTRIBUTION_TASK_CHAIN = "GenericDistributionTaskChain";
+
+    public static final String OPERATION_CHAIN_PERSONAL_DISTRIBUTION_TASK_CHAIN = "PersonalDistributionTaskChain";
+
+    public static final String OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN = "DistributionStepChain";
+
+    // step document
+    public static final String STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK = "DistributionTask";
+
+    public static final String STEP_DOCUMENT_TYPE_GENERIC_DISTRIBUTION_TASK = "GenericDistributionTask";
+
+    public static final String STEP_DOCUMENT_TYPE_PERSONAL_DISTRIBUTION_TASK = "PersonalDistributionTask";
+
+    public static final String STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP = "DistributionStep";
+
+    public static final String STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME = "rtsk:distributionMailboxId";
 
     // Constant utility class
     private CaseConstants() {
