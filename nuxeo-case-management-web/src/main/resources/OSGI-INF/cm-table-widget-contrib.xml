@@ -322,9 +322,30 @@
       <property name="template">
         /widgets/listing/listing_cm_inbox_actionable_case_link_actions_template.xhtml
       </property>
-
     </widgetType>
-   
+    
+    <widgetType name="listing_cm_routing_task_type_widget">
+      <documentation>
+        This widget type displays the prdicate in a relation
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+         directory  name
+          </li>
+        <li>
+         data 
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_routing_task_type_widget_template.xhtml
+      </property>
+    </widgetType>
+
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
@@ -586,6 +607,17 @@
         <field>data.acslk.refusalOperationChainId</field>
       </fields>
     </widget>
+    
+    <widget name="cm_listing_routink_task_type" type="listing_cm_routing_task_type_widget">
+        <labels>
+          <label mode="any">label.casemanagement.distribution.task.type</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>data.document</field>
+          <field>data.document.rtsk.type</field>
+        </fields>
+      </widget>
     
   </extension>
 
