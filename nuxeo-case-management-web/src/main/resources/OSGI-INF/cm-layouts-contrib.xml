@@ -299,7 +299,7 @@
       </properties>
     </widget>
 
-		<widget name="action_participants" type="template">
+     <widget name="action_participants" type="template">
 			<labels>
 				<label mode="any">label.casemanagement.distribution.actionParticipants</label>
 			</labels>
@@ -341,6 +341,25 @@
 				<property name="cssStyleClass">dataInputText</property>
 			</properties>
 		</widget>
+		
+     <widget name="case_related_route" type="template">
+      <labels>
+        <label mode="any">label.document.routing.related.route
+        </label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>relatedRouteModelDocument</field>
+      </fields>
+      <properties mode="any">
+        <property name="template">
+          /documentrouting_widgets/documentroute_related_route_suggestion_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="cssStyleClass">dataInputText</property>
+      </properties>
+    </widget>
 
   </extension>
 
@@ -1394,6 +1413,17 @@
     </widget>
     </layout>
     
+    <layout name="cm_case_related_route">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+       <row>
+         <widget>case_related_route</widget>
+        </row>
+      </rows>
+    </layout>
+    
   </extension>
-
 </component>

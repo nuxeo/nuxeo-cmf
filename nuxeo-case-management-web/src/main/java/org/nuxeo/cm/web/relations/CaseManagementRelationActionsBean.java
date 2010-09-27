@@ -32,6 +32,7 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
@@ -50,6 +51,8 @@ import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
+import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
+import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.ecm.platform.relations.api.Literal;
 import org.nuxeo.ecm.platform.relations.api.Node;
 import org.nuxeo.ecm.platform.relations.api.QNameResource;
@@ -93,6 +96,8 @@ CaseManagementContextBoundInstance {
     private static final Log log = LogFactory.getLog(CaseManagementRelationActionsBean.class);
 
     public static final String CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL = "CURRENT_CASE_ITEM_RELATION_SEARCH";
+    
+    public static final String DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS_QUERYMODEL = "DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS";
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -318,6 +323,9 @@ CaseManagementContextBoundInstance {
     }
 
     public DocumentModel getDocumentModel(String id) throws ClientException {
+        if (StringUtils.isEmpty(id)){
+            return null;
+        }
         return documentManager.getDocument(new IdRef(id));
     }
 
@@ -474,5 +482,30 @@ CaseManagementContextBoundInstance {
         resetStatements();
         resetCreateFormValues();
     }
+    
+    public List<DocumentModel> getRouteModelSuggestions(Object input)
+            throws ClientException {
+        List<DocumentModel> docs = new ArrayList<DocumentModel>();
+        try {
+            QueryModelService qms = Framework.getService(QueryModelService.class);
+            if (qms == null) {
+                return docs;
+            }
+
+            QueryModelDescriptor qmDescriptor = qms.getQueryModelDescriptor(DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS_QUERYMODEL);
+            if (qmDescriptor == null) {
+                return docs;
+            }
+
+            List<Object> queryParams = new ArrayList<Object>();
+            queryParams.add(0, String.format("%s%%", input));
+            QueryModel qm = new QueryModel(qmDescriptor);
+            docs = qm.getDocuments(documentManager, queryParams.toArray());
+        } catch (Exception e) {
+            throw new ClientException("error searching for documents", e);
+        }
+        return docs;
+    }
+
 
 }

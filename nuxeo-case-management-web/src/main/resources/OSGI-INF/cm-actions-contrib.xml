@@ -296,9 +296,17 @@
     <!-- DocumentRoute  tabs-->
     
     <action id="TAB_DOCUMENT_ROUTE_ELEMENTS" link="/documentrouting/tabs/cm_document_route_content_elements.xhtml" order="100"
-      label="action.view.document.routing.elements" icon="/icons/file.gif">
+       label="action.view.document.routing.elements" icon="/icons/file.gif">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isRoute</filter-id>
+    </action>
+    
+    <action id="executeRouteAttachedToCase"
+      link="#{cmCaseActions.startRouteRelatedToCase()}"
+      label="action.start.related.document.route"
+      enabled="true">
+      <category>CASE_ACTION_UPPER_LIST</category>
+      <filter-id>isCmCase</filter-id>
     </action>
 
   </extension>

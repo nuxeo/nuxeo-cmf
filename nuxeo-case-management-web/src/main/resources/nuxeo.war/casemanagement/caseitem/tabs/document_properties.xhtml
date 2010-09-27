@@ -35,10 +35,13 @@
           </nxu:methodResult>
         </div>
         <div style="clear:both;"></div>
+        <c:if test="#{cmDocumentActions.getCaseItemLayoutMode() == 'view'}">      
+          <nxl:layout value="#{cmCaseActions}" mode="edit"
+          name="cm_case_related_route" />
+       </c:if>
         <!-- view of the current case item -->
         <nxl:layout value="#{currentDocument}" mode="view"
           name="#{currentDocumentSummaryLayout}" />
-
       </a4j:outputPanel>
     </a4j:region>
   </h:form>

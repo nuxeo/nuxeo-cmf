@@ -19,6 +19,12 @@
 
 package org.nuxeo.cm.web.cases;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
@@ -32,9 +38,14 @@ import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
+import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
-
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Nicolas Ulrich
@@ -56,6 +67,13 @@ public class CaseManagementCaseActionsBean extends
     @In(create = true)
     protected transient ResourcesAccessor resourcesAccessor;
 
+    @In(required = true, create = true)
+    protected NavigationContext navigationContext;
+
+    private String relatedRouteModelDocumentId;
+
+    private DocumentRoutingService documentRoutingService;
+
     /**
      * @return true if this envelope is still in draft
      */
@@ -71,7 +89,7 @@ public class CaseManagementCaseActionsBean extends
 
     /**
      * Removes a mail from the current envelope.
-     *
+     * 
      * @param doc the mail to remove
      */
     public void removeCaseItem(DocumentModel doc) throws ClientException {
@@ -80,4 +98,49 @@ public class CaseManagementCaseActionsBean extends
         currentEnvelope.removeCaseItem(item, documentManager);
     }
 
+    public String getRelatedRouteModelDocument() {
+        return relatedRouteModelDocumentId;
+    }
+
+    public void setRelatedRouteModelDocument(String relatedRouteModelDocumentId) {
+        this.relatedRouteModelDocumentId = relatedRouteModelDocumentId;
+    }
+
+    public String startRouteRelatedToCase() throws ClientException {
+        // if no relatedRouteModelDocumentId
+        if (StringUtils.isEmpty(relatedRouteModelDocumentId)) {
+            facesMessages.add(
+                    FacesMessage.SEVERITY_WARN,
+                    resourcesAccessor.getMessages().get(
+                            "feedback.casemanagement.document.route.no.valid.route"));
+            return null;
+        }
+        DocumentModel relatedRouteModel = documentManager.getDocument(new IdRef(
+                relatedRouteModelDocumentId));
+        // set currentCaseId to participatingDocuments on the route
+        DocumentRoute route = relatedRouteModel.getAdapter(DocumentRoute.class);
+        List<String> documentIds = new ArrayList<String>();
+        documentIds.add(getCurrentCase().getDocument().getId());
+        route.setAttachedDocuments(documentIds);
+        route.save(documentManager);
+        DocumentRoute routeInstance = getDocumentRoutingService().createNewInstance(
+                route, route.getAttachedDocuments(), documentManager);
+        resetCaseInfo();
+        return navigationContext.navigateToDocument(routeInstance.getDocument());
+    }
+
+    public DocumentRoutingService getDocumentRoutingService() {
+        try {
+            if (documentRoutingService == null) {
+                documentRoutingService = Framework.getService(DocumentRoutingService.class);
+            }
+        } catch (Exception e) {
+            throw new ClientRuntimeException(e);
+        }
+        return documentRoutingService;
+    }
+
+    public void resetCaseInfo(){
+        relatedRouteModelDocumentId = null;
+    }
 }
