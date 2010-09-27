@@ -19,6 +19,8 @@
 
 package org.nuxeo.cm.web.cases;
 
+import static org.jboss.seam.ScopeType.EVENT;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +30,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
@@ -41,9 +45,16 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
+import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
+import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
+import org.nuxeo.ecm.platform.routing.api.DocumentRouteElement;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
+import org.nuxeo.ecm.platform.routing.api.LocalizableDocumentRouteElement;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
+import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
+import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.runtime.api.Framework;
 
@@ -98,7 +109,32 @@ public class CaseManagementCaseActionsBean extends
         currentEnvelope.removeCaseItem(item, documentManager);
     }
 
+    /**
+     * Check if the related route to this case is started (ready or running) or
+     * no
+     * 
+     * @param doc the mail to remove
+     */
+    public boolean hasRelatedRoute() throws ClientException {
+        relatedRouteModelDocumentId = getRelatedRouteModelDocument();
+        if (StringUtils.isEmpty(relatedRouteModelDocumentId)) {
+            return false;
+        }
+        return true;
+    }
+
     public String getRelatedRouteModelDocument() {
+        if (StringUtils.isEmpty(relatedRouteModelDocumentId)) {
+            List<DocumentModel> relatedRoute;
+            try {
+                relatedRoute = findRelatedRouteDocument();
+            } catch (ClientException e) {
+                return "";
+            }
+            if (relatedRoute.size() > 0) {
+                relatedRouteModelDocumentId = relatedRoute.get(0).getId();
+            }
+        }
         return relatedRouteModelDocumentId;
     }
 
@@ -126,7 +162,48 @@ public class CaseManagementCaseActionsBean extends
         DocumentRoute routeInstance = getDocumentRoutingService().createNewInstance(
                 route, route.getAttachedDocuments(), documentManager);
         resetCaseInfo();
-        return navigationContext.navigateToDocument(routeInstance.getDocument());
+        return null;
+    }
+
+    public List<DocumentModel> findRelatedRouteDocument()
+            throws ClientException {
+        List<DocumentModel> docs = new ArrayList<DocumentModel>();
+        try {
+            QueryModelService qms = Framework.getService(QueryModelService.class);
+            if (qms == null) {
+                return docs;
+            }
+            QueryModelDescriptor qmDescriptor = qms.getQueryModelDescriptor(CaseManagementWebConstants.SEARCH_ROUTE_BY_ATTACHED_DOC_QUERY);
+            if (qmDescriptor == null) {
+                return docs;
+            }
+            List<Object> queryParams = new ArrayList<Object>();
+            queryParams.add(0, String.format("%s",
+                    getCurrentCase().getDocument().getId()));
+            QueryModel qm = new QueryModel(qmDescriptor);
+            docs = qm.getDocuments(documentManager, queryParams.toArray());
+        } catch (Exception e) {
+            throw new ClientException("error searching for documents", e);
+        }
+        return docs;
+    }
+
+    @Factory(value = "relatedRouteElementsSelectModel", scope = EVENT)
+    public SelectDataModel computeSelectDataModelRouteElements()
+            throws ClientException {
+        return new SelectDataModelImpl("cm_route_elements",
+                computeRelatedRouteElements(), null);
+    }
+
+    private ArrayList<LocalizableDocumentRouteElement> computeRelatedRouteElements()
+            throws ClientException {
+        DocumentModel relatedRouteDocumentModel = documentManager.getDocument(new IdRef(
+                getRelatedRouteModelDocument()));
+        DocumentRouteElement currentRouteModelElement = relatedRouteDocumentModel.getAdapter(DocumentRouteElement.class);
+        ArrayList<LocalizableDocumentRouteElement> routeElements = new ArrayList<LocalizableDocumentRouteElement>();
+        getDocumentRoutingService().getRouteElements(currentRouteModelElement,
+                documentManager, routeElements, 0);
+        return routeElements;
     }
 
     public DocumentRoutingService getDocumentRoutingService() {
@@ -140,7 +217,14 @@ public class CaseManagementCaseActionsBean extends
         return documentRoutingService;
     }
 
-    public void resetCaseInfo(){
+    @Override
+    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
+            throws ClientException {
+        super.resetCaseCache(cachedEnvelope, newEnvelope);
+        resetCaseInfo();
+    }
+
+    public void resetCaseInfo() {
         relatedRouteModelDocumentId = null;
     }
 }

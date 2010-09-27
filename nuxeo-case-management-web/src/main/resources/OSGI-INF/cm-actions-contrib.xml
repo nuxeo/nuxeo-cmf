@@ -307,6 +307,15 @@
       enabled="true">
       <category>CASE_ACTION_UPPER_LIST</category>
       <filter-id>isCmCase</filter-id>
+      <filter-id>noRelatedRouteStartedOnCase</filter-id>
+    </action>
+    
+    <action id="TAB_CASE_MANAGEMENT_VIEW_RELATED_ROUTE"
+      link="/casemanagement/caseitem/tabs/related_document_route_preview.xhtml" order="250"
+      label="label.document.routing.related.route">
+      <category>VIEW_ACTION_LIST</category>
+      <filter-id>isCmCase</filter-id>
+      <filter-id>hasRelatedRouteStartedOnCase</filter-id>
     </action>
 
   </extension>
@@ -436,6 +445,19 @@
         <condition>#{cmDocumentActions.canEditCurrentCaseItem}</condition>
       </rule>
     </filter>
+  
+   <filter id="noRelatedRouteStartedOnCase">
+      <rule grant="false">
+        <condition>#{cmCaseActions.hasRelatedRoute()}</condition>
+      </rule>
+    </filter>
+    
+    <filter id="hasRelatedRouteStartedOnCase">
+      <rule grant="true">
+        <condition>#{cmCaseActions.hasRelatedRoute()}</condition>
+      </rule>
+    </filter>
+    
   </extension>
 
 </component>

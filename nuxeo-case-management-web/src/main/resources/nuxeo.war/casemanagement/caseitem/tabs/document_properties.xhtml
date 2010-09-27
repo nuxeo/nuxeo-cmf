@@ -35,7 +35,7 @@
           </nxu:methodResult>
         </div>
         <div style="clear:both;"></div>
-        <c:if test="#{cmDocumentActions.getCaseItemLayoutMode() == 'view'}">      
+        <c:if test="#{cmDocumentActions.getCaseItemLayoutMode() == 'view'  and !cmCaseActions.hasRelatedRoute()}">      
           <nxl:layout value="#{cmCaseActions}" mode="edit"
           name="cm_case_related_route" />
        </c:if>
