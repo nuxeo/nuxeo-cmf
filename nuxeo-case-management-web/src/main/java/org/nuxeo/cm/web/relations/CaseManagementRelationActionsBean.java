@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.convert.Converter;
 import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +41,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
+import org.nuxeo.cm.web.convertor.DocumentModelConvertor;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -77,6 +79,7 @@ import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
+import org.nuxeo.ecm.webapp.security.UserDisplayConverter;
 import org.nuxeo.runtime.api.Framework;
 
 
@@ -507,5 +510,8 @@ CaseManagementContextBoundInstance {
         return docs;
     }
 
+    public Converter getDocumentModelConverter() {
+        return new DocumentModelConvertor(documentManager);
+    }
 
 }

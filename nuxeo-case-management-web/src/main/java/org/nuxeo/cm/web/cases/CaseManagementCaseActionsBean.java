@@ -37,7 +37,6 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
@@ -45,9 +44,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
-import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteElement;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
@@ -159,7 +155,7 @@ public class CaseManagementCaseActionsBean extends
         documentIds.add(getCurrentCase().getDocument().getId());
         route.setAttachedDocuments(documentIds);
         route.save(documentManager);
-        DocumentRoute routeInstance = getDocumentRoutingService().createNewInstance(
+        getDocumentRoutingService().createNewInstance(
                 route, route.getAttachedDocuments(), documentManager);
         resetCaseInfo();
         return null;
@@ -168,22 +164,10 @@ public class CaseManagementCaseActionsBean extends
     public List<DocumentModel> findRelatedRouteDocument()
             throws ClientException {
         List<DocumentModel> docs = new ArrayList<DocumentModel>();
-        try {
-            QueryModelService qms = Framework.getService(QueryModelService.class);
-            if (qms == null) {
-                return docs;
-            }
-            QueryModelDescriptor qmDescriptor = qms.getQueryModelDescriptor(CaseManagementWebConstants.SEARCH_ROUTE_BY_ATTACHED_DOC_QUERY);
-            if (qmDescriptor == null) {
-                return docs;
-            }
-            List<Object> queryParams = new ArrayList<Object>();
-            queryParams.add(0, String.format("%s",
-                    getCurrentCase().getDocument().getId()));
-            QueryModel qm = new QueryModel(qmDescriptor);
-            docs = qm.getDocuments(documentManager, queryParams.toArray());
-        } catch (Exception e) {
-            throw new ClientException("error searching for documents", e);
+        List<DocumentRoute> relatedRoutes = getDocumentRoutingService().getRelatedDocumentRoutesForAttachedDocument(
+                documentManager, getCurrentCase().getDocument().getId());
+        for (DocumentRoute documentRoute : relatedRoutes) {
+            docs.add(documentRoute.getDocument());
         }
         return docs;
     }

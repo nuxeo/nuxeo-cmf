@@ -79,9 +79,7 @@
             value="#{widget.id}_selection_reset" />
         </a4j:commandLink>
         <h:inputHidden id="#{widget.id}_routeId" value="#{field_0}" />
-           <nxu:methodResult name="doc" value="#{cmRelationActions.getDocumentModel(field_0)}">
-                <h:outputText id="#{widget.id}_route" value="#{doc.dublincore.title}" />
-            </nxu:methodResult>
+        <h:outputText id="#{widget.id}_route" value="#{field_0}" converter="#{cmRelationActions.documentModelConverter}"/>
         <h:message for="#{widget.id}_routeId" styleClass="errorMessage" />
       </a4j:outputPanel>
       </h:panelGroup>
