@@ -372,7 +372,7 @@ nxthemes css is not used in login.jsp */
         <% if (!request.getHeader("User-Agent").contains("Nuxeo-Selenium-Tester")) { %>
           <iframe class="block_container" style="visibility:hidden"
             onload="javascript:this.style.visibility='visible';"
-            src="http://www.nuxeo.com/embedded/cm-login"></iframe>
+            src="https://www.nuxeo.com/embedded/cm-login"></iframe>
         <% } %>
       </td>
     </tr>
