@@ -96,7 +96,7 @@ public class CaseManagementCaseActionsBean extends
 
     /**
      * Removes a mail from the current envelope.
-     * 
+     *
      * @param doc the mail to remove
      */
     public void removeCaseItem(DocumentModel doc) throws ClientException {
@@ -108,7 +108,7 @@ public class CaseManagementCaseActionsBean extends
     /**
      * Check if the related route to this case is started (ready or running) or
      * no
-     * 
+     *
      * @param doc the mail to remove
      */
     public boolean hasRelatedRoute() throws ClientException {
@@ -164,6 +164,9 @@ public class CaseManagementCaseActionsBean extends
     public List<DocumentModel> findRelatedRouteDocument()
             throws ClientException {
         List<DocumentModel> docs = new ArrayList<DocumentModel>();
+        if(getCurrentCase() == null) {
+            return docs;
+        }
         List<DocumentRoute> relatedRoutes = getDocumentRoutingService().getRelatedDocumentRoutesForAttachedDocument(
                 documentManager, getCurrentCase().getDocument().getId());
         for (DocumentRoute documentRoute : relatedRoutes) {
