@@ -174,4 +174,9 @@ public class CaseLinkImpl implements CaseLink {
         }
     }
 
+    @Override
+    public boolean isActionnable() {
+        return (Boolean) getPropertyValue(CaseLinkConstants.IS_ACTIONABLE_FIELD);
+    }
+
 }

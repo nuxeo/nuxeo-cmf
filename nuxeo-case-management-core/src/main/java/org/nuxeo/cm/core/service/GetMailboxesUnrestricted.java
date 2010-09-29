@@ -48,7 +48,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     private static final String QUERY_GET_MAILBOX_FROM_ID = "GET_MAILBOX_FROM_ID";
 
-    protected List<Mailbox> mailboxes;
+    protected List<Mailbox> mailboxes = new ArrayList<Mailbox>();
 
     protected final List<String> muids;
 
@@ -71,6 +71,9 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
+        if(muids == null) {
+            return;
+        }
         List<DocumentModel> docs = getMailboxesDocumentModel(muids);
         mailboxes = MailboxConstants.getMailboxList(docs);
     }

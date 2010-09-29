@@ -41,12 +41,12 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
 public class ActionableCaseLinkActionsBean implements ActionableCaseLinkActions {
 
     @Override
-    public String approveTask(String validationOperationChainId) {
+    public String approveTask() {
         return null;
     }
 
     @Override
-    public String rejectTask(String refusalOperationChainId) {
+    public String rejectTask() {
         return null;
     }
 

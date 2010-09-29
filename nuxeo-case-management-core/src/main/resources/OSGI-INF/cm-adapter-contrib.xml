@@ -10,6 +10,9 @@
     <adapter class="org.nuxeo.cm.caselink.CaseLink"
       facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
+    <adapter class="org.nuxeo.cm.caselink.ActionableCaseLink"
+      facet="CaseLink"
+      factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.Case"
       facet="Case"
       factory="org.nuxeo.cm.core.adapter.CaseAdapterFactory" />
@@ -21,7 +24,6 @@
       factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.HasParticipants"
       factory="org.nuxeo.cm.core.adapter.HasParticipantsAdapterFactory" />
-
   </extension>
 
 </component>

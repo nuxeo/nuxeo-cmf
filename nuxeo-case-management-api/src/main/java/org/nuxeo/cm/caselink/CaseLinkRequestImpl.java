@@ -152,4 +152,9 @@ public class CaseLinkRequestImpl implements CaseLink {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean isActionnable() {
+        throw new UnsupportedOperationException();
+    }
+
 }

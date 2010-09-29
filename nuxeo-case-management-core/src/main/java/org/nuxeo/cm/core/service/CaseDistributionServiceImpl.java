@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxHeader;
+import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.Case;
@@ -86,7 +87,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             throw new CaseManagementRuntimeException(e);
         }
     }
-    
+
     public CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean isInitial, boolean actionable) {
         try {
@@ -398,7 +399,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         protected EventProducer eventProducer;
 
         protected CaseLink post;
-        
+
         protected boolean isActionable = false;
 
         public SendPostUnrestricted(CoreSession session, CaseLink postRequest,
@@ -415,7 +416,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             this.isInitial = isInitial;
             this.isActionable = isActionable;
         }
-        
+
         @Override
         public void run() throws CaseManagementException {
 
@@ -452,8 +453,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     }
                     eventProperties.put(
                             CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_
-                                    + type, StringUtils.join(mailboxTitles,
-                                    ", "));
+                                    + type,
+                            StringUtils.join(mailboxTitles, ", "));
                 }
 
                 eventProperties.put(
@@ -514,7 +515,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                             null, session, subject, comment, envelope,
                             senderMailbox, senderMailbox.getId(),
                             internalRecipientIds, externalRecipients, true,
-                            isInitial, isActionable);
+                            isInitial);
                     createPostUnrestricted.run();
                     post = createPostUnrestricted.getCreatedPost();
                 }
@@ -522,11 +523,24 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 // Create the Posts for the recipients
                 for (String type : internalRecipientIds.keySet()) {
                     for (String recipient : internalRecipientIds.get(type)) {
-                        CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
-                                post, session, subject, comment, envelope,
-                                senderMailbox, recipient, internalRecipientIds,
-                                externalRecipients, false, isInitial);
-                        createMessageUnrestricted.run();
+                        if (isActionable) {
+                            ActionableCaseLink al = (ActionableCaseLink) postRequest;
+                            CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
+                                    post, session, subject, comment, envelope,
+                                    senderMailbox, recipient,
+                                    internalRecipientIds, externalRecipients,
+                                    false, isInitial, true,
+                                    al.getValidateOperationChainId(),
+                                    al.getRefuseOperationChainId(), al.getStepId());
+                            createMessageUnrestricted.run();
+                        } else {
+                            CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
+                                    post, session, subject, comment, envelope,
+                                    senderMailbox, recipient,
+                                    internalRecipientIds, externalRecipients,
+                                    false, isInitial);
+                            createMessageUnrestricted.run();
+                        }
                     }
                 }
 

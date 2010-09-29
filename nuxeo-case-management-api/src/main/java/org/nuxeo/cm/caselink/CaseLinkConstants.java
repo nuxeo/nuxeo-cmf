@@ -102,6 +102,8 @@ public class CaseLinkConstants {
      */
     public static final String IS_DRAFT_FIELD = "cslk:draft";
 
+    //actionable fields
+
     public static final String DUE_DATE_FIELD = "acslk:dueDate";
 
     public static final String IS_ACTIONABLE_FIELD = "cslk:isActionable";
@@ -113,4 +115,6 @@ public class CaseLinkConstants {
     public static final String REFUSAL_OPERATION_CHAIN_ID = "acslk:refusalOperationChainId";
 
     public static final String AUTOMATIC_VALIDATION_FIELD = "acslk:automaticValidation";
+
+    public static final String  STEP_DOCUMENT_ID_FIELD = "acslk:stepDocumentId";
 }

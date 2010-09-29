@@ -40,6 +40,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
@@ -220,6 +221,29 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
         route1.setPropertyValue(DocumentRoutingConstants.TITLE_PROPERTY_NAME,
                 name);
         return session.createDocument(route1);
+    }
+
+    public DocumentRoute createComplexRoute(CoreSession session)
+            throws Exception {
+        DocumentModel route = createDocumentModel(session, "route",
+                DocumentRoutingConstants.DOCUMENT_ROUTE_DOCUMENT_TYPE, "/");
+        DocumentModel step1 = createDocumentModel(session, "step1",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP,
+                route.getPathAsString());
+        Mailbox user2Mailbox = getPersonalMailbox(user2);
+        step1.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
+                user2Mailbox.getId());
+        session.saveDocument(step1);
+        DocumentModel step2 = createDocumentModel(session, "step2",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
+                route.getPathAsString());
+        step2.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
+                user2Mailbox.getId());
+        session.saveDocument(step2);
+        session.save();
+        return route.getAdapter(DocumentRoute.class);
     }
 
 }

@@ -10,6 +10,7 @@
  <xs:element name="automaticValidation" type="xs:boolean" default="false"/>
  <xs:element name="taskType" type="xs:string"/>
  <xs:element name="validationOperationChainId" type="xs:string"/>
- <xs:element name="refusalOperationChainId" type="xs:string"/> 
+ <xs:element name="refusalOperationChainId" type="xs:string"/>
+ <xs:element name="stepDocumentId" type="xs:string" />
 
 </xs:schema>

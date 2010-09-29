@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
@@ -74,7 +75,13 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected Mailbox recipient;
 
-    protected boolean isActionable;
+    protected boolean isActionable = false;
+
+    protected String validateId;
+
+    protected String refuseId;
+
+    protected String stepId;
 
     public CaseLink getCreatedPost() {
         return createdPost;
@@ -93,10 +100,9 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * @param isSent The post can be Sent or Received
      * @param isInitial Is it an initial sent?
      */
-    public CreateCaseLinkUnrestricted(CaseLink draft,
-            CoreSession session, String subject, String comment,
-            Case envelope, Mailbox sender, String recipientId,
-            Map<String, List<String>> internalRecipients,
+    public CreateCaseLinkUnrestricted(CaseLink draft, CoreSession session,
+            String subject, String comment, Case envelope, Mailbox sender,
+            String recipientId, Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial) {
         super(session);
@@ -125,25 +131,20 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * @param isSent The post can be Sent or Received
      * @param isInitial Is it an initial sent?
      * @param isActionable ?
+     * @param string
      */
-    public CreateCaseLinkUnrestricted(CaseLink draft,
-            CoreSession session, String subject, String comment,
-            Case envelope, Mailbox sender, String recipientId,
-            Map<String, List<String>> internalRecipients,
+    public CreateCaseLinkUnrestricted(CaseLink draft, CoreSession session,
+            String subject, String comment, Case envelope, Mailbox sender,
+            String recipientId, Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
-            boolean isInitial, boolean isActionable) {
-        super(session);
-        this.draft = draft;
-        this.comment = comment;
-        this.envelope = envelope;
-        this.subject = subject;
-        this.sender = sender;
-        this.recipientId = recipientId;
-        this.internalRecipients = internalRecipients;
-        this.externalRecipients = externalRecipients;
-        this.isSent = isSent;
-        this.isInitial = isInitial;
+            boolean isInitial, boolean isActionable, String validateId,
+            String refuseId, String stepId) {
+        this(draft, session, subject, comment, envelope, sender, recipientId,
+                internalRecipients, externalRecipients, isSent, isInitial);
         this.isActionable = isActionable;
+        this.validateId = validateId;
+        this.refuseId = refuseId;
+        this.stepId = stepId;
     }
 
     @Override
@@ -154,7 +155,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         List<Mailbox> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
             throw new CaseManagementException(
-            "Can't send post because sender mailbox does not exist.");
+                    "Can't send post because sender mailbox does not exist.");
         }
 
         recipient = mailboxes.get(0);
@@ -178,13 +179,15 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
             post.addInitialInternalParticipants(internalRecipients);
             post.addInitialExternalParticipants(externalRecipients);
         }
-
-        if(isActionable){
-            setActionableValues(doc);
+        post.setActionnable(isActionable);
+        if (isActionable) {
+            ActionableCaseLink al = doc.getAdapter(ActionableCaseLink.class);
+            al.setRefuseOperationChainId(refuseId);
+            al.setValidateOperationChainId(validateId);
+            al.setStepId(stepId);
         }
         post.addParticipants(internalRecipients);
         post.addParticipants(externalRecipients);
-
         setPostValues(doc);
         session.createDocument(doc);
         session.save();
@@ -213,13 +216,5 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // envelope
         // doc.setPropertyValue(ENVELOPE_ID_FIELD,
         // envelope.getDocument().getPropertyValue("uid:uid"));
-    }
-
-
-    /***
-     * Sets the properties if the caseLink is actionable
-     * @throws ClientException
-     */
-    protected void setActionableValues(DocumentModel doc) throws ClientException {
     }
 }

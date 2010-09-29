@@ -10,8 +10,8 @@
         <param name="mappingProperties" type="Properties">
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=validateChain
-          refuse=refuseChain
+          validate=simpleValidate
+          refuse=simpleRefuse
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -23,8 +23,8 @@
         <param name="mappingProperties" type="Properties">
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=validateChain
-          refuse=refuseChain
+          validate=simpleValidate
+          refuse=simpleRefuse
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -36,8 +36,8 @@
         <param name="mappingProperties" type="Properties">
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=validateChain
-          refuse=refuseChain
+          validate=simpleValidate
+          refuse=simpleRefuse
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -50,6 +50,7 @@
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
+      <operation id="Document.Routing.Step.Done" />
     </chain>
   </extension>
 

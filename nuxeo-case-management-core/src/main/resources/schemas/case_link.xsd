@@ -4,7 +4,7 @@
   xmlns:nxs="http://case-management.nuxeo.com/schemas/base/">
 
   <xs:include schemaLocation="base.xsd" />
-  <xs:element name="isActionable" type="xs:boolean" />
+  <xs:element name="isActionable" type="xs:boolean" default="false"/>
   <xs:element name="comment" type="xs:string" />
   <xs:element name="date" type="xs:date" />
   <xs:element name="caseDocumentId" type="xs:string" />

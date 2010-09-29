@@ -24,15 +24,15 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Processing actions for an actionable case link
- * 
+ *
  * @author <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
  * */
 public interface ActionableCaseLinkActions {
 
-    String approveTask(String validationOperationChainId);
-    
-    String rejectTask(String refusalOperationChainId);
-    
+    String approveTask();
+
+    String rejectTask();
+
     boolean isActionable(DocumentModel caseLink) throws ClientException;
-    
+
 }

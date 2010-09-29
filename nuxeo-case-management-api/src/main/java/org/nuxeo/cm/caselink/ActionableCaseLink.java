@@ -18,24 +18,38 @@ package org.nuxeo.cm.caselink;
 
 import java.util.Date;
 
+import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.platform.routing.api.ActionableObject;
+
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public interface ActionableCaseLink extends CaseLink {
+public interface ActionableCaseLink extends CaseLink, ActionableObject {
 
     /**
      * @param actionnable
      */
 
-   Date getDueDate();
-   
-   Boolean isAutomaticValidation();
-   
-   String getTaskType();
-   
-   String getvalidationOperationChainId();
-   
-   String getRefusalOperationChainId();
+    Date getDueDate();
+
+    Boolean isAutomaticValidation();
+
+    String getTaskType();
+
+    void validate(CoreSession session);
+
+    void refuse(CoreSession session);
+
+    void setRefuseOperationChainId(String refuseChainId);
+
+    void setValidateOperationChainId(String validateChainId);
+
+    void setStepId(String id);
+
+    /**
+     * @return
+     */
+    String getStepId();
 
 }

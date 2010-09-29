@@ -104,4 +104,6 @@ public interface CaseLink extends HasParticipants, Serializable {
     boolean isDraft();
 
     void setActionnable(boolean actionnable);
+
+    boolean isActionnable();
 }

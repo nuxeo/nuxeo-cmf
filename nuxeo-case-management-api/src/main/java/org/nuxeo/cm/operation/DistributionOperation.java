@@ -53,7 +53,7 @@ public class DistributionOperation {
         @SuppressWarnings("unchecked")
         List<CaseLink> caseLinks = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
         for (CaseLink caseLink : caseLinks) {
-            getDistributionService().sendCase(session, caseLink, false, true);
+            getDistributionService().sendCase(session, caseLink, false, caseLink.isActionnable());
         }
     }
 }

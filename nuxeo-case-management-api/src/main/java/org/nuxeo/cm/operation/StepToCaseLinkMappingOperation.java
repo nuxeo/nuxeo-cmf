@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.CaseConstants;
@@ -48,10 +49,13 @@ public class StepToCaseLinkMappingOperation {
     protected OperationContext context;
 
     @Param(name = "actionnable")
-    protected boolean actionnable;
+    protected boolean actionnable = false;
 
     @Param(name = "mappingProperties")
     protected Properties mappingProperties;
+
+    @Param(name = "leavingChainsProperties", required = false)
+    protected Properties leavingChainsProperties;
 
     @OperationMethod
     public void mapCaseLinkOperation() {
@@ -69,14 +73,24 @@ public class StepToCaseLinkMappingOperation {
                         CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME);
                 recipients.put(CaseLinkType.FOR_ACTION.name(),
                         Arrays.asList(new String[] { recipient }));
-                link.addParticipants(recipients);
+                if (recipient != null) {
+                    link.addInitialInternalParticipants(recipients);
+                }
                 for (Map.Entry<String, String> prop : mappingProperties.entrySet()) {
                     String linkXPath = prop.getKey();
                     String stepXPath = prop.getValue();
                     linkDoc.setPropertyValue(linkXPath,
                             stepDoc.getPropertyValue(stepXPath));
                 }
-
+                if (link.isActionnable()) {
+                    ActionableCaseLink actionableLink = link.getDocument().getAdapter(
+                            ActionableCaseLink.class);
+                    String refuseChainId = leavingChainsProperties.get("refuse");
+                    String validateChainId = leavingChainsProperties.get("validate");
+                    actionableLink.setRefuseOperationChainId(refuseChainId);
+                    actionableLink.setValidateOperationChainId(validateChainId);
+                    actionableLink.setStepId(stepDoc.getId());
+                }
             } catch (PropertyException e) {
                 throw new RuntimeException(e);
             } catch (ClientException e) {

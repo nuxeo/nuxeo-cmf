@@ -79,7 +79,6 @@ import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
-import org.nuxeo.ecm.webapp.security.UserDisplayConverter;
 import org.nuxeo.runtime.api.Framework;
 
 
@@ -99,7 +98,7 @@ CaseManagementContextBoundInstance {
     private static final Log log = LogFactory.getLog(CaseManagementRelationActionsBean.class);
 
     public static final String CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL = "CURRENT_CASE_ITEM_RELATION_SEARCH";
-    
+
     public static final String DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS_QUERYMODEL = "DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS";
 
     @In(create = true, required = false)
@@ -485,7 +484,7 @@ CaseManagementContextBoundInstance {
         resetStatements();
         resetCreateFormValues();
     }
-    
+
     public List<DocumentModel> getRouteModelSuggestions(Object input)
             throws ClientException {
         List<DocumentModel> docs = new ArrayList<DocumentModel>();

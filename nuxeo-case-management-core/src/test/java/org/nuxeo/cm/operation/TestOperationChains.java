@@ -22,6 +22,7 @@ import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
+import org.nuxeo.ecm.platform.routing.api.DocumentRouteElement;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
 
@@ -58,6 +59,9 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
         OperationContext ctx = new OperationContext(session);
         DocumentModel stepDocument = createDocumentModel(session, "step1", CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP, "/");
+        stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toValidated.name());
+        stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toReady.name());
+        stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toRunning.name());
         DocumentRouteStep step = stepDocument.getAdapter(DocumentRouteStep.class);
         ctx.put(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY, step);
         DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");

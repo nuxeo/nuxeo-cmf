@@ -24,8 +24,17 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.VALIDATION_OPERATION_CHAIN
 
 import java.util.Date;
 
+import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.HasParticipants;
+import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
+import org.nuxeo.ecm.core.api.model.PropertyException;
+import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
+import org.nuxeo.ecm.platform.routing.api.helper.ActionableValidator;
 
 /**
  * @author <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
@@ -39,18 +48,13 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     }
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
     @Override
     public Date getDueDate() {
-       return getPropertyValue(DUE_DATE_FIELD);
-    }
-
-    @Override
-    public String getRefusalOperationChainId() {
-        return getPropertyValue(REFUSAL_OPERATION_CHAIN_ID);
+        return getPropertyValue(DUE_DATE_FIELD);
     }
 
     @Override
@@ -59,13 +63,88 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     }
 
     @Override
-    public String getvalidationOperationChainId() {
-        return getPropertyValue(VALIDATION_OPERATION_CHAIN_ID);  
-        }
+    public Boolean isAutomaticValidation() {
+        return getPropertyValue(AUTOMATIC_VALIDATION_FIELD);
+    }
 
     @Override
-    public Boolean isAutomaticValidation() {
-       return getPropertyValue(AUTOMATIC_VALIDATION_FIELD);
+    public void validate(CoreSession session) {
+        ActionableValidator validator = new ActionableValidator(this, session);
+        validator.validate();
     }
-    
+
+    @Override
+    public void refuse(CoreSession session) {
+        ActionableValidator validator = new ActionableValidator(this, session);
+        validator.refuse();
+    }
+
+    @Override
+    public String getRefuseOperationChainId() {
+        return getPropertyValue(REFUSAL_OPERATION_CHAIN_ID);
+    }
+
+    @Override
+    public String getValidateOperationChainId() {
+        return getPropertyValue(VALIDATION_OPERATION_CHAIN_ID);
+    }
+
+    @Override
+    public DocumentRouteStep getDocumentRouteStep(CoreSession session) {
+        String stepId = getPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD);
+        try {
+            return session.getDocument(new IdRef(stepId)).getAdapter(
+                    DocumentRouteStep.class);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public DocumentModelList getAttachedDocuments(CoreSession session) {
+        Case kase = getCase(session);
+        DocumentModelList result = new DocumentModelListImpl();
+        result.add(kase.getDocument());
+        return result;
+    }
+
+    @Override
+    public void setRefuseOperationChainId(String refuseChainId) {
+        try {
+            document.setPropertyValue(REFUSAL_OPERATION_CHAIN_ID, refuseChainId);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void setValidateOperationChainId(String validateChainId) {
+        try {
+            document.setPropertyValue(VALIDATION_OPERATION_CHAIN_ID,
+                    validateChainId);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void setStepId(String id) {
+        try {
+            document.setPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD,
+                    id);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String getStepId() {
+        return getPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD);
+    }
 }
