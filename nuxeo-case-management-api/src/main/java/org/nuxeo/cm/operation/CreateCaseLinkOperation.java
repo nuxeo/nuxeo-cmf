@@ -16,6 +16,9 @@
  */
 package org.nuxeo.cm.operation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.CaseConstants;
@@ -26,6 +29,8 @@ import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
@@ -39,17 +44,28 @@ public class CreateCaseLinkOperation {
     OperationContext context;
 
     @OperationMethod
-    public DocumentModel createCaseLink(DocumentModel doc) {
+    public DocumentModelList createCaseLink(DocumentModelList docs) {
         CoreSession session = context.getCoreSession();
+        List<CaseLink> links = new ArrayList<CaseLink>();
         try {
-            DocumentModel model = session.createDocumentModel(CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
-            model.setPropertyValue(CaseLinkConstants.CASE_DOCUMENT_ID_FIELD,
-                    doc.getId());
-            CaseLink cl = model.getAdapter(CaseLink.class);
-            context.put(CaseConstants.OPERATION_CASE_LINK_KEY, cl);
+            for (DocumentModel doc : docs) {
+                DocumentModel model = session.createDocumentModel(CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
+                model.setPropertyValue(
+                        CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, doc.getId());
+                CaseLink cl = model.getAdapter(CaseLink.class);
+                links.add(cl);
+            }
+            context.put(CaseConstants.OPERATION_CASE_LINK_KEY, links);
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
-        return doc;
+        return docs;
+    }
+
+    @OperationMethod
+    public DocumentModel createCaseLink(DocumentModel doc) {
+        DocumentModelList list = new DocumentModelListImpl();
+        list.add(doc);
+        return createCaseLink(list).get(0);
     }
 }

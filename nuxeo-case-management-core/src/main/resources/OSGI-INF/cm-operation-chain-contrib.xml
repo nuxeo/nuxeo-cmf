@@ -46,6 +46,8 @@
       <operation id="Case.Management.CreateCaseLink" />
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">false</param>
+        <param name="mappingProperties" type="Properties">
+        </param>
       </operation>
       <operation id="Case.Management.Distribution" />
     </chain>

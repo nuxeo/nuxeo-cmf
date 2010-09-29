@@ -16,6 +16,8 @@
  */
 package org.nuxeo.cm.operation;
 
+import java.util.List;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.service.CaseDistributionService;
@@ -48,7 +50,10 @@ public class DistributionOperation {
     @OperationMethod
     public void distribute() {
         CoreSession session = context.getCoreSession();
-        CaseLink caseLink = (CaseLink) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
-        getDistributionService().sendCase(session, caseLink, false, true);
+        @SuppressWarnings("unchecked")
+        List<CaseLink> caseLinks = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
+        for (CaseLink caseLink : caseLinks) {
+            getDistributionService().sendCase(session, caseLink, false, true);
+        }
     }
 }

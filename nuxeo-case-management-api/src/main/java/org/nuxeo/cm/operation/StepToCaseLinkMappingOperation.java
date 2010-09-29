@@ -55,28 +55,33 @@ public class StepToCaseLinkMappingOperation {
 
     @OperationMethod
     public void mapCaseLinkOperation() {
-        CaseLink link = (CaseLink) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
-        link.setActionnable(actionnable);
-        DocumentModel linkDoc = link.getDocument();
-        DocumentRouteStep step = (DocumentRouteStep) context.get(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY);
-        DocumentModel stepDoc = step.getDocument();
-        Map<String, List<String>> recipients = new HashMap<String, List<String>>();
-        String recipient;
-        try {
-            recipient = (String) step.getDocument().getPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME);
-            recipients.put(CaseLinkType.FOR_ACTION.name(),
-                    Arrays.asList(new String[] { recipient }));
-            link.addParticipants(recipients);
-            for (Map.Entry<String, String> prop : mappingProperties.entrySet()) {
-                String linkXPath = prop.getKey();
-                String stepXPath = prop.getValue();
-                linkDoc.setPropertyValue(linkXPath,
-                        stepDoc.getPropertyValue(stepXPath));
+        @SuppressWarnings("unchecked")
+        List<CaseLink> links = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
+        for (CaseLink link : links) {
+            link.setActionnable(actionnable);
+            DocumentModel linkDoc = link.getDocument();
+            DocumentRouteStep step = (DocumentRouteStep) context.get(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY);
+            DocumentModel stepDoc = step.getDocument();
+            Map<String, List<String>> recipients = new HashMap<String, List<String>>();
+            String recipient;
+            try {
+                recipient = (String) step.getDocument().getPropertyValue(
+                        CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME);
+                recipients.put(CaseLinkType.FOR_ACTION.name(),
+                        Arrays.asList(new String[] { recipient }));
+                link.addParticipants(recipients);
+                for (Map.Entry<String, String> prop : mappingProperties.entrySet()) {
+                    String linkXPath = prop.getKey();
+                    String stepXPath = prop.getValue();
+                    linkDoc.setPropertyValue(linkXPath,
+                            stepDoc.getPropertyValue(stepXPath));
+                }
+
+            } catch (PropertyException e) {
+                throw new RuntimeException(e);
+            } catch (ClientException e) {
+                throw new RuntimeException(e);
             }
-        } catch (PropertyException e) {
-            throw new RuntimeException(e);
-        } catch (ClientException e) {
-            throw new RuntimeException(e);
         }
     }
 }
