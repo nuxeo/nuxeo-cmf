@@ -42,6 +42,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.lifecycle.LifeCycleConstants;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -171,6 +172,7 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
                 recipient.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(),
                 correspDocumentTypeService.getCaseLinkType());
+
         if (draft != null) {
             doc.copyContent(draft.getDocument());
         }
@@ -185,6 +187,9 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
             al.setRefuseOperationChainId(refuseId);
             al.setValidateOperationChainId(validateId);
             al.setStepId(stepId);
+            doc.putContextData(
+                    LifeCycleConstants.INITIAL_LIFECYCLE_STATE_OPTION_NAME,
+                    CaseLink.CaseLinkState.todo.name());
         }
         post.addParticipants(internalRecipients);
         post.addParticipants(externalRecipients);

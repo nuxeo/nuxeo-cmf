@@ -8,10 +8,10 @@
 
   <div class="popupTarget" docRef="#{field_0}">
     <h:commandLink  value="#{messages['label.review.end.task']}"
-      action="#{actionableCaseLinkActions.approveTask(field_1)}" rendered="#{actionableCaseLinkActions.isActionable(field_0)}" />
+      action="#{actionableCaseLinkActions.approveTask(field_0)}" rendered="#{actionableCaseLinkActions.isShowAction(field_0)}" />
     <h:outputText value="   " />
     <h:commandLink  value="#{messages['label.review.reject.task']}"
-     action="#{actionableCaseLinkActions.rejectTask(field_2)}" rendered="#{actionableCaseLinkActions.isActionable(field_0)}"/>
+     action="#{actionableCaseLinkActions.rejectTask(field_0)}" rendered="#{actionableCaseLinkActions.isShowAction(field_0)}"/>
   </div>
 
 </f:subview>

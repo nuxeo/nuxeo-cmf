@@ -68,7 +68,7 @@
             <transition>toDelete</transition>
           </transitions>
         </state>
-        <state name="todo" description="ToDo state">
+        <state name="todo" description="ToDo state" initial="true">
           <transitions>
             <transition>toDone</transition>
           </transitions>

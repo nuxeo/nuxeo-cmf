@@ -47,9 +47,12 @@ public interface ActionableCaseLink extends CaseLink, ActionableObject {
 
     void setStepId(String id);
 
-    /**
-     * @return
-     */
+    boolean isTodo();
+
+    boolean isDone();
+
+    void setDone(CoreSession session);
+
     String getStepId();
 
 }

@@ -38,6 +38,14 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  */
 public interface CaseLink extends HasParticipants, Serializable {
 
+    enum CaseLinkState {
+        draft, project, todo, done
+    }
+
+    enum CaseLinkTransistion {
+        toProject, toDone
+    }
+
     /**
      * Gets the document model.
      */

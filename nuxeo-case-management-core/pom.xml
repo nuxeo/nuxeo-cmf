@@ -60,6 +60,10 @@
       <artifactId>nuxeo-platform-webapp-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.nuxeo.ecm.core</groupId>
+      <artifactId>nuxeo-core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
@@ -68,11 +72,6 @@
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-test</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.core</groupId>
-      <artifactId>nuxeo-core</artifactId>
-      <scope>test</scope>
     </dependency>
     <!-- async event executor is using it -->
     <dependency>

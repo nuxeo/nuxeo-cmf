@@ -603,8 +603,6 @@
       </labels>
       <fields>
         <field>data</field>
-        <field>data.acslk.validationOperationChainId</field>
-        <field>data.acslk.refusalOperationChainId</field>
       </fields>
     </widget>
     

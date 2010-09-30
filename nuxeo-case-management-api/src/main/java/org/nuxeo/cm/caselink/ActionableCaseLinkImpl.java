@@ -71,12 +71,14 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     public void validate(CoreSession session) {
         ActionableValidator validator = new ActionableValidator(this, session);
         validator.validate();
+        setDone(session);
     }
 
     @Override
     public void refuse(CoreSession session) {
         ActionableValidator validator = new ActionableValidator(this, session);
         validator.refuse();
+        setDone(session);
     }
 
     @Override
@@ -146,5 +148,35 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     @Override
     public String getStepId() {
         return getPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD);
+    }
+
+    @Override
+    public boolean isTodo() {
+        try {
+            return document.getCurrentLifeCycleState().equals(
+                    CaseLink.CaseLinkState.todo.name());
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean isDone() {
+        try {
+            return document.getCurrentLifeCycleState().equals(
+                    CaseLink.CaseLinkState.todo.name());
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void setDone(CoreSession session) {
+        try {
+            session.followTransition(document.getRef(),
+                    CaseLink.CaseLinkTransistion.toDone.name());
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

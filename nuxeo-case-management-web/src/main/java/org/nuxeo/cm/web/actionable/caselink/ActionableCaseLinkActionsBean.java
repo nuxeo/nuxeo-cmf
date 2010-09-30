@@ -19,16 +19,18 @@
 
 package org.nuxeo.cm.web.actionable.caselink;
 
-import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_ACTIONABLE_FIELD;
-
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
+import org.jboss.seam.core.Events;
+import org.nuxeo.cm.caselink.ActionableCaseLink;
+import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.ClientRuntimeException;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.model.PropertyException;
+import org.nuxeo.ecm.webapp.helpers.EventNames;
 
 /**
  * Processing actions for an actionable case link
@@ -37,29 +39,34 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
  * */
 @Name("actionableCaseLinkActions")
 @Scope(ScopeType.CONVERSATION)
-@CaseManagementContextBound
-public class ActionableCaseLinkActionsBean implements ActionableCaseLinkActions {
+@Install(precedence = Install.FRAMEWORK)
+public class ActionableCaseLinkActionsBean {
 
-    @Override
-    public String approveTask() {
+    @In(create = true, required = false)
+    protected transient CoreSession documentManager;
+
+    public String approveTask(DocumentModel caseLink) throws ClientException {
+        ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
+        acl.validate(documentManager);
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                documentManager.getParentDocument(caseLink.getRef()));
         return null;
     }
 
-    @Override
-    public String rejectTask() {
+    public String rejectTask(DocumentModel caseLink) throws ClientException {
+        ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
+        acl.refuse(documentManager);
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                documentManager.getParentDocument(caseLink.getRef()));
         return null;
     }
 
-    @Override
-    public boolean isActionable(DocumentModel caseLink) throws ClientException {
-        try {
-            Boolean actionable = (Boolean) caseLink.getPropertyValue(IS_ACTIONABLE_FIELD);
-            if (actionable == null) {
-                return false;
-            }
-            return actionable.booleanValue();
-        } catch (PropertyException e) {
-            throw new ClientRuntimeException(e);
+    public boolean isShowAction(DocumentModel caseLink) throws ClientException {
+        CaseLink cl = caseLink.getAdapter(CaseLink.class);
+        if (cl.isActionnable()) {
+            ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
+            return acl.isTodo();
         }
+        return false;
     }
 }
