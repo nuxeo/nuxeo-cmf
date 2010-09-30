@@ -327,7 +327,7 @@
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
           </properties>
-          <widget>cm_listing_routink_task_type</widget>
+          <widget>cm_listing_routing_task_type</widget>
         </column>
       </columns>
     </layout>

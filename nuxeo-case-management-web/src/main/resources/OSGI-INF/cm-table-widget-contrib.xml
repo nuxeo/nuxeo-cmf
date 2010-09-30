@@ -606,7 +606,7 @@
       </fields>
     </widget>
     
-    <widget name="cm_listing_routink_task_type" type="listing_cm_routing_task_type_widget">
+    <widget name="cm_listing_routing_task_type" type="listing_cm_routing_task_type_widget">
         <labels>
           <label mode="any">label.casemanagement.distribution.task.type</label>
         </labels>

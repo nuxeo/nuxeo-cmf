@@ -227,7 +227,7 @@
        <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
-        <type>Step</type>
+        <type>DocumentRouteStep</type>
       </deniedSubtypes>
    </type>
    
@@ -240,7 +240,7 @@
        <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
-        <type>Step</type>
+        <type>DocumentRouteStep</type>
       </deniedSubtypes>
    </type>
   
