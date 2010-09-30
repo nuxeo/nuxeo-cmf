@@ -14,7 +14,8 @@
         'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted'
         AND ecm:mixinType =
-        'CaseLink' AND cslk:isSent = 0 AND cslk:draft = 0
+        'CaseLink' AND cslk:isSent = 0 AND cslk:draft
+        = 0
       </pattern>
       <sortable value="true" defaultSortColumn="cslk:date"
         defaultSortAscending="false" />
@@ -44,7 +45,8 @@
         'HiddenInNavigation' AND
         ecm:currentLifeCycleState != 'deleted'
         AND ecm:mixinType = 'CaseLink'
-        AND cslk:isSent = 1 AND cslk:draft = 0
+        AND cslk:isSent = 1 AND cslk:draft
+        = 0
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
@@ -84,8 +86,10 @@
     <queryModel name="GET_MAILBOX_FROM_ID">
       <pattern>
         SELECT * FROM Document WHERE mlbx:mailbox_id=?
-        AND ecm:currentLifeCycleState != 'deleted'
-        AND ecm:mixinType = 'Mailbox'
+        AND
+        ecm:currentLifeCycleState != 'deleted'
+        AND ecm:mixinType =
+        'Mailbox'
       </pattern>
     </queryModel>
 
@@ -104,8 +108,10 @@
           <field schema="case_item" name="type" />
         </predicate>
         <fixedPart>
-          ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState !='deleted'
-          AND ecm:mixinType = 'CaseItem'
+          ecm:mixinType != 'HiddenInNavigation' AND
+          ecm:currentLifeCycleState !='deleted'
+          AND ecm:mixinType =
+          'CaseItem'
         </fixedPart>
       </whereClause>
       <sortColumn>
@@ -143,8 +149,9 @@
     <!-- we override the contribution to start route on case only -->
     <queryModel name="CURRENT_DOC_ROUTING_SEARCH_ATTACHED_DOC">
       <pattern>
-        SELECT * FROM Case WHERE ecm:currentLifeCycleState =
-        'draft' AND dc:title LIKE ?
+        SELECT * FROM Case WHERE ecm:currentLifeCycleState !=
+        'draft' AND ecm:currentLifeCycleState != 'deleted' AND dc:title
+        LIKE ?
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />
