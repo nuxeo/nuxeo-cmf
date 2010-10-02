@@ -39,6 +39,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
+import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
@@ -49,7 +50,7 @@ import org.nuxeo.runtime.api.Framework;
 /**
  * @author Anahide Tchertchian
  */
-public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
+public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     protected UserManager userManager;
 
@@ -242,6 +243,28 @@ public class CaseManagementRepositoryTestCase extends TXSQLRepositoryTestCase {
                 CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
                 user2Mailbox.getId());
         session.saveDocument(step2);
+        DocumentModel parallelFolder1 = createDocumentModel(session,
+                "parallelFolder1",
+                DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE,
+                route.getPathAsString());
+        parallelFolder1.setPropertyValue(
+                DocumentRoutingConstants.EXECUTION_TYPE_PROPERTY_NAME,
+                DocumentRoutingConstants.ExecutionTypeValues.parallel.name());
+        session.saveDocument(parallelFolder1);
+        DocumentModel step31 = createDocumentModel(session, "step31",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
+                parallelFolder1.getPathAsString());
+        step31.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
+                user2Mailbox.getId());
+        session.saveDocument(step31);
+        DocumentModel step32 = createDocumentModel(session, "step32",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
+                parallelFolder1.getPathAsString());
+        step32.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
+                user2Mailbox.getId());
+        session.saveDocument(step32);
         session.save();
         return route.getAdapter(DocumentRoute.class);
     }

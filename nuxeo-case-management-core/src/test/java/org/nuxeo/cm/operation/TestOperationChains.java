@@ -41,6 +41,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
     }
 
     public void testDistributionTaskChain() throws Exception {
+        openSession();
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK);
         assertEquals(chainId,
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_TASK_CHAIN);
@@ -49,11 +50,13 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         DocumentRouteStep step = stepDocument.getAdapter(DocumentRouteStep.class);
         ctx.put(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY, step);
         DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");
+        session.save();
         ctx.setInput(processedDocument);
         automationService.run(ctx, chainId);
     }
 
     public void testDistributionStepChain() throws Exception {
+        openSession();
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP);
         assertEquals(chainId,
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
@@ -67,6 +70,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");
         DocumentModelList listOfDocs = new DocumentModelListImpl();
         listOfDocs.add(processedDocument);
+        session.save();
         ctx.setInput(listOfDocs);
         automationService.run(ctx, chainId);
     }

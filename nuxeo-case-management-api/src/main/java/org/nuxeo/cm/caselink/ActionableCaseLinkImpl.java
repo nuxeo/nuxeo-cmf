@@ -164,7 +164,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     public boolean isDone() {
         try {
             return document.getCurrentLifeCycleState().equals(
-                    CaseLink.CaseLinkState.todo.name());
+                    CaseLink.CaseLinkState.done.name());
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
