@@ -11,6 +11,18 @@
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
+    <!-- Disable POPUP Actions -->
+    <action id="POPUP_EDIT" enabled="false" />
+    <action id="POPUP_COPY" enabled="false" />
+    <action id="POPUP_PASTE" enabled="false" />
+    <action id="POPUP_MOVE" enabled="false" />
+    <action id="POPUP_RENAME" enabled="false" />
+    <action id="POPUP_DEL" enabled="false" />
+    <action id="POPUP_RIGHTS" enabled="false" />
+    <action id="POPUP_WORKFLOW" enabled="false" />
+    <action id="POPUP_DOCUMENT_LOCK" enabled="false" />
+    <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
+
     <!-- filter out some actions  -->
 
     <action id="TAB_MY_SUBSCRIPTIONS">
