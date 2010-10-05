@@ -137,14 +137,12 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
@@ -160,14 +158,12 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>generic_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>generic_mailboxes_routing_task</layout>
       </layouts>
@@ -183,14 +179,12 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>personal_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>personal_mailboxes_routing_task</layout>
       </layouts>
@@ -206,13 +200,11 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
