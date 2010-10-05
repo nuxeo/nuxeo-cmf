@@ -19,19 +19,11 @@
 
 package org.nuxeo.cm.web.cases;
 
-import static org.jboss.seam.ScopeType.EVENT;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.application.FacesMessage;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
@@ -43,14 +35,8 @@ import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
-import org.nuxeo.ecm.platform.routing.api.DocumentRouteElement;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
-import org.nuxeo.ecm.platform.routing.api.LocalizableDocumentRouteElement;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
-import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
-import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.runtime.api.Framework;
 
@@ -60,6 +46,7 @@ import org.nuxeo.runtime.api.Framework;
 @Name("cmCaseActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
+@Install(precedence = Install.FRAMEWORK)
 public class CaseManagementCaseActionsBean extends
         CaseManagementAbstractActionsBean {
 
@@ -76,10 +63,6 @@ public class CaseManagementCaseActionsBean extends
 
     @In(required = true, create = true)
     protected NavigationContext navigationContext;
-
-    private String relatedRouteModelDocumentId;
-
-    private DocumentRoutingService documentRoutingService;
 
     /**
      * @return true if this envelope is still in draft
@@ -105,113 +88,18 @@ public class CaseManagementCaseActionsBean extends
         currentEnvelope.removeCaseItem(item, documentManager);
     }
 
-    /**
-     * Check if the related route to this case is started (ready or running) or
-     * no
-     *
-     * @param doc the mail to remove
-     */
-    public boolean hasRelatedRoute() throws ClientException {
-        relatedRouteModelDocumentId = getRelatedRouteModelDocument();
-        if (StringUtils.isEmpty(relatedRouteModelDocumentId)) {
-            return false;
-        }
-        return true;
-    }
-
-    public String getRelatedRouteModelDocument() {
-        if (StringUtils.isEmpty(relatedRouteModelDocumentId)) {
-            List<DocumentModel> relatedRoute;
-            try {
-                relatedRoute = findRelatedRouteDocument();
-            } catch (ClientException e) {
-                return "";
-            }
-            if (relatedRoute.size() > 0) {
-                relatedRouteModelDocumentId = relatedRoute.get(0).getId();
-            }
-        }
-        return relatedRouteModelDocumentId;
-    }
-
-    public void setRelatedRouteModelDocument(String relatedRouteModelDocumentId) {
-        this.relatedRouteModelDocumentId = relatedRouteModelDocumentId;
-    }
-
-    public String startRouteRelatedToCase() throws ClientException {
-        // if no relatedRouteModelDocumentId
-        if (StringUtils.isEmpty(relatedRouteModelDocumentId)) {
-            facesMessages.add(
-                    FacesMessage.SEVERITY_WARN,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.casemanagement.document.route.no.valid.route"));
-            return null;
-        }
-        DocumentModel relatedRouteModel = documentManager.getDocument(new IdRef(
-                relatedRouteModelDocumentId));
-        // set currentCaseId to participatingDocuments on the route
-        DocumentRoute route = relatedRouteModel.getAdapter(DocumentRoute.class);
-        List<String> documentIds = new ArrayList<String>();
-        documentIds.add(getCurrentCase().getDocument().getId());
-        route.setAttachedDocuments(documentIds);
-        route.save(documentManager);
-        getDocumentRoutingService().createNewInstance(
-                route, route.getAttachedDocuments(), documentManager);
-        resetCaseInfo();
-        return null;
-    }
-
-    public List<DocumentModel> findRelatedRouteDocument()
-            throws ClientException {
-        List<DocumentModel> docs = new ArrayList<DocumentModel>();
-        if(getCurrentCase() == null) {
-            return docs;
-        }
-        List<DocumentRoute> relatedRoutes = getDocumentRoutingService().getRelatedDocumentRoutesForAttachedDocument(
-                documentManager, getCurrentCase().getDocument().getId());
-        for (DocumentRoute documentRoute : relatedRoutes) {
-            docs.add(documentRoute.getDocument());
-        }
-        return docs;
-    }
-
-    @Factory(value = "relatedRouteElementsSelectModel", scope = EVENT)
-    public SelectDataModel computeSelectDataModelRouteElements()
-            throws ClientException {
-        return new SelectDataModelImpl("cm_route_elements",
-                computeRelatedRouteElements(), null);
-    }
-
-    private ArrayList<LocalizableDocumentRouteElement> computeRelatedRouteElements()
-            throws ClientException {
-        DocumentModel relatedRouteDocumentModel = documentManager.getDocument(new IdRef(
-                getRelatedRouteModelDocument()));
-        DocumentRouteElement currentRouteModelElement = relatedRouteDocumentModel.getAdapter(DocumentRouteElement.class);
-        ArrayList<LocalizableDocumentRouteElement> routeElements = new ArrayList<LocalizableDocumentRouteElement>();
-        getDocumentRoutingService().getRouteElements(currentRouteModelElement,
-                documentManager, routeElements, 0);
-        return routeElements;
-    }
-
     public DocumentRoutingService getDocumentRoutingService() {
         try {
-            if (documentRoutingService == null) {
-                documentRoutingService = Framework.getService(DocumentRoutingService.class);
-            }
+            return Framework.getService(DocumentRoutingService.class);
+
         } catch (Exception e) {
             throw new ClientRuntimeException(e);
         }
-        return documentRoutingService;
     }
 
     @Override
     protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
             throws ClientException {
         super.resetCaseCache(cachedEnvelope, newEnvelope);
-        resetCaseInfo();
-    }
-
-    public void resetCaseInfo() {
-        relatedRouteModelDocumentId = null;
     }
 }
