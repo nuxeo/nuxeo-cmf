@@ -211,7 +211,7 @@
    </type>
    
    <type id="StepFolder">
-     <label>label.casemanagement.type.StepFolder</label>
+     <label>label.document.routing.type.StepFolder</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
@@ -225,7 +225,7 @@
    </type>
    
    <type id="DocumentRoute">
-     <label>label.casemanagement.type.DocumentRoute</label>
+     <label>label.document.routing.type.DocumentRoute</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
