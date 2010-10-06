@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.convert.Converter;
 import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang.StringUtils;
@@ -38,10 +37,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.web.convertor.DocumentModelConvertor;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -53,8 +52,6 @@ import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
-import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.ecm.platform.relations.api.Literal;
 import org.nuxeo.ecm.platform.relations.api.Node;
 import org.nuxeo.ecm.platform.relations.api.QNameResource;
@@ -81,7 +78,6 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * Retrieves relations for current email.
  *
@@ -89,17 +85,16 @@ import org.nuxeo.runtime.api.Framework;
  */
 @Name("cmRelationActions")
 @Scope(ScopeType.CONVERSATION)
+@Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
 public class CaseManagementRelationActionsBean extends
-CaseManagementContextBoundInstance {
+        CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
     private static final Log log = LogFactory.getLog(CaseManagementRelationActionsBean.class);
 
     public static final String CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL = "CURRENT_CASE_ITEM_RELATION_SEARCH";
-
-    public static final String DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS_QUERYMODEL = "DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS";
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -156,7 +151,7 @@ CaseManagementContextBoundInstance {
     }
 
     public QNameResource getDocumentResource(DocumentModel document)
-    throws ClientException {
+            throws ClientException {
         QNameResource documentResource = null;
         if (document != null) {
             documentResource = (QNameResource) relationManager.getResource(
@@ -166,7 +161,7 @@ CaseManagementContextBoundInstance {
     }
 
     protected List<StatementInfo> getStatementsInfo(List<Statement> statements)
-    throws ClientException {
+            throws ClientException {
         if (statements == null) {
             return null;
         }
@@ -188,7 +183,7 @@ CaseManagementContextBoundInstance {
     }
 
     public List<StatementInfo> getIncomingStatementsInfo()
-    throws ClientException {
+            throws ClientException {
         if (incomingStatementsInfo != null) {
             return incomingStatementsInfo;
         }
@@ -209,12 +204,14 @@ CaseManagementContextBoundInstance {
         return incomingStatementsInfo;
     }
 
-    public SelectDataModel getIncomingStatementsInfoSelectModel() throws ClientException{
-        return new SelectDataModelImpl("cm_incoming_relations", getIncomingStatementsInfo(), null);
+    public SelectDataModel getIncomingStatementsInfoSelectModel()
+            throws ClientException {
+        return new SelectDataModelImpl("cm_incoming_relations",
+                getIncomingStatementsInfo(), null);
     }
 
     public List<StatementInfo> getOutgoingStatementsInfo()
-    throws ClientException {
+            throws ClientException {
         if (outgoingStatementsInfo != null) {
             return outgoingStatementsInfo;
         }
@@ -235,10 +232,11 @@ CaseManagementContextBoundInstance {
         return outgoingStatementsInfo;
     }
 
-    public SelectDataModel getOutgoingStatementsInfoSelectModel() throws ClientException {
-        return new SelectDataModelImpl("cm_outgoing_relations", getOutgoingStatementsInfo(), null);
+    public SelectDataModel getOutgoingStatementsInfoSelectModel()
+            throws ClientException {
+        return new SelectDataModelImpl("cm_outgoing_relations",
+                getOutgoingStatementsInfo(), null);
     }
-
 
     public void resetStatements() {
         incomingStatements = null;
@@ -325,14 +323,14 @@ CaseManagementContextBoundInstance {
     }
 
     public DocumentModel getDocumentModel(String id) throws ClientException {
-        if (StringUtils.isEmpty(id)){
+        if (StringUtils.isEmpty(id)) {
             return null;
         }
         return documentManager.getDocument(new IdRef(id));
     }
 
     public List<DocumentModel> getDocumentRelationSuggestions(Object input)
-    throws ClientException {
+            throws ClientException {
         try {
             QueryModel qm = queryModelActions.get(CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL);
             Object[] params = { getCurrentCaseItem().getId(), input };
@@ -349,7 +347,7 @@ CaseManagementContextBoundInstance {
         Resource documentResource = getDocumentResource(currentDoc);
         if (documentResource == null) {
             throw new ClientException(
-            "Document resource could not be retrieved");
+                    "Document resource could not be retrieved");
         }
 
         Resource predicate = new ResourceImpl(predicateUri);
@@ -423,15 +421,17 @@ CaseManagementContextBoundInstance {
             notifyEvent(RelationEvents.AFTER_RELATION_CREATION, currentDoc,
                     options, eventComment);
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
-                    "label.relation.created"));
+                            "label.relation.created"));
         }
 
         if (alreadySet) {
-            facesMessages.add(FacesMessage.SEVERITY_WARN,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_WARN,
                     resourcesAccessor.getMessages().get(
-                    "label.relation.already.exists"));
+                            "label.relation.already.exists"));
         }
 
         // make sure statements will be recomputed
@@ -442,7 +442,7 @@ CaseManagementContextBoundInstance {
     }
 
     public String deleteStatement(StatementInfo stmtInfo)
-    throws ClientException {
+            throws ClientException {
         if (stmtInfo != null && outgoingStatementsInfo != null
                 && outgoingStatementsInfo.contains(stmtInfo)) {
             Statement stmt = stmtInfo.getStatement();
@@ -471,9 +471,10 @@ CaseManagementContextBoundInstance {
             // make sure statements will be recomputed
             resetStatements();
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
-                    "label.relation.deleted"));
+                            "label.relation.deleted"));
         }
         return null;
     }
@@ -484,33 +485,4 @@ CaseManagementContextBoundInstance {
         resetStatements();
         resetCreateFormValues();
     }
-
-    public List<DocumentModel> getRouteModelSuggestions(Object input)
-            throws ClientException {
-        List<DocumentModel> docs = new ArrayList<DocumentModel>();
-        try {
-            QueryModelService qms = Framework.getService(QueryModelService.class);
-            if (qms == null) {
-                return docs;
-            }
-
-            QueryModelDescriptor qmDescriptor = qms.getQueryModelDescriptor(DOC_ROUTING_SEARCH_ALL_ROUTE_MODELS_QUERYMODEL);
-            if (qmDescriptor == null) {
-                return docs;
-            }
-
-            List<Object> queryParams = new ArrayList<Object>();
-            queryParams.add(0, String.format("%s%%", input));
-            QueryModel qm = new QueryModel(qmDescriptor);
-            docs = qm.getDocuments(documentManager, queryParams.toArray());
-        } catch (Exception e) {
-            throw new ClientException("error searching for documents", e);
-        }
-        return docs;
-    }
-
-    public Converter getDocumentModelConverter() {
-        return new DocumentModelConvertor(documentManager);
-    }
-
 }

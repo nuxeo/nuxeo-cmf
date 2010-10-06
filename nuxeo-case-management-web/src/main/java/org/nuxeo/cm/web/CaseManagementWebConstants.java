@@ -33,8 +33,6 @@ public class CaseManagementWebConstants {
     public static final String DISTRIBUTION_CASE_ACTION_LIST = "DISTRIBUTION_CASE_ACTION_LIST";
 
     public static final String CREATE_NEW_CASE_KEY = "createNewCaseKey";
-    
-    public static final String SEARCH_ROUTE_BY_ATTACHED_DOC_QUERY = "SEARCH_ROUTE_BY_ATTACHED_DOC"; 
 
     private CaseManagementWebConstants() {
     }

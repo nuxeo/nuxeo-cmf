@@ -129,7 +129,7 @@
     </type>
     
    <type id="DistributionTask" coreType="DistributionTask">
-      <label>DistributionTask</label>
+      <label>label.casemanagement.type.DistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -137,14 +137,12 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
@@ -152,7 +150,7 @@
    </type>
 
    <type id="GenericDistributionTask" coreType="GenericDistributionTask">
-      <label>GenericDistributionTask</label>
+      <label>label.casemanagement.type.GenericDistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -160,14 +158,12 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>generic_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>generic_mailboxes_routing_task</layout>
       </layouts>
@@ -175,7 +171,7 @@
    </type>
    
    <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
-      <label>PersonalDistributionTask</label>
+      <label>label.casemanagement.type.PersonalDistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -183,14 +179,12 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>personal_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>routing_task</layout>
         <layout>personal_mailboxes_routing_task</layout>
       </layouts>
@@ -198,7 +192,7 @@
    </type>
    
    <type id="DistributionStep" coreType="DistributionStep">
-      <label>DistributionStep</label>
+      <label>label.casemanagement.type.DistributionStep</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -206,19 +200,18 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>step</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>step</layout>
         <layout>all_maiboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
    </type>
    
    <type id="StepFolder">
+     <label>label.document.routing.type.StepFolder</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
@@ -232,6 +225,7 @@
    </type>
    
    <type id="DocumentRoute">
+     <label>label.document.routing.type.DocumentRoute</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>

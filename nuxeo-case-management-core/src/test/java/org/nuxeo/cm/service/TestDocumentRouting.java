@@ -26,10 +26,8 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.event.EventService;
-import org.nuxeo.ecm.platform.importer.base.TxHelper;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * A test running a a complex document route including step for each of the
