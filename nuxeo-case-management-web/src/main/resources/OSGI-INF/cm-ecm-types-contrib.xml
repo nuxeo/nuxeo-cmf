@@ -129,7 +129,7 @@
     </type>
     
    <type id="DistributionTask" coreType="DistributionTask">
-      <label>DistributionTask</label>
+      <label>label.casemanagement.type.DistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -150,7 +150,7 @@
    </type>
 
    <type id="GenericDistributionTask" coreType="GenericDistributionTask">
-      <label>GenericDistributionTask</label>
+      <label>label.casemanagement.type.GenericDistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -171,7 +171,7 @@
    </type>
    
    <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
-      <label>PersonalDistributionTask</label>
+      <label>label.casemanagement.type.PersonalDistributionTask</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -192,7 +192,7 @@
    </type>
    
    <type id="DistributionStep" coreType="DistributionStep">
-      <label>DistributionStep</label>
+      <label>label.casemanagement.type.DistributionStep</label>
       <icon>/icons/file.gif</icon>
       <bigIcon>/icons/file_100.png</bigIcon>
       <category>SimpleDocument</category>
@@ -211,6 +211,7 @@
    </type>
    
    <type id="StepFolder">
+     <label>label.casemanagement.type.StepFolder</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
@@ -224,6 +225,7 @@
    </type>
    
    <type id="DocumentRoute">
+     <label>label.casemanagement.type.DocumentRoute</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
