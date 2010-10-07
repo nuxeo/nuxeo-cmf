@@ -1017,6 +1017,9 @@
         <border>0px solid #FFF</border>
         <padding>7px 4px</padding>
       </selector>
+      <selector path=".dataInput td td, .dataInput td td td">
+        <padding>3px 4px</padding>
+      </selector>
       <selector path=".dataInput textarea, .dataInput .dataInputText, .dataInput .dataInputTextNoSize">
         <font preset="default (Case Management fonts)"/>
         <border preset="dataInput (Case Management borders)" />
@@ -1435,6 +1438,9 @@
         <color preset="syndication.link (Case Management colors)" />
         <text-decoration>none</text-decoration>
       </selector>
+      <!-- Advanced Search -->
+      <selector path=".listShuttleTable .listShuttleSelectionActions a">
+        <display>block</display>
       <!-- Specific to Case Management & Correspondence -->
       <selector path=".float">
         <float>left</float>
@@ -1676,7 +1682,7 @@
       <selector path="#facetedSearchSelectorDiv, #savedFacetedSearchSelectorDiv">
         <padding>0 0 5px</padding>
         <margin>0</margin>
-        <border-bottom>1px solid #efefef</border-bottom>
+        <border-bottom>1px solid #f1f1f1</border-bottom>
       </selector>
       <selector path="#facetedSearchSelectorDiv p, #savedFacetedSearchSelectorDiv p">
         <color>#323232</color>
@@ -1724,9 +1730,9 @@
         <color>#323232</color>
         <font>normal 10px "Lucida Grande", Helvetica, sans-serif</font>
         <margin>0 0 5px</margin>
-        <border-bottom>1px solid #f1f1f1</border-bottom>
+        <border-bottom>1px solid #cacaca</border-bottom>
       </selector>
-      <selector path=".action_bar input">
+      <selector path="#saveFacetedSearchForm input">
         <margin-left>3px</margin-left>
       </selector>
       <selector path=".facetedSearchPopUp">
@@ -1770,6 +1776,9 @@
       </selector>
       <selector path=".facetedSearchBlock table.thin">
         <margin>0 0 7px 0</margin>
+      </selector>
+      <selector path=".UserSuggestionInput table">
+        <width>100%</width>
       </selector>
       <!-- Specific to Case Management and Correspondence -->
       <selector path=".userMailboxesContent ul" view="mailboxes list">
@@ -1933,7 +1942,7 @@
       </selector>
       <selector path="div" view="Nuxeo DM footer (Galaxy Theme)">
         <margin>0</margin>
-        <font-size preset="small (Case Management fonts)"/>
+        <font preset="small (Case Management fonts)"/>
         <padding>0</padding>
         <line-height>1.25em</line-height>
       </selector>
