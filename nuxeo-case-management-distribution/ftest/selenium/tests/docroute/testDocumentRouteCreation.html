@@ -42,28 +42,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>retrieveCurrentDateInfo</td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>link=Workspaces</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Create a new workspace</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>//td[@class=&quot;fieldColumn&quot;]/input[@type=&quot;text&quot;]</td>
-	<td>routeTest</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@value='Create']</td>
+	<td>link=Personal Workspace</td>
 	<td></td>
 </tr>
 <tr>
@@ -73,38 +53,13 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Note</td>
+	<td>link=Route</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_heading:nxw_title</td>
-	<td>Note Document</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@value='Create']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=routeTest</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=New</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Document Route</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_heading:nxw_title</td>
-	<td>Document Route</td>
+	<td>RouteDoc</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -118,7 +73,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=GenericDistributionTask</td>
+	<td>link=Distribution step</td>
 	<td></td>
 </tr>
 <tr>
@@ -127,19 +82,14 @@
 	<td>A</td>
 </tr>
 <tr>
-	<td>select</td>
-	<td>document_create:nxl_routing_task:nxw_type</td>
-	<td>label=For option</td>
-</tr>
-<tr>
 	<td>watchA4jRequests</td>
 	<td></td>
 	<td></td>
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@name='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
-	<td>Note</td>
+	<td>//input[@name='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Test Mailbox Child</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
@@ -148,8 +98,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
-	<td>Note Document</td>
+	<td>//*[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Mailbox Child</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -158,7 +108,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/tbody/tr[1]/td[2]</td>
+	<td>//table[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -167,18 +117,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>document_create:nxl_routing_task:nxw_dueDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
 	<td>//input[@value='Create']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Document Route</td>
+	<td>link=RouteDoc</td>
 	<td></td>
 </tr>
 <tr>
@@ -188,7 +133,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=DistributionStep</td>
+	<td>link=Distribution task</td>
 	<td></td>
 </tr>
 <tr>
@@ -196,7 +141,6 @@
 	<td>document_create:nxl_heading:nxw_title</td>
 	<td>B</td>
 </tr>
-
 <tr>
 	<td>watchA4jRequests</td>
 	<td></td>
@@ -204,8 +148,8 @@
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>//input[@name='document_create:nxl_all_maiboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
-	<td>Note</td>
+	<td>//input[@name='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Test personal Mailbox</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
@@ -214,8 +158,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='document_create:nxl_all_maiboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
-	<td>Note Document</td>
+	<td>//*[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test personal Mailbox</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -224,7 +168,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='document_create:nxl_all_maiboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/tbody/tr[1]/td[2]</td>
+	<td>//table[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -232,7 +176,11 @@
 	<td>10000</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For opinion</td>
+</tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>//input[@value='Create']</td>
@@ -240,7 +188,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>Link=Document Route</td>
+	<td>Link=RouteDoc</td>
 	<td></td>
 </tr>
 <tr>
@@ -295,13 +243,53 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Generic distribution task</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_heading:nxw_title</td>
 	<td>C1.1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For opinion</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Test Mailbox</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Mailbox</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -320,13 +308,53 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Generic distribution task</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_heading:nxw_title</td>
 	<td>C1.2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For signature</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Test Mailbox</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test Mailbox</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -365,13 +393,53 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Personal distribution task</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_heading:nxw_title</td>
 	<td>C2.1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For opinion</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Bree Van de Kaamp</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Bree Van de Kaamp</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -415,13 +483,53 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Personal distribution task</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_heading:nxw_title</td>
 	<td>C2.2.1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For signature</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Bree Van de Kaamp</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Bree Van de Kaamp</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -440,7 +548,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Personal distribution task</td>
 	<td></td>
 </tr>
 <tr>
@@ -449,13 +557,53 @@
 	<td>C2.2.2</td>
 </tr>
 <tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For signature</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>John Doe</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>John Doe</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>//input[@value='Create']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Document Route</td>
+	<td>link=RouteDoc</td>
 	<td></td>
 </tr>
 <tr>
@@ -475,13 +623,44 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Personal distribution task</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_heading:nxw_title</td>
 	<td>C2.3</td>
+</tr>
+
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For validation</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>John Doe</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>John Doe</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -490,7 +669,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Document Route</td>
+	<td>link=RouteDoc</td>
 	<td></td>
 </tr>
 <tr>
@@ -500,7 +679,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Distribution task</td>
 	<td></td>
 </tr>
 <tr>
@@ -509,13 +688,88 @@
 	<td>D</td>
 </tr>
 <tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>John Smith</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>John Smith</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Test personal Mailbox</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Test personal Mailbox</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>document_create:nxl_routing_task:nxw_type</td>
+	<td>label=For opinion</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>//input[@value='Create']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>Link=Document Route</td>
+	<td>Link=RouteDoc</td>
 	<td></td>
 </tr>
 <tr>
@@ -525,7 +779,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Step</td>
+	<td>link=Distribution step</td>
 	<td></td>
 </tr>
 <tr>
@@ -534,28 +788,48 @@
 	<td>E</td>
 </tr>
 <tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggest']</td>
+	<td>Linnet Scavo</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>Linnet Scavo</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='document_create:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailbox_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>//input[@value='Create']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=routeTest</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Note Document</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementNotPresent</td>
-	<td>Link=Route</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Document Route</td>
+	<td>link=RouteDoc</td>
 	<td></td>
 </tr>
 <tr>
@@ -581,7 +855,7 @@
 <tr>
 	<td>typeKeys</td>
 	<td>//input[@name='document_view:nxl_summary_document_route_layout:nxl_document_routing_instance:nxw_participatingDocuments_suggest']</td>
-	<td>Note</td>
+	<td>Test incoming mail</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
@@ -591,7 +865,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//*[@id='document_view:nxl_summary_document_route_layout:nxl_document_routing_instance:nxw_participatingDocuments_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
-	<td>Note Document</td>
+	<td>Test incoming mail</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -610,7 +884,7 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Note Document</td>
+	<td>Test incoming mail</td>
 	<td></td>
 </tr>
 <tr>
@@ -627,6 +901,81 @@
 	<td>assertText</td>
 	<td>//form[@id='orderable_document_content']/table/tbody/tr[5]/td[8]</td>
 	<td>validated</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Link=Route</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>A</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>B</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C1.1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C1.2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C2.1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C2.2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C2.2.1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C2.2.2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>C2.3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>D</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>E</td>
+	<td></td>
 </tr>
 <tr>
 	<td>open</td>

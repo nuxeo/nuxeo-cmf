@@ -1436,7 +1436,7 @@
       </widget>
     </layout>
 
-    <layout name="all_maiboxes_routing_task">
+    <layout name="all_mailboxes_routing_task">
       <templates>
         <template mode="any">/layouts/layout_default_template.xhtml
         </template>

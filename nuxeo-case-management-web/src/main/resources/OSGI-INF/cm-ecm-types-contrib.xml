@@ -138,13 +138,13 @@
       <layouts mode="any">
         <layout>heading</layout>
         <layout>routing_task</layout>
-        <layout>all_maiboxes_routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
         <layout>routing_task</layout>
-        <layout>all_maiboxes_routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
    </type>
@@ -200,18 +200,18 @@
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>
-        <layout>all_maiboxes_routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
         <layout>dublincore</layout>
-        <layout>all_maiboxes_routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
    </type>
    
    <type id="StepFolder">
-     <label>label.document.routing.type.StepFolder</label>
+     <label>StepFolder</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
@@ -225,7 +225,7 @@
    </type>
    
    <type id="DocumentRoute">
-     <label>label.document.routing.type.DocumentRoute</label>
+     <label>DocumentRoute</label>
      <subtypes>
        <type>StepFolder</type>
        <type>DistributionTask</type>
