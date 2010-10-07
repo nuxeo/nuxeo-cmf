@@ -71,6 +71,7 @@ public class StepToCaseLinkMappingOperation {
             try {
                 recipient = (String) step.getDocument().getPropertyValue(
                         CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME);
+                step.setCanValidateStep(context.getCoreSession(), recipient);
                 recipients.put(CaseLinkType.FOR_ACTION.name(),
                         Arrays.asList(new String[] { recipient }));
                 if (recipient != null) {

@@ -25,6 +25,7 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.runtime.api.Framework;
@@ -70,6 +71,9 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
     }
 
     public void testRunRoute() throws Exception {
+        NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
+        closeSession();
+        session = openSessionAs(principal2);
         assertNotNull(routingService);
         route = routingService.createNewInstance(route, docIds, session);
         Mailbox user2Mailbox = getPersonalMailbox(user2);
