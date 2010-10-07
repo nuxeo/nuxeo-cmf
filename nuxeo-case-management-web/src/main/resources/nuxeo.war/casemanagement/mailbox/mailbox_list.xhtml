@@ -21,7 +21,7 @@
         <f:subview rendered="#{mailbox.document.mlbx.mailbox_id == currentMailbox.id}">
           <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
               newConversation="true" target="_BLANK">
-            <img src="icons/external.gif" style="vertical-align: top"
+            <img src="/icons/external.gif" style="vertical-align: top"
                  alt="#{messages['permalink.newTab']}"
                  title="#{messages['permalink.newTab']}" />
           </nxd:restDocumentLink>
@@ -32,7 +32,7 @@
         <f:subview rendered="#{mailbox.document.mlbx.mailbox_id != currentMailbox.id}">
           <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
             newConversation="true" target="_BLANK">
-            <img src="icons/external.gif" style="vertical-align: top"
+            <img src="/icons/external.gif" style="vertical-align: top"
               alt="#{messages['permalink.newTab']}"
               title="#{messages['permalink.newTab']}" />
           </nxd:restDocumentLink>
