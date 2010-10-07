@@ -8,6 +8,7 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
+          dc:title=Case:dc:title
         </param>
         <param name="leavingChainsProperties" type="Properties">
           validate=simpleValidate
@@ -21,6 +22,7 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
+          dc:title=Case:dc:title
         </param>
         <param name="leavingChainsProperties" type="Properties">
           validate=simpleValidate
@@ -34,6 +36,7 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
+          dc:title=Case:dc:title
         </param>
         <param name="leavingChainsProperties" type="Properties">
           validate=simpleValidate
@@ -47,6 +50,7 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">false</param>
         <param name="mappingProperties" type="Properties">
+          dc:title=Case:dc:title
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />

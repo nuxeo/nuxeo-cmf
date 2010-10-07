@@ -79,6 +79,10 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     protected static final String ldoguin = "ldoguin";
 
+    public static final String CASE_TITLE = "moncase";
+
+    public static final String DC_TITLE = "dc:title";
+
     protected static DocumentModel mailEnvelopeModel;
 
     protected static DocumentModel mailEnvelopeItemModel;
@@ -159,6 +163,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     public Case getMailEnvelope() throws Exception {
         DocumentModel model = getMailEnvelopeModel();
+        model.setPropertyValue(DC_TITLE, CASE_TITLE);
         DocumentModel doc = session.createDocument(model);
         session.saveDocument(doc);
         session.save();

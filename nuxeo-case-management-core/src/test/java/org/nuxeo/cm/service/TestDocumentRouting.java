@@ -83,6 +83,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertFalse(route.isDone());
         ActionableCaseLink actionableLink = null;
         for(CaseLink link : links) {
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
             if(link.isActionnable()) {
                 actionableLink = (ActionableCaseLink) link;
                 actionableLink.validate(session);

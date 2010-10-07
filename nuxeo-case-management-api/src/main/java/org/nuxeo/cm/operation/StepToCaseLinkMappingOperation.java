@@ -32,6 +32,7 @@ import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.automation.core.util.Properties;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
@@ -43,6 +44,11 @@ import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
  */
 @Operation(id = StepToCaseLinkMappingOperation.ID, category = CaseConstants.CASE_MANAGEMENT_OPERATION_CATEGORY, label = "Step To CaseLink Mapping", description = "Create a CaseLink from the value of the Step docuemnt")
 public class StepToCaseLinkMappingOperation {
+
+    public static final String STEP_PREFIX = "Step:";
+
+    public static final String CASE_PREFIX = "Case:";
+
     public final static String ID = "Case.Management.Step.CaseLink.Mapping";
 
     @Context
@@ -61,8 +67,10 @@ public class StepToCaseLinkMappingOperation {
     public void mapCaseLinkOperation() {
         @SuppressWarnings("unchecked")
         List<CaseLink> links = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
+        CoreSession session = context.getCoreSession();
         for (CaseLink link : links) {
             link.setActionnable(actionnable);
+            DocumentModel kaseDoc = link.getCase(session).getDocument();
             DocumentModel linkDoc = link.getDocument();
             DocumentRouteStep step = (DocumentRouteStep) context.get(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY);
             DocumentModel stepDoc = step.getDocument();
@@ -78,10 +86,18 @@ public class StepToCaseLinkMappingOperation {
                     link.addInitialInternalParticipants(recipients);
                 }
                 for (Map.Entry<String, String> prop : mappingProperties.entrySet()) {
-                    String linkXPath = prop.getKey();
-                    String stepXPath = prop.getValue();
-                    linkDoc.setPropertyValue(linkXPath,
-                            stepDoc.getPropertyValue(stepXPath));
+                    String getter = prop.getKey();
+                    String setter = prop.getValue();
+                    DocumentModel setterDoc = null;
+                    if(setter.startsWith(CASE_PREFIX)) {
+                        setterDoc = kaseDoc;
+                        setter = setter.substring(CASE_PREFIX.length());
+                    } else if(setter.startsWith(STEP_PREFIX)) {
+                        setterDoc = stepDoc;
+                        setter = setter.substring(STEP_PREFIX.length());
+                    }
+                    linkDoc.setPropertyValue(getter,
+                            setterDoc.getPropertyValue(setter));
                 }
                 if (link.isActionnable()) {
                     ActionableCaseLink actionableLink = link.getDocument().getAdapter(
