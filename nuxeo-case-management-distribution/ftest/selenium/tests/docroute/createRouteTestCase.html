@@ -158,16 +158,6 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_document_date</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>document_create:nxl_cm_document:nxw_receive_date</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:03</td>
-</tr>
-<tr>
-	<td>type</td>
 	<td>document_create:nxl_cm_document:nxw_reference</td>
 	<td>Test Mail reference</td>
 </tr>
@@ -241,6 +231,69 @@
 	<td>Test route second item</td>
 	<td></td>
 </tr>
+
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Distribute</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@id='distribution_participants:nxl_cm_participants:nxw_action_participants_suggest']</td>
+	<td>john</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='distribution_participants:nxl_cm_participants:nxw_action_participants_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>John Doe</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='distribution_participants:nxl_cm_participants:nxw_action_participants_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>distribution_participants:nxl_cm_participants:nxw_distribution_comment</td>
+	<td>my distribution test comment</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Link=Send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Test route mail</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>The distribution is done</td>
+	<td></td>
+</tr>
+
+
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Log out</td>
