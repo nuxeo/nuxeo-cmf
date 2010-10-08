@@ -1441,6 +1441,7 @@
       <!-- Advanced Search -->
       <selector path=".listShuttleTable .listShuttleSelectionActions a">
         <display>block</display>
+      </selector>
       <!-- Specific to Case Management & Correspondence -->
       <selector path=".float">
         <float>left</float>
