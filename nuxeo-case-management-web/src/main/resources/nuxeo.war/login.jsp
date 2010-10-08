@@ -3,6 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page language="java"%>
 <%@ page import="org.nuxeo.runtime.api.Framework"%>
+<%@ page import="org.nuxeo.ecm.platform.web.common.admin.AdminStatusHelper"%>
 <%@ page import="java.util.Locale"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -26,9 +27,12 @@ if ("en".equals(language)) {
 } else {
     selectedLanguage = language;
 }
-%>
-<html>
 
+boolean maintenanceMode = AdminStatusHelper.isInstanceInMaintenanceMode();
+String maintenanceMessage = AdminStatusHelper.getMaintenanceMessage();
+%>
+
+<html>
 <fmt:setBundle basename="messages" var="messages"/>
 
 <head>
@@ -50,7 +54,7 @@ if ("en".equals(language)) {
   }
 
 .topBar img {
-  margin-left:30px;
+  margin-left:20px;
   }
 
 table.loginForm {
@@ -95,6 +99,16 @@ H2 {
   padding:20px 75px 5px 70px;
   width:250px;
   }
+
+.maintenanceModeMessage {
+  background:#fff;
+  opacity:0.8;
+  filter : alpha(opacity=80);
+  border: 1px solid #4E9AE1;
+  padding:20px 75px 5px 70px;
+  width:450px;
+  color:red;
+ }
 
 .login_label {
   font:bold 10px "Lucida Grande", sans-serif;
@@ -256,6 +270,19 @@ nxthemes css is not used in login.jsp */
           %>
           <!-- ;jsessionid=<%=request.getSession().getId()%> -->
           <!-- ImageReady Slices (login_cutted.psd) -->
+
+          <% if (maintenanceMode) { %>
+          <div class="maintenanceModeMessage">
+            <div class="warnMessage">
+              <fmt:message bundle="${messages}" key="label.maintenancemode.active" /><br/>
+              <fmt:message bundle="${messages}" key="label.maintenancemode.adminLoginOnly" />
+            </div><br/>
+            <div class="infoMessage">
+              <fmt:message bundle="${messages}" key="label.maintenancemode.message" /> : <br/>
+              <%=maintenanceMessage%>
+            </div><br/>
+            </div> <br/>
+          <%} %>
           <div class="login">
             <table>
              <tr>
@@ -288,47 +315,56 @@ nxthemes css is not used in login.jsp */
                 </td>
                 <td>
                   <select class="login_input" name="language" id="language">
-                    <option value="en_GB" <%="en_GB".equals(selectedLanguage)?"selected=\"selected\"":""%>>
-                      English (United Kingdom)
-                    </option>
-                    <option value="pt_BR" <%="pt_BR".equals(selectedLanguage)?"selected":""%>>
-                      portugu&ecirc;s (Brasil)
-                    </option>
-                    <option value="eu" <%="eu".equals(selectedLanguage)?"selected":""%>>
-                      Basque
-                    </option>
-                    <option value="pt" <%="pt".equals(selectedLanguage)?"selected":""%>>
-                      portugu&ecirc;s
-                    </option>
                     <option value="en_US" <%="en_US".equals(selectedLanguage)?"selected":""%>>
                       English (United States)
                     </option>
-                    <option value="cn" <%="cn".equals(selectedLanguage)?"selected":""%>>
-                      cn
+                    <option value="en_GB" <%="en_GB".equals(selectedLanguage)?"selected=":""%>>
+                      English (United Kingdom)
                     </option>
-                    <option value="vn" <%="vn".equals(selectedLanguage)?"selected":""%>>
-                      vn
-                    </option>
-                    <option value="ca" <%="ca".equals(selectedLanguage)?"selected":""%>>
-                      catal&agrave;
+                    <option value="fr" <%="fr".equals(selectedLanguage)?"selected":""%>>
+                      Fran&ccedil;ais
                     </option>
                     <option value="de" <%="de".equals(selectedLanguage)?"selected":""%>>
                       Deutsch
                     </option>
                     <option value="it" <%="it".equals(selectedLanguage)?"selected":""%>>
-                      italiano
-                    </option>                  
-                    <option value="fr" <%="fr".equals(selectedLanguage)?"selected":""%>>
-                      fran&ccedil;ais
+                      Italiano
                     </option>
                     <option value="es" <%="es".equals(selectedLanguage)?"selected":""%>>
-                      espa&ntilde;ol
+                      Espa&ntilde;ol
+                    </option>
+                    <option value="pt" <%="pt".equals(selectedLanguage)?"selected":""%>>
+                      Portugu&ecirc;s
+                    </option>
+                    <option value="pt_BR" <%="pt_BR".equals(selectedLanguage)?"selected":""%>>
+                      Portugu&ecirc;s (Brasil)
+                    </option>
+                    <option value="pl" <%="pl".equals(selectedLanguage)?"selected":""%>>
+                      Polski
+                    </option>
+                    <option value="ca" <%="ca".equals(selectedLanguage)?"selected":""%>>
+                      Catal&agrave;
+                    </option>
+                    <option value="eu" <%="gl".equals(selectedLanguage)?"selected":""%>>
+                      Galego
+                    </option>
+                    <option value="eu" <%="eu".equals(selectedLanguage)?"selected":""%>>
+                      Basque
+                    </option>
+                    <option value="ru" <%="ru".equals(selectedLanguage)?"selected":""%>>
+                      &#1088;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;
                     </option>
                     <option value="ar" <%="ar".equals(selectedLanguage)?"selected":""%>>
                       &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;
                     </option>
-                    <option value="ru" <%="ru".equals(selectedLanguage)?"selected":""%>>
-                      &#1088;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;
+                    <option value="cn" <%="cn".equals(selectedLanguage)?"selected":""%>>
+                      中文
+                    </option>
+                    <option value="ja" <%="ja".equals(selectedLanguage)?"selected":""%>>
+                      日本語
+                    </option>
+                    <option value="vn" <%="vn".equals(selectedLanguage)?"selected":""%>>
+                      Tiếng Việt
                     </option>
                   </select>
                 </td>
