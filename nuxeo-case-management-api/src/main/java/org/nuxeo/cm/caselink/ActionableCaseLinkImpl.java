@@ -74,8 +74,8 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
             new UnrestrictedSessionRunner(session) {
                 @Override
                 public void run() throws ClientException {
-                    ActionableValidator validator = new ActionableValidator(
-                            ActionableCaseLinkImpl.this, session);
+                    ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this,
+                            session);
                     validator.validate();
                 }
             }.runUnrestricted();
@@ -91,8 +91,8 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
             new UnrestrictedSessionRunner(session) {
                 @Override
                 public void run() throws ClientException {
-                    ActionableValidator validator = new ActionableValidator(
-                            ActionableCaseLinkImpl.this, session);
+                    ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this,
+                            session);
                     validator.refuse();
                 }
             }.runUnrestricted();

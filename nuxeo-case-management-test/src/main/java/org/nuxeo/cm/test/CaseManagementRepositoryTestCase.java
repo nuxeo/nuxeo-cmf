@@ -269,6 +269,29 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
                 CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
                 user2Mailbox.getId());
         session.saveDocument(step32);
+        DocumentModel serialFolder =  createDocumentModel(session,
+                "serialFolder1",
+                DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE,
+                parallelFolder1.getPathAsString());
+        serialFolder.setPropertyValue(
+                DocumentRoutingConstants.EXECUTION_TYPE_PROPERTY_NAME,
+                DocumentRoutingConstants.ExecutionTypeValues.serial.name());
+        session.saveDocument(serialFolder);
+        DocumentModel step41 = createDocumentModel(session, "step41",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
+                serialFolder.getPathAsString());
+        step41.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
+                user2Mailbox.getId());
+        session.saveDocument(step41);
+        DocumentModel step42 = createDocumentModel(session, "step42",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
+                serialFolder.getPathAsString());
+        step42.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
+                user2Mailbox.getId());
+        session.saveDocument(step42);
+        session.saveDocument(parallelFolder1);
         session.save();
         return route.getAdapter(DocumentRoute.class);
     }
