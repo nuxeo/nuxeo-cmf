@@ -31,6 +31,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
@@ -69,15 +70,35 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
 
     @Override
     public void validate(CoreSession session) {
-        ActionableValidator validator = new ActionableValidator(this, session);
-        validator.validate();
+        try {
+            new UnrestrictedSessionRunner(session) {
+                @Override
+                public void run() throws ClientException {
+                    ActionableValidator validator = new ActionableValidator(
+                            ActionableCaseLinkImpl.this, session);
+                    validator.validate();
+                }
+            }.runUnrestricted();
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
         setDone(session);
     }
 
     @Override
     public void refuse(CoreSession session) {
-        ActionableValidator validator = new ActionableValidator(this, session);
-        validator.refuse();
+        try {
+            new UnrestrictedSessionRunner(session) {
+                @Override
+                public void run() throws ClientException {
+                    ActionableValidator validator = new ActionableValidator(
+                            ActionableCaseLinkImpl.this, session);
+                    validator.refuse();
+                }
+            }.runUnrestricted();
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
         setDone(session);
     }
 
