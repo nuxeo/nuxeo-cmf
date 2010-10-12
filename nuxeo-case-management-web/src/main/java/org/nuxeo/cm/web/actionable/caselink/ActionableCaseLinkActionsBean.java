@@ -31,6 +31,7 @@ import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 
@@ -55,17 +56,19 @@ public class ActionableCaseLinkActionsBean extends
 
     public String approveTask(DocumentModel caseLink) throws ClientException {
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
+        DocumentRef ref = caseLink.getParentRef();
         acl.validate(documentManager);
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                documentManager.getParentDocument(caseLink.getRef()));
+                documentManager.getDocument(ref));
         return navigationContext.navigateToDocument(getCurrentMailbox().getDocument());
     }
 
     public String rejectTask(DocumentModel caseLink) throws ClientException {
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
+        DocumentRef ref = caseLink.getParentRef();
         acl.refuse(documentManager);
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                documentManager.getParentDocument(caseLink.getRef()));
+                documentManager.getDocument(ref));
         return navigationContext.navigateToDocument(getCurrentMailbox().getDocument());
     }
 
