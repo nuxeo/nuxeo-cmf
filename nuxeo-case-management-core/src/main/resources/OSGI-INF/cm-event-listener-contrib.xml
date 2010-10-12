@@ -83,6 +83,11 @@
       <event>onMailboxDeleted</event>
     </listener>
 
+    <listener name="updateRightsBeforeRemoveCaseLink" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CaseLinkRemovedListener"
+      priority="4">
+      <event>beforeCaseLinkRemovedEvent</event>
+    </listener>
   </extension>
 
 </component>

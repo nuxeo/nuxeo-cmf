@@ -32,6 +32,10 @@ import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentSecurityException;
+import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.core.security.SecurityException;
 
 /**
  * Test the distribution process.
@@ -199,5 +203,84 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         assertTrue(item.getAllParticipants().get(
                 CaseLinkType.FOR_INFORMATION.toString()).contains(
                 receiverMailbox1.getId()));
+    }
+
+    public void testSendCaseAndRemove() throws Exception {
+
+        // Initialize mailboxes
+        Mailbox initialSender = getPersonalMailbox(user1);
+        Mailbox initialReceiverMailbox = getPersonalMailbox(user2);
+
+        // Create an envelope
+        Case envelope = getMailEnvelope();
+        CaseItem envelopeItem = getMailEnvelopeItem();
+        envelope.addCaseItem(envelopeItem, session);
+        createDraftPost(initialSender, envelope);
+
+        assertNotNull(distributionService.getDraftCaseLink(session,
+                initialSender, envelope.getDocument().getId()));
+
+        // Create initial recipients list
+        Map<String, List<String>> initialRecipients = new HashMap<String, List<String>>();
+        initialRecipients.put(CaseLinkType.FOR_ACTION.toString(),
+                Collections.singletonList(initialReceiverMailbox.getId()));
+
+        // Create a post request
+        CaseLink postRequest = new CaseLinkRequestImpl(initialSender.getId(),
+                Calendar.getInstance(), "Check this out", "it is a bit boring",
+                envelope, initialRecipients, null);
+
+        // Check mailboxes of initial recipient and sender
+        assertEquals(
+                1,
+                distributionService.getDraftCaseLinks(session, initialSender,
+                        0, 0).size());
+        assertEquals(
+                0,
+                distributionService.getReceivedCaseLinks(session,
+                        initialReceiverMailbox, 0, 0).size());
+
+        assertTrue(envelope.isDraft());
+
+        // Initial sending
+        distributionService.sendCase(session, postRequest, true);
+
+        assertFalse(envelope.isDraft());
+        // Check mailbox of recipient and sender
+        closeSession();
+        session = openSessionAs(userManager.getPrincipal(user2));
+        assertEquals(
+                1,
+                distributionService.getReceivedCaseLinks(session,
+                        initialReceiverMailbox, 0, 0).size());
+
+        // Retrieve the post in the initial receiver mailbox
+        CaseLink postInMailbox = distributionService.getReceivedCaseLinks(
+                session, initialReceiverMailbox, 0, 0).get(0);
+
+        // Retrieve the envelope from this post
+        Case kase = postInMailbox.getCase(session);
+        String caseId = kase.getDocument().getId();
+        // Check the envelope
+        assertEquals(kase.getDocument().getId(), envelope.getDocument().getId());
+        // remove the case link
+        closeSession();
+        openSession();
+        distributionService.removeCaseLink(postInMailbox, session);
+        closeSession();
+        session = openSessionAs(userManager.getPrincipal(user2));
+        // check the case link is not here
+        List<CaseLink> links = distributionService.getReceivedCaseLinks(
+                session, initialReceiverMailbox, 0, 0);
+        assertTrue(links.isEmpty());
+        // check we can't access the case anymore
+        boolean error = false;
+        try {
+            session.getDocument(new IdRef(caseId));
+            fail();
+        } catch (DocumentSecurityException e) {
+            error = true;
+        }
+        assertTrue(error);
     }
 }

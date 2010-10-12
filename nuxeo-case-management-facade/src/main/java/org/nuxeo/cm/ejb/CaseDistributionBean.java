@@ -109,7 +109,7 @@ public class CaseDistributionBean implements CaseDistributionService {
         return getCaseDistributionService().sendCase(session, postRequest,
                 initial, isActionable);
     }
-    
+
     private CaseDistributionService getCaseDistributionService() {
         caseDistributionService = Framework.getLocalService(CaseDistributionService.class);
         if (caseDistributionService == null) {
@@ -129,6 +129,11 @@ public class CaseDistributionBean implements CaseDistributionService {
     public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
             Case kase) {
         return getCaseDistributionService().getCaseLinks(session, mailbox, kase);
+    }
+
+    @Override
+    public void removeCaseLink(CaseLink link, CoreSession sessiion) {
+        getCaseDistributionService().removeCaseLink(link, sessiion);
     }
 
 }

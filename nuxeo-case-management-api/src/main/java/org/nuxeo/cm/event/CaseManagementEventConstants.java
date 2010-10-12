@@ -22,6 +22,8 @@ package org.nuxeo.cm.event;
 
 import java.util.Map;
 
+import org.nuxeo.cm.caselink.CaseLink;
+
 /**
  * Correspondence event names
  *
@@ -59,10 +61,18 @@ public class CaseManagementEventConstants {
         draftUpdated,
         /**
          * Event sent after a caseItem was imported. EventContext is a
-         * DocumentEventContext carrying the document. 
+         * DocumentEventContext carrying the document.
          */
-        caseItemImported
-        
+        caseItemImported,
+        /**
+         * Event sent before a case link is removed.
+         */
+        beforeCaseLinkRemovedEvent,
+        /**
+         * Event sent after a case link is removed.
+         */
+        afterCaseLinkRemovedEvent
+
     }
 
     // event context
@@ -85,6 +95,11 @@ public class CaseManagementEventConstants {
      * The envelope (of type {@link Case} )
      */
     public static final String EVENT_CONTEXT_CASE = "eventContextCase";
+
+    /**
+     * The case link (of type {@link CaseLink} )
+     */
+    public static final String EVENT_CONTEXT_CASE_LINK = "eventContextCaseLink";
 
     /**
      * The draft (of type {@link MailPost} )
@@ -114,12 +129,12 @@ public class CaseManagementEventConstants {
     public static final String EVENT_CONTEXT_AFFILIATED_MAILBOX_ID = "eventContextAffiliatedMailboxId";
 
     public static final String EVENT_CONTEXT_MAILBOX_ID = "eventContextMailboxId";
-    
+
     public static final String EVENT_CASE_MANAGEMENET_IMPORT = "eventCmImport";
-    
+
     public static final String EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY = "cmImportCategory";
-    
+
     public static final String EVENT_CASE_MANAGEMENET_CASE_IMPORT = "eventCmCaseImport";
-    
+
     public static final String EVENT_CASE_MANAGEMENT_CASE_ITEM_SOURCE_PATH = "cmSourcePath";
 }

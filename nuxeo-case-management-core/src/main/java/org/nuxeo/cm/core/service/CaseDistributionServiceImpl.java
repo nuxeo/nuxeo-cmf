@@ -52,6 +52,7 @@ import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
@@ -365,6 +366,40 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
+    public void removeCaseLink(CaseLink link, CoreSession session) {
+        final DocumentRef ref = link.getDocument().getRef();
+        Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
+        eventProperties.put(
+                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK, link);
+        eventProperties.put("category",
+                CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
+        final DocumentEventContext envContext = new DocumentEventContext(
+                session, session.getPrincipal(), link.getDocument());
+        envContext.setProperties(eventProperties);
+        try {
+            new UnrestrictedSessionRunner(session) {
+                @Override
+                public void run() throws ClientException {
+                    try {
+                        getEventProducer().fireEvent(
+                                envContext.newEvent(EventNames.beforeCaseLinkRemovedEvent.name()));
+                        session.removeDocument(ref);
+                        session.save();
+                        envContext.getProperties().remove(
+                                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK);
+                        getEventProducer().fireEvent(
+                                envContext.newEvent(EventNames.afterCaseLinkRemovedEvent.name()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }.runUnrestricted();
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void notify(CoreSession session, String name,
             DocumentModel document, Map<String, Serializable> eventProperties) {
         DocumentEventContext envContext = new DocumentEventContext(session,
@@ -531,7 +566,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                                     internalRecipientIds, externalRecipients,
                                     false, isInitial, true,
                                     al.getValidateOperationChainId(),
-                                    al.getRefuseOperationChainId(), al.getStepId());
+                                    al.getRefuseOperationChainId(),
+                                    al.getStepId());
                             createMessageUnrestricted.run();
                         } else {
                             CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
@@ -556,5 +592,4 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             return post;
         }
     }
-
 }

@@ -42,6 +42,14 @@ public interface CaseDistributionService extends Serializable {
     CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean initial);
 
     /**
+     * Remove a case link from the mailbox. It is the duty of a listener to
+     * update the security on the case if necessary.
+     *
+     * @param link
+     */
+    void removeCaseLink(CaseLink link, CoreSession sessiion);
+
+    /**
      * Returns the sent posts for given mailbox
      */
     List<CaseLink> getSentCaseLinks(CoreSession coreSession, Mailbox mailbox,
@@ -54,7 +62,7 @@ public interface CaseDistributionService extends Serializable {
             Mailbox mailbox, long offset, long limit);
 
     /**
-     *Returns all the case links for this kase in this mailbox.
+     * Returns all the case links for this kase in this mailbox.
      *
      * @param session
      * @param mailbox if <code>null</code> returns the links of all mailboxes.
@@ -127,9 +135,10 @@ public interface CaseDistributionService extends Serializable {
      */
     void notify(CoreSession session, String name, DocumentModel document,
             Map<String, Serializable> eventProperties);
-    
+
     /**
      * Send an case to a mailbox.
      */
-    CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean initial, boolean actionable);
+    CaseLink sendCase(CoreSession session, CaseLink postRequest,
+            boolean initial, boolean actionable);
 }
