@@ -110,6 +110,8 @@ public class CaseConstants {
     public static final String DOCUMENT_IMPORTED_PREFIX = "imported-";
 
     // operation
+    public static final String OPERATION_CASE_LINKS_KEY = "operation.case.links.key";
+
     public static final String OPERATION_CASE_LINK_KEY = "operation.case.link.key";
 
     public static final String CASE_MANAGEMENT_OPERATION_CATEGORY = "CaseManagement";

@@ -11,8 +11,8 @@
           dc:title=Case:dc:title
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=simpleValidate
-          refuse=simpleRefuse
+          validate=validateAndRemoveLink
+          refuse=refuseAndRemoveLink
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -25,8 +25,8 @@
           dc:title=Case:dc:title
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=simpleValidate
-          refuse=simpleRefuse
+          validate=validateAndRemoveLink
+          refuse=refuseAndRemoveLink
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -39,8 +39,8 @@
           dc:title=Case:dc:title
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=simpleValidate
-          refuse=simpleRefuse
+          validate=validateAndRemoveLink
+          refuse=refuseAndRemoveLink
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -55,6 +55,14 @@
       </operation>
       <operation id="Case.Management.Distribution" />
       <operation id="Document.Routing.Step.Done" />
+    </chain>
+    <chain id="validateAndRemoveLink">
+      <operation id="Case.Management.Step.Remove.CaseLink" />
+      <operation id="Document.Routing.Resume.Step" />
+    </chain>
+    <chain id="refuseAndRemoveLink">
+      <operation id="Case.Management.Step.Remove.CaseLink" />
+      <operation id="Document.Routing.Resume.Step" />
     </chain>
   </extension>
 

@@ -22,9 +22,13 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.REFUSAL_OPERATION_CHAIN_ID
 import static org.nuxeo.cm.caselink.CaseLinkConstants.TASK_TYPE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.VALIDATION_OPERATION_CHAIN_ID;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -70,36 +74,40 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
 
     @Override
     public void validate(CoreSession session) {
+        setDone(session);
         try {
             new UnrestrictedSessionRunner(session) {
                 @Override
                 public void run() throws ClientException {
+                    Map<String, Serializable> map = new HashMap<String, Serializable>();
+                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY, ActionableCaseLinkImpl.this);
                     ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this,
-                            session);
+                            session, map);
                     validator.validate();
                 }
             }.runUnrestricted();
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
-        setDone(session);
     }
 
     @Override
     public void refuse(CoreSession session) {
+        setDone(session);
         try {
             new UnrestrictedSessionRunner(session) {
                 @Override
                 public void run() throws ClientException {
+                    Map<String, Serializable> map = new HashMap<String, Serializable>();
+                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY, ActionableCaseLinkImpl.this);
                     ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this,
-                            session);
+                            session, map);
                     validator.refuse();
                 }
             }.runUnrestricted();
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
-        setDone(session);
     }
 
     @Override

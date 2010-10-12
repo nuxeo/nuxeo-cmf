@@ -66,7 +66,7 @@ public class StepToCaseLinkMappingOperation {
     @OperationMethod
     public void mapCaseLinkOperation() {
         @SuppressWarnings("unchecked")
-        List<CaseLink> links = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINK_KEY);
+        List<CaseLink> links = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINKS_KEY);
         CoreSession session = context.getCoreSession();
         for (CaseLink link : links) {
             link.setActionnable(actionnable);

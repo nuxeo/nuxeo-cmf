@@ -93,7 +93,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertFalse(route.isDone());
         links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
-        assertEquals(5, links.size());
+        assertEquals(4, links.size());
         List<CaseLink> actionnableTodo = new ArrayList<CaseLink>();
         List<CaseLink> actionnableDone = new ArrayList<CaseLink>();
         List<CaseLink> nonActionnable = new ArrayList<CaseLink>();
@@ -110,14 +110,14 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
             }
         }
         assertEquals(3, actionnableTodo.size());
-        assertEquals(1, actionnableDone.size());
+        assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
         for(CaseLink link : actionnableTodo) {
             ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
             acl.refuse(session);
         }
         links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
-        assertEquals(6, links.size());
+        assertEquals(2, links.size());
         actionnableTodo = new ArrayList<CaseLink>();
         actionnableDone = new ArrayList<CaseLink>();
         nonActionnable = new ArrayList<CaseLink>();
@@ -134,7 +134,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
             }
         }
         assertEquals(1, actionnableTodo.size());
-        assertEquals(4, actionnableDone.size());
+        assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
         for(CaseLink link : actionnableTodo) {
             ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);

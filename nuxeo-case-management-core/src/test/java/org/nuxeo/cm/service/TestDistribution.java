@@ -25,17 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
-import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentSecurityException;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.security.SecurityException;
 
 /**
  * Test the distribution process.

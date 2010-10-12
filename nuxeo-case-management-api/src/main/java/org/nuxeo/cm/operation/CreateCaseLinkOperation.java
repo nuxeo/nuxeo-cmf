@@ -55,7 +55,7 @@ public class CreateCaseLinkOperation {
                 CaseLink cl = model.getAdapter(CaseLink.class);
                 links.add(cl);
             }
-            context.put(CaseConstants.OPERATION_CASE_LINK_KEY, links);
+            context.put(CaseConstants.OPERATION_CASE_LINKS_KEY, links);
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }

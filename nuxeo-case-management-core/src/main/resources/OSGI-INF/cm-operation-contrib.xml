@@ -6,6 +6,7 @@
     <operation class="org.nuxeo.cm.operation.StepToCaseLinkMappingOperation" />
     <operation class="org.nuxeo.cm.operation.CreateCaseLinkOperation" />
     <operation class="org.nuxeo.cm.operation.DistributionOperation" />
+    <operation class="org.nuxeo.cm.operation.RemoveCaseLinkOperation" />
   </extension>
 
 </component>
