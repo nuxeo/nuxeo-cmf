@@ -27,9 +27,11 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Events;
 import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 
 /**
@@ -40,17 +42,23 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
 @Name("actionableCaseLinkActions")
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
-public class ActionableCaseLinkActionsBean {
+public class ActionableCaseLinkActionsBean extends
+        CaseManagementContextBoundInstance {
+
+    private static final long serialVersionUID = 1L;
 
     @In(create = true, required = false)
-    protected transient CoreSession documentManager;
+    protected CoreSession documentManager;
+
+    @In(create = true)
+    protected NavigationContext navigationContext;
 
     public String approveTask(DocumentModel caseLink) throws ClientException {
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
         acl.validate(documentManager);
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getParentDocument(caseLink.getRef()));
-        return null;
+        return navigationContext.navigateToDocument(getCurrentMailbox().getDocument());
     }
 
     public String rejectTask(DocumentModel caseLink) throws ClientException {
@@ -58,7 +66,7 @@ public class ActionableCaseLinkActionsBean {
         acl.refuse(documentManager);
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getParentDocument(caseLink.getRef()));
-        return null;
+        return navigationContext.navigateToDocument(getCurrentMailbox().getDocument());
     }
 
     public boolean isShowAction(DocumentModel caseLink) throws ClientException {
