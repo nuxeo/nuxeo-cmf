@@ -64,6 +64,10 @@
       <operation id="Case.Management.Step.Remove.CaseLink" />
       <operation id="Document.Routing.Resume.Step" />
     </chain>
+    <chain id="undoRunningActionable">
+      <operation id="Case.Management.Step.Remove.CaseLink" />
+      <operation id="Document.Routing.BackToReady" />
+    </chain>
   </extension>
 
 </component>

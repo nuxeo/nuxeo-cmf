@@ -25,9 +25,12 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
+import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -69,6 +72,107 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         createDraftPost(initialSender, envelope);
         docIds.add(envelope.getDocument().getId());
     }
+
+    public void testRunRouteWithUndo() throws Exception {
+        NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
+        closeSession();
+        session = openSessionAs(principal2);
+        assertNotNull(routingService);
+        route = routingService.createNewInstance(route, docIds, session);
+        Mailbox user2Mailbox = getPersonalMailbox(user2);
+        List<CaseLink> links = distributionService.getReceivedCaseLinks(
+                session, user2Mailbox, 0, 0);
+        assertEquals(2, links.size());
+        assertFalse(route.isDone());
+        ActionableCaseLink actionableLink = null;
+        for(CaseLink link : links) {
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
+            if(link.isActionnable()) {
+                //find the step and undo it
+                DocumentModel linkDoc = link.getDocument();
+                String stepId = (String) linkDoc.getPropertyValue("acslk:stepDocumentId");
+                DocumentModel stepDoc = session.getDocument(new IdRef(stepId));
+                DocumentRouteStep step = stepDoc.getAdapter(DocumentRouteStep.class);
+                step.undo(session);
+            }
+        }
+        // assert actionable case link was removed
+        links = distributionService.getReceivedCaseLinks(
+                session, user2Mailbox, 0, 0);
+        assertEquals(1, links.size());
+        // rerun the route
+        closeSession();
+        session = openSessionAs("administrators");
+        route.run(session);
+        closeSession();
+        session = openSessionAs(principal2);
+        // retest that task 2 is recreated
+        links = distributionService.getReceivedCaseLinks(
+                session, user2Mailbox, 0, 0);
+        assertEquals(2, links.size());
+        assertFalse(route.isDone());
+        actionableLink = null;
+        for(CaseLink link : links) {
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
+            if(link.isActionnable()) {
+                actionableLink = (ActionableCaseLink) link;
+                actionableLink.validate(session);
+            }
+        }
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
+        assertFalse(route.isDone());
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
+        assertEquals(4, links.size());
+        List<CaseLink> actionnableTodo = new ArrayList<CaseLink>();
+        List<CaseLink> actionnableDone = new ArrayList<CaseLink>();
+        List<CaseLink> nonActionnable = new ArrayList<CaseLink>();
+        for(CaseLink link : links) {
+            if(link.isActionnable()) {
+                ActionableCaseLink al = link.getDocument().getAdapter(ActionableCaseLink.class);
+                if(al.isDone()) {
+                    actionnableDone.add(link);
+                } else if(al.isTodo()) {
+                    actionnableTodo.add(link);
+                }
+            } else {
+                nonActionnable.add(link);
+            }
+        }
+        assertEquals(3, actionnableTodo.size());
+        assertEquals(0, actionnableDone.size());
+        assertEquals(1, nonActionnable.size());
+        for(CaseLink link : actionnableTodo) {
+            ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
+            acl.refuse(session);
+        }
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
+        assertEquals(2, links.size());
+        actionnableTodo = new ArrayList<CaseLink>();
+        actionnableDone = new ArrayList<CaseLink>();
+        nonActionnable = new ArrayList<CaseLink>();
+        for(CaseLink link : links) {
+            if(link.isActionnable()) {
+                ActionableCaseLink al = link.getDocument().getAdapter(ActionableCaseLink.class);
+                if(al.isDone()) {
+                    actionnableDone.add(link);
+                } else if(al.isTodo()) {
+                    actionnableTodo.add(link);
+                }
+            } else {
+                nonActionnable.add(link);
+            }
+        }
+        assertEquals(1, actionnableTodo.size());
+        assertEquals(0, actionnableDone.size());
+        assertEquals(1, nonActionnable.size());
+        for(CaseLink link : actionnableTodo) {
+            ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
+            acl.refuse(session);
+        }
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
+        assertTrue(route.isDone());
+    }
+
 
     public void testRunRoute() throws Exception {
         NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
