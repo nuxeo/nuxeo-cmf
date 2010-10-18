@@ -345,6 +345,25 @@
         /widgets/listing/listing_cm_routing_task_type_widget_template.xhtml
       </property>
     </widgetType>
+    
+    <widgetType name="listing_cm_routing_doc_properties">
+      <documentation>
+        This widget type displays some task properties
+        <br />
+        It requires the following fields configuration:
+        <ul>
+        <li>
+          the documentRouteElement
+          </li>
+         </ul> 
+      </documentation>
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_cm_routing_doc_properties_widget_template.xhtml
+      </property>
+    </widgetType>
 
   </extension>
 
@@ -616,7 +635,30 @@
           <field>data.document.rtsk.type</field>
         </fields>
       </widget>
-    
+ 
+    <widget name="cm_listing_routing_task_due_date" type="listing_cm_routing_doc_properties">
+        <labels>
+          <label mode="any">label.casemanagement.routing.task.dueDate</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>data.document.rtsk.dueDate</field>
+          <field>data.document.hasFacet('RouteStep')</field>
+        </fields>
+      </widget>
+      
+    <widget name="cm_listing_routing_task_mailbox" type="listing_cm_routing_doc_properties">
+        <labels>
+          <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+        </labels>
+        <translated>true</translated>
+        <fields>
+          <field>data.document.rtsk.distributionMailboxId</field>
+          <field>data.document.hasFacet('RouteStep')</field>
+        </fields>
+      </widget>      
+      
+      
   </extension>
 
 </component>

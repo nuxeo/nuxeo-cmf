@@ -3,7 +3,7 @@
 <component name="com.nuxeo.cm.table.layout">
 
   <require>com.nuxeo.cm.table.widget</require>
-  <require>com.nuxeo.document.routing.table.widget</require>
+  <require>com.nuxeo.document.routing.table.layout</require>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="layouts">
@@ -296,7 +296,8 @@
         </columns>
     </layout>
     
-    <layout name="cm_document_routing_route_content">
+    <!--  overrides the layout defined in doc_routing-->
+    <layout name="document_routing_route_content">
       <templates>
         <template mode="any">/layouts/layout_listing_template.xhtml</template>
       </templates>
@@ -323,11 +324,35 @@
           </properties>
           <widget>dr_listing_title_description</widget>
         </column>
-         <column>
+        <column>
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
           </properties>
-          <widget>cm_listing_routing_task_type</widget>
+          <widget>cm_listing_routing_task_mailbox</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_listing_routing_task_due_date</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_listing__edit_document_route_element</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_listing_add_step</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_listing_remove_step</widget>
         </column>
       </columns>
     </layout>

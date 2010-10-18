@@ -51,9 +51,11 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         openSession();
         setRepository();
         route = createComplexRoute(session);
+        routingService.lockDocumentRoute(route, session);
         route = routingService.validateRouteModel(route, session);
         session.saveDocument(route.getDocument());
         session.save();
+        routingService.unlockDocumentRoute(route, session);
         Framework.getLocalService(EventService.class).waitForAsyncCompletion();
         assertEquals("validated", route.getDocument().getCurrentLifeCycleState());
         assertEquals("validated", session.getChildren(route.getDocument().getRef()).get(0).getCurrentLifeCycleState());
