@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.automatic.caselink.validator.schedule">
+
+  <extension
+    target="org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService"
+    point="schedule">
+
+    <documentation>
+      Every day at 01:00 fecth all ActionCaseLink with automatic validation and
+      date passed and not done to validate them.
+    </documentation>
+
+    <schedule id="validateCaseLink">
+      <username>Administrator</username>
+      <password>Administrator</password>
+      <eventId>validateCaseLink</eventId>
+      <eventCategory>cmf</eventCategory>
+      <cronExpression>0 0 1 * * ?</cronExpression>
+    </schedule>
+
+  </extension>
+</component>
