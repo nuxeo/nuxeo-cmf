@@ -27,6 +27,7 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -84,6 +85,10 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected String stepId;
 
+    protected Calendar dueDate;
+
+    protected boolean isAutomaticValidation;
+
     public CaseLink getCreatedPost() {
         return createdPost;
     }
@@ -117,35 +122,9 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         this.externalRecipients = externalRecipients;
         this.isSent = isSent;
         this.isInitial = isInitial;
-    }
-
-    /**
-     * @param draft The draft used to sent this envelope
-     * @param repositoryName The name of the repository in which the
-     *            {@link CaseLink} will be created.
-     * @param subject The subject of the post.
-     * @param comment The comment of the post.
-     * @param envelope The envelope sent.
-     * @param mailbox The mailbox of the sender.
-     * @param internalRecipients A map of recipients keyed by type of Message
-     *            and keyed with a list of mailboxes.
-     * @param isSent The post can be Sent or Received
-     * @param isInitial Is it an initial sent?
-     * @param isActionable ?
-     * @param string
-     */
-    public CreateCaseLinkUnrestricted(CaseLink draft, CoreSession session,
-            String subject, String comment, Case envelope, Mailbox sender,
-            String recipientId, Map<String, List<String>> internalRecipients,
-            Map<String, List<String>> externalRecipients, boolean isSent,
-            boolean isInitial, boolean isActionable, String validateId,
-            String refuseId, String stepId) {
-        this(draft, session, subject, comment, envelope, sender, recipientId,
-                internalRecipients, externalRecipients, isSent, isInitial);
-        this.isActionable = isActionable;
-        this.validateId = validateId;
-        this.refuseId = refuseId;
-        this.stepId = stepId;
+        if (draft != null) {
+            this.isActionable = draft.isActionnable();
+        }
     }
 
     @Override
@@ -183,10 +162,6 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         }
         post.setActionnable(isActionable);
         if (isActionable) {
-            ActionableCaseLink al = doc.getAdapter(ActionableCaseLink.class);
-            al.setRefuseOperationChainId(refuseId);
-            al.setValidateOperationChainId(validateId);
-            al.setStepId(stepId);
             doc.putContextData(
                     LifeCycleConstants.INITIAL_LIFECYCLE_STATE_OPTION_NAME,
                     CaseLink.CaseLinkState.todo.name());
@@ -223,3 +198,4 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // envelope.getDocument().getPropertyValue("uid:uid"));
     }
 }
+    

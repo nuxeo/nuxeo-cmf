@@ -559,15 +559,11 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 for (String type : internalRecipientIds.keySet()) {
                     for (String recipient : internalRecipientIds.get(type)) {
                         if (isActionable) {
-                            ActionableCaseLink al = (ActionableCaseLink) postRequest;
                             CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
-                                    post, session, subject, comment, envelope,
+                                    postRequest, session, subject, comment, envelope,
                                     senderMailbox, recipient,
                                     internalRecipientIds, externalRecipients,
-                                    false, isInitial, true,
-                                    al.getValidateOperationChainId(),
-                                    al.getRefuseOperationChainId(),
-                                    al.getStepId());
+                                    false, isInitial);
                             createMessageUnrestricted.run();
                         } else {
                             CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(

@@ -4,6 +4,11 @@
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
     point="listener">
 
+    <listener name="automaticActionCaseLinkValidatorListener" async="false" postCommit="true"
+      class="org.nuxeo.cm.core.event.AutomaticActionCaseLinkValidatorListener"
+      priority="200">
+      <event>validateCaseLink</event>
+    </listener>
 
     <listener name="classificationListener" async="false" postCommit="true"
       class="org.nuxeo.cm.core.event.ClassificationMailboxListener"

@@ -7,6 +7,7 @@
  <xs:element name="type" type="xs:string"/>
  <xs:element name="distributionMailboxId" type="xs:string"/>
  <xs:element name="dueDate" type="xs:date"/>
+ <xs:element name="automaticValidation" type="xs:boolean" default="false"/>
  <xs:element name="actionnable" type="xs:boolean"/>
   
 </xs:schema>

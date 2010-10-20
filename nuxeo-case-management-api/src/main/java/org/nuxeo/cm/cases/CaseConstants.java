@@ -135,6 +135,10 @@ public class CaseConstants {
 
     public static final String STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME = "rtsk:distributionMailboxId";
 
+    public static final String STEP_DISTRIBUTION_DUE_DATE_PROPERTY_NAME = "rtsk:dueDate";
+
+    public static final String STEP_DISTRIBUTION_AUTOMATIC_VALIDATION_PROPERTY_NAME = "rtsk:automaticValidation";
+
     // Constant utility class
     private CaseConstants() {
     }

@@ -71,8 +71,11 @@ public class CaseManagementEventConstants {
         /**
          * Event sent after a case link is removed.
          */
-        afterCaseLinkRemovedEvent
-
+        afterCaseLinkRemovedEvent,
+        /**
+         * Event scheduled every day.
+         */
+        validateCaseLink
     }
 
     // event context

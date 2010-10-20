@@ -9,6 +9,8 @@
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
           dc:title=Case:dc:title
+          acslk:dueDate=Step:rtsk:dueDate
+          acslk:automaticValidation=Step:rtsk:automaticValidation
         </param>
         <param name="leavingChainsProperties" type="Properties">
           validate=validateAndRemoveLink
@@ -23,6 +25,8 @@
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
           dc:title=Case:dc:title
+          acslk:dueDate=Step:rtsk:dueDate
+          acslk:automaticValidation=Step:rtsk:automaticValidation
         </param>
         <param name="leavingChainsProperties" type="Properties">
           validate=validateAndRemoveLink
@@ -37,6 +41,8 @@
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
           dc:title=Case:dc:title
+          acslk:dueDate=Step:rtsk:dueDate
+          acslk:automaticValidation=Step:rtsk:automaticValidation
         </param>
         <param name="leavingChainsProperties" type="Properties">
           validate=validateAndRemoveLink

@@ -1330,6 +1330,9 @@
         <row>
           <widget>dueDate</widget>
         </row>
+        <row>
+          <widget>automaticValidation</widget>
+        </row>
       </rows>
       <widget name="type" type="selectOneDirectory">
         <fields>
@@ -1367,6 +1370,16 @@
           <property name="format">#{nxu:basicDateAndTimeFormater()}
           </property>
         </properties>
+      </widget>
+      <widget name="automaticValidation" type="checkbox">
+        <translated>true</translated>
+        <labels>
+          <label mode="any">label.casemanagement.routing.task.automaticValidation
+          </label>
+        </labels>
+        <fields>
+          <field>rtsk:automaticValidation</field>
+        </fields>
       </widget>
       <widget name="actionnable" type="checkbox">
         <translated>true</translated>

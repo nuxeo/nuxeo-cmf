@@ -23,6 +23,7 @@ import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.core.caselink.ValidateDueCaseLinkUnrestricted;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -242,11 +243,13 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(1, actionnableTodo.size());
         assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
-        for(CaseLink link : actionnableTodo) {
-            ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
-            acl.refuse(session);
-        }
+
+        ValidateDueCaseLinkUnrestricted runner = new ValidateDueCaseLinkUnrestricted(
+                session);
+        runner.runUnrestricted();
+
         route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertTrue(route.isDone());
     }
+
 }

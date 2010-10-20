@@ -24,8 +24,11 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
+import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
@@ -290,6 +293,12 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         step42.setPropertyValue(
                 CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
                 user2Mailbox.getId());
+        step42.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_DUE_DATE_PROPERTY_NAME,
+                new Date());
+        step42.setPropertyValue(
+                CaseConstants.STEP_DISTRIBUTION_AUTOMATIC_VALIDATION_PROPERTY_NAME,
+                true);
         session.saveDocument(step42);
         session.saveDocument(parallelFolder1);
         session.save();

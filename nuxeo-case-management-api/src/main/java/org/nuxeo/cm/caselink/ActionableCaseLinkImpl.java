@@ -23,7 +23,7 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.TASK_TYPE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.VALIDATION_OPERATION_CHAIN_ID;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +58,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Date getDueDate() {
+    public Calendar getDueDate() {
         return getPropertyValue(DUE_DATE_FIELD);
     }
 
@@ -207,5 +207,31 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void setAutomaticValidation(boolean isAutomaticValidation) {
+        try {
+            document.setPropertyValue(CaseLinkConstants.AUTOMATIC_VALIDATION_FIELD,
+                    isAutomaticValidation);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+        
+    }
+
+    @Override
+    public void setDueDate(Calendar dueDate) {
+        try {
+            document.setPropertyValue(CaseLinkConstants.DUE_DATE_FIELD,
+                    dueDate);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+        
     }
 }
