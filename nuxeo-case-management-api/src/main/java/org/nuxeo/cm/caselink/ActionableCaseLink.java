@@ -16,9 +16,6 @@
  */
 package org.nuxeo.cm.caselink;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.platform.routing.api.ActionableObject;
 
@@ -27,14 +24,6 @@ import org.nuxeo.ecm.platform.routing.api.ActionableObject;
  *
  */
 public interface ActionableCaseLink extends CaseLink, ActionableObject {
-
-    /**
-     * @param actionnable
-     */
-
-    Calendar getDueDate();
-
-    Boolean isAutomaticValidation();
 
     String getTaskType();
 
@@ -47,10 +36,6 @@ public interface ActionableCaseLink extends CaseLink, ActionableObject {
     void setValidateOperationChainId(String validateChainId);
 
     void setStepId(String id);
-
-    void setAutomaticValidation(boolean isAutomaticValidation);
-
-    void setDueDate(Calendar dueDate);
 
     boolean isTodo();
 

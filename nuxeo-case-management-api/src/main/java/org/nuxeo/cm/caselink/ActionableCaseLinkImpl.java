@@ -16,14 +16,11 @@
  */
 package org.nuxeo.cm.caselink;
 
-import static org.nuxeo.cm.caselink.CaseLinkConstants.AUTOMATIC_VALIDATION_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.DUE_DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.REFUSAL_OPERATION_CHAIN_ID;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.TASK_TYPE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.VALIDATION_OPERATION_CHAIN_ID;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,18 +55,8 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Calendar getDueDate() {
-        return getPropertyValue(DUE_DATE_FIELD);
-    }
-
-    @Override
     public String getTaskType() {
         return getPropertyValue(TASK_TYPE_FIELD);
-    }
-
-    @Override
-    public Boolean isAutomaticValidation() {
-        return getPropertyValue(AUTOMATIC_VALIDATION_FIELD);
     }
 
     @Override
@@ -207,31 +194,5 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void setAutomaticValidation(boolean isAutomaticValidation) {
-        try {
-            document.setPropertyValue(CaseLinkConstants.AUTOMATIC_VALIDATION_FIELD,
-                    isAutomaticValidation);
-        } catch (PropertyException e) {
-            throw new RuntimeException(e);
-        } catch (ClientException e) {
-            throw new RuntimeException(e);
-        }
-        
-    }
-
-    @Override
-    public void setDueDate(Calendar dueDate) {
-        try {
-            document.setPropertyValue(CaseLinkConstants.DUE_DATE_FIELD,
-                    dueDate);
-        } catch (PropertyException e) {
-            throw new RuntimeException(e);
-        } catch (ClientException e) {
-            throw new RuntimeException(e);
-        }
-        
     }
 }

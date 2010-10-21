@@ -243,11 +243,9 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(1, actionnableTodo.size());
         assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
-
         ValidateDueCaseLinkUnrestricted runner = new ValidateDueCaseLinkUnrestricted(
                 session);
         runner.runUnrestricted();
-
         route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertTrue(route.isDone());
     }

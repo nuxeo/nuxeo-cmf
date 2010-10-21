@@ -29,9 +29,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxHeader;
-import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.Case;
@@ -45,6 +42,8 @@ import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.common.utils.StringUtils;

@@ -27,12 +27,10 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.GetMailboxesUnrestricted;
@@ -84,10 +82,6 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     protected String refuseId;
 
     protected String stepId;
-
-    protected Calendar dueDate;
-
-    protected boolean isAutomaticValidation;
 
     public CaseLink getCreatedPost() {
         return createdPost;
@@ -198,4 +192,3 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // envelope.getDocument().getPropertyValue("uid:uid"));
     }
 }
-    
