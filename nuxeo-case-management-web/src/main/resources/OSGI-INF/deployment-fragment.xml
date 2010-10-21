@@ -45,6 +45,14 @@
     </navigation-case>
     
     <navigation-case>
+      <from-outcome>create_empty_case</from-outcome>
+      <to-view-id>
+        /casemanagement/case/create_empty_case.xhtml
+      </to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
       <from-outcome>view_cm_case</from-outcome>
       <to-view-id>
         /casemanagement/caseitem/view_cm_case.xhtml

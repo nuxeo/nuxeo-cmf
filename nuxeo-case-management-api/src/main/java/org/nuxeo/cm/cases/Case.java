@@ -98,4 +98,9 @@ public interface Case extends HasParticipants, Serializable {
      */
     boolean isDraft() throws ClientException;
 
+    /**
+     * Is this an empty envelope?
+     */
+    boolean isEmpty() throws ClientException;
+
 }

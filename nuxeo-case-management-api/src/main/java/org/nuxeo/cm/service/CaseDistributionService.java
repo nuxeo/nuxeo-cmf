@@ -23,10 +23,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -105,6 +105,18 @@ public interface CaseDistributionService extends Serializable {
      */
     Case createCase(CoreSession session, DocumentModel emailDoc,
             String parentPath);
+
+
+    /**
+     * @param session
+     * @param changeableDocument
+     * @param the mailbox in which this case is created
+     * @param parentPath the path where the document and its envelope are
+     *            created
+     * @return an emptyCase
+     */
+    Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            String parentPath, Mailbox mailbox);
 
     /**
      * @param mailboxes The list of mailboxes in which the document will be

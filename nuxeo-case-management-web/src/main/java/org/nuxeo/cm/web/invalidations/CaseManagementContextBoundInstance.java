@@ -22,13 +22,12 @@ package org.nuxeo.cm.web.invalidations;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.annotations.In;
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.web.context.CaseManagementContextHolder;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-
 
 /**
  * Base class for Seam beans that would like to invalidate some cached
@@ -80,6 +79,9 @@ public abstract class CaseManagementContextBoundInstance implements
             resetCaseCache(cachedEnvelope, currentEnvelope);
             cachedEnvelope = currentEnvelope;
         }
+        if (currentEnvelope == null || currentEnvelope.isEmpty()) {
+            return;
+        }
         DocumentModel currentEmail = correspContextHolder.getCurrentCaseItem();
         if (hasCacheKeyChanged(generateCurrentCaseItemCacheKey(cachedEmail),
                 generateCurrentCaseItemCacheKey(currentEmail))) {
@@ -118,15 +120,15 @@ public abstract class CaseManagementContextBoundInstance implements
         return key;
     }
 
-    protected String generateCaseCacheKey(Case envelope)
-            throws ClientException {
+    protected String generateCaseCacheKey(Case envelope) throws ClientException {
         String key = null;
         if (envelope != null && documentManager != null) {
             // FIXME: assumes envelope doc model is modified when its content
             // has changed => test also first doc key for now
             key = generateDocumentModelKey(envelope.getDocument())
-                    + generateDocumentModelKey(envelope.getFirstItem(
-                            documentManager).getDocument());
+                    + (!envelope.isEmpty() ? generateDocumentModelKey(envelope.getFirstItem(
+                            documentManager).getDocument())
+                            : "");
         }
         return key;
     }
@@ -165,8 +167,8 @@ public abstract class CaseManagementContextBoundInstance implements
         // do nothing: to implement in subclasses
     }
 
-    protected void resetCaseCache(Case cachedEnvelope,
-            Case newEnvelope) throws ClientException {
+    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
+            throws ClientException {
         // do nothing: to implement in subclasses
     }
 

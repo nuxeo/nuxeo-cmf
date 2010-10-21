@@ -292,6 +292,19 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 new ArrayList<Mailbox>());
     }
 
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            String parentPath, Mailbox mailbox) {
+        CreateEmptyCaseUnrestricted emptyCaseCreator = new CreateEmptyCaseUnrestricted(
+                session, caseDoc, parentPath, mailbox);
+        try {
+            emptyCaseCreator.runUnrestricted();
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+        caseDoc = emptyCaseCreator.getEmptyCaseDocument();
+        return caseDoc.getAdapter(Case.class);
+    }
+
     public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
             Case envelope) {
         try {

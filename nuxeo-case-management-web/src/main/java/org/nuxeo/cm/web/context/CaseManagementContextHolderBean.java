@@ -24,8 +24,8 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -68,7 +68,7 @@ public class CaseManagementContextHolderBean implements
 
     @Factory(value = "currentCaseItem", scope = ScopeType.EVENT)
     public DocumentModel getCurrentCaseItem() throws ClientException {
-        if (currentEmail == null && currentEnvelope != null) {
+        if (currentEmail == null && currentEnvelope != null && !currentEnvelope.isEmpty()) {
             // lazily fetch current email
             currentEmail = currentEnvelope.getFirstItem(documentManager).getDocument();
         }

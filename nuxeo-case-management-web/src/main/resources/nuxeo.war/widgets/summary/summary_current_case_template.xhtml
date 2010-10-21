@@ -6,9 +6,10 @@
       <h:outputText value="#{messages['label.summary.metadata']}" />
     </h3>
     
+    <c:if test="#{currentCaseItem != null}">
     <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
     value="#{currentCaseItem}" />
-    
+
   <c:if
     test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
     <h:commandButton styleClass="button" immediate="true"
@@ -60,5 +61,6 @@
         <h:outputText value="#{messages['command.cancel']}" />
       </nxh:commandLink>
     </div>
+  </c:if>
   </c:if>
 </div>

@@ -28,10 +28,10 @@ import javax.ejb.Stateless;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -134,6 +134,12 @@ public class CaseDistributionBean implements CaseDistributionService {
     @Override
     public void removeCaseLink(CaseLink link, CoreSession sessiion) {
         getCaseDistributionService().removeCaseLink(link, sessiion);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            String parentPath, Mailbox mailbox) {
+        return getCaseDistributionService().createEmptyCase(session, caseDoc, parentPath, mailbox);
     }
 
 }

@@ -105,6 +105,12 @@
       <category>CASE_CREATE_BOTTOM_LIST</category>
     </action>
 
+    <action id="EMPTY_CASE_CREATE" 
+      link="#{cmDocumentActions.createEmptyCase}"
+      label="command.create">
+      <category>EMPTY_CASE_CREATE_BOTTOM_LIST</category>
+    </action>
+
     <action id="SAVE_CASE_ACTION"
     	link="#{cmDocumentActions.save()}"
     	label="label.casemanagement.save">
@@ -429,6 +435,12 @@
     <filter id="canEditCaseItem">
       <rule grant="true">
         <condition>#{cmDocumentActions.canEditCurrentCaseItem}</condition>
+      </rule>
+    </filter>
+    
+    <filter id="isCurrentCaseItemPreviewAvailable">
+      <rule grant="true">
+        <condition>#{cmDocumentActions.isCurrentCaseItemPreviewAvailable()}</condition>
       </rule>
     </filter>
     
