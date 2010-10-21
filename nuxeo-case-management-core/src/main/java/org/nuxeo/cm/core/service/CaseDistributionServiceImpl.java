@@ -21,6 +21,7 @@
 package org.nuxeo.cm.core.service;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -367,21 +368,22 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public void removeCaseLink(CaseLink link, CoreSession session) {
+    public void removeCaseLink(final CaseLink link, CoreSession session) {
         final DocumentRef ref = link.getDocument().getRef();
-        Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
-        eventProperties.put(
-                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK, link);
-        eventProperties.put("category",
-                CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
-        final DocumentEventContext envContext = new DocumentEventContext(
-                session, session.getPrincipal(), link.getDocument());
-        envContext.setProperties(eventProperties);
         try {
+            final Principal principal = session.getPrincipal();
             new UnrestrictedSessionRunner(session) {
                 @Override
                 public void run() throws ClientException {
                     try {
+                        Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
+                        eventProperties.put(
+                                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK, link);
+                        eventProperties.put("category",
+                                CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
+                        final DocumentEventContext envContext = new DocumentEventContext(
+                                session, principal, link.getDocument());
+                        envContext.setProperties(eventProperties);
                         getEventProducer().fireEvent(
                                 envContext.newEvent(EventNames.beforeCaseLinkRemovedEvent.name()));
                         session.removeDocument(ref);
