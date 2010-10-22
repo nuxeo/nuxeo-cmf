@@ -94,12 +94,12 @@ public class CaseItemDocumentActionsBean extends
         Case kase = getCurrentCase();
         if (kase != null
                 && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {// adding
-                                                                                                     // a
-                                                                                                     // case
-                                                                                                     // item
-                                                                                                     // in
-                                                                                                     // a
-                                                                                                     // case
+            // a
+            // case
+            // item
+            // in
+            // a
+            // case
             CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(
                     documentManager, kase, parentFolder.getPathAsString(),
                     emailDoc);
@@ -150,14 +150,14 @@ public class CaseItemDocumentActionsBean extends
         caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), emptyCase);
         documentManager.save();
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                parentFolder);
 
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(caseDoc.getType()));
-        navigationContext.navigateToDocument(caseDoc);
-
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                parentFolder);
+        caseDoc = emptyCase.getDocument();
+        navigationContext.setCurrentDocument(caseDoc);
         TypeInfo typeInfo = caseDoc.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
     }

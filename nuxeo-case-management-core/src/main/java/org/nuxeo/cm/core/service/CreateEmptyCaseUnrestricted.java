@@ -22,6 +22,7 @@ import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
@@ -53,17 +54,18 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
         caseDoc.setPathInfo(parentPath, caseTitle);
         caseDoc = session.createDocument(caseDoc);
         caseDoc = session.saveDocument(caseDoc);
+        session.save();
         ACP acp = caseDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
         acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
                 + mailbox.getId(), SecurityConstants.READ_WRITE, true));
         acp.addACL(acl);
         session.setACP(caseDoc.getRef(), acp, true);
-        caseDoc = session.saveDocument(caseDoc);
+        session.save();
     }
 
-    public DocumentModel getEmptyCaseDocument() {
-        return caseDoc;
+    public DocumentRef getEmptyCaseDocumentRef() {
+        return caseDoc.getRef();
     }
 
 }

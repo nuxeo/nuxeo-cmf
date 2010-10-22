@@ -301,7 +301,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
-        caseDoc = emptyCaseCreator.getEmptyCaseDocument();
+        DocumentRef caseDocRef = emptyCaseCreator.getEmptyCaseDocumentRef();
+        try {
+            caseDoc = session.getDocument(caseDocRef);
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
         return caseDoc.getAdapter(Case.class);
     }
 
