@@ -205,7 +205,7 @@ public class CaseItemDocumentActionsBean extends
     }
 
     public boolean isCurrentCaseItemPreviewAvailable() throws ClientException {
-        if (getCurrentCase().isEmpty()) {
+        if (getCurrentCase() == null || getCurrentCase().isEmpty()) {
             return false;
         }
         DocumentModel currentEmail = getCurrentCaseItem();
