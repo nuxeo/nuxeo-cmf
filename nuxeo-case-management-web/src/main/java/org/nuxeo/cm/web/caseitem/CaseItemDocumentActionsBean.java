@@ -92,8 +92,17 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
         // The new mail
         Case kase = getCurrentCase();
-        if (kase != null && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {// adding a case item in a case
-            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(documentManager, kase, parentFolder.getPathAsString(), emailDoc);
+        if (kase != null
+                && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {// adding
+            // a
+            // case
+            // item
+            // in
+            // a
+            // case
+            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(
+                    documentManager, kase, parentFolder.getPathAsString(),
+                    emailDoc);
             emailDoc = newCaseItem.getDocument();
             emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                     CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -124,10 +133,32 @@ public class CaseItemDocumentActionsBean extends
         // Navigate to the created envelope
         DocumentModel envelopeDocModel = envelope.getDocument();
         navigationContext.navigateToDocument(envelopeDocModel);
-        
+
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 parentFolder);
         TypeInfo typeInfo = envelopeDocModel.getAdapter(TypeInfo.class);
+        return typeInfo.getDefaultView();
+    }
+
+    public String createEmptyCase() throws ClientException {
+        DocumentModel parentFolder = getParentFolder();
+        DocumentModel caseDoc = navigationContext.getChangeableDocument();
+
+        Case emptyCase = caseDistributionService.createEmptyCase(
+                documentManager, caseDoc, parentFolder.getPathAsString(),
+                getCurrentMailbox());
+        caseDistributionService.createDraftCaseLink(documentManager,
+                getCurrentMailbox(), emptyCase);
+        documentManager.save();
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                parentFolder);
+
+        facesMessages.add(FacesMessage.SEVERITY_INFO,
+                resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
+                resourcesAccessor.getMessages().get(caseDoc.getType()));
+        caseDoc = emptyCase.getDocument();
+        navigationContext.setCurrentDocument(caseDoc);
+        TypeInfo typeInfo = caseDoc.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
     }
 
@@ -174,6 +205,9 @@ public class CaseItemDocumentActionsBean extends
     }
 
     public boolean isCurrentCaseItemPreviewAvailable() throws ClientException {
+        if (getCurrentCase().isEmpty()) {
+            return false;
+        }
         DocumentModel currentEmail = getCurrentCaseItem();
         if (currentEmail != null) {
             return previewActions.documentHasPreview(currentEmail);
@@ -183,11 +217,10 @@ public class CaseItemDocumentActionsBean extends
 
     public boolean isEditingCaseItem() throws ClientException {
         DocumentModel caseItem = getCurrentCaseItem();
-        if(caseItem == null) {
+        if (caseItem == null) {
             return false;
         }
-        LockableAdapter lockable = caseItem.getAdapter(
-                LockableAdapter.class);
+        LockableAdapter lockable = caseItem.getAdapter(LockableAdapter.class);
         if (lockable.isLockedByCurrentUser(documentManager)) {
             return Boolean.valueOf(true);
         }

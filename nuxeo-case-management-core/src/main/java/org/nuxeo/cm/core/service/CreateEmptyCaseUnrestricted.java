@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2009 Nuxeo SA (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2010 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,14 +12,11 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     arussel
+ *     mcedica
  */
 package org.nuxeo.cm.core.service;
 
-import java.util.List;
-
-import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -32,43 +29,43 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
-
 /**
- * Creates a default case with a given caseITem
- * @author arussel
- */
-public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
+ * Creates an empty case from a given detached documentModel
+ * */
+public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
 
-    protected final CaseItem item;
     protected final String parentPath;
-    protected final List<Mailbox> mailboxes;
 
-    protected DocumentRef ref;
+    protected final Mailbox mailbox;
 
-    public CreateCaseUnrestricted(CoreSession session, CaseItem item, String parentPath, List<Mailbox> mailboxes) {
+    protected DocumentModel caseDoc;
+
+    public CreateEmptyCaseUnrestricted(CoreSession session,
+            DocumentModel caseDoc, String parentPath, Mailbox mailbox) {
         super(session);
-        this.item = item;
+        this.caseDoc = caseDoc;
+        this.mailbox = mailbox;
         this.parentPath = parentPath;
-        this.mailboxes = mailboxes;
     }
 
     @Override
     public void run() throws ClientException {
-        Case env = item.createMailCase(session, parentPath, null);
-        DocumentModel doc = env.getDocument();
-        ACP acp = doc.getACP();
+        String caseTitle = (String) caseDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
+        caseDoc.setPathInfo(parentPath, caseTitle);
+        caseDoc = session.createDocument(caseDoc);
+        caseDoc = session.saveDocument(caseDoc);
+        session.save();
+        ACP acp = caseDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-        for (Mailbox mailbox : mailboxes) {
-            acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                    + mailbox.getId(), SecurityConstants.READ_WRITE, true));
-        }
+        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
+                + mailbox.getId(), SecurityConstants.READ_WRITE, true));
         acp.addACL(acl);
-        session.setACP(doc.getRef(), acp, true);
-        ref = doc.getRef();
+        session.setACP(caseDoc.getRef(), acp, true);
+        session.save();
     }
 
-    public DocumentRef getDocumentRef() {
-        return ref;
+    public DocumentRef getEmptyCaseDocumentRef() {
+        return caseDoc.getRef();
     }
 
 }

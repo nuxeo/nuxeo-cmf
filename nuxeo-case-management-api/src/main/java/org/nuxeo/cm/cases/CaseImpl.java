@@ -19,6 +19,9 @@
 
 package org.nuxeo.cm.cases;
 
+import static org.nuxeo.cm.cases.CaseConstants.CASE_SCHEMA;
+import static org.nuxeo.cm.cases.CaseConstants.MAILBOX_DOCUMENTS_ID_TYPE;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,9 +36,6 @@ import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.runtime.api.Framework;
-
-import static org.nuxeo.cm.cases.CaseConstants.MAILBOX_DOCUMENTS_ID_TYPE;
-import static org.nuxeo.cm.cases.CaseConstants.CASE_SCHEMA;
 
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
@@ -242,6 +242,10 @@ public class CaseImpl implements Case {
 
     public boolean isDraft() throws ClientException {
         return CaseLifeCycleConstants.STATE_DRAFT.equals(document.getCurrentLifeCycleState());
+    }
+
+    public boolean isEmpty() throws ClientException {
+       return getItemsId().isEmpty();
     }
 
     public void addInitialExternalParticipants(

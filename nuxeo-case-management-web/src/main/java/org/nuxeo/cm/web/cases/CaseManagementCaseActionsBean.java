@@ -102,4 +102,12 @@ public class CaseManagementCaseActionsBean extends
             throws ClientException {
         super.resetCaseCache(cachedEnvelope, newEnvelope);
     }
+
+    /**
+     * Returns true if we have an empty case
+     * */
+    public boolean isEmptyCase() throws ClientException {
+        return getCurrentCase().isEmpty();
+    }
+
 }

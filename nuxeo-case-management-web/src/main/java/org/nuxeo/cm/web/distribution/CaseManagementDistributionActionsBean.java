@@ -224,6 +224,9 @@ public class CaseManagementDistributionActionsBean extends
         if(kase == null) {
             return false;
         }
+        if (kase.isEmpty()){
+            return false;
+        }
         List<CaseLink> links = caseDistributionService.getCaseLinks(
                 documentManager, null, kase);
         return !links.isEmpty();
