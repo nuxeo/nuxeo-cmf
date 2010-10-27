@@ -78,7 +78,7 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * @param subject The subject of the post.
      * @param comment The comment of the post.
      * @param envelope The envelope sent.
-     * @param mailbox The mailbox of the sender.
+     * @param mailboxes The mailbox of the sender.
      * @param internalRecipients A map of recipients keyed by type of Message
      *            and keyed with a list of mailboxes.
      * @param isSent The post can be Sent or Received

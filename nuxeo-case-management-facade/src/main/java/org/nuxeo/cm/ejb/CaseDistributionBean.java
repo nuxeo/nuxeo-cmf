@@ -49,20 +49,20 @@ public class CaseDistributionBean implements CaseDistributionService {
 
     protected CaseDistributionService caseDistributionService;
 
-    public Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath) {
-        return getCaseDistributionService().createCase(session, emailDoc,
-                parentPath);
+    @Override
+    public Case createCase(CoreSession session, DocumentModel emailDoc) {
+        return getCaseDistributionService().createCase(session, emailDoc);
     }
 
+    @Override
     public Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath, List<Mailbox> mailboxes) {
+            List<Mailbox> mailboxes) {
         return getCaseDistributionService().createCase(session, emailDoc,
-                parentPath, mailboxes);
+                mailboxes);
     }
 
-    public CaseLink createDraftCaseLink(CoreSession session,
-            Mailbox mailbox, Case envelope) {
+    public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
+            Case envelope) {
         return getCaseDistributionService().createDraftCaseLink(session,
                 mailbox, envelope);
     }
@@ -120,10 +120,11 @@ public class CaseDistributionBean implements CaseDistributionService {
         return caseDistributionService;
     }
 
+    @Override
     public CaseItem addCaseItemToCase(CoreSession session, Case kase,
-            String parentPath, DocumentModel emailDoc) {
+            DocumentModel emailDoc) {
         return getCaseDistributionService().addCaseItemToCase(session, kase,
-                parentPath, emailDoc);
+                emailDoc);
     }
 
     public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
@@ -138,8 +139,52 @@ public class CaseDistributionBean implements CaseDistributionService {
 
     @Override
     public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            String parentPath, Mailbox mailbox) {
-        return getCaseDistributionService().createEmptyCase(session, caseDoc, parentPath, mailbox);
+            Mailbox mailbox) {
+        return getCaseDistributionService().createEmptyCase(session, caseDoc,
+                mailbox);
+    }
+
+    @Override
+    public DocumentModel getParentDocumentForCase(CoreSession session) {
+        return getCaseDistributionService().getParentDocumentForCase(session);
+    }
+
+    @Override
+    public String getParentDocumentPathForCase(CoreSession session) {
+        return getCaseDistributionService().getParentDocumentPathForCase(
+                session);
+    }
+
+    @Override
+    public Case createCaseFromExistingCaseItem(CaseItem adapter,
+            CoreSession documentManager) {
+        return getCaseDistributionService().createCaseFromExistingCaseItem(
+                adapter, documentManager);
+    }
+
+    @Override
+    public String getParentDocumentPathForCaseItem(CoreSession session,
+            Case kase) {
+        return getCaseDistributionService().getParentDocumentPathForCaseItem(
+                session, kase);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            List<Mailbox> mailboxes) {
+        return getCaseDistributionService().createEmptyCase(session, caseDoc, mailboxes);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            List<Mailbox> mailboxes) {
+        return createEmptyCase(session, title, id, mailboxes);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            Mailbox mailbox) {
+        return createEmptyCase(session, title, id, mailbox);
     }
 
 }

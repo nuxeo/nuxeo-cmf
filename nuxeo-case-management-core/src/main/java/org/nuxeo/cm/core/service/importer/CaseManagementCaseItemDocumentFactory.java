@@ -24,7 +24,6 @@ import java.util.Map;
 
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
@@ -42,13 +41,13 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * 
+ *
  * Implementation for CaseManagement factory; each time a file is found a new
  * caseItem is created and the corresponding case; the case is sent to the
  * specified destionationMailbox
- * 
+ *
  * @author Mariana Cedica
- * 
+ *
  */
 public class CaseManagementCaseItemDocumentFactory extends
         DefaultDocumentModelFactory {
@@ -87,7 +86,7 @@ public class CaseManagementCaseItemDocumentFactory extends
         if (caseDistributionService == null) {
             return null;
         }
-        String caseRootPath = getCaseRootPath(session);
+        String caseRootPath = caseDistributionService.getParentDocumentPathForCase(session);
         DocumentModel caseItemDoc = defaultCreateNodeDoc(session, caseRootPath,
                 node, getCaseManagementDocumentTypeService().getCaseItemType());
         if (caseItemDoc == null) {
@@ -96,7 +95,6 @@ public class CaseManagementCaseItemDocumentFactory extends
         }
 
         Case caseDoc = caseDistributionService.createCase(session, caseItemDoc,
-                getCaseRootPath(session),
                 Collections.singletonList(getDestinationMailbox(session)));
         // Retrieve the new created caseItem doc in order to set properties on
         // it
@@ -157,13 +155,6 @@ public class CaseManagementCaseItemDocumentFactory extends
                 Calendar.getInstance());
         // TODO : check if we need to set other properties like origin..etc
         session.saveDocument(caseItemDoc);
-    }
-
-    private String getCaseRootPath(CoreSession session) throws ClientException {
-        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                session);
-        runner.runUnrestricted();
-        return runner.getParentPath();
     }
 
     private CaseDistributionService getCaseDistributionService()

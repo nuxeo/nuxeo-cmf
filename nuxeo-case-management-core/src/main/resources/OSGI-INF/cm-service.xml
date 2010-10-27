@@ -1,9 +1,0 @@
-<component name="org.nuxeo.cm.service.caseManagement">
-
-  <implementation class="org.nuxeo.cm.core.service.CaseDistributionServiceImpl"/>
-
-  <service>
-    <provide interface="org.nuxeo.cm.service.CaseDistributionService"/>
-  </service>
-
-</component>

@@ -45,6 +45,8 @@ import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.cm.service.CaseManagementPersister;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.common.utils.StringUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -64,6 +66,8 @@ import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDesc
 import org.nuxeo.ecm.platform.relations.api.ResourceAdapter;
 import org.nuxeo.runtime.api.Framework;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 /**
  * Correspondence service core implementation
  */
@@ -76,6 +80,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     protected EventProducer eventProducer;
 
     protected Map<String, Serializable> context;
+
+    protected CaseManagementPersister persister;
+
+    public void setPersister(CaseManagementPersister persister) {
+        this.persister = persister;
+    }
 
     public CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean isInitial) {
@@ -244,7 +254,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public CaseItem addCaseItemToCase(CoreSession session, Case kase,
-            String parentPath, DocumentModel emailDoc) {
+            DocumentModel emailDoc) {
+        String parentPath = getParentDocumentPathForCase(session);
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
         emailDoc.setPathInfo(parentPath, docName);
@@ -264,38 +275,68 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath, List<Mailbox> mailboxes) {
-        // Save the new mail in the MailRoot folder
-        CaseItem item = emailDoc.getAdapter(CaseItem.class);
-        String docName = IdUtils.generateId("doc " + item.getTitle());
-        emailDoc.setPathInfo(parentPath, docName);
+            List<Mailbox> mailboxes) {
         try {
-            CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
-                    session, emailDoc, mailboxes);
-            mailCreator.runUnrestricted();
-            DocumentModel mail = session.getDocument(mailCreator.getDocRef());
-            // Create envelope
-            CreateCaseUnrestricted envelopeCreator = new CreateCaseUnrestricted(
-                    session, mail.getAdapter(CaseItem.class), parentPath,
-                    mailboxes);
-            envelopeCreator.runUnrestricted();
-            DocumentModel envelopeDoc = session.getDocument(envelopeCreator.getDocumentRef());
-            return envelopeDoc.getAdapter(Case.class);
+            String emailTitle = emailDoc.getTitle();
+            String caseId = IdUtils.generateId(emailTitle == null ? ""
+                    : emailTitle);
+            Case kase = createEmptyCase(session, emailTitle, caseId, mailboxes);
+            addCaseItemToCase(session, kase, emailDoc);
+            return kase;
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
 
-    public Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath) {
-        return createCase(session, emailDoc, parentPath,
-                new ArrayList<Mailbox>());
+    public Case createCase(CoreSession session, DocumentModel emailDoc) {
+        return createCase(session, emailDoc, new ArrayList<Mailbox>());
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            Mailbox mailbox) {
+        return createEmptyCase(session, title, id,
+                Collections.singletonList(mailbox));
+    }
+
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            List<Mailbox> mailboxes) {
+        String parentPath = getParentDocumentPathForCase(session);
+        DocumentModel kase;
+        try {
+            kase = session.createDocumentModel(parentPath, id,
+                    getTypeService().getCaseType());
+            kase.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME, title);
+            kase.putContextData("initialLifecycleState", null);
+            return createEmptyCase(session, kase, mailboxes);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public CaseManagementDocumentTypeService getTypeService() {
+        try {
+            return Framework.getService(CaseManagementDocumentTypeService.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
     public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            String parentPath, Mailbox mailbox) {
+            Mailbox mailbox) {
+        return createEmptyCase(session, caseDoc,
+                Collections.singletonList(mailbox));
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            List<Mailbox> mailboxes) {
+        String parentPath = getParentDocumentPathForCase(session);
         CreateEmptyCaseUnrestricted emptyCaseCreator = new CreateEmptyCaseUnrestricted(
-                session, caseDoc, parentPath, mailbox);
+                session, caseDoc, parentPath, mailboxes);
         try {
             emptyCaseCreator.runUnrestricted();
         } catch (ClientException e) {
@@ -395,8 +436,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     try {
                         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
                         eventProperties.put(
-                                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK, link);
-                        eventProperties.put("category",
+                                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK,
+                                link);
+                        eventProperties.put(
+                                "category",
                                 CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
                         final DocumentEventContext envContext = new DocumentEventContext(
                                 session, principal, link.getDocument());
@@ -579,8 +622,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     for (String recipient : internalRecipientIds.get(type)) {
                         if (isActionable) {
                             CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
-                                    postRequest, session, subject, comment, envelope,
-                                    senderMailbox, recipient,
+                                    postRequest, session, subject, comment,
+                                    envelope, senderMailbox, recipient,
                                     internalRecipientIds, externalRecipients,
                                     false, isInitial);
                             createMessageUnrestricted.run();
@@ -606,5 +649,27 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         public CaseLink getPost() {
             return post;
         }
+    }
+
+    @Override
+    public DocumentModel getParentDocumentForCase(CoreSession session) {
+        return persister.getParentDocumentForCase(session);
+    }
+
+    @Override
+    public String getParentDocumentPathForCaseItem(CoreSession session,
+            Case kase) {
+        return persister.getParentDocumentPathForCaseItem(session, kase);
+    }
+
+    @Override
+    public String getParentDocumentPathForCase(CoreSession session) {
+        return persister.getParentDocumentPathForCase(session);
+    }
+
+    @Override
+    public Case createCaseFromExistingCaseItem(CaseItem item,
+            CoreSession session) {
+        return persister.createCaseFromExistingCaseItem(item, session);
     }
 }

@@ -26,14 +26,13 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.cases.GetParentPathUnrestricted;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.ACE;
@@ -189,13 +188,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
 
         DocumentModel emailDoc = getMailEnvelopeItemModel();
         session.save();
-        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                session);
-        runner.runUnrestricted();
-        session.save();
-        Case envelope = caseDistributionService.createCase(session, emailDoc,
-                runner.getParentPath());
-
+        Case envelope = caseDistributionService.createCase(session, emailDoc);
         // Create the Draft post in the mailbox
         caseDistributionService.createDraftCaseLink(session, mailbox, envelope);
         session.save();

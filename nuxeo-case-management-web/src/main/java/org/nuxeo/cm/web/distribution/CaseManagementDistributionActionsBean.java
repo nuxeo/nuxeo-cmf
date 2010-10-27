@@ -162,13 +162,15 @@ public class CaseManagementDistributionActionsBean extends
                                 "feedback.casemanagement.distribution.invalidCurrentMailbox"));
                 return null;
             }
-            Case envelope = getCurrentCase();
+            Case kase = getCurrentCase();
             DocumentModel emailDoc;
             if (mode == CaseLinkMode.ENTIRE_ENVELOPE) {
-                envelopeDoc = envelope.getDocument();
-                emailDoc = envelope.getFirstItem(documentManager).getDocument();
+                envelopeDoc = kase.getDocument();
+                emailDoc = kase.getFirstItem(documentManager).getDocument();
             } else if (mode == CaseLinkMode.DOC_ONLY) {
                 emailDoc = getCurrentCaseItem();
+                kase = caseDistributionService.createCaseFromExistingCaseItem(emailDoc.getAdapter(CaseItem.class), documentManager);
+
                 // XXX: user same parent than current email for new envelope,
                 // maybe to change.
                 DocumentModel parent = documentManager.getDocument(emailDoc.getParentRef());
@@ -176,9 +178,9 @@ public class CaseManagementDistributionActionsBean extends
                 item.createMailCase(documentManager, parent.getPathAsString(),
                         null);
                 // FIXME: Null value here
-                envelopeDoc = envelope.getDocument();
+                envelopeDoc = kase.getDocument();
             }
-            if (envelope == null || envelopeDoc == null) {
+            if (kase == null || envelopeDoc == null) {
                 facesMessages.add(
                         FacesMessage.SEVERITY_ERROR,
                         resourcesAccessor.getMessages().get(
@@ -190,9 +192,9 @@ public class CaseManagementDistributionActionsBean extends
                     currentMailbox.getId(),
                     Calendar.getInstance(),
                     (String) envelopeDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
-                    distributionInfo.getComment(), envelope, recipients, null);
+                    distributionInfo.getComment(), kase, recipients, null);
             caseDistributionService.sendCase(documentManager, postRequest,
-                    envelope.isDraft());
+                    kase.isDraft());
             // check there were actual recipients
             if (recipients.isEmpty()) {
                 facesMessages.add(
@@ -201,7 +203,7 @@ public class CaseManagementDistributionActionsBean extends
                                 "feedback.corresp.distribution.noFinalRecipients"));
                 return null;
             }
-            envelope.save(documentManager);
+            kase.save(documentManager);
 
             // save changes to core
             documentManager.save();

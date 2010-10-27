@@ -21,6 +21,8 @@ package org.nuxeo.cm.core.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.cm.service.CaseManagementPersister;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.runtime.model.ComponentContext;
@@ -42,19 +44,26 @@ public class CaseManagementComponent extends DefaultComponent {
 
     protected static final String MESSAGE_FACTORY_EXTENSION_POINT = "messageFactory";
 
-    protected MailboxManagementServiceImpl service;
+    protected static final String PERSISTER_EXTENSION_POINT = "persister";
+
+    protected MailboxManagementServiceImpl mailboxService;
+
+    protected CaseDistributionServiceImpl distributionService;
 
     @Override
     public void activate(ComponentContext context) throws Exception {
         super.activate(context);
-        this.service = new MailboxManagementServiceImpl();
+        this.mailboxService = new MailboxManagementServiceImpl();
+        this.distributionService = new CaseDistributionServiceImpl();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getAdapter(Class<T> adapter) {
         if (adapter.isAssignableFrom(MailboxManagementService.class)) {
-            return (T) service;
+            return (T) mailboxService;
+        } else if(adapter.isAssignableFrom(CaseDistributionService.class)) {
+            return (T) distributionService;
         }
         return null;
     }
@@ -62,7 +71,7 @@ public class CaseManagementComponent extends DefaultComponent {
     @Override
     public void registerContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor)
-    throws Exception {
+            throws Exception {
         if (extensionPoint.equals(MAILBOX_CREATOR_EXTENSION_POINT)) {
             CreationClassDescriptor classDesc = (CreationClassDescriptor) contribution;
             String className = classDesc.getKlass();
@@ -70,16 +79,17 @@ public class CaseManagementComponent extends DefaultComponent {
             Object creator = CaseManagementComponent.class.getClassLoader().loadClass(
                     className).newInstance();
             if (creator instanceof MailboxCreator) {
-                service.setPersonalMailboxCreator((MailboxCreator) creator);
+                mailboxService.setPersonalMailboxCreator((MailboxCreator) creator);
             } else {
                 log.error("Invalid contribution to personal mailbox creator: "
                         + className);
             }
+        } else if (PERSISTER_EXTENSION_POINT.equals(extensionPoint)) {
+            PersisterDescriptor desc = (PersisterDescriptor) contribution;
+            CaseManagementPersister persister = desc.getKlass().newInstance();
+            distributionService.setPersister(persister);
         } else {
             log.warn("Unknown extension point " + extensionPoint);
         }
     }
-
-    // nothing to do on unregister
-
 }

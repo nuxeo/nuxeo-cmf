@@ -16,6 +16,8 @@
  */
 package org.nuxeo.cm.core.service;
 
+import java.util.List;
+
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
@@ -36,15 +38,15 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String parentPath;
 
-    protected final Mailbox mailbox;
+    protected final List<Mailbox> mailboxes;
 
     protected DocumentModel caseDoc;
 
     public CreateEmptyCaseUnrestricted(CoreSession session,
-            DocumentModel caseDoc, String parentPath, Mailbox mailbox) {
+            DocumentModel caseDoc, String parentPath, List<Mailbox> mailbox) {
         super(session);
         this.caseDoc = caseDoc;
-        this.mailbox = mailbox;
+        this.mailboxes = mailbox;
         this.parentPath = parentPath;
     }
 
@@ -57,8 +59,10 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
         session.save();
         ACP acp = caseDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                + mailbox.getId(), SecurityConstants.READ_WRITE, true));
+        for (Mailbox mailbox : mailboxes) {
+            acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
+                    + mailbox.getId(), SecurityConstants.READ_WRITE, true));
+        }
         acp.addACL(acl);
         session.setACP(caseDoc.getRef(), acp, true);
         session.save();

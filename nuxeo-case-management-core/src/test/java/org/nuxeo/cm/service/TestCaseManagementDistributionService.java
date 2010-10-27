@@ -39,10 +39,10 @@ public class TestCaseManagementDistributionService extends
         Mailbox senderMailbox = getPersonalMailbox(user1);
         assertNotNull(senderMailbox);
         DocumentModel emailDoc = getMailEnvelopeItem().getDocument();
-        Case kase = distributionService.createCase(session, emailDoc, "/");
+        Case kase = distributionService.createCase(session, emailDoc);
         assertNotNull(kase);
         emailDoc = getMailEnvelopeItem().getDocument();
-        CaseItem item = distributionService.addCaseItemToCase(session, kase, "/", emailDoc);
+        CaseItem item = distributionService.addCaseItemToCase(session, kase, emailDoc);
         assertNotNull(item);
         assertEquals(kase.getDocuments().size(), 2);
     }

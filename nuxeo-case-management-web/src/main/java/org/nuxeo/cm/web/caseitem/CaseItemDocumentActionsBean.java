@@ -29,12 +29,10 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.cases.GetParentPathUnrestricted;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.CaseManagementWebConstants;
@@ -49,7 +47,6 @@ import org.nuxeo.ecm.platform.preview.seam.PreviewActionBean;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
-import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
@@ -88,21 +85,14 @@ public class CaseItemDocumentActionsBean extends
     protected Boolean editingMail = false;
 
     public String createCaseItemInCase() throws ClientException {
-        DocumentModel parentFolder = getParentFolder();
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
         // The new mail
         Case kase = getCurrentCase();
         if (kase != null
-                && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {// adding
-            // a
-            // case
-            // item
-            // in
-            // a
-            // case
+                && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {
+            // adding a case item in a case
             CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(
-                    documentManager, kase, parentFolder.getPathAsString(),
-                    emailDoc);
+                    documentManager, kase, emailDoc);
             emailDoc = newCaseItem.getDocument();
             emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                     CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -114,8 +104,7 @@ public class CaseItemDocumentActionsBean extends
         }
         // creating a case item in a case
         Case envelope = caseDistributionService.createCase(documentManager,
-                emailDoc, parentFolder.getPathAsString(),
-                Collections.singletonList(getCurrentMailbox()));
+                emailDoc, Collections.singletonList(getCurrentMailbox()));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -134,25 +123,18 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel envelopeDocModel = envelope.getDocument();
         navigationContext.navigateToDocument(envelopeDocModel);
 
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                parentFolder);
         TypeInfo typeInfo = envelopeDocModel.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
     }
 
     public String createEmptyCase() throws ClientException {
-        DocumentModel parentFolder = getParentFolder();
         DocumentModel caseDoc = navigationContext.getChangeableDocument();
 
         Case emptyCase = caseDistributionService.createEmptyCase(
-                documentManager, caseDoc, parentFolder.getPathAsString(),
-                getCurrentMailbox());
+                documentManager, caseDoc, getCurrentMailbox());
         caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), emptyCase);
         documentManager.save();
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                parentFolder);
-
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(caseDoc.getType()));
@@ -163,10 +145,7 @@ public class CaseItemDocumentActionsBean extends
     }
 
     protected DocumentModel getParentFolder() throws ClientException {
-        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                documentManager);
-        runner.runUnrestricted();
-        return runner.getParentDocument();
+        return caseDistributionService.getParentDocumentForCase(documentManager);
     }
 
     public boolean getCanEditCurrentCaseItem() throws ClientException {

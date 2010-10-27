@@ -94,7 +94,7 @@ public interface CaseDistributionService extends Serializable {
      * @return
      */
     CaseItem addCaseItemToCase(CoreSession session, Case kase,
-            String parentPath, DocumentModel emailDoc);
+            DocumentModel emailDoc);
 
     /**
      * @param session
@@ -103,9 +103,7 @@ public interface CaseDistributionService extends Serializable {
      *            created
      * @return a MailEnvelope containing default MailItem.
      */
-    Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath);
-
+    Case createCase(CoreSession session, DocumentModel emailDoc);
 
     /**
      * @param session
@@ -116,7 +114,13 @@ public interface CaseDistributionService extends Serializable {
      * @return an emptyCase
      */
     Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            String parentPath, Mailbox mailbox);
+            Mailbox mailbox);
+    Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            List<Mailbox> mailboxes);
+    Case createEmptyCase(CoreSession session, String title, String id,
+            List<Mailbox> mailboxes);
+    Case createEmptyCase(CoreSession session, String title, String id,
+                Mailbox mailbox);
 
     /**
      * @param mailboxes The list of mailboxes in which the document will be
@@ -128,7 +132,7 @@ public interface CaseDistributionService extends Serializable {
      * @return a MailEnvelope containing default MailItem.
      */
     Case createCase(CoreSession session, DocumentModel emailDoc,
-            String parentPath, List<Mailbox> mailboxes);
+            List<Mailbox> mailboxes);
 
     /**
      * Create a draft post for an envelope in given mailbox.
@@ -153,4 +157,30 @@ public interface CaseDistributionService extends Serializable {
      */
     CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean initial, boolean actionable);
+
+    /**
+     * @return
+     */
+    DocumentModel getParentDocumentForCase(CoreSession session);
+
+    /**
+     * @param session
+     * @return
+     */
+    String getParentDocumentPathForCase(CoreSession session);
+
+    /**
+     * @param adapter
+     * @param documentManager
+     * @return
+     */
+    Case createCaseFromExistingCaseItem(CaseItem adapter,
+            CoreSession documentManager);
+
+    /**
+     * @param session
+     * @param kase
+     * @return
+     */
+    String getParentDocumentPathForCaseItem(CoreSession session, Case kase);
 }
