@@ -66,7 +66,6 @@
       <schema name="distribution" />
       <schema name="case" />
       <facet name="Case" />
-      <facet name="Commentable" />
     </doctype>
 
     <doctype name="Mailbox" extends="Document">
@@ -92,21 +91,25 @@
     <doctype name="DistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
       <facet name ="RouteStep"/>
+      <facet name="Commentable" />
     </doctype>
 
     <doctype name="GenericDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
       <facet name ="RouteStep"/>
+      <facet name="Commentable" />
     </doctype>
 
     <doctype name="PersonalDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
       <facet name ="RouteStep"/>
+      <facet name="Commentable" />
     </doctype>
 
     <doctype name="DistributionStep" extends="DocumentRouteStep">
       <schema name="routing_task" />
       <facet name ="RouteStep"/>
+      <facet name="Commentable" />
     </doctype>
 
 
