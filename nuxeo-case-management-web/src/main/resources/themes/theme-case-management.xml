@@ -1548,6 +1548,17 @@
         <color>#eee</color>
         <height>1px</height>
       </selector>
+      <!-- Specific to Document Routing -->
+      <selector path=".dataOutput td.cellVerticalBorder">
+        <border-right>1px solid #c7c7c7</border-right>
+        <vertical-align>top</vertical-align>
+      </selector>
+      <selector path=".cellActionIcon">
+        <cursor>pointer</cursor>
+      </selector>
+      <selector path=".stepExecutionIcon">
+        <margin-top>16px</margin-top>
+      </selector>
     </style>
     <style name="tree and clipboard column" inherit="common style 1">
       <selector path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset">
