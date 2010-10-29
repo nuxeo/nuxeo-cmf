@@ -15,6 +15,8 @@
     <view name="mailboxes list" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>casemanagement/mailbox/mailbox_list.xhtml</template>
+      <resource>dragdrop.js</resource>
+      <resource>contextmenu.js</resource>
     </view>
     
     <!-- displays the user classification roots in left menu -->
