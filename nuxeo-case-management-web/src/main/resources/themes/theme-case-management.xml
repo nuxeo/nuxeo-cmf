@@ -1559,6 +1559,18 @@
       <selector path=".stepExecutionIcon">
         <margin-top>16px</margin-top>
       </selector>
+      <selector path="td.routeRowBackground0">
+        <background-color>#fff</background-color>
+      </selector>
+      <selector path="td.routeRowBackground1">
+        <background-color>#f1fffb</background-color>
+      </selector>
+      <selector path="td.routeRowBackground2">
+        <background-color>#fffcee</background-color>
+      </selector>
+      <selector path="td.routeRowBackground3">
+        <background-color>#ecf4ff </background-color>
+      </selector>
     </style>
     <style name="tree and clipboard column" inherit="common style 1">
       <selector path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset">
