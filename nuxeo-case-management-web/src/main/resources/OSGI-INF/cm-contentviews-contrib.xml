@@ -25,8 +25,8 @@
         <event>documentChanged</event>
         <event>documentChildrenChanged</event>
       </refresh>
-      <cacheKey>#{currentDocument.id}</cacheKey>
-      <cacheSize>10</cacheSize>
+      <cacheKey>mailbox_service_content</cacheKey>
+      <cacheSize>1</cacheSize>
 
       <resultLayouts>
         <layout name="cm_inbox_caselink" title="document_listing"
@@ -57,8 +57,8 @@
         <event>documentChanged</event>
         <event>documentChildrenChanged</event>
       </refresh>
-      <cacheKey>#{currentDocument.id}</cacheKey>
-      <cacheSize>10</cacheSize>
+      <cacheKey>mailbox_inbox_content</cacheKey>
+      <cacheSize>1</cacheSize>
 
       <resultLayouts>
         <layout name="cm_inbox_caselink" title="document_listing"
@@ -90,8 +90,8 @@
         <event>documentChanged</event>
         <event>documentChildrenChanged</event>
       </refresh>
-      <cacheKey>#{currentDocument.id}</cacheKey>
-      <cacheSize>10</cacheSize>
+      <cacheKey>mailbox_sent_content</cacheKey>
+      <cacheSize>1</cacheSize>
 
       <resultLayouts>
         <layout name="cm_sent_caselink" title="document_listing"
@@ -123,8 +123,8 @@
         <event>documentChanged</event>
         <event>documentChildrenChanged</event>
       </refresh>
-      <cacheKey>#{currentDocument.id}</cacheKey>
-      <cacheSize>10</cacheSize>
+      <cacheKey>mailbox_draft_content</cacheKey>
+      <cacheSize>1</cacheSize>
 
       <resultLayouts>
         <layout name="cm_draft_caselink" title="document_listing"
