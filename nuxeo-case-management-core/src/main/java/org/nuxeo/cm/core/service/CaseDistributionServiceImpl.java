@@ -255,7 +255,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     public CaseItem addCaseItemToCase(CoreSession session, Case kase,
             DocumentModel emailDoc) {
-        String parentPath = getParentDocumentPathForCase(session);
+        String parentPath = persister.getParentDocumentPathForCaseItem(session, kase);
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
         emailDoc.setPathInfo(parentPath, docName);

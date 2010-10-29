@@ -9,7 +9,7 @@
 
   <extension target="org.nuxeo.cm.service.mailboxManagement" point="persister">
     <persister
-      class="org.nuxeo.cm.core.persister.SeparateCaseCaseItemPersister" />
+      class="org.nuxeo.cm.core.persister.CaseItemInCasePersister" />
   </extension>
 
 </component>

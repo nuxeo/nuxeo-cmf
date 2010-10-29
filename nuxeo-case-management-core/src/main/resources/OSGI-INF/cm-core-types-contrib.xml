@@ -60,7 +60,7 @@
       <facet name="Commentable" />
     </doctype>
 
-    <doctype name="Case" extends="Document">
+    <doctype name="Case" extends="Folder">
       <schema name="common" />
       <schema name="dublincore" />
       <schema name="distribution" />

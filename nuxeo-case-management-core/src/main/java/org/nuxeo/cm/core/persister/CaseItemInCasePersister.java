@@ -21,30 +21,28 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.service.CaseManagementPersister;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  *
  */
-public class SeparateCaseCaseItemPersister extends
-        CaseManagementAbstractPersister implements CaseManagementPersister {
+public class CaseItemInCasePersister extends CaseManagementAbstractPersister
+        implements CaseManagementPersister {
 
     @Override
     public Case createCaseFromExistingCaseItem(CaseItem item,
             CoreSession session) {
-        DocumentModel parent;
-        try {
-            parent = session.getDocument(item.getDocument().getParentRef());
-        } catch (ClientException e) {
-            throw new RuntimeException(e);
-        }
-        return item.createMailCase(session, parent.getPathAsString(), null);
+        throw new UnsupportedOperationException(
+                "CaseItem in Case persister cannot create Case from existing CaseItem.");
     }
 
     @Override
     public String getParentDocumentPathForCaseItem(CoreSession session,
             Case kase) {
-        return getParentDocumentPathForCase(session);
+        try {
+            return session.getDocument(kase.getDocument().getRef()).getPathAsString();
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
