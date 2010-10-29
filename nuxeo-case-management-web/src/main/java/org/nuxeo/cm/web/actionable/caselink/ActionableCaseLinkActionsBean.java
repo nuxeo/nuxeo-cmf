@@ -19,12 +19,15 @@
 
 package org.nuxeo.cm.web.actionable.caselink;
 
+import javax.faces.application.FacesMessage;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Events;
+import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
@@ -34,6 +37,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
+import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * Processing actions for an actionable case link
@@ -54,9 +58,25 @@ public class ActionableCaseLinkActionsBean extends
     @In(create = true)
     protected NavigationContext navigationContext;
 
+    @In(create = true, required = false)
+    protected FacesMessages facesMessages;
+
+    @In(create = true)
+    protected ResourcesAccessor resourcesAccessor;
+
     public String approveTask(DocumentModel caseLink) throws ClientException {
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
         DocumentRef ref = caseLink.getParentRef();
+        // check is task still undone
+        DocumentModel doc = documentManager.getDocument(ref);
+        if (doc == null
+                || !doc.getCurrentLifeCycleState().equals(
+                        CaseLink.CaseLinkTransistion.toDone.name())) {
+            facesMessages.add(FacesMessage.SEVERITY_WARN,"actionblecaselink.gone");
+            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                    getCurrentMailbox());
+            return null;
+        }
         acl.validate(documentManager);
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(ref));
@@ -66,6 +86,16 @@ public class ActionableCaseLinkActionsBean extends
     public String rejectTask(DocumentModel caseLink) throws ClientException {
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
         DocumentRef ref = caseLink.getParentRef();
+        // check is task still undone
+        DocumentModel doc = documentManager.getDocument(ref);
+        if (doc == null
+                || !doc.getCurrentLifeCycleState().equals(
+                        CaseLink.CaseLinkTransistion.toDone.name())) {
+            facesMessages.add(FacesMessage.SEVERITY_WARN,"actionblecaselink.gone");
+            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                    getCurrentMailbox());
+            return null;
+        }
         acl.refuse(documentManager);
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(ref));

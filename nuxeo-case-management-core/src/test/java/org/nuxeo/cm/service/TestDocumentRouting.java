@@ -250,4 +250,42 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertTrue(route.isDone());
     }
 
+    public void testCancelRoute() throws Exception {
+        NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
+        closeSession();
+        session = openSessionAs(principal2);
+        assertNotNull(routingService);
+        route = routingService.createNewInstance(route, docIds, session);
+        Mailbox user2Mailbox = getPersonalMailbox(user2);
+        List<CaseLink> links = distributionService.getReceivedCaseLinks(
+                session, user2Mailbox, 0, 0);
+        assertEquals(2, links.size());
+        assertFalse(route.isDone());
+        ActionableCaseLink actionableLink = null;
+        for(CaseLink link : links) {
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
+            if(link.isActionnable()) {
+                actionableLink = (ActionableCaseLink) link;
+                actionableLink.validate(session);
+            }
+        }
+        assertNotNull(actionableLink);
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
+        assertFalse(route.isDone());
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
+        assertEquals(4, links.size());
+        closeSession();
+        session = openSessionAs("administrators");
+        route.cancel(session);
+        assertTrue(route.isCanceled());
+        closeSession();
+        session = openSessionAs(principal2);
+        links = distributionService.getReceivedCaseLinks(
+                session, user2Mailbox, 0, 0);
+        for(CaseLink link : links) {
+            if(link.isActionnable()) {
+                fail();
+            }
+        }
+    }
 }
