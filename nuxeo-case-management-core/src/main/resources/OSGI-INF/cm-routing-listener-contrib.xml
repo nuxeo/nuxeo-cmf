@@ -8,13 +8,12 @@
       priority="120">
       <event>beforeRouteReady</event>
     </listener>
+    <!-- needs to go after the distribution listener -->
+    <listener name="routeSecurityUpdaterListener" async="false"
+      postCommit="false" class="org.nuxeo.cm.core.event.RouteSecurityUpdaterListener"
+      priority="250">
+      <event>afterCaseSentEvent</event>
+    </listener>
   </extension>
-
-  <!-- needs to go after the distribution listener -->
-  <listener name="routeSecurityUpdaterListener" async="false"
-    postCommit="false" class="org.nuxeo.cm.core.event.RouteSecurityUpdaterListener"
-    priority="250">
-    <event>afterCaseSentEvent</event>
-  </listener>
 
 </component>

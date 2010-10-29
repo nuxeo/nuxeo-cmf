@@ -31,6 +31,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
+import org.nuxeo.ecm.core.api.security.PermissionProvider;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
@@ -70,8 +71,18 @@ public class RouteSecurityUpdaterListener implements EventListener {
             for (DocumentRoute route : relatedRoutes) {
                 DocumentModel routeDoc = route.getDocument();
                 ACP acp = routeDoc.getACP();
-                ACL routeACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+                ACL routeACL = acp.getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                 List<ACE> newACEs = new ArrayList<ACE>();
+                if(routeACL ==  null) {
+                    routeACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+                    ACL kaseACL = kaseDoc.getACP().getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+                    for(ACE a : kaseACL.getACEs()) {
+                        if(isReadFromMailboxId(a)) {
+                            newACEs.add(new ACE(
+                                    a.getUsername(), SecurityConstants.READ, true));
+                        }
+                    }
+                }
                 for (String mailboxId : allMailboxIds) {
                     newACEs.add(new ACE(
                             CaseManagementSecurityConstants.MAILBOX_PREFIX
@@ -80,8 +91,28 @@ public class RouteSecurityUpdaterListener implements EventListener {
                 routeACL.addAll(newACEs);
                 acp.removeACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                 acp.addACL(routeACL);
-                session.setACP(kaseDoc.getRef(), acp, true);
+                session.setACP(routeDoc.getRef(), acp, true);
             }
+        }
+    }
+
+    /**
+     * @param a
+     * @return
+     */
+    protected boolean isReadFromMailboxId(ACE a) {
+        PermissionProvider pm;
+        try {
+            pm = Framework.getService(PermissionProvider.class);
+            String[] perms = pm.getSubPermissions(a.getPermission());
+            for(String perm : perms) {
+                if(SecurityConstants.READ.equals(perm) || SecurityConstants.EVERYTHING.equals(perm)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
