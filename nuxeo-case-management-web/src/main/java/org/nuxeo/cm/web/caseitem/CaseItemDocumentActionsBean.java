@@ -29,11 +29,13 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.LockableAdapter;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
@@ -47,6 +49,7 @@ import org.nuxeo.ecm.platform.preview.seam.PreviewActionBean;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
+import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
@@ -102,9 +105,10 @@ public class CaseItemDocumentActionsBean extends
             TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
             return typeInfo.getDefaultView();
         }
+        Mailbox currentMailbox = getCurrentMailbox();
         // creating a case item in a case
         Case envelope = caseDistributionService.createCase(documentManager,
-                emailDoc, Collections.singletonList(getCurrentMailbox()));
+                emailDoc, Collections.singletonList(currentMailbox));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
         emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
                 CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -114,7 +118,8 @@ public class CaseItemDocumentActionsBean extends
         caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), envelope);
         documentManager.save();
-
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                documentManager.getDocument(currentMailbox.getDocument().getRef()));
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(emailDoc.getType()));
@@ -129,15 +134,17 @@ public class CaseItemDocumentActionsBean extends
 
     public String createEmptyCase() throws ClientException {
         DocumentModel caseDoc = navigationContext.getChangeableDocument();
-
+        Mailbox currentMailbox = getCurrentMailbox();
         Case emptyCase = caseDistributionService.createEmptyCase(
-                documentManager, caseDoc, getCurrentMailbox());
+                documentManager, caseDoc, currentMailbox);
         caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), emptyCase);
         documentManager.save();
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(caseDoc.getType()));
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                documentManager.getDocument(currentMailbox.getDocument().getRef()));
         caseDoc = emptyCase.getDocument();
         navigationContext.setCurrentDocument(caseDoc);
         TypeInfo typeInfo = caseDoc.getAdapter(TypeInfo.class);
