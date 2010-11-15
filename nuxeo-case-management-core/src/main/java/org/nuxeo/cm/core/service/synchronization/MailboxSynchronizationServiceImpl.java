@@ -50,7 +50,9 @@ import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.core.event.impl.UnboundEventContext;
 import org.nuxeo.ecm.core.query.sql.model.DateLiteral;
+import org.nuxeo.ecm.directory.DirectoryException;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
+import org.nuxeo.ecm.platform.web.common.exceptionhandling.ExceptionHelper;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -198,27 +200,41 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                 parentSynchronizerId = groupEntry.getKey();
                 List<String> groups = groupEntry.getValue();
                 for (String groupName : groups) {
-                    groupModel = userManager.getGroupModel(groupName);
-                    synchronizerId = String.format("%s:%s", directoryName,
-                            groupName);
-                    generatedTitle = titleGenerator.getMailboxTitle(groupModel);
-                    synchronizeMailbox(groupModel, directoryName,
-                            parentSynchronizerId, synchronizerId, groupName,
-                            generatedTitle, null, type, now, coreSession);
-                    List<String> groupChilds = userManager.getGroupsInGroup(groupName);
-                    if (groupChilds != null && !groupChilds.isEmpty()) {
-                        nextChildrenBatch.put(synchronizerId, groupChilds);
-                    }
-                    if (++count % batchSize == 0) {
-                        if (txStarted) {
-                            log.debug("Transaction ended during Mailbox synchronization");
-                            TransactionHelper.commitOrRollbackTransaction();
-                            txStarted = TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
+                    try {
+                        groupModel = userManager.getGroupModel(groupName);
+                        synchronizerId = String.format("%s:%s", directoryName,
+                                groupName);
+                        generatedTitle = titleGenerator.getMailboxTitle(groupModel);
+                        synchronizeMailbox(groupModel, directoryName,
+                                parentSynchronizerId, synchronizerId,
+                                groupName, generatedTitle, null, type, now,
+                                coreSession);
+                        List<String> groupChilds = userManager.getGroupsInGroup(groupName);
+                        if (groupChilds != null && !groupChilds.isEmpty()) {
+                            nextChildrenBatch.put(synchronizerId, groupChilds);
+                        }
+                        if (++count % batchSize == 0) {
+                            if (txStarted) {
+                                log.debug("Transaction ended during Mailbox synchronization");
+                                TransactionHelper.commitOrRollbackTransaction();
+                                txStarted = TransactionHelper.startTransaction();
+                                log.debug("New Transaction started during Mailbox synchronization");
+                            }
+                        }
+                        log.debug(String.format(
+                                "Updated %d/%d group Mailboxes", count, total));
+                    } catch (DirectoryException de) {
+                        Throwable t = ExceptionHelper.unwrapException(de);
+                        if (t.getMessage().contains(
+                                "javax.naming.NameNotFoundException")) {
+                            log.warn("javax.naming.NameNotFoundException : Error while searching for  "
+                                    + groupName);
+                            log.warn(de.getMessage());
+                        } else {
+                            throw new CaseManagementRuntimeException(
+                                    "User synchronization failed", de);
                         }
                     }
-                    log.debug(String.format("Updated %d/%d group Mailboxes",
-                            count, total));
                 }
             }
             if (!nextChildrenBatch.isEmpty()) {
@@ -246,22 +262,35 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         int total = userIds.size();
         try {
             for (String userId : userIds) {
-                userModel = userManager.getUserModel(userId);
-                synchronizerId = String.format("%s:%s", directoryName, userId);
-                generatedTitle = titleGenerator.getMailboxTitle(userModel);
-                synchronizeMailbox(userModel, directoryName, "",
-                        synchronizerId, userId, generatedTitle, userId, type,
-                        now, coreSession);
-                if (++count % batchSize == 0) {
-                    if (txStarted) {
-                        log.debug("Transaction ended during Mailbox synchronization");
-                        TransactionHelper.commitOrRollbackTransaction();
-                        txStarted = TransactionHelper.startTransaction();
-                        log.debug("New Transaction started during Mailbox synchronization");
+                try {
+                    userModel = userManager.getUserModel(userId);
+                    synchronizerId = String.format("%s:%s", directoryName,
+                            userId);
+                    generatedTitle = titleGenerator.getMailboxTitle(userModel);
+                    synchronizeMailbox(userModel, directoryName, "",
+                            synchronizerId, userId, generatedTitle, userId,
+                            type, now, coreSession);
+                    if (++count % batchSize == 0) {
+                        if (txStarted) {
+                            log.debug("Transaction ended during Mailbox synchronization");
+                            TransactionHelper.commitOrRollbackTransaction();
+                            txStarted = TransactionHelper.startTransaction();
+                            log.debug("New Transaction started during Mailbox synchronization");
+                        }
+                    }
+                    log.debug(String.format("Updated %d/%d user Mailboxes",
+                            count, total));
+                } catch (DirectoryException de) {
+                    Throwable t = ExceptionHelper.unwrapException(de);
+                    if (t.getMessage().contains("javax.naming.NameNotFoundException")) {
+                        log.warn("javax.naming.NameNotFoundException : Error while searching for  "
+                                + userId);
+                        log.warn(de.getMessage());
+                    } else {
+                        throw new CaseManagementRuntimeException(
+                                "User synchronization failed", de);
                     }
                 }
-                log.debug(String.format("Updated %d/%d user Mailboxes", count,
-                        total));
             }
         } catch (Exception e) {
             if (txStarted) {
