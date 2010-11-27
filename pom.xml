@@ -21,7 +21,7 @@
   <properties>
     <nuxeo.cm.version>1.4-SNAPSHOT</nuxeo.cm.version>
     <nuxeo.platform.version>5.4.0-I20101018_1103</nuxeo.platform.version>
-    <routing.version>5.4.0-SNAPSHOT</routing.version>
+    <routing.version>5.4.1-SNAPSHOT</routing.version>
   </properties>
 
   <modules>
