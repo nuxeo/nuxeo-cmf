@@ -1,0 +1,57 @@
+<project name="nuxeo-assembly" default="build" xmlns:nx="urn:nuxeo-build"
+  xmlns:artifact="urn:nuxeo-artifact">
+
+  <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
+    uri="urn:nuxeo-artifact" />
+
+  <filterset id="filter-resources">
+    <filter token="nuxeo.core.version" value="${nuxeo.core.version}" />
+  </filterset>
+
+  <target name="init" unless="init.done">
+
+    <property name="outdir" value="${maven.project.build.directory}" />
+    <property name="stagedir" value="${outdir}/stage" />
+    <delete dir="${stagedir}" />
+    <mkdir dir="${stagedir}" />
+
+    <antcall target="expand" />
+    <property name="init.done" value="true" />
+
+  </target>
+
+  <target name="expand" unless="no.build">
+    <artifact:expand depth="3" />
+  </target>
+  <target name="deploy-cmf">
+    <!-- remove open social -->
+    <delete failonerror="false" verbose="true">
+      <fileset 
+	 dir="${bundles}"
+	 includes="nuxeo-opensocial-*"/> 
+      <fileset
+         dir="${bundles}"
+         includes="nuxeo-spaces-*"/>
+      <fileset
+         dir="${bundles}"
+         includes="nuxeo-webengine-gadgets-*"/>
+      <fileset 
+	 dir="${templates}/common/config"
+	 includes="opensocial.properties default-opensocial-config.xml" />
+    </delete>
+    <!-- Deploy Custom plugins -->
+    <copy todir="${plugins}">
+      <artifact:set groupId="org.nuxeo.cm" type="jar" />
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-document-routing-*"/>
+    </copy>
+    <!-- Deploy custom configuration -->
+    <copy todir="${templates}" overwrite="true">
+      <fileset dir="src/main/resources" />
+    </copy>
+    <echo file="${templates}/common/nuxeo.defaults" append="yes" message="${line.separator}#redefine common template to include cmf${line.separator}nuxeo.template.includes=common-deploydir,cmf" /> 
+  </target>
+
+</project>

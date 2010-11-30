@@ -1,0 +1,34 @@
+<project name="cmf-assembly" default="build" xmlns:nx="urn:nuxeo-build"
+  xmlns:artifact="urn:nuxeo-artifact">
+
+  <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
+    uri="urn:nuxeo-artifact" />
+	
+  <import file="common.xml" />
+  <import file="jboss.xml" />
+  <import file="tomcat.xml" />
+
+  <target name="build" depends="init" unless="maven.profile.nuxeo-ep">
+
+    <nx:profile name="jboss">
+      <antcall target="build-jboss" />
+    </nx:profile>
+
+    <nx:profile name="tomcat">
+      <antcall target="build-tomcat" />
+    </nx:profile>
+
+    <nx:profile name="all">
+      <antcall target="build-jboss" />
+      <antcall target="build-tomcat" />
+    </nx:profile>
+
+    <nx:profile name="hudson">
+      <antcall target="build-jboss" />
+      <antcall target="build-tomcat" />
+    </nx:profile>
+
+  </target>
+
+</project>

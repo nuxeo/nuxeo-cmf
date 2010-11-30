@@ -1,0 +1,33 @@
+<project name="cmf-tomcat-assembly" default="build-tomcat" xmlns:nx="urn:nuxeo-build"
+  xmlns:artifact="urn:nuxeo-artifact">
+
+  <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
+    uri="urn:nuxeo-artifact" />
+
+  <target name="build-tomcat">
+
+    <echo>nuxeo-case-management-distribution server build (Tomcat)...</echo>
+    <unzip dest="${stagedir}">
+      <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip"
+                            classifier="nuxeo-dm" />
+    </unzip>
+    <property name="tomcat" value="${stagedir}/nuxeo-cm-server-tomcat" />
+    <move file="${stagedir}/nuxeo-dm-${maven.project.version}-tomcat" tofile="${tomcat}" />
+
+    <antcall target="deploy-cmf" >
+      <param name="templates" value="${tomcat}/templates" />
+      <param name="plugins" value="${tomcat}/nxserver/bundles" />
+      <param name="bundles" value="${tomcat}/nxserver/bundles" />
+      <param name="lib" value="${tomcat}/nxserver/lib" />
+    </antcall>
+
+    <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip"
+       basedir="${stagedir}" />
+    <echo>Distribution built:
+      ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />
+
+  </target>
+
+</project>

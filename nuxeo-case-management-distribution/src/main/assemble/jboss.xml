@@ -1,0 +1,39 @@
+<project name="cmf-jboss-assembly" default="build-jboss" xmlns:nx="urn:nuxeo-build"
+  xmlns:artifact="urn:nuxeo-artifact">
+
+  <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
+    uri="urn:nuxeo-artifact" />
+
+  <target name="build-jboss">
+
+    <echo>nuxeo-case-management-distribution server build (JBoss)...</echo>
+    <unzip dest="${stagedir}">
+      <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip"
+                            classifier="nuxeo-dm" />
+      <patternset>
+        <exclude name="**/templates/common-sfsl/**" />
+        <exclude name="**/templates/stateful/**" />
+        <exclude name="**/templates/stateless/**" />
+      </patternset>
+    </unzip>
+    <property name="jboss" value="${stagedir}/nuxeo-cm-server" />
+    <move file="${stagedir}/nuxeo-dm-${maven.project.version}-jboss" tofile="${jboss}" />
+
+    <antcall target="deploy-cmf" >
+      <param name="templates" value="${jboss}/templates" />
+      <param name="plugins" value="${jboss}/server/default/deploy/nuxeo.ear/plugins" />
+      <param name="bundles" value="${jboss}/server/default/deploy/nuxeo.ear/system" />
+      <param name="lib" value="${jboss}/server/default/deploy/nuxeo.ear/lib" />
+    </antcall>
+
+    <zip
+       destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip"
+       basedir="${stagedir}" />
+    <echo>Distribution built:
+      ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />
+
+  </target>
+
+</project>
