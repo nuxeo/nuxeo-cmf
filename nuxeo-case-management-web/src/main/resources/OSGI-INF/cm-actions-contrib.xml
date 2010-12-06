@@ -54,6 +54,7 @@
     <action id="newFile" enabled="false" />
     <action id="TAB_CONTENT">
       <filter-id>hideFromMailbox</filter-id>
+      <filter-id>isNotCmCase</filter-id>
     </action> 
     <action id="TAB_EDIT">
       <filter-id>hideFromMailbox</filter-id>
@@ -232,7 +233,7 @@
     <action id="TAB_CASE_MANAGEMENT_COMMENTS" link="/casemanagement/caseitem/tabs/document_comments.xhtml"
       enabled="true" order="80" label="action.view.comments">
       <category>VIEW_ACTION_LIST</category>
-      <filter-id>isCaseItemOrCase</filter-id>
+      <filter-id>isCaseItem</filter-id>
       <filter-id>mutable_document</filter-id>
       <filter-id>not_anonymous</filter-id>
      </action>
