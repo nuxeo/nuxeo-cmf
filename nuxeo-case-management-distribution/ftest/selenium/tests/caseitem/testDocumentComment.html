@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testDocumentTabs</title>
+<title>testDocumentComment</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testDocumentTabs</td></tr>
+<tr><td rowspan="1" colspan="3">testDocumentComment</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -63,32 +63,60 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Preview</td>
+	<td>link=Comments</td>
+	<td></td>
+</tr>
+<!--Add Comment-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Comments</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add a comment</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Properties</td>
+	<td>//input[@value=&quot;Add&quot;]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>link=Distribute</td>
+	<td>type</td>
+	<td>//textarea</td>
+	<td>Comment number 1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Add']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>link=Relations</td>
+	<td>verifyTextPresent</td>
+	<td>Delete</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>link=Files</td>
+	<td>verifyTextPresent</td>
+	<td>Comment number 1</td>
+	<td></td>
+</tr>
+<!--Remove Comment-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>link=History</td>
+	<td>verifyTextNotPresent</td>
+	<td>Comment number 1</td>
+	<td></td>
+</tr>
+<!-- same on case -->
+<tr>
+	<td>open</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Test%20incoming%20mail@view_cm_case</td>
 	<td></td>
 </tr>
 <tr>
@@ -96,41 +124,54 @@
 	<td>link=Comments</td>
 	<td></td>
 </tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Preview</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Properties</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Distribute</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Relations</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Files</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=History</td>
-	<td></td>
-</tr>
+<!--Add Comment-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Comments</td>
 	<td></td>
 </tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add a comment</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Add&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//textarea</td>
+	<td>Comment number 1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Add']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Comment number 1</td>
+	<td></td>
+</tr>
+<!--Remove Comment-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Comment number 1</td>
+	<td></td>
+</tr>
+<!--Log Out-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Log out</td>
