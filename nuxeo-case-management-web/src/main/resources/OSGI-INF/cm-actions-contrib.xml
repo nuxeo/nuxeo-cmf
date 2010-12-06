@@ -233,7 +233,7 @@
     <action id="TAB_CASE_MANAGEMENT_COMMENTS" link="/casemanagement/caseitem/tabs/document_comments.xhtml"
       enabled="true" order="80" label="action.view.comments">
       <category>VIEW_ACTION_LIST</category>
-      <filter-id>isCaseItem</filter-id>
+      <filter-id>isEmptyCase</filter-id>
       <filter-id>mutable_document</filter-id>
       <filter-id>not_anonymous</filter-id>
      </action>
@@ -414,12 +414,6 @@
           <facet>Mailbox</facet>
         </rule>
     </filter>
-    
-    <filter id="is_cm_mailbox">
-      <rule grant="true">
-        <facet>Case</facet>
-      </rule>
-    </filter>
 
     <filter id="isGenericMailbox">
       <rule grant="true">
@@ -442,6 +436,12 @@
     <filter id="isCurrentCaseItemPreviewAvailable">
       <rule grant="true">
         <condition>#{cmDocumentActions.isCurrentCaseItemPreviewAvailable()}</condition>
+      </rule>
+    </filter>
+    
+    <filter id="isEmptyCase">
+      <rule grant="false">
+        <condition>#{cmCaseActions.isEmptyCase()}</condition>
       </rule>
     </filter>
     

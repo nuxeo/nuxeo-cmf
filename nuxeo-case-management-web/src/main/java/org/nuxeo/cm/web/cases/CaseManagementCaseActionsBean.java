@@ -107,7 +107,11 @@ public class CaseManagementCaseActionsBean extends
      * Returns true if we have an empty case
      * */
     public boolean isEmptyCase() throws ClientException {
-        return getCurrentCase().isEmpty();
+        Case currentCase = getCurrentCase();
+        if (currentCase != null) {
+            return getCurrentCase().isEmpty();
+        }
+        return true;
     }
 
 }
