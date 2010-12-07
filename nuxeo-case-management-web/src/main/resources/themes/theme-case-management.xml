@@ -749,6 +749,7 @@
       <selector path=".currentItemDescription">
         <color preset="default.text (Case Management colors)" />
         <font-size>13px</font-size>
+        <display>block</display>
       </selector>
       <selector path=".dataInput">
         <margin-top>5px</margin-top>
