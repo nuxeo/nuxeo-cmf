@@ -28,8 +28,10 @@ import java.util.regex.Matcher;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.mail.actionpipe.parser.DefaultEnglishMailParser;
+import org.nuxeo.cm.mail.actionpipe.parser.GmailMailParser;
 import org.nuxeo.cm.mail.actionpipe.parser.DefaultFrenchMailParser;
 import org.nuxeo.cm.mail.actionpipe.parser.MailBodyParser;
+import org.nuxeo.cm.mail.actionpipe.parser.ThunderbirdFrenchMailParser;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 
 /**
@@ -97,6 +99,8 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
                     2);
             mailBodyParsers.add(new DefaultEnglishMailParser());
             mailBodyParsers.add(new DefaultFrenchMailParser());
+            mailBodyParsers.add(new ThunderbirdFrenchMailParser());
+            mailBodyParsers.add(new GmailMailParser());
 
             MailBodyParser finalMailBodyParser = null;
             int startMatcher = Integer.MAX_VALUE;
