@@ -28,11 +28,12 @@ import java.util.regex.Pattern;
  */
 public class ThunderbirdFrenchMailParser extends DefaultEnglishMailParser {
 
-    public static final Pattern THUNDERBIRD_FRENCH_HEADER_PATTERN = Pattern.compile("(.*?)Message original(.*?)"
-            + "(Sujet *:)(.*?)"
-            + "(Date *:)(.*?)"
-            + "(De *:)(.*?)"
-            + "(Pour *:)(.*?)" + "((Cc:)(.*?))?");
+    public static final Pattern THUNDERBIRD_FRENCH_HEADER_PATTERN = Pattern.compile(
+            "(.*?)Message original(.*?)" + "(Sujet *:)([^\r\n]+)[\r\n\\s]+"
+                    + "(Date *:)([^\r\n]+)[\r\n\\s]+"
+                    + "(De *:)([^\r\n]+)[\r\n\\s]+"
+                    + "(Pour *:)([^\r\n]+)[\r\n\\s]+"
+                    + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
 
     @Override
     public Pattern getHeaderPattern() {

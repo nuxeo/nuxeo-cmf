@@ -87,8 +87,8 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
             }
 
             String toParse = (String) content;
-            // get rid of lines in case header was garbled
-            toParse = toParse.replaceAll("(\n|\r)", " ");
+            // All regexp should use Pattern.DOTALL option
+            // toParse = toParse.replaceAll("(\n|\r)", " ");
 
             log.debug("Trying to parse " + content);
 

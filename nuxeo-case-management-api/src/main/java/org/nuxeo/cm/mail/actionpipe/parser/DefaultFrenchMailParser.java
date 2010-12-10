@@ -50,7 +50,7 @@ public class DefaultFrenchMailParser implements MailBodyParser,
 
     public static final Pattern FRENCH_HEADER_PATTERN = Pattern.compile("(.*?)"
             + "(De :)(.*?)" + "(Envoy\u00e9 :)" + "((.*?)(\u00c0 :))?"
-            + "((.*?)(Cc :))?(.*?)" + "(Objet :)(.*?)");
+            + "((.*?)(Cc :))?(.*?)" + "(Objet :)(.*?)", Pattern.DOTALL);
 
     public static final String TRANSFER_MARKER = " > ";
 

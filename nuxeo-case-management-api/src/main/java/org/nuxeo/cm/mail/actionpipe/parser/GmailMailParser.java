@@ -35,11 +35,12 @@ import org.nuxeo.cm.contact.Contacts;
  */
 public class GmailMailParser extends DefaultEnglishMailParser {
 
-    public static final Pattern GMAIL_ENGLISH_HEADER_PATTERN = Pattern.compile("(.*?)Forwarded message(.*?)"
-            + "(From\\w*:)(.*?)"
-            + "(Date\\w*:)(.*?)"
-            + "(Subject\\w*:)(.*?)"
-            + "(To\\w*:)(.*?)" + "((Cc\\w*:)(.*?))?");
+    public static final Pattern GMAIL_ENGLISH_HEADER_PATTERN = Pattern.compile(
+            "(.*?)Forwarded message(.*?)" + "(From\\w*:)([^\r\n]+)[\r\n\\s]+"
+                    + "(Date\\w*:)([^\r\n]+)[\r\n\\s]+"
+                    + "(Subject\\w*:)([^\r\n]+)[\r\n\\s]+"
+                    + "(To\\w*:)([^\r\n]+)[\r\n\\s]+"
+                    + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
 
     public static final String GMAIL_DATE_FORMAT = "yyyy/MM/d";
 

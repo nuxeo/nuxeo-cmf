@@ -46,14 +46,15 @@ public class DefaultEnglishMailParser implements MailBodyParser,
 
     public static final Pattern DEFAULT_CONTACT_PATTERN = Pattern.compile("\\s*\"?"
             + "([^@<>\",]*?)" // the name
-            + "\"?\\s*<?" + "([^\"@<> ,]+@.+\\.[a-z]+)" // the email
-            + ">?.*?");
+            + "\"?\\s*(<?)" + "([^\"@<> ,]+@.+\\.[a-z]+)" // the email
+            + "(>?).*?");
 
-    public static final Pattern THUNDERBIRD_ENGLISH_HEADER_PATTERN = Pattern.compile("(.*?)Original Message(.*?)"
-            + "(Subject:)(.*?)"
-            + "(Date:)(.*?)"
-            + "(From:)(.*?)"
-            + "(To:)(.*?)" + "((Cc:)(.*?))?");
+    public static final Pattern THUNDERBIRD_ENGLISH_HEADER_PATTERN = Pattern.compile(
+            "(.*?)Original Message(.*?)" + "(Subject:)([^\r\n]+)[\r\n\\s]+"
+                    + "(Date:)([^\r\n]+)[\r\n\\s]+"
+                    + "(From:)([^\r\n]+)[\r\n\\s]+"
+                    + "(To:)([^\r\n]+)[\r\n\\s]+"
+                    + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
 
     public static final String DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss ZZZZZ";
 
@@ -119,9 +120,14 @@ public class DefaultEnglishMailParser implements MailBodyParser,
                         }
                     }
 
-                    item.setName(m.group(1).trim());
-                    item.setEmail(m.group(2).trim());
+                    String name = m.group(1).trim();
+                    String email = m.group(3).trim();
+
+                    item.setName(name);
+                    item.setEmail(email);
+
                     res.add(item);
+
                 }
             }
             return res;
