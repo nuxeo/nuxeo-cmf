@@ -19,6 +19,8 @@
 
 package org.nuxeo.cm.web.cases;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
@@ -27,8 +29,13 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
@@ -37,6 +44,8 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
+import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
+import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.runtime.api.Framework;
 
@@ -63,6 +72,9 @@ public class CaseManagementCaseActionsBean extends
 
     @In(required = true, create = true)
     protected NavigationContext navigationContext;
+
+    @In(create = true)
+    protected transient CaseDistributionService caseDistributionService;
 
     /**
      * @return true if this envelope is still in draft
@@ -114,4 +126,29 @@ public class CaseManagementCaseActionsBean extends
         return true;
     }
 
+    public String markAsSent() throws ClientException {
+        if (!documentsListsManager.isWorkingListEmpty(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION)) {
+            List<DocumentModel> workingList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+            CaseLink post = null;
+            DocumentModel parentDoc = null;
+            Mailbox parentMailbox = null;
+            Case envelope = null;
+            CaseLink postRequest = null;
+            for (DocumentModel documentModel : workingList) {
+                post = documentModel.getAdapter(CaseLink.class);
+                parentDoc = documentManager.getParentDocument(post.getDocument().getRef());
+                parentMailbox = parentDoc.getAdapter(Mailbox.class);
+                envelope = post.getCase(documentManager);
+                postRequest = new CaseLinkRequestImpl(
+                        parentMailbox.getId(),
+                        post.getDate(),
+                        (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
+                        post.getComment(), envelope, post.getInitialInternalParticipants(), post.getInitialExternalParticipants());
+
+                caseDistributionService.sendCase(documentManager, postRequest, true);
+                EventManager.raiseEventsOnDocumentChildrenChange(parentDoc);
+            }
+        }
+        return null;
+    }
 }

@@ -23,6 +23,21 @@
     <action id="POPUP_DOCUMENT_LOCK" enabled="false" />
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
+
+
+    <!--  Actions for the document selection  -->
+
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_DELETE" link="#{deleteActions.purgeSelection}"
+      label="command.deleteDocs" icon="" help="comand.deleteDocs.help"
+      confirm="if( !confirmDeleteDocumentsForever() ) return false;">
+      <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
+      <filter id="canPurge">
+        <rule grant="true">
+          <condition>#{deleteActions.canPurge}</condition>
+        </rule>
+      </filter>
+    </action>
+
     <!-- filter out some actions  -->
 
     <action id="TAB_MY_SUBSCRIPTIONS">

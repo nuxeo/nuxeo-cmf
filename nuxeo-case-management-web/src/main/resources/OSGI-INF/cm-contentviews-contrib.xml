@@ -65,9 +65,6 @@
           translateTitle="true" iconPath="/icons/document_listing_icon.png" />
       </resultLayouts>
 
-      <selectionList>CURRENT_SELECTION</selectionList>
-      <actions category="CURRENT_SELECTION_LIST" />
-
     </contentView>
 
     <contentView name="mailbox_sent_content">
@@ -97,9 +94,6 @@
         <layout name="cm_sent_caselink" title="document_listing"
           translateTitle="true" iconPath="/icons/document_listing_icon.png" />
       </resultLayouts>
-
-      <selectionList>CURRENT_SELECTION</selectionList>
-      <actions category="CURRENT_SELECTION_LIST" />
 
     </contentView>
 
@@ -132,7 +126,7 @@
       </resultLayouts>
 
       <selectionList>CURRENT_SELECTION</selectionList>
-      <actions category="CURRENT_SELECTION_LIST" />
+      <actions category="CASE_MANAGEMENT_CURRENT_SELECTION_LIST" />
 
     </contentView>
     
