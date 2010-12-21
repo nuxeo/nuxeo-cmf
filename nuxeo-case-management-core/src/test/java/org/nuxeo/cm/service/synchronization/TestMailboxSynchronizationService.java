@@ -114,7 +114,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         synchronizationService.doSynchronize();
         session.save();
         assertEquals(11, MailboxSyncTestListener.onMailboxCreatedForGroup);
-        assertEquals(8, MailboxSyncTestListener.onMailboxCreatedForUser);
+        assertEquals(10, MailboxSyncTestListener.onMailboxCreatedForUser);
         assertEquals(0, MailboxSyncTestListener.onMailboxUpdatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxUpdatedForUser);
         assertEquals(0, MailboxSyncTestListener.onMailboxDeletedForGroup);
@@ -143,7 +143,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForUser);
         assertEquals(10, MailboxSyncTestListener.onMailboxUpdatedForGroup);
-        assertEquals(7, MailboxSyncTestListener.onMailboxUpdatedForUser);
+        assertEquals(9, MailboxSyncTestListener.onMailboxUpdatedForUser);
         assertEquals(1, MailboxSyncTestListener.onMailboxDeletedForGroup);
         assertEquals(1, MailboxSyncTestListener.onMailboxDeletedForUser);
         subGroup = session.getDocument(new PathRef(
@@ -181,7 +181,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForUser);
         assertEquals(9, MailboxSyncTestListener.onMailboxUpdatedForGroup);
-        assertEquals(7, MailboxSyncTestListener.onMailboxUpdatedForUser);
+        assertEquals(9, MailboxSyncTestListener.onMailboxUpdatedForUser);
         assertEquals(0, MailboxSyncTestListener.onMailboxDeletedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxDeletedForUser);
 
@@ -207,7 +207,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         synchronizationService.doSynchronize();
         session.save();
         assertEquals(10, MailboxSyncTestListener.onMailboxCreatedForGroup);
-        assertEquals(7, MailboxSyncTestListener.onMailboxCreatedForUser);
+        assertEquals(9, MailboxSyncTestListener.onMailboxCreatedForUser);
         assertEquals(0, MailboxSyncTestListener.onMailboxUpdatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxUpdatedForUser);
         assertEquals(0, MailboxSyncTestListener.onMailboxDeletedForGroup);
@@ -238,7 +238,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForUser);
         assertEquals(11, MailboxSyncTestListener.onMailboxUpdatedForGroup);
-        assertEquals(8, MailboxSyncTestListener.onMailboxUpdatedForUser);
+        assertEquals(10, MailboxSyncTestListener.onMailboxUpdatedForUser);
         assertEquals(0, MailboxSyncTestListener.onMailboxDeletedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxDeletedForUser);
         membersGroupMailboxDoc = session.getDocument(membersGroupMailboxDoc.getRef());
