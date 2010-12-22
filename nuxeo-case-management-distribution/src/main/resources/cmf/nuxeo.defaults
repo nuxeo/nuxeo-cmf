@@ -30,4 +30,5 @@ cm.mail.import.server.mail.imap.ssl.protocols=SSL
 cm.mail.import.server.mail.imap.socketFactory.class=javax.net.ssl.SSLSocketFactory
 cm.mail.import.server.mail.imap.port=993
 cm.mail.import.server.mail.imap.socketFactory.port=993
-cm.mail.import.server.mail.imap.socketFactory.fallback=false 
+cm.mail.import.server.mail.imap.socketFactory.fallback=false
+ 
