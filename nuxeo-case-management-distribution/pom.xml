@@ -34,11 +34,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-ear</artifactId>
-      <type>pom</type>
-    </dependency>
-    <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-api</artifactId>
     </dependency>

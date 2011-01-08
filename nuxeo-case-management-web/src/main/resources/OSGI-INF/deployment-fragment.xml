@@ -2,14 +2,6 @@
 
 <fragment>
 
-  <extension target="application#MODULE">
-
-    <module>
-      <java>${bundle.fileName}</java>
-    </module>
-
-  </extension>
-
   <extension target="faces-config#NAVIGATION">
 
     <navigation-case>
@@ -88,11 +80,9 @@
   </extension>
 
   <install>
-
-    <unzip from="${bundle.fileName}" to="/">
-      <include>nuxeo.war/**</include>
+    <unzip from="${bundle.fileName}" to="/" prefix="web">
+      <include>web/nuxeo.war/**</include>
     </unzip>
-
   </install>
 
 </fragment>

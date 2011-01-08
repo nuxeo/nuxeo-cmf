@@ -70,4 +70,9 @@ public class CaseManagementContextInterceptor extends AbstractInterceptor {
                 CaseManagementContextHolderBean.SEAM_COMPONENT_NAME,
                 ScopeType.CONVERSATION);
     }
+
+    @Override
+    public boolean isInterceptorEnabled() {
+        return true;
+    }
 }

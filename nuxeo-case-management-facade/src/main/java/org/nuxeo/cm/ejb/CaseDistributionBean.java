@@ -39,8 +39,8 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
 
 @Stateless
-@Local(CaseDistributionService.class)
-@Remote(CaseDistributionService.class)
+@Local(LocalCaseDistributionService.class)
+@Remote(RemoteCaseDistributionService.class)
 public class CaseDistributionBean implements CaseDistributionService {
 
     private static final long serialVersionUID = -6359405896496460937L;

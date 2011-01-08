@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
     <artifactId>nuxeo-features-parent</artifactId>
-    <version>5.4.0-I20101018_1103</version>
+    <version>5.4.1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
@@ -20,8 +20,6 @@
 
   <properties>
     <nuxeo.cm.version>1.5-SNAPSHOT</nuxeo.cm.version>
-    <nuxeo.platform.version>5.4.0-I20101018_1103</nuxeo.platform.version>
-    <routing.version>5.4.1-I20101203_0116</routing.version>
   </properties>
 
   <modules>
@@ -45,17 +43,17 @@
       <dependency>
 	<groupId>org.nuxeo.ecm.platform</groupId>
 	<artifactId>nuxeo-platform-document-routing-api</artifactId>
-        <version>${routing.version}</version>
+        <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
 	<groupId>org.nuxeo.ecm.platform</groupId>
 	<artifactId>nuxeo-platform-document-routing-core</artifactId>
-        <version>${routing.version}</version>
+        <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
 	<groupId>org.nuxeo.ecm.platform</groupId>
 	<artifactId>nuxeo-platform-document-routing-web</artifactId>
-        <version>${routing.version}</version>
+        <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>

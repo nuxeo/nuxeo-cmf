@@ -71,7 +71,7 @@ CaseManagementContextActions {
     }
 
     // XXX: see if needs to be moved
-    @Observer(value = { EventNames.DOCUMENT_SELECTION_CHANGED }, create = true, inject = true)
+    @Observer(value = { EventNames.DOCUMENT_SELECTION_CHANGED }, create = true)
     public void currentDocumentChanged(DocumentModel newDocument) {
         if (newDocument != null) {
             // mailbox case

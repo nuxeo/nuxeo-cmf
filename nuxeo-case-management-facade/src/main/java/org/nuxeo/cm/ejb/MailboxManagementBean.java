@@ -34,8 +34,8 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.runtime.api.Framework;
 
 @Stateless
-@Local(MailboxManagementService.class)
-@Remote(MailboxManagementService.class)
+@Local(LocalMailboxManagementService.class)
+@Remote(RemoteMailboxManagementService.class)
 public class MailboxManagementBean implements MailboxManagementService {
 
     private static final long serialVersionUID = -7789753806870594748L;
