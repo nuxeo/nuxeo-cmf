@@ -7,6 +7,7 @@ mvn -Pserver -f nuxeo-case-management-distribution/pom.xml clean install || exit
 # start JBoss
 (cd nuxeo-case-management-distribution/target && unzip nuxeo-case-management-distribution-*.zip && rm *.zip) || exit 1
 chmod +x nuxeo-case-management-distribution/target/nuxeo-cm-server/bin/nuxeoctl || exit 1
+sed -i "s/-Xmx1024m/-Xmx2g/" nuxeo-case-management-distribution/target/nuxeo-cm-server/bin/nuxeo.conf
 nuxeo-case-management-distribution/target/nuxeo-cm-server/bin/nuxeoctl start || exit 1
 
 # Run selenium tests
