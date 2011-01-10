@@ -10,21 +10,35 @@
   </filterset>
 
   <target name="init" unless="init.done">
-    <condition property="build.ear">
-      <isset property="maven.profile.cm-dev" />
-    </condition>
-    <condition property="build.server">
-      <isset property="maven.profile.server" />
-    </condition>
-
     <property name="outdir" value="${maven.project.build.directory}" />
     <property name="stagedir" value="${outdir}/stage" />
     <property name="finaltarget" value="../target" />
+  </target>
 
-
+  <target name="init-server" depends="init" if="maven.profile.server">
+    <property name="distribution" value="server" />
+    <property name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip" />
+    <property name="distrib.classifier" value="nuxeo-dm" />
+    <property name="app.path" value="${stagedir}/nuxeo-cm-server" />
+    <property name="bundles.dir" value="${app.path}/server/default/deploy/nuxeo.ear/bundles" />
+    <property name="plugins.dir" value="${app.path}/server/default/deploy/nuxeo.ear/plugins" />
+    <property name="config.dir" value="${app.path}/server/default/deploy/nuxeo.ear/config" />
+    <property name="deploy.dir" value="server/default/deploy/nuxeo.ear" />
     <antcall target="expand" />
     <property name="init.done" value="true" />
+  </target>
 
+  <target name="init-tomcat" depends="init" if="maven.profile.tomcat">
+    <property name="distribution" value="tomcat" />
+    <property name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip" />
+    <property name="distrib.classifier" value="nuxeo-dm" />
+    <property name="app.path" value="${stagedir}/nuxeo-cm-tomcat" />
+    <property name="bundles.dir" value="${app.path}/nxserver/bundles" />
+    <property name="plugins.dir" value="${app.path}/nxserver/plugins" />
+    <property name="config.dir" value="${app.path}/nxserver/config" />
+    <property name="deploy.dir" value="nxserver" />
+    <antcall target="expand" />
+    <property name="init.done" value="true" />
   </target>
 
   <target name="build">
@@ -40,38 +54,37 @@
     <delete dir="${finaltarget}" />
   </target>
 
-  <target name="server" depends="init" description="Server packaging" if="build.server">
-    <echo>nuxeo-cm-distribution server build (JBoss)...</echo>
+  <target name="server" depends="init-tomcat,init-server" description="Server packaging" if="distribution">
+    <echo>nuxeo-cm-distribution server build ${build.distrib}...</echo>
     <mkdir dir="${stagedir}" />
     <unzip dest="${stagedir}">
-      <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip"
-                            classifier="nuxeo-dm" />
+      <artifact:resolveFile key="${distrib.key}"
+                            classifier="${distrib.classifier}" />
       <patternset>
         <exclude name="**/templates/common-sfsl/**" />
         <exclude name="**/templates/stateful/**" />
         <exclude name="**/templates/stateless/**" />
       </patternset>
     </unzip>
-    <property name="app.path" value="${stagedir}/nuxeo-cm-server" />
     <nx:rename from="${stagedir}/nuxeo-*" to="${app.path}" />
     <chmod dir="${app.path}" perm="750" includes="*.sh,bin/*.sh,bin/nuxeoctl" />
     <!-- remove open social -->
     <delete failonerror="false" verbose="true">
       <fileset 
-	 dir="${app.path}/server/default/deploy/nuxeo.ear/bundles"
+	 dir="${bundles.dir}"
 	 includes="nuxeo-opensocial-*"/> 
       <fileset
-         dir="${app.path}/server/default/deploy/nuxeo.ear/bundles"
+         dir="${bundles.dir}"
          includes="nuxeo-spaces-*"/>
       <fileset
-         dir="${app.path}/server/default/deploy/nuxeo.ear/bundles"
+         dir="${bundles.dir}"
          includes="nuxeo-webengine-gadgets-*"/>
       <fileset 
-	 dir="${app.path}/templates/common/config"
+	 dir="${config.dir}"
 	 includes="opensocial.properties default-opensocial-config.xml" />
     </delete>
     <!-- Deploy Custom plugins -->
-    <copy todir="${app.path}/server/default/deploy/nuxeo.ear/plugins">
+    <copy todir="${plugins.dir}">
       <artifact:set groupId="org.nuxeo.cm" type="jar" />
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
@@ -82,9 +95,8 @@
       <fileset dir="src/main/resources" />
     </copy>
     <echo file="${app.path}/templates/common/nuxeo.defaults" append="yes" message="${line.separator}#redefine common template to include cmf${line.separator}nuxeo.template.includes=common-deploydir,common-binding,cmf" /> 
-    <antcall target="zip">
-      <param name="distribution" value="server" />
-    </antcall>
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
+    <antcall target="zip" />
   </target>
 
   <target name="zip">
@@ -93,7 +105,6 @@
        basedir="${stagedir}" />
     <echo>Distribution built:
       ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
-    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />                                                                                                                                                               
   </target>
-
 </project>
