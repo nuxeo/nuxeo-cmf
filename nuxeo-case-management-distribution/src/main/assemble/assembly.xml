@@ -54,7 +54,7 @@
     <delete dir="${finaltarget}" />
   </target>
 
-  <target name="build-server" depends="init-tomcat,init-server" description="Server packaging" if="distribution">
+  <target name="build-server" description="Server packaging" if="distribution">
     <echo>nuxeo-cm-distribution server build ${build.distrib}...</echo>
     <mkdir dir="${stagedir}" />
     <unzip dest="${stagedir}">
