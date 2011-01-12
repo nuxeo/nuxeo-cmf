@@ -10,6 +10,7 @@
   </filterset>
 
   <target name="init" unless="init.done">
+    <tstamp/> 
     <property name="outdir" value="${maven.project.build.directory}" />
     <property name="stagedir" value="${outdir}/stage" />
     <property name="finaltarget" value="../target" />
@@ -17,9 +18,11 @@
 
   <target name="init-server" depends="init" if="maven.profile.server">
     <property name="distribution" value="server" />
+    <property name="distribution.server" value="jboss" />
     <property name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip" />
     <property name="distrib.classifier" value="nuxeo-dm" />
     <property name="app.path" value="${stagedir}/nuxeo-cm-server" />
+    <property name="distribution.dir" value="${app.path}" />
     <property name="bundles.dir" value="${app.path}/server/default/deploy/nuxeo.ear/bundles" />
     <property name="plugins.dir" value="${app.path}/server/default/deploy/nuxeo.ear/plugins" />
     <property name="config.dir" value="${app.path}/server/default/deploy/nuxeo.ear/config" />
@@ -30,9 +33,11 @@
 
   <target name="init-tomcat" depends="init" if="maven.profile.tomcat">
     <property name="distribution" value="tomcat" />
+    <property name="distribution.server" value="tomcat" />
     <property name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip" />
     <property name="distrib.classifier" value="nuxeo-dm" />
     <property name="app.path" value="${stagedir}/nuxeo-cm-tomcat" />
+    <property name="distribution.dir" value="${app.path}" />
     <property name="bundles.dir" value="${app.path}/nxserver/bundles" />
     <property name="plugins.dir" value="${app.path}/nxserver/plugins" />
     <property name="config.dir" value="${app.path}/nxserver/config" />
@@ -45,6 +50,16 @@
     <antcall target="cleanoutput" />
     <antcall target="server" />
   </target>
+
+  <target name="set-distribution-properties"> 
+    <echo append="false" file="${distribution.properties.file}"> 
+## DO NOT MANUALLY EDIT THIS FILE 
+org.nuxeo.distribution.name=${org.nuxeo.distribution.name} 
+org.nuxeo.distribution.server=${org.nuxeo.distribution.server} 
+org.nuxeo.distribution.version=${org.nuxeo.distribution.version} 
+org.nuxeo.distribution.date=${org.nuxeo.distribution.date} 
+    </echo> 
+  </target> 
 
   <target name="expand" unless="no.build">
     <artifact:expand depth="3" />
@@ -93,6 +108,14 @@
     </copy>
     <echo file="${app.path}/templates/nuxeo.defaults" append="yes" message="${line.separator}#include cmf${line.separator}nuxeo.templates=default,cmf" /> 
     <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
+    <echo file="${app.path}/templates/common/config/nuxeo.properties" append="yes" message="${line.separator}org.nuxeo.ecm.product.name=CMF${line.separator}org.nuxeo.ecm.product.version=${nuxeo.cm.version}" />
+    <antcall target="set-distribution-properties"> 
+      <param name="distribution.properties.file" value="${distribution.dir}/templates/common/config/distribution.properties" /> 
+      <param name="org.nuxeo.distribution.name" value="cmf" /> 
+      <param name="org.nuxeo.distribution.server" value="${distribution.server}"/> 
+      <param name="org.nuxeo.distribution.version" value="${nuxeo.cm.version}" /> 
+      <param name="org.nuxeo.distribution.date" value="${DSTAMP}${TSTAMP}"/> 
+    </antcall>
     <antcall target="zip" />
   </target>
 
