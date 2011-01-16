@@ -6,21 +6,9 @@
   <require>org.nuxeo.ecm.virtualnavigation.directory.DirectoryTreeService.contrib</require>
   <extension target="org.nuxeo.ecm.webapp.directory.DirectoryTreeService"
     point="trees">
-
     <directoryTree name="bySubjectsNavigation" enabled="false" />
-
     <directoryTree name="byCoverageNavigation" enabled="false"/>
-
-	<directoryTree name="byType" label="base.navigation.types"
-      querymodel="byType" field="type" schema="case_item"
-      outcome="type_virtual_navigation">
-      <directory>cm_document_type</directory>
-    </directoryTree>
-  </extension>
-
-  <extension target="org.nuxeo.ecm.webapp.pagination.ResultsProviderService"
-    point="model">
-    <resultsProvider name="byType" farm="queryModelActions" />
+  	<directoryTree name="byType" enabled="false" />
   </extension>
 
 </component>

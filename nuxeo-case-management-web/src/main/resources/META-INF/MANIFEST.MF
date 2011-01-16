@@ -20,4 +20,5 @@ Nuxeo-Component: OSGI-INF/cm-layouts-contrib.xml,
   OSGI-INF/cm-themes-contrib.xml,
   OSGI-INF/cm-navtree-contrib.xml,
   OSGI-INF/cm-contentviews-contrib.xml,
-  OSGI-INF/cm-search-contentviews-contrib.xml
+  OSGI-INF/cm-search-contentviews-contrib.xml,
+  OSGI-INF/cm-faceted-search-contrib.xml

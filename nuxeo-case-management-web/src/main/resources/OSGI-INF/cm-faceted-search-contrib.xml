@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.faceted.search.contrib">
+
+  <require>org.nuxeo.ecm.platform.faceted.search.dm.contentviews
+  </require>
+  <require>org.nuxeo.ecm.platform.faceted.search.dm.layouts</require>
+
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="layouts">
+
+    <layout name="faceted_search_default">
+      <templates>
+        <template mode="any">
+          /layouts/layout_faceted_search_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>faceted_searches_selector</widget>
+        </row>
+        <row>
+          <widget>saved_faceted_searches_selector</widget>
+        </row>
+        <row>
+          <widget>actions_bar</widget>
+        </row>
+        <row>
+          <widget>text_search</widget>
+        </row>
+        <row>
+          <widget>date_search</widget>
+        </row>
+        <row>
+          <widget>people_search</widget>
+        </row>
+        <row>
+          <widget>categorization_search</widget>
+        </row>
+        <row>
+          <widget>actions_bar</widget>
+        </row>
+      </rows>
+    </layout>
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
+    point="contentViews">
+
+    <contentView name="faceted_search_default">
+      <title>label.faceted.search.default</title>
+      <translateTitle>true</translateTitle>
+
+      <coreQueryPageProvider>
+        <property name="coreSession">#{documentManager}</property>
+        <whereClause docType="FacetedSearchDefault">
+          <fixedPart>
+            ecm:mixinType != 'HiddenInNavigation' AND
+            (ecm:mixinType IN ('Case' , 'CaseItem'))
+            AND ecm:mixinType !=
+            'HiddenInFacetedSearch' AND
+            ecm:isCheckedInVersion = 0
+            AND
+            ecm:currentLifeCycleState !=
+            'deleted'
+          </fixedPart>
+          <predicate parameter="ecm:fulltext" operator="FULLTEXT">
+            <field schema="faceted_search_default" name="ecm_fulltext" />
+          </predicate>
+          <predicate parameter="dc:created" operator="BETWEEN">
+            <field schema="faceted_search_default" name="dc_created_min" />
+            <field schema="faceted_search_default" name="dc_created_max" />
+          </predicate>
+          <predicate parameter="dc:modified" operator="BETWEEN">
+            <field schema="faceted_search_default" name="dc_modified_min" />
+            <field schema="faceted_search_default" name="dc_modified_max" />
+          </predicate>
+          <predicate parameter="dc:creator" operator="IN">
+            <field schema="faceted_search_default" name="dc_creator" />
+          </predicate>
+          <predicate parameter="cmdoc:type" operator="IN">
+            <field schema="faceted_search_default" name="dc_nature" />
+          </predicate>
+        </whereClause>
+        <sort column="dc:title" ascending="true" />
+        <pageSize>20</pageSize>
+      </coreQueryPageProvider>
+
+      <searchLayout name="faceted_search_default" />
+
+      <useGlobalPageSize>true</useGlobalPageSize>
+      <refresh>
+        <event>documentChanged</event>
+        <event>documentChildrenChanged</event>
+      </refresh>
+      <cacheKey>only_one_cache</cacheKey>
+      <cacheSize>1</cacheSize>
+
+      <resultLayouts>
+        <layout name="document_virtual_navigation_listing_ajax"
+          title="document_listing" translateTitle="true"
+          iconPath="/icons/document_listing_icon.png" />
+      </resultLayouts>
+
+      <selectionList>CURRENT_SELECTION</selectionList>
+      <actions category="CURRENT_SELECTION_LIST" />
+
+      <flags>
+        <flag>FACETED_SEARCH</flag>
+      </flags>
+    </contentView>
+
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="widgets">
+
+    <widget name="categorization_search" type="faceted_search_wrapper">
+      <labels>
+        <label mode="any">label.faceted.search.categorizationSearch
+        </label>
+      </labels>
+      <translated>true</translated>
+      <subWidgets>
+        <widget name="dc_nature" type="selectManyDirectory">
+          <labels>
+            <label mode="any">label.dublincore.nature</label>
+          </labels>
+          <translated>true</translated>
+          <fields>
+            <field>fsd:dc_nature</field>
+          </fields>
+          <properties widgetMode="any">
+            <property name="directoryName">cm_document_type</property>
+            <property name="localize">true</property>
+          </properties>
+          <properties widgetMode="edit">
+            <property name="wrapperMode">row</property>
+          </properties>
+        </widget>
+      </subWidgets>
+    </widget>
+  </extension>
+</component>
