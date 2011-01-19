@@ -1,0 +1,42 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
+  xmlns:nxd="http://nuxeo.org/nxweb/document">
+
+  <ui:include src="/pagination/pageNavigationControls.xhtml" />
+  
+  <nxu:dataTable
+    id="dataTable"
+    value="#{documents.rows}"
+    var="row"
+    rowClasses="dataRowEven,dataRowOdd"
+    styleClass="dataOutput"
+    rendered="#{documents.rowCount > 0}">
+  
+    <!-- selection -->
+    <nxu:column styleClass="iconColumn">
+        <h:selectBooleanCheckbox
+          value="#{row.selected}"
+          onclick="selectDataTableRow('#{row.data.ref}', '#{providerName}', this, '#{listName}')">
+        </h:selectBooleanCheckbox>
+    </nxu:column>
+    
+    <ui:include src="/search/search_results_custom_columns.xhtml">
+      <ui:param name="columns" value="#{searchColumns.resultColumns}" />
+      <ui:param name="doc" value="#{row.data}" />
+      <ui:param name="providerName" value="#{provider.name}" />
+      <ui:param name="newWindow" value="#{true}" />
+    </ui:include>
+  
+  </nxu:dataTable>
+
+  <ui:include src="/pagination/pageNavigationControls.xhtml" />
+
+  <ui:insert name="buttons" />
+
+</div>

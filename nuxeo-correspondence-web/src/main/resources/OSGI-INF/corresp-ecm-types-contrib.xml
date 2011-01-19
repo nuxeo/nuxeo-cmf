@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="org.nuxeo.correspondence.types">
+  <require>com.nuxeo.case-management.types</require>
+  <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+
+    <type id="MailboxRoot">
+      <subtypes>
+        <type>CorrespondenceMailbox</type>
+      </subtypes>
+      <deniedSubtypes>
+        <type>Mailbox</type>
+      </deniedSubtypes>
+    </type>
+
+    <type id="CorrespondenceMailbox">
+      <label>label.correspondence.type.CorrespondenceMailbox</label>
+      <icon>/icons/correspondence_mailbox.png</icon>
+      <default-view>mailbox_view</default-view>
+      <create-view>mailbox_create</create-view>
+      <layouts mode="any">
+        <layout>cm_mailbox</layout>
+        <layout>cm_mailbox_managers</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>cm_mailbox</layout>
+        <layout>cm_mailbox_managers</layout>
+      </layouts>
+      <subtypes>
+        <type>IncomingCorrespondenceDocument</type>
+        <type>OutgoingCorrespondenceDocument</type>
+      </subtypes>
+      <contentViews category="inbox">
+        <contentView>mailbox_inbox_content</contentView>
+      </contentViews>
+      <contentViews category="draft_content">
+        <contentView>mailbox_draft_content</contentView>
+      </contentViews>
+      <contentViews category="sent">
+        <contentView>mailbox_sent_content</contentView>
+      </contentViews>
+      <contentViews category="service">
+        <contentView>mailbox_service_content</contentView>
+      </contentViews>
+      <contentViews category="plans">
+        <contentView>mailbox_plans_content</contentView>
+      </contentViews>
+      <contentViews category="content">
+        <contentView>document_content</contentView>
+      </contentViews>
+      <contentViews category="trash_content">
+        <contentView>document_trash_content</contentView>
+      </contentViews>
+    </type>
+
+    <type id="CorrespondencePost">
+      <label>label.correspondence.type.CorrespondencePost</label>
+      <icon>/icons/correspondence_mail.png</icon>
+      <default-view>view_documents</default-view>
+      <views>
+        <view id="distribution_outgoing_post" value="distribution_outgoing_post" />
+      </views>
+      <layouts mode="any">
+         <layout>distribution_caselink</layout>
+      </layouts>
+    </type>
+    
+    
+    <type id="IncomingCorrespondenceDocument">
+      <label>label.correspondence.type.IncomingCorrespondenceDocument</label>
+      <icon>/icons/incoming_mail.png</icon>
+      <bigIcon>/icons/incoming_mail_100.png</bigIcon>
+      <default-view>view_cm_document</default-view>
+      <create-view>create_incoming_document</create-view>
+      <category>CaseItemDocument</category>
+      <layouts mode="view">
+        <layout>cm_document</layout>
+        <layout>correspondence_document</layout>
+        <layout>head_correspondence_incoming_document</layout>
+        <layout>file</layout>
+      </layouts>
+      <layouts mode="header">
+        <layout>head_cm_document</layout>
+        <layout>head_correspondence_incoming_document</layout>
+      </layouts>
+      <layouts mode="any">
+        <layout>cm_document</layout>
+        <layout>correspondence_document</layout>
+        <layout>head_correspondence_incoming_document</layout>
+        <layout>file</layout>
+      </layouts>
+    </type>
+
+    <type id="OutgoingCorrespondenceDocument">
+      <label>label.correspondence.type.OutgoingCorrespondenceDocument</label>
+      <icon>/icons/outgoing_mail.png</icon>
+      <bigIcon>/icons/outgoing_mail_100.png</bigIcon>
+      <default-view>view_correspondence_document</default-view>
+      <create-view>create_cm_document</create-view>
+      <category>CaseItemDocument</category>
+      <!-- TODO: create view -->
+      <layouts mode="view">
+        <layout>cm_document</layout>
+        <layout>correspondence_document</layout>
+        <layout>file</layout>
+      </layouts>
+      <layouts mode="header">
+         <layout>head_cm_document</layout>
+      </layouts>
+      <layouts mode="any">
+        <layout>cm_document</layout>
+        <layout>correspondence_document</layout>
+        <layout>file</layout>
+      </layouts>
+    </type>
+
+  </extension>
+
+</component>

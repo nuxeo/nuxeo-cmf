@@ -1,0 +1,9 @@
+# The nuxeo admin group
+admin:Administrator
+
+# members group
+members:user1,user2,user3
+
+writers:user1
+
+readers:user2,user3,generic1,generic2

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<nxthemes:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxthemes="http://nuxeo.org/nxthemes"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+
+  <ui:define name="page title">
+    <h:outputText value="#{nxd:titleOrId(currentDocument)}" />
+  </ui:define>
+
+  <ui:define name="bookmark">
+    <link rel="bookmark" href="#{navigationContext.currentDocumentFullUrl}" />
+  </ui:define>
+
+  <ui:define name="body">
+
+    <ui:decorate template="view_correspondence_envelope_template.xhtml">
+      <ui:define name="mail_envelope_body">
+
+        <h:panelGroup id="email_header">
+          <div class="foldableBox">
+            <h3 class="folded">
+              <a onclick="return toggleBox(this)" href="#nogo">#{currentEmail.dublincore.title}</a>
+            </h3>
+            <div class="boxBody" style="display: none;">
+              <table>
+                <tbody>
+                  <tr>
+                    <td valign="top">
+                      <h:form id="currentEmailHeader">
+                        <nxl:documentLayout mode="header" value="#{currentEmail}" />
+                      </h:form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </h:panelGroup>
+
+        <h:panelGroup id="mail_envelope_content">
+          <ui:insert name="mail_envelope_content">
+            <ui:include src="correspondence_envelope_action_tabs.xhtml" />
+            <div style="clear: both"></div>
+            <div class="tabsContent">
+              <ui:include src="#{webActions.currentTabAction.link}" />
+            </div>
+          </ui:insert>
+        </h:panelGroup>
+
+      </ui:define>
+    </ui:decorate>
+
+  </ui:define>
+
+</nxthemes:composition>

@@ -14,36 +14,31 @@
     <property name="outdir" value="${maven.project.build.directory}" />
     <property name="stagedir" value="${outdir}/stage" />
     <property name="finaltarget" value="../target" />
-  </target>
-
-  <target name="init-server" depends="init" if="maven.profile.server">
-    <property name="distribution" value="server" />
-    <property name="distribution.server" value="jboss" />
-    <property name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip" />
-    <property name="distrib.classifier" value="nuxeo-dm" />
-    <property name="app.path" value="${stagedir}/nuxeo-cm-server" />
-    <property name="distribution.dir" value="${app.path}" />
-    <property name="bundles.dir" value="${app.path}/server/default/deploy/nuxeo.ear/bundles" />
-    <property name="plugins.dir" value="${app.path}/server/default/deploy/nuxeo.ear/plugins" />
-    <property name="config.dir" value="${app.path}/server/default/deploy/nuxeo.ear/config" />
-    <property name="deploy.dir" value="server/default/deploy/nuxeo.ear" />
-    <antcall target="expand" />
     <property name="init.done" value="true" />
   </target>
 
-  <target name="init-tomcat" depends="init" if="maven.profile.tomcat">
-    <property name="distribution" value="tomcat" />
-    <property name="distribution.server" value="tomcat" />
-    <property name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip" />
-    <property name="distrib.classifier" value="nuxeo-dm" />
-    <property name="app.path" value="${stagedir}/nuxeo-cm-tomcat" />
-    <property name="distribution.dir" value="${app.path}" />
-    <property name="bundles.dir" value="${app.path}/nxserver/bundles" />
-    <property name="plugins.dir" value="${app.path}/nxserver/plugins" />
-    <property name="config.dir" value="${app.path}/nxserver/config" />
-    <property name="deploy.dir" value="nxserver" />
-    <antcall target="expand" />
-    <property name="init.done" value="true" />
+  <target name="init-cmf">
+    <artifact:set groupId="org.nuxeo.cm" type="jar" id="application-jars"/>
+    <fileset id="distribution-templates" dir="src/main/resources" excludes="correspondence/" />
+  </target>
+
+  <target name="init-corr">
+    <artifact:set id="application-jars-corr">
+      <includes>
+        <artifact groupId="org.nuxeo.cm" type="jar"/>
+        <artifact groupId="org.nuxeo.correspondence" type="jar"/>
+      </includes>
+    </artifact:set>
+    <fileset id="distribution-templates-corr" dir="src/main/resources"/>
+  </target>
+  
+  <target name="update-cmf-defaults">
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
+  </target>
+
+  <target name="update-corr-defaults">
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
+    <echo file="${app.path}/templates/correspondence/nuxeo.defaults" append="yes" message="${line.separator}correspondence.target=${deploy.dir}" /> 
   </target>
 
   <target name="build">
@@ -69,7 +64,7 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     <delete dir="${finaltarget}" />
   </target>
 
-  <target name="build-server" description="Server packaging" if="distribution">
+  <target name="build-server" description="Server packaging">
     <echo>nuxeo-cm-distribution server build ${build.distrib}...</echo>
     <delete dir="${stagedir}" />
     <mkdir dir="${stagedir}" />
@@ -97,21 +92,21 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     </delete>
     <!-- Deploy Custom plugins -->
     <copy todir="${plugins.dir}">
-      <artifact:set groupId="org.nuxeo.cm" type="jar" />
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-document-routing-*"/>
+      <artifact:set refid="${application.jars}" />
     </copy>
     <!-- Deploy custom configuration -->
     <copy todir="${app.path}/templates/" overwrite="true">
-      <fileset dir="src/main/resources" />
+      <fileset refid="${distribution.templates}"/>
     </copy>
-    <echo file="${app.path}/templates/nuxeo.defaults" append="yes" message="${line.separator}#include cmf${line.separator}nuxeo.templates=default,cmf" /> 
-    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
-    <echo file="${app.path}/templates/common/config/nuxeo.properties" append="yes" message="${line.separator}org.nuxeo.ecm.product.name=CMF${line.separator}org.nuxeo.ecm.product.version=${nuxeo.cm.version}" />
+    <echo file="${app.path}/templates/nuxeo.defaults" append="yes" message="${line.separator}#include cmf${line.separator}nuxeo.templates=${default.templates}" /> 
+    <antcall target="${update.nuxeo.defaults.task}" />
+    <echo file="${app.path}/templates/common/config/nuxeo.properties" append="yes" message="${line.separator}org.nuxeo.ecm.product.name=${product.name}${line.separator}org.nuxeo.ecm.product.version=${nuxeo.cm.version}" />
     <antcall target="set-distribution-properties"> 
-      <param name="distribution.properties.file" value="${distribution.dir}/templates/common/config/distribution.properties" /> 
-      <param name="org.nuxeo.distribution.name" value="cmf" /> 
+      <param name="distribution.properties.file" value="${app.path}/templates/common/config/distribution.properties" /> 
+      <param name="org.nuxeo.distribution.name" value="${distribution.name}" /> 
       <param name="org.nuxeo.distribution.server" value="${distribution.server}"/> 
       <param name="org.nuxeo.distribution.version" value="${nuxeo.cm.version}" /> 
       <param name="org.nuxeo.distribution.date" value="${DSTAMP}${TSTAMP}"/> 
@@ -121,23 +116,102 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
 
   <target name="zip">
     <zip
-       destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip"
+       destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}-${distribution.shortName}.zip"
        basedir="${stagedir}" />
     <echo>Distribution built:
       ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
-    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip" classifier="${distribution}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />                                                                                                                                                               
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}-${distribution.shortName}.zip" classifier="${distribution}-${distribution.shortName}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />                                                                                                                                                               
   </target>
 
-  <target name="run-tomcat" depends="init-tomcat" if="maven.profile.tomcat">
+  <target name="run-tomcat" depends="init-cmf" if="maven.profile.tomcat">
     <antcall target="build-server" />
   </target>
 
-  <target name="run-server" depends="init-server" if="maven.profile.server">
+  <target name="run-server" depends="init-cmf" if="maven.profile.server">
     <antcall target="build-server" />
   </target>
 
-  <target name="server">
-    <antcall target="run-tomcat" />
-    <antcall target="run-server" />
+  <target name="run-corr-tomcat" depends="init-corr" if="maven.profile.tomcatCorr">
+    <antcall target="build-server" />
+  </target>
+
+  <target name="run-corr-server" depends="init-corr" if="maven.profile.serverCorr">
+    <echo>Building Nuxeo Correspondence based on JBoss</echo>
+    <antcall target="build-server" />
+  </target>
+
+  <target name="server" depends="init">
+    <antcall target="run-tomcat">
+      <param name="distribution" value="tomcat" />
+      <param name="distribution.server" value="tomcat" />
+      <param name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip" />
+      <param name="distrib.classifier" value="nuxeo-dm" />
+      <param name="app.path" value="${stagedir}/nuxeo-cm-tomcat" />
+      <param name="bundles.dir" value="${stagedir}/nuxeo-cm-tomcat/nxserver/bundles" />
+      <param name="plugins.dir" value="${stagedir}/nuxeo-cm-tomcat/nxserver/plugins" />
+      <param name="config.dir" value="${stagedir}/nuxeo-cm-tomcat/nxserver/config" />
+      <param name="deploy.dir" value="nxserver" />
+      <param name="distribution.name" value="cmf" />
+      <param name="distribution.shortName" value="cmf" />
+      <param name="distribution.templates" value="distribution-templates" />
+      <param name="application.jars" value="application-jars" />
+      <param name="default.templates" value="default,cmf" />
+      <param name="update.nuxeo.defaults.task" value="update-cmf-defaults" />
+      <param name="product.name" value="CMF" />
+    </antcall>
+    <antcall target="run-server">
+      <param name="distribution" value="server" />
+      <param name="distribution.server" value="jboss" />
+      <param name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip" />
+      <param name="distrib.classifier" value="nuxeo-dm" />
+      <param name="app.path" value="${stagedir}/nuxeo-cm-server" />
+      <param name="bundles.dir" value="${stagedir}/nuxeo-cm-server/server/default/deploy/nuxeo.ear/bundles" />
+      <param name="plugins.dir" value="${stagedir}/nuxeo-cm-server/server/default/deploy/nuxeo.ear/plugins" />
+      <param name="config.dir" value="${stagedir}/nuxeo-cm-server/server/default/deploy/nuxeo.ear/config" />
+      <param name="deploy.dir" value="server/default/deploy/nuxeo.ear" />
+      <param name="distribution.name" value="cmf" />
+      <param name="distribution.shortName" value="cmf" />
+      <param name="distribution.templates" value="distribution-templates" />
+      <param name="application.jars" value="application-jars" />
+      <param name="default.templates" value="default,cmf" />
+      <param name="update.nuxeo.defaults.task" value="update-cmf-defaults" />
+      <param name="product.name" value="CMF" />
+    </antcall>
+    <antcall target="run-corr-tomcat">
+      <param name="distribution" value="tomcat" />
+      <param name="distribution.server" value="tomcat" />
+      <param name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip" />
+      <param name="distrib.classifier" value="nuxeo-dm" />
+      <param name="app.path" value="${stagedir}/nuxeo-correspondence-tomcat" />
+      <param name="bundles.dir" value="${stagedir}/nuxeo-correspondence-tomcat/nxserver/bundles" />
+      <param name="plugins.dir" value="${stagedir}/nuxeo-correspondence-tomcat/nxserver/plugins" />
+      <param name="config.dir" value="${stagedir}/nuxeo-correspondence-tomcat/nxserver/config" />
+      <param name="deploy.dir" value="nxserver" />
+      <param name="distribution.name" value="nuxeo-correspondence" />
+      <param name="distribution.shortName" value="corr" />
+      <param name="distribution.templates" value="distribution-templates-corr" />
+      <param name="application.jars" value="application-jars-corr" />
+      <param name="default.templates" value="default,cmf,correspondence" />
+      <param name="update.nuxeo.defaults.task" value="update-corr-defaults" />
+      <param name="product.name" value="Nuxeo-Correspondence" />
+    </antcall>
+    <antcall target="run-corr-server">
+      <param name="distribution" value="server" />
+      <param name="distribution.server" value="jboss" />
+      <param name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-jboss:${nuxeo.platform.version}:zip" />
+      <param name="distrib.classifier" value="nuxeo-dm" />
+      <param name="app.path" value="${stagedir}/nuxeo-correspondence-server" />
+      <param name="bundles.dir" value="${stagedir}/nuxeo-correspondence-server/server/default/deploy/nuxeo.ear/bundles" />
+      <param name="plugins.dir" value="${stagedir}/nuxeo-correspondence-server/server/default/deploy/nuxeo.ear/plugins" />
+      <param name="config.dir" value="${stagedir}/nuxeo-correspondence-server/server/default/deploy/nuxeo.ear/config" />
+      <param name="deploy.dir" value="server/default/deploy/nuxeo.ear" />
+      <param name="distribution.name" value="nuxeo-correspondence" />
+      <param name="distribution.shortName" value="corr" />
+      <param name="distribution.templates" value="distribution-templates-corr" />
+      <param name="application.jars" value="application-jars-corr" />
+      <param name="default.templates" value="default,cmf,correspondence" />
+      <param name="update.nuxeo.defaults.task" value="update-corr-defaults" />
+      <param name="product.name" value="Nuxeo-Correspondence" />
+    </antcall>
   </target>
 </project>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.correspondence.lifecycle">
+
+  <require>org.nuxeo.cm.lifecycle</require>
+
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+    point="types">
+    <types>
+      <type name="CorrespondenceMailboxRoot">default</type>
+      <type name="CorrespondenceMailbox">default</type>
+      <type name="Case">case</type>
+      <type name="CorrespondencePost">default</type>
+      <type name="CorrespondenceDocument">case</type>
+      <type name="IncomingCorrespondenceDocument">case</type>
+      <type name="OutgoingCorrespondenceDocument">case</type>
+    </types>
+  </extension>
+
+</component>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://correspondence.nuxeo.com/schemas/post/"
+  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/post/"
+  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+
+ <xs:element name="isAnswered" type="xs:boolean" default="false" />
+
+</xs:schema>

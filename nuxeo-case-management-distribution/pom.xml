@@ -39,6 +39,24 @@
         <assembly.name>assemble</assembly.name>
       </properties>
     </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>serverCorr</id>
+      <properties>
+        <assembly.name>assemble</assembly.name>
+      </properties>
+    </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>tomcatCorr</id>
+      <properties>
+        <assembly.name>assemble</assembly.name>
+      </properties>
+    </profile>
   </profiles>
 
   <dependencies>
@@ -93,43 +111,19 @@
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-mail-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-preview</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-core-contrib</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-facade</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-http</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-repository-plugin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-annotations-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-importer-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.correspondence</groupId>
+      <artifactId>nuxeo-correspondence-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.correspondence</groupId>
+      <artifactId>nuxeo-correspondence-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.correspondence</groupId>
+      <artifactId>nuxeo-correspondence-web</artifactId>
     </dependency>
   </dependencies>
 

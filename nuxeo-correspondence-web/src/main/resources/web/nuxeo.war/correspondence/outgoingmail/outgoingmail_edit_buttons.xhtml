@@ -1,0 +1,31 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout"
+  xmlns:f="http://java.sun.com/jsf/core">
+  
+  <c:if test="#{cmDocumentActions.getCanEditCurrentCaseItem()}">
+  
+    <h:commandButton value="#{messages['label.correspondence.outgoing.save']}"
+      action="#{correspEditOutgoingMailActionsBean.updateCurrentEnvelope()}"
+      styleClass="button" />
+
+  </c:if>
+
+  <h:commandButton value="#{messages['label.correspondence.outgoing.back']}"
+    action="#{correspEditOutgoingMailActionsBean.backToMailBox()}"
+    styleClass="button" />
+
+  <c:if test="#{cmDocumentActions.getCanEditCurrentCaseItem()}">
+
+    <h:commandButton value="#{messages['label.correspondence.outgoing.saveAndBack']}"
+      action="#{correspEditOutgoingMailActionsBean.saveAndbackToMailBox()}"
+      styleClass="button" />
+
+    <h:commandButton value="#{messages['label.correspondence.outgoing.diffusion']}"
+      action="#{correspEditOutgoingMailActionsBean.openDistribution()}"
+      styleClass="button" />
+
+  </c:if>    
+
+</div>

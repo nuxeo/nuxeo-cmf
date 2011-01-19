@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.correspondence.schemas">
+
+ <require>org.nuxeo.ecm.core.CoreExtensions</require>
+
+ <extension target="org.nuxeo.ecm.core.schema.TypeService"
+  point="schema">
+
+  <schema name="correspondence_mailbox" src="schemas/correspondence_mailbox.xsd"
+   prefix="cmb" />
+
+  <schema name="correspondence_document" src="schemas/correspondence_document.xsd"
+   prefix="correspdoc" />
+
+  <schema name="correspondence_incoming_mail" src="schemas/correspondence_incoming_mail.xsd"
+   prefix="cmdocin" />
+
+  <schema name="correspondence_outgoing_mail" src="schemas/correspondence_outgoing_mail.xsd"
+   prefix="cmdocout" />
+   
+  <schema name="correspondence_post" src="schemas/correspondence_post.xsd"
+   prefix="cmpost" />
+
+ </extension>
+
+ <extension target="org.nuxeo.ecm.core.schema.TypeService"
+  point="doctype">
+
+  <doctype name="CorrespondenceMailbox" extends="Mailbox">
+   <schema name="correspondence_mailbox" />
+   <facet name="Folderish" />
+   <facet name="Mailbox" />
+  </doctype>
+
+  <doctype name="CorrespondenceDocument" extends="CaseItem">
+   <schema name="correspondence_document" />  
+   <facet name="CaseItem" />
+   <facet name="Commentable" />
+  </doctype>
+
+  <doctype name="IncomingCorrespondenceDocument" extends="CorrespondenceDocument">
+   <schema name="file" />
+   <schema name="files" />
+   <schema name="uid" />
+   <schema name="correspondence_document" />
+   <schema name="correspondence_incoming_mail" />
+    <facet name="CaseItem" />
+   <facet name="IncomingCorrespondence" />
+  </doctype>
+
+  <doctype name="OutgoingCorrespondenceDocument" extends="CaseItem">
+   <schema name="file" />
+   <schema name="files" />
+   <schema name="uid" />
+   <schema name="correspondence_document" />
+   <facet name="CaseItem" />
+   <facet name="OutgoingCorrespondence" />
+  </doctype>
+
+  <doctype name="CorrespondencePost" extends="CaseLink">
+   <schema name="correspondence_post"/>
+   <facet name="CaseLink" />
+  </doctype>
+
+ </extension>
+</component>

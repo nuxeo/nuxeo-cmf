@@ -1,0 +1,64 @@
+<div xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:nxh="http://nuxeo.org/nxweb/html" xmlns:nxu="http://nuxeo.org/nxweb/util">
+
+  <h:form id="document_properties" enctype="multipart/form-data">
+    <a4j:region id="documentViewRegion">
+      <a4j:outputPanel id="documentViewPanel">
+
+        <!-- Action for the case -->
+        <div class="action_bar nofloat">
+          <nxu:methodResult name="actions"
+            value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST_HREF')}">
+            <f:subview rendered="#{!empty actions}">
+              <nxu:dataList layout="unorderedList" var="action"
+                value="#{actions}">
+                <a href="#{action.getLink()}">
+                  <h:graphicImage value="#{action.icon}" />
+                  <h:outputText value="#{messages[action.label]}" />
+                </a>
+              </nxu:dataList>
+            </f:subview>
+          </nxu:methodResult>
+          <nxu:methodResult name="actions"
+            value="#{webActions.getActionsList('CASE_ACTION_UPPER_LIST')}">
+            <f:subview rendered="#{!empty actions}">
+              <nxu:dataList layout="unorderedList" var="action"
+                value="#{actions}">
+                <nxh:commandLink action="#{action.getLink()}"
+                  id="caseActionUpperListLink">
+                  <h:outputText value="#{messages[action.label]}" />
+                </nxh:commandLink>
+              </nxu:dataList>
+            </f:subview>
+          </nxu:methodResult>
+        </div>
+        <div style="clear:both;"></div>
+        <!-- view of the current case item -->
+        <nxl:layout value="#{currentDocument}" mode="view"
+          name="#{currentDocumentSummaryLayout}" />
+        <c:if test="#{correspMailboxActions.isIncomingEnvelope()}">
+          <div style="clear:both;"></div>
+          <nxl:layout name="cm_participants" mode="edit"
+            value="#{distributionInfo}" />
+		      <div class="action_bar nofloat">
+		      <nxu:methodResult name="actions"
+		        value="#{webActions.getActionsList('EDIT_INITIAL_DISTRIBUTION_BOTTOM_LIST')}">
+		        <f:subview rendered="#{!empty actions}">
+		          <nxu:dataList layout="unorderedList" var="action"
+		            value="#{actions}">
+		            <nxh:commandLink action="#{action.getLink()}"
+		              id="caseActionUpperListLink">
+		              <h:outputText value="#{messages[action.label]}" />
+		            </nxh:commandLink>
+		          </nxu:dataList>
+		        </f:subview>
+		      </nxu:methodResult>
+		      </div>
+		      <div style="clear:both;"></div>
+        </c:if>
+      </a4j:outputPanel>
+    </a4j:region>
+  </h:form>
+</div>

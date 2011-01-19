@@ -1,0 +1,48 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxd="http://nuxeo.org/nxweb/document">
+
+  <h:panelGroup>
+    <div class="enveloppeTitleArea">
+
+      <div class="documentSwitch">
+        <h:form>
+          <a4j:region>
+            <h:selectOneListbox id="envelopeEmails" class="dataInputText" size="1"
+              onchange="Element.next(this).firstChild.click();"
+              value="#{correspContextActions.currentEmailId}">
+              <nxu:selectItems
+                value="#{currentEnvelope.documents}"
+                var="document"
+                itemValue="#{document.id}"
+                itemLabel="#{nxd:titleOrId(document)}" />
+            </h:selectOneListbox>
+            <div style="display: none;">
+              <h:commandButton value="submit" />
+            </div>
+          </a4j:region>
+          <div>
+            <h:outputText value="#{currentEnvelope.documents.size()}" />
+            <h:outputText value=" #{messages['label.correspondence.numberOfEmailsInEnvelope']}" />
+          </div>
+        </h:form>
+      </div>
+
+      <h1><h:outputText value="#{nxd:titleOrId(currentDocument)}" /></h1>
+    </div>
+
+  </h:panelGroup>
+
+  <ui:include src="/incl/message_banner.xhtml" />
+
+  <p class="currentDocumentDescription">
+    <h:outputText value="#{currentDocument.dublincore.description}" />
+  </p>
+
+  <ui:insert name="mail_envelope_body" />
+
+</div>

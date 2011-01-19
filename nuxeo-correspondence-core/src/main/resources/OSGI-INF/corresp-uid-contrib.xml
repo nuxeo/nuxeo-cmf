@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.correspondence.generators">
+
+  <extension target="org.nuxeo.ecm.platform.uidgen.service.UIDGeneratorService"
+    point="generators">
+    <generator name="correspondenceDocs"
+      class="org.nuxeo.correspondence.core.generators.CorrespondenceUIDGenerator">
+      <propertyName>uid:uid</propertyName>
+      <docType>IncomingCorrespondenceDocument</docType>
+      <docType>OutgoingCorrespondenceDocument</docType>
+    </generator>
+  </extension>
+</component>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<nxthemes:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:nxthemes="http://nuxeo.org/nxthemes" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout" xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util" xmlns:nxh="http://nuxeo.org/nxweb/html">
+
+  <ui:define name="page title">
+    <h:outputText value="#{messages['title.create.document']}" />
+  </ui:define>
+
+  <ui:define name="body">
+    <div>
+      <h3>
+        <h:outputText
+          value="#{messages['title.create.document']} #{messages[changeableDocument.type]}" />
+      </h3>
+      <ui:include src="/incl/message_banner.xhtml" />
+      <h:form enctype="multipart/form-data" id="document_create">
+        <c:if test="#{!empty documentActions.changeableDocumentType.layout}">
+          <ui:include src="/incl/document_editor.xhtml" />
+        </c:if>
+        <c:if test="#{empty documentActions.changeableDocumentType.layout}">
+          <nxl:documentLayout mode="create"
+            value="#{changeableDocument}" />
+        </c:if>
+
+        <div class="action_bar nofloat">
+          <nxu:methodResult name="actions"
+            value="#{webActions.getActionsList('CASE_CREATE_BOTTOM_LIST_HREF')}">
+            <f:subview rendered="#{!empty actions}">
+              <nxu:dataList layout="unorderedList" var="action"
+                value="#{actions}">
+                <a href="#{action.getLink()}">
+                  <h:graphicImage value="#{action.icon}" />
+                  <h:outputText value="#{messages[action.label]}" />
+                </a>
+              </nxu:dataList>
+            </f:subview>
+          </nxu:methodResult>
+          <nxu:methodResult name="actions"
+            value="#{webActions.getActionsList('CASE_CREATE_BOTTOM_LIST')}">
+            <f:subview rendered="#{!empty actions}">
+              <nxu:dataList layout="unorderedList" var="action"
+                value="#{actions}">
+                <nxh:commandLink action="#{action.getLink()}"
+                  id="caseActionUpperListLink">
+                  <h:outputText value="#{messages[action.label]}" />
+                </nxh:commandLink>
+              </nxu:dataList>
+            </f:subview>
+          </nxu:methodResult>
+          <h:commandLink class="button" value="#{messages['command.cancel']}"
+            action="#{navigationContext.goBack()}" immediate="true" />
+        </div>
+      <div style="clear:both;"></div>
+      <div>
+			  <nxl:layout name="cm_participants" mode="edit"
+			    value="#{distributionInfo}" />
+			  
+				<div class="action_bar nofloat">
+				<nxu:methodResult name="actions"
+				  value="#{webActions.getActionsList('CREATE_INITIAL_DISTRIBUTION_BOTTOM_LIST')}">
+				  <f:subview rendered="#{!empty actions}">
+				    <nxu:dataList layout="unorderedList" var="action"
+				      value="#{actions}">
+				      <nxh:commandLink action="#{action.getLink()}"
+				        id="caseActionUpperListLink">
+				        <h:outputText value="#{messages[action.label]}" />
+				      </nxh:commandLink>
+				    </nxu:dataList>
+				  </f:subview>
+				</nxu:methodResult>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+      </h:form>
+    </div>
+  </ui:define>
+
+</nxthemes:composition>

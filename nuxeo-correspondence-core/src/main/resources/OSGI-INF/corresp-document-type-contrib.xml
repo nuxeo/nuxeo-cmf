@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.correspondence.service.documentType">
+  
+  <require>org.nuxeo.cm.service.defaultContrib</require>
+  <require>org.nuxeo.correspondence.DocumentTypeService</require>
+  <require>org.nuxeo.cm.service.documentType</require>
+  
+  <extension target="org.nuxeo.cm.DocumentTypeService"
+    point="documentType">
+
+    <documentType>
+      <envelopeDocType>Case</envelopeDocType>
+      <postDocType>CorrespondencePost</postDocType>
+      <mailboxDocType>CorrespondenceMailbox</mailboxDocType>
+      <!--by default case items are incoming doc types-->
+      <caseItemDocType>IncomingCorrespondenceDocument</caseItemDocType>
+    </documentType>
+
+  </extension>
+  
+  <extension target="org.nuxeo.correspondence.DocumentTypeService"
+    point="documentType">
+
+    <documentType>
+      <outgoingDocType>OutgoingCorrespondenceDocument</outgoingDocType>
+    </documentType>
+
+  </extension>
+
+</component>

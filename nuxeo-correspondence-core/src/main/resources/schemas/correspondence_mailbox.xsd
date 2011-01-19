@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://correspondence.nuxeo.com/schemas/mailbox/"
+  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/mailbox/"
+  xmlns:nxs="http://correspondence.nuxeo.com/schemas/base/">
+
+  <xs:element name="incoming_confidentiality" type="xs:int" default="4" />
+  <xs:element name="outgoing_confidentiality" type="xs:int" default="4" />
+
+</xs:schema>
+

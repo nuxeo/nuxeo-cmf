@@ -30,6 +30,9 @@
     <module>nuxeo-case-management-facade</module>
     <module>nuxeo-case-management-web</module>
     <module>nuxeo-case-management-distribution</module>
+    <module>nuxeo-correspondence-api</module>
+    <module>nuxeo-correspondence-core</module>
+    <module>nuxeo-correspondence-web</module>
   </modules>
 
   <dependencyManagement>
@@ -158,6 +161,22 @@
         <artifactId>nuxeo-case-management-test</artifactId>
         <version>${nuxeo.cm.version}</version>
         <scope>test</scope>
+      </dependency>
+      <!-- correspondence -->
+      <dependency>
+        <groupId>org.nuxeo.correspondence</groupId>
+        <artifactId>nuxeo-correspondence-api</artifactId>
+        <version>${nuxeo.cm.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.correspondence</groupId>
+        <artifactId>nuxeo-correspondence-core</artifactId>
+        <version>${nuxeo.cm.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.correspondence</groupId>
+        <artifactId>nuxeo-correspondence-web</artifactId>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <!-- nuxeo platform importer-->
       <dependency>
