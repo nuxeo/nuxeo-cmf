@@ -22,6 +22,7 @@ import java.util.List;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
@@ -31,6 +32,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
@@ -43,13 +45,15 @@ public class CreateCaseLinkOperation {
     @Context
     OperationContext context;
 
+    private CaseManagementDocumentTypeService correspDocumentTypeService;
+
     @OperationMethod
     public DocumentModelList createCaseLink(DocumentModelList docs) {
         CoreSession session = context.getCoreSession();
         List<CaseLink> links = new ArrayList<CaseLink>();
         try {
             for (DocumentModel doc : docs) {
-                DocumentModel model = session.createDocumentModel(CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
+                DocumentModel model = session.createDocumentModel(getCaseManagementDocumentTypeService().getCaseLinkType());
                 model.setPropertyValue(
                         CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, doc.getId());
                 CaseLink cl = model.getAdapter(CaseLink.class);
@@ -67,5 +71,17 @@ public class CreateCaseLinkOperation {
         DocumentModelList list = new DocumentModelListImpl();
         list.add(doc);
         return createCaseLink(list).get(0);
+    }
+
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
+            throws ClientException {
+        if (correspDocumentTypeService == null) {
+            try {
+                correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
+            } catch (Exception e) {
+                throw new ClientException(e);
+            }
+        }
+        return correspDocumentTypeService;
     }
 }
