@@ -1,0 +1,2 @@
+# Default Mailbox Creator
+correspondence.defaultMailboxCreator.skip=false

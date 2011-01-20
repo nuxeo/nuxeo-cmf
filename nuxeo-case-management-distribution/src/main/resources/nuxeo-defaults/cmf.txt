@@ -1,0 +1,26 @@
+# Default Mailbox Creator
+cm.defaultMailboxCreator.skip=false
+
+# Synchronize Group Policy
+# merge: then users field becomes the existing users + the users of the entry
+# override: then the new value is the list of users of then entry
+# doNothing: well, it does ... nothing
+cm.onGroupDirectoryUpdate=merge
+
+# mailboxes creation/update batch size
+cm.mailboxes.updateBatchSize=100
+
+# Mail injection configuration.
+# Disabled to avoid configuration errors (no action pipe is defined)
+cm.mail.import.enable=false
+cm.mail.import.server.user=nuxeo-correspondence@test.nuxeo.com
+cm.mail.import.server.password=changeme
+cm.mail.import.server.mail.store.protocol=imap
+cm.mail.import.server.mail.imap.host=imap.gmail.com
+cm.mail.import.server.mail.imap.starttls.enable=true
+cm.mail.import.server.mail.imap.ssl.protocols=SSL
+cm.mail.import.server.mail.imap.socketFactory.class=javax.net.ssl.SSLSocketFactory
+cm.mail.import.server.mail.imap.port=993
+cm.mail.import.server.mail.imap.socketFactory.port=993
+cm.mail.import.server.mail.imap.socketFactory.fallback=false
+ 

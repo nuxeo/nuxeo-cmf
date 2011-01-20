@@ -5,6 +5,3 @@ org.nuxeo.ecm.instance.name=Nuxeo Correspondence 1.0.1-SNAPSHOT
 org.nuxeo.ecm.instance.description=Nuxeo Correspondence server
 
 org.nuxeo.ecm.webapp.dashboard.mode=auto
-
-# Default Mailbox Creator
-correspondence.defaultMailboxCreator.skip=false

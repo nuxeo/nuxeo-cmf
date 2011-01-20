@@ -15,11 +15,12 @@
     <property name="stagedir" value="${outdir}/stage" />
     <property name="finaltarget" value="../target" />
     <property name="init.done" value="true" />
+    <antcall target="expand" />
   </target>
 
   <target name="init-cmf">
     <artifact:set groupId="org.nuxeo.cm" type="jar" id="application-jars"/>
-    <fileset id="distribution-templates" dir="src/main/resources" excludes="correspondence/" />
+    <fileset id="distribution-templates" dir="src/main/resources" excludes="correspondence/,nuxeo-defaults/" />
   </target>
 
   <target name="init-corr">
@@ -29,16 +30,34 @@
         <artifact groupId="org.nuxeo.correspondence" type="jar"/>
       </includes>
     </artifact:set>
-    <fileset id="distribution-templates-corr" dir="src/main/resources"/>
+    <fileset id="distribution-templates-corr" dir="src/main/resources" excludes="nuxeo-defaults/"/>
   </target>
   
   <target name="update-cmf-defaults">
     <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
+    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
   </target>
 
   <target name="update-corr-defaults">
     <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}" /> 
     <echo file="${app.path}/templates/correspondence/nuxeo.defaults" append="yes" message="${line.separator}correspondence.target=${deploy.dir}" /> 
+    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
+    <concat destfile="${app.path}/templates/correspondence/nuxeo.defaults" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/corr.txt" />
+    </concat>
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/corr.txt" />
+    </concat>
   </target>
 
   <target name="build">
