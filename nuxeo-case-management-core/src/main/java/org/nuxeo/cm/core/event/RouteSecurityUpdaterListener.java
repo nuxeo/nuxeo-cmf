@@ -36,6 +36,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.runtime.api.Framework;
@@ -48,8 +49,11 @@ public class RouteSecurityUpdaterListener implements EventListener {
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         EventContext eventCtx = event.getContext();
-
-        Object envelopeObject = eventCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_CASE);
+        if(!(eventCtx instanceof DocumentEventContext)) {
+            return;
+        }
+        DocumentEventContext docEventCtx = (DocumentEventContext) eventCtx;
+        Object envelopeObject = docEventCtx.getSourceDocument();
         if (!(envelopeObject instanceof Case)) {
             return;
         }
