@@ -66,6 +66,7 @@
       <schema name="distribution" />
       <schema name="case" />
       <facet name="Case" />
+      <facet name="Routable" />
     </doctype>
 
     <doctype name="Mailbox" extends="Document">
