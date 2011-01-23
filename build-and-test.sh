@@ -1,10 +1,12 @@
 #!/bin/bash -x
-DISTRIBUTION=${1:-"server"}
-DIR_DISTRIB=${2:-"cm"}
+PROFILE=${1:-"server"}
+DISTRIBUTION=${2:-$PROFILE}
+DIR_DISTRIB=${3:-"cm"}
+
 echo "using distribution: $DISTRIBUTION"
 # Build Nuxeo Case Management
 mvn clean install || exit 1
-mvn -P$DISTRIBUTION -f nuxeo-case-management-distribution/pom.xml clean install || exit 1
+mvn -P$PROFILE -f nuxeo-case-management-distribution/pom.xml clean install || exit 1
 
 # start JBoss
 (cd nuxeo-case-management-distribution/target && unzip nuxeo-case-management-distribution-*.zip && rm *.zip) || exit 1
