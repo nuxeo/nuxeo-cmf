@@ -58,6 +58,7 @@
       <schema name="files" />
       <facet name="CaseItem" />
       <facet name="Commentable" />
+      <facet name="Classifiable" />
     </doctype>
 
     <doctype name="Case" extends="Folder">
@@ -67,6 +68,7 @@
       <schema name="case" />
       <facet name="Case" />
       <facet name="Routable" />
+      <facet name="Classifiable" />
     </doctype>
 
     <doctype name="Mailbox" extends="Document">

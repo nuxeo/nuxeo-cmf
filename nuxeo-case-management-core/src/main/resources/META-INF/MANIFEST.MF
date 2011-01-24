@@ -9,7 +9,6 @@ Require-Bundle: org.nuxeo.cm.api,
  org.nuxeo.ecm.platform.usermanager.api,
  org.nuxeo.ecm.relations.api
 Nuxeo-Component: OSGI-INF/cm-framework.xml,
- OSGI-INF/cm-classification-contrib.xml,
  OSGI-INF/cm-contrib.xml,
  OSGI-INF/cm-core-types-contrib.xml,
  OSGI-INF/cm-content-template-contrib.xml,
