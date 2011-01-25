@@ -18,7 +18,6 @@ package org.nuxeo.correspondence.test.generator;
 
 import static org.nuxeo.cm.test.CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE;
 import static org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE;
-import static org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants.UIDGEN_CORE_BUNDLE;
 import static org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants.CORRESPONDENCE_CORE_TEST_BUNDLE;
 
 import java.util.Calendar;
@@ -30,8 +29,6 @@ import org.nuxeo.common.jndi.NamingContextFactory;
 import org.nuxeo.ecm.core.api.DocumentException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.DocumentModelImpl;
-import org.nuxeo.ecm.platform.uidgen.UIDSequencer;
-import org.nuxeo.runtime.api.Framework;
 
 /*
  * Tests if the uid property is set on a document at creation
@@ -75,10 +72,9 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
     }
 
     public void testUidReference() throws Exception {
-        //commented out, NXCM-280 will fix it
-//        DocumentModel doc = createTestDocument();
-//        String expectedUID = String.format("NXC-IN-%s-00001", getSequenceKey());
-//        assertEquals(expectedUID, (String) doc.getPropertyValue("uid:uid"));
+        DocumentModel doc = createTestDocument();
+        String expectedUID = String.format("NXC-IN-%s-00001", getSequenceKey());
+        assertEquals(expectedUID, (String) doc.getPropertyValue("uid:uid"));
     }
 
     protected String getSequenceKey() throws DocumentException {

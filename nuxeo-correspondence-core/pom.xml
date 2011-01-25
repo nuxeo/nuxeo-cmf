@@ -77,6 +77,7 @@
       <artifactId>geronimo-connector</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
@@ -88,15 +89,20 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <scope>test</scope>
+     </dependency>
+    <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
+   <dependency>
       <groupId>antlr</groupId>
       <artifactId>antlr</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency>   
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
