@@ -18,8 +18,9 @@
     <schema name="case" src="schemas/case.xsd" prefix="case" />
 
     <schema name="case_link" src="schemas/case_link.xsd" prefix="cslk" />
-    
-    <schema name="actionnable_case_link" src="schemas/actionnable_case_link.xsd" prefix="acslk" />
+
+    <schema name="actionnable_case_link" src="schemas/actionnable_case_link.xsd"
+      prefix="acslk" />
 
     <schema name="mailbox" src="schemas/mailbox.xsd" prefix="mlbx" />
 
@@ -76,6 +77,10 @@
       <schema name="dublincore" />
       <schema name="distribution" />
       <schema name="mailbox" />
+      <!-- Mailbox are requested when the user in loggin in but its principal 
+        is not set yet. If not prefetch, then this will thrown an exception when 
+        the check is done to get the propery. -->
+      <prefetch>mlbx:mailbox_id</prefetch>
       <facet name="Folderish" />
       <facet name="Mailbox" />
     </doctype>
@@ -87,31 +92,31 @@
       <schema name="contact" />
       <schema name="distribution" />
       <schema name="case_link" />
-      <schema name="actionnable_case_link"/>
+      <schema name="actionnable_case_link" />
       <facet name="CaseLink" />
     </doctype>
 
     <doctype name="DistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
-      <facet name ="RouteStep"/>
+      <facet name="RouteStep" />
       <facet name="Commentable" />
     </doctype>
 
     <doctype name="GenericDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
-      <facet name ="RouteStep"/>
+      <facet name="RouteStep" />
       <facet name="Commentable" />
     </doctype>
 
     <doctype name="PersonalDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
-      <facet name ="RouteStep"/>
+      <facet name="RouteStep" />
       <facet name="Commentable" />
     </doctype>
 
     <doctype name="DistributionStep" extends="DocumentRouteStep">
       <schema name="routing_task" />
-      <facet name ="RouteStep"/>
+      <facet name="RouteStep" />
       <facet name="Commentable" />
     </doctype>
 
