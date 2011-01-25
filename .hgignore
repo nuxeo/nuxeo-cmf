@@ -22,3 +22,5 @@ nuxeo-case-management-distribution/ftest/selenium/user-extensions.js
 nuxeo-case-management-distribution/ftest/selenium/ffprofile/prefs.js
 nuxeo-case-management-distribution/data
 nuxeo-case-management-distribution/ftest/selenium/selenium-server.jar
+nuxeo-case-management-distribution/ftest/funkload/xml_importer/pdf_files
+nuxeo-case-management-distribution/ftest/funkload/xml_importer/pdf-list.txt
