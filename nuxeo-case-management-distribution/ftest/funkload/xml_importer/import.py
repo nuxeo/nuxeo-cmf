@@ -1,5 +1,5 @@
 	# -*- coding: iso-8859-15 -*-
-"""Creation of file to be imported into pleiade
+"""Creation of file to be imported into cmf
 
 $Id: $
 """

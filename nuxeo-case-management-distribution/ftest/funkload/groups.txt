@@ -2,8 +2,6 @@
 admin:Administrator
 
 # members group
-members:user1,user2,user3
+members:jdoe,bree,jsmith,lbramard,linnet
 
-writers:user1
-
-readers:user2,user3,generic1,generic2
+routeManagers:jdoe
