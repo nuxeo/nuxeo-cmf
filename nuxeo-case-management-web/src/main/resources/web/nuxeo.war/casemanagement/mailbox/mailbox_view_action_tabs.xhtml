@@ -2,11 +2,12 @@
   xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
   xmlns:nxu="http://nuxeo.org/nxweb/util"
   xmlns:nxd="http://nuxeo.org/nxweb/document">
-  <h:form>
+  <h:form id="mb_view_action_tab_form">
     <nxu:dataList layout="unorderedList" var="tab" value="#{viewMailboxActionTabs}"
-      itemStyleClass="#{nxu:test(currentViewMailboxAction == tab, 'selected', '')}">
-      <h:commandLink  value="#{messages[tab.label]}"
-	  action="#{cmMailboxTabsActionsBean.setCurrentViewMailboxAction(tab.id)}" />
+      itemStyleClass="#{nxu:test(currentViewMailboxAction == tab, 'selected', '')}"
+      id="mb_view_action_tab_list">
+      <h:commandLink  value="#{messages[tab.label]}" id="mb_view_action_tab_link"
+	      action="#{cmMailboxTabsActionsBean.setCurrentViewMailboxAction(tab.id)}" />
     </nxu:dataList>
   </h:form>
 </div>
