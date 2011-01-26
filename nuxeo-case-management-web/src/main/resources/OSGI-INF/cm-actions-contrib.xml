@@ -27,13 +27,18 @@
 
     <!--  Actions for the document selection  -->
 
-    <action id="CASEMANAGEMENT_CURRENT_SELECTION_DELETE" link="#{deleteActions.purgeSelection}"
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_DELETE" link="#{cmCaseActions.purgeCaseSelection}"
       label="command.deleteDocs" icon="" help="comand.deleteDocs.help"
       confirm="if( !confirmDeleteDocumentsForever() ) return false;">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
-      <filter id="canPurge">
+      <filter id="deleteDrafts">
+         <rule grant="true">
+          <facet>Mailbox</facet>
+        </rule>
+      </filter>
+      <filter id="candDeleteDrafts">
         <rule grant="true">
-          <condition>#{deleteActions.canPurge}</condition>
+          <condition>#{cmCaseActions.canPurge}</condition>
         </rule>
       </filter>
     </action>

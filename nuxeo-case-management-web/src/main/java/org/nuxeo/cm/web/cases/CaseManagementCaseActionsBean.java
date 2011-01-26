@@ -19,6 +19,9 @@
 
 package org.nuxeo.cm.web.cases;
 
+import static org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager.CURRENT_DOCUMENT_SELECTION;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -42,6 +45,9 @@ import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentRef;
+import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.trash.TrashService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
@@ -75,6 +81,8 @@ public class CaseManagementCaseActionsBean extends
 
     @In(create = true)
     protected transient CaseDistributionService caseDistributionService;
+
+    protected transient TrashService trashService;
 
     /**
      * @return true if this envelope is still in draft
@@ -139,16 +147,79 @@ public class CaseManagementCaseActionsBean extends
                 parentDoc = documentManager.getParentDocument(post.getDocument().getRef());
                 parentMailbox = parentDoc.getAdapter(Mailbox.class);
                 envelope = post.getCase(documentManager);
-                postRequest = new CaseLinkRequestImpl(
-                        parentMailbox.getId(),
+                postRequest = new CaseLinkRequestImpl(parentMailbox.getId(),
                         post.getDate(),
-                        (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
-                        post.getComment(), envelope, post.getInitialInternalParticipants(), post.getInitialExternalParticipants());
+                        (String) envelope.getDocument().getPropertyValue(
+                                CaseConstants.TITLE_PROPERTY_NAME),
+                        post.getComment(), envelope,
+                        post.getInitialInternalParticipants(),
+                        post.getInitialExternalParticipants());
 
-                caseDistributionService.sendCase(documentManager, postRequest, true);
+                caseDistributionService.sendCase(documentManager, postRequest,
+                        true);
                 EventManager.raiseEventsOnDocumentChildrenChange(parentDoc);
             }
         }
         return null;
+    }
+
+    public String purgeCaseSelection() throws ClientException {
+        if (!isEmptyDraft()) {
+            List<DocumentModel> currentDraftCasesList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+            purgeCaseSelection(currentDraftCasesList);
+            EventManager.raiseEventsOnDocumentChildrenChange(getCurrentMailbox().getDocument());
+        } else {
+            log.debug("No documents selection in context to process delete on...");
+        }
+        return null;
+    }
+
+    public boolean isEmptyDraft() {
+        return documentsListsManager.isWorkingListEmpty(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+    }
+
+    public boolean getCanPurge() {
+        List<DocumentModel> docs = documentsListsManager.getWorkingList(CURRENT_DOCUMENT_SELECTION);
+        if (docs.isEmpty()) {
+            return false;
+        }
+        try {
+            return getTrashService().canDelete(docs,
+                    documentManager.getPrincipal(), false);
+        } catch (ClientException e) {
+            log.error("Cannot check delete permission", e);
+            return false;
+        }
+    }
+
+    protected void purgeCaseSelection(List<DocumentModel> workingList)
+            throws ClientException {
+        final List<DocumentRef> caseRefs = new ArrayList<DocumentRef>();
+        final List<DocumentRef> postRefs = new ArrayList<DocumentRef>();
+        for (DocumentModel documentModel : workingList) {
+            CaseLink caselink = documentModel.getAdapter(CaseLink.class);
+            caseRefs.add(caselink.getCase(documentManager).getDocument().getRef());
+            postRefs.add(documentModel.getRef());
+        }
+        new UnrestrictedSessionRunner(documentManager) {
+            @Override
+            public void run() throws ClientException {
+                // permanently delete cases
+                getTrashService().purgeDocuments(session, caseRefs);
+                // permanently delete caseLinks
+                getTrashService().purgeDocuments(session, postRefs);
+            }
+        }.runUnrestricted();
+    }
+
+    protected TrashService getTrashService() {
+        if (trashService == null) {
+            try {
+                trashService = Framework.getService(TrashService.class);
+            } catch (Exception e) {
+                throw new RuntimeException("TrashService not available", e);
+            }
+        }
+        return trashService;
     }
 }
