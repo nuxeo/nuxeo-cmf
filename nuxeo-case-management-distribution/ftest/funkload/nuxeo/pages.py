@@ -734,6 +734,33 @@ class FolderPage(BasePage):
         fl.get(doc_url, description="View a random document")
         return DocumentPage(self.fl)
 
+class Mailbox(BasePage):
+    def addIncomingCaseItemManagementProfile(self):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['j_id233_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['j_id233:j_id234:2:j_id235', 'j_id233:j_id234:2:j_id235']],
+            description="Go to manage view")
+        fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['document_edit:nxl_cm_mailbox:nxw_description', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_profiles', 'cellule_courrier'],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggest', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggestionBox_selection', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailboxId', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_sync_state', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggest', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox_selection', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggest', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggestionBox_selection', ''],
+            ['document_edit:j_id522', ''],
+            ['document_edit:j_id524', 'Save'],
+            ['document_edit_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()]],
+            description="Add incomig profile")
+
+
 
 class CreateCase(BasePage):
 
