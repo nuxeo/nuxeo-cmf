@@ -21,7 +21,7 @@
   <properties>
     <nuxeo.cm.version>1.4-CP03</nuxeo.cm.version>
     <nuxeo.platform.version>5.4.0-I20101018_1103</nuxeo.platform.version>
-    <routing.version>5.4.1-I20101203_0116</routing.version>
+    <routing.version>5.4.1-I20101203_0116-CP03</routing.version>
   </properties>
 
   <modules>
