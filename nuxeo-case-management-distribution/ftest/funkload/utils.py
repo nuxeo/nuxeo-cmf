@@ -36,7 +36,7 @@ def getRandomLines(filename, nb_line):
             ret.append(line)
     return ret
 
-def goToMailbox()
+def goToMailbox():
         fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mb_view_action_tab_form_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],

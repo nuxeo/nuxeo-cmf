@@ -14,7 +14,7 @@ from funkload.utils import xmlrpc_get_credential
 from utils import extractJsfState
 from funkload.utils import xmlrpc_list_credentials
 from nuxeo.pages import *
-import pdf
+from xml_importer.pdf import *
 
 class CMF(FunkLoadTestCase):
     """CMF
@@ -37,7 +37,7 @@ class CMF(FunkLoadTestCase):
         self.routeManagerList =  xmlrpc_list_credentials(self.credential_host,
                                                   self.credential_port,
                                                   'routeManagers')
-        f = open('./import_xml/pdf-list.txt', 'r')
+        f = open('./xml_importer/pdf-list.txt', 'r')
         self.pdf_files = f.readlines()
 
     def getRandomUser(self):
