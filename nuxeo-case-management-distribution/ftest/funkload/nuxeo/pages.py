@@ -735,6 +735,84 @@ class FolderPage(BasePage):
         return DocumentPage(self.fl)
 
 
-class DocumentPage(BasePage):
-    """Document page."""
+class CreateCase(BasePage):
+
+    def createCase(self):
+        fl = self.fl
+        server_url = fl.server_url
+        # Click on create new Case
+        fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['selectDocumentTypeForCreationForm:selectDocTypePanelOpenedState', ''],
+            ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+        # Create a Case
+        fl.post(server_url + "/nuxeo/casemanagement/case/create_empty_case.faces", params=[
+            ['document_create:nxl_cm_case:nxw_title', 'A Case'],
+            ['document_create:nxl_cm_case:nxw_description', ''],
+            ['document_create_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink', 'document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink']],
+            description="Post /nuxeo/casemanageme...te_empty_case.faces")
+        # Add a Case Item
+        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['selectDocumentTypeForCreationForm:selectDocTypePanelOpenedState', ''],
+            ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        # Save the Case Item
+        fl.post(server_url + "/nuxeo/casemanagement/caseitem/create_cm_document.faces", params=[
+            ['document_create:nxl_cm_document:nxw_title', 'grez'],
+            ['document_create:nxl_cm_document:nxw_document_type', '23'],
+            ['document_create:nxl_cm_document:nxw_document_date', ''],
+            ['document_create:nxl_cm_document:nxw_receive_date', ''],
+            ['document_create:nxl_cm_document:nxw_confidentiality', '4'],
+            ['document_create:nxl_cm_document:nxw_origin', ''],
+            ['document_create:nxl_cm_document:nxw_reference', ''],
+            ['document_create:nxl_cm_document:nxw_body', ''],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'upload'],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload("vmedia.avi")],
+            ['document_create_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
+            description="Post /nuxeo/casemanageme...e_cm_document.faces")
+        # Looking for a route
+        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:suggestionBox_a4j_region'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', 'Rou'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
+            ['document_properties_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
+            ['ajaxSingle', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
+            ['mailboxSuggestionSearchType', ''],
+            ['inputvalue', 'Rou'],
+            ['AJAX:EVENTS_COUNT', '1']],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        # Choose the route
+        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:suggestionBox_a4j_region'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', '0'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
+            ['document_properties_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['suggestionSelectionDeleteId', 'nxw_document_related_route_selection_reset'],
+            ['suggestionSelectionHiddenId', 'nxw_document_related_route_routeId'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_suggestionBox_a4j_support', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_suggestionBox_a4j_support'],
+            ['mailboxSuggestionSearchType', ''],
+            ['suggestionSelectionOutputId', 'nxw_document_related_route_route']],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        # Start the route
+        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', '886d5e0d-4a5a-4ab8-852f-83345c9e7be0'],
+            ['document_properties:nxl_summary_current_case_layout:start_route_button', 'Start'],
+            ['document_properties_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()]],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
 
