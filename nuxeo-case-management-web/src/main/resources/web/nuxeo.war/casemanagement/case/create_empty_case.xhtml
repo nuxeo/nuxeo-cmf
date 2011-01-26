@@ -29,9 +29,9 @@
         <div class="action_bar nofloat">
           <nxu:methodResult name="actions"
             value="#{webActions.getActionsList('EMPTY_CASE_CREATE_BOTTOM_LIST')}">
-            <f:subview rendered="#{!empty actions}">
+            <f:subview id="emptyCaseCreateActionView" rendered="#{!empty actions}">
               <nxu:dataList layout="unorderedList" var="action"
-                value="#{actions}">
+                value="#{actions}" id="emptyCaseCreateActionList">
                 <nxh:commandLink action="#{action.getLink()}"
                   id="caseActionUpperListLink">
                   <h:outputText value="#{messages[action.label]}" />

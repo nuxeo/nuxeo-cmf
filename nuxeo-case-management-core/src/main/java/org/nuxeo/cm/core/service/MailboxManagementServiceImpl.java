@@ -204,9 +204,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
                 mailboxes.add(mb);
             }
         }
-
-        Collections.sort(mailboxes);
-
         return mailboxes;
     }
 

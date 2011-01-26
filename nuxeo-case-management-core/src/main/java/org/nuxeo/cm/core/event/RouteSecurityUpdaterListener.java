@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -53,12 +54,10 @@ public class RouteSecurityUpdaterListener implements EventListener {
             return;
         }
         DocumentEventContext docEventCtx = (DocumentEventContext) eventCtx;
-        Object envelopeObject = docEventCtx.getSourceDocument();
-        if (!(envelopeObject instanceof Case)) {
+        DocumentModel kaseDoc = docEventCtx.getSourceDocument();
+        if(!kaseDoc.hasFacet(CaseConstants.CASE_FACET)) {
             return;
         }
-        Case kase = (Case) envelopeObject;
-        DocumentModel kaseDoc = kase.getDocument();
         CoreSession session = eventCtx.getCoreSession();
         @SuppressWarnings("rawtypes")
         Map<String, List<String>> recipients = (Map) eventCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS);

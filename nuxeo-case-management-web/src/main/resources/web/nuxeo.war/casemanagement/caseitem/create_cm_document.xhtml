@@ -41,9 +41,9 @@
           </nxu:methodResult>
           <nxu:methodResult name="actions"
             value="#{webActions.getActionsList('CASE_CREATE_BOTTOM_LIST')}">
-            <f:subview rendered="#{!empty actions}">
+            <f:subview rendered="#{!empty actions}" id="caseCreateBottomActionView">
               <nxu:dataList layout="unorderedList" var="action"
-                value="#{actions}">
+                value="#{actions}" id="caseCreateBottomActionList">
                 <nxh:commandLink action="#{action.getLink()}"
                   id="caseActionUpperListLink">
                   <h:outputText value="#{messages[action.label]}" />
