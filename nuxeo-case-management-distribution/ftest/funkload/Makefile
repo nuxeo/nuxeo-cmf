@@ -29,7 +29,7 @@ stop:
 	-$(CREDCTL) stop
 
 test-CMF:
-	fl-run-test -d --simple-fetch test_CMF.py $(FLOPS)
+	fl-run-test -d  -V --simple-fetch test_CMF.py $(FLOPS)
 
 
 

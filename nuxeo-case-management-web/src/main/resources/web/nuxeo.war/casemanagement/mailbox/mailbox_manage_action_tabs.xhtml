@@ -4,8 +4,8 @@
   xmlns:nxd="http://nuxeo.org/nxweb/document">
   <h:form>
     <nxu:dataList layout="unorderedList" var="tab" value="#{manageMailboxActionTabs}"
-      itemStyleClass="#{nxu:test(currentManageMailboxAction == tab, 'selected', '')}">
-      <h:commandLink  value="#{messages[tab.label]}"
+      itemStyleClass="#{nxu:test(currentManageMailboxAction == tab, 'selected', '')}" id="mailbox_tabs">
+      <h:commandLink  value="#{messages[tab.label]}" id="mailbox_#{tab}"
 	  action="#{cmMailboxTabsActionsBean.setCurrentManageMailboxAction(tab.id)}" />
     </nxu:dataList>
   </h:form>

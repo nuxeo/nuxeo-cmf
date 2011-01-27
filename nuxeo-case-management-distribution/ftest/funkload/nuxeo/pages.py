@@ -702,6 +702,11 @@ class FolderPage(BasePage):
         return self
 
     def sort(self, column):
+        self.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mb_view_action_tab_form_SUBMIT', '1'],
+            ['javax.faces.ViewState', 'j_id1'],
+            ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
         fl = self.fl
         server_url = fl.server_url
         fl.assert_('document_content' in fl.getBody(),
@@ -736,15 +741,15 @@ class FolderPage(BasePage):
 
 class Mailbox(BasePage):
     def addIncomingCaseItemManagementProfile(self):
-        fl = self.fl
-        server_url = fl.server_url
-        fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
-            ['j_id233_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['j_id233:j_id234:2:j_id235', 'j_id233:j_id234:2:j_id235']],
+       fl = self.fl
+       server_url = fl.server_url
+       p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mb_view_action_tab_form_SUBMIT', '1'],
+            ['javax.faces.ViewState',fl.getLastJsfState()],
+            ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
             description="Go to manage view")
-        fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
-            ['document_edit:nxl_cm_mailbox:nxw_description', ''],
+       fl.assert_( "Incoming Case Item Management" in p.body)
+       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['document_edit:nxl_cm_mailbox:nxw_mailbox_profiles', 'cellule_courrier'],
             ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggest', ''],
             ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggestionBox_selection', ''],
@@ -754,44 +759,54 @@ class Mailbox(BasePage):
             ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox_selection', ''],
             ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggest', ''],
             ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggestionBox_selection', ''],
-            ['document_edit:j_id522', ''],
-            ['document_edit:j_id524', 'Save'],
+            ['document_edit:j_id517', ''],
+            ['document_edit:j_id519', 'Save'],
             ['document_edit_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()]],
-            description="Add incomig profile")
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+    def gotoDraft(self):
+        fl = self.fl
+        server_url = fl.server_url
+        p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mb_view_action_tab_form_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+        fl.assert_("New" in p.body)         
 
 
 
-class CreateCase(BasePage):
+class CaseItem(BasePage):
 
-    def createCase(self):
+    def createCaseItem(self, case, caseitem):
         fl = self.fl
         server_url = fl.server_url
         # Click on create new Case
-        fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+        fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['selectDocumentTypeForCreationForm:selectDocTypePanelOpenedState', ''],
             ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
             description="Post /nuxeo/casemanageme.../mailbox_view.faces")
         # Create a Case
-        fl.post(server_url + "/nuxeo/casemanagement/case/create_empty_case.faces", params=[
-            ['document_create:nxl_cm_case:nxw_title', 'A Case'],
+        p = fl.post(server_url + "/casemanagement/case/create_empty_case.faces", params=[
+            ['document_create:nxl_cm_case:nxw_title', case],
             ['document_create:nxl_cm_case:nxw_description', ''],
             ['document_create_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink', 'document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink']],
             description="Post /nuxeo/casemanageme...te_empty_case.faces")
+        fl.assert_("New" in p.body) 
         # Add a Case Item
-        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
+        fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
             ['selectDocumentTypeForCreationForm:selectDocTypePanelOpenedState', ''],
             ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
             description="Post /nuxeo/casemanageme.../view_cm_case.faces")
         # Save the Case Item
-        fl.post(server_url + "/nuxeo/casemanagement/caseitem/create_cm_document.faces", params=[
-            ['document_create:nxl_cm_document:nxw_title', 'grez'],
+        fl.post(server_url + "/casemanagement/caseitem/create_cm_document.faces", params=[
+            ['document_create:nxl_cm_document:nxw_title', caseitem],
             ['document_create:nxl_cm_document:nxw_document_type', '23'],
             ['document_create:nxl_cm_document:nxw_document_date', ''],
             ['document_create:nxl_cm_document:nxw_receive_date', ''],
@@ -799,47 +814,10 @@ class CreateCase(BasePage):
             ['document_create:nxl_cm_document:nxw_origin', ''],
             ['document_create:nxl_cm_document:nxw_reference', ''],
             ['document_create:nxl_cm_document:nxw_body', ''],
-            ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'upload'],
-            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload("vmedia.avi")],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'none'],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload("")],
             ['document_create_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
             description="Post /nuxeo/casemanageme...e_cm_document.faces")
-        # Looking for a route
-        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:suggestionBox_a4j_region'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', 'Rou'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
-            ['document_properties_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
-            ['ajaxSingle', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
-            ['mailboxSuggestionSearchType', ''],
-            ['inputvalue', 'Rou'],
-            ['AJAX:EVENTS_COUNT', '1']],
-            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
-        # Choose the route
-        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:suggestionBox_a4j_region'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', '0'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
-            ['document_properties_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['suggestionSelectionDeleteId', 'nxw_document_related_route_selection_reset'],
-            ['suggestionSelectionHiddenId', 'nxw_document_related_route_routeId'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_suggestionBox_a4j_support', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_suggestionBox_a4j_support'],
-            ['mailboxSuggestionSearchType', ''],
-            ['suggestionSelectionOutputId', 'nxw_document_related_route_route']],
-            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
-        # Start the route
-        fl.post(server_url + "/nuxeo/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', '886d5e0d-4a5a-4ab8-852f-83345c9e7be0'],
-            ['document_properties:nxl_summary_current_case_layout:start_route_button', 'Start'],
-            ['document_properties_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()]],
-            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
 

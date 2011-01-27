@@ -46,9 +46,15 @@ class CMF(NuxeoTestCase):
                  description="Check if the server is alive")
         randUser = self.getRandomUser()
         p = LoginPage(self).login(randUser[0], randUser[1])
-        Mailbox(self).addIncomingCaseItemManagementProfile()
-        #CreateCase(self).createCase()
-        p.logout()   
+        p = LoginPage(self).login(randUser[0], randUser[1])
+        if ("Draft" not in p.fl.getBody()):
+            Mailbox(self).addIncomingCaseItemManagementProfile()
+        p.logout()
+        p = LoginPage(self).login(randUser[0], randUser[1])
+        self.assert_("Draft" in p.fl.getBody());
+        p = Mailbox(self).gotoDraft()
+        CaseItem(self).createCaseItem("casex", "caseitemx")
+        
 
     def tearDown(self):
         """Setting up test."""
