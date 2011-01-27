@@ -15,7 +15,7 @@
       MailboxRoot (will hold mailboxes).
     </documentation>
 
-    <factoryBinding name="RootFactory" factoryName="SimpleTemplateFactory"
+    <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory"
       targetType="Root">
       <acl>
         <ace principal="Administrator" permission="Everything" granted="true" />
