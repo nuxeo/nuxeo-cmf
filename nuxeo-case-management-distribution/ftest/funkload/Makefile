@@ -19,6 +19,8 @@ all: start testCMF stop
 
 testCMF: start test-CMF stop
 
+testBench: start test-bench stop
+
 start:
 	-mkdir -p $(REPORT) $(LOG_HOME)
 	-$(MONCTL) restart
@@ -31,7 +33,9 @@ stop:
 test-CMF:
 	fl-run-test -d  -V --simple-fetch test_CMF.py $(FLOPS)
 
-
+test-bench:
+	-fl-run-bench --simple-fetch test_CMF.py CMF.test_available  --label=test -c 1:5 -D 60 -m 0.1 -M .5 -s 1 $(FLOPS)
+	-fl-build-report -T 3 $(LOG_HOME)/cmf-bench.xml --html -o $(REPORT)
 
 clean:
 	-find . "(" -name "*~" -or  -name ".#*" -or  -name "*.pyc" ")" -print0 | xargs -0 rm -f
