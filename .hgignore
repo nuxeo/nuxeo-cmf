@@ -24,3 +24,4 @@ nuxeo-case-management-distribution/data
 nuxeo-case-management-distribution/ftest/selenium/selenium-server.jar
 nuxeo-case-management-distribution/ftest/funkload/xml_importer/pdf_files
 nuxeo-case-management-distribution/ftest/funkload/xml_importer/pdf-list.txt
+nuxeo-case-management-distribution/ftest/selenium/result-corrSuite.html
