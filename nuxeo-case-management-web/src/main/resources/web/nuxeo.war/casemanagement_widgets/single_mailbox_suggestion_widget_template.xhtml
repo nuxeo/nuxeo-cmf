@@ -37,7 +37,7 @@
           requestDelay="#{requestDelay}">
           <f:param name="mailboxSuggestionSearchType"
             value="#{widget.properties['mailboxSuggestionSearchType']}" />
-          <a4j:support event="onselect"
+          <a4j:support event="onselect" id="#{widget.id}_a4jSupport"
             focus="#{widget.id}_mailbox_suggest" bypassUpdates="true"
             reRender="#{widget.id}_mailbox_region">
             <f:param name="mailboxSuggestionSearchType"

@@ -44,7 +44,7 @@
             value="#{widget.properties['mailboxSuggestionSearchType']}" />
           <a4j:support event="onselect"
             focus="#{widget.id}_mailbox_suggest" bypassUpdates="true"
-            reRender="#{widget.id}_mailbox_parent_region">
+            reRender="#{widget.id}_mailbox_parent_region" id="#{widget.id}_a4jSupport">
             <f:param name="mailboxSuggestionSearchType"
               value="#{widget.properties['mailboxSuggestionSearchType']}" />
             <f:setPropertyActionListener value="#{result.id}"

@@ -46,6 +46,8 @@ from urllib import quote_plus, quote
 from webunit.utility import Upload
 from utils import extractToken, extractJsfState, extractIframes, extractJsessionId
 from funkload.utils import Data
+import datetime
+
 
 class BasePage:
     """Base class for nuxeo ep page."""
@@ -112,7 +114,7 @@ class BasePage:
             ['Submit', 'Connexion']],
             description="Login invalid user " + user)
         fl.assert_('loginFailed=true' in fl.getLastUrl(),
-                   'Invalid login expected for %s:%s.' %  (user, password))
+                   'Invalid login expected for %s:%s.' % (user, password))
         return self
 
     def viewDocumentPath(self, path, description=None, raiseOn404=True,
@@ -127,7 +129,7 @@ class BasePage:
             ok_codes.append(404)
         if not outcome:
             outcome = "view_documents"
-        resp = fl.get(fl.server_url + "/nxpath/default/default-domain/" +
+        resp = fl.get(fl.server_url + "/nxpath/default/case-management/" + 
                quote(path) + "@" + outcome + '?conversationId=0NXMAIN1',
                description=description, ok_codes=ok_codes)
         if resp.code == 404:
@@ -261,7 +263,7 @@ class BasePage:
 
         fl.get(server_url + "/org.nuxeo.opensocial.container.ContainerEntryPoint/org.nuxeo.opensocial.container.ContainerEntryPoint.nocache.js",
                  description="Get container entry point")
-        data =  Data('text/x-gwt-rpc; charset=utf-8', '''5|0|17|''' + server_url + '''/org.nuxeo.opensocial.container.ContainerEntryPoint/|9CCFB53A0997F1E4596C8EE4765CCBAA|org.nuxeo.opensocial.container.client.service.api.ContainerService|getContainer|java.util.Map|java.util.HashMap/962170901|java.lang.String/2004016611|docRef|''' + uid + '''|clientUrl|''' + server_url + '''/|windowWidth|10|nxBaseUrl|userLanguage|fr|locale|1|2|3|4|1|5|6|6|7|8|7|9|7|10|7|11|7|12|7|13|7|14|-5|7|15|7|16|7|17|-10|''')
+        data = Data('text/x-gwt-rpc; charset=utf-8', '''5|0|17|''' + server_url + '''/org.nuxeo.opensocial.container.ContainerEntryPoint/|9CCFB53A0997F1E4596C8EE4765CCBAA|org.nuxeo.opensocial.container.client.service.api.ContainerService|getContainer|java.util.Map|java.util.HashMap/962170901|java.lang.String/2004016611|docRef|''' + uid + '''|clientUrl|''' + server_url + '''/|windowWidth|10|nxBaseUrl|userLanguage|fr|locale|1|2|3|4|1|5|6|6|7|8|7|9|7|10|7|11|7|12|7|13|7|14|-5|7|15|7|16|7|17|-10|''')
         fl.post(server_url + "/gwtcontainer", data,
                 description="dashboard gwt container")
         fl.assert_('//OK' in fl.getBody())
@@ -331,7 +333,7 @@ class BasePage:
 
     def personalWorkspace(self):
         fl = self.fl
-        fl.post(fl.server_url + "/view_documents.faces", params=[
+        fl.post(fl.server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['userServicesForm_SUBMIT', '1'],
             ['userServicesForm:userServicesActionsTable:1:userServicesActionCommandLink', 'userServicesForm:userServicesActionsTable:1:userServicesActionCommandLink']],
@@ -464,7 +466,6 @@ class LoginPage(BasePage):
         fl.assert_('user_password' in fl.getBody())
         return self
 
-
 class FolderPage(BasePage):
     """Folder page"""
 
@@ -571,7 +572,7 @@ class FolderPage(BasePage):
         else:
             start = html.find('form id="document_content"')
         end = html.find(title, start)
-        fl.assert_(end>0, 'Item with title "%s" not found.' % title)
+        fl.assert_(end > 0, 'Item with title "%s" not found.' % title)
         start = html.rfind('<tr class', start, end)
 
         # seam remoting selection is now done in ajax
@@ -618,7 +619,7 @@ class FolderPage(BasePage):
         if item_type in ['Section', 'SectionRoot']:
             table_name = "section_content"
             pos = '0'
-        params=[
+        params = [
             [table_name + ':nxl_document_listing_ajax:nxw_listing_ajax_selection_box_with_current_document', 'on'],
             ['javax.faces.ViewState', state],
             [table_name + ':clipboardActionsTable_0_0:' + pos + ':clipboardActionsButton', 'Delete'],
@@ -702,7 +703,7 @@ class FolderPage(BasePage):
         return self
 
     def sort(self, column):
-        self.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+        self.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mb_view_action_tab_form_SUBMIT', '1'],
             ['javax.faces.ViewState', 'j_id1'],
             ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
@@ -738,52 +739,153 @@ class FolderPage(BasePage):
         doc_url = random.choice(hrefs)
         fl.get(doc_url, description="View a random document")
         return DocumentPage(self.fl)
+    
+class AdminLoginPage(LoginPage):
+    def login(self, user, password):
+        BasePage.login(self, user, password)
+        return AdminLoginPage(self.fl)
+    
+    def viewRouteInstance(self, route):
+        fl = self.fl
+        server_url = fl.server_url
+        now = datetime.datetime.now()
+        p = fl.get(server_url + "/nxpath/default/case-management/document-route-instances-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(route) + "@view_documents?tabId=&conversationId=0NXMAIN",
+            description="Get /nuxeo/nxpath/defau...eDoc@view_documents")
+        fl.assert_("Participating documents" in p.body)
+        return AdminLoginPage(self.fl)
+        
+    def verifyRouteIsDone(self, route):
+        fl = self.fl
+        fl.assert_(route in fl.getBody())
+        fl.assert_("draft" not in fl.getBody())
+        fl.assert_("ready" not in fl.getBody())
+        fl.assert_("running" not in fl.getBody())
+        fl.assert_("done" in fl.getBody())
+        return AdminLoginPage(self.fl)
 
-class Mailbox(BasePage):
+class CaseItemPage(BasePage):
+    def login(self, user, password):
+        BasePage.login(self, user, password)
+        return CaseItemPage(self.fl)
+
+    def attachRouteAndStart(self, route, routeDocId):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:a4j_route_region'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', '(COP'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
+            ['document_properties_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
+            ['ajaxSingle', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
+            ['inputvalue', route[:3]],
+            ['AJAX:EVENTS_COUNT', '1']],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:a4j_route_region'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', '0'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
+            ['document_properties_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['suggestionSelectionDeleteId', 'nxw_document_related_route_selection_reset'],
+            ['suggestionSelectionHiddenId', 'nxw_document_related_route_routeId'],
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_a4jSupport', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_a4jSupport'],
+            ['suggestionSelectionOutputId', 'nxw_document_related_route_route']],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        fl.assert_(route in p.body)
+        print "!!!!" + routeDocId
+        p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', routeDocId],
+            ['document_properties:nxl_summary_current_case_layout:start_route', 'Start'],
+            ['document_properties_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()]],
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        fl.assert_("A route is started from this document " in p.body)
+        return CaseItemPage(self.fl)
+    
+    def downloadFile(self, caseItemDocId ,pdfFile):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.get(server_url + "/nxfile/default/" + caseItemDocId + "/file:content/" + pdfFile,
+            description="download file")
+        return CaseItemPage(self.fl)
+    
+    def approveTask(self, case):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.assert_(case in fl.getBody())
+        if("Approve" in fl.getBody()):
+            fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mailbox_inbox_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+        fl.assert_("Approve" not in fl.getBody())
+        return CaseItemPage(self.fl)     
+
+
+class MailboxPage(FolderPage):
+    def login(self, user, password):
+        BasePage.login(self, user, password)
+        return MailboxPage(self.fl)
+    
+    def viewManageTab(self):
+       fl = self.fl
+       server_url = fl.server_url
+       params=[['mb_view_action_tab_form_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()]]
+       if ("Draft" not in fl.getBody()):
+           params.append(['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link'])
+       else:
+           params.append(['mb_view_action_tab_form:mb_view_action_tab_list:3:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:3:mb_view_action_tab_link'])         
+       p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params,
+            description="Go to manage tab")
+       fl.assert_("Incoming Case Item Management" in p.body)
+       return MailboxPage(self.fl)
+    
+    def viewInboxTab(self):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.assert_("Inbox" in fl.getBody())
+        p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mb_view_action_tab_form_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mb_view_action_tab_form:mb_view_action_tab_list:0:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:0:mb_view_action_tab_link']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+        return MailboxPage(self.fl)
+    
     def addIncomingCaseItemManagementProfile(self):
        fl = self.fl
        server_url = fl.server_url
-       p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
-            ['mb_view_action_tab_form_SUBMIT', '1'],
-            ['javax.faces.ViewState',fl.getLastJsfState()],
-            ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
-            description="Go to manage view")
-       fl.assert_( "Incoming Case Item Management" in p.body)
+       fl.assert_("Incoming Case Item Management" in fl.getBody())
        fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['document_edit:nxl_cm_mailbox:nxw_mailbox_profiles', 'cellule_courrier'],
-            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggest', ''],
-            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggestionBox_selection', ''],
-            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailboxId', ''],
-            ['document_edit:nxl_cm_mailbox:nxw_mailbox_sync_state', ''],
-            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggest', ''],
-            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox_selection', ''],
-            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggest', ''],
-            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggestionBox_selection', ''],
-            ['document_edit:j_id517', ''],
-            ['document_edit:j_id519', 'Save'],
+            ['document_edit:update_mailbox', 'Save'],
             ['document_edit_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()]],
             description="Post /nuxeo/casemanageme.../mailbox_view.faces")
-    def gotoDraft(self):
+       return MailboxPage(self.fl)
+
+    def viewDraftTab(self):
         fl = self.fl
         server_url = fl.server_url
+        fl.assert_("Draft" in fl.getBody())
         p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mb_view_action_tab_form_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
             description="Post /nuxeo/casemanageme.../mailbox_view.faces")
-        fl.assert_("New" in p.body)         
-
-
-
-class CaseItem(BasePage):
-
-    def createCaseItem(self, case, caseitem):
+        fl.assert_("New" in p.body)
+        return MailboxPage(self.fl)
+    
+    def createCaseItem(self, case, caseitem, pathToPdf):
         fl = self.fl
         server_url = fl.server_url
         # Click on create new Case
         fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
-            ['selectDocumentTypeForCreationForm:selectDocTypePanelOpenedState', ''],
             ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
@@ -791,7 +893,6 @@ class CaseItem(BasePage):
         # Create a Case
         p = fl.post(server_url + "/casemanagement/case/create_empty_case.faces", params=[
             ['document_create:nxl_cm_case:nxw_title', case],
-            ['document_create:nxl_cm_case:nxw_description', ''],
             ['document_create_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink', 'document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink']],
@@ -799,7 +900,6 @@ class CaseItem(BasePage):
         fl.assert_("New" in p.body) 
         # Add a Case Item
         fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['selectDocumentTypeForCreationForm:selectDocTypePanelOpenedState', ''],
             ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
@@ -808,16 +908,154 @@ class CaseItem(BasePage):
         fl.post(server_url + "/casemanagement/caseitem/create_cm_document.faces", params=[
             ['document_create:nxl_cm_document:nxw_title', caseitem],
             ['document_create:nxl_cm_document:nxw_document_type', '23'],
-            ['document_create:nxl_cm_document:nxw_document_date', ''],
-            ['document_create:nxl_cm_document:nxw_receive_date', ''],
             ['document_create:nxl_cm_document:nxw_confidentiality', '4'],
-            ['document_create:nxl_cm_document:nxw_origin', ''],
-            ['document_create:nxl_cm_document:nxw_reference', ''],
             ['document_create:nxl_cm_document:nxw_body', ''],
-            ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'none'],
-            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload("")],
+             ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'upload'],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload(pathToPdf)],
             ['document_create_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
             description="Post /nuxeo/casemanageme...e_cm_document.faces")
+        fl.assert_("("+caseitem+" )" in fl.getBody())
+        path = pathToPdf.split("/")
+        pdf_name = path[len(path) - 1]
+        fl.assert_("file:content/" + pdf_name in fl.getBody())
+        return MailboxPage(self.fl)
+    
+    def viewCaseItem(self, caseitem):
+       fl = self.fl
+       server_url = fl.server_url
+       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mailbox_inbox_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+       fl.assert_("("+caseitem+" )" in fl.getBody())
+       caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
+       return caseItemId
+   
+    def viewCaseItemInDraft(self, caseitem):
+       fl = self.fl
+       server_url = fl.server_url
+       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mailbox_draft_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title', 'mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+       fl.assert_("("+caseitem+" )" in fl.getBody())
+       caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
+       return caseItemId
 
+
+class RoutePage(BasePage):
+    
+    def login(self, user, password):
+        BasePage.login(self, user, password)
+        return RoutePage(self.fl)
+    
+    def viewRouteElementsTab(self, user, route):
+        fl = self.fl
+        server_url = fl.server_url
+        route = quote(route)
+        p = fl.get(server_url + "/nxpath/default/case-management/UserWorkspaces/" + user + "/" + route + "@view_documents?tabId=TAB_DOCUMENT_ROUTE_ELEMENTS&conversationId=0NXMAIN",
+            description="Get /nuxeo/nxpath/defau...eDoc@view_documents")
+        return RoutePage(self.fl)
+    
+    def viewRouteContentTab(self, user, route):
+        fl = self.fl
+        server_url = fl.server_url
+        self.personalWorkspace().viewDocumentPath("UserWorkspaces/"+ user+ "/"+ route)
+        return RoutePage(self.fl)
+    
+    def lockRoute(self, user, route):
+        fl = self.fl
+        server_url = fl.server_url
+        route = quote(route)
+        if ("This document is <span class=\"summary_locked\">locked</span>" not in fl.getBody()):
+            p = fl.post(server_url + "/view_documents.faces", params=[
+            ['dm_route_elements_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['dm_route_elements:nxl_document_routing_route_content:lock_route', 'dm_route_elements:nxl_document_routing_route_content:lock_route']],
+            description="Post /nuxeo/view_documents.faces")
+        fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in fl.getBody())
+        return RoutePage(self.fl)
+    
+    def getStepsDocsIds(self, stepsDocIds):
+        fl = self.fl
+        server_url = fl.server_url
+        i = 1
+        html = fl.getBody()
+        if("This folder contains no document" in html):
+            return stepsDocIds
+        
+        #get first step
+        start = html.find("orderable_document_content:nxl_document_listing_ajax:nxw_listing_ajax_selection_box_with_current_document")
+        end = html.find("orderable_document_content:nxl_document_listing_ajax:nxw_listing_modification_date", start)
+        stepId = extractToken(html[start:end], 'docRef:', '"')
+        if ("fork.png" in html[start:end]):
+            #this is a fork
+            print "this is fork"
+            p = self.viewDocumentUid(stepId)
+            stepsInForkIds = []
+            stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
+            stepsDocIds.extend(stepsInForkIds)
+        else:
+            stepsDocIds.append(stepId)
+        # get the ids for the others if any
+        while "orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_ajax_selection_box_with_current_document_" + str(i) in html:
+            start = html.find("orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_ajax_selection_box_with_current_document_")
+            end = html.find("orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_modification_date_", start)
+            stepId = extractToken(html[start:end], 'docRef:', '"')
+            #test if is fork
+            if ("fork.png" in html[start:end]):
+                #this is a fork
+                print "this is fork"
+                p = self.viewDocumentUid(stepId)
+                stepsInForkIds = []
+                stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
+                stepsDocIds.extend(stepsInForkIds)
+            else:
+                stepsDocIds.append(stepId)
+            i += 1
+            
+        return stepsDocIds
+    
+    def updateStepDistributionMailboxFromRouteView(self, stepId, distributionMailbox):
+        fl = self.fl
+        server_url = fl.server_url
+        p = fl.post(server_url + "/view_documents.faces", params=[
+            ['dm_route_elements_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['dm_route_elements:nxl_document_routing_route_content:nxw_dr_listing_step_actions:nxw_dr_listing_step_actions_edit:editStepListTable:2:documentActionSubviewUpperListLink', 'dm_route_elements:nxl_document_routing_route_content:nxw_dr_listing_step_actions:nxw_dr_listing_step_actions_edit:editStepListTable:2:documentActionSubviewUpperListLink'],
+            ['stepId', stepId]],
+            description="Post /nuxeo/view_documents.faces")
+        params = [['edit_step:update_step', 'Save'],
+                        ['edit_step_SUBMIT', '1']]
+        # request depending on the step type
+        if ("nxl_all_mailboxes_routing_task" in p.body):
+            params.append(['edit_step:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailboxId', distributionMailbox])
+        elif("nxl_generic_mailboxes_routing_task" in p.body):
+            params.append(['edit_step:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailboxId', distributionMailbox])
+        elif("nxl_personal_mailboxes_routing_task" in p.body):
+            params.append(['edit_step:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailboxId', distributionMailbox])
+        if("edit_step:nxl_routing_task:nxw_type" in p.body):
+            params.append(['edit_step:nxl_routing_task:nxw_type', '1'])
+        params.append(['javax.faces.ViewState', fl.getLastJsfState()])
+        
+        fl.post(server_url + "/edit_route_element.faces", params,
+                        description="Post /nuxeo/edit_route_element.faces")
+        return RoutePage(fl)
+
+    def validateRouteModel(self):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.assert_("Validate model" in fl.getBody())
+        fl.post(server_url + "/view_documents.faces", params=[
+            ['document_view:nxl_summary_document_route_layout:validate_route_model', 'Validate model'],
+            ['document_view_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()]],
+            description="Post /nuxeo/view_documents.faces")
+        fl.assert_("Validate model" not in fl.getBody())
+        RoutePage.routeDocId = self.getDocUid()
+        return RoutePage(fl)
+    

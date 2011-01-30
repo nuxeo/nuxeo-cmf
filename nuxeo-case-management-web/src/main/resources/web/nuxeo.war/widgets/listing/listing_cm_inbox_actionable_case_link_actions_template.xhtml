@@ -7,10 +7,10 @@
   xmlns:h="http://java.sun.com/jsf/html">
 
   <div class="popupTarget" docRef="#{field_0}">
-    <h:commandLink  value="#{messages['label.review.end.task']}"
+    <h:commandLink  value="#{messages['label.review.end.task']}" id="caselink_approve"
       action="#{actionableCaseLinkActions.approveTask(field_0)}" rendered="#{actionableCaseLinkActions.isShowAction(field_0)}" />
     <h:outputText value="   " />
-    <h:commandLink  value="#{messages['label.review.reject.task']}"
+    <h:commandLink  value="#{messages['label.review.reject.task']}" id="caselink_reject"
      action="#{actionableCaseLinkActions.rejectTask(field_0)}" rendered="#{actionableCaseLinkActions.isShowAction(field_0)}"/>
   </div>
 
