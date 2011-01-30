@@ -13,7 +13,7 @@ mvn -P$PROFILE -f nuxeo-case-management-distribution/pom.xml clean install || ex
 chmod +x nuxeo-case-management-distribution/target/nuxeo-${DIR_DISTRIB}-$DISTRIBUTION/bin/nuxeoctl || exit 1
 if [ $DISTRIBUTION = "server" ]
     then
-     sed -i "s/-Xmx1024m/-Xmx2g/" nuxeo-case-management-distribution/target/nuxeo-cm-$DISTRIBUTION/bin/nuxeo.conf
+     sed -i "s/-Xmx1024m/-Xmx2g/" nuxeo-case-management-distribution/target/nuxeo-${DIR_DISTRIB}-$DISTRIBUTION/bin/nuxeo.conf
 fi
 nuxeo-case-management-distribution/target/nuxeo-${DIR_DISTRIB}-$DISTRIBUTION/bin/nuxeoctl start || exit 1
 
