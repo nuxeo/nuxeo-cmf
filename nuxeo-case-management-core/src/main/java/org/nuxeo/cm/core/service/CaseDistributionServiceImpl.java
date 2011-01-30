@@ -255,7 +255,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     public CaseItem addCaseItemToCase(CoreSession session, Case kase,
             DocumentModel emailDoc) {
-        String parentPath = persister.getParentDocumentPathForCaseItem(session, kase);
+        String parentPath = persister.getParentDocumentPathForCaseItem(session,
+                kase);
         CaseItem item = emailDoc.getAdapter(CaseItem.class);
         String docName = IdUtils.generateId("doc " + item.getTitle());
         emailDoc.setPathInfo(parentPath, docName);
@@ -405,24 +406,36 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
      * Fire an event for a MailEnvelope object.
      */
     protected void fireEvent(CoreSession coreSession, Case envelope,
-            Map<String, Serializable> eventProperties, String eventName) {
+            Map<String, Serializable> eventProperties, String caseEventName,
+            String caseItemEventName) {
         try {
             DocumentEventContext envContext = new DocumentEventContext(
                     coreSession, coreSession.getPrincipal(),
                     envelope.getDocument());
             envContext.setProperties(eventProperties);
-            getEventProducer().fireEvent(envContext.newEvent(eventName));
+            getEventProducer().fireEvent(envContext.newEvent(caseEventName));
             List<CaseItem> items = envelope.getCaseItems(coreSession);
-            for (CaseItem item : items) {
-                DocumentModel doc = item.getDocument();
-                DocumentEventContext docContext = new DocumentEventContext(
-                        coreSession, coreSession.getPrincipal(), doc);
-                docContext.setProperties(eventProperties);
-                getEventProducer().fireEvent(docContext.newEvent(eventName));
+            if (caseItemEventName != null) {
+                for (CaseItem item : items) {
+                    DocumentModel doc = item.getDocument();
+                    DocumentEventContext docContext = new DocumentEventContext(
+                            coreSession, coreSession.getPrincipal(), doc);
+                    docContext.setProperties(eventProperties);
+                    getEventProducer().fireEvent(
+                            docContext.newEvent(caseItemEventName));
+                }
             }
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
+    }
+
+    /**
+     * Fire an event for a MailEnvelope object.
+     */
+    protected void fireEvent(CoreSession coreSession, Case envelope,
+            Map<String, Serializable> eventProperties, String caseEventName) {
+        fireEvent(coreSession, envelope, eventProperties, caseEventName, null);
     }
 
     @Override
@@ -579,7 +592,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         isInitial);
 
                 fireEvent(session, envelope, eventProperties,
-                        EventNames.beforeCaseSentEvent.name());
+                        EventNames.beforeCaseSentEvent.name(),
+                        EventNames.beforeCaseItemSentEvent.name());
 
                 if (isInitial) {
 
@@ -639,7 +653,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 }
 
                 fireEvent(session, envelope, eventProperties,
-                        EventNames.afterCaseSentEvent.name());
+                        EventNames.afterCaseSentEvent.name(),
+                        EventNames.afterCaseItemSentEvent.name());
 
             } catch (ClientException e) {
                 throw new CaseManagementException(e);

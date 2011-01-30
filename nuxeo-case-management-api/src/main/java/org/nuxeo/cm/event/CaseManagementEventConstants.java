@@ -43,6 +43,14 @@ public class CaseManagementEventConstants {
          */
         afterCaseSentEvent,
         /**
+         * Event sent before a case item is sent.
+         */
+        beforeCaseItemSentEvent,
+        /**
+         * Event sent after a case item is sent.
+         */
+        afterCaseItemSentEvent,
+        /**
          * Event sent before a draft is created. EventContext is a
          * DocumentEventContext carrying the Envelope.
          */

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
