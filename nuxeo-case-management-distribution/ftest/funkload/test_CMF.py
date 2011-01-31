@@ -17,6 +17,7 @@ from nuxeo.pages import *
 from xml_importer.pdf import *
 from nuxeo.testcase import NuxeoTestCase
 
+
 class CMF(NuxeoTestCase):
     """CMF
 
@@ -64,16 +65,20 @@ class CMF(NuxeoTestCase):
         MailboxPage(self).login(user, passwd).viewManageTab().addIncomingCaseItemManagementProfile().logout()
     
     def createCaseItem(self, user, passwd, case, caseItem, pathToPdf):
-        MailboxPage(self).login(user, passwd).viewDraftTab().createCaseItem(case, caseItem, pathToPdf).logout()
+        caseItemId = MailboxPage(self).login(user, passwd).viewDraftTab().createCaseItem(case, caseItem, pathToPdf)
+        MailboxPage(self).logout()
+        print "!!!CASE" + caseItemId
+        return caseItemId
     
-    def attachRouteAndStart(self, user, passwd, caseitem, route):
-        p = MailboxPage(self).login(user, passwd).viewDraftTab().viewCaseItemInDraft(caseitem)
+    def attachRouteAndStart(self, user, passwd, case, caseitem, caseItemId, route):
+        p = MailboxPage(self).login(user, passwd).viewDraftTab().viewCaseItem(case, caseitem, caseItemId)
         p= CaseItemPage(self).attachRouteAndStart(route , RoutePage(self).routeDocId).logout()
         
     
-    def downloadFileAndApproveTaks(self, user, passwd, case, caseitem, pdf):
-        caseItemId = MailboxPage(self).login(user, passwd).viewInboxTab().viewCaseItem(caseitem)
-        CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
+    def downloadFileAndApproveTaks(self, user, passwd, case, caseitem, caseItemId, pdf):
+        MailboxPage(self).login(user, passwd).viewInboxTab().clickCaseItem(case, caseitem, caseItemId)
+        #CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
+        CaseItemPage(self).logout()
         CaseItemPage(self).login(user, passwd).approveTask(case).logout()
     
     
@@ -81,25 +86,30 @@ class CMF(NuxeoTestCase):
         AdminLoginPage(self).login(*self.cred_admin).viewRouteInstance(route).verifyRouteIsDone(route).logout()
     
     def test_CMF(self):
+        route = "(COPY) RouteDoc"
+        case = "casexx"
+        caseItem = "caseitemxx"
+        
         server_url = self.server_url
         self.get(server_url,
                  description="Check if the server is alive")
         #update and validate route Model
-        self.updateRoute("jdoe", "jdoe1", "(COPY) RouteDoc")
-        self.validateRouteModel("jdoe", "jdoe1", "(COPY) RouteDoc")
+        self.updateRoute("jdoe", "jdoe1", route)
+        self.validateRouteModel("jdoe", "jdoe1", route)
         
         #add incoming mailbox profile to personal mailbox for random user
         randUser = self.getRandomUser()
         self.addIncomingMailboxProfile(randUser[0], randUser[1]) 
-        p = self.createCaseItem(randUser[0], randUser[1], "casex", "caseitemx", "xml_importer/pdf_files/20pages.pdf")        
-        self.attachRouteAndStart(randUser[0], randUser[1], "caseitemx", "(COPY) RouteDoc")
+        caseItemId = self.createCaseItem(randUser[0], randUser[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
+        self.attachRouteAndStart(randUser[0], randUser[1], case, caseItem, caseItemId, route)
        
         #users having received tasks, loggin
+        #print"ENTER"
+        #sys.stdin.readline()
         for i in CMF.usersWithTasks:
-            #print "User" + i[0]
-            self.downloadFileAndApproveTaks(i[0], i[1] , "casex", "caseitemx", "20pages.pdf")      
+            self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
         #make sure the rute is done
-        self.verifyRouteDoneAsAdmin("(COPY) RouteDoc")
+        self.verifyRouteDoneAsAdmin(route)
     
     def tearDown(self):
         """Setting up test."""

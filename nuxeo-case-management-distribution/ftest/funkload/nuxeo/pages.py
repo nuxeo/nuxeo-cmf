@@ -796,7 +796,6 @@ class CaseItemPage(BasePage):
             ['suggestionSelectionOutputId', 'nxw_document_related_route_route']],
             description="Post /nuxeo/casemanageme.../view_cm_case.faces")
         fl.assert_(route in p.body)
-        print "!!!!" + routeDocId
         p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
             ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', routeDocId],
             ['document_properties:nxl_summary_current_case_layout:start_route', 'Start'],
@@ -818,12 +817,13 @@ class CaseItemPage(BasePage):
         server_url = fl.server_url
         fl.assert_(case in fl.getBody())
         if("Approve" in fl.getBody()):
-            fl.post(server_url + "/nuxeo/casemanagement/mailbox/mailbox_view.faces", params=[
+            print "APPROVED!"
+            fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve']],
-            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
-        fl.assert_("Approve" not in fl.getBody())
+            description="Approve task")
+        fl.assert_("an unexpected error occurred" not in fl.getBody())
         return CaseItemPage(self.fl)     
 
 
@@ -920,20 +920,19 @@ class MailboxPage(FolderPage):
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
         fl.assert_("file:content/" + pdf_name in fl.getBody())
-        return MailboxPage(self.fl)
+        caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
+        return caseItemId
     
-    def viewCaseItem(self, caseitem):
+    def viewCaseItem(self,case, caseitem, caseItemId):
        fl = self.fl
        server_url = fl.server_url
-       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
-            ['mailbox_inbox_content_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title']],
-            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+       now = datetime.datetime.now()
+       p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?subTabId=&tabId=TAB_CASE_MANAGEMENT_VIEW&conversationId=0NXMAIN&currentCaseItemId=" + caseItemId,
+            description="Get /nuxeo/nxpath/defau...eDoc@view_documents")
        fl.assert_("("+caseitem+" )" in fl.getBody())
-       caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
-       return caseItemId
+       return CaseItemPage(self.fl)
    
+    #change this to use the id of the case? 
     def viewCaseItemInDraft(self, caseitem):
        fl = self.fl
        server_url = fl.server_url
@@ -943,8 +942,19 @@ class MailboxPage(FolderPage):
             ['mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title', 'mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title']],
             description="Post /nuxeo/casemanageme.../mailbox_view.faces")
        fl.assert_("("+caseitem+" )" in fl.getBody())
-       caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
-       return caseItemId
+       return CaseItemPage(self.fl)
+   
+    def clickCaseItem(self,case, caseitem, caseItemId):
+       fl = self.fl
+       server_url = fl.server_url
+       now = datetime.datetime.now()
+       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mailbox_inbox_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title']],
+            description="Post /nuxeo/casemanageme.../mailbox_view.faces")
+       fl.assert_("("+caseitem+" )" in fl.getBody())
+       return CaseItemPage(self.fl)
 
 
 class RoutePage(BasePage):
