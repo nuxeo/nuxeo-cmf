@@ -45,6 +45,9 @@ class CMF(NuxeoTestCase):
     def getRandomAdministrator(self):
         return random.choice(self.cred_admin)
     
+    def getRandomRouteManager(self):
+        return random.choice(self.routeManagerList)
+    
     def updateRoute(self, user, passwd, route):
         stepsDocIds = []
         p = RoutePage(self).login(user, passwd).viewRouteContentTab(user, route)
@@ -90,12 +93,14 @@ class CMF(NuxeoTestCase):
         case = "casexx"
         caseItem = "caseitemxx"
         
+        routeManager = self.getRandomRouteManager()
+        
         server_url = self.server_url
         self.get(server_url,
                  description="Check if the server is alive")
         #update and validate route Model
-        self.updateRoute("jdoe", "jdoe1", route)
-        self.validateRouteModel("jdoe", "jdoe1", route)
+        self.updateRoute(routeManager[0], routeManager[1], route)
+        self.validateRouteModel(routeManager[0], routeManager[1], route)
         
         #add incoming mailbox profile to personal mailbox for random user
         randUser = self.getRandomUser()
