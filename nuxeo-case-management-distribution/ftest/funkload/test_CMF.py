@@ -5,6 +5,7 @@ $Id: $
 """
 import unittest
 import random
+import uuid
 from datetime import datetime
 from webunit.utility import Upload
 from funkload.FunkLoadTestCase import FunkLoadTestCase
@@ -64,13 +65,17 @@ class CMF(NuxeoTestCase):
     def validateRouteModel(self, user, passwd, route):
         RoutePage(self).login(user, passwd).viewRouteContentTab(user, route).validateRouteModel().logout()
     
+    def routeModelAlreadyValidated(self, user, passwd, route):
+        validated = RoutePage(self).login(user, passwd).viewRouteContentTab(user, route).routeModelValidated()
+        RoutePage(self).logout()
+        return validated
+    
     def addIncomingMailboxProfile(self, user, passwd):
         MailboxPage(self).login(user, passwd).viewManageTab().addIncomingCaseItemManagementProfile().logout()
     
     def createCaseItem(self, user, passwd, case, caseItem, pathToPdf):
         caseItemId = MailboxPage(self).login(user, passwd).viewDraftTab().createCaseItem(case, caseItem, pathToPdf)
         MailboxPage(self).logout()
-        print "!!!CASE" + caseItemId
         return caseItemId
     
     def attachRouteAndStart(self, user, passwd, case, caseitem, caseItemId, route):
@@ -82,16 +87,18 @@ class CMF(NuxeoTestCase):
         MailboxPage(self).login(user, passwd).viewInboxTab().clickCaseItem(case, caseitem, caseItemId)
         #CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
         CaseItemPage(self).logout()
-        CaseItemPage(self).login(user, passwd).approveTask(case).logout()
-    
+        approveLink = CaseItemPage(self).login(user, passwd).extractTaskApproveLink(case)
+        if(approveLink is not None):
+            CaseItemPage(self).approveTask(case, approveLink)
+        CaseItemPage(self).logout()
     
     def verifyRouteDoneAsAdmin(self, route):
         AdminLoginPage(self).login(*self.cred_admin).viewRouteInstance(route).verifyRouteIsDone(route).logout()
     
     def test_CMF(self):
         route = "(COPY) RouteDoc"
-        case = "casexx"
-        caseItem = "caseitemxx"
+        case = "case" + str(self.thread_id) + str(random.random())
+        caseItem = "caseitem" + str(self.thread_id) + str(random.random())
         
         routeManager = self.getRandomRouteManager()
         
@@ -99,6 +106,9 @@ class CMF(NuxeoTestCase):
         self.get(server_url,
                  description="Check if the server is alive")
         #update and validate route Model
+        
+        #validated = self.routeModelAlreadyValidated(routeManager[0], routeManager[1], route)
+        #if (validated is False):        
         self.updateRoute(routeManager[0], routeManager[1], route)
         self.validateRouteModel(routeManager[0], routeManager[1], route)
         
@@ -109,12 +119,11 @@ class CMF(NuxeoTestCase):
         self.attachRouteAndStart(randUser[0], randUser[1], case, caseItem, caseItemId, route)
        
         #users having received tasks, loggin
-        #print"ENTER"
-        #sys.stdin.readline()
         for i in CMF.usersWithTasks:
             self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
         #make sure the rute is done
         self.verifyRouteDoneAsAdmin(route)
+        
     
     def tearDown(self):
         """Setting up test."""

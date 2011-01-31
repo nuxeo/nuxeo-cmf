@@ -812,7 +812,7 @@ class CaseItemPage(BasePage):
             description="download file")
         return CaseItemPage(self.fl)
     
-    def approveTask(self, case):
+    def approveTask(self, case, approveLink):
         fl = self.fl
         server_url = fl.server_url
         fl.assert_(case in fl.getBody())
@@ -821,10 +821,21 @@ class CaseItemPage(BasePage):
             fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve']],
+            [approveLink, approveLink]],
             description="Approve task")
         fl.assert_("an unexpected error occurred" not in fl.getBody())
-        return CaseItemPage(self.fl)     
+        return CaseItemPage(self.fl)
+    
+    def extractTaskApproveLink(self, case):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.assert_(case in fl.getBody())
+        html = fl.getBody()
+        if("Approve" in fl.getBody()):
+            start = html.find("title=" + case)
+            end = html.find("document.getElementById('mailbox_inbox_content')", start)
+            approveLink = extractToken(html[start:end], 'a id="', '"')
+            return approveLink 
 
 
 class MailboxPage(FolderPage):
@@ -1069,3 +1080,28 @@ class RoutePage(BasePage):
         RoutePage.routeDocId = self.getDocUid()
         return RoutePage(fl)
     
+    def routeModelValidated(self):
+        fl = self.fl
+        server_url = fl.server_url
+        RoutePage.routeDocId = self.getDocUid()
+        #if the route is not already validated
+        if("validated" in fl.getBody() and "Validate model" not in fl.getBody()):
+            return True
+        else:
+            fl.assert_("draft" in fl.getBody())
+            return False
+    #FIXME
+    def getMailboxListForSteps(self):
+        fl = self.fl
+        server_url = fl.server_url
+        fl.assert_("This document is <span class=\"summary_unlocked\">unlocked </span>" in fl.getBody())
+        mailboxList = []
+        html = fl.getBody()
+        while "title=\"validated\"" in html:
+            start = html.find("title=\"validated\"")
+            end = html.find("</tr>", start)
+            userMailbox =  extractToken(html[start:end], '<td class="  routeRowBackground\'*\'">', '<')
+            html = html[end:]
+            mailboxList.append(userMailbox)
+        return mailboxList
+        
