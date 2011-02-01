@@ -17,10 +17,10 @@
       facet="Case"
       factory="org.nuxeo.cm.core.adapter.CaseAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.CaseItem"
-      facet="CaseGroupable"
+      facet="CaseItem"
       factory="org.nuxeo.cm.core.adapter.CaseItemAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.LockableAdapter"
-      facet="CaseGroupable"
+      facet="CaseItem"
       factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.HasParticipants"
       factory="org.nuxeo.cm.core.adapter.HasParticipantsAdapterFactory" />

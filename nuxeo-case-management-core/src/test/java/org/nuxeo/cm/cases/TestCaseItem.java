@@ -62,7 +62,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
     public void testGetDocument() {
         DocumentModel model = item.getDocument();
         assertNotNull(model);
-        assertTrue(model.hasFacet(CaseConstants.CASE_GROUPABLE_FACET));
+        assertTrue(model.hasFacet(CaseConstants.CASE_ITEM_FACET));
     }
 
     public void testProperties() throws ClientException {
