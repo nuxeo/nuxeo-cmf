@@ -740,28 +740,69 @@ class FolderPage(BasePage):
         fl.get(doc_url, description="View a random document")
         return DocumentPage(self.fl)
     
-class AdminLoginPage(LoginPage):
+class RouteInstancePage(LoginPage):
     def login(self, user, password):
         BasePage.login(self, user, password)
-        return AdminLoginPage(self.fl)
+        return RouteInstancePage(self.fl)
     
-    def viewRouteInstance(self, route):
+    def viewRouteInstance(self, routeInstance):
         fl = self.fl
         server_url = fl.server_url
         now = datetime.datetime.now()
-        p = fl.get(server_url + "/nxpath/default/case-management/document-route-instances-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(route) + "@view_documents?tabId=&conversationId=0NXMAIN",
+        p = fl.get(server_url + "/nxpath/default/case-management/document-route-instances-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(routeInstance) + "@view_documents?tabId=&conversationId=0NXMAIN",
             description="Get /nuxeo/nxpath/defau...eDoc@view_documents")
         fl.assert_("Participating documents" in p.body)
-        return AdminLoginPage(self.fl)
+        return RouteInstancePage(self.fl)
         
-    def verifyRouteIsDone(self, route):
+        
+    def getStepsDocsIds(self, stepsDocIds):
         fl = self.fl
-        fl.assert_(route in fl.getBody())
+        server_url = fl.server_url
+        i = 1
+        html = fl.getBody()
+        if("This folder contains no document" in html):
+            return stepsDocIds
+        
+        #get first step
+        start = html.find("orderable_document_content:nxl_document_listing_ajax:nxw_listing_ajax_selection_box_with_current_document")
+        end = html.find("orderable_document_content:nxl_document_listing_ajax:nxw_listing_modification_date", start)
+        stepId = extractToken(html[start:end], 'docRef:', '"')
+        if ("fork.png" in html[start:end]):
+            #this is a fork
+            print "this is fork"
+            p = self.viewDocumentUid(stepId)
+            stepsInForkIds = []
+            stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
+            stepsDocIds.extend(stepsInForkIds)
+        else:
+            stepsDocIds.append(stepId)
+        # get the ids for the others if any
+        while "orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_ajax_selection_box_with_current_document_" + str(i) in html:
+            start = html.find("orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_ajax_selection_box_with_current_document_")
+            end = html.find("orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_modification_date_", start)
+            stepId = extractToken(html[start:end], 'docRef:', '"')
+            #test if is fork
+            if ("fork.png" in html[start:end]):
+                #this is a fork
+                print "this is fork"
+                p = self.viewDocumentUid(stepId)
+                stepsInForkIds = []
+                stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
+                stepsDocIds.extend(stepsInForkIds)
+            else:
+                stepsDocIds.append(stepId)
+            i += 1
+            
+        return stepsDocIds
+    
+    def verifyRouteIsDone(self, routeInstance, case):
+        fl = self.fl
+        fl.assert_(case in fl.getBody())
         fl.assert_("draft" not in fl.getBody())
         fl.assert_("ready" not in fl.getBody())
         fl.assert_("running" not in fl.getBody())
         fl.assert_("done" in fl.getBody())
-        return AdminLoginPage(self.fl)
+        return RouteInstancePage(self.fl)
 
 class CaseItemPage(BasePage):
     def login(self, user, password):
@@ -835,8 +876,25 @@ class CaseItemPage(BasePage):
             start = html.find("title=" + case)
             end = html.find("document.getElementById('mailbox_inbox_content')", start)
             approveLink = extractToken(html[start:end], 'a id="', '"')
-            return approveLink 
-
+            return approveLink
+      
+    def viewRelatedStartedRoute(self, case):
+      fl = self.fl
+      server_url = fl.server_url
+      now = datetime.datetime.now()
+      fl.get(server_url + "/nxpath/default/case-management/case-root/" + now.strftime("%Y/%m/%d")+ "/" + quote(case) + "@view_cm_case?tabId=TAB_CASE_MANAGEMENT_VIEW_RELATED_ROUTE&conversationId=0NXMAIN",
+            description="Get /nuxeo/nxpath/defau...1/edwe@view_cm_case")
+      fl.assert_("This document is <span class=\"summary_unlocked\">unlocked" in fl.getBody())
+      routeInstanceName = extractToken(fl.getBody(), server_url + '/nxpath/default/case-management/document-route-instances-root/' + now.strftime("%Y/%m/%d")+ "/" , '/')
+      return routeInstanceName   
+    
+    def refreshRelatedStartedRoute(self, case):
+      fl = self.fl
+      server_url = fl.server_url
+      now = datetime.datetime.now()
+      fl.get(server_url + "/nxpath/default/case-management/case-root/" + now.strftime("%Y/%m/%d")+ "/" + quote(case) + "@view_cm_case?tabId=TAB_CASE_MANAGEMENT_VIEW_RELATED_ROUTE&conversationId=0NXMAIN",
+            description="Get /nuxeo/nxpath/defau...1/edwe@view_cm_case")
+      return CaseItemPage(self)
 
 class MailboxPage(FolderPage):
     def login(self, user, password):
@@ -988,81 +1046,63 @@ class RoutePage(BasePage):
         self.personalWorkspace().viewDocumentPath("UserWorkspaces/"+ user+ "/"+ route)
         return RoutePage(self.fl)
     
+    def getRouteModelDocId(self, user, route):
+        fl = self.fl
+        server_url = fl.server_url
+        self.personalWorkspace().viewDocumentPath("UserWorkspaces/"+ user+ "/"+ route)
+        RoutePage.routeDocId = self.getDocUid()
+        return RoutePage(self.fl)
+    
     def lockRoute(self, user, route):
         fl = self.fl
         server_url = fl.server_url
         route = quote(route)
         if ("This document is <span class=\"summary_locked\">locked</span>" not in fl.getBody()):
-            p = fl.post(server_url + "/view_documents.faces", params=[
-            ['dm_route_elements_SUBMIT', '1'],
+            p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['related_route_elements_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['dm_route_elements:nxl_document_routing_route_content:lock_route', 'dm_route_elements:nxl_document_routing_route_content:lock_route']],
+            ['related_route_elements:nxl_document_routing_route_content:lock_route', 'related_route_elements:nxl_document_routing_route_content:lock_route']],
             description="Post /nuxeo/view_documents.faces")
+        fl.assert_("an unexpected error occurred" not in fl.getBody())
         fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in fl.getBody())
         return RoutePage(self.fl)
     
-    def getStepsDocsIds(self, stepsDocIds):
+    def stepCanBeUpdated(self, stepId):
         fl = self.fl
         server_url = fl.server_url
-        i = 1
         html = fl.getBody()
-        if("This folder contains no document" in html):
-            return stepsDocIds
-        
-        #get first step
-        start = html.find("orderable_document_content:nxl_document_listing_ajax:nxw_listing_ajax_selection_box_with_current_document")
-        end = html.find("orderable_document_content:nxl_document_listing_ajax:nxw_listing_modification_date", start)
-        stepId = extractToken(html[start:end], 'docRef:', '"')
-        if ("fork.png" in html[start:end]):
-            #this is a fork
-            print "this is fork"
-            p = self.viewDocumentUid(stepId)
-            stepsInForkIds = []
-            stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
-            stepsDocIds.extend(stepsInForkIds)
-        else:
-            stepsDocIds.append(stepId)
-        # get the ids for the others if any
-        while "orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_ajax_selection_box_with_current_document_" + str(i) in html:
-            start = html.find("orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_ajax_selection_box_with_current_document_")
-            end = html.find("orderable_document_content:nxl_document_listing_ajax_" + str(i) + ":nxw_listing_modification_date_", start)
-            stepId = extractToken(html[start:end], 'docRef:', '"')
-            #test if is fork
-            if ("fork.png" in html[start:end]):
-                #this is a fork
-                print "this is fork"
-                p = self.viewDocumentUid(stepId)
-                stepsInForkIds = []
-                stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
-                stepsDocIds.extend(stepsInForkIds)
-            else:
-                stepsDocIds.append(stepId)
-            i += 1
-            
-        return stepsDocIds
+        fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
+        start = html.find("docRef=\"" + stepId)
+        end = html.find("</tr>", start)
+        html=html[start:end]
+        if ("title=\"ready\"" in html):
+            return True
+        return False
     
-    def updateStepDistributionMailboxFromRouteView(self, stepId, distributionMailbox):
+    def updateStepDistributionMailboxFromRouteView(self, stepId, distributionMailbox , stepRang):
         fl = self.fl
         server_url = fl.server_url
-        p = fl.post(server_url + "/view_documents.faces", params=[
-            ['dm_route_elements_SUBMIT', '1'],
+        fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+            ['related_route_elements_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['dm_route_elements:nxl_document_routing_route_content:nxw_dr_listing_step_actions:nxw_dr_listing_step_actions_edit:editStepListTable:2:documentActionSubviewUpperListLink', 'dm_route_elements:nxl_document_routing_route_content:nxw_dr_listing_step_actions:nxw_dr_listing_step_actions_edit:editStepListTable:2:documentActionSubviewUpperListLink'],
+            ['related_route_elements:nxl_document_routing_route_content_'+ str(stepRang) + ':nxw_dr_listing_step_actions_'+ str(stepRang) +':nxw_dr_listing_step_actions_'+ str(stepRang) +'_edit:editStepListTable:2:documentActionSubviewUpperListLink', 
+             'related_route_elements:nxl_document_routing_route_content_'+ str(stepRang) +':nxw_dr_listing_step_actions_'+ str(stepRang) +':nxw_dr_listing_step_actions_' + str(stepRang) +'_edit:editStepListTable:2:documentActionSubviewUpperListLink'],
             ['stepId', stepId]],
-            description="Post /nuxeo/view_documents.faces")
+            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
+        p = fl.getBody()
+        print ("UPDATE")
         params = [['edit_step:update_step', 'Save'],
                         ['edit_step_SUBMIT', '1']]
         # request depending on the step type
-        if ("nxl_all_mailboxes_routing_task" in p.body):
+        if ("nxl_all_mailboxes_routing_task" in p):
             params.append(['edit_step:nxl_all_mailboxes_routing_task:nxw_distribution_mailbox_mailboxId', distributionMailbox])
-        elif("nxl_generic_mailboxes_routing_task" in p.body):
+        elif("nxl_generic_mailboxes_routing_task" in p):
             params.append(['edit_step:nxl_generic_mailboxes_routing_task:nxw_distribution_mailbox_mailboxId', distributionMailbox])
-        elif("nxl_personal_mailboxes_routing_task" in p.body):
+        elif("nxl_personal_mailboxes_routing_task" in p):
             params.append(['edit_step:nxl_personal_mailboxes_routing_task:nxw_distribution_mailbox_mailboxId', distributionMailbox])
-        if("edit_step:nxl_routing_task:nxw_type" in p.body):
+        if("edit_step:nxl_routing_task:nxw_type" in p):
             params.append(['edit_step:nxl_routing_task:nxw_type', '1'])
         params.append(['javax.faces.ViewState', fl.getLastJsfState()])
-        
         fl.post(server_url + "/edit_route_element.faces", params,
                         description="Post /nuxeo/edit_route_element.faces")
         return RoutePage(fl)
@@ -1101,6 +1141,8 @@ class RoutePage(BasePage):
             start = html.find("title=\"validated\"")
             end = html.find("</tr>", start)
             userMailbox =  extractToken(html[start:end], '<td class="  routeRowBackground\'*\'">', '<')
+            i = userMailbox.find("routeRowBackground")
+            userMailbox = userMailbox[i+ len("routeRowBackground")+3 + len("user-"):]
             html = html[end:]
             mailboxList.append(userMailbox)
         return mailboxList

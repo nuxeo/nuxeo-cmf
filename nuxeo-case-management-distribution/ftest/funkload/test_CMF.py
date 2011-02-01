@@ -49,26 +49,35 @@ class CMF(NuxeoTestCase):
     def getRandomRouteManager(self):
         return random.choice(self.routeManagerList)
     
-    def updateRoute(self, user, passwd, route):
+    def getPasswordForUser(self, user):
+        for i in self.memberList:
+            if cmp(i[0],user):
+                return i[1]
+
+    def extractRouteStepsIds(self, user, passwd, routeInstanceName):
         stepsDocIds = []
-        p = RoutePage(self).login(user, passwd).viewRouteContentTab(user, route)
+        p = RouteInstancePage(self).login(user, passwd).viewRouteInstance(routeInstanceName)
         #get all the route steps docIds to modify the route from the route view
         stepsDocIds = p.getStepsDocsIds(stepsDocIds)
+        p.logout()
+        return stepsDocIds
+    
+    def updateRoute(self, user, passwd, case, route, stepsDocIds):
         #lock route and modify steps
-        RoutePage(self).viewRouteElementsTab(user, route).lockRoute(user, route)
+        CaseItemPage(self).login(user, passwd).viewRelatedStartedRoute(case)
+        p = RoutePage(self).lockRoute(user, route)
+        j = 0
         for i in stepsDocIds:
             randUser = self.getRandomUser()
-            CMF.usersWithTasks.append(randUser)
-            RoutePage(self).updateStepDistributionMailboxFromRouteView(i, "user-" + randUser[0])
+            if RoutePage(self).stepCanBeUpdated(i) is True:
+                CMF.usersWithTasks.append(randUser)
+                CaseItemPage(self).refreshRelatedStartedRoute(case)
+                RoutePage(self).updateStepDistributionMailboxFromRouteView(i, "user-" + randUser[0], j)
+            j = j + 1     
         p.logout()    
-    
-    def validateRouteModel(self, user, passwd, route):
-        RoutePage(self).login(user, passwd).viewRouteContentTab(user, route).validateRouteModel().logout()
-    
-    def routeModelAlreadyValidated(self, user, passwd, route):
-        validated = RoutePage(self).login(user, passwd).viewRouteContentTab(user, route).routeModelValidated()
-        RoutePage(self).logout()
-        return validated
+   
+    def extractRouteModelId(self, routeMan, routeManPass, route):
+        RoutePage(self).login(routeMan, routeManPass).getRouteModelDocId(routeMan, route).logout()
     
     def addIncomingMailboxProfile(self, user, passwd):
         MailboxPage(self).login(user, passwd).viewManageTab().addIncomingCaseItemManagementProfile().logout()
@@ -80,49 +89,55 @@ class CMF(NuxeoTestCase):
     
     def attachRouteAndStart(self, user, passwd, case, caseitem, caseItemId, route):
         p = MailboxPage(self).login(user, passwd).viewDraftTab().viewCaseItem(case, caseitem, caseItemId)
-        p= CaseItemPage(self).attachRouteAndStart(route , RoutePage(self).routeDocId).logout()
-        
+        routeInstanceName = CaseItemPage(self).attachRouteAndStart(route , RoutePage(self).routeDocId).viewRelatedStartedRoute(case)
+        p.logout()
+        return routeInstanceName
     
     def downloadFileAndApproveTaks(self, user, passwd, case, caseitem, caseItemId, pdf):
         MailboxPage(self).login(user, passwd).viewInboxTab().clickCaseItem(case, caseitem, caseItemId)
-        #CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
+        CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
         CaseItemPage(self).logout()
         approveLink = CaseItemPage(self).login(user, passwd).extractTaskApproveLink(case)
         if(approveLink is not None):
             CaseItemPage(self).approveTask(case, approveLink)
         CaseItemPage(self).logout()
     
-    def verifyRouteDoneAsAdmin(self, route):
-        AdminLoginPage(self).login(*self.cred_admin).viewRouteInstance(route).verifyRouteIsDone(route).logout()
+    def verifyRouteDoneAsAdmin(self, routeInstanceName, case):
+        RouteInstancePage(self).login(*self.cred_admin).viewRouteInstance(routeInstanceName).verifyRouteIsDone(routeInstanceName, case).logout()
     
     def test_CMF(self):
-        route = "(COPY) RouteDoc"
+        route = "FunkloadRouteDoc"
         case = "case" + str(self.thread_id) + str(random.random())
         caseItem = "caseitem" + str(self.thread_id) + str(random.random())
-        
+  
         routeManager = self.getRandomRouteManager()
+        randUser = self.getRandomUser()
+        
+        user =  randUser[0]
+        passwd = randUser[1]
         
         server_url = self.server_url
         self.get(server_url,
                  description="Check if the server is alive")
-        #update and validate route Model
         
-        #validated = self.routeModelAlreadyValidated(routeManager[0], routeManager[1], route)
-        #if (validated is False):        
-        self.updateRoute(routeManager[0], routeManager[1], route)
-        self.validateRouteModel(routeManager[0], routeManager[1], route)
+        self.extractRouteModelId(routeManager[0], routeManager[1], route)
         
-        #add incoming mailbox profile to personal mailbox for random user
-        randUser = self.getRandomUser()
-        self.addIncomingMailboxProfile(randUser[0], randUser[1]) 
-        caseItemId = self.createCaseItem(randUser[0], randUser[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
-        self.attachRouteAndStart(randUser[0], randUser[1], case, caseItem, caseItemId, route)
+        
+        
+        self.addIncomingMailboxProfile(routeManager[0], routeManager[1])
+        caseItemId = self.createCaseItem(routeManager[0], routeManager[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
+        routeInstanceName = self.attachRouteAndStart(routeManager[0], routeManager[1], case, caseItem, caseItemId, route)
+        
+        stepsDocIds = self.extractRouteStepsIds(routeManager[0], routeManager[1], routeInstanceName) 
+        self.updateRoute(routeManager[0], routeManager[1], case ,route, stepsDocIds)
        
+        #FIXME : approve the first already running task ( this step couldn't be modified)
+        self.downloadFileAndApproveTaks("lbramard", "lbramard1" , case, caseItem, caseItemId, "20pages.pdf")
         #users having received tasks, loggin
         for i in CMF.usersWithTasks:
             self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
         #make sure the rute is done
-        self.verifyRouteDoneAsAdmin(route)
+        self.verifyRouteDoneAsAdmin(routeInstanceName, case)
         
     
     def tearDown(self):
