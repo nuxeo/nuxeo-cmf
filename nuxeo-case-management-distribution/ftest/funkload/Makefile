@@ -15,7 +15,9 @@ else
 endif
 
 
-all: start testCMF stop
+all: start createUsers testCMF stop
+
+createUsers: start users-CMF stop
 
 testCMF: start test-CMF stop
 
@@ -30,8 +32,11 @@ stop:
 	-$(MONCTL) stop
 	-$(CREDCTL) stop
 
+users-CMF: 
+	fl-run-test -d  --simple-fetch users_CMF.py $(FLOPS)
+	
 test-CMF:
-	fl-run-test -d  -V --simple-fetch test_CMF.py $(FLOPS)
+	fl-run-test -d  --simple-fetch test_CMF.py $(FLOPS)
 
 test-bench:
 	-fl-run-bench --simple-fetch test_CMF.py CMF.test_available  --label=test -c 1:5 -D 60 -m 0.1 -M .5 -s 1 $(FLOPS)

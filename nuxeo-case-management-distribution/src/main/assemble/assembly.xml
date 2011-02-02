@@ -20,7 +20,7 @@
 
   <target name="init-cmf">
     <artifact:set groupId="org.nuxeo.cm" type="jar" id="application-jars"/>
-    <fileset id="distribution-templates" dir="src/main/resources" excludes="correspondence/,nuxeo-defaults/" />
+    <fileset id="distribution-templates" dir="src/main/resources" excludes="correspondence/,nuxeo-defaults/,cmf-funkload/" />
   </target>
 
   <target name="init-corr">
@@ -30,12 +30,31 @@
         <artifact groupId="org.nuxeo.correspondence" type="jar"/>
       </includes>
     </artifact:set>
-    <fileset id="distribution-templates-corr" dir="src/main/resources" excludes="nuxeo-defaults/"/>
+    <fileset id="distribution-templates-corr" dir="src/main/resources" excludes="nuxeo-defaults/,cmf-funkload/"/>
   </target>
   
+  <target name="init-cmf-funkload">
+    <artifact:set groupId="org.nuxeo.cm" type="jar" id="application-jars"/>
+    <fileset id="distribution-templates-cmf-funkload" dir="src/main/resources" excludes="correspondence/,nuxeo-defaults/" />
+  </target>
+
   <target name="update-cmf-defaults">
     <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" /> 
     <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
+  </target>
+
+  <target name="update-cmf-funkload-defaults">
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" /> 
+   <echo file="${app.path}/templates/cmf-funkload/nuxeo.defaults" append="yes" message="${line.separator}cmf-funkload.target=${deploy.dir}${line.separator}" /> 
+    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>    
+    <concat destfile="${app.path}/templates/cmf-funkload/nuxeo.defaults" append="yes"> 
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
     <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
@@ -59,6 +78,7 @@
       <fileset file="src/main/resources/nuxeo-defaults/corr.txt" />
     </concat>
   </target>
+
 
   <target name="build">
     <antcall target="cleanoutput" />
@@ -159,6 +179,10 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     <antcall target="build-server" />
   </target>
 
+  <target name="run-tomcat-funkload" depends="init-cmf-funkload" if="maven.profile.funkloadLoadTest">
+    <antcall target="build-server" />
+  </target>
+
   <target name="server" depends="init">
     <antcall target="run-tomcat">
       <param name="distribution" value="tomcat" />
@@ -231,6 +255,24 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
       <param name="default.templates" value="default,cmf,correspondence" />
       <param name="update.nuxeo.defaults.task" value="update-corr-defaults" />
       <param name="product.name" value="Nuxeo-Correspondence" />
+    </antcall>
+    <antcall target="run-tomcat-funkload">
+      <param name="distribution" value="tomcat" />
+      <param name="distribution.server" value="tomcat" />
+      <param name="distrib.key" value="org.nuxeo.ecm.distribution:nuxeo-distribution-tomcat:${nuxeo.platform.version}:zip" />
+      <param name="distrib.classifier" value="nuxeo-dm" />
+      <param name="app.path" value="${stagedir}/nuxeo-cm-tomcat" />
+      <param name="bundles.dir" value="${stagedir}/nuxeo-cm-tomcat/nxserver/bundles" />
+      <param name="plugins.dir" value="${stagedir}/nuxeo-cm-tomcat/nxserver/plugins" />
+      <param name="config.dir" value="${stagedir}/nuxeo-cm-tomcat/nxserver/config" />
+      <param name="deploy.dir" value="nxserver" />
+      <param name="distribution.name" value="cmf-funkload" />
+      <param name="distribution.shortName" value="cmf-funkload" />
+      <param name="distribution.templates" value="distribution-templates-cmf-funkload" />
+      <param name="application.jars" value="application-jars" />
+      <param name="default.templates" value="default,cmf,cmf-funkload" />
+      <param name="update.nuxeo.defaults.task" value="update-cmf-funkload-defaults" />
+      <param name="product.name" value="CMF" />
     </antcall>
   </target>
 </project>
