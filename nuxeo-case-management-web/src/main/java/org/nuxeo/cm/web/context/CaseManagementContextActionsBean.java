@@ -82,7 +82,7 @@ CaseManagementContextActions {
             if (newDocument.hasFacet(CaseConstants.CASE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);
-            } else if (newDocument.hasFacet(CaseConstants.CASE_ITEM_FACET)) {
+            } else if (newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(null);
                 cmContextHolder.setCurrentCaseItem(newDocument);
             } else if (newDocument.hasSchema("classification")) {
