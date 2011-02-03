@@ -120,14 +120,14 @@ class CMF(NuxeoTestCase):
         self.get(server_url,
                  description="Check if the server is alive")
         
-        self.extractRouteModelId(routeManager[0], routeManager[1], route)
+        self.extractRouteModelId("jdoe", "jdoe1", route)
         
         
         
         self.addIncomingMailboxProfile(routeManager[0], routeManager[1])
         caseItemId = self.createCaseItem(routeManager[0], routeManager[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
         routeInstanceName = self.attachRouteAndStart(routeManager[0], routeManager[1], case, caseItem, caseItemId, route)
-        
+        print "ROUTEINSTANCENMAE" + routeInstanceName
         stepsDocIds = self.extractRouteStepsIds(routeManager[0], routeManager[1], routeInstanceName) 
         self.updateRoute(routeManager[0], routeManager[1], case ,route, stepsDocIds)
        
