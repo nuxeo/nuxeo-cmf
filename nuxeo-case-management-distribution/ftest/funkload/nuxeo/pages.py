@@ -783,7 +783,6 @@ class RouteInstancePage(LoginPage):
             #test if is fork
             if ("fork.png" in html[start:end]):
                 #this is a fork
-                print "this is fork"
                 p = self.viewDocumentUid(stepId)
                 stepsInForkIds = []
                 stepsInForkIds = self.getStepsDocsIds(stepsInForkIds)
@@ -820,7 +819,7 @@ class CaseItemPage(BasePage):
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
             ['ajaxSingle', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
-            ['inputvalue', route[:3]],
+            ['inputvalue', route],
             ['AJAX:EVENTS_COUNT', '1']],
             description="Post /nuxeo/casemanageme.../view_cm_case.faces")
         p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
@@ -883,7 +882,6 @@ class CaseItemPage(BasePage):
       fl.get(server_url + "/nxpath/default/case-management/case-root/" + now.strftime("%Y/%m/%d")+ "/" + quote(case) + "@view_cm_case?tabId=TAB_CASE_MANAGEMENT_VIEW_RELATED_ROUTE&conversationId=0NXMAIN",
             description="view related route started on this case")
       fl.assert_("This document is <span class=\"summary_unlocked\">unlocked" in fl.getBody())
-      http://localhost:8080/nuxeo/nxpath/default/management/document-route-instances-root/2011/02/03/FunkloadRouteDoc.1296737900754/A@view_documents?tabId=&amp;conversationId=0NXMAIN"
       routeInstanceName = extractToken(fl.getBody(), server_url + '/nxpath/default/case-management/document-route-instances-root/' + now.strftime("%Y/%m/%d")+ "/" , '/')
       return routeInstanceName   
     

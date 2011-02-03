@@ -39,6 +39,8 @@ class CMF(NuxeoTestCase):
                                                   'routeManagers')
         f = open('./xml_importer/pdf-list.txt', 'r')
         self.pdf_files = f.readlines()
+        self.routeName = "FunkloadRouteDoc"
+        self.routeModelId = self.extractRouteModelId("jdoe", "jdoe1", self.routeName)
 
     def getRandomUser(self):
         return random.choice(self.memberList)
@@ -71,6 +73,7 @@ class CMF(NuxeoTestCase):
             randUser = self.getRandomUser()
             if RoutePage(self).stepCanBeUpdated(i) is True:
                 CMF.usersWithTasks.append(randUser)
+                #TODO delete this refresh call after fixing NXCM-301
                 CaseItemPage(self).refreshRelatedStartedRoute(case)
                 RoutePage(self).updateStepDistributionMailboxFromRouteView(i, "user-" + randUser[0], j)
             j = j + 1     
@@ -78,6 +81,7 @@ class CMF(NuxeoTestCase):
    
     def extractRouteModelId(self, routeMan, routeManPass, route):
         RoutePage(self).login(routeMan, routeManPass).getRouteModelDocId(routeMan, route).logout()
+        return RoutePage(self).routeDocId 
     
     def addIncomingMailboxProfile(self, user, passwd):
         MailboxPage(self).login(user, passwd).viewManageTab().addIncomingCaseItemManagementProfile().logout()
@@ -89,7 +93,7 @@ class CMF(NuxeoTestCase):
     
     def attachRouteAndStart(self, user, passwd, case, caseitem, caseItemId, route):
         p = MailboxPage(self).login(user, passwd).viewDraftTab().viewCaseItem(case, caseitem, caseItemId)
-        routeInstanceName = CaseItemPage(self).attachRouteAndStart(route , RoutePage(self).routeDocId).viewRelatedStartedRoute(case)
+        routeInstanceName = CaseItemPage(self).attachRouteAndStart(route , self.routeModelId).viewRelatedStartedRoute(case)
         p.logout()
         return routeInstanceName
     
@@ -106,7 +110,7 @@ class CMF(NuxeoTestCase):
         RouteInstancePage(self).login(*self.cred_admin).viewRouteInstance(routeInstanceName).verifyRouteIsDone(routeInstanceName, case).logout()
     
     def test_CMF(self):
-        route = "FunkloadRouteDoc"
+        route = self.routeName
         case = "case" + str(self.thread_id) + str(random.random())
         caseItem = "caseitem" + str(self.thread_id) + str(random.random())
   
@@ -120,18 +124,17 @@ class CMF(NuxeoTestCase):
         self.get(server_url,
                  description="Check if the server is alive")
         
-        self.extractRouteModelId("jdoe", "jdoe1", route)
+ 
         
         
         
         self.addIncomingMailboxProfile(routeManager[0], routeManager[1])
         caseItemId = self.createCaseItem(routeManager[0], routeManager[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
         routeInstanceName = self.attachRouteAndStart(routeManager[0], routeManager[1], case, caseItem, caseItemId, route)
-        print "ROUTEINSTANCENMAE" + routeInstanceName
         stepsDocIds = self.extractRouteStepsIds(routeManager[0], routeManager[1], routeInstanceName) 
         self.updateRoute(routeManager[0], routeManager[1], case ,route, stepsDocIds)
        
-        #FIXME : approve the first already running task ( this step couldn't be modified)
+        #FIXME : approve the first already running task ( this step couldn't be modified)/ tried automatic validation
         self.downloadFileAndApproveTaks("lbramard", "lbramard1" , case, caseItem, caseItemId, "20pages.pdf")
         #users having received tasks, loggin
         for i in CMF.usersWithTasks:

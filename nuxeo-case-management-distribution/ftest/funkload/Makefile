@@ -15,7 +15,7 @@ else
 endif
 
 
-all: start createUsers testCMF stop
+all: createUsers testCMF
 
 createUsers: start users-CMF stop
 
@@ -36,7 +36,7 @@ users-CMF:
 	fl-run-test -d  --simple-fetch users_CMF.py $(FLOPS)
 	
 test-CMF:
-	fl-run-test -d  -V --simple-fetch test_CMF.py $(FLOPS)
+	fl-run-test -d  --simple-fetch test_CMF.py $(FLOPS)
 
 test-bench:
 	-fl-run-bench --simple-fetch test_CMF.py CMF.test_CMF  --label=test -c 1:5 -D 60 -m 0.1 -M .5 -s 1 $(FLOPS)
