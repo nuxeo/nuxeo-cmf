@@ -18,7 +18,8 @@ package org.nuxeo.correspondence.web.action;
 
 import static org.jboss.seam.ScopeType.CONVERSATION;
 
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,13 +34,13 @@ import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.schema.SchemaManager;
-import org.nuxeo.ecm.platform.types.SubType;
+import org.nuxeo.ecm.platform.types.Type;
 import org.nuxeo.ecm.webapp.action.TypesTool;
 import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author arussel
- * 
+ *
  */
 @Name("typesTool")
 @Scope(CONVERSATION)
@@ -57,23 +58,25 @@ public class CorrespondenceTypesTool extends TypesTool {
     private static Set<String> outgoingTypes = null;
 
     @Override
-    protected Map<String, SubType> filterSubTypes(
-            Map<String, SubType> allowedSubTypes) {
-        Map<String, SubType> filteredTypes = new HashMap<String, SubType>();
+    protected Map<String, List<Type>> filterTypeMap(
+            Map<String, List<Type>> docTypeMap) {
         boolean isCurrentCaseItemIncomingCorrespondence = isCurrentCaseItemIncomingCorrespondence();
         boolean isCurrentCaseItemOutgoingCorrespondence = isCurrentCaseItemOutgoingCorrespondence();
-        for (Map.Entry<String, SubType> entry : allowedSubTypes.entrySet()) {
-            if (isCelluleCourrierMailbox()
-                    || isAllowedOutsideCelluleCourrier(entry.getValue(),
-                            isCurrentCaseItemIncomingCorrespondence,
-                            isCurrentCaseItemOutgoingCorrespondence)) {
-                filteredTypes.put(entry.getKey(), entry.getValue());
+
+        for (List<Type> types : docTypeMap.values()) {
+            for (Iterator<Type> it = types.iterator(); it.hasNext();) {
+                Type type = it.next();
+                if (!(isCelluleCourrierMailbox() || isAllowedOutsideCelluleCourrier(
+                        type, isCurrentCaseItemIncomingCorrespondence,
+                        isCurrentCaseItemOutgoingCorrespondence))) {
+                    it.remove();
+                }
             }
         }
-        return filteredTypes;
+        return docTypeMap;
     }
 
-    protected boolean isAllowedOutsideCelluleCourrier(SubType subType,
+    protected boolean isAllowedOutsideCelluleCourrier(Type type,
             boolean isCurrentCaseItemIncomingCorrespondence,
             boolean isCurrentCaseItemOutgoingCorrespondence) {
         try {
@@ -82,8 +85,8 @@ public class CorrespondenceTypesTool extends TypesTool {
                 incomingTypes = schemaManager.getDocumentTypeNamesForFacet(CorrespondenceConstants.INCOMING_CORRESPONDENCE_FACET);
                 outgoingTypes = schemaManager.getDocumentTypeNamesForFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET);
             }
-            boolean currentTypeIsIncoming = incomingTypes.contains(subType.getName());
-            boolean currentTypeIsOutgoing = outgoingTypes.contains(subType.getName());
+            boolean currentTypeIsIncoming = incomingTypes.contains(type.getId());
+            boolean currentTypeIsOutgoing = outgoingTypes.contains(type.getId());
             if (isCurrentCaseItemIncomingCorrespondence) {
                 return currentTypeIsIncoming;
             } else if (isCurrentCaseItemOutgoingCorrespondence()) {
