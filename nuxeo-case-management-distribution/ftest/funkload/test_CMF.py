@@ -101,7 +101,6 @@ class CMF(NuxeoTestCase):
     def downloadFileAndApproveTaks(self, user, passwd, case, caseitem, caseItemId, pdf):
         MailboxPage(self).login(user, passwd).viewInboxTab().clickCaseItem(case, caseitem, caseItemId)
         CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
-        CaseItemPage(self).logout()
         approveLink = CaseItemPage(self).login(user, passwd).extractTaskApproveLink(case)
         if(approveLink is not None):
             CaseItemPage(self).approveTask(case, approveLink)
