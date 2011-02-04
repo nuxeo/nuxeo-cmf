@@ -25,7 +25,6 @@ class CMF(NuxeoTestCase):
     This test use a configuration file CMF.conf.
     """
     _lipsum = Lipsum()
-    usersWithTasks = []
 
     def setUp(self):
         """Setting up test."""
@@ -69,15 +68,17 @@ class CMF(NuxeoTestCase):
         CaseItemPage(self).login(user, passwd).viewRelatedStartedRoute(case)
         p = RoutePage(self).lockRoute(user, route)
         j = 0
+        usersWithTasks = []
         for i in stepsDocIds:
             randUser = self.getRandomUser()
             if RoutePage(self).stepCanBeUpdated(i) is True:
-                CMF.usersWithTasks.append(randUser)
+                usersWithTasks.append(randUser)
                 #TODO delete this refresh call after fixing NXCM-301
                 CaseItemPage(self).refreshRelatedStartedRoute(case)
                 RoutePage(self).updateStepDistributionMailboxFromRouteView(i, "user-" + randUser[0], j)
             j = j + 1     
-        p.logout()    
+        p.logout()
+        return usersWithTasks    
    
     def extractRouteModelId(self, routeMan, routeManPass, route):
         RoutePage(self).login(routeMan, routeManPass).getRouteModelDocId(routeMan, route).logout()
@@ -125,19 +126,19 @@ class CMF(NuxeoTestCase):
                  description="Check if the server is alive")
         
  
-        
+        usersWithTasks = []
         
         
         self.addIncomingMailboxProfile(routeManager[0], routeManager[1])
         caseItemId = self.createCaseItem(routeManager[0], routeManager[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
         routeInstanceName = self.attachRouteAndStart(routeManager[0], routeManager[1], case, caseItem, caseItemId, route)
         stepsDocIds = self.extractRouteStepsIds(routeManager[0], routeManager[1], routeInstanceName) 
-        self.updateRoute(routeManager[0], routeManager[1], case ,route, stepsDocIds)
+        usersWithTasks = self.updateRoute(routeManager[0], routeManager[1], case ,route, stepsDocIds)
        
         #FIXME : approve the first already running task ( this step couldn't be modified)/ tried automatic validation
         self.downloadFileAndApproveTaks("lbramard", "lbramard1" , case, caseItem, caseItemId, "20pages.pdf")
         #users having received tasks, loggin
-        for i in CMF.usersWithTasks:
+        for i in usersWithTasks:
             self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
         #make sure the rute is done
         self.verifyRouteDoneAsAdmin(routeInstanceName, case)

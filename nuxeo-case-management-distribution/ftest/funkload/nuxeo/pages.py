@@ -1071,8 +1071,7 @@ class RoutePage(BasePage):
         fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
         start = html.find("docRef=\"" + stepId)
         end = html.find("</tr>", start)
-        html=html[start:end]
-        if ("title=\"ready\"" in html):
+        if ("title=\"ready\"" in html[start:end]):
             return True
         return False
     
