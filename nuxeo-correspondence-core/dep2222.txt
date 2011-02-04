@@ -1,0 +1,332 @@
+[INFO] Scanning for projects...
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-features-parent:5.4.1-SNAPSHOT: checking for updates from internal-snapshots
+[WARNING] repository metadata for: 'snapshot org.nuxeo.ecm.platform:nuxeo-features-parent:5.4.1-SNAPSHOT' could not be retrieved from repository: internal-snapshots due to an error: Error transferring file: maven.in.nuxeo.com
+[INFO] Repository 'internal-snapshots' will be blacklisted
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-features-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-services-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo:nuxeo-ecm:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] Searching repository for plugin with prefix: 'dependency'.
+[INFO] org.apache.maven.plugins: checking for updates from internal-releases
+[WARNING] repository metadata for: 'org.apache.maven.plugins' could not be retrieved from repository: internal-releases due to an error: Error transferring file: maven.in.nuxeo.com
+[INFO] Repository 'internal-releases' will be blacklisted
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Case Correspondence Core
+[INFO]    task-segment: [dependency:tree]
+[INFO] ------------------------------------------------------------------------
+[INFO] snapshot org.nuxeo.cm:nuxeo-case-management-api:1.5-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.cm:nuxeo-case-management-parent:1.5-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-document-routing-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-document-routing:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.common:nuxeo-common:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-schema:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-query:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-event:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-management:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.automation:nuxeo-automation-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.automation:nuxeo-automation-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-rendering:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-convert-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-uidgen-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-persistence:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-versioning-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-relations-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-relations-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-directory-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-directory-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-audit-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-audit-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-usermanager-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-notification-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-notification-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-notification-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-placeful-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-url-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-types-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-forms-layout-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-web-common:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-management:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-login:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-mail-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-mail-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-mimetype-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.cm:nuxeo-case-management-core:1.5-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-classification-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-classification-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-search-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-usermanager-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-importer-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-importer:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-convert:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-filemanager-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-io:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-filemanager-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-webapp-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-dm-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-types-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-actions-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-jbpm-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-jbpm:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-ui-web:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-jsf-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-ui-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-el:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-webapp-base:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-query-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-contentview-jsf:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-placeful-theme:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.theme:nuxeo-theme-fragments:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.theme:nuxeo-theme-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.theme:nuxeo-theme-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-directory-web:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-syndication:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.correspondence:nuxeo-correspondence-api:1.5-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.correspondence:nuxeo-correspondence-parent:1.5-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-preview:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-convert:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-commandline-executor:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-mimetype-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-userworkspace-api:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-userworkspace-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.cm:nuxeo-case-management-test:1.5-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-test:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-osgi:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-jetty-adapter:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-storage-sql-test:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-storage-sql-parent:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-jtajca:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-storage-sql:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.runtime:nuxeo-runtime-management-metrics:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-storage-sql-ra:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-storage-sql-extensions:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-content-template-manager:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-directory-core:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-directory-types-contrib:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-directory-sql:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.platform:nuxeo-platform-default-config:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] snapshot org.nuxeo.ecm.core:nuxeo-core-test:5.4.1-SNAPSHOT: checking for updates from public-snapshot
+[INFO] [dependency:tree {execution: default-cli}]
+[INFO] org.nuxeo.correspondence:nuxeo-correspondence-core:jar:1.6-SNAPSHOT
+[INFO] +- org.nuxeo.cm:nuxeo-case-management-api:jar:1.5-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-document-routing-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.automation:nuxeo-automation-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-rendering:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  \- org.wikimodel:wem:jar:2.0.2:compile
+[INFO] |  |  |     \- net.java.dev.javacc:javacc:jar:4.0:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-versioning-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-directory-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-audit-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  \- javax.persistence:persistence:jar:3.0:provided (scope managed from compile)
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-notification-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-notification-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-web-common:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  +- org.nuxeo.ecm.core:nuxeo-core-management:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-login:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  +- net.oauth.core:oauth:jar:20090531:compile
+[INFO] |  |  |  +- org.apache.shindig:shindig-social-api:jar:1.1-BETA5-incubating:compile
+[INFO] |  |  |  |  +- org.json:json:jar:20070829:compile
+[INFO] |  |  |  |  +- com.google.code.guice:guice:jar:2.0:compile
+[INFO] |  |  |  |  +- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  |  |  |  +- com.google.collections:google-collections:jar:1.0-rc2:compile
+[INFO] |  |  |  |  +- net.oauth.core:oauth-provider:jar:20090531:compile
+[INFO] |  |  |  |  +- net.oauth.core:oauth-httpclient3:jar:20090531:compile
+[INFO] |  |  |  |  |  \- net.oauth.core:oauth-consumer:jar:20090531:compile
+[INFO] |  |  |  |  +- org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:jar:1.0.1:compile
+[INFO] |  |  |  |  +- com.thoughtworks.xstream:xstream:jar:1.3.1:provided
+[INFO] |  |  |  |  +- xpp3:xpp3_min:jar:1.1.4c:compile
+[INFO] |  |  |  |  +- commons-httpclient:commons-httpclient:jar:3.1:compile
+[INFO] |  |  |  |  \- org.jsecurity:jsecurity:jar:0.9.0:compile
+[INFO] |  |  |  \- org.apache.shindig:shindig-common:jar:1.1-BETA5-incubating:compile
+[INFO] |  |  |     +- commons-betwixt:commons-betwixt:jar:0.8:compile
+[INFO] |  |  |     |  +- commons-beanutils:commons-beanutils-core:jar:1.7.0:compile
+[INFO] |  |  |     |  \- commons-digester:commons-digester:jar:1.8:provided (version managed from 1.7; scope managed from compile)
+[INFO] |  |  |     +- net.sf.ehcache:ehcache:jar:1.5.0:provided (version managed from 1.6.2; scope managed from compile)
+[INFO] |  |  |     |  +- backport-util-concurrent:backport-util-concurrent:jar:3.1:provided
+[INFO] |  |  |     |  \- net.sf.jsr107cache:jsr107cache:jar:1.0:provided
+[INFO] |  |  |     \- de.odysseus.juel:juel-impl:jar:2.1.2:compile
+[INFO] |  |  |        \- de.odysseus.juel:juel-api:jar:2.1.2:compile
+[INFO] |  |  +- org.mvel:mvel2:jar:2.0.16:compile
+[INFO] |  |  \- javax.script:script-api:jar:1.0:compile
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-schema:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- com.sun.xml:xsom:jar:20060306:compile
+[INFO] |  |  \- com.sun.xml:relaxngDatatype:jar:1.0:compile
+[INFO] |  \- org.nuxeo.ecm.platform:nuxeo-platform-mail-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |     \- org.nuxeo.ecm.core:nuxeo-core-query:jar:5.4.1-SNAPSHOT:compile
+[INFO] |        +- cup:java-cup:jar:0.11a:compile
+[INFO] |        \- joda-time:joda-time:jar:1.6:compile
+[INFO] +- org.nuxeo.cm:nuxeo-case-management-core:jar:1.5-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-usermanager-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-event:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  \- org.nuxeo.runtime:nuxeo-runtime-management:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-relations-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-search-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-usermanager-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-importer-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  \- org.nuxeo.ecm.platform:nuxeo-platform-filemanager-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-webapp-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  \- metro.webservices:webservices-api:jar:1.4:runtime
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-types-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-actions-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-filemanager-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-types-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  \- org.nuxeo.ecm.platform:nuxeo-platform-forms-layout-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-jbpm-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  \- org.jbpm.jbpm3:jbpm-jpdl:jar:3.3.0.GA:compile
+[INFO] |  |  |     +- bsh:bsh:jar:2.0b1:provided (version managed from 1.3.0; scope managed from compile)
+[INFO] |  |  |     +- org.apache.ant:ant:jar:1.7.0:provided (scope managed from compile)
+[INFO] |  |  |     |  \- org.apache.ant:ant-launcher:jar:1.7.0:provided
+[INFO] |  |  |     \- org.hibernate:hibernate:jar:3.2.6.ga:provided (scope managed from compile)
+[INFO] |  |  |        \- asm:asm-attrs:jar:1.5.3:provided
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-placeful-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-directory-web:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-syndication:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  +- rome:rome:jar:1.0:compile
+[INFO] |  |  |  \- jdom:jdom:jar:1.0:compile
+[INFO] |  |  \- javax.persistence:persistence-api:jar:1.0:compile
+[INFO] |  \- org.nuxeo.ecm.core:nuxeo-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |     \- xerces:xercesImpl:jar:2.9.1:provided (scope managed from compile)
+[INFO] +- org.nuxeo.correspondence:nuxeo-correspondence-api:jar:1.5-SNAPSHOT:compile
+[INFO] +- org.nuxeo.ecm.platform:nuxeo-platform-uidgen-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] +- org.nuxeo.ecm.platform:nuxeo-platform-preview:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-convert:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-ui-web:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.core:nuxeo-core-io:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-ui-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.restlet:org.restlet.ext.fileupload:jar:1.0.7:compile
+[INFO] |  |  |  \- commons-fileupload:commons-fileupload:jar:1.1.1:provided
+[INFO] |  |  +- com.noelios.restlet:com.noelios.restlet:jar:1.0.7:compile
+[INFO] |  |  +- com.noelios.restlet:com.noelios.restlet.ext.servlet:jar:1.0.7:compile
+[INFO] |  |  \- org.nuxeo.ecm.platform:nuxeo-platform-el:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-webapp-base:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-query-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-contentview-jsf:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.ecm.platform:nuxeo-platform-placeful-theme:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.theme:nuxeo-theme-fragments:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  +- org.nuxeo.theme:nuxeo-theme-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  |  \- org.yaml:snakeyaml:jar:1.7:compile
+[INFO] |  |  \- org.hibernate:hibernate-validator:jar:3.1.0.GA:compile
+[INFO] |  |     \- org.hibernate:hibernate-commons-annotations:jar:3.1.0.GA:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-convert:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  |  \- org.nuxeo.ecm.platform:nuxeo-platform-commandline-executor:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-convert-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-url-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  \- org.restlet:org.restlet:jar:1.0.7:compile
+[INFO] +- org.nuxeo.ecm.platform:nuxeo-platform-mimetype-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] +- org.nuxeo.ecm.platform:nuxeo-platform-mimetype-core:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- jmimemagic:jmimemagic:jar:0.1.2:compile
+[INFO] |  |  \- oro:oro:jar:2.0.8:provided (scope managed from compile)
+[INFO] |  +- org.apache.poi:poi:jar:3.5-beta6:compile
+[INFO] |  \- org.apache.poi:poi-scratchpad:jar:3.5-beta6:compile
+[INFO] +- org.nuxeo.ecm.platform:nuxeo-classification-api:jar:5.4.1-SNAPSHOT:compile
+[INFO] +- org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:jar:5.4.1-SNAPSHOT:test
+[INFO] |  \- org.nuxeo.ecm.platform:nuxeo-platform-userworkspace-api:jar:5.4.1-SNAPSHOT:test
+[INFO] +- org.nuxeo.ecm.core:nuxeo-core-persistence:jar:5.4.1-SNAPSHOT:test (scope not updated to compile)
+[INFO] +- org.nuxeo.cm:nuxeo-case-management-test:jar:1.5-SNAPSHOT:test
+[INFO] |  +- hsqldb:hsqldb:jar:1.8.0.1:provided (scope managed from test)
+[INFO] |  +- net.sf.opencsv:opencsv:jar:2.1:provided (scope managed from test)
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-content-template-manager:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-directory-core:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-directory-types-contrib:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.nuxeo.ecm.platform:nuxeo-platform-directory-sql:jar:5.4.1-SNAPSHOT:test
+[INFO] |  \- org.nuxeo.ecm.platform:nuxeo-platform-default-config:jar:5.4.1-SNAPSHOT:test
+[INFO] +- javax.transaction:jta:jar:1.1:test
+[INFO] +- org.apache.geronimo.components:geronimo-connector:jar:2.1.3-NX1:test
+[INFO] |  +- org.slf4j:slf4j-api:jar:1.6.0:provided
+[INFO] |  +- org.apache.geronimo.components:geronimo-transaction:jar:2.1.3:provided
+[INFO] |  |  +- org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:provided
+[INFO] |  |  \- org.objectweb.howl:howl:jar:1.0.1-1:provided
+[INFO] |  \- org.apache.geronimo.specs:geronimo-j2ee-connector_1.5_spec:jar:2.0.0:provided
+[INFO] +- org.hibernate:hibernate-entitymanager:jar:3.4.0.GA:test
+[INFO] |  +- org.hibernate:ejb3-persistence:jar:1.0.2.GA:test
+[INFO] |  \- javassist:javassist:jar:3.9.0.GA:provided (version managed from 3.4.GA; scope managed from test)
+[INFO] +- org.hibernate:hibernate-annotations:jar:3.4.0.GA:test
+[INFO] +- org.hibernate:hibernate-core:jar:3.3.2.GA:test
+[INFO] |  +- antlr:antlr:jar:2.7.7:provided (version managed from 2.7.6; scope managed from test)
+[INFO] |  \- commons-collections:commons-collections:jar:3.1:provided
+[INFO] +- cglib:cglib:jar:2.2:test
+[INFO] |  \- asm:asm:jar:3.0:test
+[INFO] +- dom4j:dom4j:jar:1.6.1:test
+[INFO] +- javax.mail:mail:jar:1.4:provided
+[INFO] |  \- javax.activation:activation:jar:1.1:provided
+[INFO] +- org.nuxeo.common:nuxeo-common:jar:5.4.1-SNAPSHOT:compile
+[INFO] +- org.nuxeo.runtime:nuxeo-runtime:jar:5.4.1-SNAPSHOT:compile
+[INFO] |  +- jboss:jboss-remoting:jar:2.2.2.SP1:provided (scope managed from compile)
+[INFO] |  \- jboss:jboss-common:jar:4.2.3.GA:provided (scope managed from compile)
+[INFO] +- org.nuxeo.runtime:nuxeo-runtime-test:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.nuxeo.runtime:nuxeo-runtime-osgi:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.osgi:osgi-core:jar:4.1:provided (scope managed from test)
+[INFO] |  +- commons-io:commons-io:jar:1.4:provided (version managed from 1.1; scope managed from test)
+[INFO] |  +- org.nuxeo.runtime:nuxeo-runtime-jetty-adapter:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.seleniumhq.webdriver:webdriver-htmlunit:jar:0.9.7376:test
+[INFO] |  +- net.sourceforge.htmlunit:htmlunit:jar:2.4:test
+[INFO] |  |  +- xalan:xalan:jar:2.7.1:test
+[INFO] |  |  |  \- xalan:serializer:jar:2.7.1:test
+[INFO] |  |  +- commons-lang:commons-lang:jar:2.3:provided (version managed from 2.4; scope managed from test)
+[INFO] |  |  +- commons-codec:commons-codec:jar:1.4:provided (version managed from 1.3; scope managed from test)
+[INFO] |  |  \- net.sourceforge.nekohtml:nekohtml:jar:1.9.9:test (version managed from 1.9.11)
+[INFO] |  +- net.sourceforge.htmlunit:htmlunit-core-js:jar:2.6:test
+[INFO] |  +- org.seleniumhq.webdriver:webdriver-ie:jar:0.9.7376:test
+[INFO] |  |  \- net.java.dev.jna:jna:jar:3.2.2:test
+[INFO] |  +- org.seleniumhq.webdriver:webdriver-firefox:jar:0.9.7376:test
+[INFO] |  +- org.seleniumhq.webdriver:webdriver-chrome:jar:0.9.7376:test
+[INFO] |  |  \- org.seleniumhq.webdriver:webdriver-remote-client:jar:0.9.7376:test
+[INFO] |  |     \- org.seleniumhq.webdriver:webdriver-remote-common:jar:0.9.7376:test
+[INFO] |  +- org.seleniumhq.webdriver:webdriver-support:jar:0.9.7376:test
+[INFO] |  |  \- org.hamcrest:hamcrest-all:jar:1.1:test
+[INFO] |  +- org.seleniumhq.webdriver:webdriver-common:jar:0.9.7376:test
+[INFO] |  +- net.sourceforge.cssparser:cssparser:jar:0.9.5-NXP-4018:provided
+[INFO] |  +- org.w3c:sac:jar:1.3:provided (scope managed from test)
+[INFO] |  +- org.concordion:concordion:jar:1.3.0:test
+[INFO] |  |  +- ognl:ognl:jar:2.7.2:test
+[INFO] |  |  |  \- jboss:javassist:jar:3.6.ga:test
+[INFO] |  |  \- xom:xom:jar:1.1:test
+[INFO] |  \- concurrent:concurrent:jar:1.3.4:provided (scope managed from test)
+[INFO] +- org.nuxeo.ecm.core:nuxeo-core-test:jar:5.4.1-SNAPSHOT:test
+[INFO] +- org.nuxeo.ecm.core:nuxeo-core-storage-sql-test:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.nuxeo.runtime:nuxeo-runtime-jtajca:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.slf4j:slf4j-log4j12:jar:1.6.0:provided (scope managed from test)
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-storage-sql:jar:5.4.1-SNAPSHOT:test
+[INFO] |  |  +- org.nuxeo.runtime:nuxeo-runtime-management-metrics:jar:5.4.1-SNAPSHOT:test
+[INFO] |  |  |  +- org.javasimon:javasimon-core:jar:2.3.0:test
+[INFO] |  |  |  |  +- stax:stax-api:jar:1.0.1:test
+[INFO] |  |  |  |  \- net.java.dev.eval:eval:jar:0.5:test
+[INFO] |  |  |  \- org.javasimon:javasimon-jmx:jar:2.3.0:test
+[INFO] |  |  |     \- org.javasimon:javasimon-jdbc3:jar:2.3.0:test
+[INFO] |  |  +- org.mortbay.jetty:jetty:jar:6.1.14:provided (scope managed from test)
+[INFO] |  |  |  \- org.mortbay.jetty:servlet-api-2.5:jar:6.1.14:provided
+[INFO] |  |  \- org.mortbay.jetty:jetty-util:jar:6.1.14:provided
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-storage-sql-ra:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- org.nuxeo.ecm.core:nuxeo-core-storage-sql-extensions:jar:5.4.1-SNAPSHOT:test
+[INFO] |  +- commons-beanutils:commons-beanutils:jar:1.6:provided (version managed from 1.7.0; scope managed from test)
+[INFO] |  +- javax.resource:connector-api:jar:1.5:provided (scope managed from test)
+[INFO] |  +- com.h2database:h2:jar:1.1.114-nx:provided (scope managed from test)
+[INFO] |  +- org.apache.lucene:lucene-core:jar:2.3.2:provided
+[INFO] |  +- org.apache.lucene:lucene-analyzers:jar:2.3.2:provided
+[INFO] |  +- org.apache.derby:derby:jar:10.5.3.0_1:provided (scope managed from test)
+[INFO] |  +- postgresql:postgresql:jar:9.0-801.jdbc4:provided (scope managed from test)
+[INFO] |  +- mysql:mysql-connector-java:jar:5.1.6:provided (scope managed from test)
+[INFO] |  \- net.sourceforge.jtds:jtds:jar:1.2.2:test
+[INFO] +- jmock:jmock:jar:1.2.0:test
+[INFO] +- commons-logging:commons-logging:jar:1.1:provided
+[INFO] |  +- log4j:log4j:jar:1.2.16:provided
+[INFO] |  +- logkit:logkit:jar:1.0.1:provided
+[INFO] |  +- avalon-framework:avalon-framework:jar:4.1.3:provided
+[INFO] |  \- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] \- junit:junit:jar:4.8.1:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 31 seconds
+[INFO] Finished at: Tue Jan 25 00:14:54 CET 2011
+[INFO] Final Memory: 119M/448M
+[INFO] ------------------------------------------------------------------------
