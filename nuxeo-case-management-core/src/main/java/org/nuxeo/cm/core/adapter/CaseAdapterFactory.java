@@ -24,9 +24,8 @@ import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
-import static org.nuxeo.cm.cases.CaseConstants.CASE_FACET;
-import static org.nuxeo.cm.cases.CaseConstants.CASE_SCHEMA;
-import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTION_SCHEMA;
+import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTABLE_FACET;
+import static org.nuxeo.cm.cases.CaseConstants.CASE_GROUPABLE_FACET;
 
 /**
  * @author arussel
@@ -40,17 +39,13 @@ public class CaseAdapterFactory implements DocumentAdapterFactory {
     }
 
     protected void checkDocument(DocumentModel doc) {
-        if (!doc.hasFacet(CASE_FACET)) {
+        if (!doc.hasFacet(DISTRIBUTABLE_FACET)) {
             throw new CaseManagementRuntimeException(
-                    "Document should have facet " + CASE_FACET);
+                    "Document should have facet " + DISTRIBUTABLE_FACET);
         }
-        if (!doc.hasSchema(DISTRIBUTION_SCHEMA)) {
+        if (doc.hasFacet(CASE_GROUPABLE_FACET)) {
             throw new CaseManagementRuntimeException(
-                    "Document should contain schema " + DISTRIBUTION_SCHEMA);
-        }
-        if (!doc.hasSchema(CASE_SCHEMA)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should contain schema " + CASE_SCHEMA);
+                    "Document should not have facet " + CASE_GROUPABLE_FACET);
         }
     }
 

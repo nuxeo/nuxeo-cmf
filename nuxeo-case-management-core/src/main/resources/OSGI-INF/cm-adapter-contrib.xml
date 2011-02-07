@@ -14,7 +14,7 @@
       facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.Case"
-      facet="Case"
+      facet="Distributable"
       factory="org.nuxeo.cm.core.adapter.CaseAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.CaseItem"
       facet="CaseGroupable"
