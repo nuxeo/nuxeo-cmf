@@ -12,7 +12,7 @@
         <property name="coreSession">#{documentManager}</property>
         <pattern>
           SELECT * FROM Document WHERE ecm:fulltext LIKE ? AND ecm:mixinType != 'HiddenInNavigation'
-           AND (ecm:mixinType IN ('Case' , 'CaseItem'))  
+           AND (ecm:mixinType IN ('Distributable' , 'CaseGroupable'))  
            AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted'
         </pattern>
         <parameter>#{documentSearchActions.simpleSearchKeywords}</parameter>
@@ -130,7 +130,7 @@
           </predicate>
           <fixedPart>
             ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 
-            AND (ecm:mixinType IN ('Case' , 'CaseItem'))
+            AND (ecm:mixinType IN ('CaseGroupable' , 'Distributable'))
           </fixedPart>
         </whereClause>
         <sort column="dc:title" ascending="true" />

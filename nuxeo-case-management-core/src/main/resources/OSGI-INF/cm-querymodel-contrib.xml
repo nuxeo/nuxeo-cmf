@@ -101,7 +101,7 @@
       </pattern>
     </queryModel>
 
-    <queryModel name="byType" docType="CaseItem">
+    <queryModel name="byType">
       <max>10</max>
       <whereClause>
         <predicate parameter="cmdoc:type" operator="STARTSWITH">
@@ -110,8 +110,8 @@
         <fixedPart>
           ecm:mixinType != 'HiddenInNavigation' AND
           ecm:currentLifeCycleState !='deleted'
-          AND ecm:mixinType =
-          'CaseItem'
+          AND ecm:mixinType = 'CaseGroupable' AND ecm:mixinType =
+          'Distributable'
         </fixedPart>
       </whereClause>
       <sortColumn>
@@ -124,8 +124,11 @@
 
     <queryModel name="CURRENT_CASE_ITEM_RELATION_SEARCH">
       <pattern>
-        SELECT * FROM Document WHERE ecm:mixinType = 'CaseItem'
-        AND ecm:currentLifeCycleState != 'deleted' AND ecm:uuid != ? AND
+        SELECT * FROM Document WHERE ecm:mixinType =
+        'CaseGroupable' AND ecm:mixinType =
+        'Distributable'
+        AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:uuid != ? AND
         ecm:fulltext LIKE ?
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
@@ -139,8 +142,9 @@
         ecm:mixinType !=
         'HiddenInNavigation' AND ecm:isCheckedInVersion
         = 0 AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType
-        = 'CaseItem'
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType =
+        'CaseGroupable' AND ecm:mixinType =
+        'Distributable'
       </pattern>
       <max>10</max>
       <sortable value="true" />
@@ -149,9 +153,10 @@
     <!-- we override the contribution to start route on case only -->
     <queryModel name="CURRENT_DOC_ROUTING_SEARCH_ATTACHED_DOC">
       <pattern>
-        SELECT * FROM Case WHERE ecm:currentLifeCycleState !=
+        SELECT * FROM Document WHERE ecm:currentLifeCycleState !=
         'draft' AND ecm:currentLifeCycleState != 'deleted' AND dc:title
-        LIKE ?
+        LIKE ? AND ecm:mixinType != 'CaseGroupable' AND ecm:mixinType =
+        'Distributable'
       </pattern>
       <sortable value="true" defaultSortColumn="dc:title"
         defaultSortAscending="true" />

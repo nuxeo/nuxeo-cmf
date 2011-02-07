@@ -172,12 +172,13 @@
       <coreQueryPageProvider>
       <property name="coreSession">#{documentManager}</property>
         <!-- search doc maintained here -->
-        <whereClause docType="CaseItem">
+        <whereClause>
          <predicate parameter="cmdoc:type" operator="STARTSWITH">
           <field schema="case_item" name="type" />
          </predicate>
           <fixedPart>
-           ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState !='deleted' AND ecm:mixinType = 'CaseItem'
+           ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState !='deleted' AND ecm:mixinType = 'CaseGroupable' AND ecm:mixinType =
+           'Distributable'
           </fixedPart>
       </whereClause>
       <sortColumn>
