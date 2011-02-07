@@ -351,34 +351,43 @@
    
     <filter id="isCmCase">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isCmInitialCase">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{cmCaseActions.isInitialCase()}</condition>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isDraft">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{currentCase.isDraft()}</condition>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isNotDraft">
       <rule grant="false">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{currentCase.isDraft()}</condition>
       </rule>
     </filter>
 
     <filter id="isNotCmInitialCase">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
       <rule grant="false">
         <condition>#{cmCaseActions.isInitialCase()}</condition>
@@ -399,33 +408,33 @@
    
     <filter id="isNotCmCase">
       <rule grant="false">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="isCaseItem">
       <rule grant="true">
-        <facet>CaseItem</facet>
+        <facet>Distributable</facet>
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isNotCaseItem">
       <rule grant="false">
-        <facet>CaseItem</facet>
+        <facet>CaseGroupable</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="isCaseItemOrCase">
       <rule grant="true">
-        <facet>CaseItem</facet>
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="isNotCaseItemOrCase">
       <rule grant="false">
-        <facet>CaseItem</facet>
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
