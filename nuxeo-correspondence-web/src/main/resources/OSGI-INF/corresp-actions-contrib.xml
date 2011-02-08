@@ -109,15 +109,18 @@
 
     <filter id="isIncomingCorrespondence">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{correspMailboxActions.isIncomingEnvelope()}
         </condition>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isNotIncomingCorrespondence">
       <rule grant="false">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{correspMailboxActions.isIncomingEnvelope()}
         </condition>
       </rule>
