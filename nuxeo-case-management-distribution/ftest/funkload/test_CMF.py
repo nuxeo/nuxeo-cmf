@@ -65,13 +65,14 @@ class CMF(NuxeoTestCase):
     
     def updateRoute(self, user, passwd, case, route, stepsDocIds):
         #lock route and modify steps
-        CaseItemPage(self).login(user, passwd).viewRelatedStartedRoute(case)
+        routeInstance = CaseItemPage(self).login(user, passwd).viewRelatedStartedRoute(case)
         p = RoutePage(self).lockRoute(user, route)
+        self.logi("Route "+ routeInstance +" locked by " + user)
         j = 0
         usersWithTasks = []
         for i in stepsDocIds:
             randUser = self.getRandomUser()
-            if RoutePage(self).stepCanBeUpdated(i) is True:
+            if RoutePage(self).stepCanBeUpdated(i, routeInstance, user) is True:
                 usersWithTasks.append(randUser)
                 #TODO delete this refresh call after fixing NXCM-301
                 CaseItemPage(self).refreshRelatedStartedRoute(case)
@@ -99,7 +100,7 @@ class CMF(NuxeoTestCase):
         return routeInstanceName
     
     def downloadFileAndApproveTaks(self, user, passwd, case, caseitem, caseItemId, pdf):
-        MailboxPage(self).login(user, passwd).viewInboxTab().clickCaseItem(case, caseitem, caseItemId)
+        MailboxPage(self).login(user, passwd).viewInboxTab()
         CaseItemPage(self).downloadFile(caseItemId , pdf).logout()
         approveLink = CaseItemPage(self).login(user, passwd).extractTaskApproveLink(case)
         if(approveLink is not None):
@@ -138,6 +139,9 @@ class CMF(NuxeoTestCase):
         self.downloadFileAndApproveTaks("lbramard", "lbramard1" , case, caseItem, caseItemId, "20pages.pdf")
         #users having received tasks, loggin
         for i in usersWithTasks:
+            self.logi("User to approve task" + i[0])
+        for i in usersWithTasks:
+            self.logi("Logging in as " + i[0] + "to approve case " + case)
             self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
         #make sure the rute is done
         self.verifyRouteDoneAsAdmin(routeInstanceName, case)

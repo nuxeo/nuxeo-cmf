@@ -22,6 +22,8 @@ sudo aptitude install python-jinja2 python-pypdf python-reportlab
 
 Monitoring
 ----------
+./monitoring.sh
+
 monitoring needs to be started before the bench.
 
 for hardware log, launch the following command:
