@@ -893,6 +893,19 @@ class CaseItemPage(BasePage):
       fl.get(server_url + "/nxpath/default/case-management/case-root/" + now.strftime("%Y/%m/%d")+ "/" + quote(case) + "@view_cm_case?tabId=TAB_CASE_MANAGEMENT_VIEW_RELATED_ROUTE&conversationId=0NXMAIN",
             description="refresh view related route started on this case")
       return CaseItemPage(self)
+  
+    def viewDistributionTab(self):
+      fl = self.fl
+      server_url = fl.server_url
+      now = datetime.datetime.now()
+      p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?tabId=distribute_cm_case&conversationId=0NXMAIN",
+            description="view case item")
+      return CaseItemPage(self)
+    
+    def distributeCase(self):
+      fl = self.fl
+      server_url = fl.server_url  
+        
 
 class MailboxPage(FolderPage):
     def login(self, user, password):
