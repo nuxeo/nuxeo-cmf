@@ -47,6 +47,7 @@ from webunit.utility import Upload
 from utils import extractToken, extractJsfState, extractIframes, extractJsessionId
 from funkload.utils import Data
 import datetime
+import re
 
 
 class BasePage:
@@ -864,13 +865,38 @@ class CaseItemPage(BasePage):
         fl.logi("Approving case :" +case)
         fl.assert_("an unexpected error occurred" not in fl.getBody())
         return CaseItemPage(self.fl)
-    
+
+    # look for the case name in the page and click on the next page button if can't find it    
+    def checkCaseInAllPages(self, case):
+        fl = self.fl
+        server_url = fl.server_url
+        html = fl.getBody() 
+        caseInPage = case in html
+        if(not caseInPage):
+            pattern = "src=\"/nuxeo/icons/action_page_next.gif\" name=\"mailbox_inbox_content:(j_id[0-9]+)\" alt=\"Next\""
+            m = re.search(pattern, html)
+            if(not m):
+                errorMsg = "case" + case + " not in the page";
+                fl.logi(errorMsg)
+                fl.logi(html)
+                fl.assertFail(caseInPage, errorMsg)
+                return;                
+            viewStatejidPattern = "<input type=\"hidden\" name=\"javax.faces.ViewState\" id=\"javax.faces.ViewState\" value=\"(j_id[0-9]+)\""
+            viewStateIdMatcher = re.search(viewStatejidPattern, html)
+            fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mailbox_inbox_content:'+m.group(1)+'.x', '12'],
+            ['mailbox_inbox_content:'+m.group(1)+'.y', '11'],
+            ['mailbox_inbox_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', viewStateIdMatcher.group(1)]],
+            description="Case item next page")
+            checkCaseInAllPage(self, case);
+
     def extractTaskApproveLink(self, case):
         fl = self.fl
         server_url = fl.server_url
-        fl.assert_(case in fl.getBody())
         html = fl.getBody()
-        if("Approve" in fl.getBody()):
+        checkCaseInAllPages(self, case)
+        if("Approve" in html):
             start = html.find("title=" + case)
             end = html.find("document.getElementById('mailbox_inbox_content')", start)
             approveLink = extractToken(html[start:end], 'a id="', '"')
