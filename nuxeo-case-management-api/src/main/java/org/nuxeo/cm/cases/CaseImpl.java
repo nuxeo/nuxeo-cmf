@@ -226,8 +226,6 @@ public class CaseImpl implements Case {
     protected CoreSession getDocumentSession() {
         CoreSession session = CoreInstance.getInstance().getSession(
                 document.getSessionId());
-        if (session == null) {
-        }
         return session;
     }
 

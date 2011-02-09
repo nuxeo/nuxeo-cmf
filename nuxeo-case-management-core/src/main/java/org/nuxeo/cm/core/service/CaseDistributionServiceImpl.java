@@ -111,44 +111,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
-    protected CoreSession getCoreSession() {
-
-        RepositoryManager mgr = null;
-        try {
-            mgr = Framework.getService(RepositoryManager.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-        if (mgr == null) {
-            throw new CaseManagementRuntimeException(
-                    "Cannot find RepostoryManager");
-        }
-        Repository repo = mgr.getDefaultRepository();
-
-        CoreSession session = null;
-        try {
-            if (context == null) {
-                session = repo.open();
-                context = new HashMap<String, Serializable>();
-                context.put(ResourceAdapter.CORE_SESSION_ID_CONTEXT_KEY,
-                        session.getSessionId());
-            } else {
-                session = repo.open(context);
-            }
-
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-
-        return session;
-    }
-
-    protected void closeCoreSession(CoreSession coreSession) {
-        if (coreSession != null) {
-            CoreInstance.getInstance().close(coreSession);
-        }
-    }
-
     /**
      * Executes a query model.
      *
