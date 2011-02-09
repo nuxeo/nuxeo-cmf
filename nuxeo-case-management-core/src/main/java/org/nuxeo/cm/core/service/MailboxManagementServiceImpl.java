@@ -277,14 +277,17 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     }
 
     public List<MailboxHeader> searchMailboxes(String pattern, String type) {
+        CoreSession session = getCoreSession();
         SearchMailboxesHeadersUnrestricted sessionSearch = new SearchMailboxesHeadersUnrestricted(
-                getCoreSession(), pattern, type);
+                session, pattern, type);
         try {
             sessionSearch.runUnrestricted();
+            return sessionSearch.getMailboxesHeaders();
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
+        } finally {
+            closeCoreSession(session);
         }
-        return sessionSearch.getMailboxesHeaders();
     }
 
     public boolean hasUserPersonalMailbox(CoreSession session, String userId) {
