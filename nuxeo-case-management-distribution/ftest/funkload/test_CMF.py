@@ -121,14 +121,10 @@ class CMF(NuxeoTestCase):
         user =  randUser[0]
         passwd = randUser[1]
         
-        server_url = self.server_url
-        self.get(server_url,
-                 description="Check if the server is alive")
-        
+        server_url = self.server_url        
  
         usersWithTasks = []
-        
-        
+                
         self.addIncomingMailboxProfile(routeManager[0], routeManager[1])
         caseItemId = self.createCaseItem(routeManager[0], routeManager[1], case, caseItem, "xml_importer/pdf_files/20pages.pdf")        
         routeInstanceName = self.attachRouteAndStart(routeManager[0], routeManager[1], case, caseItem, caseItemId, route)
@@ -138,8 +134,6 @@ class CMF(NuxeoTestCase):
         #FIXME : approve the first already running task ( this step couldn't be modified)/ tried automatic validation
         self.downloadFileAndApproveTaks("lbramard", "lbramard1" , case, caseItem, caseItemId, "20pages.pdf")
         #users having received tasks, loggin
-        for i in usersWithTasks:
-            self.logi("User to approve task" + i[0])
         for i in usersWithTasks:
             self.logi("Logging in as " + i[0] + "to approve case " + case)
             self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
