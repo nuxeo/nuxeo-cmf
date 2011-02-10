@@ -46,8 +46,12 @@ import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.platform.forms.layout.api.BuiltinModes;
 import org.nuxeo.ecm.platform.preview.seam.PreviewActionBean;
+import org.nuxeo.ecm.platform.types.Type;
+import org.nuxeo.ecm.platform.types.TypeManager;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
+import org.nuxeo.ecm.platform.ui.web.api.UserAction;
+import org.nuxeo.ecm.webapp.action.TypesTool;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
@@ -71,6 +75,9 @@ public class CaseItemDocumentActionsBean extends
     private static final long serialVersionUID = 1L;
 
     @In(create = true)
+    protected TypeManager typeManager;
+
+    @In(create = true)
     protected transient NavigationContext navigationContext;
 
     @In(create = true)
@@ -85,7 +92,30 @@ public class CaseItemDocumentActionsBean extends
     @In(create = true)
     protected transient PreviewActionBean previewActions;
 
+    @In(create = true)
+    protected TypesTool typesTool;
+
     protected Boolean editingMail = false;
+
+    /**
+     * Returns the create view of given document type.
+     */
+    public String createDocument(String typeName) throws ClientException {
+        Type docType = typeManager.getType(typeName);
+        // we cannot use typesTool as intermediary since the DataModel callback
+        // will alter whatever type we set
+        typesTool.setSelectedType(docType);
+        try {
+            DocumentModel changeableDocument = documentManager.createDocumentModel(typeName);
+            changeableDocument.putContextData(
+                    CaseManagementWebConstants.CREATE_NEW_CASE_KEY, true);
+            navigationContext.setChangeableDocument(changeableDocument);
+            return navigationContext.getActionResult(changeableDocument,
+                    UserAction.CREATE);
+        } catch (Throwable t) {
+            throw ClientException.wrap(t);
+        }
+    }
 
     public String createCaseItemInCase() throws ClientException {
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
@@ -118,7 +148,8 @@ public class CaseItemDocumentActionsBean extends
         caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), envelope);
         documentManager.save();
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+        Events.instance().raiseEvent(
+                EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
@@ -143,7 +174,8 @@ public class CaseItemDocumentActionsBean extends
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(caseDoc.getType()));
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+        Events.instance().raiseEvent(
+                EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
         caseDoc = emptyCase.getDocument();
         navigationContext.setCurrentDocument(caseDoc);

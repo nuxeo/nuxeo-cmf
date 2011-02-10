@@ -861,6 +861,7 @@ class CaseItemPage(BasePage):
             ['javax.faces.ViewState', fl.getLastJsfState()],
             [approveLink, approveLink]],
             description="Approve task")
+        fl.logi("Approving case :" +case)
         fl.assert_("an unexpected error occurred" not in fl.getBody())
         return CaseItemPage(self.fl)
     
@@ -892,6 +893,19 @@ class CaseItemPage(BasePage):
       fl.get(server_url + "/nxpath/default/case-management/case-root/" + now.strftime("%Y/%m/%d")+ "/" + quote(case) + "@view_cm_case?tabId=TAB_CASE_MANAGEMENT_VIEW_RELATED_ROUTE&conversationId=0NXMAIN",
             description="refresh view related route started on this case")
       return CaseItemPage(self)
+  
+    def viewDistributionTab(self):
+      fl = self.fl
+      server_url = fl.server_url
+      now = datetime.datetime.now()
+      p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?tabId=distribute_cm_case&conversationId=0NXMAIN",
+            description="view case item")
+      return CaseItemPage(self)
+    
+    def distributeCase(self):
+      fl = self.fl
+      server_url = fl.server_url  
+        
 
 class MailboxPage(FolderPage):
     def login(self, user, password):
@@ -1002,6 +1016,7 @@ class MailboxPage(FolderPage):
     def viewCaseItemInDraft(self, caseitem):
        fl = self.fl
        server_url = fl.server_url
+       fl.logi("View case item " + caseitem)
        fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mailbox_draft_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
@@ -1014,6 +1029,7 @@ class MailboxPage(FolderPage):
        fl = self.fl
        server_url = fl.server_url
        now = datetime.datetime.now()
+       fl.logi("Click on caseietm" + caseitem)
        fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
@@ -1062,12 +1078,16 @@ class RoutePage(BasePage):
             description="lock route")
         fl.assert_("an unexpected error occurred" not in fl.getBody())
         fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in fl.getBody())
+        fl.logi("Route " + route + "is  locked by" + user)
         return RoutePage(self.fl)
     
-    def stepCanBeUpdated(self, stepId):
+    def stepCanBeUpdated(self, stepId, routeInstance, user):
         fl = self.fl
         server_url = fl.server_url
         html = fl.getBody()
+        if("an unexpected error occurred" in html):
+         fl.logi("Route " + routeInstance + "is not locked!! by" + user)
+        fl.assert_("an unexpected error occurred" not in html)
         fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
         start = html.find("docRef=\"" + stepId)
         end = html.find("</tr>", start)

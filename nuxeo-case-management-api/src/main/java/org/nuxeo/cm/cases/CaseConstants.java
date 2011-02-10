@@ -35,8 +35,6 @@ public class CaseConstants {
 
     public static final String CASE_ITEM_DOCUMENT_SCHEMA = "case_item";
 
-    public static final String CASE_FACET = "Case";
-
     public static final String MAILBOX_FACET = "Mailbox";
 
     public static final String CASE_GROUPABLE_FACET = "CaseGroupable";
@@ -45,7 +43,7 @@ public class CaseConstants {
 
     public static final String TITLE_PROPERTY_NAME = "dc:title";
 
-    public static final String DISTRIBUTABLE_FACET = "distributable";
+    public static final String DISTRIBUTABLE_FACET = "Distributable";
 
     public static final String DISTRIBUTION_SCHEMA = "distribution";
 

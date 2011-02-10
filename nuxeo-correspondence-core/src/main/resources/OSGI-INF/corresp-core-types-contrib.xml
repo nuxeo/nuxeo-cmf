@@ -35,7 +35,6 @@
 
   <doctype name="CorrespondenceDocument" extends="CaseItem">
    <schema name="correspondence_document" />  
-   <facet name="CaseItem" />
    <facet name="Commentable" />
   </doctype>
 
@@ -45,7 +44,6 @@
    <schema name="uid" />
    <schema name="correspondence_document" />
    <schema name="correspondence_incoming_mail" />
-    <facet name="CaseItem" />
    <facet name="IncomingCorrespondence" />
   </doctype>
 
@@ -54,7 +52,6 @@
    <schema name="files" />
    <schema name="uid" />
    <schema name="correspondence_document" />
-   <facet name="CaseItem" />
    <facet name="OutgoingCorrespondence" />
   </doctype>
 

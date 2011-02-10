@@ -46,6 +46,7 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class RouteSecurityUpdaterListener implements EventListener {
+    @Override
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         EventContext eventCtx = event.getContext();
@@ -54,7 +55,7 @@ public class RouteSecurityUpdaterListener implements EventListener {
         }
         DocumentEventContext docEventCtx = (DocumentEventContext) eventCtx;
         DocumentModel kaseDoc = docEventCtx.getSourceDocument();
-        if(!kaseDoc.hasFacet(CaseConstants.CASE_FACET)) {
+        if (!(kaseDoc.hasFacet(CaseConstants.DISTRIBUTABLE_FACET) && !kaseDoc.hasFacet(CaseConstants.CASE_GROUPABLE_FACET))) {
             return;
         }
         CoreSession session = eventCtx.getCoreSession();

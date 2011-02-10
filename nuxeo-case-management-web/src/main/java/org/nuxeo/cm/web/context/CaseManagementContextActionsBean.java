@@ -35,11 +35,10 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 
-
 @Name("cmContextActions")
 @Scope(ScopeType.CONVERSATION)
 public class CaseManagementContextActionsBean implements Serializable,
-CaseManagementContextActions {
+        CaseManagementContextActions {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,6 +48,7 @@ CaseManagementContextActions {
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
+    @Override
     public String getCurrentCaseItemId() throws ClientException {
         DocumentModel currentEmail = cmContextHolder.getCurrentCaseItem();
         if (currentEmail != null) {
@@ -57,6 +57,7 @@ CaseManagementContextActions {
         return null;
     }
 
+    @Override
     public void setCurrentCaseItemId(String id) throws ClientException {
         if (id != null && documentManager != null) {
             id = id.trim();
@@ -71,18 +72,21 @@ CaseManagementContextActions {
     }
 
     // XXX: see if needs to be moved
+    @Override
     @Observer(value = { EventNames.DOCUMENT_SELECTION_CHANGED }, create = true)
     public void currentDocumentChanged(DocumentModel newDocument) {
         if (newDocument != null) {
             // mailbox case
-            if(newDocument.hasFacet(CaseConstants.MAILBOX_FACET)){
+            if (newDocument.hasFacet(CaseConstants.MAILBOX_FACET)) {
                 cmContextHolder.setCurrentMailbox(newDocument.getAdapter(Mailbox.class));
             }
             // document cases
-            if (newDocument.hasFacet(CaseConstants.CASE_FACET)) {
+            if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
+                    && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);
-            } else if (newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
+            } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
+                    && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(null);
                 cmContextHolder.setCurrentCaseItem(newDocument);
             } else if (newDocument.hasSchema("classification")) {

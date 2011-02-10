@@ -8,6 +8,7 @@
   <require>org.nuxeo.ecm.platform.comment.actions</require>
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
   <require>org.nuxeo.ecm.classification.web.actions</require>
+  <require>org.nuxeo.ecm.platform.routing.actions</require>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
@@ -25,14 +26,14 @@
 
 
 
-    <!--  Actions for the document selection  -->
+    <!-- Actions for the document selection -->
 
     <action id="CASEMANAGEMENT_CURRENT_SELECTION_DELETE" link="#{cmCaseActions.purgeCaseSelection}"
       label="command.deleteDocs" icon="" help="comand.deleteDocs.help"
       confirm="if( !confirmDeleteDocumentsForever() ) return false;">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
       <filter id="deleteDrafts">
-         <rule grant="true">
+        <rule grant="true">
           <facet>Mailbox</facet>
         </rule>
       </filter>
@@ -43,7 +44,7 @@
       </filter>
     </action>
 
-    <!-- filter out some actions  -->
+    <!-- filter out some actions -->
 
     <action id="TAB_MY_SUBSCRIPTIONS">
       <filter-id>isNotCaseItemOrCase</filter-id>
@@ -53,7 +54,7 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_EDIT"> 
+    <action id="TAB_EDIT">
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
@@ -75,40 +76,41 @@
     <action id="TAB_CONTENT">
       <filter-id>hideFromMailbox</filter-id>
       <filter-id>isNotCmCase</filter-id>
-    </action> 
+    </action>
     <action id="TAB_EDIT">
       <filter-id>hideFromMailbox</filter-id>
-    </action> 
+    </action>
     <action id="TAB_MY_SUBSCRIPTIONS">
       <filter-id>hideFromMailbox</filter-id>
     </action>
     <action id="TAB_CONTENT_HISTORY">
       <filter-id>hideFromMailbox</filter-id>
-    </action> 
-    
+    </action>
+
     <!-- case/case item tab actions -->
     <!-- redefine some tabs -->
     <action id="TAB_VIEW">
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
     <action id="TAB_CASE_MANAGEMENT_VIEW"
-      link="/casemanagement/caseitem/tabs/document_properties.xhtml" order="10"
-      label="label.casemanagement.tab.properties">
+      link="/casemanagement/caseitem/tabs/document_properties.xhtml"
+      order="10" label="label.casemanagement.tab.properties">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
-   <action id="TAB_RELATIONS">
+    <action id="TAB_RELATIONS">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action> 
+    </action>
     <action id="TAB_CASE_MANAGEMENT_RELATIONS"
-      link="/casemanagement/caseitem/tabs/document_relations.xhtml" order="30"
-      label="label.casemanagement.tab.relations">
+      link="/casemanagement/caseitem/tabs/document_relations.xhtml"
+      order="30" label="label.casemanagement.tab.relations">
       <category>VIEW_ACTION_LIST</category>
-       <filter-id>isCaseItemOrCase</filter-id>
+      <filter-id>isCaseItemOrCase</filter-id>
     </action>
 
-    <action id="CM_TAB_FILES_EDIT" link="/casemanagement/caseitem/tabs/document_files_edit.xhtml"
+    <action id="CM_TAB_FILES_EDIT"
+      link="/casemanagement/caseitem/tabs/document_files_edit.xhtml"
       order="43" label="action.view.files">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>canEditCaseItem</filter-id>
@@ -120,21 +122,18 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
-    <action id="CASE_CREATE" 
-      link="#{cmDocumentActions.createCaseItemInCase}"
+    <action id="CASE_CREATE" link="#{cmDocumentActions.createCaseItemInCase}"
       label="command.create">
       <category>CASE_CREATE_BOTTOM_LIST</category>
     </action>
 
-    <action id="EMPTY_CASE_CREATE" 
-      link="#{cmDocumentActions.createEmptyCase}"
+    <action id="EMPTY_CASE_CREATE" link="#{cmDocumentActions.createEmptyCase}"
       label="command.create">
       <category>EMPTY_CASE_CREATE_BOTTOM_LIST</category>
     </action>
 
-    <action id="SAVE_CASE_ACTION"
-    	link="#{cmDocumentActions.save()}"
-    	label="label.casemanagement.save">
+    <action id="SAVE_CASE_ACTION" link="#{cmDocumentActions.save()}"
+      label="label.casemanagement.save">
       <category>CASE_ACTION_BOTTOM_LIST</category>
     </action>
 
@@ -147,100 +146,99 @@
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isCaseItemOrCase</filter-id>
     </action>
-    
+
     <action id="TAB_PREVIEW">
-       <filter-id>isNotCaseItemOrCase</filter-id>
+      <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
-    <action id="TAB_CASE_MANAGEMENT_PREVIEW" link="/casemanagement/caseitem/tabs/document_annotation_preview.xhtml"
-      enabled="true" order="200" label="label.document.preview"
-      icon="/icons/file.gif">
+    <action id="TAB_CASE_MANAGEMENT_PREVIEW"
+      link="/casemanagement/caseitem/tabs/document_annotation_preview.xhtml"
+      enabled="true" order="200" label="label.document.preview" icon="/icons/file.gif">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isCaseItemOrCase</filter-id>
       <filter-id>isCurrentCaseItemPreviewAvailable</filter-id>
     </action>
-    
-   <!-- Mailbox Actions -->
-    <action id="newMailbox"
-      link="#{documentActions.createDocument('Mailbox')}"
+
+    <!-- Mailbox Actions -->
+    <action id="newMailbox" link="#{documentActions.createDocument('Mailbox')}"
       enabled="true" label="label.casemanagement.createMailbox" icon="/icons/action_add.gif">
       <category>SUBVIEW_UPPER_LIST</category>
       <filter-id>newCmMailbox</filter-id>
     </action>
 
-    <action id="editMailbox" link="/casemanagement/mailbox/tabs/mailbox_edit.xhtml" order="20"
-      label="label.casemanagement.editMailbox" enabled="true"
+    <action id="editMailbox" link="/casemanagement/mailbox/tabs/mailbox_edit.xhtml"
+      order="20" label="label.casemanagement.editMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>MANAGE_MAILBOX_ACTION_LIST</category>
     </action>
 
-    <action id="TAB_MAILBOX_DELEGATION" link="/casemanagement/mailbox/tabs/mailbox_delegation_content.xhtml" order="21"
-      label="label.casemanagement.delegationMailbox" enabled="true"
+    <action id="TAB_MAILBOX_DELEGATION"
+      link="/casemanagement/mailbox/tabs/mailbox_delegation_content.xhtml"
+      order="21" label="label.casemanagement.delegationMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>MANAGE_MAILBOX_ACTION_LIST</category>
-      
+
     </action>
 
     <!-- Mailbox View Action -->
-    <action id="TAB_MAILBOX_INBOX" link="/casemanagement/mailbox/tabs/mailbox_inbox_content.xhtml" order="20"
-      label="label.casemanagement.inboxMailbox" enabled="true"
+    <action id="TAB_MAILBOX_INBOX"
+      link="/casemanagement/mailbox/tabs/mailbox_inbox_content.xhtml"
+      order="20" label="label.casemanagement.inboxMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
     </action>
 
-    <action id="TAB_MAILBOX_SERVICE" link="/casemanagement/mailbox/tabs/mailbox_service_content.xhtml" order="21"
-      label="label.casemanagement.serviceMailbox" enabled="true"
+    <action id="TAB_MAILBOX_SERVICE"
+      link="/casemanagement/mailbox/tabs/mailbox_service_content.xhtml"
+      order="21" label="label.casemanagement.serviceMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
       <filter-id>isGenericMailbox</filter-id>
     </action>
 
-    <action id="TAB_MAILBOX_SENT" link="/casemanagement/mailbox/tabs/mailbox_sent_content.xhtml" order="22"
-      label="label.casemanagement.sentMailbox" enabled="true"
+    <action id="TAB_MAILBOX_SENT"
+      link="/casemanagement/mailbox/tabs/mailbox_sent_content.xhtml"
+      order="22" label="label.casemanagement.sentMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
     </action>
 
-    <action id="TAB_MAILBOX_DRAFT" link="/casemanagement/mailbox/tabs/mailbox_draft_content.xhtml" order="23"
-      label="label.casemanagement.draftMailbox" enabled="true"
+    <action id="TAB_MAILBOX_DRAFT"
+      link="/casemanagement/mailbox/tabs/mailbox_draft_content.xhtml"
+      order="23" label="label.casemanagement.draftMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
       <filter-id>canCreateCase</filter-id>
     </action>
 
     <action id="SHOW_MANAGE_MAILBOX_ACTION" link="/casemanagement/mailbox/mailbox_manage.xhtml"
-      label="label.casemanagement.action.manage"
-      enabled="true"
-      order="24">
+      label="label.casemanagement.action.manage" enabled="true" order="24">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
     </action>
     <!-- Case Management actions -->
 
     <action id="distribute_cm_case"
       link="/casemanagement/caseitem/tabs/distribute_cm_case.xhtml"
-      label="label.casemanagement.action.distributionRequest"
-      icon="/icons/case-management_distribute.gif" order="10">
+      label="label.casemanagement.action.distributionRequest" icon="/icons/case-management_distribute.gif"
+      order="10">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>canDistributeCase</filter-id>
     </action>
 
     <action id="distributeAction" enabled="true"
-      link="#{cmDistributionActions.validateWizard}"
-      label="label.casemanagement.distribution.send"
+      link="#{cmDistributionActions.validateWizard}" label="label.casemanagement.distribution.send"
       order="10">
       <category>DISTRIBUTION_ACTION_BOTTOM_LIST</category>
     </action>
 
     <action id="cancelDistribution" enabled="true"
-      link="#{cmDistributionActions.cancelWizard}"
-      label="command.cancel"
+      link="#{cmDistributionActions.cancelWizard}" label="command.cancel"
       order="20">
       <category>DISTRIBUTION_ACTION_BOTTOM_LIST</category>
     </action>
 
     <action id="addCaseItem"
       link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
-      label="action.new.document"
-      enabled="true">
+      label="action.new.document" enabled="true">
       <category>CASE_ACTION_UPPER_LIST_HREF</category>
       <filter-id>isCmCase</filter-id>
     </action>
@@ -250,13 +248,14 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_CASE_MANAGEMENT_COMMENTS" link="/casemanagement/caseitem/tabs/document_comments.xhtml"
+    <action id="TAB_CASE_MANAGEMENT_COMMENTS"
+      link="/casemanagement/caseitem/tabs/document_comments.xhtml"
       enabled="true" order="80" label="action.view.comments">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isEmptyCase</filter-id>
       <filter-id>mutable_document</filter-id>
       <filter-id>not_anonymous</filter-id>
-     </action>
+    </action>
 
     <action id="newComment" link="#{cmCommentActions.addComment}"
       enabled="true" label="command.add">
@@ -269,19 +268,19 @@
     </action>
 
     <!-- end of envelope/document tab actions -->
-    
+
     <!-- Mailbox Management Actions -->
-    <action id="TAB_MAILBOX_PLANS" link="/casemanagement/mailbox/tabs/mailbox_plans_content.xhtml" order="25"
-      label="label.casemanagement.plansMailbox" enabled="true"
+    <action id="TAB_MAILBOX_PLANS"
+      link="/casemanagement/mailbox/tabs/mailbox_plans_content.xhtml"
+      order="25" label="label.casemanagement.plansMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>MANAGE_MAILBOX_ACTION_LIST</category>
-      
+
     </action>
 
     <action id="newCaseItemDocument"
-      link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
-      label="action.new.document"
-      enabled="true">
+      link="javascript:Richfaces.showModalPanel('selectMailboxDocTypePanel');"
+      label="action.new.document" enabled="true">
       <category>DRAFT_ACTION_UPPER_LIST_HREF</category>
       <filter-id>canCreateCase</filter-id>
     </action>
@@ -289,10 +288,10 @@
     <!-- End of Mailbox Management Actions -->
 
     <!-- Classification integration -->
-    <action id="CLASSIFICATION_REQUEST" 
-            link="/casemanagement/caseitem/tabs/classification_request.xhtml"
-            label="label.casemanagement.action.classificationRequest"
-            icon="/icons/icone_classement.gif" order="72">
+    <action id="CLASSIFICATION_REQUEST"
+      link="/casemanagement/caseitem/tabs/classification_request.xhtml"
+      label="label.casemanagement.action.classificationRequest" icon="/icons/icone_classement.gif"
+      order="72">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isNotCmInitialCase</filter-id>
     </action>
@@ -310,27 +309,37 @@
 
     <action id="TAB_DISTRIBUTION_PARTICIPANTS"
       link="/casemanagement/caseitem/tabs/distribute_cm_case.xhtml"
-      label="label.casemanagement.action.distributionRequest"
-      icon="/icons/case-management_distribute.gif" order="10">
+      label="label.casemanagement.action.distributionRequest" icon="/icons/case-management_distribute.gif"
+      order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
     </action>
-    
-    <action id="TAB_DISTRIBUTION_FAVORITES"
-      link="/incl/tabs/document_content.xhtml"
-      label="label.casemanagement.action.distributionFavorites"
-      icon="/icons/case-management_distribute.gif" order="10">
+
+    <action id="TAB_DISTRIBUTION_FAVORITES" link="/incl/tabs/document_content.xhtml"
+      label="label.casemanagement.action.distributionFavorites" icon="/icons/case-management_distribute.gif"
+      order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
     </action>
-    
-    <action id="TAB_DISTRIBUTION_LISTS"
-      link="/incl/tabs/document_content.xhtml"
-      label="label.casemanagement.action.distributionLists"
-      icon="/icons/case-management_distribute.gif" order="10">
+
+    <action id="TAB_DISTRIBUTION_LISTS" link="/incl/tabs/document_content.xhtml"
+      label="label.casemanagement.action.distributionLists" icon="/icons/case-management_distribute.gif"
+      order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
     </action>
+
+    <!-- routing action -->
+
+    <action id="ADD_STEP_BEFORE"
+      link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'before';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
+
+    <action id="ADD_STEP_AFTER"
+      link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'after';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
+
+    <action id="ADD_STEP_BETWEEN"
+      link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'in';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
+
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
@@ -345,46 +354,56 @@
 
     <filter id="canCreateCase">
       <rule grant="true">
-        <condition>#{currentMailbox.getProfiles().contains('cellule_courrier')}</condition>
+        <condition>#{currentMailbox.getProfiles().contains('cellule_courrier')}
+        </condition>
       </rule>
     </filter>
-   
+
     <filter id="isCmCase">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isCmInitialCase">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{cmCaseActions.isInitialCase()}</condition>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isDraft">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{currentCase.isDraft()}</condition>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isNotDraft">
       <rule grant="false">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
         <condition>#{currentCase.isDraft()}</condition>
       </rule>
     </filter>
 
     <filter id="isNotCmInitialCase">
       <rule grant="true">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
       <rule grant="false">
         <condition>#{cmCaseActions.isInitialCase()}</condition>
       </rule>
     </filter>
-    
+
     <filter id="isMailbox">
       <rule grant="true">
         <facet>Mailbox</facet>
@@ -396,43 +415,43 @@
         <facet>Mailbox</facet>
       </rule>
     </filter>
-   
+
     <filter id="isNotCmCase">
       <rule grant="false">
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="isCaseItem">
       <rule grant="true">
-        <facet>CaseItem</facet>
+        <facet>Distributable</facet>
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isNotCaseItem">
       <rule grant="false">
-        <facet>CaseItem</facet>
+        <facet>CaseGroupable</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="isCaseItemOrCase">
       <rule grant="true">
-        <facet>CaseItem</facet>
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="isNotCaseItemOrCase">
       <rule grant="false">
-        <facet>CaseItem</facet>
-        <facet>Case</facet>
+        <facet>Distributable</facet>
       </rule>
     </filter>
 
     <filter id="hideFromMailbox">
       <rule grant="false">
-          <facet>Mailbox</facet>
-        </rule>
+        <facet>Mailbox</facet>
+      </rule>
     </filter>
 
     <filter id="isGenericMailbox">
@@ -443,28 +462,31 @@
 
     <filter id="canDistributeCase">
       <rule grant="true">
-        <condition>#{cmDistributionActions.canDistributeCase()}</condition>
+        <condition>#{cmDistributionActions.canDistributeCase()}
+        </condition>
       </rule>
     </filter>
 
     <filter id="canEditCaseItem">
       <rule grant="true">
-        <condition>#{cmDocumentActions.canEditCurrentCaseItem}</condition>
+        <condition>#{cmDocumentActions.canEditCurrentCaseItem}
+        </condition>
       </rule>
     </filter>
-    
+
     <filter id="isCurrentCaseItemPreviewAvailable">
       <rule grant="true">
-        <condition>#{cmDocumentActions.isCurrentCaseItemPreviewAvailable()}</condition>
+        <condition>#{cmDocumentActions.isCurrentCaseItemPreviewAvailable()}
+        </condition>
       </rule>
     </filter>
-    
+
     <filter id="isEmptyCase">
       <rule grant="false">
         <condition>#{cmCaseActions.isEmptyCase()}</condition>
       </rule>
     </filter>
-    
+
   </extension>
 
 </component>

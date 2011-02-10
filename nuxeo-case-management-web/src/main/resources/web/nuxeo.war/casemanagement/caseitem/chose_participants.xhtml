@@ -11,12 +11,12 @@
     </div>
     <div style="clear:both;"></div>
         
-    <div class="action_bar nofloat">
+    <div class="action_bar nofloat" id="choose_participants">
       <nxu:methodResult name="actions"
         value="#{webActions.getActionsList('DISTRIBUTION_ACTION_BOTTOM_LIST')}">
-        <f:subview rendered="#{!empty actions}">
+        <f:subview rendered="#{!empty actions}" id="actions_view">
           <nxu:dataList layout="unorderedList" var="action"
-            value="#{actions}">
+            value="#{actions}" id="action_list">
             <nxh:commandLink action="#{action.getLink()}"
               id="distributionActionUpperListLink">
               <h:outputText value="#{messages[action.label]}" />

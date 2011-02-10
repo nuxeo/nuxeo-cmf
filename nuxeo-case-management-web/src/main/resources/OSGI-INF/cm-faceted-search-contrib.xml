@@ -55,7 +55,7 @@
         <whereClause docType="FacetedSearchDefault">
           <fixedPart>
             ecm:mixinType != 'HiddenInNavigation' AND
-            (ecm:mixinType IN ('Case' , 'CaseItem'))
+            (ecm:mixinType IN ('Distributable' , 'CaseGroupable'))
             AND ecm:mixinType !=
             'HiddenInFacetedSearch' AND
             ecm:isCheckedInVersion = 0

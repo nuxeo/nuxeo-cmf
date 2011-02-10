@@ -73,7 +73,6 @@
       <schema name="common" />
       <schema name="dublincore" />
       <schema name="case" />
-      <facet name="Case" />
       <facet name="Distributable" />
       <facet name="Routable" />
       <facet name="Classifiable" />

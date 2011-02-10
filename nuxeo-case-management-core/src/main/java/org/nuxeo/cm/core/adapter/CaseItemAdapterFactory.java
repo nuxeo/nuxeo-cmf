@@ -24,16 +24,17 @@ import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
-import static org.nuxeo.cm.cases.CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA;
 import static org.nuxeo.cm.cases.CaseConstants.CASE_GROUPABLE_FACET;
-import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTION_SCHEMA;
+import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTABLE_FACET;
 
 /**
  * @author arussel
  */
 public class CaseItemAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    @Override
+    public Object getAdapter(DocumentModel doc,
+            @SuppressWarnings("rawtypes") Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new CaseItemImpl(doc, adapter);
@@ -44,13 +45,9 @@ public class CaseItemAdapterFactory implements DocumentAdapterFactory {
             throw new CaseManagementRuntimeException(
                     "Document should have facet " + CASE_GROUPABLE_FACET);
         }
-        if (!doc.hasSchema(DISTRIBUTION_SCHEMA)) {
+        if (!doc.hasFacet(DISTRIBUTABLE_FACET)) {
             throw new CaseManagementRuntimeException(
-                    "Document should have schema " + DISTRIBUTION_SCHEMA);
-        }
-        if (!doc.hasSchema(CASE_ITEM_DOCUMENT_SCHEMA)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should have schema " + CASE_ITEM_DOCUMENT_SCHEMA);
+                    "Document should have facet " + DISTRIBUTABLE_FACET);
         }
     }
 

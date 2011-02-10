@@ -31,7 +31,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-
 public abstract class AbstractDraftListener {
 
     protected abstract Log getLog();
@@ -63,9 +62,10 @@ public abstract class AbstractDraftListener {
         }
 
         // Check if the document model is an envelope
-        if (!envelopeDM.hasFacet(CaseConstants.CASE_FACET)) {
+        if (!(envelopeDM.hasFacet(CaseConstants.DISTRIBUTABLE_FACET) && !envelopeDM.hasFacet(CaseConstants.CASE_GROUPABLE_FACET))) {
             return;
         }
+
         Case envelope = envelopeDM.getAdapter(Case.class);
         if (envelope == null) {
             return;
@@ -83,11 +83,9 @@ public abstract class AbstractDraftListener {
 
     protected void updateDraft(DocumentModel draft, DocumentModel firstDoc,
             DocumentModel envelope, Principal principal) throws ClientException {
-        draft.setPropertyValue(
-                CaseConstants.CONTACTS_SENDERS,
+        draft.setPropertyValue(CaseConstants.CONTACTS_SENDERS,
                 firstDoc.getPropertyValue(CaseConstants.CONTACTS_SENDERS));
-        draft.setPropertyValue(
-                CaseConstants.CONTACTS_PARTICIPANTS,
+        draft.setPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS,
                 firstDoc.getPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS));
         draft.setPropertyValue(CaseLinkConstants.SENDER_FIELD,
                 principal.getName());

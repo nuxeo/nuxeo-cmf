@@ -14,7 +14,7 @@
             <f:subview rendered="#{!empty actions}">
               <nxu:dataList layout="unorderedList" var="action"
                 value="#{actions}">
-                <a href="#{action.getLink()}">
+                <a href="#{action.getLink()}" id="#{action.getId()}">
                   <h:graphicImage value="#{action.icon}" />
                   <h:outputText value="#{messages[action.label]}" />
                 </a>
@@ -35,6 +35,7 @@
           </nxu:methodResult>
         </div>
         <div style="clear:both;"></div>
+        properties
         <!-- view of the current case item -->
         <nxl:layout value="#{currentDocument}" mode="view"
           name="#{currentDocumentSummaryLayout}" />
