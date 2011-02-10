@@ -16,24 +16,7 @@
   </ui:define>
 
   <ui:define name="body">
-
-    <ui:include src="/select_document_type.xhtml" />
-    <ui:decorate template="view_cm_case_template.xhtml">
-      <ui:define name="case_body">
-
-        <h:panelGroup id="case_content">
-          <ui:insert name="case_content">
-            <ui:include src="cm_case_actions_tabs.xhtml" />
-            <div style="clear: both"></div>
-            <div class="tabsContent">
-              <ui:include src="#{webActions.currentTabAction.link}" />
-            </div>
-          </ui:insert>
-        </h:panelGroup>
-
-      </ui:define>
-    </ui:decorate>
-
+    <ui:include src="/casemanagement/caseitem/view_cm_case_body.xhtml" />
   </ui:define>
 
 </nxthemes:composition>

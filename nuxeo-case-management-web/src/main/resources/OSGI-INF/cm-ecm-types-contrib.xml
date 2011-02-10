@@ -24,7 +24,7 @@
     <type id="Mailbox">
       <label>label.casemanagement.type.CaseManagementMailbox</label>
       <icon>/icons/case-management_mailbox.png</icon>
-      <default-view>mailbox_view</default-view>
+      <default-view>cm_view</default-view>
       <create-view>mailbox_create</create-view>
       <layouts mode="any">
         <layout>cm_mailbox</layout>
@@ -77,7 +77,7 @@
       <label>label.casemanagement.type.CaseManagementCase</label>
       <icon>/icons/case.png</icon>
       <bigIcon>/icons/case_100.png</bigIcon>
-      <default-view>view_cm_case</default-view>
+      <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
       <views>
         <view id="edit_case" value="edit_case" />

@@ -1,0 +1,22 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:nxu="http://nuxeo.org/nxweb/util" xmlns:nxthemes="http://nuxeo.org/nxthemes"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax" xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout">
+  <ui:include src="/select_document_type.xhtml" />
+  <ui:decorate template="view_cm_case_template.xhtml">
+    <ui:define name="case_body">
+
+      <h:panelGroup id="case_content">
+        <ui:insert name="case_content">
+          <ui:include src="cm_case_actions_tabs.xhtml" />
+          <div style="clear: both"></div>
+          <div class="tabsContent">
+            <ui:include src="#{webActions.currentTabAction.link}" />
+          </div>
+        </ui:insert>
+      </h:panelGroup>
+
+    </ui:define>
+  </ui:decorate>
+</div>

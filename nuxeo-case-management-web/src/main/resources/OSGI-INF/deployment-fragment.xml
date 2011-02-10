@@ -1,8 +1,15 @@
 <?xml version="1.0"?>
 
-<fragment>
-
+<fragment version="1">
+  <require>org.nuxeo.theme.html</require>
+  <require>org.nuxeo.ecm.platform.routing.web</require>
   <extension target="faces-config#NAVIGATION">
+
+    <navigation-case>
+      <from-outcome>cm_view</from-outcome>
+      <to-view-id>/casemanagement/cm_view.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
 
     <navigation-case>
       <from-outcome>mailbox_view</from-outcome>
@@ -46,9 +53,7 @@
     
     <navigation-case>
       <from-outcome>view_cm_case</from-outcome>
-      <to-view-id>
-        /casemanagement/caseitem/view_cm_case.xhtml
-      </to-view-id>
+      <to-view-id>/casemanagement/caseitem/view_cm_case.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

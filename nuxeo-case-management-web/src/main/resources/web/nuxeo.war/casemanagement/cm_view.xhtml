@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<nxthemes:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:nxthemes="http://nuxeo.org/nxthemes"
+	xmlns:nxu="http://nuxeo.org/nxweb/util"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:nxd="http://nuxeo.org/nxweb/document"
+	xmlns:nxh="http://nuxeo.org/nxweb/html">
+	<ui:define name="page title">
+		<h:outputText
+			value="#{nuxeoApplicationName} - #{nxd:titleOrId(currentDocument)}" />
+	</ui:define>
+
+	<ui:define name="bookmark">
+		<link rel="bookmark"
+			href="#{navigationContext.currentDocumentFullUrl}" />
+	</ui:define>
+
+	<ui:define name="body">
+		<script>
+      var mailboxId = "#{currentMailbox.id}";
+      var tabId = "#{currentViewMailboxAction}";
+      jQuery.noConflict();
+      jQuery().ready(function($){
+        var bottomTable = jQuery(jQuery('body > table')[jQuery('body > table').length - 1]).outerHeight(true);
+        var fromTop = jQuery('#layoutContainer').offset().top;
+        var totalSize = jQuery(window).height() - bottomTable - fromTop - 10;
+        var southSize = jQuery.cookie(mailboxId + "-" + tabId + "-size") ? jQuery.cookie(mailboxId + "-" + tabId + "-size") : totalSize / 2;
+        $('#layoutContainer').height(totalSize);
+        $('#layoutContainer').layout({
+          south__size: southSize,
+          south__initClosed: jQuery.cookie(mailboxId + "-" + tabId + "-isclosed") == "true",
+          onresize_end: function(name, element, state, options, layoutName) {
+                     jQuery.cookie(mailboxId + "-" + tabId + "-size", state.size );},
+          onclose: function(name, element, state, options, layoutName) {
+                     jQuery.cookie(mailboxId + "-" + tabId + "-isclosed", state.isClosed );},
+          onopen: function(name, element, state, options, layoutName) {
+                     jQuery.cookie(mailboxId + "-" + tabId + "-isclosed", state.isClosed );},
+        });
+      });
+    </script>
+		<div id="layoutContainer">
+		  <div class="pane ui-layout-center">
+		    <ui:include	src="/casemanagement/mailbox/mailbox_view_body.xhtml" />
+		  </div>
+		  <f:subview rendered="#{currentCase != null}" id="caseView">
+		    <div class="pane ui-layout-south">
+		      <ui:include src="/casemanagement/caseitem/view_cm_case_body.xhtml" />
+        </div>
+      </f:subview>
+		</div>
+	</ui:define>
+</nxthemes:composition>

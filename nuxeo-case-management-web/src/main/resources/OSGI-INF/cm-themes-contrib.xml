@@ -1,43 +1,49 @@
 <?xml version="1.0"?>
 
 <component name="org.nuxeo.case-management.themes">
-  
+
   <require>org.nuxeo.theme.core</require>
   <require>org.nuxeo.theme.fragments</require>
   <require>org.nuxeo.theme.html</require>
   <require>org.nuxeo.theme.jsf</require>
   <require>org.nuxeo.theme.nuxeo.default</require>
-  
+
   <!-- views -->
-  <extension target="org.nuxeo.theme.services.ThemeService" point="views">
-    
-    <!-- displays the mailboxes in left menu -->    
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="views">
+
+    <!-- displays the mailboxes in left menu -->
     <view name="mailboxes list" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>casemanagement/mailbox/mailbox_list.xhtml</template>
       <resource>dragdrop.js</resource>
       <resource>contextmenu.js</resource>
+      <resource>jquery.layout.js</resource>
+      <resource>jquery.ui.js</resource>
+      <resource>jquery.ui.layout.css</resource>
+      <resource>jquery.cookie.js</resource>
     </view>
-    
     <!-- displays the user classification roots in left menu -->
     <view name="classification tree" template-engine="jsf-facelets">
       <format-type>widget</format-type>
-      <template>classification/classification_tree_explorer.xhtml</template>
+      <template>classification/classification_tree_explorer.xhtml
+      </template>
     </view>
 
     <view name="Case Management logo" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>incl/logo_case_management.xhtml</template>
     </view>
-    
+
     <view name="Print and ZIP buttons" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>incl/print_zip_buttons.xhtml</template>
     </view>
- 
+
   </extension>
 
-  <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="themes">
 
     <theme>
       <src>themes/theme-case-management.xml</src>
@@ -56,7 +62,7 @@
         <default-theme>case-management/default</default-theme>
         <default-perspective>default</default-perspective>
       </negotiation>
-      
+
       <view id="/user_dashboard.xhtml">
         <theme>case-management/user_dashboard</theme>
       </view>
@@ -66,17 +72,38 @@
   </extension>
 
   <!-- Styles presets -->
-  <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="presets">
 
     <palette name="Case Management borders"
       src="themes/palettes/case-management-borders.properties" category="border" />
     <palette name="Case Management backgrounds"
-      src="themes/palettes/case-management-backgrounds.properties" category="background" />
-    <palette name="Case Management fonts" src="themes/palettes/case-management-fonts.properties"
-      category="font" />
-    <palette name="Case Management colors" src="themes/palettes/case-management-colors.properties"
-      category="color" />
+      src="themes/palettes/case-management-backgrounds.properties"
+      category="background" />
+    <palette name="Case Management fonts"
+      src="themes/palettes/case-management-fonts.properties" category="font" />
+    <palette name="Case Management colors"
+      src="themes/palettes/case-management-colors.properties" category="color" />
 
-   </extension>
+  </extension>
+  <!-- resources -->
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="resources">
+    <resource name="jquery.layout.js">
+      <path>scripts/jquery.layout.js</path>
+      <require>jquery.js</require>
+    </resource>
+    <resource name="jquery.ui.js">
+      <path>scripts/jquery.ui.js</path>
+      <require>jquery.js</require>
+    </resource>
+    <resource name="jquery.cookie.js">
+      <path>scripts/jquery.cookie.js</path>
+      <require>jquery.js</require>
+    </resource>
+    <resource name="jquery.ui.layout.css">
+      <path>css/jquery.ui.layout.css</path>
+    </resource>
+  </extension>
 
 </component>

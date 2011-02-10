@@ -30,13 +30,16 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.contexts.Contexts;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.web.CaseManagementWebConstants;
+import org.nuxeo.cm.web.context.CaseManagementContextHolderBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.platform.actions.Action;
 import org.nuxeo.ecm.platform.actions.ejb.ActionManager;
+import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 
 
@@ -64,6 +67,12 @@ public class CaseManagementMailboxTabsActionsBean extends
     protected List<Action> distributionEnvelopeActionTabs;
 
     protected Action currentDistributionEnvelopeAction;
+
+    @In(create = true)
+    protected NavigationContext navigationContext;
+
+    @In(create = true, required = false)
+    protected CaseManagementContextHolderBean cmContextHolder;
 
     @In(required = true, create = true)
     protected transient ActionManager actionManager;
@@ -154,6 +163,14 @@ public class CaseManagementMailboxTabsActionsBean extends
      */
     public void setCurrentViewMailboxAction(String actionId)
             throws ClientException {
+        String previous = getCurrentViewMailboxAction().getId();
+        if(!actionId.equals(previous)) {
+            Contexts.removeFromAllContexts("currentCase");
+            Contexts.removeFromAllContexts("currentCaseItem");
+            navigationContext.setCurrentDocument(getCurrentMailbox().getDocument());
+            cmContextHolder.setCurrentCase(null);
+            cmContextHolder.setCurrentCaseItem(null);
+        }
         Action target = actionManager.getAction(actionId);
         List<Action> actions = getViewMailboxActionTabs();
         if (actions != null && !actions.isEmpty() && actions.contains(target)) {

@@ -15,7 +15,7 @@
 	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
 	        AND cslk:draft = 0
         </pattern>
-        <parameter>#{currentDocument.id}</parameter>
+        <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="cslk:date" ascending="false" />
         <pageSize>20</pageSize>
       </coreQueryPageProvider>
@@ -47,7 +47,7 @@
 	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 
 	        'CaseLink' AND cslk:isSent = 0 AND cslk:draft = 0
         </pattern>
-        <parameter>#{currentDocument.id}</parameter>
+        <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="cslk:date" ascending="false" />
         <pageSize>20</pageSize>
       </coreQueryPageProvider>
@@ -77,7 +77,7 @@
 	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
 	         AND cslk:isSent = 1 AND cslk:draft = 0
         </pattern>
-        <parameter>#{currentDocument.id}</parameter>
+        <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="cslk:date" ascending="false" />
         <pageSize>20</pageSize>
       </coreQueryPageProvider>
@@ -107,7 +107,7 @@
 	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
 	        AND cslk:draft = 1
         </pattern>
-        <parameter>#{currentDocument.id}</parameter>
+        <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="dc:title" ascending="true" />
         <pageSize>20</pageSize>
       </coreQueryPageProvider>
