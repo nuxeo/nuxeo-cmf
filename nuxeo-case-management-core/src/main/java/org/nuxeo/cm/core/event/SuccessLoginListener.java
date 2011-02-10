@@ -42,21 +42,26 @@ public class SuccessLoginListener implements EventListener {
     private static final Log log = LogFactory.getLog(SuccessLoginListener.class);
 
     public void handleEvent(Event event) throws ClientException {
+        CoreSession session = null;
         try {
             MailboxManagementService nxcService = Framework.getService(MailboxManagementService.class);
             if (nxcService == null) {
-                throw new CaseManagementException("CorrespondenceService not found.");
+                throw new CaseManagementException(
+                        "CorrespondenceService not found.");
             }
 
             SimplePrincipal principal = (SimplePrincipal) event.getContext().getPrincipal();
-            if (!nxcService.hasUserPersonalMailbox(getCoreSession(),
-                    principal.getName())) {
-                nxcService.createPersonalMailboxes(getCoreSession(),
-                        principal.getName());
+            session = getCoreSession();
+            if (!nxcService.hasUserPersonalMailbox(session, principal.getName())) {
+                nxcService.createPersonalMailboxes(session, principal.getName());
             }
 
         } catch (Exception e) {
             log.error("Error during personal mailbox creation.", e);
+        } finally {
+            if (session != null) {
+                Repository.close(session);
+            }
         }
     }
 

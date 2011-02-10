@@ -138,12 +138,4 @@ public class MailInjectionListener implements EventListener {
         }
     }
 
-    protected CoreSession getCoreSession() throws Exception {
-        RepositoryManager mgr = Framework.getService(RepositoryManager.class);
-        if (mgr == null) {
-            throw new ClientException("Cannot find RepostoryManager");
-        }
-        Repository repo = mgr.getDefaultRepository();
-        return repo.open();
-    }
 }
