@@ -351,9 +351,13 @@ public class CaseManagementMailboxActionsBean extends
     }
 
     /**
-     * @return true if CurrentDocument is Generic Mailbox
+     * @return true if CurrentMailbox is Generic Mailbox
      */
     public Boolean isGenericMailbox() throws ClientException {
+        Mailbox currentMailbox = getCurrentMailbox();
+        if(currentMailbox == null) {
+            return false;
+        }
         DocumentModel doc = getCurrentMailbox().getDocument();
         if (!doc.hasFacet(MailboxConstants.MAILBOX_FACET)) {
             return false;
