@@ -9,7 +9,7 @@
   
 <c:if test="#{widget.mode != 'edit'}">
   <h:outputText
-    value="#{cm:mailboxTitle(cmMailboxActions.currentMailboxParent)}" />
+    value="#{cm:mailboxTitle(documentManager, cmMailboxActions.currentMailboxParent)}" />
 </c:if>
 
 <c:if test="#{widget.mode == 'edit'}">

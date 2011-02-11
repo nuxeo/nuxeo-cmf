@@ -111,7 +111,8 @@ public class CaseManagementDistributionActionsBean extends
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    ParticipantItem item = (ParticipantItem) mailboxManagementService.getMailboxHeader(fav);
+                    ParticipantItem item = (ParticipantItem) mailboxManagementService.getMailboxHeader(
+                            documentManager, fav);
                     item.setMessageType(CaseLinkType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }

@@ -68,7 +68,7 @@
                   <f:param name="index" value="#{model.rowIndex}" />
                   <f:param name="type" value="remove" />
                 </a4j:commandLink>
-                <h:outputText value="#{cm:mailboxTitle(model.rowData)}" />
+                <h:outputText value="#{cm:mailboxTitle(documentManager, model.rowData)}" />
               </h:panelGrid>
             </h:panelGroup>
           </nxu:inputList>

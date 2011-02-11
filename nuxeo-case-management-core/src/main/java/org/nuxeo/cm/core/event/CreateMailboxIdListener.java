@@ -28,6 +28,8 @@ import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreInstance;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
@@ -57,6 +59,10 @@ public class CreateMailboxIdListener implements EventListener {
         }
 
         DocumentModel doc = docCtx.getSourceDocument();
+        CoreSession session = docCtx.getCoreSession();
+        if (session == null) {
+            return;
+        }
         Mailbox mb = doc.getAdapter(Mailbox.class);
         if (mb == null || mb.getId() != null) {
             return;
@@ -64,13 +70,13 @@ public class CreateMailboxIdListener implements EventListener {
 
         try {
             MailboxManagementService correspService = Framework.getService(MailboxManagementService.class);
-            setIdForMailbox(correspService, mb);
+            setIdForMailbox(session, correspService, mb);
         } catch (Exception e) {
             log.error(e);
         }
     }
 
-    protected void setIdForMailbox(MailboxManagementService correspService,
+    protected void setIdForMailbox(CoreSession session, MailboxManagementService correspService,
             Mailbox mb) {
         if (correspService == null) {
             log.error("Cannot set mailbox id: casemanagement service is null");
@@ -90,7 +96,7 @@ public class CreateMailboxIdListener implements EventListener {
             String title = mb.getTitle();
             if (title != null) {
                 id = IdUtils.generateId(title);
-                if (correspService.hasMailbox(id)) {
+                if (correspService.hasMailbox(session, id)) {
                     // add timestamp
                     id += "_" + new Date().getTime();
                 }

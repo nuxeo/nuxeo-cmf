@@ -23,7 +23,6 @@ package org.nuxeo.cm.core.service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +36,9 @@ import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.repository.Repository;
-import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
@@ -51,7 +47,6 @@ import org.nuxeo.ecm.directory.Directory;
 import org.nuxeo.ecm.directory.DirectoryException;
 import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
-import org.nuxeo.ecm.platform.relations.api.ResourceAdapter;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
@@ -76,8 +71,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
 
     protected EventProducer eventProducer;
 
-    protected Map<String, Serializable> context;
-
     public Mailbox getMailbox(CoreSession session, String muid) {
         if (muid == null) {
             return null;
@@ -98,28 +91,18 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return res.get(0).getAdapter(Mailbox.class);
     }
 
-    public Mailbox getMailbox(String muid) {
-        CoreSession session = null;
-        try {
-            session = getCoreSession();
-            return getMailbox(session, muid);
-        } finally {
-            closeCoreSession(session);
-        }
+    public boolean hasMailbox(CoreSession session, String muid) {
+        return getMailboxHeader(session, muid) != null;
     }
 
-    public boolean hasMailbox(String muid) {
-        return getMailboxHeader(muid) != null;
-    }
-
-    public MailboxHeader getMailboxHeader(String muid) {
+    public MailboxHeader getMailboxHeader(CoreSession session, String muid) {
         if (muid == null) {
             return null;
         }
 
         List<String> muids = new ArrayList<String>();
         muids.add(muid);
-        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(muids);
+        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(session, muids);
         if (mailboxesHeaders == null || mailboxesHeaders.isEmpty()) {
             return null;
         } else {
@@ -153,21 +136,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return MailboxConstants.getMailboxList(docs);
     }
 
-    public List<MailboxHeader> getMailboxesHeaders(List<String> muids) {
-        CoreSession session = null;
-        try {
-            session = getCoreSession();
-            GetMailboxesHeadersUnrestricted sessionSearch = new GetMailboxesHeadersUnrestricted(
-                    session, muids);
-            sessionSearch.runUnrestricted();
-            return sessionSearch.getMailboxesHeaders();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        } finally {
-            closeCoreSession(session);
-        }
-    }
-
     public List<MailboxHeader> getMailboxesHeaders(CoreSession session,
             List<String> muids) {
         GetMailboxesHeadersUnrestricted sessionSearch = new GetMailboxesHeadersUnrestricted(
@@ -178,16 +146,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             throw new CaseManagementRuntimeException(e);
         }
         return sessionSearch.getMailboxesHeaders();
-    }
-
-    public List<Mailbox> getMailboxes(List<String> muids) {
-        CoreSession session = null;
-        try {
-            session = getCoreSession();
-            return getMailboxes(session, muids);
-        } finally {
-            closeCoreSession(session);
-        }
     }
 
     public List<Mailbox> getUserMailboxes(CoreSession session, String user) {
@@ -222,11 +180,11 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         // avoid creating multiple personal mailboxes for a given user in
         // case there's something wrong with Read rights on mailbox folder
         String muid = getUserPersonalMailboxId(user);
-        if (hasMailbox(muid)) {
+        if (hasMailbox(session, muid)) {
             log.error(String.format(
                     "Cannot create personal mailbox for user '%s': "
                             + "it already exists with id '%s'", user, muid));
-            return Arrays.asList(getMailbox(muid));
+            return Arrays.asList(getMailbox(session, muid));
         }
         try {
             return personalMailboxCreator.createMailboxes(session, user);
@@ -276,8 +234,8 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return null;
     }
 
-    public List<MailboxHeader> searchMailboxes(String pattern, String type) {
-        CoreSession session = getCoreSession();
+    public List<MailboxHeader> searchMailboxes(CoreSession session,
+            String pattern, String type) {
         SearchMailboxesHeadersUnrestricted sessionSearch = new SearchMailboxesHeadersUnrestricted(
                 session, pattern, type);
         try {
@@ -285,8 +243,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             return sessionSearch.getMailboxesHeaders();
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
-        } finally {
-            closeCoreSession(session);
         }
     }
 
@@ -396,42 +352,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             throw new CaseManagementRuntimeException(e);
         }
         return list;
-    }
-
-    protected CoreSession getCoreSession() {
-        RepositoryManager mgr;
-        try {
-            mgr = Framework.getService(RepositoryManager.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-        if (mgr == null) {
-            throw new CaseManagementRuntimeException(
-                    "Cannot find RepositoryManager");
-        }
-        Repository repo = mgr.getDefaultRepository();
-
-        CoreSession session;
-        try {
-            if (context == null) {
-                session = repo.open();
-                context = new HashMap<String, Serializable>();
-                context.put(ResourceAdapter.CORE_SESSION_ID_CONTEXT_KEY,
-                        session.getSessionId());
-            } else {
-                session = repo.open(context);
-            }
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-
-        return session;
-    }
-
-    protected void closeCoreSession(CoreSession coreSession) {
-        if (coreSession != null) {
-            CoreInstance.getInstance().close(coreSession);
-        }
     }
 
     MailboxCreator getPersonalMailboxCreator() {

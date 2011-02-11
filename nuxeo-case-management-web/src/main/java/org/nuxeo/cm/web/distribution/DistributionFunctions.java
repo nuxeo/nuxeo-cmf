@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
 
@@ -46,17 +47,17 @@ public class DistributionFunctions {
         return StringUtils.join(collection.iterator(), separator);
     }
 
-    public static String getMailboxTitle(String mailboxId) {
-        MailboxHeader mailboxHeader = getMailboxHeader(mailboxId);
+    public static String getMailboxTitle(CoreSession session, String mailboxId) {
+        MailboxHeader mailboxHeader = getMailboxHeader(session, mailboxId);
         if (mailboxHeader != null) {
             return mailboxHeader.getTitle();
         }
         return mailboxId;
     }
 
-    public static String getMailboxTitles(List<String> mailboxIds,
+    public static String getMailboxTitles(CoreSession session, List<String> mailboxIds,
             String separator, Boolean sorted) {
-        List<MailboxHeader> mailboxes = getMailboxHeaders(mailboxIds);
+        List<MailboxHeader> mailboxes = getMailboxHeaders(session, mailboxIds);
         if (mailboxes != null) {
             List<String> titles = new ArrayList<String>();
             for (MailboxHeader mb : mailboxes) {
@@ -74,37 +75,37 @@ public class DistributionFunctions {
         return mailboxDoc.getAdapter(Mailbox.class);
     }
 
-    public static Mailbox getMailbox(String mailboxId) {
+    public static Mailbox getMailbox(CoreSession session, String mailboxId) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailbox(mailboxId);
+            return service.getMailbox(session, mailboxId);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static MailboxHeader getMailboxHeader(String mailboxId) {
+    public static MailboxHeader getMailboxHeader(CoreSession session, String mailboxId) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailboxHeader(mailboxId);
+            return service.getMailboxHeader(session, mailboxId);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static List<Mailbox> getMailboxes(List<String> mailboxIds) {
+    public static List<Mailbox> getMailboxes(CoreSession session, List<String> mailboxIds) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailboxes(mailboxIds);
+            return service.getMailboxes(session, mailboxIds);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static List<MailboxHeader> getMailboxHeaders(List<String> mailboxIds) {
+    public static List<MailboxHeader> getMailboxHeaders(CoreSession session, List<String> mailboxIds) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailboxesHeaders(mailboxIds);
+            return service.getMailboxesHeaders(session, mailboxIds);
         } catch (Exception e) {
             return null;
         }

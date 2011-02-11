@@ -123,7 +123,7 @@ public class CaseManagementMailboxActionsBean extends
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return mailboxManagementService.searchMailboxes(searchPattern,
+        return mailboxManagementService.searchMailboxes(documentManager, searchPattern,
                 searchType);
     }
 
@@ -173,7 +173,7 @@ public class CaseManagementMailboxActionsBean extends
     public void validateMailboxId(FacesContext context,
             UIComponent component, Object value) {
         if (!(value instanceof String)
-                || mailboxManagementService.hasMailbox((String) value)) {
+                || mailboxManagementService.hasMailbox(documentManager, (String) value)) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     ComponentUtils.translate(context,
@@ -216,7 +216,7 @@ public class CaseManagementMailboxActionsBean extends
 
         if (MailboxConstants.type.personal.name().equals(mailboxType)) {
             String mbId = mailboxManagementService.getUserPersonalMailboxId((String) mailboxOwner);
-            if (mailboxManagementService.hasMailbox(mbId)) {
+            if (mailboxManagementService.hasMailbox(documentManager, mbId)) {
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         ComponentUtils.translate(context,

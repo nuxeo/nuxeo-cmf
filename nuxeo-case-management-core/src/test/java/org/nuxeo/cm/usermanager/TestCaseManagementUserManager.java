@@ -48,12 +48,12 @@ public class TestCaseManagementUserManager extends
         Mailbox mailbox = correspMailboxService.createPersonalMailboxes(
                 session, user).get(0);
         assertNotNull(mailbox);
-        assertTrue(correspMailboxService.hasMailbox(mailbox.getId()));
+        assertTrue(correspMailboxService.hasMailbox(session, mailbox.getId()));
 
         Mailbox mailbox2 = correspMailboxService.createPersonalMailboxes(
                 session, user2).get(0);
         assertNotNull(mailbox2);
-        assertTrue(correspMailboxService.hasMailbox(mailbox2.getId()));
+        assertTrue(correspMailboxService.hasMailbox(session, mailbox2.getId()));
         assertTrue(userManager instanceof UserManagerWithComputedGroups);
 
         NuxeoPrincipal pal = userManager.getPrincipal(user);

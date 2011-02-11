@@ -44,77 +44,71 @@ public class MailboxManagementBean implements MailboxManagementService {
 
     protected MailboxManagementService mailboxManagementService;
 
-    public List<Mailbox> createPersonalMailboxes(CoreSession session,
-            String userId) {
-        return getMailboxManagementService().createPersonalMailboxes(
-                session, userId);
-    }
-
-    public Mailbox getMailbox(String muid) {
-        return getMailboxManagementService().getMailbox(muid);
-    }
-
+    @Override
     public Mailbox getMailbox(CoreSession session, String muid) {
         return getMailboxManagementService().getMailbox(session, muid);
     }
 
-    public MailboxHeader getMailboxHeader(String muid) {
-        return getMailboxManagementService().getMailboxHeader(muid);
+    @Override
+    public boolean hasMailbox(CoreSession session, String muid) {
+        return getMailboxManagementService().hasMailbox(session, muid);
     }
 
-    public List<Mailbox> getMailboxes(List<String> muids) {
-        return getMailboxManagementService().getMailboxes(muids);
-    }
-
-    public List<Mailbox> getMailboxes(CoreSession session,
+    @Override
+    public List<MailboxHeader> getMailboxesHeaders(CoreSession session,
             List<String> muids) {
+        return getMailboxManagementService().getMailboxesHeaders(session, muids);
+    }
+
+    @Override
+    public List<Mailbox> getMailboxes(CoreSession session, List<String> muids) {
         return getMailboxManagementService().getMailboxes(session, muids);
     }
 
-    public List<MailboxHeader> getMailboxesHeaders(List<String> muids) {
-        return getMailboxManagementService().getMailboxesHeaders(muids);
+    @Override
+    public String getUserPersonalMailboxId(String user) {
+        return getMailboxManagementService().getUserPersonalMailboxId(user);
     }
 
-    public List<MailboxHeader> getMailboxesHeaders(CoreSession session,
-            List<String> muids) {
-        return getMailboxManagementService().getMailboxesHeaders(session,
-                muids);
+    @Override
+    public List<Mailbox> getUserMailboxes(CoreSession session, String userId) {
+        return getMailboxManagementService().getUserMailboxes(session, userId);
     }
 
-    public List<Mailbox> getUserMailboxes(CoreSession session,
+    @Override
+    public Mailbox getUserPersonalMailbox(CoreSession session, String userId) {
+        return getMailboxManagementService().getUserPersonalMailbox(session, userId);
+    }
+
+    @Override
+    public Mailbox getUserPersonalMailboxForEmail(CoreSession session,
+            String email) {
+        return getMailboxManagementService().getUserPersonalMailboxForEmail(session, email);
+    }
+
+    @Override
+    public List<MailboxHeader> searchMailboxes(CoreSession session,
+            String pattern, String type) {
+        return  getMailboxManagementService().searchMailboxes(session, pattern, type);
+    }
+
+    @Override
+    public List<Mailbox> createPersonalMailboxes(CoreSession session,
             String userId) {
-        return getMailboxManagementService().getUserMailboxes(session,
+        return getMailboxManagementService().createPersonalMailboxes(session,
                 userId);
     }
 
-    public Mailbox getUserPersonalMailbox(CoreSession session,
-            String userId) {
-        return getMailboxManagementService().getUserPersonalMailbox(
-                session, userId);
-    }
-
-    public Mailbox getUserPersonalMailboxForEmail(CoreSession session,
-            String email) {
-        return getMailboxManagementService().getUserPersonalMailboxForEmail(
-                session, email);
-    }
-
-    public String getUserPersonalMailboxId(String user) {
-        return getMailboxManagementService().getUserPersonalMailboxId(
-                user);
-    }
-
-    public boolean hasMailbox(String muid) {
-        return getMailboxManagementService().hasMailbox(muid);
-    }
-
+    @Override
     public boolean hasUserPersonalMailbox(CoreSession session, String userId) {
-        return getMailboxManagementService().hasUserPersonalMailbox(
-                session, userId);
+        return getMailboxManagementService().hasUserPersonalMailbox(session,
+                userId);
     }
 
-    public List<MailboxHeader> searchMailboxes(String pattern, String type) {
-        return getMailboxManagementService().searchMailboxes(pattern, type);
+    @Override
+    public MailboxHeader getMailboxHeader(CoreSession session, String mailboxId) {
+        return getMailboxManagementService().getMailboxHeader(session,
+                mailboxId);
     }
 
     private MailboxManagementService getMailboxManagementService() {

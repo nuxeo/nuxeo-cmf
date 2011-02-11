@@ -106,8 +106,8 @@ public class TestMailboxManagementService extends
 
     public void testHasMailbox() throws Exception {
         createMailbox();
-        assertTrue(correspMailboxService.hasMailbox("test"));
-        assertFalse(correspMailboxService.hasMailbox("foo"));
+        assertTrue(correspMailboxService.hasMailbox(session, "test"));
+        assertFalse(correspMailboxService.hasMailbox(session, "foo"));
     }
 
     public void testGetMailboxes() throws Exception {
