@@ -28,7 +28,6 @@ import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;

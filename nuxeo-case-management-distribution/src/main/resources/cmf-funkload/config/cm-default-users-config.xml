@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<component name="org.nuxeo.ecm.directory.sql.storage">
+<component name="org.nuxeo.cm.funkload.directory">
 
   <implementation class="org.nuxeo.ecm.directory.sql.SQLDirectoryDescriptor" />
 

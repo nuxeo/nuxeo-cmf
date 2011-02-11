@@ -23,15 +23,10 @@ import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_CREATED;
 
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreInstance;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.repository.Repository;
-import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.runtime.api.Framework;
 
 /**
  * Listener for mailbox events that creates associated ClassificationRoot when
@@ -59,29 +54,8 @@ public class ClassificationMailboxListener implements EventListener {
         if (!doc.hasFacet(CaseConstants.MAILBOX_FACET)) {
             return;
         }
-
-        CoreSession coreSession = null;
-        try {
-            coreSession = getCoreSession();
-            CreateMailboxFilingRootUnrestricted filingRootCreator = new CreateMailboxFilingRootUnrestricted(
-                    coreSession, doc);
-            filingRootCreator.runUnrestricted();
-        } catch (Exception e) {
-            ClientException.wrap(e);
-        } finally {
-            if (coreSession != null) {
-                CoreInstance.getInstance().close(coreSession);
-            }
-        }
+        CreateMailboxFilingRootUnrestricted filingRootCreator = new CreateMailboxFilingRootUnrestricted(
+                docCtx.getCoreSession(), doc);
+        filingRootCreator.runUnrestricted();
     }
-
-    protected CoreSession getCoreSession() throws Exception {
-        RepositoryManager mgr = Framework.getService(RepositoryManager.class);
-        if (mgr == null) {
-            throw new ClientException("Cannot find RepostoryManager");
-        }
-        Repository repo = mgr.getDefaultRepository();
-        return repo.open();
-    }
-
 }

@@ -22,7 +22,6 @@ package org.nuxeo.cm.service;
 import java.io.Serializable;
 import java.util.List;
 
-import org.nuxeo.cm.distribution.ParticipantItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -95,7 +94,7 @@ public interface MailboxManagementService extends Serializable {
 
     /**
      * Returns a mailbox for given email
-     * 
+     *
      * @param session
      * @param email
      */
