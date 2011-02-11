@@ -889,13 +889,13 @@ class CaseItemPage(BasePage):
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', viewStateIdMatcher.group(1)]],
             description="Case item next page")
-            checkCaseInAllPage(self, case);
+            self.checkCaseInAllPages(case);
 
     def extractTaskApproveLink(self, case):
         fl = self.fl
         server_url = fl.server_url
         html = fl.getBody()
-        checkCaseInAllPages(self, case)
+        self.checkCaseInAllPages(case)
         if("Approve" in html):
             start = html.find("title=" + case)
             end = html.find("document.getElementById('mailbox_inbox_content')", start)
