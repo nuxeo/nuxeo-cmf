@@ -12,6 +12,10 @@
       </deniedSubtypes>
     </type>
 
+    <type id="Case">
+      <default-view>view_cm_case</default-view>
+    </type>
+
     <type id="CorrespondenceMailbox">
       <label>label.correspondence.type.CorrespondenceMailbox</label>
       <icon>/icons/correspondence_mailbox.png</icon>

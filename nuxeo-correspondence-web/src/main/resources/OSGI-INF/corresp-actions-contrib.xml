@@ -31,7 +31,7 @@
       the typeTool seam component -->
     <action id="newCaseItemDocument" enabled="false" />
     <action id="correspNewCaseItemDocument"
-      link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
+      link="javascript:Richfaces.showModalPanel('selectMailboxDocTypePanel');"
       label="action.new.document" enabled="true">
       <category>DRAFT_ACTION_UPPER_LIST_HREF</category>
     </action>
