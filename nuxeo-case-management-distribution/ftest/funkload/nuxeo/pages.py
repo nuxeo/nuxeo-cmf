@@ -865,6 +865,18 @@ class CaseItemPage(BasePage):
         fl.logi("Approving case :" +case)
         fl.assert_("an unexpected error occurred" not in fl.getBody())
         return CaseItemPage(self.fl)
+    
+    def approveAllTasks(self):
+        fl = self.fl
+        server_url = fl.server_url
+        while ("Approve" in fl.getBody()):
+            fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            ['mailbox_inbox_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve']],
+            description="Approve task")
+        fl.assert_("an unexpected error occurred" not in fl.getBody())
+        return CaseItemPage(self.fl)
 
     # look for the case name in the page and click on the next page button if can't find it    
     def checkCaseInAllPages(self, case):

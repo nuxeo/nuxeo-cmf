@@ -107,6 +107,11 @@ class CMF(NuxeoTestCase):
             CaseItemPage(self).approveTask(case, approveLink)
         CaseItemPage(self).logout()
     
+    def approveAllCasesInMailbox(self, user, passwd):
+        MailboxPage(self).login(user, passwd).viewInboxTab()
+        CaseItemPage(self).approveAllTasks().logout()
+         
+    
     def verifyRouteDoneAsAdmin(self, routeInstanceName, case):
         RouteInstancePage(self).login(*self.cred_admin).viewRouteInstance(routeInstanceName).verifyRouteIsDone(routeInstanceName, case).logout()
     
@@ -132,11 +137,11 @@ class CMF(NuxeoTestCase):
         usersWithTasks = self.updateRoute(routeManager[0], routeManager[1], case ,route, stepsDocIds)
        
         #FIXME : approve the first already running task ( this step couldn't be modified)/ tried automatic validation
-        self.downloadFileAndApproveTaks("lbramard", "lbramard1" , case, caseItem, caseItemId, "20pages.pdf")
+        self.approveAllCasesInMailbox("lbramard", "lbramard1")
         #users having received tasks, loggin
         for i in usersWithTasks:
             self.logi("Logging in as " + i[0] + "to approve case " + case)
-            self.downloadFileAndApproveTaks(i[0], i[1] , case, caseItem, caseItemId, "20pages.pdf")      
+            self.approveAllCasesInMailbox(i[0], i[1])      
         #make sure the rute is done
         self.verifyRouteDoneAsAdmin(routeInstanceName, case)
         
