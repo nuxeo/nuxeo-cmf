@@ -253,8 +253,6 @@ public class CaseManagementMailboxActionsBean extends
             String name = IdUtils.generateId(title);
             newDocument.setPathInfo(parentDocumentPath, name);
             newDocument = documentManager.createDocument(newDocument);
-            documentManager.save();
-
             facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get("document_saved"),
                     resourcesAccessor.getMessages().get(newDocument.getType()));

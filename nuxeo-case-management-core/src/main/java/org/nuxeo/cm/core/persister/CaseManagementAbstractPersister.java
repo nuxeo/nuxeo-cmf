@@ -88,7 +88,6 @@ public abstract class CaseManagementAbstractPersister implements
             Date now = new Date();
             parent = CaseTreeHelper.getOrCreateDateTreeFolder(session,
                     mailRootdoc, now, CaseConstants.CASE_TREE_TYPE);
-            session.save();
             parentPath = parent.getPathAsString();
         }
 

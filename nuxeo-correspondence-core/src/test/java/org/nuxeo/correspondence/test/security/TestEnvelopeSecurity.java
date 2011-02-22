@@ -104,25 +104,25 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         assertTrue(post.getAllParticipants().get(
                 CaseLinkType.FOR_INFORMATION.name()).contains(
                         receiver2Mailbox.getId()));
-        DocumentModelList docList = session.query("select * from Document where ecm:parentId = '"
+        DocumentModelList docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + sender1MailboxId + "'");
         assertEquals(1, docList.size());
         DocumentModel message = docList.get(0);
         checkReadRight(message.getRef());
         session = openSessionAs(user2);
-        docList = session.query("select * from Document where ecm:parentId = '"
+        docList = session.query("select * from Document where  ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + receiver1MailboxId + "'");
         assertEquals(1, docList.size());
         message = docList.get(0);
         checkReadRight(message.getRef());
         session = openSessionAs(user3);
-        docList = session.query("select * from Document where ecm:parentId = '"
+        docList = session.query("select * from Document where  ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + receiver2MailboxId + "'");
         assertEquals(1, docList.size());
         message = docList.get(0);
         checkReadRight(message.getRef());
         session = openSessionAs(user);
-        docList = session.query("select * from Document where ecm:parentId = '"
+        docList = session.query("select * from Document where   ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + forgottenUserMailboxId + "'");
         assertEquals(0, docList.size());
         boolean documentSecurityException = false;

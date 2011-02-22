@@ -131,7 +131,6 @@ public class CaseItemDocumentActionsBean extends
                     CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                     getCurrentCase().getDocument().getId());
             documentManager.saveDocument(emailDoc);
-            documentManager.save();
             TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
             return typeInfo.getDefaultView();
         }
@@ -146,8 +145,7 @@ public class CaseItemDocumentActionsBean extends
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
         caseDistributionService.createDraftCaseLink(documentManager,
-                getCurrentMailbox(), envelope);
-        documentManager.save();
+               getCurrentMailbox(), envelope);
         Events.instance().raiseEvent(
                 EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
@@ -170,7 +168,6 @@ public class CaseItemDocumentActionsBean extends
                 documentManager, caseDoc, currentMailbox);
         caseDistributionService.createDraftCaseLink(documentManager,
                 getCurrentMailbox(), emptyCase);
-        documentManager.save();
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(caseDoc.getType()));
@@ -215,7 +212,6 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel currentEmailDoc = getCurrentCaseItem();
         CaseItem currentEmail = currentEmailDoc.getAdapter(CaseItem.class);
         currentEmail.save(documentManager);
-        documentManager.save();
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_MODIFIED),
                 resourcesAccessor.getMessages().get(currentEmail.getType()));

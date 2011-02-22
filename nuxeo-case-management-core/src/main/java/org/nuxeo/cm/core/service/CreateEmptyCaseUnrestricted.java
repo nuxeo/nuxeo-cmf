@@ -55,8 +55,6 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
         String caseTitle = (String) caseDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         caseDoc.setPathInfo(parentPath, caseTitle);
         caseDoc = session.createDocument(caseDoc);
-        caseDoc = session.saveDocument(caseDoc);
-        session.save();
         ACP acp = caseDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
         for (Mailbox mailbox : mailboxes) {
@@ -65,7 +63,6 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
         }
         acp.addACL(acl);
         session.setACP(caseDoc.getRef(), acp, true);
-        session.save();
     }
 
     public DocumentRef getEmptyCaseDocumentRef() {

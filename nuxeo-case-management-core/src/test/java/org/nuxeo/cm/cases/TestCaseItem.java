@@ -75,6 +75,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         item.setConfidentiality(cdf);
         item.setSendingDate(date);
         item.save(session);
+        session.save();
         closeSession();
 
         openSession();
@@ -91,6 +92,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
                 session.getRootDocument().getPathAsString(), null);
         assertNotNull(envelope);
         String id = envelope.getDocument().getId();
+        session.save();
         closeSession();
 
         openSession();

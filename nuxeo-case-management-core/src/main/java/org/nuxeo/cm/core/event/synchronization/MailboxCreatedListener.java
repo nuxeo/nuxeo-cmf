@@ -33,7 +33,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
-import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.event.Event;
 
 /**
@@ -52,10 +51,8 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
         String entryId = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID);
         Calendar synchronizeDate = (Calendar) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE);
 
-        String sessionId = (String) properties.get(CoreEventConstants.SESSION_ID);
-
+        CoreSession session = event.getContext().getCoreSession();
         try {
-            CoreSession session = getCoreSession(sessionId);
 
             String searchQuery;
             // Take the first MailboxRoot when there is no parent.
@@ -119,6 +116,7 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
 
             mailboxModel = session.createDocument(mailboxModel);
             session.saveDocument(mailboxModel);
+            session.save();//necessary because the mailbox will be queried after
         } catch (Exception e) {
             throw new CaseManagementException(
                     "Error during mailboxes creation", e);

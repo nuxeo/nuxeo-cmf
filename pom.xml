@@ -109,12 +109,12 @@
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-platform-webapp-core</artifactId>
         <version>${nuxeo.features.version}</version>
-           <exclusions>
-            <exclusion>
-             <groupId>org.hibernate</groupId>
-             <artifactId>hibernate</artifactId>
-             </exclusion>
-           </exclusions>
+        <exclusions>
+          <exclusion>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>

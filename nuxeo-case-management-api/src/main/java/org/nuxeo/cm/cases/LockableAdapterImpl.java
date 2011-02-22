@@ -16,17 +16,13 @@
  */
 package org.nuxeo.cm.cases;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
+import org.nuxeo.ecm.core.api.Lock;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
@@ -42,42 +38,26 @@ public class LockableAdapterImpl implements LockableAdapter {
         this.document = document;
     }
 
-    /**
-     * Locks document and returns new lock details
-     */
-    public Map<String, String> lockDocument(CoreSession documentManager)
+
+    public Lock lockDocument(CoreSession documentManager)
             throws ClientException {
-        StringBuilder result = new StringBuilder();
-        result.append(documentManager.getPrincipal().getName()).append(':').append(
-                DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()));
-        String lockKey = result.toString();
-        // unlock on doc otherwise it does not get updated
-        document.setLock(lockKey);
-        // save on session, assuming it it the same than client's...
-        documentManager.save();
-        return getDocumentLockDetails(documentManager);
+        return document.setLock();
     }
 
     public void unlockDocument(CoreSession documentManager)
             throws ClientException {
+        Lock lock = documentManager.getLockInfo(document.getRef());
 
-        Map<String, String> lockDetails = getDocumentLockDetails(documentManager);
-
-        if (lockDetails != null && !lockDetails.isEmpty()) {
+        if (lock != null) {
             DocumentRef ref = document.getRef();
             NuxeoPrincipal userName = (NuxeoPrincipal) documentManager.getPrincipal();
             if (userName.isAdministrator()
                     || documentManager.hasPermission(ref,
                             SecurityConstants.EVERYTHING)
-                    || userName.getName().equals(
-                            lockDetails.get("LockActions.LOCKER"))) {
+                    || userName.getName().equals(lock.getOwner())) {
                 if (documentManager.hasPermission(ref,
                         SecurityConstants.WRITE_PROPERTIES)) {
-                    // unlock on doc otherwise it does not get updated
-                    document.unlock();
-                    // save on session, assuming it it the same than
-                    // client's...
-                    documentManager.save();
+                    document.removeLock();
                 } else {
                     log.error("Cannot unlock document " + document.getName());
                 }
@@ -89,47 +69,25 @@ public class LockableAdapterImpl implements LockableAdapter {
      * Returns true if doc is not locked or current user is locker
      */
     public boolean isLocked(CoreSession documentManager) throws ClientException {
+        Lock lock = documentManager.getLockInfo(document.getRef());
+        if (lock == null) {
+            return false;
+        }
+        if (lock.getOwner().equals(documentManager.getPrincipal().getName())) {
+            return false;
+        }
+        return true;
+    }
 
-        Map<String, String> lockDetails = getDocumentLockDetails(documentManager);
-
-        if (lockDetails != null && !lockDetails.isEmpty()) {
-            NuxeoPrincipal userName = (NuxeoPrincipal) documentManager.getPrincipal();
-            if (userName.getName().equals(lockDetails.get("LockActions.LOCKER"))) {
-                return false;
-            }
+    public boolean isLockedByCurrentUser(CoreSession documentManager)
+            throws ClientException {
+        Lock lock = documentManager.getLockInfo(document.getRef());
+        if (lock == null) {
+            return false;
+        }
+        if (lock.getOwner().equals(documentManager.getPrincipal().getName())) {
             return true;
         }
-
         return false;
     }
-
-    public boolean isLockedByCurrentUser(CoreSession documentManager) throws ClientException {
-
-        Map<String, String> lockDetails = getDocumentLockDetails(documentManager);
-
-        if (lockDetails != null && !lockDetails.isEmpty()) {
-            NuxeoPrincipal userName = (NuxeoPrincipal) documentManager.getPrincipal();
-            if (userName.getName().equals(lockDetails.get("LockActions.LOCKER"))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public Map<String, String> getDocumentLockDetails(
-            CoreSession documentManager) throws ClientException {
-        Map<String, String> lockDetails = new HashMap<String, String>();
-        if (document != null) {
-            DocumentRef ref = document.getRef();
-            String documentKey = documentManager.getLock(ref);
-            if (documentKey != null) {
-                String[] values = documentKey.split(":");
-                lockDetails.put("LockActions.LOCKER", values[0]);
-                lockDetails.put("LockActions.LOCK_TIME", values[1]);
-            }
-        }
-        return lockDetails;
-    }
-
 }

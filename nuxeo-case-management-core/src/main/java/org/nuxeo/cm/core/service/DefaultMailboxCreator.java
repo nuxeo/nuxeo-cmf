@@ -97,9 +97,9 @@ public class DefaultMailboxCreator implements MailboxCreator {
             mailboxModel.setPathInfo(res.get(0).getPathAsString(),
                     IdUtils.generateId(mailbox.getTitle()));
             mailboxModel = session.createDocument(mailboxModel);
+            session.save();//This will be queried after, needs a save to be found
             mailbox = mailboxModel.getAdapter(Mailbox.class);
 
-            session.save();
             return Collections.singletonList(mailbox);
 
         } catch (Exception e) {

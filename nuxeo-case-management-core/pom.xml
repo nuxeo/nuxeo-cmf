@@ -73,6 +73,11 @@
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-test</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-classification-core</artifactId>
+      <scope>test</scope>
+    </dependency>
     <!-- async event executor is using it -->
     <dependency>
       <groupId>javax.transaction</groupId>

@@ -199,7 +199,7 @@ public class TestMailboxManagementService extends
         assertNotNull(post);
         assertFalse(post.isDraft());
         assertEquals("user1", post.getSender());
-        DocumentModelList docList = session.query("select * from Document where ecm:parentId = '"
+        DocumentModelList docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + receiver1MailboxId + "'");
         assertEquals(1, docList.size());
         DocumentModel message = docList.get(0);

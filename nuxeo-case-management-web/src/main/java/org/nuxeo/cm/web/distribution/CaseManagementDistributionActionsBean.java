@@ -206,9 +206,6 @@ public class CaseManagementDistributionActionsBean extends
             }
             kase.save(documentManager);
 
-            // save changes to core
-            documentManager.save();
-
             resetWizard();
             facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(

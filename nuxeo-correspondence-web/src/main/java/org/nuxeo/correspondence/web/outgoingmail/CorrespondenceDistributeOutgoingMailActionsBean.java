@@ -115,7 +115,6 @@ CaseManagementAbstractActionsBean implements Serializable {
             DocumentModel postDoc = navigationContext.getChangeableDocument();
             CaseLink post = postDoc.getAdapter(CaseLink.class);
             post.save(documentManager);
-            documentManager.save();
 
             // some changes (versioning) happened server-side, fetch new one
             navigationContext.invalidateCurrentDocument();
@@ -175,9 +174,6 @@ CaseManagementAbstractActionsBean implements Serializable {
         // Send envelope (initial)
         caseDistributionService.sendCase(documentManager, postRequest, true);
         envelope.save(documentManager);
-
-        // Save changes to core
-        documentManager.save();
 
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(

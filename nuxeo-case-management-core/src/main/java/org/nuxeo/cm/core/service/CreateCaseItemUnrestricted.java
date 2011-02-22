@@ -34,9 +34,9 @@ import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
- * 
+ *
  * Creates a new caseItem document from a given document model
- * 
+ *
  * @author arussel
  */
 public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
@@ -73,7 +73,6 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
         acp.addACL(acl);
         session.setACP(newDoc.getRef(), acp, true);
         ref = newDoc.getRef();
-        session.save();
     }
 
     private void addACL(ACL acl) {

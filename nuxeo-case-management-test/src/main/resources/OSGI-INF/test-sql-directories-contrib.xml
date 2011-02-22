@@ -15,10 +15,6 @@
 
       <schema>user</schema>
 
-      <!-- Do not use the regular datasource but a in memory setup instead
-        <dataSource>java:/nxsqldirectory</dataSource>
-      -->
-
       <dbDriver>org.hsqldb.jdbcDriver</dbDriver>
       <dbUrl>jdbc:hsqldb:mem:memid</dbUrl>
       <dbUser>sa</dbUser>

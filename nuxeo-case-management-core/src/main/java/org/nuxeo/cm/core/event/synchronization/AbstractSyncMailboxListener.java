@@ -18,8 +18,6 @@ package org.nuxeo.cm.core.event.synchronization;
 
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreInstance;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.runtime.api.Framework;
 
@@ -36,13 +34,6 @@ public abstract class AbstractSyncMailboxListener implements EventListener {
             throw new ClientException(e);
         }
         return correspDocumentTypeService.getMailboxType();
-    }
-
-    protected CoreSession getCoreSession(String sessionId) throws Exception {
-        if (sessionId != null) {
-            return CoreInstance.getInstance().getSession(sessionId);
-        }
-        return null;
     }
 
 }

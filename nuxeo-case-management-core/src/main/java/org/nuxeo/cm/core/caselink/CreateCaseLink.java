@@ -40,7 +40,6 @@ import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.lifecycle.LifeCycleConstants;
 import org.nuxeo.runtime.api.Framework;
 
@@ -49,7 +48,9 @@ import org.nuxeo.runtime.api.Framework;
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
-public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
+public class CreateCaseLink {
+
+    protected CoreSession session;
 
     protected CaseLink createdPost;
 
@@ -100,12 +101,11 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * @param isSent The post can be Sent or Received
      * @param isInitial Is it an initial sent?
      */
-    public CreateCaseLinkUnrestricted(CaseLink draft, CoreSession session,
-            String subject, String comment, Case envelope, Mailbox sender,
-            String recipientId, Map<String, List<String>> internalRecipients,
+    public CreateCaseLink(CaseLink draft, CoreSession session, String subject,
+            String comment, Case envelope, Mailbox sender, String recipientId,
+            Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial) {
-        super(session);
         this.draft = draft;
         this.comment = comment;
         this.envelope = envelope;
@@ -119,10 +119,10 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         if (draft != null) {
             this.isActionable = draft.isActionnable();
         }
+        this.session = session;
     }
 
-    @Override
-    public void run() throws ClientException {
+    public void create() throws ClientException {
         GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                 session, recipientId);
         getMailboxesUnrestricted.run();
@@ -164,7 +164,6 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         post.addParticipants(externalRecipients);
         setPostValues(doc);
         session.createDocument(doc);
-        session.save();
         createdPost = doc.getAdapter(CaseLink.class);
     }
 
@@ -172,7 +171,6 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * Sets the values of the document.
      */
     protected void setPostValues(DocumentModel doc) throws ClientException {
-        // FIXME: use CorrespondencePost setters
         doc.setPropertyValue(IS_DRAFT_FIELD, false);
         doc.setPropertyValue(SUBJECT_FIELD, subject);
         doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD,
@@ -186,9 +184,5 @@ public class CreateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());
         doc.setPropertyValue(COMMENT_FIELD, comment);
         doc.setPropertyValue(IS_SENT_FIELD, isSent);
-        // FIXME: what should be put here? because uid schema is not forced on
-        // envelope
-        // doc.setPropertyValue(ENVELOPE_ID_FIELD,
-        // envelope.getDocument().getPropertyValue("uid:uid"));
     }
 }

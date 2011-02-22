@@ -77,7 +77,11 @@
       <artifactId>geronimo-connector</artifactId>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-classification-core</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>

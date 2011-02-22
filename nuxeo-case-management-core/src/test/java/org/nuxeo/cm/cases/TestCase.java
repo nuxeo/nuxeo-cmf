@@ -60,6 +60,7 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         String envId = envelope.getDocument().getId();
         envelope.addCaseItem(item1, session);
         envelope.save(session);
+        session.save();
         closeSession();
         openSession();
         List<CaseItem> items = envelope.getCaseItems(session);

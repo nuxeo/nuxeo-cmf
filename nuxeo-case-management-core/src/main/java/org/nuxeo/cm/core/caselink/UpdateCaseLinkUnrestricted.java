@@ -118,7 +118,6 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
         setPostValues(doc);
         session.saveDocument(doc);
-        session.save();
         this.post = doc.getAdapter(CaseLink.class);
     }
 
@@ -143,5 +142,5 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // doc.setPropertyValue(ENVELOPE_ID_FIELD,
         // envelope.getDocument().getPropertyValue("uid:uid"));
     }
- 
+
 }

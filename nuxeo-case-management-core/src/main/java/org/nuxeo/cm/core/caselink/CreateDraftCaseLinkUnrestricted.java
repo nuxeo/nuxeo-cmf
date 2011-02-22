@@ -78,7 +78,6 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
                 UUID.randomUUID().toString(), correspDocumentTypeService.getCaseLinkType());
         setPostValues(doc);
         doc = session.createDocument(doc);
-        session.save();
         createdPost = doc.getAdapter(CaseLink.class);
     }
 

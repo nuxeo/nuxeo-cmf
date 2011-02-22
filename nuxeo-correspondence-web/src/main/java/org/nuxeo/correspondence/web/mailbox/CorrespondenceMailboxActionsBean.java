@@ -123,7 +123,8 @@ public class CorrespondenceMailboxActionsBean extends
                     "edit_outgoing_envelope");
             // Lock the document
             LockableAdapter lockable = mailDoc.getAdapter(LockableAdapter.class);
-            if (lockable.getDocumentLockDetails(documentManager).isEmpty()
+
+            if (!lockable.isLocked(documentManager)
                     && documentManager.hasPermission(
                             getCurrentCase().getDocument().getRef(),
                             SecurityConstants.WRITE)) {

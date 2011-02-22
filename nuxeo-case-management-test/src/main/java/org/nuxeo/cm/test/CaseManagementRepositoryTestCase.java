@@ -109,10 +109,11 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployBundle("org.nuxeo.ecm.platform.search.api");
 
         // deploy api and core bundles
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
+        deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
         deployBundle("org.nuxeo.ecm.automation.core");
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
 
         // needed for users
         deployBundle("org.nuxeo.ecm.directory");

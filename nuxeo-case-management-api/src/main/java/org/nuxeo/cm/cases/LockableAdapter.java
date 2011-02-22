@@ -17,14 +17,14 @@
 package org.nuxeo.cm.cases;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.Lock;
 
 public interface LockableAdapter extends Serializable {
 
-    Map<String, String> lockDocument(CoreSession documentManager)
+    Lock lockDocument(CoreSession documentManager)
             throws ClientException;
 
     void unlockDocument(CoreSession documentManager)
@@ -38,8 +38,4 @@ public interface LockableAdapter extends Serializable {
      */
     boolean isLockedByCurrentUser(CoreSession documentManager)
             throws ClientException;
-
-    Map<String, String> getDocumentLockDetails(
-            CoreSession documentManager) throws ClientException;
-
 }

@@ -50,7 +50,6 @@ public class UpdateMailboxRightsListener implements EventListener {
             return;
         }
         CoreSession session = docCtx.getCoreSession();
-        session.save(); // necessary for unit test to pass
         SetMailboxAclUnrestricted sessionCreator = new SetMailboxAclUnrestricted(
                 session, doc.getRef());
         sessionCreator.runUnrestricted();

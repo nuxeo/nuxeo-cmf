@@ -68,7 +68,6 @@ public class SetMailboxAclUnrestricted extends UnrestrictedSessionRunner {
             acp.addACL(localACL);
             doc.setACP(acp, true);
         }
-        session.save(); // this save is necessary in unit test
     }
 
 }

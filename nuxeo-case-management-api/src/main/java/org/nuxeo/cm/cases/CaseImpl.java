@@ -192,7 +192,6 @@ public class CaseImpl implements Case {
     public void save(CoreSession session) {
         try {
             session.saveDocument(document);
-            session.save();
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }

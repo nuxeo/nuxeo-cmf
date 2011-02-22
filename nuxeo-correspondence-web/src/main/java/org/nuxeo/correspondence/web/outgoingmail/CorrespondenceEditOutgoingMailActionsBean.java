@@ -113,7 +113,6 @@ CaseManagementAbstractActionsBean implements Serializable {
         // Save the mail
         DocumentModel currentEmail = getCurrentCaseItem();
         currentEmail = documentManager.saveDocument(currentEmail);
-        documentManager.save();
         draftUpdated(currentEmail, envelope);
         EventManager.raiseEventsOnDocumentChange(currentEmail);
 

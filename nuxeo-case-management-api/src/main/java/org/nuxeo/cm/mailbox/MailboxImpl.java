@@ -45,7 +45,7 @@ import org.nuxeo.ecm.core.schema.types.Type;
 
 /**
  * Mailbox implementation using a document model as backend.
- * 
+ *
  * @author Anahide Tchertchian
  */
 public class MailboxImpl implements Mailbox {

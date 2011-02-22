@@ -35,7 +35,7 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.CaseLifeCycleConstants;
-import org.nuxeo.cm.core.caselink.CreateCaseLinkUnrestricted;
+import org.nuxeo.cm.core.caselink.CreateCaseLink;
 import org.nuxeo.cm.core.caselink.CreateDraftCaseLinkUnrestricted;
 import org.nuxeo.cm.core.caselink.UpdateCaseLinkUnrestricted;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
@@ -418,7 +418,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         getEventProducer().fireEvent(
                                 envContext.newEvent(EventNames.beforeCaseLinkRemovedEvent.name()));
                         session.removeDocument(ref);
-                        session.save();
                         envContext.getProperties().remove(
                                 CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK);
                         getEventProducer().fireEvent(
@@ -580,32 +579,32 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
                 } else if (senderMailbox != null) {
                     // No draft, create the Post for the sender
-                    CreateCaseLinkUnrestricted createPostUnrestricted = new CreateCaseLinkUnrestricted(
+                    CreateCaseLink createPost = new CreateCaseLink(
                             null, session, subject, comment, envelope,
                             senderMailbox, senderMailbox.getId(),
                             internalRecipientIds, externalRecipients, true,
                             isInitial);
-                    createPostUnrestricted.run();
-                    post = createPostUnrestricted.getCreatedPost();
+                    createPost.create();
+                    post = createPost.getCreatedPost();
                 }
 
                 // Create the Posts for the recipients
                 for (String type : internalRecipientIds.keySet()) {
                     for (String recipient : internalRecipientIds.get(type)) {
                         if (isActionable) {
-                            CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
+                            CreateCaseLink createMessage = new CreateCaseLink(
                                     postRequest, session, subject, comment,
                                     envelope, senderMailbox, recipient,
                                     internalRecipientIds, externalRecipients,
                                     false, isInitial);
-                            createMessageUnrestricted.run();
+                            createMessage.create();
                         } else {
-                            CreateCaseLinkUnrestricted createMessageUnrestricted = new CreateCaseLinkUnrestricted(
+                            CreateCaseLink createMessage = new CreateCaseLink(
                                     post, session, subject, comment, envelope,
                                     senderMailbox, recipient,
                                     internalRecipientIds, externalRecipients,
                                     false, isInitial);
-                            createMessageUnrestricted.run();
+                            createMessage.create();
                         }
                     }
                 }
@@ -613,7 +612,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 fireEvent(session, envelope, eventProperties,
                         EventNames.afterCaseSentEvent.name(),
                         EventNames.afterCaseItemSentEvent.name());
-
             } catch (ClientException e) {
                 throw new CaseManagementException(e);
             }
