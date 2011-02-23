@@ -334,7 +334,7 @@ class BasePage:
 
     def personalWorkspace(self):
         fl = self.fl
-        fl.post(fl.server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+        fl.post(fl.server_url + "/casemanagement/cm_view.faces", params=[
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['userServicesForm_SUBMIT', '1'],
             ['userServicesForm:userServicesActionsTable:1:userServicesActionCommandLink', 'userServicesForm:userServicesActionsTable:1:userServicesActionCommandLink']],
@@ -704,7 +704,7 @@ class FolderPage(BasePage):
         return self
 
     def sort(self, column):
-        self.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+        self.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mb_view_action_tab_form_SUBMIT', '1'],
             ['javax.faces.ViewState', 'j_id1'],
             ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
@@ -857,7 +857,7 @@ class CaseItemPage(BasePage):
         server_url = fl.server_url
         fl.assert_(case in fl.getBody())
         if("Approve" in fl.getBody()):
-            fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             [approveLink, approveLink]],
@@ -870,7 +870,7 @@ class CaseItemPage(BasePage):
         fl = self.fl
         server_url = fl.server_url
         while ("Approve" in fl.getBody()):
-            fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_inbox_actionable_case_link_actions:caselink_approve']],
@@ -895,7 +895,7 @@ class CaseItemPage(BasePage):
                 return;                
             viewStatejidPattern = "<input type=\"hidden\" name=\"javax.faces.ViewState\" id=\"javax.faces.ViewState\" value=\"(j_id[0-9]+)\""
             viewStateIdMatcher = re.search(viewStatejidPattern, html)
-            fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+            fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mailbox_inbox_content:'+m.group(1)+'.x', '12'],
             ['mailbox_inbox_content:'+m.group(1)+'.y', '11'],
             ['mailbox_inbox_content_SUBMIT', '1'],
@@ -959,8 +959,10 @@ class MailboxPage(FolderPage):
            params.append(['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link'])
        else:
            params.append(['mb_view_action_tab_form:mb_view_action_tab_list:3:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:3:mb_view_action_tab_link'])         
-       p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params,
+       p = fl.post(server_url + "/casemanagement/cm_view.faces", params,
             description="view manage tab in the inbox")
+       if("Incoming Case Item Management" not in p.body):
+           logi(p.body)
        fl.assert_("Incoming Case Item Management" in p.body)
        return MailboxPage(self.fl)
     
@@ -968,7 +970,7 @@ class MailboxPage(FolderPage):
         fl = self.fl
         server_url = fl.server_url
         fl.assert_("Inbox" in fl.getBody())
-        p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+        p = fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mb_view_action_tab_form_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mb_view_action_tab_form:mb_view_action_tab_list:0:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:0:mb_view_action_tab_link']],
@@ -979,7 +981,7 @@ class MailboxPage(FolderPage):
        fl = self.fl
        server_url = fl.server_url
        fl.assert_("Incoming Case Item Management" in fl.getBody())
-       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+       fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['document_edit:nxl_cm_mailbox:nxw_mailbox_profiles', 'cellule_courrier'],
             ['document_edit:update_mailbox', 'Save'],
             ['document_edit_SUBMIT', '1'],
@@ -991,7 +993,7 @@ class MailboxPage(FolderPage):
         fl = self.fl
         server_url = fl.server_url
         fl.assert_("Draft" in fl.getBody())
-        p = fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+        p = fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mb_view_action_tab_form_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:2:mb_view_action_tab_link']],
@@ -1003,10 +1005,10 @@ class MailboxPage(FolderPage):
         fl = self.fl
         server_url = fl.server_url
         # Click on create new Case
-        fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
-            ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
+        fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['selectDocumentTypeForCreationFormFormMailbox_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
+            ['selectDocumentTypeForCreationFormFormMailbox:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationFormFormMailbox:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
             description="click on create new case")
         # Create a Case
         p = fl.post(server_url + "/casemanagement/case/create_empty_case.faces", params=[
@@ -1015,12 +1017,14 @@ class MailboxPage(FolderPage):
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink', 'document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink']],
             description="create new case")
+        if("New" not in p.body):
+            logi(p.body)
         fl.assert_("New" in p.body) 
         # Add a Case Item
-        fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
+        fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['caseView:selectDocumentTypeForCreationForm_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
+            ['caseView:selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'caseView:selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
             description="click to create a new case item")
         # Save the Case Item
         fl.post(server_url + "/casemanagement/caseitem/create_cm_document.faces", params=[
@@ -1038,8 +1042,12 @@ class MailboxPage(FolderPage):
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
         fl.assert_("file:content/" + pdf_name in fl.getBody())
+        ids = []
         caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
-        return caseItemId
+        caseId = self.getDocUid()
+        ids.append(caseId)
+        ids.append(caseItemId)
+        return ids
     
     def viewCaseItem(self,case, caseitem, caseItemId):
        fl = self.fl
@@ -1055,7 +1063,7 @@ class MailboxPage(FolderPage):
        fl = self.fl
        server_url = fl.server_url
        fl.logi("View case item " + caseitem)
-       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+       fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mailbox_draft_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title', 'mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title']],
@@ -1068,7 +1076,7 @@ class MailboxPage(FolderPage):
        server_url = fl.server_url
        now = datetime.datetime.now()
        fl.logi("Click on caseietm" + caseitem)
-       fl.post(server_url + "/casemanagement/mailbox/mailbox_view.faces", params=[
+       fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['mailbox_inbox_content_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title', 'mailbox_inbox_content:nxl_cm_inbox_caselink:nxw_cm_mailbox_inbox_listing_title_link:case_link_title']],
@@ -1126,12 +1134,28 @@ class RoutePage(BasePage):
         if("an unexpected error occurred" in html):
          fl.logi("Route " + routeInstance + "is not locked!! by" + user)
         fl.assert_("an unexpected error occurred" not in html)
+        if ("This document is <span class=\"summary_locked\">locked</span>" not in html):
+            fl.logi(src(html))
         fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
         start = html.find("docRef=\"" + stepId)
         end = html.find("</tr>", start)
         if ("title=\"ready\"" in html[start:end]):
             return True
         return False
+    
+    def stepNeedsToBeApproved(self, stepId, routeInstance, user):
+        fl = self.fl
+        server_url = fl.server_url
+        html = fl.getBody()
+        if("an unexpected error occurred" in html):
+         fl.logi("Route " + routeInstance + "is not locked!! by" + user)
+        fl.assert_("an unexpected error occurred" not in html)
+        fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
+        start = html.find("docRef=\"" + stepId)
+        end = html.find("</tr>", start)
+        if ("step.png" in html[start:end]):
+            return False
+        return True
     
     def updateStepDistributionMailboxFromRouteView(self, stepId, distributionMailbox , stepRang):
         fl = self.fl
