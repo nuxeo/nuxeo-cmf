@@ -13,15 +13,15 @@
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.4-CP03-01</version>
+  <version>1.4-CP04</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>The parent module for Nuxeo Case Management Framework</description>
 
   <properties>
-    <nuxeo.cm.version>1.4-CP03-01</nuxeo.cm.version>
+    <nuxeo.cm.version>1.4-CP04</nuxeo.cm.version>
     <nuxeo.platform.version>5.4.0-I20101018_1103</nuxeo.platform.version>
-    <routing.version>5.4.1-I20101203_0116-CP03</routing.version>
+    <routing.version>5.4.1-I20101203_0116-CP04</routing.version>
   </properties>
 
   <modules>
