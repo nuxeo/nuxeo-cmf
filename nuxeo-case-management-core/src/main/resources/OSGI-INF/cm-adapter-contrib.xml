@@ -7,20 +7,15 @@
       factory="org.nuxeo.cm.core.adapter.MailboxAdapterFactory" />
     <adapter class="org.nuxeo.cm.mailbox.MailboxHeader"
       factory="org.nuxeo.cm.core.adapter.MailboxHeaderAdapterFactory" />
-    <adapter class="org.nuxeo.cm.caselink.CaseLink"
-      facet="CaseLink"
+    <adapter class="org.nuxeo.cm.caselink.CaseLink" facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
-    <adapter class="org.nuxeo.cm.caselink.ActionableCaseLink"
-      facet="CaseLink"
+    <adapter class="org.nuxeo.cm.caselink.ActionableCaseLink" facet="CaseLink"
       factory="org.nuxeo.cm.core.adapter.CaseLinkAdapterFactory" />
-    <adapter class="org.nuxeo.cm.cases.Case"
-      facet="Distributable"
+    <adapter class="org.nuxeo.cm.cases.Case" facet="Distributable"
       factory="org.nuxeo.cm.core.adapter.CaseAdapterFactory" />
-    <adapter class="org.nuxeo.cm.cases.CaseItem"
-      facet="CaseGroupable"
+    <adapter class="org.nuxeo.cm.cases.CaseItem" facet="CaseGroupable"
       factory="org.nuxeo.cm.core.adapter.CaseItemAdapterFactory" />
-    <adapter class="org.nuxeo.cm.cases.LockableAdapter"
-      facet="CaseGroupable"
+    <adapter class="org.nuxeo.cm.cases.LockableAdapter" facet="CaseGroupable"
       factory="org.nuxeo.cm.core.adapter.LockableAdapterFactory" />
     <adapter class="org.nuxeo.cm.cases.HasParticipants"
       factory="org.nuxeo.cm.core.adapter.HasParticipantsAdapterFactory" />

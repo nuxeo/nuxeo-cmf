@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.cm.service.bindings" version="1.0">
 
-<extension target="org.nuxeo.runtime.api.ServiceManagement" point="services">
+  <extension target="org.nuxeo.runtime.api.ServiceManagement"
+    point="services">
 
-  <service class="org.nuxeo.cm.service.MailboxManagementService" group="platform">
-    <locator>%MailboxManagementBean</locator>
-  </service>
+    <service class="org.nuxeo.cm.service.MailboxManagementService"
+      group="platform">
+      <locator>%MailboxManagementBean</locator>
+    </service>
 
-  <service class="org.nuxeo.cm.service.CaseDistributionService" group="platform">
-    <locator>%CaseDistributionBean</locator>
-  </service>
+    <service class="org.nuxeo.cm.service.CaseDistributionService"
+      group="platform">
+      <locator>%CaseDistributionBean</locator>
+    </service>
 
-</extension>
+  </extension>
 
 </component>

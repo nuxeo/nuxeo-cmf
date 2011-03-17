@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent> 
+  <parent>
     <groupId>org.nuxeo.cm</groupId>
     <artifactId>nuxeo-case-management-parent</artifactId>
     <version>1.7-SNAPSHOT</version>
@@ -15,7 +15,7 @@
   <name>Correspondence Web</name>
   <description>Correspondence Web</description>
 
- <dependencies>
+  <dependencies>
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-web</artifactId>

@@ -61,14 +61,15 @@
       <icon>/icons/correspondence_mail.png</icon>
       <default-view>view_documents</default-view>
       <views>
-        <view id="distribution_outgoing_post" value="distribution_outgoing_post" />
+        <view id="distribution_outgoing_post"
+          value="distribution_outgoing_post" />
       </views>
       <layouts mode="any">
-         <layout>distribution_caselink</layout>
+        <layout>distribution_caselink</layout>
       </layouts>
     </type>
-    
-    
+
+
     <type id="IncomingCorrespondenceDocument">
       <label>label.correspondence.type.IncomingCorrespondenceDocument</label>
       <icon>/icons/incoming_mail.png</icon>
@@ -108,7 +109,7 @@
         <layout>file</layout>
       </layouts>
       <layouts mode="header">
-         <layout>head_cm_document</layout>
+        <layout>head_cm_document</layout>
       </layouts>
       <layouts mode="any">
         <layout>cm_document</layout>

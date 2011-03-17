@@ -34,8 +34,8 @@
         </state>
       </states>
     </lifecycle>
-    
-     <lifecycle name="caselink" defaultInitial="draft">
+
+    <lifecycle name="caselink" defaultInitial="draft">
       <transitions>
         <transition name="toProject" destinationState="project">
           <description>the model is project</description>
@@ -75,7 +75,7 @@
         </state>
         <state name="done" description="The element is done">
           <transitions>
-          	<transition>toDelete</transition>
+            <transition>toDelete</transition>
           </transitions>
         </state>
         <state name="deleted" description="Document is deleted">
@@ -84,8 +84,8 @@
           </transitions>
         </state>
       </states>
-     </lifecycle>
-    
+    </lifecycle>
+
   </extension>
 
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"

@@ -1,34 +1,39 @@
 <?xml version="1.0"?>
 
 <component name="org.nuxeo.cm.service.importer.CaseManagementImporterService">
-  <implementation class="org.nuxeo.cm.core.service.importer.CaseManagementImporterServiceImpl" />
+  <implementation
+    class="org.nuxeo.cm.core.service.importer.CaseManagementImporterServiceImpl" />
 
   <service>
     <provide interface="org.nuxeo.cm.service.CaseManagementImporterService" />
   </service>
-  
+
   <extension-point name="importer">
     <documentation>
-    The simple importer uses the nuxeo-platform-importer-core to import files into NXCM.
-    The different variables are read from the contribution to the SimpleImporter service. They are:
+      The simple importer uses the nuxeo-platform-importer-core to import files
+      into NXCM. The different variables are read from the contribution to the
+      SimpleImporter service. They are:
 
-    - path in the repository of the Mailbox into which we import the files
-    - maximum number of thread to be used
-    - the factory to use to create Case and CaseItem
-    - the path on the filesystem of the directory containing the file to import
-    
-       <code>
-        	<importInfo>
-        		<destionationMailboxPath>mailboxPath</destionationMailboxPath>
-        		<noImportingThreads>5</noImportingThreads>
-        		<importerDocumentModelfactory>org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory</importerDocumentModelfactory>
-        		<folderPath>/tmp/testImport</folderPath>
-        	</importInfo>
-       </code>
-     </documentation>
-     
-     <object class="org.nuxeo.cm.core.service.importer.CaseManagementImporterDescriptor" />
-  
+      - path in the repository of the Mailbox into which we import the files -
+      maximum number of thread to be used - the factory to use to create Case
+      and CaseItem - the path on the filesystem of the directory containing the
+      file to import
+
+      <code>
+        <importInfo>
+          <destionationMailboxPath>mailboxPath</destionationMailboxPath>
+          <noImportingThreads>5</noImportingThreads>
+          <importerDocumentModelfactory>
+            org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory
+          </importerDocumentModelfactory>
+          <folderPath>/tmp/testImport</folderPath>
+        </importInfo>
+      </code>
+    </documentation>
+
+    <object
+      class="org.nuxeo.cm.core.service.importer.CaseManagementImporterDescriptor" />
+
   </extension-point>
 
 </component>

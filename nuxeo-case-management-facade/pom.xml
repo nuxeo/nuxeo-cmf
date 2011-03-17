@@ -27,7 +27,7 @@
     <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb-api</artifactId>
-    </dependency>   
+    </dependency>
   </dependencies>
 
 </project>

@@ -22,7 +22,7 @@
       <to-view-id>/casemanagement/mailbox/mailbox_manage.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
+
     <navigation-case>
       <from-outcome>type_virtual_navigation</from-outcome>
       <to-view-id>/casemanagement/type_virtual_navigation.xhtml</to-view-id>
@@ -37,51 +37,43 @@
 
     <navigation-case>
       <from-outcome>create_cm_document</from-outcome>
-      <to-view-id>
-        /casemanagement/caseitem/create_cm_document.xhtml
-      </to-view-id>
+      <to-view-id>/casemanagement/caseitem/create_cm_document.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
+
     <navigation-case>
       <from-outcome>create_empty_case</from-outcome>
-      <to-view-id>
-        /casemanagement/case/create_empty_case.xhtml
-      </to-view-id>
+      <to-view-id>/casemanagement/case/create_empty_case.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
+
     <navigation-case>
       <from-outcome>view_cm_case</from-outcome>
       <to-view-id>/casemanagement/caseitem/view_cm_case.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
+
     <navigation-case>
       <from-outcome>edit_case</from-outcome>
-      <to-view-id>
-        /casemanagement/caseitem/caseitem_edit.xhtml
-      </to-view-id>
+      <to-view-id>/casemanagement/caseitem/caseitem_edit.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
+
     <navigation-case>
       <from-outcome>distribution_caselink</from-outcome>
       <to-view-id>
         /casemanagement/caseitem/caseitem_distribution.xhtml
       </to-view-id>
       <redirect />
-   </navigation-case>
-    
+    </navigation-case>
+
 
     <navigation-case>
       <from-outcome>view_cm_document</from-outcome>
-      <to-view-id>
-        /casemanagement/caseitem/view_cm_document.xhtml
-      </to-view-id>
+      <to-view-id>/casemanagement/caseitem/view_cm_document.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-    
+
   </extension>
 
   <install>

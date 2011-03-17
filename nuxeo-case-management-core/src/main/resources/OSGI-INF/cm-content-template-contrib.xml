@@ -10,9 +10,9 @@
     point="factoryBinding">
 
     <documentation>
-      Sets one domain by default, in each domain a CaseItemFolder is
-      created (will hold case items in date hierarchies) and a
-      MailboxRoot (will hold mailboxes).
+      Sets one domain by default, in each domain a CaseItemFolder is created
+      (will hold case items in date hierarchies) and a MailboxRoot (will hold
+      mailboxes).
     </documentation>
 
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory"
@@ -31,10 +31,8 @@
     <factoryBinding name="DomainFactory" factoryName="SimpleTemplateFactory"
       targetType="Domain">
       <template>
-        <templateItem typeName="CaseRoot" id="case-root"
-          title="Case" />
-        <templateItem typeName="MailboxRoot" id="mailbox-root"
-          title="Mailbox" />
+        <templateItem typeName="CaseRoot" id="case-root" title="Case" />
+        <templateItem typeName="MailboxRoot" id="mailbox-root" title="Mailbox" />
       </template>
     </factoryBinding>
 

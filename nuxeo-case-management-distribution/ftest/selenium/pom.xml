@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -8,8 +9,8 @@
   <packaging>pom</packaging>
   <name>Utility POM for running Selenium tests</name>
   <description>
-    This POM allow download of Selenium Server jar file. 
-    It also provide a plugin for running regular Surefire tests.
+    This POM allow download of Selenium Server jar file. It also provide a
+    plugin for running regular Surefire tests.
   </description>
 
   <build>
@@ -48,7 +49,7 @@
       <!--              <background>true</background>-->
       <!--              <userExtensions>user-extensions.js</userExtensions>-->
       <!--              <firefoxProfileTemplate>ffprofile</firefoxProfileTemplate>-->
-<!---->
+      <!---->
       <!--              <browser>*chrome</browser>-->
       <!--              <startURL>http://localhost:8080/nuxeo/</startURL>-->
       <!--              <suite>tests/suite1.html</suite>-->

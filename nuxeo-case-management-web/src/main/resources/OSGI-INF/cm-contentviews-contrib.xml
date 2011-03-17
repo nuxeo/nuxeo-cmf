@@ -10,10 +10,10 @@
       <coreQueryPageProvider>
         <property name="coreSession">#{documentManager}</property>
         <pattern>
-	        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-	        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-	        AND cslk:draft = 0
+          SELECT * FROM Document WHERE ecm:parentId = ? AND
+          ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType =
+          'CaseLink' AND cslk:draft = 0
         </pattern>
         <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="cslk:date" ascending="false" />
@@ -42,10 +42,10 @@
       <coreQueryPageProvider>
         <property name="coreSession">#{documentManager}</property>
         <pattern>
-	        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-	        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 
-	        'CaseLink' AND cslk:isSent = 0 AND cslk:draft = 0
+          SELECT * FROM Document WHERE ecm:parentId = ? AND
+          ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType =
+          'CaseLink' AND cslk:isSent = 0 AND cslk:draft = 0
         </pattern>
         <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="cslk:date" ascending="false" />
@@ -72,10 +72,10 @@
       <coreQueryPageProvider>
         <property name="coreSession">#{documentManager}</property>
         <pattern>
-	        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-	        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-	         AND cslk:isSent = 1 AND cslk:draft = 0
+          SELECT * FROM Document WHERE ecm:parentId = ? AND
+          ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType =
+          'CaseLink' AND cslk:isSent = 1 AND cslk:draft = 0
         </pattern>
         <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="cslk:date" ascending="false" />
@@ -102,10 +102,10 @@
       <coreQueryPageProvider>
         <property name="coreSession">#{documentManager}</property>
         <pattern>
-	        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-	        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-	        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-	        AND cslk:draft = 1
+          SELECT * FROM Document WHERE ecm:parentId = ? AND
+          ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType =
+          'CaseLink' AND cslk:draft = 1
         </pattern>
         <parameter>#{currentMailbox.document.id}</parameter>
         <sort column="dc:title" ascending="true" />
@@ -129,15 +129,15 @@
       <actions category="CASE_MANAGEMENT_CURRENT_SELECTION_LIST" />
 
     </contentView>
-    
-   <contentView name="mailbox_plans_content">
+
+    <contentView name="mailbox_plans_content">
 
       <coreQueryPageProvider>
         <property name="coreSession">#{documentManager}</property>
         <pattern>
-	    SELECT * FROM ClassificationRoot WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted'
+          SELECT * FROM ClassificationRoot WHERE ecm:parentId = ? AND
+          ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:currentLifeCycleState != 'deleted'
         </pattern>
         <parameter>#{currentDocument.id}</parameter>
         <sort column="dc:title" ascending="true" />
@@ -167,26 +167,27 @@
       <actions category="CURRENT_SELECTION_LIST" />
 
     </contentView>
-    
-     <contentView name="byType">
+
+    <contentView name="byType">
       <coreQueryPageProvider>
-      <property name="coreSession">#{documentManager}</property>
+        <property name="coreSession">#{documentManager}</property>
         <!-- search doc maintained here -->
         <whereClause>
-         <predicate parameter="cmdoc:type" operator="STARTSWITH">
-          <field schema="case_item" name="type" />
-         </predicate>
+          <predicate parameter="cmdoc:type" operator="STARTSWITH">
+            <field schema="case_item" name="type" />
+          </predicate>
           <fixedPart>
-           ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState !='deleted' AND ecm:mixinType = 'CaseGroupable' AND ecm:mixinType =
-           'Distributable'
+            ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState
+            !='deleted' AND ecm:mixinType = 'CaseGroupable' AND ecm:mixinType =
+            'Distributable'
           </fixedPart>
-      </whereClause>
-      <sortColumn>
-        <field schema="advanced_search" name="sortColumn" />
-      </sortColumn>
-      <sortAscending>
-        <field schema="advanced_search" name="sortAscending" />
-      </sortAscending>
+        </whereClause>
+        <sortColumn>
+          <field schema="advanced_search" name="sortColumn" />
+        </sortColumn>
+        <sortAscending>
+          <field schema="advanced_search" name="sortAscending" />
+        </sortAscending>
         <pageSize>10</pageSize>
       </coreQueryPageProvider>
 
@@ -214,8 +215,8 @@
       <actions category="CURRENT_SELECTION_LIST" />
 
     </contentView>
-    
-    
+
+
 
   </extension>
 

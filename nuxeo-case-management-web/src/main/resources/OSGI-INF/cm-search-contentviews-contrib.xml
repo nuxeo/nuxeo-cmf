@@ -11,9 +11,10 @@
       <coreQueryPageProvider>
         <property name="coreSession">#{documentManager}</property>
         <pattern>
-          SELECT * FROM Document WHERE ecm:fulltext LIKE ? AND ecm:mixinType != 'HiddenInNavigation'
-           AND (ecm:mixinType IN ('Distributable' , 'CaseGroupable'))  
-           AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted'
+          SELECT * FROM Document WHERE ecm:fulltext LIKE ? AND ecm:mixinType !=
+          'HiddenInNavigation' AND (ecm:mixinType IN ('Distributable' ,
+          'CaseGroupable')) AND ecm:isCheckedInVersion = 0 AND
+          ecm:currentLifeCycleState != 'deleted'
         </pattern>
         <parameter>#{documentSearchActions.simpleSearchKeywords}</parameter>
         <sort column="dc:title" ascending="true" />
@@ -129,7 +130,7 @@
             <field schema="advanced_search" name="currentLifeCycleStates" />
           </predicate>
           <fixedPart>
-            ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 
+            ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0
             AND (ecm:mixinType IN ('CaseGroupable' , 'Distributable'))
           </fixedPart>
         </whereClause>

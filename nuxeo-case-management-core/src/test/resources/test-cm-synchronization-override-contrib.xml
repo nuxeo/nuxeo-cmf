@@ -2,18 +2,23 @@
 
 <component name="org.nuxeo.cm.service.synchronization.override.test.contrib">
 
-  <extension target="org.nuxeo.cm.core.service.synchronization.MailboxSynchronizationService" point="directoryToMailbox">
+  <extension
+    target="org.nuxeo.cm.core.service.synchronization.MailboxSynchronizationService"
+    point="directoryToMailbox">
 
     <userToMailbox>
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator</titleGenerator>
+      <titleGenerator>
+        org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator
+      </titleGenerator>
     </userToMailbox>
 
-
     <groupToMailbox enabled="false">
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupMailboxTitleGenerator</titleGenerator>
+      <titleGenerator>
+        org.nuxeo.cm.core.service.synchronization.DefaultGroupMailboxTitleGenerator
+      </titleGenerator>
     </groupToMailbox>
 
-    <directoryToMailbox directoryName="uncompleteContrib" >
+    <directoryToMailbox directoryName="uncompleteContrib">
       <directoryEntryIdField>fieldName</directoryEntryIdField>
     </directoryToMailbox>
   </extension>

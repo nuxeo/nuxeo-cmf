@@ -4,7 +4,8 @@
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
     point="listener">
 
-    <listener name="automaticActionCaseLinkValidatorListener" async="false" postCommit="true"
+    <listener name="automaticActionCaseLinkValidatorListener" async="false"
+      postCommit="true"
       class="org.nuxeo.cm.core.event.AutomaticActionCaseLinkValidatorListener"
       priority="200">
       <event>validateCaseLink</event>
@@ -16,14 +17,12 @@
     </listener>
 
     <listener name="loginSuccessListener" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.SuccessLoginListener"
-      priority="150">
+      class="org.nuxeo.cm.core.event.SuccessLoginListener" priority="150">
       <event>loginSuccess</event>
     </listener>
 
     <listener name="createMailboxd" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.CreateMailboxIdListener"
-      priority="160">
+      class="org.nuxeo.cm.core.event.CreateMailboxIdListener" priority="160">
       <event>aboutToCreate</event>
     </listener>
 
@@ -41,8 +40,7 @@
     </listener>
 
     <listener name="distributionlistener" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.DistributionListener"
-      priority="180">
+      class="org.nuxeo.cm.core.event.DistributionListener" priority="180">
       <event>afterCaseSentEvent</event>
     </listener>
 
@@ -53,18 +51,17 @@
     </listener>
 
     <listener name="draftCreationListener" async="false" postCommit="true"
-      class="org.nuxeo.cm.core.event.DraftCreationListener"
-      priority="120">
+      class="org.nuxeo.cm.core.event.DraftCreationListener" priority="120">
       <event>afterDraftCreated</event>
     </listener>
 
     <listener name="draftUpdatedListener" async="false" postCommit="true"
-      class="org.nuxeo.cm.core.event.DraftUpdatedListener"
-      priority="120">
+      class="org.nuxeo.cm.core.event.DraftUpdatedListener" priority="120">
       <event>draftUpdated</event>
     </listener>
 
-    <listener name="mailboxSynchronizationListener" async="true" postCommit="false"
+    <listener name="mailboxSynchronizationListener" async="true"
+      postCommit="false"
       class="org.nuxeo.cm.core.event.synchronization.MailboxSynchronizationListener"
       priority="10">
       <event>syncMailbox</event>
@@ -88,8 +85,8 @@
       <event>onMailboxDeleted</event>
     </listener>
 
-    <listener name="updateRightsBeforeRemoveCaseLink" async="false" postCommit="false"
-      class="org.nuxeo.cm.core.event.CaseLinkRemovedListener"
+    <listener name="updateRightsBeforeRemoveCaseLink" async="false"
+      postCommit="false" class="org.nuxeo.cm.core.event.CaseLinkRemovedListener"
       priority="4">
       <event>beforeCaseLinkRemovedEvent</event>
     </listener>

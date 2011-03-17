@@ -2,22 +2,19 @@
 
 <component name="org.nuxeo.cm.service.mailboxManagement">
 
-  <implementation
-    class="org.nuxeo.cm.core.service.CaseManagementComponent" />
+  <implementation class="org.nuxeo.cm.core.service.CaseManagementComponent" />
 
   <service>
     <provide interface="org.nuxeo.cm.service.MailboxManagementService" />
-    <provide interface="org.nuxeo.cm.service.CaseDistributionService"/>
+    <provide interface="org.nuxeo.cm.service.CaseDistributionService" />
   </service>
 
   <extension-point name="mailboxCreator">
-    <object
-      class="org.nuxeo.cm.core.service.CreationClassDescriptor" />
+    <object class="org.nuxeo.cm.core.service.CreationClassDescriptor" />
   </extension-point>
 
   <extension-point name="persister">
-    <object
-      class="org.nuxeo.cm.core.service.PersisterDescriptor" />
+    <object class="org.nuxeo.cm.core.service.PersisterDescriptor" />
   </extension-point>
 
 </component>

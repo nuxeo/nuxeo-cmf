@@ -2,14 +2,14 @@
 
 <component name="org.nuxeo.cm.service.defaultContrib">
 
-  <extension target="org.nuxeo.cm.service.mailboxManagement" point="mailboxCreator">
-    <contribution
-      class="org.nuxeo.cm.core.service.DefaultMailboxCreator" />
+  <extension target="org.nuxeo.cm.service.mailboxManagement"
+    point="mailboxCreator">
+    <contribution class="org.nuxeo.cm.core.service.DefaultMailboxCreator" />
   </extension>
 
-  <extension target="org.nuxeo.cm.service.mailboxManagement" point="persister">
-    <persister
-      class="org.nuxeo.cm.core.persister.CaseItemInCasePersister" />
+  <extension target="org.nuxeo.cm.service.mailboxManagement"
+    point="persister">
+    <persister class="org.nuxeo.cm.core.persister.CaseItemInCasePersister" />
   </extension>
 
 </component>

@@ -2,9 +2,6 @@
 
 <component name="org.nuxeo.correspondence.documentLists">
 
-  <documentation>
-  </documentation>
-
   <extension target="org.nuxeo.ecm.webapp.documentsLists.DocumentsListsService"
     point="list">
 

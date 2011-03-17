@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
 <component name="org.nuxeo.correspondence.themes">
-  
+
   <require>org.nuxeo.theme.core</require>
   <require>org.nuxeo.theme.fragments</require>
   <require>org.nuxeo.theme.html</require>
   <require>org.nuxeo.theme.jsf</require>
   <require>org.nuxeo.theme.nuxeo.default</require>
   <require>org.nuxeo.case-management.themes</require>
-  
+
   <!-- views -->
   <extension target="org.nuxeo.theme.services.ThemeService" point="views">
-    
-    <!-- displays the mailboxes in left menu -->    
+
+    <!-- displays the mailboxes in left menu -->
     <view name="mailboxes list" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>casemanagement/mailbox/mailbox_list.xhtml</template>
     </view>
-    
+
     <!-- displays the user classification roots in left menu -->
     <view name="classification tree" template-engine="jsf-facelets">
       <format-type>widget</format-type>
@@ -28,12 +28,12 @@
       <format-type>widget</format-type>
       <template>incl/logo_correspondence.xhtml</template>
     </view>
-    
+
     <view name="Print and ZIP buttons" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>incl/print_zip_buttons.xhtml</template>
     </view>
- 
+
   </extension>
 
   <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
@@ -66,12 +66,13 @@
     <palette name="Correspondence borders"
       src="themes/palettes/correspondence-borders.properties" category="border" />
     <palette name="Correspondence backgrounds"
-      src="themes/palettes/correspondence-backgrounds.properties" category="background" />
-    <palette name="Correspondence fonts" src="themes/palettes/correspondence-fonts.properties"
-      category="font" />
-    <palette name="Correspondence colors" src="themes/palettes/correspondence-colors.properties"
-      category="color" />
+      src="themes/palettes/correspondence-backgrounds.properties"
+      category="background" />
+    <palette name="Correspondence fonts"
+      src="themes/palettes/correspondence-fonts.properties" category="font" />
+    <palette name="Correspondence colors"
+      src="themes/palettes/correspondence-colors.properties" category="color" />
 
-   </extension>
+  </extension>
 
 </component>

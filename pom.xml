@@ -16,7 +16,9 @@
   <version>1.7-SNAPSHOT</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
-  <description>The parent module for Nuxeo Case Management Framework</description>
+  <description>
+    The parent module for Nuxeo Case Management Framework
+  </description>
 
   <properties>
     <nuxeo.cm.version>1.7-SNAPSHOT</nuxeo.cm.version>
@@ -39,23 +41,23 @@
     <dependencies>
       <!-- ADDONS -->
       <dependency>
-	<groupId>org.nuxeo.ecm.automation</groupId>
-	<artifactId>nuxeo-automation-core</artifactId>
+        <groupId>org.nuxeo.ecm.automation</groupId>
+        <artifactId>nuxeo-automation-core</artifactId>
         <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
-	<groupId>org.nuxeo.ecm.platform</groupId>
-	<artifactId>nuxeo-platform-document-routing-api</artifactId>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-document-routing-api</artifactId>
         <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
-	<groupId>org.nuxeo.ecm.platform</groupId>
-	<artifactId>nuxeo-platform-document-routing-core</artifactId>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-document-routing-core</artifactId>
         <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
-	<groupId>org.nuxeo.ecm.platform</groupId>
-	<artifactId>nuxeo-platform-document-routing-web</artifactId>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-document-routing-web</artifactId>
         <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
@@ -208,9 +210,7 @@
   </developers>
 
   <scm>
-    <connection>
-      scm:hg:http://hg.nuxeo.org/nuxeo-case-management
-    </connection>
+    <connection>scm:hg:http://hg.nuxeo.org/nuxeo-case-management</connection>
     <developerConnection>
       scm:hg:https://hg.nuxeo.org/nuxeo-case-management
     </developerConnection>

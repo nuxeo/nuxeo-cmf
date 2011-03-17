@@ -15,7 +15,7 @@
       <dataFile>directories/correspondence_confidentiality.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-    
+
     <directory name="correspondence_document_type">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -27,7 +27,7 @@
       <dataFile>directories/correspondence_document_type.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-  
+
   </extension>
 
 </component>

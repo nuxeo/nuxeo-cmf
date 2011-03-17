@@ -9,7 +9,6 @@
     <resultsProvider name="MAILBOX_SERVICE" farm="mailboxChildrenSearchFarm" />
     <resultsProvider name="MAILBOX_SENT" farm="mailboxChildrenSearchFarm" />
     <resultsProvider name="MAILBOX_DRAFT" farm="mailboxChildrenSearchFarm" />
-
     <resultsProvider name="MAILBOX_PLANS" farm="mailboxChildrenSearchFarm" />
 
   </extension>

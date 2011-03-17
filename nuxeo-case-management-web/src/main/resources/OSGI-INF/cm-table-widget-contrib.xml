@@ -18,9 +18,7 @@
             second field maps the unique id to be used for contextual menu (e.g.
             the document model id)
           </li>
-          <li>
-            third field maps the caseLink's caseDocumentId.
-          </li>
+          <li>third field maps the caseLink's caseDocumentId.</li>
         </ul>
       </documentation>
 
@@ -47,12 +45,8 @@
             second field maps the unique id to be used for contextual menu (e.g.
             the document model id)
           </li>
-          <li>
-            third field maps the caseLink's caseDocumentId.
-          </li>
-          <li>
-            fouth field maps the isRead property of a caseLink.
-          </li>
+          <li>third field maps the caseLink's caseDocumentId.</li>
+          <li>fouth field maps the isRead property of a caseLink.</li>
         </ul>
       </documentation>
 
@@ -80,9 +74,7 @@
             second field maps the unique id to be used for contextual menu (e.g.
             the document model id)
           </li>
-          <li>
-            third field maps the caseLink's caseDocumentId.
-          </li>
+          <li>third field maps the caseLink's caseDocumentId.</li>
         </ul>
       </documentation>
 
@@ -94,17 +86,15 @@
       </property>
 
     </widgetType>
-    
+
     <widgetType name="listing_cm_text_history_action">
       <documentation>
         This widget type displays a action logged by the audit.
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-            first field maps the entryId for the entryLog
-          </li>
-         </ul> 
+          <li>first field maps the entryId for the entryLog</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -113,17 +103,15 @@
         /widgets/listing/listing_cm_text_history_action_widget_template.xhtml
       </property>
     </widgetType>
-    
-     <widgetType name="listing_cm_text_history_username">
+
+    <widgetType name="listing_cm_text_history_username">
       <documentation>
         This widget type displays the username for a given principal
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-            first field maps the principalName 
-          </li>
-         </ul> 
+          <li>first field maps the principalName</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -132,17 +120,15 @@
         /widgets/listing/listing_cm_text_username_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_text_distribution_history_comment">
       <documentation>
         This widget type displays a comment logged by the audit.
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-            first field maps the logEntry 
-          </li>
-         </ul> 
+          <li>first field maps the logEntry</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -151,17 +137,15 @@
         /widgets/listing/listing_cm_text_dis_history_comment_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_text_distribution_action_recipient">
       <documentation>
         This widget type displays the action recipients logged by the audit.
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-           first field maps the logEntry 
-          </li>
-         </ul> 
+          <li>first field maps the logEntry</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -170,17 +154,15 @@
         /widgets/listing/listing_cm_text_dis_history_action_recepients_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_text_distribution_copy_recipient">
       <documentation>
         This widget type displays the copy recipients logged by the audit.
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-           first field maps the logEntry 
-          </li>
-         </ul> 
+          <li>first field maps the logEntry</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -189,17 +171,15 @@
         /widgets/listing/listing_cm_text_dis_history_copy_recepients_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_relations_outgoing_predicate">
       <documentation>
         This widget type displays the prdicate in a relation
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-          statement.predicate.uri
-          </li>
-         </ul> 
+          <li>statement.predicate.uri</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -208,17 +188,15 @@
         /widgets/listing/listing_cm_text_relations_outgoing_predicate_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_relations_incoming_predicate">
       <documentation>
         This widget type displays the prdicate in a relation
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-          statement.predicate.uri
-          </li>
-         </ul> 
+          <li>statement.predicate.uri</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -227,20 +205,16 @@
         /widgets/listing/listing_cm_text_relations_incoming_predicate_widget_template.xhtml
       </property>
     </widgetType>
-    
-   <widgetType name="listing_cm_relations_object">
+
+    <widgetType name="listing_cm_relations_object">
       <documentation>
         This widget type displays the prdicate in a relation
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-          statement.
-          </li>
-          <li>
-          statement.objectInfo
-          </li>
-         </ul> 
+          <li>statement.</li>
+          <li>statement.objectInfo</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -249,20 +223,16 @@
         /widgets/listing/listing_cm_text_relations_object_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_relations_comment">
       <documentation>
         This widget type displays the comment in a relation
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-          statement.
-          </li>
-          <li>
-          statement.comment
-          </li>
-         </ul> 
+          <li>statement.</li>
+          <li>statement.comment</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -271,18 +241,16 @@
         /widgets/listing/listing_cm_text_relations_comment_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_relations_actions">
       <documentation>
-        This widget type displays the actions that a user can perform on the documents from
-        relation
+        This widget type displays the actions that a user can perform on the
+        documents from relation
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-          statement.
-          </li>
-         </ul> 
+          <li>statement.</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -291,7 +259,7 @@
         /widgets/listing/listing_cm_text_relations_actions_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_inbox_actionable_case_link_actions">
 
       <documentation>
@@ -307,12 +275,8 @@
             second field maps the unique id to be used for contextual menu (e.g.
             the document model id)
           </li>
-          <li>
-            third field maps the caseLink's caseDocumentId.
-          </li>
-          <li>
-            fouth field maps the isRead property of a caseLink.
-          </li>
+          <li>third field maps the caseLink's caseDocumentId.</li>
+          <li>fouth field maps the isRead property of a caseLink.</li>
         </ul>
       </documentation>
 
@@ -323,20 +287,16 @@
         /widgets/listing/listing_cm_inbox_actionable_case_link_actions_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_routing_task_type_widget">
       <documentation>
         This widget type displays the prdicate in a relation
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-         directory  name
-          </li>
-        <li>
-         data 
-          </li>
-         </ul> 
+          <li>directory name</li>
+          <li>data</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -345,17 +305,15 @@
         /widgets/listing/listing_cm_routing_task_type_widget_template.xhtml
       </property>
     </widgetType>
-    
+
     <widgetType name="listing_cm_routing_doc_properties">
       <documentation>
         This widget type displays some task properties
         <br />
         It requires the following fields configuration:
         <ul>
-        <li>
-          the documentRouteElement
-          </li>
-         </ul> 
+          <li>the documentRouteElement</li>
+        </ul>
       </documentation>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -369,7 +327,7 @@
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgets">
-    
+
     <widget name="cm_icon_type" type="listing_icon_type">
       <labels>
         <label mode="any"></label>
@@ -381,8 +339,7 @@
       </fields>
     </widget>
 
-    <widget name="cm_listing_title_link"
-      type="listing_title_link">
+    <widget name="cm_listing_title_link" type="listing_title_link">
       <labels>
         <label mode="any">label.content.header.title</label>
       </labels>
@@ -394,8 +351,7 @@
       </fields>
     </widget>
 
-    <widget name="cm_mailbox_listing_title_link"
-      type="listing_cm_title_link">
+    <widget name="cm_mailbox_listing_title_link" type="listing_cm_title_link">
       <labels>
         <label mode="any">label.content.header.title</label>
       </labels>
@@ -406,7 +362,7 @@
         <field>data.cslk.caseDocumentId</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_mailbox_inbox_listing_title_link"
       type="listing_inbox_title_link">
       <labels>
@@ -420,7 +376,7 @@
         <field>data.cslk.isRead</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_mailbox_draft_listing_title_link"
       type="listing_draft_title_link">
       <labels>
@@ -446,7 +402,7 @@
         <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
       </properties>
     </widget>
-    
+
     <widget name="cm_listing_sender" type="listing_author">
       <labels>
         <label mode="any">label.content.header.sender</label>
@@ -456,7 +412,7 @@
         <field>data.cslk.sender</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_listing_uid" type="text">
       <labels>
         <label mode="any">label.content.header.uid</label>
@@ -466,9 +422,9 @@
         <field>data.uid.uid</field>
       </fields>
     </widget>
-    
-   <widget name="cm_history_action" type="listing_cm_text_history_action">
-    <labels>
+
+    <widget name="cm_history_action" type="listing_cm_text_history_action">
+      <labels>
         <label mode="any">label.performedAction</label>
       </labels>
       <translated>true</translated>
@@ -476,7 +432,7 @@
         <field>data.eventId</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_history_date" type="datetime">
       <labels>
         <label mode="any">label.time</label>
@@ -490,7 +446,8 @@
       </properties>
     </widget>
 
-   <widget name="cm_history_username" type="listing_cm_text_history_username">
+    <widget name="cm_history_username"
+      type="listing_cm_text_history_username">
       <labels>
         <label mode="any">label.username</label>
       </labels>
@@ -499,8 +456,9 @@
         <field>data.principalName</field>
       </fields>
     </widget>
-    
-    <widget name="cm_distribution_history_comment" type="listing_cm_text_distribution_history_comment">
+
+    <widget name="cm_distribution_history_comment"
+      type="listing_cm_text_distribution_history_comment">
       <labels>
         <label mode="any">label.comment</label>
       </labels>
@@ -509,8 +467,8 @@
         <field>data.id</field>
       </fields>
     </widget>
-    
-     <widget name="cm_history_comment" type="text">
+
+    <widget name="cm_history_comment" type="text">
       <labels>
         <label mode="any">label.comment</label>
       </labels>
@@ -519,20 +477,13 @@
         <field>data.comment</field>
       </fields>
     </widget>
-    
-    <widget name="cm_distribution_history_action_recipients" type="listing_cm_text_distribution_action_recipient">
+
+    <widget name="cm_distribution_history_action_recipients"
+      type="listing_cm_text_distribution_action_recipient">
       <labels>
-        <label mode="any">label.casemanagement.distribution.history.actionParticipants</label>
-      </labels>
-      <translated>true</translated>
-      <fields>
-        <field>data</field>
-      </fields>
-    </widget>
-    
-     <widget name="cm_distribution_history_copy_recipients" type="listing_cm_text_distribution_copy_recipient">
-      <labels>
-        <label mode="any">label.casemanagement.distribution.history.copyParticipants</label>
+        <label mode="any">
+          label.casemanagement.distribution.history.actionParticipants
+        </label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -540,7 +491,21 @@
       </fields>
     </widget>
 
-     <widget name="cm_relations_outgoing_predicate" type="listing_cm_relations_outgoing_predicate">
+    <widget name="cm_distribution_history_copy_recipients"
+      type="listing_cm_text_distribution_copy_recipient">
+      <labels>
+        <label mode="any">
+          label.casemanagement.distribution.history.copyParticipants
+        </label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data</field>
+      </fields>
+    </widget>
+
+    <widget name="cm_relations_outgoing_predicate"
+      type="listing_cm_relations_outgoing_predicate">
       <labels>
         <label mode="any">label.relation.predicate</label>
       </labels>
@@ -549,8 +514,9 @@
         <field>data.predicate.uri</field>
       </fields>
     </widget>
-    
-    <widget name="cm_relations_incoming_predicate" type="listing_cm_relations_incoming_predicate">
+
+    <widget name="cm_relations_incoming_predicate"
+      type="listing_cm_relations_incoming_predicate">
       <labels>
         <label mode="any">label.relation.predicate</label>
       </labels>
@@ -559,7 +525,7 @@
         <field>data.predicate.uri</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_relations_object" type="listing_cm_relations_object">
       <labels>
         <label mode="any">label.relation.object</label>
@@ -570,7 +536,7 @@
         <field>data.objectInfo</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_relations_comment" type="listing_cm_relations_comment">
       <labels>
         <label mode="any">label.relation.comment</label>
@@ -591,7 +557,7 @@
         <field>data</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_relations_date" type="datetime">
       <labels>
         <label mode="any">label.content.header.created</label>
@@ -604,7 +570,7 @@
         <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
       </properties>
     </widget>
-    
+
     <widget name="cm_relations_author" type="text">
       <labels>
         <label mode="any">label.content.header.author</label>
@@ -614,51 +580,56 @@
         <field>data.author</field>
       </fields>
     </widget>
-    
+
     <widget name="cm_inbox_actionable_case_link_actions"
       type="listing_cm_inbox_actionable_case_link_actions">
       <labels>
-        <label mode="any">label.casemanagement.distribution.task.operations</label>
+        <label mode="any">
+          label.casemanagement.distribution.task.operations
+        </label>
       </labels>
       <fields>
         <field>data</field>
       </fields>
     </widget>
-    
-    <widget name="cm_listing_routing_task_type" type="listing_cm_routing_task_type_widget">
-        <labels>
-          <label mode="any">label.casemanagement.distribution.task.type</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>data.document</field>
-          <field>data.document.rtsk.type</field>
-        </fields>
-      </widget>
- 
-    <widget name="cm_listing_routing_task_due_date" type="listing_cm_routing_doc_properties">
-        <labels>
-          <label mode="any">label.casemanagement.routing.task.dueDate</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>data.document.rtsk.dueDate</field>
-          <field>data.document.hasFacet('RouteStep')</field>
-        </fields>
-      </widget>
-      
-    <widget name="cm_listing_routing_task_mailbox" type="listing_cm_routing_doc_properties">
-        <labels>
-          <label mode="any">label.casemanagement.routing.task.mailboxId</label>
-        </labels>
-        <translated>true</translated>
-        <fields>
-          <field>data.document.rtsk.distributionMailboxId</field>
-          <field>data.document.hasFacet('RouteStep')</field>
-        </fields>
-      </widget>      
-      
-      
+
+    <widget name="cm_listing_routing_task_type"
+      type="listing_cm_routing_task_type_widget">
+      <labels>
+        <label mode="any">label.casemanagement.distribution.task.type</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.document</field>
+        <field>data.document.rtsk.type</field>
+      </fields>
+    </widget>
+
+    <widget name="cm_listing_routing_task_due_date"
+      type="listing_cm_routing_doc_properties">
+      <labels>
+        <label mode="any">label.casemanagement.routing.task.dueDate</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.document.rtsk.dueDate</field>
+        <field>data.document.hasFacet('RouteStep')</field>
+      </fields>
+    </widget>
+
+    <widget name="cm_listing_routing_task_mailbox"
+      type="listing_cm_routing_doc_properties">
+      <labels>
+        <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.document.rtsk.distributionMailboxId</field>
+        <field>data.document.hasFacet('RouteStep')</field>
+      </fields>
+    </widget>
+
+
   </extension>
 
 </component>

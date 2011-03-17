@@ -5,7 +5,6 @@ syntax:glob
 .mylar
 .pmd
 .project
-.project.ok
 .settings
 result-suite.html
 bin

@@ -5,21 +5,13 @@
   <extension target="org.nuxeo.ecm.platform.MailService" point="actionPipes">
 
     <pipe name="casemanagementMailBox">
-      <action>
-        org.nuxeo.cm.mail.actionpipe.StartAction
-      </action>
-      <action>
-        org.nuxeo.cm.mail.actionpipe.ExtractMessageInformation
-      </action>
-      <action>
-        org.nuxeo.cm.mail.actionpipe.ParseMailBody
-      </action>
+      <action>org.nuxeo.cm.mail.actionpipe.StartAction</action>
+      <action>org.nuxeo.cm.mail.actionpipe.ExtractMessageInformation</action>
+      <action>org.nuxeo.cm.mail.actionpipe.ParseMailBody</action>
       <action>
         org.nuxeo.correspondence.core.mail.actionpipe.CorrespondenceCreateAndDistributeDocuments
       </action>
-      <action>
-        org.nuxeo.cm.mail.actionpipe.EndAction
-      </action>
+      <action>org.nuxeo.cm.mail.actionpipe.EndAction</action>
     </pipe>
 
   </extension>

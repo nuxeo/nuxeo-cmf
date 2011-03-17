@@ -1,15 +1,21 @@
 <?xml version="1.0"?>
 
 <component name="org.nuxeo.cm.service.importer.CaseManagementImporter">
-   
-   <extension target="org.nuxeo.cm.service.importer.CaseManagementImporterService" point="importer">
-   	<importInfo>
-    	<destionationMailboxPath>/case-management/mailbox-root/user1-lambda</destionationMailboxPath>
-         <noImportingThreads>5</noImportingThreads>
-         <importerDocumentModelfactory>org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory</importerDocumentModelfactory>
-        <folderPath>src/test/resources/import-src/</folderPath>
-     </importInfo>
-   </extension>
-   
+
+  <extension
+    target="org.nuxeo.cm.service.importer.CaseManagementImporterService"
+    point="importer">
+    <importInfo>
+      <destionationMailboxPath>
+        /case-management/mailbox-root/user1-lambda
+      </destionationMailboxPath>
+      <noImportingThreads>5</noImportingThreads>
+      <importerDocumentModelfactory>
+        org.nuxeo.cm.core.service.importer.CaseManagementCaseItemDocumentFactory
+      </importerDocumentModelfactory>
+      <folderPath>src/test/resources/import-src/</folderPath>
+    </importInfo>
+  </extension>
+
 
 </component>

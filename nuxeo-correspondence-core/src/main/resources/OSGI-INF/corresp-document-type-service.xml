@@ -2,30 +2,34 @@
 <component name="org.nuxeo.correspondence.DocumentTypeService">
 
   <documentation>
-  The Correspondence Document Service allows to specify which 
-  Document Type will be used for outgoing mails.
+    The Correspondence Document Service allows to specify which Document Type
+    will be used for outgoing mails.
 
-  @author <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
+    @author
+    <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
   </documentation>
-  
-  <implementation class="org.nuxeo.correspondence.core.service.CorrespondenceDocumentTypeServiceImpl" />
+
+  <implementation
+    class="org.nuxeo.correspondence.core.service.CorrespondenceDocumentTypeServiceImpl" />
 
   <service>
-    <provide interface="org.nuxeo.correspondence.core.service.CorrespondenceDocumentTypeService" />
+    <provide
+      interface="org.nuxeo.correspondence.core.service.CorrespondenceDocumentTypeService" />
   </service>
 
   <extension-point name="documentType">
 
     <documentation>
-    Used to register the Document Type.
-    <code>
-      <documentType>
-        <outgoingDocType>newOutgoingDocType</outgoingDocType>
-      </documentType>
-    </code>
+      Used to register the Document Type.
+      <code>
+        <documentType>
+          <outgoingDocType>newOutgoingDocType</outgoingDocType>
+        </documentType>
+      </code>
     </documentation>
 
-    <object class="org.nuxeo.correspondence.core.service.CorrespondenceDocumentTypeDescriptor" />
+    <object
+      class="org.nuxeo.correspondence.core.service.CorrespondenceDocumentTypeDescriptor" />
   </extension-point>
 
 </component>

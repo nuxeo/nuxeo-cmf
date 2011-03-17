@@ -9,8 +9,7 @@
   <require>org.nuxeo.theme.nuxeo.default</require>
 
   <!-- views -->
-  <extension target="org.nuxeo.theme.services.ThemeService"
-    point="views">
+  <extension target="org.nuxeo.theme.services.ThemeService" point="views">
 
     <!-- displays the mailboxes in left menu -->
     <view name="mailboxes list" template-engine="jsf-facelets">
@@ -26,8 +25,7 @@
     <!-- displays the user classification roots in left menu -->
     <view name="classification tree" template-engine="jsf-facelets">
       <format-type>widget</format-type>
-      <template>classification/classification_tree_explorer.xhtml
-      </template>
+      <template>classification/classification_tree_explorer.xhtml</template>
     </view>
 
     <view name="Case Management logo" template-engine="jsf-facelets">
@@ -42,8 +40,7 @@
 
   </extension>
 
-  <extension target="org.nuxeo.theme.services.ThemeService"
-    point="themes">
+  <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
 
     <theme>
       <src>themes/theme-case-management.xml</src>
@@ -72,11 +69,11 @@
   </extension>
 
   <!-- Styles presets -->
-  <extension target="org.nuxeo.theme.services.ThemeService"
-    point="presets">
+  <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
 
     <palette name="Case Management borders"
-      src="themes/palettes/case-management-borders.properties" category="border" />
+      src="themes/palettes/case-management-borders.properties"
+      category="border" />
     <palette name="Case Management backgrounds"
       src="themes/palettes/case-management-backgrounds.properties"
       category="background" />
@@ -87,8 +84,7 @@
 
   </extension>
   <!-- resources -->
-  <extension target="org.nuxeo.theme.services.ThemeService"
-    point="resources">
+  <extension target="org.nuxeo.theme.services.ThemeService" point="resources">
     <resource name="jquery.layout.js">
       <path>scripts/jquery.layout.js</path>
       <require>jquery.js</require>

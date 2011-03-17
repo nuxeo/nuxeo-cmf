@@ -1,14 +1,18 @@
-<component name="org.nuxeo.cm.typeChainMapping.contrib"
-  version="1.0">
+<component name="org.nuxeo.cm.typeChainMapping.contrib" version="1.0">
 
   <extension target="org.nuxeo.ecm.platform.routing.service"
     point="chainsToType">
-    <mapping documentType="DistributionTask" chainId="DistributionTaskChain" 
-      undoChainIdFromRunning="undoRunningActionable" undoChainIdFromDone="simpleUndo" />
-    <mapping documentType="GenericDistributionTask" chainId="GenericDistributionTaskChain" 
-      undoChainIdFromRunning="undoRunningActionable" undoChainIdFromDone="simpleUndo" />
-    <mapping documentType="PersonalDistributionTask" chainId="PersonalDistributionTaskChain"
-      undoChainIdFromRunning="undoRunningActionable" undoChainIdFromDone="simpleUndo"  />
+    <mapping documentType="DistributionTask" chainId="DistributionTaskChain"
+      undoChainIdFromRunning="undoRunningActionable"
+      undoChainIdFromDone="simpleUndo" />
+    <mapping documentType="GenericDistributionTask"
+      chainId="GenericDistributionTaskChain"
+      undoChainIdFromRunning="undoRunningActionable"
+      undoChainIdFromDone="simpleUndo" />
+    <mapping documentType="PersonalDistributionTask"
+      chainId="PersonalDistributionTaskChain"
+      undoChainIdFromRunning="undoRunningActionable"
+      undoChainIdFromDone="simpleUndo" />
     <mapping documentType="DistributionStep" chainId="DistributionStepChain"
       undoChainIdFromRunning="simpleUndo" undoChainIdFromDone="simpleUndo" />
   </extension>

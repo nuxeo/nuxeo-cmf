@@ -11,20 +11,20 @@
       <filter-id>isNotIncomingInitialEnvelope</filter-id>
     </action>
     <action id="TAB_CASE_MANAGEMENT_VIEW"
-      link="/correspondence/mail/tabs/document_properties.xhtml" >
+      link="/correspondence/mail/tabs/document_properties.xhtml">
     </action>
-    <action id="CASE_CREATE_AND_DISTRIBUTE" 
+    <action id="CASE_CREATE_AND_DISTRIBUTE"
       link="#{correspDocumentActions.createAndDistributeIncomingDocument}"
       label="label.correspondence.action.initialDistribution">
       <category>CREATE_INITIAL_DISTRIBUTION_BOTTOM_LIST</category>
     </action>
-    <action id="CASE_SAVE_AND_DISTRIBUTE" 
+    <action id="CASE_SAVE_AND_DISTRIBUTE"
       link="#{correspDocumentActions.saveAndDistributeIncomingDocument}"
       label="label.correspondence.action.initialDistribution">
       <category>EDIT_INITIAL_DISTRIBUTION_BOTTOM_LIST</category>
       <filter-id>isNotOutgoingCaseItem</filter-id>
     </action>
-    
+
 
     <!-- Outgoing/Incoming mail creation -->
     <!-- we can create mail from any mailbox, the filtering in done inside 
@@ -37,8 +37,8 @@
     </action>
     <action id="TAB_MAILBOX_DRAFT" enabled="false" />
     <action id="TAB_MAILBOX_DRAFT_CORRESP"
-      link="/casemanagement/mailbox/tabs/mailbox_draft_content.xhtml"
-      order="23" label="label.casemanagement.draftMailbox" enabled="true"
+      link="/casemanagement/mailbox/tabs/mailbox_draft_content.xhtml" order="23"
+      label="label.casemanagement.draftMailbox" enabled="true"
       icon="/icons/file.gif">
       <category>VIEW_MAILBOX_ACTION_LIST</category>
     </action>
@@ -47,7 +47,8 @@
     <action id="newMailbox" enabled="false" />
     <action id="newCorrespondenceMailbox"
       link="#{documentActions.createDocument('CorrespondenceMailbox')}"
-      enabled="true" label="label.casemanagement.createMailbox" icon="/icons/action_add.gif">
+      enabled="true" label="label.casemanagement.createMailbox"
+      icon="/icons/action_add.gif">
       <category>SUBVIEW_UPPER_LIST</category>
       <filter-id>newCmMailbox</filter-id>
     </action>
@@ -78,9 +79,10 @@
 
     <!-- Mail Reply action -->
 
-    <action id="reply_correspondence_envelope" link="#{correspDocumentActions.reply()}"
-      label="label.correspondence.action.reply" icon="/icons/correspondence_reply.png"
-      order="1">
+    <action id="reply_correspondence_envelope"
+      link="#{correspDocumentActions.reply()}"
+      label="label.correspondence.action.reply"
+      icon="/icons/correspondence_reply.png" order="1">
       <category>CASE_ACTION_UPPER_LIST</category>
       <filter-id>isIncomingCorrespondence</filter-id>
       <filter-id>isNotDraft</filter-id>
@@ -95,7 +97,9 @@
 
     <filter id="isNotIncomingInitialEnvelope">
       <rule grant="false">
-        <condition>#{correspMailboxActions.isIncomingInitialEnvelope()}</condition>
+        <condition>
+          #{correspMailboxActions.isIncomingInitialEnvelope()}
+        </condition>
       </rule>
     </filter>
 
@@ -110,8 +114,7 @@
     <filter id="isIncomingCorrespondence">
       <rule grant="true">
         <facet>Distributable</facet>
-        <condition>#{correspMailboxActions.isIncomingEnvelope()}
-        </condition>
+        <condition>#{correspMailboxActions.isIncomingEnvelope()}</condition>
       </rule>
       <rule grant="false">
         <facet>CaseGroupable</facet>
@@ -121,33 +124,36 @@
     <filter id="isNotIncomingCorrespondence">
       <rule grant="false">
         <facet>Distributable</facet>
-        <condition>#{correspMailboxActions.isIncomingEnvelope()}
-        </condition>
+        <condition>#{correspMailboxActions.isIncomingEnvelope()}</condition>
       </rule>
     </filter>
 
     <!-- filter to be used when creating document -->
     <filter id="isIncomingCaseItem">
       <rule grant="true">
-        <condition>#{changeableDocument.hasFacet('IncomingCorrespondence')}
+        <condition>
+          #{changeableDocument.hasFacet('IncomingCorrespondence')}
         </condition>
       </rule>
     </filter>
     <filter id="isNotIncomingCaseItem">
       <rule grant="false">
-        <condition>#{changeableDocument.hasFacet('IncomingCorrespondence')}
+        <condition>
+          #{changeableDocument.hasFacet('IncomingCorrespondence')}
         </condition>
       </rule>
     </filter>
     <filter id="isNotOutgoinCaseItem">
       <rule grant="false">
-        <condition>#{changeableDocument.hasFacet('OutgoingCorrespondence')}
+        <condition>
+          #{changeableDocument.hasFacet('OutgoingCorrespondence')}
         </condition>
       </rule>
     </filter>
     <filter id="canMarkCurrentSelectionAsSent">
       <rule grant="true">
-        <condition>#{correspDistributeOutgoingMailActionsBean.canMarkCurrentSelectionAsSent()}
+        <condition>
+          #{correspDistributeOutgoingMailActionsBean.canMarkCurrentSelectionAsSent()}
         </condition>
       </rule>
     </filter>

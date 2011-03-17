@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.correspondence.org.treeManager.contrib">
 
-  <documentation>Override default configuration for Nuxeo EP tree</documentation>
+  <documentation>
+    Override default configuration for Nuxeo EP tree
+  </documentation>
   <require>org.nuxeo.ecm.platform.treeManager.contrib</require>
 
   <extension target="org.nuxeo.ecm.platform.treeManager" point="plugin">
@@ -9,13 +11,15 @@
     <documentation>
       Default configuration for the Nuxeo Correspondence tree.
 
-      Displays only Folderish objects (excluding CorrespondenceMailboxRoot), not marked as hidden in navigation, and
-      sorts by dc:title property. Folders with the BigFolder facet are shown
-      without any children.
+      Displays only Folderish objects (excluding CorrespondenceMailboxRoot), not
+      marked as hidden in navigation, and sorts by dc:title property. Folders
+      with the BigFolder facet are shown without any children.
     </documentation>
 
     <treeManagerPlugin name="navigation">
-      <leafFilterClass>org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter</leafFilterClass>
+      <leafFilterClass>
+        org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter
+      </leafFilterClass>
       <queryModel>CORRESP_TREE_CHILDREN</queryModel>
     </treeManagerPlugin>
 

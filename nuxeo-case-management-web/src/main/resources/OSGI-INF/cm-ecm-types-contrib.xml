@@ -80,8 +80,10 @@
       <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
       <views>
-        <view id="edit_case" value="edit_case" />
-      </views>
+               
+        <view id="edit_case" value="edit_case" />
+             
+      </views>
       <subtypes>
         <type>CaseItem</type>
       </subtypes>
@@ -93,7 +95,7 @@
       </layouts>
       <layouts mode="summary">
         <layout>summary_current_case_layout</layout>
-      </layouts> 
+      </layouts>
     </type>
 
     <type id="CaseLink">
@@ -105,7 +107,7 @@
         <view id="distribution_caselink" value="distribution_caselink" />
       </views>
       <layouts mode="any">
-         <layout>distribution_caselink</layout>
+        <layout>distribution_caselink</layout>
       </layouts>
     </type>
 
@@ -132,8 +134,8 @@
         <layout>file</layout>
       </layouts>
     </type>
-    
-   <type id="DistributionTask" coreType="DistributionTask">
+
+    <type id="DistributionTask" coreType="DistributionTask">
       <label>label.casemanagement.type.DistributionTask</label>
       <icon>/icons/distribution_task.png</icon>
       <bigIcon>/icons/distribution_task_100.png</bigIcon>
@@ -153,9 +155,9 @@
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
-   </type>
+    </type>
 
-   <type id="GenericDistributionTask" coreType="GenericDistributionTask">
+    <type id="GenericDistributionTask" coreType="GenericDistributionTask">
       <label>label.casemanagement.type.GenericDistributionTask</label>
       <icon>/icons/generic_distribution_task.png</icon>
       <bigIcon>/icons/generic_distribution_task_100.png</bigIcon>
@@ -175,9 +177,9 @@
         <layout>generic_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
-   </type>
-   
-   <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
+    </type>
+
+    <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
       <label>label.casemanagement.type.PersonalDistributionTask</label>
       <icon>/icons/personal_distribution_task.png</icon>
       <bigIcon>/icons/personal_distribution_task_100.png</bigIcon>
@@ -197,9 +199,9 @@
         <layout>personal_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
-   </type>
-   
-   <type id="DistributionStep" coreType="DistributionStep">
+    </type>
+
+    <type id="DistributionStep" coreType="DistributionStep">
       <label>label.casemanagement.type.DistributionStep</label>
       <icon>/icons/distribution_step.png</icon>
       <bigIcon>/icons/distribution_step_100.png</bigIcon>
@@ -217,36 +219,36 @@
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
       <layouts mode="view" />
-   </type>
-   
-   <type id="StepFolder">
-     <label>StepFolder</label>
-     <subtypes>
-       <type>StepFolder</type>
-       <type>DistributionTask</type>
-       <type>GenericDistributionTask</type>
-       <type>PersonalDistributionTask</type>
-       <type>DistributionStep</type>
+    </type>
+
+    <type id="StepFolder">
+      <label>StepFolder</label>
+      <subtypes>
+        <type>StepFolder</type>
+        <type>DistributionTask</type>
+        <type>GenericDistributionTask</type>
+        <type>PersonalDistributionTask</type>
+        <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
         <type>DocumentRouteStep</type>
       </deniedSubtypes>
-   </type>
-   
-   <type id="DocumentRoute">
-     <label>DocumentRoute</label>
-     <subtypes>
-       <type>StepFolder</type>
-       <type>DistributionTask</type>
-       <type>GenericDistributionTask</type>
-       <type>PersonalDistributionTask</type>
-       <type>DistributionStep</type>
+    </type>
+
+    <type id="DocumentRoute">
+      <label>DocumentRoute</label>
+      <subtypes>
+        <type>StepFolder</type>
+        <type>DistributionTask</type>
+        <type>GenericDistributionTask</type>
+        <type>PersonalDistributionTask</type>
+        <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
         <type>DocumentRouteStep</type>
       </deniedSubtypes>
-   </type>
-  
+    </type>
+
   </extension>
 
 </component>

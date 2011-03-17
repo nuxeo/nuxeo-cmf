@@ -15,7 +15,7 @@
       <dataFile>directories/mailbox_sync_state.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-    
+
     <directory name="cm_mailbox_profile">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -39,7 +39,7 @@
       <dataFile>directories/cm_document_type.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-  
+
     <directory name="cm_confidentiality">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -51,8 +51,8 @@
       <dataFile>directories/cm_confidentiality.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-    
-     <directory name="cm_routing_task_type">
+
+    <directory name="cm_routing_task_type">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
       <cacheTimeout>3600</cacheTimeout>
@@ -63,6 +63,6 @@
       <dataFile>directories/routing_task_type.csv</dataFile>
       <createTablePolicy>on_missing_columns</createTablePolicy>
     </directory>
-    
+
   </extension>
 </component>

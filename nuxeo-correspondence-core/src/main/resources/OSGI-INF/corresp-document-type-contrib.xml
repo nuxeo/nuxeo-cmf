@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 
 <component name="org.nuxeo.correspondence.service.documentType">
-  
+
   <require>org.nuxeo.cm.service.defaultContrib</require>
   <require>org.nuxeo.correspondence.DocumentTypeService</require>
   <require>org.nuxeo.cm.service.documentType</require>
-  
-  <extension target="org.nuxeo.cm.DocumentTypeService"
-    point="documentType">
+
+  <extension target="org.nuxeo.cm.DocumentTypeService" point="documentType">
 
     <documentType>
       <envelopeDocType>Case</envelopeDocType>
@@ -18,7 +17,7 @@
     </documentType>
 
   </extension>
-  
+
   <extension target="org.nuxeo.correspondence.DocumentTypeService"
     point="documentType">
 

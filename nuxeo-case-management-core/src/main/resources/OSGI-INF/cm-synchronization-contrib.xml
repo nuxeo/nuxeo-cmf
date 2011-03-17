@@ -1,14 +1,20 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.cm.service.synchronization.contrib">
 
-  <extension target="org.nuxeo.cm.core.service.synchronization.MailboxSynchronizationService" point="directoryToMailbox">
+  <extension
+    target="org.nuxeo.cm.core.service.synchronization.MailboxSynchronizationService"
+    point="directoryToMailbox">
 
     <userToMailbox>
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator</titleGenerator>
+      <titleGenerator>
+        org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator
+      </titleGenerator>
     </userToMailbox>
 
     <groupToMailbox>
-      <titleGenerator>org.nuxeo.cm.core.service.synchronization.DefaultGroupMailboxTitleGenerator</titleGenerator>
+      <titleGenerator>
+        org.nuxeo.cm.core.service.synchronization.DefaultGroupMailboxTitleGenerator
+      </titleGenerator>
     </groupToMailbox>
 
   </extension>

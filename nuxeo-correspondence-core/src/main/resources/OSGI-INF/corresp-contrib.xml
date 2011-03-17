@@ -2,7 +2,8 @@
 <component name="org.nuxeo.cm.correspondence.defaultContrib">
   <require>org.nuxeo.cm.service.defaultContrib</require>
 
-  <extension target="org.nuxeo.cm.service.mailboxManagement" point="persister">
+  <extension target="org.nuxeo.cm.service.mailboxManagement"
+    point="persister">
     <persister
       class="org.nuxeo.cm.core.persister.SeparateCaseCaseItemPersister" />
   </extension>

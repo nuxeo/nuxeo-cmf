@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.cm.faceted.search.contrib">
 
-  <require>org.nuxeo.ecm.platform.faceted.search.dm.contentviews
-  </require>
+  <require>org.nuxeo.ecm.platform.faceted.search.dm.contentviews</require>
   <require>org.nuxeo.ecm.platform.faceted.search.dm.layouts</require>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
@@ -54,14 +53,10 @@
         <property name="coreSession">#{documentManager}</property>
         <whereClause docType="FacetedSearchDefault">
           <fixedPart>
-            ecm:mixinType != 'HiddenInNavigation' AND
-            (ecm:mixinType IN ('Distributable' , 'CaseGroupable'))
-            AND ecm:mixinType !=
-            'HiddenInFacetedSearch' AND
-            ecm:isCheckedInVersion = 0
-            AND
-            ecm:currentLifeCycleState !=
-            'deleted'
+            ecm:mixinType != 'HiddenInNavigation' AND (ecm:mixinType IN
+            ('Distributable' , 'CaseGroupable')) AND ecm:mixinType !=
+            'HiddenInFacetedSearch' AND ecm:isCheckedInVersion = 0 AND
+            ecm:currentLifeCycleState != 'deleted'
           </fixedPart>
           <predicate parameter="ecm:fulltext" operator="FULLTEXT">
             <field schema="faceted_search_default" name="ecm_fulltext" />
@@ -116,8 +111,7 @@
 
     <widget name="categorization_search" type="faceted_search_wrapper">
       <labels>
-        <label mode="any">label.faceted.search.categorizationSearch
-        </label>
+        <label mode="any">label.faceted.search.categorizationSearch</label>
       </labels>
       <translated>true</translated>
       <subWidgets>

@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
-<component
-  name="org.nuxeo.cm.service.importer.event.SchedulerContrib">
+<component name="org.nuxeo.cm.service.importer.event.SchedulerContrib">
 
-   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
-	 point="listener">
-		<listener name="importerListener" async="false" postCommit="false"
-			class="org.nuxeo.cm.core.event.CaseManagementImporterListener">
-		   <event>eventCmImport</event>
-		</listener>	
-		 <listener name="importerCaseListener" async="false" postCommit="false"
-			class="org.nuxeo.cm.core.event.CaseManagementCaseImporterListener">
-		      <event>eventCmCaseImport</event>
-		</listener>
-   </extension>
-  
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+    point="listener">
+    <listener name="importerListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CaseManagementImporterListener">
+      <event>eventCmImport</event>
+    </listener>
+    <listener name="importerCaseListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CaseManagementCaseImporterListener">
+      <event>eventCmCaseImport</event>
+    </listener>
+  </extension>
+
 </component>
