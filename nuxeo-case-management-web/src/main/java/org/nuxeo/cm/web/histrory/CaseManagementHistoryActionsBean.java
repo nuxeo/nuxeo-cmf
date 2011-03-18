@@ -53,7 +53,7 @@ import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementHistoryActionsBean extends
-CaseManagementContextBoundInstance {
+        CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -101,13 +101,14 @@ CaseManagementContextBoundInstance {
     }
 
     @Factory(value = "caseItemLogEntriesSelectModel", scope = EVENT)
-    public SelectDataModel computeSelectDataModelLogEntries() throws ClientException{
+    public SelectDataModel computeSelectDataModelLogEntries()
+            throws ClientException {
         return new SelectDataModelImpl("cm_history", computeLogEntries(), null);
     }
-    
+
     @Factory(value = "caseItemDistributionLogEntries", scope = EVENT)
     public List<? extends LogEntry> computeDistributionLogEntries()
-    throws AuditException {
+            throws AuditException {
         if (distributionLogEntries == null) {
             try {
                 DocumentModel currentEmail = getCurrentCaseItem();
@@ -121,10 +122,12 @@ CaseManagementContextBoundInstance {
         }
         return distributionLogEntries;
     }
-    
+
     @Factory(value = "caseItemDistributionLogEntriesSelectModel", scope = EVENT)
-    public SelectDataModel computeSelectModelDistributionLogEntries() throws ClientException {
-        return new SelectDataModelImpl("cm_distribution_history", computeDistributionLogEntries(), null);
+    public SelectDataModel computeSelectModelDistributionLogEntries()
+            throws ClientException {
+        return new SelectDataModelImpl("cm_distribution_history",
+                computeDistributionLogEntries(), null);
     }
 
     @Factory(value = "caseItemLogEntriesComments", scope = EVENT)
@@ -138,7 +141,7 @@ CaseManagementContextBoundInstance {
 
     @Factory(value = "caseItemDistributionLogEntriesComments", scope = EVENT)
     public Map<Long, String> computeDistributionLogEntriesComments()
-    throws AuditException {
+            throws AuditException {
         if (distributionLogEntriesComments == null) {
             computeDistributionLogEntries();
             postDistributionProcessComments(distributionLogEntries);
@@ -148,7 +151,7 @@ CaseManagementContextBoundInstance {
 
     @Factory(value = "caseItemLogEntriesLinkedDocs", scope = EVENT)
     public Map<Long, LinkedDocument> computeLogEntrieslinkedDocs()
-    throws AuditException {
+            throws AuditException {
         if (logEntriesLinkedDocs == null) {
             computeLogEntries();
             postProcessComments(logEntries);
@@ -158,7 +161,7 @@ CaseManagementContextBoundInstance {
 
     @Factory(value = "caseItemDistibutionEntriesLogLinkedDocs", scope = EVENT)
     public Map<Long, LinkedDocument> computeLogDistributionEntrieslinkedDocs()
-    throws AuditException {
+            throws AuditException {
         if (distributionLogEntriesLinkedDocs == null) {
             computeDistributionLogEntries();
             postDistributionProcessComments(distributionLogEntries);
@@ -167,7 +170,7 @@ CaseManagementContextBoundInstance {
     }
 
     protected void postProcessComments(List<? extends LogEntry> logEntries)
-    throws AuditException {
+            throws AuditException {
         logEntriesComments = new HashMap<Long, String>();
         logEntriesLinkedDocs = new HashMap<Long, LinkedDocument>();
 
@@ -200,7 +203,7 @@ CaseManagementContextBoundInstance {
             String entryComment = contentHistoryActions.getLogComment(entry);
             if (entryComment != null) {
                 entryComment = entryComment.replace(":", ":\n").replace(",",
-                ",\n");
+                        ",\n");
             }
             distributionLogEntriesComments.put(entry.getId(), entryComment);
             LinkedDocument linkedDoc = contentHistoryActions.getLogLinkedDocument(entry);

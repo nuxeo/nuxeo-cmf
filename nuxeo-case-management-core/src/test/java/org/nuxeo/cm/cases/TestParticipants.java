@@ -70,14 +70,18 @@ public class TestParticipants extends CaseManagementRepositoryTestCase {
         Map<String, List<String>> allRecipients = post.getAllParticipants();
         assertNotNull(allRecipients);
         assertEquals(2, allRecipients.size());
-        assertEquals(2, allRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
-        assertEquals(4, allRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
+        assertEquals(2,
+                allRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(4, allRecipients.get(
+                CaseLinkType.FOR_INFORMATION.toString()).size());
 
         Map<String, List<String>> initialRecipients = post.getInitialInternalParticipants();
         assertNotNull(initialRecipients);
         assertEquals(2, initialRecipients.size());
-        assertEquals(2, initialRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
-        assertEquals(2, initialRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
+        assertEquals(2, initialRecipients.get(
+                CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(2, initialRecipients.get(
+                CaseLinkType.FOR_INFORMATION.toString()).size());
     }
 
 }

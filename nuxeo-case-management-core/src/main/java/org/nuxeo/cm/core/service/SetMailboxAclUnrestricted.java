@@ -33,7 +33,6 @@ import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
 
-
 /**
  * Set the right WRITE for all the users of the mailbox, in unrestricted mode.
  *

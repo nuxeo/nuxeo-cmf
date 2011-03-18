@@ -170,7 +170,8 @@ public class CaseManagementDistributionActionsBean extends
                 emailDoc = kase.getFirstItem(documentManager).getDocument();
             } else if (mode == CaseLinkMode.DOC_ONLY) {
                 emailDoc = getCurrentCaseItem();
-                kase = caseDistributionService.createCaseFromExistingCaseItem(emailDoc.getAdapter(CaseItem.class), documentManager);
+                kase = caseDistributionService.createCaseFromExistingCaseItem(
+                        emailDoc.getAdapter(CaseItem.class), documentManager);
 
                 // XXX: user same parent than current email for new envelope,
                 // maybe to change.
@@ -210,7 +211,7 @@ public class CaseManagementDistributionActionsBean extends
             facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "feedback.casemanagement.distribution.done"));
-            //raise seam event to update the content view for the mailbox
+            // raise seam event to update the content view for the mailbox
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                     currentMailbox.getDocument());
         }
@@ -221,10 +222,10 @@ public class CaseManagementDistributionActionsBean extends
 
     public boolean canDistributeCase() throws ClientException {
         Case kase = getCurrentCase();
-        if(kase == null) {
+        if (kase == null) {
             return false;
         }
-        if (kase.isEmpty()){
+        if (kase.isEmpty()) {
             return false;
         }
         List<CaseLink> links = caseDistributionService.getCaseLinks(

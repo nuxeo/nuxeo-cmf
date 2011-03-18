@@ -39,7 +39,6 @@ import org.nuxeo.ecm.core.event.EventListener;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CaseLinkRemovedListener implements EventListener {
 
@@ -58,8 +57,9 @@ public class CaseLinkRemovedListener implements EventListener {
                 "Select * from CaseLink where ecm:parentId = '%s' and cslk:caseDocumentId = '%s'",
                 mailbox.getId(), caseId);
         DocumentModelList links = session.query(query);
-        if (links.size() == 1) { // this is a before event listener, we should
-                                 // have at least the removed link still there
+        if (links.size() == 1) {
+            // this is a before event listener, we should have at least the
+            // removed link still there
             List<DocumentModel> docs = new ArrayList<DocumentModel>();
             DocumentModel kaseDocument = session.getDocument(new IdRef(caseId));
             docs.add(kaseDocument);

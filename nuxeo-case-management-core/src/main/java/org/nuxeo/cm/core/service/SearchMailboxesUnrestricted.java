@@ -32,7 +32,6 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * Searches mailboxes using an unrestricted session
  * <p>
@@ -72,8 +71,7 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
     protected DocumentModelList queryMailboxes() throws ClientException {
         String query = String.format(
                 "SELECT * FROM %s WHERE %s ILIKE '%%%s%%' AND ecm:currentLifeCycleState != '%s'",
-                getMailboxType(),
-                MailboxConstants.TITLE_FIELD, pattern,
+                getMailboxType(), MailboxConstants.TITLE_FIELD, pattern,
                 MailboxConstants.MAILBOX_DELETED_STATE);
         if (type != null) {
             query += String.format(" AND %s='%s'", MailboxConstants.TYPE_FIELD,
@@ -84,7 +82,6 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
         }
         return session.query(query);
     }
-
 
     public List<Mailbox> getMailboxes() {
         return mailboxes;

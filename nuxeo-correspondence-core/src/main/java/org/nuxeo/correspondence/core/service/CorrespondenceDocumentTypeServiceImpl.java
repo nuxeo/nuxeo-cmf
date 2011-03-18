@@ -24,12 +24,11 @@ import org.nuxeo.runtime.model.DefaultComponent;
  * @author Mariana Cedica
  */
 public class CorrespondenceDocumentTypeServiceImpl extends DefaultComponent
-implements CorrespondenceDocumentTypeService {
+        implements CorrespondenceDocumentTypeService {
 
     private static final long serialVersionUID = 1L;
 
     private String outgoingDocType;
-
 
     @Override
     public void activate(ComponentContext context) throws Exception {
@@ -37,8 +36,9 @@ implements CorrespondenceDocumentTypeService {
     }
 
     @Override
-    public void registerContribution(Object contribution, String extensionPoint,
-            ComponentInstance contributor) throws Exception {
+    public void registerContribution(Object contribution,
+            String extensionPoint, ComponentInstance contributor)
+            throws Exception {
 
         CorrespondenceDocumentTypeDescriptor distributionType = (CorrespondenceDocumentTypeDescriptor) contribution;
 

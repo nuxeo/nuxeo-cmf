@@ -26,12 +26,12 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
 import org.nuxeo.correspondence.mail.MailConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -155,8 +155,7 @@ public class ReplySentListener implements EventListener {
                     + "' AND"
                     + " cslk:envelopeDocumentId='" + repliedEnvelopeId + "'");
             for (DocumentModel post : list) {
-                post.setPropertyValue(MailConstants.IS_ANSWERED,
-                        true);
+                post.setPropertyValue(MailConstants.IS_ANSWERED, true);
                 session.saveDocument(post);
             }
 
@@ -165,12 +164,16 @@ public class ReplySentListener implements EventListener {
                     RelationConstants.DOCUMENT_NAMESPACE, repliedDocument, null);
             QNameResource replyResource = (QNameResource) getRelationManager().getResource(
                     RelationConstants.DOCUMENT_NAMESPACE, itemDoc, null);
-            Resource resource = new ResourceImpl(RelationConstants.METADATA_NAMESPACE + REPLY_TO);
-            Statement stmt = new StatementImpl(docResource, resource, replyResource);
+            Resource resource = new ResourceImpl(
+                    RelationConstants.METADATA_NAMESPACE + REPLY_TO);
+            Statement stmt = new StatementImpl(docResource, resource,
+                    replyResource);
             Literal now = RelationDate.getLiteralDate(new Date());
             stmt.addProperty(RelationConstants.CREATION_DATE, now);
-            stmt.addProperty(RelationConstants.AUTHOR, new LiteralImpl(session.getPrincipal().getName()));
-            getRelationManager().add(RelationConstants.GRAPH_NAME, Collections.singletonList(stmt));
+            stmt.addProperty(RelationConstants.AUTHOR, new LiteralImpl(
+                    session.getPrincipal().getName()));
+            getRelationManager().add(RelationConstants.GRAPH_NAME,
+                    Collections.singletonList(stmt));
 
         }
 

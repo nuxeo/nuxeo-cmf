@@ -24,14 +24,11 @@ import org.nuxeo.ecm.core.api.Lock;
 
 public interface LockableAdapter extends Serializable {
 
-    Lock lockDocument(CoreSession documentManager)
-            throws ClientException;
+    Lock lockDocument(CoreSession documentManager) throws ClientException;
 
-    void unlockDocument(CoreSession documentManager)
-            throws ClientException;
+    void unlockDocument(CoreSession documentManager) throws ClientException;
 
-    boolean isLocked(CoreSession documentManager)
-            throws ClientException;
+    boolean isLocked(CoreSession documentManager) throws ClientException;
 
     /**
      * Returns true if doc is locked by current user.

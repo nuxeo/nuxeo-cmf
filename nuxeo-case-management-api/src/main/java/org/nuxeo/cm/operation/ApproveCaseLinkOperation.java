@@ -42,7 +42,7 @@ public class ApproveCaseLinkOperation {
         List<CaseLink> caseLinks = caseDistributionService.getCaseLinks(
                 session, mailbox, kase);
         for (CaseLink caseLink : caseLinks) {
-            ActionableCaseLink acl = ((DocumentModel) caseLink.getDocument()).getAdapter(ActionableCaseLink.class);
+            ActionableCaseLink acl = (caseLink.getDocument()).getAdapter(ActionableCaseLink.class);
             acl.validate(session);
         }
         return mailboxDoc;

@@ -24,7 +24,7 @@ import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
 
 /**
  * Transforms received email in a set of document models and distribute them.
- * 
+ *
  * @author Laurent Doguin
  */
 public class CorrespondenceCreateAndDistributeDocuments extends

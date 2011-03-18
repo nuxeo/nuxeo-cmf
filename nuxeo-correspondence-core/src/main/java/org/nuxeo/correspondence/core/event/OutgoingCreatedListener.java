@@ -18,6 +18,11 @@ package org.nuxeo.correspondence.core.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.event.CaseManagementEventConstants;
+import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
+import org.nuxeo.correspondence.mail.MailConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -25,15 +30,8 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.event.CaseManagementEventConstants;
-import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
-import org.nuxeo.correspondence.mail.MailConstants;
-
 /**
  * @author arussel
- *
  */
 public class OutgoingCreatedListener implements EventListener {
     public static final Log log = LogFactory.getLog(OutgoingCreatedListener.class);
@@ -51,16 +49,16 @@ public class OutgoingCreatedListener implements EventListener {
         CoreSession session = docCtx.getCoreSession();
         DocumentModel dm = docCtx.getSourceDocument();
 
-        //Check if the document model is an envelope
-        if(!dm.hasFacet(MailConstants.MAIL_ENVELOPE_FACET)) {
+        // Check if the document model is an envelope
+        if (!dm.hasFacet(MailConstants.MAIL_ENVELOPE_FACET)) {
             return;
         }
         Case env = dm.getAdapter(Case.class);
-        if(env == null) {
+        if (env == null) {
             return;
         }
         CaseItem item = env.getFirstItem(session);
-        if(item == null) {
+        if (item == null) {
             return;
         }
         DocumentModel doc = item.getDocument();

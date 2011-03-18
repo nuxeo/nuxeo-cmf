@@ -116,7 +116,8 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
 
             mailboxModel = session.createDocument(mailboxModel);
             session.saveDocument(mailboxModel);
-            session.save();//necessary because the mailbox will be queried after
+            session.save();// necessary because the mailbox will be queried
+                            // after
         } catch (Exception e) {
             throw new CaseManagementException(
                     "Error during mailboxes creation", e);

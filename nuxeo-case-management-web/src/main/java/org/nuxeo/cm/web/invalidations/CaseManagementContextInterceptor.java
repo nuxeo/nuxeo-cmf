@@ -32,12 +32,9 @@ import org.jboss.seam.intercept.InvocationContext;
 import org.nuxeo.cm.web.context.CaseManagementContextHolder;
 import org.nuxeo.cm.web.context.CaseManagementContextHolderBean;
 
-
 /**
  * Interceptor used to invalidate components annotated by
- * {@link CaseManagementContextBound}.
- *
- * Every method on this class
+ * {@link CaseManagementContextBound}. Every method on this class
  */
 @Interceptor(stateless = true, within = BijectionInterceptor.class)
 public class CaseManagementContextInterceptor extends AbstractInterceptor {

@@ -20,7 +20,6 @@ import org.nuxeo.cm.service.MailboxManagementService;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public interface RemoteMailboxManagementService extends
         MailboxManagementService {

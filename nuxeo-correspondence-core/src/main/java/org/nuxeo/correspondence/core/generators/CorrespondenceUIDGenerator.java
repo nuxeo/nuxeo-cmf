@@ -15,17 +15,19 @@
 
 package org.nuxeo.correspondence.core.generators;
 
+import static org.nuxeo.correspondence.core.utils.CorrespondenceConstants.IN_CORRESPONDENCE_DOCUMENT;
+import static org.nuxeo.correspondence.core.utils.CorrespondenceConstants.OUT_CORRESPONDENCE_DOCUMENT;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import org.nuxeo.ecm.core.api.DocumentException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.uidgen.AbstractUIDGenerator;
 
-import static org.nuxeo.correspondence.core.utils.CorrespondenceConstants.IN_CORRESPONDENCE_DOCUMENT;
-import static org.nuxeo.correspondence.core.utils.CorrespondenceConstants.OUT_CORRESPONDENCE_DOCUMENT;
-
 /**
  * Generates an UID with a specific format for a given document
+ *
  * @author Mariana Cedica
  */
 public class CorrespondenceUIDGenerator extends AbstractUIDGenerator {

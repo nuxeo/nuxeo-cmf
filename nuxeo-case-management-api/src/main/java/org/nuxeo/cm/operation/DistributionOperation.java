@@ -30,10 +30,10 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 @Operation(id = DistributionOperation.ID, category = CaseConstants.CASE_MANAGEMENT_OPERATION_CATEGORY, label = "Distribute a case", description = "Distribute a case according to the CaseLink found in the context.")
 public class DistributionOperation {
+
     public final static String ID = "Case.Management.Distribution";
 
     @Context
@@ -53,7 +53,8 @@ public class DistributionOperation {
         @SuppressWarnings("unchecked")
         List<CaseLink> caseLinks = (List<CaseLink>) context.get(CaseConstants.OPERATION_CASE_LINKS_KEY);
         for (CaseLink caseLink : caseLinks) {
-            getDistributionService().sendCase(session, caseLink, false, caseLink.isActionnable());
+            getDistributionService().sendCase(session, caseLink, false,
+                    caseLink.isActionnable());
         }
     }
 }

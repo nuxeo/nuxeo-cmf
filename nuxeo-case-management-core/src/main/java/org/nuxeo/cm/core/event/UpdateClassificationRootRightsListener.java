@@ -49,7 +49,7 @@ public class UpdateClassificationRootRightsListener implements EventListener {
         // set all rights to mailbox users
 
         final DocumentModel doc = docCtx.getSourceDocument();
-        if (!ClassificationConstants.CLASSIFICATION_ROOT.equals(doc.getType())){
+        if (!ClassificationConstants.CLASSIFICATION_ROOT.equals(doc.getType())) {
             return;
         }
         final String name = docCtx.getPrincipal().getName();

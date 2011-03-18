@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public enum CaseLinkMode {
 

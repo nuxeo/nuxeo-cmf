@@ -27,25 +27,26 @@ import org.nuxeo.ecm.core.api.model.impl.MapProperty;
 
 /**
  * @author arussel
- *
  */
 @Name("contactPrinter")
 @Scope(ScopeType.APPLICATION)
 @Install(precedence = Install.FRAMEWORK)
 public class ContactPrinter {
-   public String printContacts(Collection<MapProperty> contacts) throws PropertyException {
-       if(contacts == null || contacts.size() < 1) {
-           return "";
-       }
-       StringBuilder result = new StringBuilder();
-       for(MapProperty contact : contacts) {
-           result.append(contact.get("name").getValue());
-           result.append(" ");
-           result.append(contact.get("surname").getValue());
-           result.append(",");
-       }
-       result.deleteCharAt(result.length() - 1);
-       return result.toString();
-   }
+
+    public String printContacts(Collection<MapProperty> contacts)
+            throws PropertyException {
+        if (contacts == null || contacts.size() < 1) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        for (MapProperty contact : contacts) {
+            result.append(contact.get("name").getValue());
+            result.append(" ");
+            result.append(contact.get("surname").getValue());
+            result.append(",");
+        }
+        result.deleteCharAt(result.length() - 1);
+        return result.toString();
+    }
 
 }

@@ -25,11 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementSecurityTestCase;
 import org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -40,7 +40,6 @@ import org.nuxeo.ecm.core.api.DocumentSecurityException;
 
 /**
  * @author Laurent Doguin
- *
  */
 public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
 
@@ -85,12 +84,11 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
                 senderMailbox, docModel.getId());
         assertNotNull(clk);
         assertTrue(clk.isDraft());
-        CaseLink postRequest = new CaseLinkRequestImpl(
-                senderMailbox.getId(), Calendar.getInstance(),
-                "Check this out", "it is a bit boring", envelope, recipients,
-                recipients);
-        CaseLink post = caseDistributionService.sendCase(session,
-                postRequest, true);
+        CaseLink postRequest = new CaseLinkRequestImpl(senderMailbox.getId(),
+                Calendar.getInstance(), "Check this out", "it is a bit boring",
+                envelope, recipients, recipients);
+        CaseLink post = caseDistributionService.sendCase(session, postRequest,
+                true);
         assertNotNull(post);
         assertFalse(post.isDraft());
         assertEquals(user1, post.getSender());
@@ -98,12 +96,11 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
                 CaseLinkType.FOR_ACTION.name()).isEmpty());
         assertFalse(post.getAllParticipants().get(
                 CaseLinkType.FOR_INFORMATION.name()).isEmpty());
-        assertTrue(post.getAllParticipants().get(
-                CaseLinkType.FOR_ACTION.name()).contains(
-                        receiver1Mailbox.getId()));
+        assertTrue(post.getAllParticipants().get(CaseLinkType.FOR_ACTION.name()).contains(
+                receiver1Mailbox.getId()));
         assertTrue(post.getAllParticipants().get(
                 CaseLinkType.FOR_INFORMATION.name()).contains(
-                        receiver2Mailbox.getId()));
+                receiver2Mailbox.getId()));
         DocumentModelList docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + sender1MailboxId + "'");
         assertEquals(1, docList.size());

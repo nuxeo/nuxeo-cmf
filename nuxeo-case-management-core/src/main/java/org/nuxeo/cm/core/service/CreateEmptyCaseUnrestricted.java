@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
  * Creates an empty case from a given detached documentModel
- * */
+ */
 public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String parentPath;

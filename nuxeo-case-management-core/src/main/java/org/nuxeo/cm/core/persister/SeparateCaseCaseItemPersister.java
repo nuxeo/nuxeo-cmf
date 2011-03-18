@@ -25,7 +25,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class SeparateCaseCaseItemPersister extends
         CaseManagementAbstractPersister implements CaseManagementPersister {

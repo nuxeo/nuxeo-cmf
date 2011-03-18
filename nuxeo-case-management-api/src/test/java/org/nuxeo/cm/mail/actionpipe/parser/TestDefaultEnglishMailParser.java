@@ -31,8 +31,8 @@ import org.nuxeo.cm.contact.Contacts;
  * Various unit test of {@link DefaultEnglishMailParser}
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
+
 public class TestDefaultEnglishMailParser {
     Pattern pattern;
 

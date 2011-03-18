@@ -30,17 +30,16 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
-import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.cm.web.caseitem.CaseManagementDocumentActions;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
+import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
@@ -49,17 +48,14 @@ import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.runtime.api.Framework;
 
-
-
 /**
  * @author Nicolas Ulrich
- *
  */
 @Name("correspEditOutgoingMailActionsBean")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CorrespondenceEditOutgoingMailActionsBean extends
-CaseManagementAbstractActionsBean implements Serializable {
+        CaseManagementAbstractActionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -122,8 +118,8 @@ CaseManagementAbstractActionsBean implements Serializable {
 
     }
 
-    protected void draftUpdated(DocumentModel currentEmail,
-            Case envelope) throws ClientException {
+    protected void draftUpdated(DocumentModel currentEmail, Case envelope)
+            throws ClientException {
         Map<String, Serializable> properties = new HashMap<String, Serializable>();
         CaseLink draft = caseDistributionService.getDraftCaseLink(
                 documentManager, getCurrentMailbox(),
@@ -165,11 +161,11 @@ CaseManagementAbstractActionsBean implements Serializable {
 
         CaseDistributionService correspondenceService = Framework.getService(CaseDistributionService.class);
 
-        CaseLink post = correspondenceService.getDraftCaseLink(
-                documentManager, mailbox, envelope.getDocument().getId());
+        CaseLink post = correspondenceService.getDraftCaseLink(documentManager,
+                mailbox, envelope.getDocument().getId());
 
         return navigationContext.navigateToDocument(post.getDocument(),
-        "distribution_outgoing_post");
+                "distribution_outgoing_post");
 
     }
 

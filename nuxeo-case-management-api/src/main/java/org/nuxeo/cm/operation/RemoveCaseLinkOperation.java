@@ -37,10 +37,10 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 @Operation(id = RemoveCaseLinkOperation.ID, category = CaseConstants.CASE_MANAGEMENT_OPERATION_CATEGORY, label = "Remove Case Links from Mailboxes", description = RemoveCaseLinkOperation.DESCRIPTION)
 public class RemoveCaseLinkOperation {
+
     public final static String ID = "Case.Management.Step.Remove.CaseLink";
 
     public final static String DESCRIPTION = "This operation remove case links from mailboxes fetching links from context and, if none, find the running link created from this step";

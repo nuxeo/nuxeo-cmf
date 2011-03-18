@@ -19,9 +19,9 @@ package org.nuxeo.cm.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -34,7 +34,6 @@ import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
- *
  * Creates a new caseItem document from a given document model
  *
  * @author arussel
@@ -78,14 +77,13 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
     private void addACL(ACL acl) {
         if (mailboxes != null) {
             for (Mailbox mailbox : mailboxes) {
-                acl.add(new ACE(
-                        CaseManagementSecurityConstants.MAILBOX_PREFIX
-                                + mailbox.getId(),
-                        SecurityConstants.READ_WRITE, true));
+                acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
+                        + mailbox.getId(), SecurityConstants.READ_WRITE, true));
             }
         } else {
             try {
-                List<ACE> aces = kase.getDocument().getACP().getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+                List<ACE> aces = kase.getDocument().getACP().getACL(
+                        CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                 acl.addAll(aces == null ? new ArrayList<ACE>() : aces);
             } catch (ClientException e) {
                 throw new CaseManagementRuntimeException(e);

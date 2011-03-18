@@ -32,7 +32,6 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
  * Personal user workspace manager actions bean.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 @Name("userWorkspaceManagerActions")
 @Scope(ScopeType.CONVERSATION)

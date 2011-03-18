@@ -41,10 +41,8 @@ public class TestCaseManagementDocumentTypeService extends
     }
 
     public void testGetAllProperty() throws ClientException {
-        assertEquals("Case",
-                correspDocumentTypeService.getCaseType());
-        assertEquals("CaseLink",
-                correspDocumentTypeService.getCaseLinkType());
+        assertEquals("Case", correspDocumentTypeService.getCaseType());
+        assertEquals("CaseLink", correspDocumentTypeService.getCaseLinkType());
     }
 
 }

@@ -38,18 +38,16 @@ import org.nuxeo.ecm.platform.actions.Action;
 import org.nuxeo.ecm.platform.actions.ejb.ActionManager;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 
-
 /**
  * Handle tabs behaviors for Outgoing Mail Tabs.
  *
  * @author Nicolas Ulrich
- *
  */
 @Name("editOutgoingMailTabsBean")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CorrespondenceEditOutgoingMailTabsBean extends
-CaseManagementContextBoundInstance implements Serializable {
+        CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

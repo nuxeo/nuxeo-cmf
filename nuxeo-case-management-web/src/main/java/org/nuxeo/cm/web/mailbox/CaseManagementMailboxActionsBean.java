@@ -49,12 +49,12 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.exception.CaseManagementException;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.common.utils.IdUtils;
@@ -123,8 +123,8 @@ public class CaseManagementMailboxActionsBean extends
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return mailboxManagementService.searchMailboxes(documentManager, searchPattern,
-                searchType);
+        return mailboxManagementService.searchMailboxes(documentManager,
+                searchPattern, searchType);
     }
 
     /**
@@ -170,13 +170,14 @@ public class CaseManagementMailboxActionsBean extends
      * Performs a validation error when trying to set a mailbox id that already
      * exists in the system.
      */
-    public void validateMailboxId(FacesContext context,
-            UIComponent component, Object value) {
+    public void validateMailboxId(FacesContext context, UIComponent component,
+            Object value) {
         if (!(value instanceof String)
-                || mailboxManagementService.hasMailbox(documentManager, (String) value)) {
+                || mailboxManagementService.hasMailbox(documentManager,
+                        (String) value)) {
             FacesMessage message = new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    ComponentUtils.translate(context,
+                    FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
+                            context,
                             "feedback.casemanagement.mailboxIdAlreadyExists"),
                     null);
             // also add global message?
@@ -291,8 +292,8 @@ public class CaseManagementMailboxActionsBean extends
     }
 
     @Override
-    protected void resetMailboxCache(Mailbox cachedMailbox,
-            Mailbox newMailbox) throws ClientException {
+    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
+            throws ClientException {
         ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance("resultsProvidersCache");
 
         resultsProvidersCache.invalidate(MAILBOX_INBOX);
@@ -308,11 +309,9 @@ public class CaseManagementMailboxActionsBean extends
      */
     protected DocumentModel getMailboxRoot() throws ClientException {
         DocumentModelList res = documentManager.query(String.format(
-                "SELECT * from %s",
-                MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
+                "SELECT * from %s", MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
-            throw new CaseManagementException(
-                    "Cannot find any mailbox root");
+            throw new CaseManagementException("Cannot find any mailbox root");
         }
         return res.get(0);
     }
@@ -353,7 +352,7 @@ public class CaseManagementMailboxActionsBean extends
      */
     public Boolean isGenericMailbox() throws ClientException {
         Mailbox currentMailbox = getCurrentMailbox();
-        if(currentMailbox == null) {
+        if (currentMailbox == null) {
             return false;
         }
         DocumentModel doc = getCurrentMailbox().getDocument();

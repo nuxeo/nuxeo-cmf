@@ -58,7 +58,6 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 @Name("cmDocumentActions")
 @Scope(ScopeType.CONVERSATION)
@@ -145,7 +144,7 @@ public class CaseItemDocumentActionsBean extends
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
         caseDistributionService.createDraftCaseLink(documentManager,
-               getCurrentMailbox(), envelope);
+                getCurrentMailbox(), envelope);
         Events.instance().raiseEvent(
                 EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));

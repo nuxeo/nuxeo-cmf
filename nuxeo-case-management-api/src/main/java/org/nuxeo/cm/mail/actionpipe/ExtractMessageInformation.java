@@ -45,7 +45,6 @@ import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
 
 /**
  * Extract attached files and info from the message
- *
  * <p>
  * Message body is parsed to extract some metadata information
  * </p>

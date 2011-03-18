@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
  * in French.
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public class ThunderbirdFrenchMailParser extends DefaultEnglishMailParser {
 

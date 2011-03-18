@@ -53,7 +53,6 @@ import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 
 /**
  * @author Nicolas Ulrich
- * 
  */
 @Name("correspSearchDocument")
 @Scope(ScopeType.CONVERSATION)
@@ -118,7 +117,8 @@ public class CorrespondenceSearchDocumentBean extends
             facesMessages.add(FacesMessage.SEVERITY_WARN,
                     resourcesAccessor.getMessages().get(
                             "label.search.service.wrong.query"));
-            // log.error("ClientException in search popup : " + e.getMessage());
+            // log.error("ClientException in search popup : " +
+            // e.getMessage());
         }
     }
 

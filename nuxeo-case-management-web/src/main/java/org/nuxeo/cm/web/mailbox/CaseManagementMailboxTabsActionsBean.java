@@ -42,7 +42,6 @@ import org.nuxeo.ecm.platform.actions.ejb.ActionManager;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 
-
 /**
  * Handle tabs behaviors for Mailbox View and Mailbox Management.
  *
@@ -164,7 +163,7 @@ public class CaseManagementMailboxTabsActionsBean extends
     public void setCurrentViewMailboxAction(String actionId)
             throws ClientException {
         String previous = getCurrentViewMailboxAction().getId();
-        if(!actionId.equals(previous)) {
+        if (!actionId.equals(previous)) {
             Contexts.removeFromAllContexts("currentCase");
             Contexts.removeFromAllContexts("currentCaseItem");
             navigationContext.setCurrentDocument(getCurrentMailbox().getDocument());

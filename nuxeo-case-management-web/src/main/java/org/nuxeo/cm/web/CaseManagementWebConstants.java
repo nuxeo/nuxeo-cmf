@@ -18,7 +18,6 @@ package org.nuxeo.cm.web;
 
 /**
  * @author arussel
- *
  */
 public class CaseManagementWebConstants {
 

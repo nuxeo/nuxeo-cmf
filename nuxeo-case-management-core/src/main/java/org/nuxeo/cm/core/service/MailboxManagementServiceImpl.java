@@ -102,7 +102,8 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
 
         List<String> muids = new ArrayList<String>();
         muids.add(muid);
-        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(session, muids);
+        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(session,
+                muids);
         if (mailboxesHeaders == null || mailboxesHeaders.isEmpty()) {
             return null;
         } else {

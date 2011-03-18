@@ -35,7 +35,6 @@ import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * Listener for mailbox creation events that sets the mailbox id according to
  * the mailbox type, and possibly owner in the case of a personal mailbox.
@@ -75,8 +74,8 @@ public class CreateMailboxIdListener implements EventListener {
         }
     }
 
-    protected void setIdForMailbox(CoreSession session, MailboxManagementService correspService,
-            Mailbox mb) {
+    protected void setIdForMailbox(CoreSession session,
+            MailboxManagementService correspService, Mailbox mb) {
         if (correspService == null) {
             log.error("Cannot set mailbox id: casemanagement service is null");
             return;

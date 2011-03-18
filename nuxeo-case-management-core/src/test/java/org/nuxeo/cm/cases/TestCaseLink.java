@@ -19,14 +19,11 @@ package org.nuxeo.cm.cases;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.caselink.CaseLinkImpl;
-import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
-
 /**
  * @author arussel
- *
  */
 public class TestCaseLink extends CaseManagementRepositoryTestCase {
     protected CaseLink post;
@@ -36,8 +33,7 @@ public class TestCaseLink extends CaseManagementRepositoryTestCase {
         super.setUp();
         openSession();
         DocumentModel document = createDocument(
-                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE,
-                "post");
+                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE, "post");
 
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         post = new CaseLinkImpl(document, adapter);

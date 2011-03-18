@@ -16,20 +16,20 @@
  */
 package org.nuxeo.cm.core.event;
 
+import static org.nuxeo.cm.event.CaseManagementEventConstants.EVENT_CONTEXT_CASE;
+import static org.nuxeo.cm.event.CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
-
-import static org.nuxeo.cm.event.CaseManagementEventConstants.EVENT_CONTEXT_CASE;
-import static org.nuxeo.cm.event.CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
@@ -48,12 +48,14 @@ public class AfterCaseSentEventListener implements EventListener {
         boolean isInitial = (Boolean) properties.get(EVENT_CONTEXT_IS_INITIAL);
 
         // Set Envelope recipients
-        setRecipients(envelope, isInitial, internalRecipients, externalRecipients);
+        setRecipients(envelope, isInitial, internalRecipients,
+                externalRecipients);
         envelope.save(event.getContext().getCoreSession());
         // Set EnvelopeItems recipients
         List<CaseItem> items = envelope.getCaseItems(event.getContext().getCoreSession());
         for (CaseItem item : items) {
-            setRecipients(item, isInitial, internalRecipients, externalRecipients);
+            setRecipients(item, isInitial, internalRecipients,
+                    externalRecipients);
             item.setDefaultCase(envelope.getDocument().getId());
             item.save(event.getContext().getCoreSession());
         }

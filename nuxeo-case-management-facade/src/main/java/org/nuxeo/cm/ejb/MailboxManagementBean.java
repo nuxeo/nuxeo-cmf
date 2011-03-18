@@ -77,19 +77,22 @@ public class MailboxManagementBean implements MailboxManagementService {
 
     @Override
     public Mailbox getUserPersonalMailbox(CoreSession session, String userId) {
-        return getMailboxManagementService().getUserPersonalMailbox(session, userId);
+        return getMailboxManagementService().getUserPersonalMailbox(session,
+                userId);
     }
 
     @Override
     public Mailbox getUserPersonalMailboxForEmail(CoreSession session,
             String email) {
-        return getMailboxManagementService().getUserPersonalMailboxForEmail(session, email);
+        return getMailboxManagementService().getUserPersonalMailboxForEmail(
+                session, email);
     }
 
     @Override
     public List<MailboxHeader> searchMailboxes(CoreSession session,
             String pattern, String type) {
-        return  getMailboxManagementService().searchMailboxes(session, pattern, type);
+        return getMailboxManagementService().searchMailboxes(session, pattern,
+                type);
     }
 
     @Override

@@ -27,12 +27,11 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 
-
 /**
  * @author Nicolas Ulrich
  */
 public class TestCaseManagementDistributionTypeService extends
-CaseManagementRepositoryTestCase {
+        CaseManagementRepositoryTestCase {
 
     private static final String FOR_ACTION = "FOR_ACTION";
 
@@ -44,7 +43,7 @@ CaseManagementRepositoryTestCase {
 
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
-        "test-distribution-type-with-error-corresp-contrib.xml");
+                "test-distribution-type-with-error-corresp-contrib.xml");
         openSession();
     }
 

@@ -25,7 +25,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public interface CorrespondenceDocumentActions extends Serializable {
     public String reply() throws ClientException;

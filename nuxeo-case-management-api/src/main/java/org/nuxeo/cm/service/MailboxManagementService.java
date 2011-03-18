@@ -48,8 +48,8 @@ public interface MailboxManagementService extends Serializable {
     boolean hasMailbox(CoreSession session, String muid);
 
     /**
-     * Returns the mailboxes with given unique identifiers and a session. Giving
-     * session can be helpful when you already are in an
+     * Returns the mailboxes with given unique identifiers and a session.
+     * Giving session can be helpful when you already are in an
      * unrestrictedSessionRunner.
      *
      * @param session
@@ -64,7 +64,6 @@ public interface MailboxManagementService extends Serializable {
      *
      * @param session a Core Session
      * @param muids Users ids
-     *
      */
     List<Mailbox> getMailboxes(CoreSession session, List<String> muids);
 
@@ -76,8 +75,8 @@ public interface MailboxManagementService extends Serializable {
     String getUserPersonalMailboxId(String user);
 
     /**
-     * Returns all mailboxes for given user. Creates a personal mailbox for real
-     * users if needed.
+     * Returns all mailboxes for given user. Creates a personal mailbox for
+     * real users if needed.
      *
      * @param session
      * @param userId User id
@@ -105,9 +104,11 @@ public interface MailboxManagementService extends Serializable {
      *
      * @param session
      * @param pattern matching the box title
-     * @param type mailbox type (generic, personal, etc... or null to match all)
+     * @param type mailbox type (generic, personal, etc... or null to match
+     *            all)
      */
-    List<MailboxHeader> searchMailboxes(CoreSession session, String pattern, String type);
+    List<MailboxHeader> searchMailboxes(CoreSession session, String pattern,
+            String type);
 
     /**
      * Create the personal Mailbox with the registered
@@ -116,8 +117,7 @@ public interface MailboxManagementService extends Serializable {
      * @param userId
      * @return personal mailbox list.
      */
-    List<Mailbox> createPersonalMailboxes(CoreSession session,
-            String userId);
+    List<Mailbox> createPersonalMailboxes(CoreSession session, String userId);
 
     /**
      * Test if the user has a personal mailbox created

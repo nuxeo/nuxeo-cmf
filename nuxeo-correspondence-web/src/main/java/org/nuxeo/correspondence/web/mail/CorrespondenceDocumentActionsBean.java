@@ -56,7 +56,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 @Name("correspDocumentActions")
 @Scope(ScopeType.CONVERSATION)
@@ -150,7 +149,8 @@ public class CorrespondenceDocumentActionsBean extends
         DocumentModel emailDoc = getCurrentCaseItem();
         DocumentModel reply = getReplyDocument(documentManager,
                 getCurrentMailbox(), emailDoc);
-       reply.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY, Boolean.TRUE);
+        reply.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY,
+                Boolean.TRUE);
         // Set changeable document
         navigationContext.setChangeableDocument(reply);
         // Redirect to the creation form

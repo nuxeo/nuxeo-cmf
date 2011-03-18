@@ -31,7 +31,6 @@ import java.util.Set;
 
 import org.nuxeo.cm.caselink.CaseLinkType;
 
-
 /**
  * Distribution information.
  * <p>
@@ -84,8 +83,7 @@ public class CMFDistributionInfo implements DistributionInfo {
         // order them
         Collections.sort(this.favoriteMailboxes,
                 new Comparator<ParticipantItem>() {
-                    public int compare(ParticipantItem o1,
-                            ParticipantItem o2) {
+                    public int compare(ParticipantItem o1, ParticipantItem o2) {
                         int comp = 0;
                         if (o1.getType() != null) {
                             comp = o1.getType().compareTo(o2.getType());
@@ -202,23 +200,21 @@ public class CMFDistributionInfo implements DistributionInfo {
     public Map<String, List<String>> getAllParticipants() {
         // TODO: add other info (mailing lists, etc...)
         Map<String, List<String>> res = new HashMap<String, List<String>>();
-        res.put(CaseLinkType.FOR_ACTION.name(),
-                getAllForActionMailboxes());
+        res.put(CaseLinkType.FOR_ACTION.name(), getAllForActionMailboxes());
         res.put(CaseLinkType.FOR_INFORMATION.name(),
                 getAllForInformationMailboxes());
         return res;
     }
 
-    public boolean isEmpty(@SuppressWarnings("rawtypes") List list) {
+    public boolean isEmpty(@SuppressWarnings("rawtypes")
+    List list) {
         return list == null || list.isEmpty();
     }
 
     public boolean hasParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes)
-                && isEmpty(forActionMailingLists)
-                && isEmpty(getForActionFunctions())
-                && isEmpty(forActionGroups)
+        if (isEmpty(forActionMailboxes) && isEmpty(forActionMailingLists)
+                && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)
                 && isEmpty(forInformationMailboxes)
                 && isEmpty(forInformationMailingLists)
                 && isEmpty(getForInformationFunctions())
@@ -230,10 +226,8 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     public boolean hasActionParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes)
-                && isEmpty(forActionMailingLists)
-                && isEmpty(getForActionFunctions())
-                && isEmpty(forActionGroups)) {
+        if (isEmpty(forActionMailboxes) && isEmpty(forActionMailingLists)
+                && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)) {
             res = false;
         }
         return res;

@@ -20,7 +20,6 @@ import org.nuxeo.cm.service.CaseDistributionService;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public interface LocalCaseDistributionService extends CaseDistributionService {
 

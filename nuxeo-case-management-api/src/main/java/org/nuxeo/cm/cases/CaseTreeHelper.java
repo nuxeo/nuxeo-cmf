@@ -47,9 +47,9 @@ public class CaseTreeHelper {
      *
      * @return the last child created (day)
      */
-    public static DocumentModel getOrCreateDateTreeFolder(
-            CoreSession session, DocumentModel root, Date date,
-            String folderType) throws ClientException {
+    public static DocumentModel getOrCreateDateTreeFolder(CoreSession session,
+            DocumentModel root, Date date, String folderType)
+            throws ClientException {
         String subPath = new SimpleDateFormat("yyyy/MM/dd").format(date);
         return getOrCreatePath(session, root, subPath, folderType);
     }
@@ -67,8 +67,8 @@ public class CaseTreeHelper {
         return child;
     }
 
-    public static synchronized DocumentModel getOrCreate(
-            CoreSession session, String rootPath, String id, String folderType)
+    public static synchronized DocumentModel getOrCreate(CoreSession session,
+            String rootPath, String id, String folderType)
             throws ClientException {
         String path = String.format("%s/%s", rootPath, id);
         DocumentRef pathRef = new PathRef(path);

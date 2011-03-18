@@ -43,7 +43,6 @@ import org.nuxeo.runtime.api.Framework;
  * casemanagement.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
- *
  */
 @Name("startupHelper")
 @Scope(SESSION)

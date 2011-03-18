@@ -36,6 +36,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  * Distributes an email to users/groups/mailboxes and manages mailboxes.
  */
 public interface CaseDistributionService extends Serializable {
+
     /**
      * Send an envelope to a mailbox.
      */
@@ -65,7 +66,8 @@ public interface CaseDistributionService extends Serializable {
      * Returns all the case links for this kase in this mailbox.
      *
      * @param session
-     * @param mailbox if <code>null</code> returns the links of all mailboxes.
+     * @param mailbox if <code>null</code> returns the links of all
+     *            mailboxes.
      * @param kase
      * @return
      */
@@ -115,12 +117,15 @@ public interface CaseDistributionService extends Serializable {
      */
     Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
             Mailbox mailbox);
+
     Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
             List<Mailbox> mailboxes);
+
     Case createEmptyCase(CoreSession session, String title, String id,
             List<Mailbox> mailboxes);
+
     Case createEmptyCase(CoreSession session, String title, String id,
-                Mailbox mailbox);
+            Mailbox mailbox);
 
     /**
      * @param mailboxes The list of mailboxes in which the document will be
@@ -179,7 +184,7 @@ public interface CaseDistributionService extends Serializable {
 
     /**
      * @param session
-     * @param kase
+     * @param case
      * @return
      */
     String getParentDocumentPathForCaseItem(CoreSession session, Case kase);

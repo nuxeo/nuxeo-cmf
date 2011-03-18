@@ -21,7 +21,6 @@ package org.nuxeo.correspondence.mail;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class MailConstants {
 
@@ -50,7 +49,5 @@ public class MailConstants {
     public static final String CORRESPONDENCE_DOCUMENT_REPLIED_DOCUMENT_ID = "correspdoc:repliedDocumentId";
 
     public final static String IS_ANSWERED = "cmpost:isAnswered";
-
-
 
 }

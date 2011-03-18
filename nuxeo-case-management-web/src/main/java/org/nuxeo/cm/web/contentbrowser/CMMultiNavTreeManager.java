@@ -35,7 +35,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author arussel
- *
  */
 @Name("multiNavTreeManager")
 @Scope(CONVERSATION)

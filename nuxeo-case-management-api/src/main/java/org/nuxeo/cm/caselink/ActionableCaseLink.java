@@ -21,7 +21,6 @@ import org.nuxeo.ecm.platform.routing.api.ActionableObject;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public interface ActionableCaseLink extends CaseLink, ActionableObject {
 

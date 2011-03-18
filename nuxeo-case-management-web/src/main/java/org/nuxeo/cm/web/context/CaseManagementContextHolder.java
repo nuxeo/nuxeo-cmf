@@ -21,11 +21,10 @@ package org.nuxeo.cm.web.context;
 
 import java.io.Serializable;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
-
 
 /**
  * Holds references to current mailbox, current envelope and current email in

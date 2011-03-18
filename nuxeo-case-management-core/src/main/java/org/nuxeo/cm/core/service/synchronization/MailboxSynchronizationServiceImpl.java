@@ -180,7 +180,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             this.batchSize = Integer.parseInt(batchSize);
         }
         Repository repo = mgr.getDefaultRepository();
-        SynchronizeSessionRunner runner = new SynchronizeSessionRunner(repo.getName());
+        SynchronizeSessionRunner runner = new SynchronizeSessionRunner(
+                repo.getName());
         runner.runUnrestricted();
     }
 
@@ -281,7 +282,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             count, total));
                 } catch (DirectoryException de) {
                     Throwable t = ExceptionHelper.unwrapException(de);
-                    if (t.getMessage().contains("javax.naming.NameNotFoundException")) {
+                    if (t.getMessage().contains(
+                            "javax.naming.NameNotFoundException")) {
                         log.warn("Searched entry does not exist: " + userId);
                     } else {
                         throw new CaseManagementRuntimeException(
@@ -566,8 +568,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         txStarted = TransactionHelper.startTransaction();
                         log.debug("New Transaction started during Mailbox synchronization");
                         synchronizeGroupList(topBatch, directoryName,
-                                directoryIdField, now, userManager, titleGenerator,
-                                session, txStarted);
+                                directoryIdField, now, userManager,
+                                titleGenerator, session, txStarted);
                     } catch (Exception e) {
                         if (txStarted) {
                             TransactionHelper.setTransactionRollbackOnly();
@@ -608,8 +610,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         txStarted = TransactionHelper.startTransaction();
                         log.debug("New Transaction started during Mailbox synchronization");
                         synchronizeUserList(userIds, directoryName,
-                                directoryIdField, now, userManager, titleGenerator,
-                                session, txStarted);
+                                directoryIdField, now, userManager,
+                                titleGenerator, session, txStarted);
                     } catch (Exception e) {
                         if (txStarted) {
                             TransactionHelper.setTransactionRollbackOnly();
@@ -622,7 +624,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             log.debug("Transaction ended during Mailbox synchronization");
                         }
                     }
-                    log.debug(String.format("Updated %d/%d mailboxes", count, total));
+                    log.debug(String.format("Updated %d/%d mailboxes", count,
+                            total));
                     handleDeletedMailboxes(directoryName, now, session);
                     log.info("User directory has been synchronized");
                 } else {

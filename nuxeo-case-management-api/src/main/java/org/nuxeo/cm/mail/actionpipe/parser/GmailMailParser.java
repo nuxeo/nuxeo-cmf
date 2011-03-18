@@ -31,7 +31,6 @@ import org.nuxeo.cm.contact.Contacts;
  * the same order) and the date is not in the same format.
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public class GmailMailParser extends DefaultEnglishMailParser {
 

@@ -23,7 +23,6 @@ import org.nuxeo.cm.mailbox.MailboxImpl;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class MockMailbox extends MailboxImpl {
 

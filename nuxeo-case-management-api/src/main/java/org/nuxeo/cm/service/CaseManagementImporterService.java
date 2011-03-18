@@ -19,7 +19,7 @@ package org.nuxeo.cm.service;
 import java.io.Serializable;
 
 public interface CaseManagementImporterService extends Serializable {
-    
+
     public void importDocuments();
 
 }

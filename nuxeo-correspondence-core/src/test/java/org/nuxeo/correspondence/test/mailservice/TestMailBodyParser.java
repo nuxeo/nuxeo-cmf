@@ -33,7 +33,6 @@ import org.nuxeo.cm.mail.actionpipe.ParseMailBody;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class TestMailBodyParser extends TestCase {
 

@@ -92,8 +92,8 @@ public interface CaseItem extends HasParticipants, Serializable {
     void setType(String type);
 
     /**
-     * Gets the envelope this document is in. This value only is only set when it
-     * is coming from an envelope in the current session.
+     * Gets the envelope this document is in. This value only is only set when
+     * it is coming from an envelope in the current session.
      *
      * @return the envelope or null if the document is not associated with an
      *         envelope.
@@ -122,11 +122,12 @@ public interface CaseItem extends HasParticipants, Serializable {
      * Creates a mail envelope with this item inside.
      *
      * @param documentManager an open session.
-     * @param parentPath the path to the folder in which the envelope will be created.
+     * @param parentPath the path to the folder in which the envelope will be
+     *            created.
      * @return The created mail envelope.
      */
-    Case createMailCase(CoreSession documentManager,
-            String parentPath, String initialLifeCycleState);
+    Case createMailCase(CoreSession documentManager, String parentPath,
+            String initialLifeCycleState);
 
     /**
      * Persists the item.

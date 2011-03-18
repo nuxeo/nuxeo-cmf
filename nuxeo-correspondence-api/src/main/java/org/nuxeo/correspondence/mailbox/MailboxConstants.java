@@ -19,10 +19,8 @@
 
 package org.nuxeo.correspondence.mailbox;
 
-
 /**
  * @author Anahide Tchertchian
- *
  */
 public class MailboxConstants {
 
@@ -43,7 +41,5 @@ public class MailboxConstants {
     public static final String INCOMING_CONFIDENTIALITY_FIELD = "cmb:incoming_confidentiality";
 
     public static final String OUTGOING_CONFIDENTIALITY_FIELD = "cmb:outgoing_confidentiality";
-
-
 
 }

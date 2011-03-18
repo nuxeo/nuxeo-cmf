@@ -57,14 +57,14 @@ public class CaseManagementEventConstants {
         beforeDraftCreated,
         /**
          * Event sent after a draft was created. EventContext is a
-         * DocumentEventContext carrying the Envelope. The draft is available as
-         * EVENT_CONTEXT_DRAFT.
+         * DocumentEventContext carrying the Envelope. The draft is available
+         * as EVENT_CONTEXT_DRAFT.
          */
         afterDraftCreated,
         /**
          * Event sent after a draft was updated. EventContext is a
-         * DocumentEventContext carrying the Envelope. The draft is available as
-         * EVENT_CONTEXT_DRAFT.
+         * DocumentEventContext carrying the Envelope. The draft is available
+         * as EVENT_CONTEXT_DRAFT.
          */
         draftUpdated,
         /**

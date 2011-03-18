@@ -27,7 +27,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
-
 /**
  * Searches mailboxes headers using an unrestricted session
  * <p>

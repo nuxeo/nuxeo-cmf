@@ -26,7 +26,7 @@ import org.nuxeo.runtime.model.DefaultComponent;
 
 /**
  * CaseManagementImporter service for importing case in a specified Mailbox
- * 
+ *
  * @author Mariana Cedica
  */
 public class CaseManagementImporterServiceImpl extends DefaultComponent
@@ -107,6 +107,6 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
 
     private boolean importerConfigured() {
         return importInfo != null;
-     }
+    }
 
 }

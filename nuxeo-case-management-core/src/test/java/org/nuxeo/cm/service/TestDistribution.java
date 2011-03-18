@@ -80,14 +80,10 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 envelope, initialRecipients, null);
 
         // Check mailboxes of initial recipient and sender
-        assertEquals(
-                1,
-                distributionService.getDraftCaseLinks(session, initialSender,
-                        0, 0).size());
-        assertEquals(
-                0,
-                distributionService.getReceivedCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
+        assertEquals(1, distributionService.getDraftCaseLinks(session,
+                initialSender, 0, 0).size());
+        assertEquals(0, distributionService.getReceivedCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
 
         assertTrue(envelope.isDraft());
 
@@ -96,14 +92,10 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
 
         assertFalse(envelope.isDraft());
         // Check mailbox of recipient and sender
-        assertEquals(
-                1,
-                distributionService.getSentCaseLinks(session, initialSender, 0,
-                        0).size());
-        assertEquals(
-                1,
-                distributionService.getReceivedCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
+        assertEquals(1, distributionService.getSentCaseLinks(session,
+                initialSender, 0, 0).size());
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
 
         // Retrieve the post in the initial receiver mailbox
         CaseLink postInMailbox = distributionService.getReceivedCaseLinks(
@@ -117,10 +109,8 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 envelope.getDocument().getId());
 
         // Check initial recipients in the envelope
-        assertEquals(
-                1,
-                envelopeFromPost.getInitialInternalParticipants().get(
-                        CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(1, envelopeFromPost.getInitialInternalParticipants().get(
+                CaseLinkType.FOR_ACTION.toString()).size());
         assertTrue(envelopeFromPost.getInitialInternalParticipants().get(
                 CaseLinkType.FOR_ACTION.toString()).contains(
                 initialReceiverMailbox.getId()));
@@ -136,31 +126,21 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 "it is a bit boring too", envelopeFromPost, recipients, null);
 
         // Check mailbox of recipients
-        assertEquals(
-                0,
-                distributionService.getReceivedCaseLinks(session,
-                        receiverMailbox1, 0, 0).size());
-        assertEquals(
-                1,
-                distributionService.getReceivedCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
+        assertEquals(0, distributionService.getReceivedCaseLinks(session,
+                receiverMailbox1, 0, 0).size());
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
 
         // Transfer
         distributionService.sendCase(session, postRequest, false);
 
         // Check mailbox of recipients
-        assertEquals(
-                1,
-                distributionService.getReceivedCaseLinks(session,
-                        receiverMailbox1, 0, 0).size());
-        assertEquals(
-                1,
-                distributionService.getReceivedCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
-        assertEquals(
-                1,
-                distributionService.getSentCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
+                receiverMailbox1, 0, 0).size());
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
+        assertEquals(1, distributionService.getSentCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
 
         // Retrieve the post in the recipient1 mailbox
         postInMailbox = distributionService.getReceivedCaseLinks(session,
@@ -174,10 +154,8 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 envelope.getDocument().getId());
 
         assertEquals(2, envelopeFromPost.getAllParticipants().size());
-        assertEquals(
-                1,
-                envelopeFromPost.getInitialInternalParticipants().get(
-                        CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(1, envelopeFromPost.getInitialInternalParticipants().get(
+                CaseLinkType.FOR_ACTION.toString()).size());
 
         assertTrue(envelopeFromPost.getInitialInternalParticipants().get(
                 CaseLinkType.FOR_ACTION.toString()).contains(
@@ -190,10 +168,8 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         CaseItem item = envelopeFromPost.getFirstItem(session);
 
         assertEquals(2, item.getAllParticipants().size());
-        assertEquals(
-                1,
-                item.getInitialInternalParticipants().get(
-                        CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(1, item.getInitialInternalParticipants().get(
+                CaseLinkType.FOR_ACTION.toString()).size());
 
         assertTrue(item.getInitialInternalParticipants().get(
                 CaseLinkType.FOR_ACTION.toString()).contains(
@@ -229,14 +205,10 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 envelope, initialRecipients, null);
 
         // Check mailboxes of initial recipient and sender
-        assertEquals(
-                1,
-                distributionService.getDraftCaseLinks(session, initialSender,
-                        0, 0).size());
-        assertEquals(
-                0,
-                distributionService.getReceivedCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
+        assertEquals(1, distributionService.getDraftCaseLinks(session,
+                initialSender, 0, 0).size());
+        assertEquals(0, distributionService.getReceivedCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
 
         assertTrue(envelope.isDraft());
 
@@ -247,10 +219,8 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         // Check mailbox of recipient and sender
         closeSession();
         session = openSessionAs(userManager.getPrincipal(user2));
-        assertEquals(
-                1,
-                distributionService.getReceivedCaseLinks(session,
-                        initialReceiverMailbox, 0, 0).size());
+        assertEquals(1, distributionService.getReceivedCaseLinks(session,
+                initialReceiverMailbox, 0, 0).size());
 
         // Retrieve the post in the initial receiver mailbox
         CaseLink postInMailbox = distributionService.getReceivedCaseLinks(

@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- *
  * @author Laurent Doguin
  */
 public interface MailboxSynchronizationService extends Serializable {

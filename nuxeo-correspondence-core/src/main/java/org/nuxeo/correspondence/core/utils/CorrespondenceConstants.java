@@ -18,7 +18,6 @@ package org.nuxeo.correspondence.core.utils;
 
 /**
  * @author Mariana Cedica
- * 
  */
 public class CorrespondenceConstants {
 

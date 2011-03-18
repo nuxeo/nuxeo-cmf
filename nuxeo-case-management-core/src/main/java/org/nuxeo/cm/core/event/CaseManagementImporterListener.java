@@ -29,16 +29,16 @@ import org.nuxeo.runtime.api.Framework;
  */
 public class CaseManagementImporterListener implements EventListener {
 
-    CaseManagementImporterService caseManagementImporterService ;
-    
+    CaseManagementImporterService caseManagementImporterService;
+
     public void handleEvent(Event event) throws ClientException {
-        
+
         EventContext context = event.getContext();
         String category = (String) context.getProperty("category");
-        if (!CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY.equals(category)){
+        if (!CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY.equals(category)) {
             return;
         }
-        if (CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT.equals(event.getName())){
+        if (CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT.equals(event.getName())) {
             // import docs
             getCaseManagementImporterService().importDocuments();
         }
@@ -47,7 +47,7 @@ public class CaseManagementImporterListener implements EventListener {
     private CaseManagementImporterService getCaseManagementImporterService()
             throws ClientException {
         try {
-            if (caseManagementImporterService == null){
+            if (caseManagementImporterService == null) {
                 caseManagementImporterService = Framework.getService(CaseManagementImporterService.class);
             }
         } catch (Exception e) {

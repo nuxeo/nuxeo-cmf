@@ -31,10 +31,8 @@ import org.nuxeo.ecm.core.event.EventListener;
 /**
  * When a case Item was created by import, rename the original doc so that it
  * won't be imported again
- * 
+ *
  * @author Mariana Cedica
- * 
- * 
  */
 public class CaseManagementCaseImporterListener implements EventListener {
 

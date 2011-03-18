@@ -33,7 +33,6 @@ import org.nuxeo.cm.mail.actionpipe.MailActionPipeConstants;
 
 /**
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public class DefaultFrenchMailParser implements MailBodyParser,
         MailActionPipeConstants {
@@ -67,9 +66,8 @@ public class DefaultFrenchMailParser implements MailBodyParser,
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.nuxeo.cm.mail.actionpipe.parser.MailBodyParser#parse(java.util.regex
-     * .Matcher, java.util.Map)
+     * @see org.nuxeo.cm.mail.actionpipe.parser.MailBodyParser#parse(java.util.regex
+     *      .Matcher, java.util.Map)
      */
     @Override
     public boolean parse(Matcher m, Map<String, Object> resultMap) {

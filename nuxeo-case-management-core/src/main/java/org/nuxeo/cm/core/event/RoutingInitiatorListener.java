@@ -30,7 +30,6 @@ import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class RoutingInitiatorListener implements EventListener {
 

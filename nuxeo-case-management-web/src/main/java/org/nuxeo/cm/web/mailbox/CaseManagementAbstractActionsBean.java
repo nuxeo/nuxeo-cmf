@@ -33,7 +33,6 @@ import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
 import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 
-
 /**
  * Provide ResultsProvidersCache access in order to get SelectDataModel from a
  * provider name.
@@ -58,8 +57,8 @@ public abstract class CaseManagementAbstractActionsBean extends
     /**
      * Retrieves a SelectDataModel in the cache from it the provider name.
      */
-    protected SelectDataModel getSelectDataModelFromProvider(
-            String providerName) throws ClientException {
+    protected SelectDataModel getSelectDataModelFromProvider(String providerName)
+            throws ClientException {
         ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance(RESULTS_PROVIDERS_CACHE);
 
         resultsProvider = resultsProvidersCache.get(providerName);

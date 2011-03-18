@@ -102,7 +102,7 @@ public class Contact implements Serializable, Comparable<Contact> {
             m.put(CONTACT_FIELD.service.name(), service);
         }
         if (mailboxId != null) {
-            m.put(CONTACT_FIELD.mailboxId.name(),mailboxId);
+            m.put(CONTACT_FIELD.mailboxId.name(), mailboxId);
         }
         return m;
     }

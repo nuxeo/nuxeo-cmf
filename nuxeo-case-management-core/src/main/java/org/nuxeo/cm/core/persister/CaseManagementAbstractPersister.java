@@ -30,7 +30,6 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public abstract class CaseManagementAbstractPersister implements
         CaseManagementPersister {

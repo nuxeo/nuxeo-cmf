@@ -27,7 +27,8 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class HasParticipantsAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
+            Class arg1) {
         return new HasParticipantsImpl(doc);
     }
 

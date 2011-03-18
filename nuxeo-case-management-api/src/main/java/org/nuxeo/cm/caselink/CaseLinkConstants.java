@@ -19,7 +19,6 @@ package org.nuxeo.cm.caselink;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CaseLinkConstants {
 
@@ -102,7 +101,7 @@ public class CaseLinkConstants {
      */
     public static final String IS_DRAFT_FIELD = "cslk:draft";
 
-    //actionable fields
+    // actionable fields
 
     public static final String DUE_DATE_FIELD = "acslk:dueDate";
 
@@ -116,5 +115,5 @@ public class CaseLinkConstants {
 
     public static final String AUTOMATIC_VALIDATION_FIELD = "acslk:automaticValidation";
 
-    public static final String  STEP_DOCUMENT_ID_FIELD = "acslk:stepDocumentId";
+    public static final String STEP_DOCUMENT_ID_FIELD = "acslk:stepDocumentId";
 }

@@ -22,10 +22,11 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 
+public class DefaultPersonalMailboxTitleGenerator implements
+        MailboxTitleGenerator {
 
-public class DefaultPersonalMailboxTitleGenerator implements MailboxTitleGenerator {
-
-    public String getMailboxTitle(DocumentModel directoryEntry) throws PropertyException, ClientException {
+    public String getMailboxTitle(DocumentModel directoryEntry)
+            throws PropertyException, ClientException {
         String firstName = (String) directoryEntry.getPropertyValue("user:firstName");
         String lastName = (String) directoryEntry.getPropertyValue("user:lastName");
         String company = (String) directoryEntry.getPropertyValue("user:company");

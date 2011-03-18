@@ -520,8 +520,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     }
                     eventProperties.put(
                             CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_
-                                    + type,
-                            StringUtils.join(mailboxTitles, ", "));
+                                    + type, StringUtils.join(mailboxTitles,
+                                    ", "));
                 }
 
                 eventProperties.put(
@@ -579,11 +579,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
                 } else if (senderMailbox != null) {
                     // No draft, create the Post for the sender
-                    CreateCaseLink createPost = new CreateCaseLink(
-                            null, session, subject, comment, envelope,
-                            senderMailbox, senderMailbox.getId(),
-                            internalRecipientIds, externalRecipients, true,
-                            isInitial);
+                    CreateCaseLink createPost = new CreateCaseLink(null,
+                            session, subject, comment, envelope, senderMailbox,
+                            senderMailbox.getId(), internalRecipientIds,
+                            externalRecipients, true, isInitial);
                     createPost.create();
                     post = createPost.getCreatedPost();
                 }

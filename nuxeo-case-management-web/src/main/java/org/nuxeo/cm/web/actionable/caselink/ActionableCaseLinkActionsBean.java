@@ -39,7 +39,7 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
  * Processing actions for an actionable case link
  *
  * @author <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
- * */
+ */
 @Name("actionableCaseLinkActions")
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)

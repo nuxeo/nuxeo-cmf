@@ -28,7 +28,6 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
-
 public class CaseLinkRequestImpl implements CaseLink {
 
     private static final long serialVersionUID = -2454486043183207094L;
@@ -47,8 +46,8 @@ public class CaseLinkRequestImpl implements CaseLink {
 
     final Map<String, List<String>> externalRecipients;
 
-    public CaseLinkRequestImpl(String sender, Calendar date,
-            String subject, String comment, Case envelope,
+    public CaseLinkRequestImpl(String sender, Calendar date, String subject,
+            String comment, Case envelope,
             Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients) {
         this.sender = sender;

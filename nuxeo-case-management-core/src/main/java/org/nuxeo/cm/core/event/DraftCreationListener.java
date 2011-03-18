@@ -30,6 +30,7 @@ import org.nuxeo.ecm.core.event.EventListener;
  */
 public class DraftCreationListener extends AbstractDraftListener implements
         EventListener {
+
     private static final Log log = LogFactory.getLog(DraftCreationListener.class);
 
     @Override
@@ -41,7 +42,8 @@ public class DraftCreationListener extends AbstractDraftListener implements
     protected void updateDraft(DocumentModel draft, DocumentModel firstDoc,
             DocumentModel envelope, Principal principal) throws ClientException {
         super.updateDraft(draft, firstDoc, envelope, principal);
-        draft.setPropertyValue("uid:uid", firstDoc.getPropertyValue("cmdoc:reference"));
+        draft.setPropertyValue("uid:uid",
+                firstDoc.getPropertyValue("cmdoc:reference"));
     }
 
     @Override

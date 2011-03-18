@@ -62,7 +62,7 @@ public class CaseManagementComponent extends DefaultComponent {
     public <T> T getAdapter(Class<T> adapter) {
         if (adapter.isAssignableFrom(MailboxManagementService.class)) {
             return (T) mailboxService;
-        } else if(adapter.isAssignableFrom(CaseDistributionService.class)) {
+        } else if (adapter.isAssignableFrom(CaseDistributionService.class)) {
             return (T) distributionService;
         }
         return null;

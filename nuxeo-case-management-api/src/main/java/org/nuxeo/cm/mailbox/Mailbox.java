@@ -30,7 +30,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Mailbox interface
- * 
+ *
  * @author Anahide Tchertchian
  */
 public interface Mailbox extends Serializable, Comparable<Mailbox> {
@@ -146,7 +146,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Gets the list of {@link ParticipantsList} objects of this mailbox.
-     * 
+     *
      * @throws CaseManagementException
      */
     List<ParticipantsList> getParticipantLists();
@@ -158,7 +158,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Add the given mailing list to this mailbox
-     * 
+     *
      * @param mailinglist the mailing list to add
      */
     void addParticipantList(ParticipantsList mailinglist);
@@ -170,14 +170,14 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Gets profiles for this mailbox
-     * 
+     *
      * @return
      */
     List<String> getProfiles();
 
     /**
      * Sets profiles for this mailbox
-     * 
+     *
      * @param profiles
      */
     void setProfiles(List<String> profiles);
@@ -196,7 +196,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Persist the Mailbox
-     * 
+     *
      * @param session
      */
     void save(CoreSession session);
@@ -217,7 +217,8 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     List<String> getAllUsersAndGroups();
 
     /**
-     * @return the affiliated mailbox id. null if not affiliated mailbox exists.
+     * @return the affiliated mailbox id. null if not affiliated mailbox
+     *         exists.
      */
     String getAffiliatedMailboxId();
 
@@ -243,7 +244,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Set the given string parameter as mailbox's synchronizer ID.
-     * 
+     *
      * @param synchronizerId
      */
     void setSynchronizerId(String synchronizerId);
@@ -255,9 +256,9 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     Calendar getLastSyncUpdate();
 
     /**
-     * Sets the last time this mailbox has been updated by the
-     * synchronziation service.
-     * 
+     * Sets the last time this mailbox has been updated by the synchronziation
+     * service.
+     *
      * @param now
      */
     void setLastSyncUpdate(Calendar now);
@@ -270,7 +271,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
     /**
      * Sets the origin of the Mailbox.
-     * 
+     *
      * @param origin
      */
     void setOrigin(String origin);

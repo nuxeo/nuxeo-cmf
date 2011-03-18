@@ -28,8 +28,8 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -43,8 +43,8 @@ import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * Group computer for case management, adding mailboxes ids to the user
- * virtual groups so that it can be used for permissions resolution.
+ * Group computer for case management, adding mailboxes ids to the user virtual
+ * groups so that it can be used for permissions resolution.
  *
  * @author Anahide Tchertchian
  */
@@ -168,7 +168,8 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     protected CoreSession openCoreSession(String username) {
         try {
             String repositoryName = getRepoName();
-            Repository repository = Framework.getService(RepositoryManager.class).getRepository(repositoryName);
+            Repository repository = Framework.getService(
+                    RepositoryManager.class).getRepository(repositoryName);
             if (repository == null) {
                 throw new ClientException("Cannot get repository: "
                         + repositoryName);

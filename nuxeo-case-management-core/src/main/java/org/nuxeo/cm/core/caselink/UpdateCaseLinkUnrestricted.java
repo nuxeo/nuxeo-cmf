@@ -22,22 +22,21 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.COMMENT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
-
 
 /**
  * A creator of {@link CaseLink}.
@@ -85,8 +84,8 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
      * @param isInitial Is it an initial sent?
      */
     public UpdateCaseLinkUnrestricted(CoreSession session, String subject,
-            String comment, Case envelope, Mailbox sender,
-            String recipientId, Map<String, List<String>> internalRecipients,
+            String comment, Case envelope, Mailbox sender, String recipientId,
+            Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients, boolean isSent,
             boolean isInitial, CaseLink post) {
         super(session);

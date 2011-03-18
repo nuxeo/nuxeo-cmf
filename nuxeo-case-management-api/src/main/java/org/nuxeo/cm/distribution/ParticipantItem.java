@@ -21,7 +21,6 @@ package org.nuxeo.cm.distribution;
 
 import org.nuxeo.cm.mailbox.MailboxHeaderImpl;
 
-
 /**
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */

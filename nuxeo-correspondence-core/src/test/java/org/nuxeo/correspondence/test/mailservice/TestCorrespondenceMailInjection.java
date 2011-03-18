@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
@@ -56,7 +57,6 @@ import org.nuxeo.runtime.api.Framework;
 /**
  * @author Laurent Doguin
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public class TestCorrespondenceMailInjection extends
         CaseManagementRepositoryTestCase implements MailActionPipeConstants {
@@ -91,7 +91,6 @@ public class TestCorrespondenceMailInjection extends
     }
 
     /**
-     *
      * Test match Email of ccRecipient
      *
      * @throws Exception

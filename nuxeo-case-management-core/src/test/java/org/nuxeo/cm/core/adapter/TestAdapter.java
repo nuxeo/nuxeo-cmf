@@ -5,21 +5,19 @@ package org.nuxeo.cm.core.adapter;
 
 import java.util.UUID;
 
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 
-
 /**
  * @author arussel
- *
  */
 public class TestAdapter extends SQLRepositoryTestCase {
 

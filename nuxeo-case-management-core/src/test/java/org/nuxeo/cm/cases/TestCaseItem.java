@@ -19,13 +19,6 @@ package org.nuxeo.cm.cases;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.nuxeo.cm.cases.HasParticipants;
-import org.nuxeo.cm.cases.LockableAdapter;
-import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.cases.CaseImpl;
-import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.cases.CaseItemImpl;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -35,10 +28,8 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
-
 /**
  * @author arussel
- *
  */
 public class TestCaseItem extends CaseManagementRepositoryTestCase {
 
@@ -56,8 +47,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
     }
 
     /**
-     * Test method for
-     * {@link org.nuxeo.cm.cases.CaseItemImpl#getDocument()}.
+     * Test method for {@link org.nuxeo.cm.cases.CaseItemImpl#getDocument()}.
      */
     public void testGetDocument() {
         DocumentModel model = item.getDocument();

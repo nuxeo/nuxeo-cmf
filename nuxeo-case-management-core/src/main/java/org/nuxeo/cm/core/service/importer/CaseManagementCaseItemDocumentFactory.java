@@ -41,13 +41,11 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- *
  * Implementation for CaseManagement factory; each time a file is found a new
  * caseItem is created and the corresponding case; the case is sent to the
  * specified destionationMailbox
  *
  * @author Mariana Cedica
- *
  */
 public class CaseManagementCaseItemDocumentFactory extends
         DefaultDocumentModelFactory {

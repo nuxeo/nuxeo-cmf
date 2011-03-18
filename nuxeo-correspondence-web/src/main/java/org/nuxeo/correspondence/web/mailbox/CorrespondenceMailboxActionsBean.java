@@ -42,7 +42,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Nicolas Ulrich
- *
  */
 @Name("correspMailboxActions")
 @Scope(ScopeType.CONVERSATION)
@@ -94,8 +93,8 @@ public class CorrespondenceMailboxActionsBean extends
             correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         } catch (Exception e) {
             /*
-             * log.error("Could not retrieve CorrespondenceDocumentType Service",
-             * e);
+             * log.error("Could not retrieve CorrespondenceDocumentType
+             * Service", e);
              */
 
         }
@@ -134,7 +133,6 @@ public class CorrespondenceMailboxActionsBean extends
 
         } else if (mailDoc.hasFacet(MailConstants.INCOMING_MAIL_FACET)) {
             return navigationContext.navigateToId(envelopeId);
-
         }
 
         return null;

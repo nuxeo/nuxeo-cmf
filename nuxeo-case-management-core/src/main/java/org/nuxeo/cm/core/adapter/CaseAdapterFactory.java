@@ -18,21 +18,22 @@
  */
 package org.nuxeo.cm.core.adapter;
 
-import org.nuxeo.cm.cases.HasParticipants;
+import static org.nuxeo.cm.cases.CaseConstants.CASE_GROUPABLE_FACET;
+import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTABLE_FACET;
+
 import org.nuxeo.cm.cases.CaseImpl;
+import org.nuxeo.cm.cases.HasParticipants;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
-
-import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTABLE_FACET;
-import static org.nuxeo.cm.cases.CaseConstants.CASE_GROUPABLE_FACET;
 
 /**
  * @author arussel
  */
 public class CaseAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
+            Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new CaseImpl(doc, adapter);

@@ -25,7 +25,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
-
 /**
  * @author arussel
  */
@@ -43,11 +42,11 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         openSession();
         DocumentModel document = createDocument(CaseConstants.CASE_TYPE, "env");
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
-        envelope = new CaseImpl(document,adapter);
+        envelope = new CaseImpl(document, adapter);
         document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i1");
-        item1 = new CaseItemImpl(document,adapter);
+        item1 = new CaseItemImpl(document, adapter);
         document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i2");
-        item2 = new CaseItemImpl(document,adapter);
+        item2 = new CaseItemImpl(document, adapter);
     }
 
     public void testGetDocument() {

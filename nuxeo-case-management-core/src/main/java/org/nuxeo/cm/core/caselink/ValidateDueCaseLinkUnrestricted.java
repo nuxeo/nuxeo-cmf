@@ -19,6 +19,7 @@ package org.nuxeo.cm.core.caselink;
 import java.util.Calendar;
 
 import org.nuxeo.cm.caselink.ActionableCaseLink;
+import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -28,14 +29,14 @@ import org.nuxeo.ecm.core.query.sql.model.DateLiteral;
 
 /**
  * Fetch and validate due {@link CaseLink}.
- * 
+ *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
 public class ValidateDueCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
-    public static final String FETCH_DUE_ACTIONCASELINK_QUERY = "Select * FROM" +
-    		" CaseLink WHERE ecm:currentLifeCycleState = 'todo' AND" +
-    		" acslk:automaticValidation = 1 AND acslk:dueDate < TIMESTAMP '%s' ";
+    public static final String FETCH_DUE_ACTIONCASELINK_QUERY = "Select * FROM"
+            + " CaseLink WHERE ecm:currentLifeCycleState = 'todo' AND"
+            + " acslk:automaticValidation = 1 AND acslk:dueDate < TIMESTAMP '%s' ";
 
     public ValidateDueCaseLinkUnrestricted(CoreSession session) {
         super(session);
@@ -44,7 +45,8 @@ public class ValidateDueCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     @Override
     public void run() throws ClientException {
         String dateLiteral = DateLiteral.dateTimeFormatter.print(Calendar.getInstance().getTimeInMillis());
-        String query = String.format(FETCH_DUE_ACTIONCASELINK_QUERY, dateLiteral);
+        String query = String.format(FETCH_DUE_ACTIONCASELINK_QUERY,
+                dateLiteral);
         DocumentModelList dueCaseLinks = session.query(query);
         ActionableCaseLink acl;
         for (DocumentModel caseLinkdoc : dueCaseLinks) {

@@ -22,9 +22,9 @@ package org.nuxeo.cm.mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -33,10 +33,8 @@ import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * @author Anahide Tchertchian
- *
  */
 public class MockPersonalMailboxCreator implements MailboxCreator {
 

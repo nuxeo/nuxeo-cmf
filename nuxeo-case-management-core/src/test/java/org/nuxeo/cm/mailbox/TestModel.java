@@ -71,7 +71,7 @@ public class TestModel extends SQLRepositoryTestCase {
         document = session.createDocument(document);
 
         DocumentModel document2 = new DocumentModelImpl(folder, "doc1",
-               CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
+                CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document2 = session.createDocument(document2);
 
         // Create Envelope with 2 Documents

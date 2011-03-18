@@ -21,7 +21,6 @@ package org.nuxeo.cm.service.synchronization;
 
 /**
  * @author Laurent Doguin
- * 
  */
 public class MailboxSynchronizationConstants {
 

@@ -21,8 +21,8 @@ package org.nuxeo.cm.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.exception.CaseManagementException;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 

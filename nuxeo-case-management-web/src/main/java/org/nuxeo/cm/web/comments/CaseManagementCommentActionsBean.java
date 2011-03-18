@@ -43,7 +43,6 @@ import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 
 /**
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
- *
  */
 @Name("cmCommentActions")
 @Scope(CONVERSATION)

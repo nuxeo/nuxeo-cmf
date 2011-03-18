@@ -26,9 +26,9 @@ import java.io.Serializable;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Unwrap;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.cm.service.MailboxManagementService;
 
 /**
  * Correspondence service business delegate, exposing the service to the seam
@@ -38,8 +38,7 @@ import org.nuxeo.cm.service.MailboxManagementService;
  */
 @Name("mailboxManagementService")
 @Scope(APPLICATION)
-public class MailboxManagementServiceBusinessDelegate implements
-        Serializable {
+public class MailboxManagementServiceBusinessDelegate implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

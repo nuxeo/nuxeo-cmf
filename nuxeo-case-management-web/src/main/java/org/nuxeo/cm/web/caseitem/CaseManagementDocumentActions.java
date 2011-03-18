@@ -25,15 +25,14 @@ import org.nuxeo.ecm.core.api.ClientException;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public interface CaseManagementDocumentActions extends Serializable {
 
     /**
      * Creates a new document from current changeable document.
      * <p>
-     * Document will be created in a hierarchy yyyy/mm/dd below current document
-     * (mail root)
+     * Document will be created in a hierarchy yyyy/mm/dd below current
+     * document (mail root)
      */
     String createCaseItemInCase() throws ClientException;
 

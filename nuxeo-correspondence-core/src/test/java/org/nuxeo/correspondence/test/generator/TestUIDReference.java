@@ -30,9 +30,9 @@ import org.nuxeo.ecm.core.api.DocumentException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.DocumentModelImpl;
 
-/*
+/**
  * Tests if the uid property is set on a document at creation
- * */
+ */
 public class TestUIDReference extends CaseManagementRepositoryTestCase {
 
     static int cnt = 0;

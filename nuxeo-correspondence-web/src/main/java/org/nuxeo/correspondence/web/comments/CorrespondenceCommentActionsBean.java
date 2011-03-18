@@ -38,7 +38,6 @@ import org.nuxeo.ecm.platform.comment.web.ThreadEntry;
 
 /**
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
- * 
  */
 @Name("correspCommentActions")
 @Scope(CONVERSATION)

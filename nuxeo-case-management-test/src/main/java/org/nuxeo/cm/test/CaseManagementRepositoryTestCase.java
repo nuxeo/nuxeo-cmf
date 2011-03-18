@@ -271,7 +271,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
                 CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
                 user2Mailbox.getId());
         session.saveDocument(step32);
-        DocumentModel serialFolder =  createDocumentModel(session,
+        DocumentModel serialFolder = createDocumentModel(session,
                 "serialFolder1",
                 DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE,
                 parallelFolder1.getPathAsString());

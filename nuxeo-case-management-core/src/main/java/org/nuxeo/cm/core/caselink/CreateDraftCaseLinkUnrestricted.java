@@ -21,16 +21,16 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_REPOSITORY_NAME_FIELD
 import static org.nuxeo.cm.caselink.CaseLinkConstants.DATE_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_SENT_FIELD;
-import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
+import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_MAILBOX_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.SUBJECT_FIELD;
 
 import java.util.Calendar;
 import java.util.UUID;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -56,8 +56,8 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         return createdPost;
     }
 
-    public CreateDraftCaseLinkUnrestricted(String repositoryName, String subject,
-            Case envelope, Mailbox sender) {
+    public CreateDraftCaseLinkUnrestricted(String repositoryName,
+            String subject, Case envelope, Mailbox sender) {
         super(repositoryName);
         this.envelope = envelope;
         this.subject = subject;
@@ -75,7 +75,8 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
         DocumentModel doc = session.createDocumentModel(
                 sender.getDocument().getPathAsString(),
-                UUID.randomUUID().toString(), correspDocumentTypeService.getCaseLinkType());
+                UUID.randomUUID().toString(),
+                correspDocumentTypeService.getCaseLinkType());
         setPostValues(doc);
         doc = session.createDocument(doc);
         createdPost = doc.getAdapter(CaseLink.class);

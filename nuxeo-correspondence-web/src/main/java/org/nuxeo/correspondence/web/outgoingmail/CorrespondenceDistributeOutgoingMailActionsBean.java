@@ -30,13 +30,13 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.LockableAdapter;
-import org.nuxeo.cm.caselink.CaseLink;
-import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
 import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
@@ -48,15 +48,13 @@ import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
-
 /**
  * @author Nicolas Ulrich
- *
  */
 @Name("correspDistributeOutgoingMailActionsBean")
 @Scope(ScopeType.CONVERSATION)
 public class CorrespondenceDistributeOutgoingMailActionsBean extends
-CaseManagementAbstractActionsBean implements Serializable {
+        CaseManagementAbstractActionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -82,7 +80,7 @@ CaseManagementAbstractActionsBean implements Serializable {
         Case envelope = getCurrentCase();
 
         return navigationContext.navigateToDocument(envelope.getDocument(),
-        "edit_outgoing_envelope");
+                "edit_outgoing_envelope");
 
     }
 
@@ -146,7 +144,7 @@ CaseManagementAbstractActionsBean implements Serializable {
             facesMessages.add(
                     FacesMessage.SEVERITY_ERROR,
                     resourcesAccessor.getMessages().get(
-                    "feedback.corresp.distribution.invalidCurrentMailbox"));
+                            "feedback.corresp.distribution.invalidCurrentMailbox"));
             return null;
         }
 
@@ -155,7 +153,7 @@ CaseManagementAbstractActionsBean implements Serializable {
         if (envelope == null) {
             facesMessages.add(FacesMessage.SEVERITY_ERROR,
                     resourcesAccessor.getMessages().get(
-                    "feedback.corresp.distribution.invalidEnvelope"));
+                            "feedback.corresp.distribution.invalidEnvelope"));
             return null;
         }
 
@@ -164,12 +162,12 @@ CaseManagementAbstractActionsBean implements Serializable {
         CaseLink post = postDoc.getAdapter(CaseLink.class);
 
         // Create a Post Request
-        CaseLink postRequest = new CaseLinkRequestImpl(
-                currentMailbox.getId(),
+        CaseLink postRequest = new CaseLinkRequestImpl(currentMailbox.getId(),
                 Calendar.getInstance(),
-                (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
-                post.getComment(), envelope,post.getInitialInternalParticipants(), post.getInitialExternalParticipants());
-
+                (String) envelope.getDocument().getPropertyValue(
+                        CaseConstants.TITLE_PROPERTY_NAME), post.getComment(),
+                envelope, post.getInitialInternalParticipants(),
+                post.getInitialExternalParticipants());
 
         // Send envelope (initial)
         caseDistributionService.sendCase(documentManager, postRequest, true);
@@ -177,7 +175,7 @@ CaseManagementAbstractActionsBean implements Serializable {
 
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
-                "feedback.corresp.distribution.done"));
+                        "feedback.corresp.distribution.done"));
 
         // Go back to the envelope
         DocumentModel envelopeDoc = envelope.getDocument();
@@ -201,7 +199,8 @@ CaseManagementAbstractActionsBean implements Serializable {
                 if (selectedItem == null) {
                     return false;
                 }
-                if (!selectedItem.getDocument().hasFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET)){
+                if (!selectedItem.getDocument().hasFacet(
+                        CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET)) {
                     return false;
                 }
             }

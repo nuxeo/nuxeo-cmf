@@ -37,7 +37,6 @@ import org.nuxeo.cm.mail.actionpipe.MailActionPipeConstants;
  * English Thunderbird.
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public class DefaultEnglishMailParser implements MailBodyParser,
         MailActionPipeConstants {

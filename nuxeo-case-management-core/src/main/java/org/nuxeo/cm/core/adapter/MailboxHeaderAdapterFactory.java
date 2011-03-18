@@ -32,7 +32,8 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class MailboxHeaderAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
+            Class arg1) {
         if (MailboxAdapterFactory.checkDocument(doc)) {
             return getMailboxHeader(doc);
         } else {

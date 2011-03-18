@@ -19,8 +19,8 @@
 
 package org.nuxeo.correspondence.core.service;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.classification.api.ClassificationConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -33,7 +33,6 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  * mode.
  *
  * @author ldoguin
- *
  */
 public class CreateMailboxFilingRootUnrestricted extends
         UnrestrictedSessionRunner {

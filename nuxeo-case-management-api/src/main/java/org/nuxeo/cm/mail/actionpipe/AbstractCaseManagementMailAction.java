@@ -29,7 +29,8 @@ import org.nuxeo.ecm.platform.mail.action.MessageAction;
  *
  * @author Laurent Doguin
  */
-public abstract class AbstractCaseManagementMailAction implements MessageAction, MailActionPipeConstants {
+public abstract class AbstractCaseManagementMailAction implements
+        MessageAction, MailActionPipeConstants {
 
     protected CoreSession getCoreSession(ExecutionContext context)
             throws Exception {

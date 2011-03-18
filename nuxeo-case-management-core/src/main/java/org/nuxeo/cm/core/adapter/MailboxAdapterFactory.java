@@ -19,9 +19,9 @@
 
 package org.nuxeo.cm.core.adapter;
 
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.mailbox.MailboxImpl;
-import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
@@ -31,7 +31,8 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class MailboxAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
+            Class arg1) {
         if (checkDocument(doc)) {
             return new MailboxImpl(doc);
         } else {

@@ -32,7 +32,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
@@ -47,8 +46,7 @@ public class CaseItemImpl implements CaseItem {
 
     protected final DocumentModel document;
 
-    public CaseItemImpl(DocumentModel document,
-            HasParticipants recipientAdapter) {
+    public CaseItemImpl(DocumentModel document, HasParticipants recipientAdapter) {
         this.document = document;
         this.recipientAdapter = recipientAdapter;
     }
@@ -152,8 +150,7 @@ public class CaseItemImpl implements CaseItem {
 
     public void setDefaultCase(String mailEnvelopeId) {
         setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
-                mailEnvelopeId);
+                CaseConstants.DOCUMENT_DEFAULT_CASE_ID, mailEnvelopeId);
     }
 
     public void setDocumentDate(Calendar date) {
@@ -213,16 +210,16 @@ public class CaseItemImpl implements CaseItem {
         }
     }
 
-    public Case createMailCase(CoreSession session,
-            String parentPath, String initialLifeCycleState) {
+    public Case createMailCase(CoreSession session, String parentPath,
+            String initialLifeCycleState) {
         try {
             String emailTitle = getTitle();
             String envelopeid = IdUtils.generateId(emailTitle == null ? ""
                     : emailTitle);
-            Case mailEnvelope = createEnvelope(session,
-                    parentPath, envelopeid, initialLifeCycleState);
-            mailEnvelope.addCaseItem(
-                    document.getAdapter(CaseItem.class), session);
+            Case mailEnvelope = createEnvelope(session, parentPath, envelopeid,
+                    initialLifeCycleState);
+            mailEnvelope.addCaseItem(document.getAdapter(CaseItem.class),
+                    session);
             mailEnvelope.save(session);
             return mailEnvelope;
         } catch (ClientException e) {
@@ -230,9 +227,8 @@ public class CaseItemImpl implements CaseItem {
         }
     }
 
-    protected Case createEnvelope(CoreSession session,
-            String parentPath, String id, String initialLifeCycleState)
-            throws ClientException {
+    protected Case createEnvelope(CoreSession session, String parentPath,
+            String id, String initialLifeCycleState) throws ClientException {
 
         CaseManagementDocumentTypeService correspDocumentTypeService;
         try {

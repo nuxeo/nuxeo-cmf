@@ -37,8 +37,8 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
  */
 public class CaseLinkAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc,
-            @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
+            Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new ActionableCaseLinkImpl(doc, adapter);

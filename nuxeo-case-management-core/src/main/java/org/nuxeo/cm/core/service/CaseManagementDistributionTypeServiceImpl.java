@@ -28,7 +28,6 @@ import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
-
 /**
  * @author Nicolas Ulrich
  */
@@ -102,12 +101,16 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
             throws CaseManagementException {
         if (!values.containsKey(distributionType)) {
             throw new CaseManagementException(
-                    String.format("Unknown distribution type (%s). Check your DistributionTypeService contributions", distributionType));
+                    String.format(
+                            "Unknown distribution type (%s). Check your DistributionTypeService contributions",
+                            distributionType));
         }
 
         if (values.get(distributionType).get(distributionProperty) == null) {
             throw new CaseManagementException(
-                    String.format("'%s' property is undefined. Check your DistributionTypeService contributions", distributionProperty));
+                    String.format(
+                            "'%s' property is undefined. Check your DistributionTypeService contributions",
+                            distributionProperty));
         }
     }
 

@@ -52,8 +52,7 @@ public class CaseImpl implements Case {
 
     protected final HasParticipants recipientsAdapter;
 
-    public CaseImpl(DocumentModel envelope,
-            HasParticipants recipientsAdapter) {
+    public CaseImpl(DocumentModel envelope, HasParticipants recipientsAdapter) {
         document = envelope;
         this.recipientsAdapter = recipientsAdapter;
     }
@@ -85,7 +84,8 @@ public class CaseImpl implements Case {
     protected List<String> getItemsId() {
         List<String> emailIds;
         try {
-            emailIds = (List<String>) document.getProperty(CASE_SCHEMA, MAILBOX_DOCUMENTS_ID_TYPE);
+            emailIds = (List<String>) document.getProperty(CASE_SCHEMA,
+                    MAILBOX_DOCUMENTS_ID_TYPE);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
@@ -113,8 +113,7 @@ public class CaseImpl implements Case {
         return firstItem.getAdapter(CaseItem.class);
     }
 
-    public boolean addCaseItem(CaseItem item,
-            CoreSession session) {
+    public boolean addCaseItem(CaseItem item, CoreSession session) {
         List<String> itemsId = getItemsId();
         String newId = item.getDocument().getId();
         if (itemsId.contains(newId)) {
@@ -127,8 +126,7 @@ public class CaseImpl implements Case {
 
     protected void saveItemsId(CoreSession session, List<String> itemsId) {
         try {
-            document.setProperty(CASE_SCHEMA,
-                    MAILBOX_DOCUMENTS_ID_TYPE,
+            document.setProperty(CASE_SCHEMA, MAILBOX_DOCUMENTS_ID_TYPE,
                     itemsId);
             session.saveDocument(document);
         } catch (ClientException e) {
@@ -136,8 +134,7 @@ public class CaseImpl implements Case {
         }
     }
 
-    public boolean removeCaseItem(CaseItem item,
-            CoreSession session) {
+    public boolean removeCaseItem(CaseItem item, CoreSession session) {
         List<String> itemsId = getItemsId();
         String newId = item.getDocument().getId();
         boolean result = itemsId.remove(newId);
@@ -145,8 +142,8 @@ public class CaseImpl implements Case {
         return result;
     }
 
-    protected boolean moveEmailsInEnvelope(List<CaseItem> selected,
-            boolean up, CoreSession session) {
+    protected boolean moveEmailsInEnvelope(List<CaseItem> selected, boolean up,
+            CoreSession session) {
         List<String> itemIds = getItemsId();
         boolean res = true;
         int size = itemIds.size();
@@ -242,7 +239,7 @@ public class CaseImpl implements Case {
     }
 
     public boolean isEmpty() throws ClientException {
-       return getItemsId().isEmpty();
+        return getItemsId().isEmpty();
     }
 
     public void addInitialExternalParticipants(

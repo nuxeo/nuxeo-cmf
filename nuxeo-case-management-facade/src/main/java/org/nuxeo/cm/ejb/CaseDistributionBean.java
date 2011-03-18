@@ -172,7 +172,8 @@ public class CaseDistributionBean implements CaseDistributionService {
     @Override
     public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
             List<Mailbox> mailboxes) {
-        return getCaseDistributionService().createEmptyCase(session, caseDoc, mailboxes);
+        return getCaseDistributionService().createEmptyCase(session, caseDoc,
+                mailboxes);
     }
 
     @Override

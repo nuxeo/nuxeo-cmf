@@ -18,9 +18,9 @@ package org.nuxeo.cm.mail.actionpipe;
 
 /**
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public interface MailActionPipeConstants {
+
     public static final String MIMETYPE_SERVICE_KEY = "mimetypeService";
 
     public static final String CASEMANAGEMENT_SERVICE_KEY = "casemanagementService";

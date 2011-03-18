@@ -30,7 +30,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
-
 /**
  * Minimal context holder.
  * <p>
@@ -68,7 +67,8 @@ public class CaseManagementContextHolderBean implements
 
     @Factory(value = "currentCaseItem", scope = ScopeType.EVENT)
     public DocumentModel getCurrentCaseItem() throws ClientException {
-        if (currentEmail == null && currentEnvelope != null && !currentEnvelope.isEmpty()) {
+        if (currentEmail == null && currentEnvelope != null
+                && !currentEnvelope.isEmpty()) {
             // lazily fetch current email
             currentEmail = currentEnvelope.getFirstItem(documentManager).getDocument();
         }

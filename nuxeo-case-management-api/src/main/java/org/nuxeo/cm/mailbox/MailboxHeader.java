@@ -25,7 +25,6 @@ import java.io.Serializable;
  * Mailbox minimal interface
  *
  * @author Laurent Doguin
- *
  */
 public interface MailboxHeader extends Serializable, Comparable<MailboxHeader> {
 

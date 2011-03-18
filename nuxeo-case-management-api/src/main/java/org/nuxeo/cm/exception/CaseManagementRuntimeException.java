@@ -20,7 +20,6 @@ package org.nuxeo.cm.exception;
  * Runtime Distribution Exception
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CaseManagementRuntimeException extends RuntimeException {
 

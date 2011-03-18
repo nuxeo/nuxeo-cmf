@@ -21,7 +21,6 @@ package org.nuxeo.cm.cases;
 
 /**
  * @author Anahide Tchertchian
- *
  */
 public class CaseConstants {
 

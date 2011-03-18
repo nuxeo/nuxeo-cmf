@@ -25,12 +25,10 @@ import org.nuxeo.ecm.core.api.ClientException;
  * Distribution exception
  *
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public class CaseManagementException extends ClientException {
 
     private static final long serialVersionUID = 5579991054260392177L;
-
 
     public CaseManagementException() {
     }

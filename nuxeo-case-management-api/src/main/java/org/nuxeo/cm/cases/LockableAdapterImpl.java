@@ -38,7 +38,6 @@ public class LockableAdapterImpl implements LockableAdapter {
         this.document = document;
     }
 
-
     public Lock lockDocument(CoreSession documentManager)
             throws ClientException {
         return document.setLock();

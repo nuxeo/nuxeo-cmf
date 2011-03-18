@@ -32,20 +32,23 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
-
 /**
  * Creates a default case with a given caseITem
+ *
  * @author arussel
  */
 public class CreateCaseUnrestricted extends UnrestrictedSessionRunner {
 
     protected final CaseItem item;
+
     protected final String parentPath;
+
     protected final List<Mailbox> mailboxes;
 
     protected DocumentRef ref;
 
-    public CreateCaseUnrestricted(CoreSession session, CaseItem item, String parentPath, List<Mailbox> mailboxes) {
+    public CreateCaseUnrestricted(CoreSession session, CaseItem item,
+            String parentPath, List<Mailbox> mailboxes) {
         super(session);
         this.item = item;
         this.parentPath = parentPath;

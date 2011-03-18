@@ -20,11 +20,11 @@
 package org.nuxeo.cm.event;
 
 import javax.mail.Flags;
-import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Store;
+import javax.mail.Flags.Flag;
 import javax.mail.search.FlagTerm;
 import javax.mail.search.SearchTerm;
 import javax.security.auth.login.LoginContext;
@@ -46,7 +46,6 @@ import org.nuxeo.ecm.platform.mail.action.Visitor;
 import org.nuxeo.ecm.platform.mail.service.MailService;
 import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
 import org.nuxeo.runtime.api.Framework;
-
 
 /**
  * Listener for mail creation at import

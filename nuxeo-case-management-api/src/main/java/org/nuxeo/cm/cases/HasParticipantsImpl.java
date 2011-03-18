@@ -22,15 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.runtime.api.Framework;
-
 
 /**
  * @author arussel
@@ -177,7 +176,7 @@ public class HasParticipantsImpl implements HasParticipants {
         }
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings( { "unchecked", "rawtypes" })
     protected List<String> getRecipients(String recipientsXpath) {
 
         List<String> recipients = null;

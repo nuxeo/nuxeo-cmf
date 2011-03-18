@@ -67,9 +67,10 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
                 @Override
                 public void run() throws ClientException {
                     Map<String, Serializable> map = new HashMap<String, Serializable>();
-                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY, ActionableCaseLinkImpl.this);
-                    ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this,
-                            session, map);
+                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY,
+                            ActionableCaseLinkImpl.this);
+                    ActionableValidator validator = new ActionableValidator(
+                            ActionableCaseLinkImpl.this, session, map);
                     validator.validate();
                 }
             }.runUnrestricted();
@@ -86,9 +87,10 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
                 @Override
                 public void run() throws ClientException {
                     Map<String, Serializable> map = new HashMap<String, Serializable>();
-                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY, ActionableCaseLinkImpl.this);
-                    ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this,
-                            session, map);
+                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY,
+                            ActionableCaseLinkImpl.this);
+                    ActionableValidator validator = new ActionableValidator(
+                            ActionableCaseLinkImpl.this, session, map);
                     validator.refuse();
                 }
             }.runUnrestricted();

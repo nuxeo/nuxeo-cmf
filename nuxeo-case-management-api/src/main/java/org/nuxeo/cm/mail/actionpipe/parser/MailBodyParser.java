@@ -26,9 +26,9 @@ import org.nuxeo.cm.mail.actionpipe.ParseMailBody;
  * Parser that is going to be used by {@link ParseMailBody}
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
- *
  */
 public interface MailBodyParser {
+
     /**
      * The header pattern used to identify a parser to be used
      *

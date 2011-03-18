@@ -36,10 +36,10 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 @Operation(id = CreateCaseLinkOperation.ID, category = CaseConstants.CASE_MANAGEMENT_OPERATION_CATEGORY, label = "Case Link creation", description = "Create a CaseLink to be used latter in the chain.")
 public class CreateCaseLinkOperation {
+
     public final static String ID = "Case.Management.CreateCaseLink";
 
     @Context

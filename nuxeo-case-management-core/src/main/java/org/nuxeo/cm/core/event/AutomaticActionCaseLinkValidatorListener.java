@@ -33,7 +33,7 @@ import org.nuxeo.runtime.api.Framework;
 /**
  * Listener that fetch all ActionCaseLink with automatic validation and date
  * passed and not done to validate them.
- * 
+ *
  * @author Laurent Doguin
  */
 public class AutomaticActionCaseLinkValidatorListener implements EventListener {

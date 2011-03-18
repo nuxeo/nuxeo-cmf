@@ -77,16 +77,14 @@ public interface Case extends HasParticipants, Serializable {
      *
      * @return true if moved up, false if some could not be moved.
      */
-    boolean moveUpEmailsInCase(List<CaseItem> selected,
-            CoreSession session);
+    boolean moveUpEmailsInCase(List<CaseItem> selected, CoreSession session);
 
     /**
      * Moves down given selected items in the envelope.
      *
      * @return true if moved down, false if some could not be moved.
      */
-    boolean moveDownEmailsInCase(List<CaseItem> selected,
-            CoreSession session);
+    boolean moveDownEmailsInCase(List<CaseItem> selected, CoreSession session);
 
     /**
      * Persists the envelope.

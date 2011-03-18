@@ -26,7 +26,6 @@ import java.io.Serializable;
  * Mailbox interface
  *
  * @author Anahide Tchertchian
- *
  */
 public interface Mailbox extends Serializable, Comparable<Mailbox> {
 
@@ -49,6 +48,5 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
      * Sets the default confidentiality for outgoing mails for this mailbox.
      */
     void setOutgoingConfidentiality(Integer confidentiality);
-
 
 }

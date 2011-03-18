@@ -27,23 +27,22 @@ import org.jboss.seam.annotations.Unwrap;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.api.Framework;
+
 /**
  * @author arussel
- *
  */
 @Name("caseDistributionService")
 @Scope(APPLICATION)
 @Install(precedence = Install.FRAMEWORK)
-public class CaseDistributionServiceBusinessDelegate implements
-        Serializable {
+public class CaseDistributionServiceBusinessDelegate implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     protected CaseDistributionService service;
 
     /**
-     * Acquires a new {@link CaseDistributionService} reference. The related EJB
-     * may be deployed on a local or remote AppServer.
+     * Acquires a new {@link CaseDistributionService} reference. The related
+     * EJB may be deployed on a local or remote AppServer.
      */
     @Unwrap
     public CaseDistributionService getDistributionService()

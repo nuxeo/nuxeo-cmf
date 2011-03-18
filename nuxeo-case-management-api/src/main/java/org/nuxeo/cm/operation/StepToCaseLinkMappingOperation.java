@@ -40,7 +40,6 @@ import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 @Operation(id = StepToCaseLinkMappingOperation.ID, category = CaseConstants.CASE_MANAGEMENT_OPERATION_CATEGORY, label = "Step To CaseLink Mapping", description = "Create a CaseLink from the value of the Step docuemnt")
 public class StepToCaseLinkMappingOperation {
@@ -89,10 +88,10 @@ public class StepToCaseLinkMappingOperation {
                     String getter = prop.getKey();
                     String setter = prop.getValue();
                     DocumentModel setterDoc = null;
-                    if(setter.startsWith(CASE_PREFIX)) {
+                    if (setter.startsWith(CASE_PREFIX)) {
                         setterDoc = kaseDoc;
                         setter = setter.substring(CASE_PREFIX.length());
-                    } else if(setter.startsWith(STEP_PREFIX)) {
+                    } else if (setter.startsWith(STEP_PREFIX)) {
                         setterDoc = stepDoc;
                         setter = setter.substring(STEP_PREFIX.length());
                     }

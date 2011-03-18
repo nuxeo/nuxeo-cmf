@@ -26,7 +26,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * @author Anahide Tchertchian
- * 
  */
 public class MailboxConstants {
 

@@ -36,15 +36,14 @@ import org.nuxeo.ecm.webapp.base.InputController;
 import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 
-//TODO: change privacy of DocumentChildrenSearchFarm methods
+// TODO: change privacy of DocumentChildrenSearchFarm methods
 /**
  * @author nicolas
- *
  */
 @Name("mailboxChildrenSearchFarm")
 @Scope(SESSION)
 public class MailboxChildrenSearchFarm extends InputController implements
-ResultsProviderFarm, Serializable {
+        ResultsProviderFarm, Serializable {
 
     private static final long serialVersionUID = 8331654530334881666L;
 
@@ -70,10 +69,10 @@ ResultsProviderFarm, Serializable {
             SortInfo sortInfo) throws ClientException {
         final DocumentModel currentDoc = navigationContext.getCurrentDocument();
 
-            PagedDocumentsProvider provider = getChildrenResultsProviderQMPattern(
-                    name, currentDoc, sortInfo);
-            provider.setName(name);
-            return provider;
+        PagedDocumentsProvider provider = getChildrenResultsProviderQMPattern(
+                name, currentDoc, sortInfo);
+        provider.setName(name);
+        return provider;
     }
 
     /**

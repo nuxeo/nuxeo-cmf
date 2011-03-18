@@ -18,7 +18,6 @@ package org.nuxeo.correspondence.test.utils;
 
 /**
  * @author Mariana Cedica
- *
  */
 public class CorrespondenceTestConstants {
 
@@ -26,6 +25,6 @@ public class CorrespondenceTestConstants {
 
     public static final String CORRESPONDENCE_CORE_TEST_BUNDLE = "org.nuxeo.correspondence.core.test";
 
-    public static final String UIDGEN_CORE_BUNDLE = "org.nuxeo.ecm.platform.uidgen.core" ;
+    public static final String UIDGEN_CORE_BUNDLE = "org.nuxeo.ecm.platform.uidgen.core";
 
 }

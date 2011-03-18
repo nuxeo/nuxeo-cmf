@@ -36,7 +36,6 @@ import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
 import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.runtime.api.Framework;
 
-
 /**
  * Get mailboxes using an unrestricted session and the given muids.
  *
@@ -71,7 +70,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        if(muids == null) {
+        if (muids == null) {
             return;
         }
         List<DocumentModel> docs = getMailboxesDocumentModel(muids);

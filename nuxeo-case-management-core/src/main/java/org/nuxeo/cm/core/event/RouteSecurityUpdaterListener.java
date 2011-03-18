@@ -42,15 +42,15 @@ import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class RouteSecurityUpdaterListener implements EventListener {
+
     @Override
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         EventContext eventCtx = event.getContext();
-        if(!(eventCtx instanceof DocumentEventContext)) {
+        if (!(eventCtx instanceof DocumentEventContext)) {
             return;
         }
         DocumentEventContext docEventCtx = (DocumentEventContext) eventCtx;
@@ -76,13 +76,14 @@ public class RouteSecurityUpdaterListener implements EventListener {
                 ACP acp = routeDoc.getACP();
                 ACL routeACL = acp.getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                 List<ACE> newACEs = new ArrayList<ACE>();
-                if(routeACL ==  null) {
+                if (routeACL == null) {
                     routeACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-                    ACL kaseACL = kaseDoc.getACP().getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-                    for(ACE a : kaseACL.getACEs()) {
-                        if(isReadFromMailboxId(a)) {
-                            newACEs.add(new ACE(
-                                    a.getUsername(), SecurityConstants.READ, true));
+                    ACL kaseACL = kaseDoc.getACP().getACL(
+                            CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+                    for (ACE a : kaseACL.getACEs()) {
+                        if (isReadFromMailboxId(a)) {
+                            newACEs.add(new ACE(a.getUsername(),
+                                    SecurityConstants.READ, true));
                         }
                     }
                 }
@@ -108,8 +109,9 @@ public class RouteSecurityUpdaterListener implements EventListener {
         try {
             pm = Framework.getService(PermissionProvider.class);
             String[] perms = pm.getSubPermissions(a.getPermission());
-            for(String perm : perms) {
-                if(SecurityConstants.READ.equals(perm) || SecurityConstants.EVERYTHING.equals(perm)) {
+            for (String perm : perms) {
+                if (SecurityConstants.READ.equals(perm)
+                        || SecurityConstants.EVERYTHING.equals(perm)) {
                     return true;
                 }
             }

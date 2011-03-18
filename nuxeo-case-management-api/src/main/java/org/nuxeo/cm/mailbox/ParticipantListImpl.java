@@ -29,7 +29,6 @@ import java.util.Map;
  * Mailing list implementation using a complex property value as backend.
  *
  * @author Anahide Tchertchian
- *
  */
 public class ParticipantListImpl implements ParticipantsList {
 

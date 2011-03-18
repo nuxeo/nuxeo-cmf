@@ -26,7 +26,7 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 
 /**
  * Implementation for creating caseItems in cases
- * 
+ *
  * @author Mariana Cedica
  */
 public class CaseManagementImporter extends AbstractImporterExecutor {
@@ -59,9 +59,9 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
         SourceNode sourceNode = new FileSourceNode(folderPath);
         GenericMultiThreadedImporter importer;
         try {
-            importer = new GenericMultiThreadedImporter(
-                    sourceNode, destionationMailboxPath, 50, new Integer(
-                            noImportingThreads), getLogger());
+            importer = new GenericMultiThreadedImporter(sourceNode,
+                    destionationMailboxPath, 50,
+                    new Integer(noImportingThreads), getLogger());
             // TODO : bachSize?
             cmCaseItemDocFactory.setDestionationMailboxPath(destionationMailboxPath);
             importer.setFactory(cmCaseItemDocFactory);

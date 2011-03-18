@@ -22,15 +22,11 @@ package org.nuxeo.cm.mailbox;
 import java.util.Arrays;
 import java.util.List;
 
-import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.mailbox.ParticipantsList;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
-
 
 /**
  * @author Anahide Tchertchian

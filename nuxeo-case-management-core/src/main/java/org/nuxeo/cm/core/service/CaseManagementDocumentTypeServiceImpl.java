@@ -25,7 +25,7 @@ import org.nuxeo.runtime.model.DefaultComponent;
  * @author Nicolas Ulrich
  */
 public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
-implements CaseManagementDocumentTypeService {
+        implements CaseManagementDocumentTypeService {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,8 +43,9 @@ implements CaseManagementDocumentTypeService {
     }
 
     @Override
-    public void registerContribution(Object contribution, String extensionPoint,
-            ComponentInstance contributor) throws Exception {
+    public void registerContribution(Object contribution,
+            String extensionPoint, ComponentInstance contributor)
+            throws Exception {
 
         CaseManagementDocumentTypeDescriptor distributionType = (CaseManagementDocumentTypeDescriptor) contribution;
 
@@ -56,11 +57,11 @@ implements CaseManagementDocumentTypeService {
             envelopeDocType = distributionType.envelopeDocType;
         }
 
-        if(distributionType.mailboxDocType !=null){
+        if (distributionType.mailboxDocType != null) {
             mailboxDocType = distributionType.mailboxDocType;
         }
 
-        if(distributionType.caseItemDocType !=null){
+        if (distributionType.caseItemDocType != null) {
             caseItemDocType = distributionType.caseItemDocType;
         }
     }
@@ -80,11 +81,11 @@ implements CaseManagementDocumentTypeService {
         return postDocType;
     }
 
-    public String getMailboxType(){
+    public String getMailboxType() {
         return mailboxDocType;
     }
 
-    public String getCaseItemType(){
+    public String getCaseItemType() {
         return caseItemDocType;
     }
 

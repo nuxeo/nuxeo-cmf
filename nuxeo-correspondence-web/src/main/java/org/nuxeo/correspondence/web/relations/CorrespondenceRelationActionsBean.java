@@ -75,7 +75,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Retrieves relations for current email
- * 
+ *
  * @author Anahide Tchertchian
  */
 @Name("correspRelationActions")

@@ -21,13 +21,12 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.ecm.core.event.EventListener;
 
-
 /**
  * @author arussel
- *
  */
 public class DraftUpdatedListener extends AbstractDraftListener implements
         EventListener {
+
     static final Log log = LogFactory.getLog(DraftCreationListener.class);
 
     @Override

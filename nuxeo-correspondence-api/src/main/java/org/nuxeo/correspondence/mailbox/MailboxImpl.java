@@ -30,9 +30,8 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Mailbox implementation using a document model as backend
- * 
+ *
  * @author Anahide Tchertchian
- * 
  */
 public class MailboxImpl implements Mailbox {
 

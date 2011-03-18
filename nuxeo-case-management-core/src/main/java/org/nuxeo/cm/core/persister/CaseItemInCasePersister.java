@@ -24,7 +24,6 @@ import org.nuxeo.ecm.core.api.CoreSession;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class CaseItemInCasePersister extends CaseManagementAbstractPersister
         implements CaseManagementPersister {

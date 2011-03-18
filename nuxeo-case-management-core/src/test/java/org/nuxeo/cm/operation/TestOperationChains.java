@@ -28,7 +28,6 @@ import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
- *
  */
 public class TestOperationChains extends CaseManagementRepositoryTestCase {
 
@@ -46,10 +45,12 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         assertEquals(chainId,
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_TASK_CHAIN);
         OperationContext ctx = new OperationContext(session);
-        DocumentModel stepDocument = createDocumentModel(session, "step1", CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, "/");
+        DocumentModel stepDocument = createDocumentModel(session, "step1",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, "/");
         DocumentRouteStep step = stepDocument.getAdapter(DocumentRouteStep.class);
         ctx.put(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY, step);
-        DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");
+        DocumentModel processedDocument = createDocumentModel(session, "foo",
+                CaseConstants.CASE_TYPE, "/");
         session.save();
         ctx.setInput(processedDocument);
         automationService.run(ctx, chainId);
@@ -61,13 +62,15 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         assertEquals(chainId,
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
         OperationContext ctx = new OperationContext(session);
-        DocumentModel stepDocument = createDocumentModel(session, "step1", CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP, "/");
+        DocumentModel stepDocument = createDocumentModel(session, "step1",
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP, "/");
         stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toValidated.name());
         stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toReady.name());
         stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toRunning.name());
         DocumentRouteStep step = stepDocument.getAdapter(DocumentRouteStep.class);
         ctx.put(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY, step);
-        DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");
+        DocumentModel processedDocument = createDocumentModel(session, "foo",
+                CaseConstants.CASE_TYPE, "/");
         DocumentModelList listOfDocs = new DocumentModelListImpl();
         listOfDocs.add(processedDocument);
         session.save();

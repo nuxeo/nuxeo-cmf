@@ -40,7 +40,6 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author arussel
- *
  */
 @Name("typesTool")
 @Scope(CONVERSATION)

@@ -27,7 +27,8 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class LockableAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
+            Class arg1) {
         checkDocument(doc);
         return new LockableAdapterImpl(doc);
     }
