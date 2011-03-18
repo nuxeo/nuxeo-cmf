@@ -9,11 +9,13 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
-          dc:title=Case:dc:title acslk:dueDate=Step:rtsk:dueDate
+          dc:title=Case:dc:title
+          acslk:dueDate=Step:rtsk:dueDate
           acslk:automaticValidation=Step:rtsk:automaticValidation
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=validateAndRemoveLink refuse=refuseAndRemoveLink
+          validate=validateAndRemoveLink
+          refuse=refuseAndRemoveLink
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -23,11 +25,13 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
-          dc:title=Case:dc:title acslk:dueDate=Step:rtsk:dueDate
+          dc:title=Case:dc:title
+          acslk:dueDate=Step:rtsk:dueDate
           acslk:automaticValidation=Step:rtsk:automaticValidation
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=validateAndRemoveLink refuse=refuseAndRemoveLink
+          validate=validateAndRemoveLink
+          refuse=refuseAndRemoveLink
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
@@ -37,11 +41,13 @@
       <operation id="Case.Management.Step.CaseLink.Mapping">
         <param name="actionnable" type="boolean">true</param>
         <param name="mappingProperties" type="Properties">
-          dc:title=Case:dc:title acslk:dueDate=Step:rtsk:dueDate
+          dc:title=Case:dc:title
+          acslk:dueDate=Step:rtsk:dueDate
           acslk:automaticValidation=Step:rtsk:automaticValidation
         </param>
         <param name="leavingChainsProperties" type="Properties">
-          validate=validateAndRemoveLink refuse=refuseAndRemoveLink
+          validate=validateAndRemoveLink
+          refuse=refuseAndRemoveLink
         </param>
       </operation>
       <operation id="Case.Management.Distribution" />
