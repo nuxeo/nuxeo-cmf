@@ -1113,30 +1113,30 @@ class RoutePage(BasePage):
         return RoutePage(self.fl)
     
     def lockRoute(self, user, route):
-        fl = self.fl
-        server_url = fl.server_url
-        route = quote(route)
-        if ("This document is <span class=\"summary_locked\">locked</span>" not in fl.getBody()):
-            p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['related_route_elements_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['related_route_elements:nxl_document_routing_route_content:lock_route', 'related_route_elements:nxl_document_routing_route_content:lock_route']],
-            description="lock route")
-        fl.assert_("an unexpected error occurred" not in fl.getBody())
-        fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in fl.getBody())
-        fl.logi("Route " + route + "is  locked by" + user)
+        #fl = self.fl
+        #server_url = fl.server_url
+        #route = quote(route)
+        #if ("This document is <span class=\"summary_locked\">locked</span>" not in fl.getBody()):
+        #    p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+        #    ['related_route_elements_SUBMIT', '1'],
+        #    ['javax.faces.ViewState', fl.getLastJsfState()],
+        #    ['related_route_elements:nxl_document_routing_route_content:lock_route', 'related_route_elements:nxl_document_routing_route_content:lock_route']],
+        #    description="lock route")
+        #fl.assert_("an unexpected error occurred" not in fl.getBody())
+        #fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in fl.getBody())
+        #fl.logi("Route " + route + "is  locked by" + user)
         return RoutePage(self.fl)
     
     def stepCanBeUpdated(self, stepId, routeInstance, user):
         fl = self.fl
         server_url = fl.server_url
         html = fl.getBody()
-        if("an unexpected error occurred" in html):
-         fl.logi("Route " + routeInstance + "is not locked!! by" + user)
-        fl.assert_("an unexpected error occurred" not in html)
-        if ("This document is <span class=\"summary_locked\">locked</span>" not in html):
-            fl.logi(src(html))
-        fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
+        #if("an unexpected error occurred" in html):
+        # fl.logi("Route " + routeInstance + "is not locked!! by" + user)
+        #fl.assert_("an unexpected error occurred" not in html)
+        #if ("This document is <span class=\"summary_locked\">locked</span>" not in html):
+        #    fl.logi(src(html))
+        #fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
         start = html.find("docRef=\"" + stepId)
         end = html.find("</tr>", start)
         if ("title=\"ready\"" in html[start:end]):
@@ -1147,10 +1147,10 @@ class RoutePage(BasePage):
         fl = self.fl
         server_url = fl.server_url
         html = fl.getBody()
-        if("an unexpected error occurred" in html):
-         fl.logi("Route " + routeInstance + "is not locked!! by" + user)
-        fl.assert_("an unexpected error occurred" not in html)
-        fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
+        #if("an unexpected error occurred" in html):
+        # fl.logi("Route " + routeInstance + "is not locked!! by" + user)
+        #fl.assert_("an unexpected error occurred" not in html)
+        #fl.assert_("This document is <span class=\"summary_locked\">locked</span>" in html)
         start = html.find("docRef=\"" + stepId)
         end = html.find("</tr>", start)
         if ("step.png" in html[start:end]):

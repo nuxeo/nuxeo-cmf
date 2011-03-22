@@ -44,7 +44,7 @@ create-Cases:
 	fl-run-test -d -V --simple-fetch create_Cases.py $(FLOPS)	
 
 test-bench:
-	-fl-run-bench --simple-fetch test_CMF.py CMF.test_CMF  --label=test -c 10 -D 300 -m 0.1 -M .5 -s 1 $(FLOPS)
+	-fl-run-bench --simple-fetch test_CMF.py CMF.test_CMF  --label=test -c 1 -D 300 -m 0.1 -M .5 -s 1 $(FLOPS)
 	-fl-build-report -T 3 $(LOG_HOME)/cmf-bench.xml --html -o $(REPORT)
 
 clean:
