@@ -110,25 +110,9 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     <unzip dest="${stagedir}">
       <artifact:resolveFile key="${distrib.key}"
                             classifier="${distrib.classifier}" />
-      <patternset>
-        <exclude name="**/templates/common-sfsl/**" />
-        <exclude name="**/templates/stateful/**" />
-        <exclude name="**/templates/stateless/**" />
-      </patternset>
     </unzip>
     <nx:rename from="${stagedir}/nuxeo-*" to="${app.path}" />
     <chmod dir="${app.path}" perm="750" includes="*.sh,bin/*.sh,bin/nuxeoctl" />
-    <!-- remove open social -->
-    <delete failonerror="false" verbose="true">
-      <fileset dir="${bundles.dir}"
-        includes="nuxeo-opensocial-*"/> 
-      <fileset dir="${bundles.dir}"
-         includes="nuxeo-spaces-*"/>
-      <fileset dir="${bundles.dir}"
-         includes="nuxeo-webengine-gadgets-*"/>
-      <fileset dir="${app.path}/templates/common/config"
-        includes="opensocial.properties default-opensocial-config.xml" />
-    </delete>
     <!-- Deploy Custom plugins -->
     <copy todir="${plugins.dir}">
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
