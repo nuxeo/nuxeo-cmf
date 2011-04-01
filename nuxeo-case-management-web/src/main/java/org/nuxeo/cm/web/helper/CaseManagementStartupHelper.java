@@ -46,7 +46,7 @@ import org.nuxeo.runtime.api.Framework;
  */
 @Name("startupHelper")
 @Scope(SESSION)
-@Install(precedence = Install.DEPLOYMENT)
+@Install(precedence = Install.APPLICATION)
 public class CaseManagementStartupHelper extends StartupHelper {
 
     private static final long serialVersionUID = -3606085944027894437L;
