@@ -7,7 +7,6 @@
   <require>org.nuxeo.ecm.platform.forum.actions</require>
   <require>org.nuxeo.ecm.platform.comment.actions</require>
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
-  <require>org.nuxeo.ecm.classification.web.actions</require>
   <require>org.nuxeo.ecm.platform.routing.actions</require>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
@@ -292,25 +291,6 @@
 
     <!-- End of Mailbox Management Actions -->
 
-    <!-- Classification integration -->
-    <action id="CLASSIFICATION_REQUEST"
-      link="/casemanagement/caseitem/tabs/classification_request.xhtml"
-      label="label.casemanagement.action.classificationRequest"
-      icon="/icons/icone_classement.gif" order="72">
-      <category>VIEW_ACTION_LIST</category>
-      <filter-id>isNotCmInitialCase</filter-id>
-    </action>
-
-    <action id="CURRENT_SELECTION_CLASSIFICATION" enabled="false" />
-
-    <action id="newClassificationRoot">
-      <filter id="newMailboxClassificationRoot">
-        <rule grant="true">
-          <facet>Mailbox</facet>
-        </rule>
-      </filter>
-    </action>
-    <!-- end of Classification integration -->
 
     <action id="TAB_DISTRIBUTION_PARTICIPANTS"
       link="/casemanagement/caseitem/tabs/distribute_cm_case.xhtml"
