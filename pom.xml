@@ -8,18 +8,18 @@
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
     <artifactId>nuxeo-features-parent</artifactId>
-    <version>5.4.1-I20110302_0116-1</version>
+    <version>5.4.2-I20110404_0115</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.6-1</version>
+  <version>1.6-2</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>The parent module for Nuxeo Case Management Framework</description>
 
   <properties>
-    <nuxeo.cm.version>1.6-1</nuxeo.cm.version>
+    <nuxeo.cm.version>1.6-2</nuxeo.cm.version>
   </properties>
 
   <modules>
