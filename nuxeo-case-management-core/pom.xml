@@ -68,7 +68,18 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
-
+    <dependency>  
+      <groupId>org.nuxeo.common</groupId>
+      <artifactId>nuxeo-common</artifactId>
+	</dependency>
+	<dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+     </dependency>
+     <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+     </dependency> 
     <!-- TESTS -->
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
@@ -100,12 +111,11 @@
       <artifactId>nuxeo-platform-document-routing-core</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
+  <dependency>
       <groupId>org.nuxeo.runtime</groupId>
-      <artifactId>nuxeo-runtime-jtajca</artifactId>
+     <artifactId>nuxeo-runtime-jtajca</artifactId>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
 </project>

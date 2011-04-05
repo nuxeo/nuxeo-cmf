@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.service.caseimporter.service">
+  <implementation class="org.nuxeo.cm.core.service.caseimporter.CaseManagementCaseImporterServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.cm.service.caseimporter.CaseManagementCaseImporterService" />
+  </service>
+  
+  <extension-point name="importer">
+     <object class="org.nuxeo.cm.core.service.caseimporter.CaseManagementCaseImporterDescriptor" />
+  </extension-point>
+
+</component>

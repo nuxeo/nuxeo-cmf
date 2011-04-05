@@ -44,4 +44,5 @@ public class CaseItemInCasePersister extends CaseManagementAbstractPersister
             throw new RuntimeException(e);
         }
     }
+
 }

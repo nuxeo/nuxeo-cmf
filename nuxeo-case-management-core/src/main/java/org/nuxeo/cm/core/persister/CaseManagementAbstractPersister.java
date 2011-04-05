@@ -38,6 +38,11 @@ public abstract class CaseManagementAbstractPersister implements
     public DocumentModel getParentDocumentForCase(CoreSession session) {
         GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
                 session);
+        try {
+            runner.runUnrestricted();
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
         return runner.getParentDocument();
     }
 

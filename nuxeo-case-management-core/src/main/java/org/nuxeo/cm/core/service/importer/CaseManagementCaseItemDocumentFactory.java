@@ -155,7 +155,7 @@ public class CaseManagementCaseItemDocumentFactory extends
         session.saveDocument(caseItemDoc);
     }
 
-    private CaseDistributionService getCaseDistributionService()
+    protected CaseDistributionService getCaseDistributionService()
             throws Exception {
         if (caseDistributionService == null) {
             caseDistributionService = Framework.getService(CaseDistributionService.class);
