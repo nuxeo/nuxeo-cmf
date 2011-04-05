@@ -186,7 +186,7 @@ public class CaseManagementCaseItemDocumentFactory extends
         this.destionationMailboxPath = destionationMailboxPath;
     }
 
-    private void notifyCaseImported(CoreSession coreSession,
+    protected void notifyCaseImported(CoreSession coreSession,
             DocumentModel caseItemDoc, SourceNode node) {
         // fire event that this doc was imported
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();

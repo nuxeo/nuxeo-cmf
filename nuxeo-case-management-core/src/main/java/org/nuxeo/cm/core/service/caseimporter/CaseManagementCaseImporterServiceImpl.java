@@ -16,8 +16,8 @@
  */
 package org.nuxeo.cm.core.service.caseimporter;
 
+import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.cm.service.caseimporter.CaseManagementCaseImporterService;
-import org.nuxeo.cm.service.caseimporter.CaseManagementXMLCaseReader;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -27,22 +27,19 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
 
     private static final long serialVersionUID = 1L;
 
-    private CaseManagementXMLCaseReader xmlCaseReader;
+    private AbstractXMLCaseReader xmlCaseReader;
 
     protected int noImportingThreads = 5;
-
-    protected String folderPath;
 
     @Override
     public void importCases(String sourcePath) throws ClientException {
         CaseImporter importer = new CaseImporter(noImportingThreads,
-                sourcePath, xmlCaseReader);
+                xmlCaseReader);
         try {
-            importer.importDocuments();
+            importer.importDocuments(sourcePath);
         } catch (Exception e) {
             throw new ClientException(e);
         }
-
     }
 
     @Override
@@ -57,9 +54,6 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
             if (caseImporterDescriptor.noImportingThreads != null) {
                 noImportingThreads = Integer.parseInt(caseImporterDescriptor.noImportingThreads);
             }
-            if (caseImporterDescriptor.folderPath != null) {
-                folderPath = caseImporterDescriptor.folderPath;
-            }
         }
     }
 
@@ -67,8 +61,6 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
     public void unregisterContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor)
             throws Exception {
-        folderPath = null;
         xmlCaseReader = null;
     }
-
 }

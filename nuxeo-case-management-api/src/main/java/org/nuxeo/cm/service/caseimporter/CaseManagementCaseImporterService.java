@@ -22,5 +22,9 @@ import org.nuxeo.ecm.core.api.ClientException;
 
 public interface CaseManagementCaseImporterService extends Serializable {
 
+    /**
+     * Imports cases from the file system at the given sourcePath
+     * */
     void importCases(String sourcePath) throws ClientException;
+
 }

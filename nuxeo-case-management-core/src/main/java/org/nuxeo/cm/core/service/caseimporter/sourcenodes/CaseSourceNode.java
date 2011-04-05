@@ -19,8 +19,9 @@ package org.nuxeo.cm.core.service.caseimporter.sourcenodes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dom4j.Document;
 import org.dom4j.Element;
-import org.nuxeo.cm.service.caseimporter.CaseManagementXMLCaseReader;
+import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
 
@@ -28,11 +29,11 @@ public class CaseSourceNode implements SourceNode {
 
     private Element caseDocument;
 
-    private CaseManagementXMLCaseReader xmlReader;
+    private AbstractXMLCaseReader xmlReader;
 
     private String rootPath;
 
-    CaseSourceNode(Element caseDocument, CaseManagementXMLCaseReader xmlReader,
+    CaseSourceNode(Element caseDocument, AbstractXMLCaseReader xmlReader,
             String rootPath) {
         this.caseDocument = caseDocument;
         this.xmlReader = xmlReader;
@@ -56,13 +57,11 @@ public class CaseSourceNode implements SourceNode {
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getSourcePath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -73,5 +72,9 @@ public class CaseSourceNode implements SourceNode {
 
     public Element getCaseElement() {
         return caseDocument;
+    }
+
+    public Document getCaseDocument() {
+        return xmlReader.extractEntireCase(caseDocument);
     }
 }

@@ -23,7 +23,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
-import org.nuxeo.cm.service.caseimporter.CaseManagementXMLCaseReader;
+import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.platform.importer.source.FileSourceNode;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
@@ -35,12 +35,12 @@ public class CaseManagementSourceNode extends FileSourceNode {
 
     public static final Log log = LogFactory.getLog(CaseManagementSourceNode.class);
 
-    private CaseManagementXMLCaseReader xmlCaseReader;
+    private AbstractXMLCaseReader xmlCaseReader;
 
     private List<Document> allCases = new ArrayList<Document>();
 
     public CaseManagementSourceNode(File child,
-            CaseManagementXMLCaseReader xmlCaseReader) {
+            AbstractXMLCaseReader xmlCaseReader) {
         super(child);
         this.xmlCaseReader = xmlCaseReader;
     }

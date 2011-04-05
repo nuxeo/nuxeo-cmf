@@ -19,7 +19,7 @@ package org.nuxeo.cm.core.service.caseimporter.sourcenodes;
 import java.io.File;
 
 import org.dom4j.Element;
-import org.nuxeo.cm.service.caseimporter.CaseManagementXMLCaseReader;
+import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.platform.importer.source.FileSourceNode;
 
@@ -28,7 +28,7 @@ public class CaseItemSourceNode extends FileSourceNode {
     private Element caseItemElement;
 
     public CaseItemSourceNode(Element caseItemElement,
-            CaseManagementXMLCaseReader xmlReader, String rootPath) {
+            AbstractXMLCaseReader xmlReader, String rootPath) {
         super(new File(FileUtils.getParentPath(rootPath) + File.separator
                 + xmlReader.getCaseItemPathFile(caseItemElement)));
         this.caseItemElement = caseItemElement;

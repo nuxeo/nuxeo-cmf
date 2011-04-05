@@ -26,30 +26,23 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.core.service.caseimporter.sourcenodes.CaseManagementSourceNode;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.service.caseimporter.CaseManagementXMLCaseReader;
+import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.ecm.platform.importer.base.GenericMultiThreadedImporter;
 import org.nuxeo.ecm.platform.importer.executor.AbstractImporterExecutor;
 import org.nuxeo.ecm.platform.importer.source.FileSourceNode;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
 
-/**
- * Implementation for creating caseItems in cases
- *
- */
 public class CaseImporter extends AbstractImporterExecutor {
 
     private static final Log log = LogFactory.getLog(CaseImporter.class);
 
     private int noImportingThreads;
 
-    private String folderPath;
+    private AbstractXMLCaseReader xmlCaseReader;
 
-    private CaseManagementXMLCaseReader xmlCaseReader;
-
-    public CaseImporter(int noImportingThreads, String folderPath,
-            CaseManagementXMLCaseReader xmlCaseReader) {
+    public CaseImporter(int noImportingThreads,
+            AbstractXMLCaseReader xmlCaseReader) {
         this.noImportingThreads = noImportingThreads;
-        this.folderPath = folderPath;
         this.xmlCaseReader = xmlCaseReader;
     }
 
@@ -58,9 +51,8 @@ public class CaseImporter extends AbstractImporterExecutor {
         return log;
     }
 
-    @SuppressWarnings("unchecked")
-    public void importDocuments() {
-        SourceNode src = new FileSourceNode(folderPath) {
+    public void importDocuments(String sourcePath) {
+        SourceNode src = new FileSourceNode(sourcePath) {
             @Override
             public List<SourceNode> getChildren() {
                 List<SourceNode> children = new ArrayList<SourceNode>();
@@ -79,14 +71,13 @@ public class CaseImporter extends AbstractImporterExecutor {
         GenericMultiThreadedImporter importer;
         try {
             importer = new GenericMultiThreadedImporter(src,
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH, true, 50,
-                    new Integer(noImportingThreads), getLogger());
-            importer.setFactory(new CaseManagementCaseImporterDocumentsFactory(
-                    xmlCaseReader));
+                    CaseConstants.CASE_ROOT_DOCUMENT_PATH, true,
+                    noImportingThreads, new Integer(noImportingThreads),
+                    getLogger());
+            importer.setFactory(new CaseManagementCaseImporterDocumentsFactory());
             doRun(importer, Boolean.TRUE);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
-
 }

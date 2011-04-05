@@ -16,7 +16,7 @@
  */
 package org.nuxeo.cm.core.service.caseimporter;
 
-import org.nuxeo.cm.service.caseimporter.CaseManagementXMLCaseReader;
+import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.common.xmap.annotation.XNode;
 import org.nuxeo.common.xmap.annotation.XObject;
 
@@ -27,9 +27,6 @@ public class CaseManagementCaseImporterDescriptor {
     protected String noImportingThreads;
 
     @XNode("caseReader")
-    protected Class<CaseManagementXMLCaseReader> caseReader;
-
-    @XNode("folderPath")
-    protected String folderPath;
+    protected Class<AbstractXMLCaseReader> caseReader;
 
 }

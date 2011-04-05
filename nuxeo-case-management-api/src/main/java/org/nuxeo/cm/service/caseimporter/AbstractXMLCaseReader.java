@@ -20,23 +20,43 @@ import java.io.File;
 import java.util.List;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.io.ExportedDocument;
 
-public interface CaseManagementXMLCaseReader {
+/***
+ * Parses xml file and returns corresponding dom4j elements for cases and
+ * caseItems
+ */
+public abstract class AbstractXMLCaseReader {
 
     /**
      * Loads the list of cases contained into the imported file
      *
      * @throws ClientException
      * */
-    List<Document> loadCases(File file) throws ClientException;
+    public abstract List<Document> loadCases(File file) throws ClientException;
 
-    ExportedDocument read(Element caseElement) throws ClientException;
+    /***
+     * Loads the list of case items for a given caseElement
+     *
+     * @param caseElement
+     * @return
+     */
+    public abstract List<Element> loadCaseItems(Element caseElement);
 
-    List<Element> loadCaseItems(Element caseElement);
+    /***
+     * Gets the path of the file to be imported as a case Item
+     *
+     * @param caseItemElement
+     * @return
+     */
+    public abstract String getCaseItemPathFile(Element caseItemElement);
 
-    String getCaseItemPathFile(Element caseItemElement);
+    public Document extractEntireCase(Element caseElement) {
+        Element freeElem = (Element) caseElement.detach();
+        Document document = DocumentHelper.createDocument(freeElem);
+        return document;
+    }
 
 }
