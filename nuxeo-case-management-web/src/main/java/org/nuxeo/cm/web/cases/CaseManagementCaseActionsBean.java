@@ -41,7 +41,7 @@ import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
-import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
+import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -63,7 +63,7 @@ import org.nuxeo.runtime.api.Framework;
 @CaseManagementContextBound
 @Install(precedence = Install.FRAMEWORK)
 public class CaseManagementCaseActionsBean extends
-        CaseManagementAbstractActionsBean {
+        CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -80,6 +80,9 @@ public class CaseManagementCaseActionsBean extends
 
     @In(create = true)
     protected transient CaseDistributionService caseDistributionService;
+
+    @In(required = false, create = true)
+    protected transient DocumentsListsManager documentsListsManager;
 
     protected transient TrashService trashService;
 

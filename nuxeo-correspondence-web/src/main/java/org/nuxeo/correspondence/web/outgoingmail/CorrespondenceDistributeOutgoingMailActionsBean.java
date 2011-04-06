@@ -38,7 +38,7 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
+import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -54,7 +54,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Name("correspDistributeOutgoingMailActionsBean")
 @Scope(ScopeType.CONVERSATION)
 public class CorrespondenceDistributeOutgoingMailActionsBean extends
-        CaseManagementAbstractActionsBean implements Serializable {
+        CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -72,6 +72,9 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
 
     @In(create = true)
     protected transient ResourcesAccessor resourcesAccessor;
+
+    @In(required = false, create = true)
+    protected transient DocumentsListsManager documentsListsManager;
 
     public String backToEnvelope() throws ClientException {
 

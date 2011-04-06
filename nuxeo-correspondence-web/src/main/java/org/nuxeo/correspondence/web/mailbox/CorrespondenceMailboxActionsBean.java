@@ -31,7 +31,7 @@ import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
-import org.nuxeo.cm.web.mailbox.CaseManagementAbstractActionsBean;
+import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.correspondence.mail.MailConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -47,7 +47,7 @@ import org.nuxeo.runtime.api.Framework;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CorrespondenceMailboxActionsBean extends
-        CaseManagementAbstractActionsBean implements Serializable {
+        CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

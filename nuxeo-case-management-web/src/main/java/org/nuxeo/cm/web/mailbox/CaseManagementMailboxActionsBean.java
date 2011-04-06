@@ -40,7 +40,6 @@ import javax.faces.validator.ValidatorException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
@@ -57,6 +56,7 @@ import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
+import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -65,12 +65,10 @@ import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.UserAction;
-import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.util.ComponentUtils;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
-import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 
 /**
  * Handles mailboxes creation/edition and views.
@@ -79,19 +77,9 @@ import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 public class CaseManagementMailboxActionsBean extends
-        CaseManagementAbstractActionsBean {
+        CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
-
-    protected static String MAILBOX_INBOX = "MAILBOX_INBOX";
-
-    protected static String MAILBOX_SERVICE = "MAILBOX_SERVICE";
-
-    protected static String MAILBOX_SENT = "MAILBOX_SENT";
-
-    protected static String MAILBOX_DRAFT = "MAILBOX_DRAFT";
-
-    protected static String MAILBOX_PLANS = "MAILBOX_PLANS";
 
     protected static final Log log = LogFactory.getLog(CaseManagementMailboxActionsBean.class);
 
@@ -154,6 +142,7 @@ public class CaseManagementMailboxActionsBean extends
                 // Sort mailboxes: personal mailbox comes first, then
                 // alphabetical order is used
                 Collections.sort(userMailboxes, new Comparator<Mailbox>() {
+                    @Override
                     public int compare(Mailbox o1, Mailbox o2) {
                         return o1.getTitle().compareTo(o2.getTitle());
                     }
@@ -264,44 +253,6 @@ public class CaseManagementMailboxActionsBean extends
         } catch (Throwable t) {
             throw new CaseManagementException(t);
         }
-    }
-
-    @Factory(value = "inboxChildrenSelectModel", scope = EVENT)
-    public SelectDataModel getInboxSelectModel() throws ClientException {
-        return getSelectDataModelFromProvider(MAILBOX_INBOX);
-    }
-
-    @Factory(value = "serviceChildrenSelectModel", scope = EVENT)
-    public SelectDataModel getServicelectModel() throws ClientException {
-        return getSelectDataModelFromProvider(MAILBOX_SERVICE);
-    }
-
-    @Factory(value = "sentChildrenSelectModel", scope = EVENT)
-    public SelectDataModel getSentSelectModel() throws ClientException {
-        return getSelectDataModelFromProvider(MAILBOX_SENT);
-    }
-
-    @Factory(value = "draftChildrenSelectModel", scope = EVENT)
-    public SelectDataModel getDraftSelectModel() throws ClientException {
-        return getSelectDataModelFromProvider(MAILBOX_DRAFT);
-    }
-
-    @Factory(value = "plansChildrenSelectModel", scope = EVENT)
-    public SelectDataModel getPlansSelectModel() throws ClientException {
-        return getSelectDataModelFromProvider(MAILBOX_PLANS);
-    }
-
-    @Override
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
-            throws ClientException {
-        ResultsProvidersCache resultsProvidersCache = (ResultsProvidersCache) Component.getInstance("resultsProvidersCache");
-
-        resultsProvidersCache.invalidate(MAILBOX_INBOX);
-        resultsProvidersCache.invalidate(MAILBOX_SERVICE);
-        resultsProvidersCache.invalidate(MAILBOX_SENT);
-        resultsProvidersCache.invalidate(MAILBOX_DRAFT);
-        resultsProvidersCache.invalidate(MAILBOX_PLANS);
-        super.resetMailboxCache(cachedMailbox, newMailbox);
     }
 
     /**

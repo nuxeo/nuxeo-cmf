@@ -5,36 +5,14 @@
   xmlns:c="http://java.sun.com/jstl/core"
   xmlns:nxu="http://nuxeo.org/nxweb/util">
 
-<c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
-   <c:choose>
-      <c:when test="#{documentContentViewActions.hasContentViewSupport(currentDocument, 'draft_content')}">
-        
-        <ui:include src="/incl/document_content_view.xhtml">
-          <ui:param name="contentViewCategory" value="draft_content" />
-        </ui:include>
-  
-      </c:when>
-      <c:otherwise> 
-      <nxu:methodResult name="provider"
-       value="#{resultsProvidersCache.get('MAILBOX_DRAFT')}">
-
-       <ui:decorate template="/incl/documents_layout_table.xhtml">
-        <ui:param name="documents" value="#{draftChildrenSelectModel}" />
-        <ui:param name="showCheckboxes" value="#{true}" />
-        <ui:param name="provider" value="#{provider}" />
-        <ui:param name="providerName" value="MAILBOX_DRAFT" />
-        <ui:param name="listName" value="CURRENT_SELECTION" />
-        <ui:param name="layoutName" value="cm_draft_caselink" />
-        <ui:define name="buttons">
-          <ui:include src="/incl/clipboard.xhtml" />
-        </ui:define>
-      </ui:decorate>
-
-      </nxu:methodResult>
-     </c:otherwise>
-    </c:choose>
+  <c:if test="#{currentDocument.currentLifeCycleState != 'deleted'}">
+    <ui:include src="/incl/document_content_view.xhtml">
+      <ui:param name="contentViewCategory" value="draft_content" />
+    </ui:include>
   </c:if>
 
   <c:if test="#{currentDocument.currentLifeCycleState == 'deleted'}">
     <ui:include src="/incl/tabs/document_trash_content.xhtml" />
   </c:if>
+
+</div>

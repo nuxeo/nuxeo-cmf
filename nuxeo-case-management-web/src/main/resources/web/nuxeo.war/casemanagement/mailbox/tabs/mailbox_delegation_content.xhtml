@@ -5,17 +5,17 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
 
-<div class="tabsContent">
+  <div class="tabsContent">
+    
+    <h:form id="mailbox_delegation">
+      <nxl:layout name="cm_mailbox_managers" mode="edit"
+        value="#{changeableDocument}" />
   
-  <h:form id="mailbox_delegation">
-    <nxl:layout name="cm_mailbox_managers" mode="edit"
-      value="#{changeableDocument}" />
-      
-    <h:commandButton value="#{messages['label.casemanagement.save']}"
-      action="#{cmMailboxActions.updateManagerTabMailbox()}"
-      styleClass="button" />
+      <h:commandButton value="#{messages['label.casemanagement.save']}"
+        action="#{cmMailboxActions.updateManagerTabMailbox()}"
+        styleClass="button" />
   
-  </h:form>
-</div>
+    </h:form>
+  </div>
 
 </div>
