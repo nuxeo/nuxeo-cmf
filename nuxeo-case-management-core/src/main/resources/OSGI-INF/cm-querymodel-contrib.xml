@@ -6,65 +6,6 @@
     target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"
     point="model">
 
-    <queryModel name="MAILBOX_INBOX">
-      <pattern>
-        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-        AND cslk:isSent = 0 AND cslk:draft = 0
-      </pattern>
-      <sortable value="true" defaultSortColumn="cslk:date"
-        defaultSortAscending="false" />
-      <max>10</max>
-    </queryModel>
-
-    <queryModel name="MAILBOX_SERVICE">
-      <pattern>
-        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-        AND cslk:draft = 0
-      </pattern>
-      <sortable value="true" defaultSortColumn="dc:title"
-        defaultSortAscending="true" />
-      <max>10</max>
-    </queryModel>
-
-    <queryModel name="MAILBOX_SENT">
-      <pattern>
-        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-        AND cslk:isSent = 1 AND cslk:draft = 0
-      </pattern>
-      <sortable value="true" defaultSortColumn="dc:title"
-        defaultSortAscending="true" />
-      <max>10</max>
-    </queryModel>
-
-    <queryModel name="MAILBOX_DRAFT">
-      <pattern>
-        SELECT * FROM Document WHERE ecm:parentId = ? AND ecm:isCheckedInVersion
-        = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'CaseLink'
-        AND cslk:draft = 1
-      </pattern>
-      <sortable value="true" defaultSortColumn="dc:title"
-        defaultSortAscending="true" />
-      <max>10</max>
-    </queryModel>
-
-    <queryModel name="MAILBOX_PLANS">
-      <pattern>
-        SELECT * FROM ClassificationRoot WHERE ecm:parentId = ? AND
-        ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
-        ecm:currentLifeCycleState != 'deleted'
-      </pattern>
-      <sortable value="true" defaultSortColumn="dc:title"
-        defaultSortAscending="true" />
-      <max>10</max>
-    </queryModel>
-
     <!-- Case Management Default Service -->
 
     <queryModel name="GET_MAILBOX_FROM_ID">
