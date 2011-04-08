@@ -30,6 +30,8 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.XPath;
 import org.dom4j.io.SAXReader;
+import org.nuxeo.cm.distribution.CMFDistributionInfo;
+import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.ecm.core.api.ClientException;
 
@@ -44,6 +46,14 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
     public static final String CASE_ITEMS = "caseItems";
 
     public static final String CASE_ITEM_DOCUMENT_PATH = "path";
+
+    public static final String CASE_RECIPIENTS_TAG = "recipients";
+
+    public static final String CASE_RECIPIENTS_ACTION = "action";
+
+    public static final String CASE_RECIPIENTS_INFORMATION = "information";
+
+    public static final String CASE_RECIPIENTS_MAILBOX_TAG = "mailbox";
 
     @Override
     public List<Document> loadCases(File file) throws ClientException {
@@ -82,7 +92,6 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
         return caseReaders;
     }
 
-
     @SuppressWarnings("unchecked")
     @Override
     public List<Element> loadCaseItems(Element caseElement) {
@@ -92,5 +101,37 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
     @Override
     public String getCaseItemPathFile(Element caseItemElement) {
         return (String) caseItemElement.getData();
+    }
+
+    @Override
+    public DistributionInfo getDistributionInfo(Element caseElement) {
+        List<String> actionMailboxes = new ArrayList<String>();
+        List<String> informationMailboxes = new ArrayList<String>();
+
+        CMFDistributionInfo distributionInfo = new CMFDistributionInfo();
+        Element allRecipients = caseElement.element(CASE_RECIPIENTS_TAG);
+        // TODO : better error handling
+        if (allRecipients != null) {
+
+            List<Element> actionMailboxesElements = allRecipients.element(
+                    CASE_RECIPIENTS_ACTION).elements(
+                    CASE_RECIPIENTS_MAILBOX_TAG);
+            for (Element element : actionMailboxesElements) {
+                actionMailboxes.add((String) element.getData());
+            }
+
+            List<Element> informationMailboxesElements = caseElement.element(
+                    CASE_RECIPIENTS_TAG).element(CASE_RECIPIENTS_INFORMATION).elements(
+                    CASE_RECIPIENTS_MAILBOX_TAG);
+
+            for (Element element : informationMailboxesElements) {
+                informationMailboxes.add((String) element.getData());
+            }
+        }
+
+        distributionInfo.setForActionMailboxes(actionMailboxes);
+        distributionInfo.setForInformationMailboxes(informationMailboxes);
+        return distributionInfo;
+
     }
 }

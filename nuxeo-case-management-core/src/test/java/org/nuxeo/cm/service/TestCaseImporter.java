@@ -1,6 +1,9 @@
 package org.nuxeo.cm.service;
 
+import org.nuxeo.cm.caselink.CaseLink;
+import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.caseimporter.CaseManagementCaseImporterService;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.common.utils.FileUtils;
@@ -21,6 +24,16 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
     }
 
     public void testImport() throws Exception {
+        // create mailboxes used by import
+        Mailbox user1Mailbox = getPersonalMailbox(user1);
+        assertNotNull(user1Mailbox);
+
+        Mailbox user2Mailbox = getPersonalMailbox(user2);
+        assertNotNull(user2Mailbox);
+
+        Mailbox user3Mailbox = getPersonalMailbox(user3);
+        assertNotNull(user3Mailbox);
+
         CaseManagementCaseImporterService caseImporterService = getCaseManagementCaseImporterService();
         assertNotNull(caseImporterService);
         caseImporterService.importCases(FileUtils.getResourceFileFromContext(
@@ -83,6 +96,25 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello4.pdf", caseItemDocs.get(0).getTitle());
 
+        // test also distrbution
+
+        // Retrieve the case in the recipient1 mailbox
+        CaseLink postInMailbox = distributionService.getReceivedCaseLinks(
+                session, user1Mailbox, 0, 0).get(0);
+
+        // Retrieve the case from the caselink
+        Case receivedCase1 = postInMailbox.getCase(session);
+
+        // Check the case
+        assertEquals(receivedCase1.getDocument().getId(),
+                case1.getDocument().getId());
+
+        assertEquals(2, receivedCase1.getAllParticipants().size());
+        assertEquals(1, receivedCase1.getInitialInternalParticipants().get(
+                CaseLinkType.FOR_ACTION.toString()).size());
+
+        assertEquals(2, receivedCase1.getInitialInternalParticipants().get(
+                CaseLinkType.FOR_INFORMATION.toString()).size());
     }
 
     CaseManagementCaseImporterService getCaseManagementCaseImporterService()

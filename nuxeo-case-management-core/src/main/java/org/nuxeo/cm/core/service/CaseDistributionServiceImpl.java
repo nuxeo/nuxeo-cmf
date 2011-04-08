@@ -23,6 +23,7 @@ package org.nuxeo.cm.core.service;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
+import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
@@ -108,17 +110,19 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
-    public CaseLink sendCase(CoreSession session, Case kase,
+    public CaseLink sendCase(CoreSession session, String origin, Case kase,
             DistributionInfo initialDistribution) {
         Map<String, List<String>> recipients = initialDistribution.getAllParticipants();
-/*        String sender, Calendar date, String subject,
-        String comment, Case envelope,
-        Map<String, List<String>> internalRecipients,
-        Map<String, List<String>> externalRecipients
-        sendCase(session, postRequest, kase.isDraft());
+        CaseLink postRequest;
+        try {
+            postRequest = new CaseLinkRequestImpl(origin,
+                    Calendar.getInstance(), kase.getDocument().getTitle(),
+                    null, kase, recipients, null);
+            return sendCase(session, postRequest, kase.isDraft());
 
-*/
-        return null;
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
     }
 
     /**

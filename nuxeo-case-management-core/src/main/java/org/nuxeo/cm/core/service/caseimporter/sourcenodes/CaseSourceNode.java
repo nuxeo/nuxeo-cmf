@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.service.caseimporter.AbstractXMLCaseReader;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
@@ -76,5 +77,9 @@ public class CaseSourceNode implements SourceNode {
 
     public Document getCaseDocument() {
         return xmlReader.extractEntireCase(caseDocument);
+    }
+
+    public DistributionInfo getDistributionInfo() {
+        return xmlReader.getDistributionInfo(caseDocument);
     }
 }

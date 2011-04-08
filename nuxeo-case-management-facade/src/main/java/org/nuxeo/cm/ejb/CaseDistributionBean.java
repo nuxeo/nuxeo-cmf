@@ -190,10 +190,10 @@ public class CaseDistributionBean implements CaseDistributionService {
     }
 
     @Override
-    public CaseLink sendCase(CoreSession session, Case kase,
+    public CaseLink sendCase(CoreSession session, String sender, Case kase,
             DistributionInfo initialDistribution) {
-        // TODO Auto-generated method stub
-        return null;
+        return getCaseDistributionService().sendCase(session, sender, kase,
+                initialDistribution);
     }
 
 }

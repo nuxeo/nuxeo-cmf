@@ -45,10 +45,10 @@ public interface CaseDistributionService extends Serializable {
 
     /**
      * Distributes a case to a mailbox. the case is not currently in any
-     * mailbox, it was created by import
+     * mailbox, (it was created by import for example)
      *
      */
-    CaseLink sendCase(CoreSession session, Case kase,
+    CaseLink sendCase(CoreSession session, String sender, Case kase,
             DistributionInfo initialDistribution);
 
     /**

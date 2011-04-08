@@ -40,6 +40,12 @@ public class CaseImporter extends AbstractImporterExecutor {
 
     private AbstractXMLCaseReader xmlCaseReader;
 
+    private CaseManagementCaseImporterDocumentsFactory caseManagementCaseImporterDocumentsFactory;
+
+    private CaseManagementImporterThreadingPolicy caseManagementImporterThreadingPolicy;
+
+    private CaseImporterThreadedTask caseImporterThreadedTask;
+
     public CaseImporter(int noImportingThreads,
             AbstractXMLCaseReader xmlCaseReader) {
         this.noImportingThreads = noImportingThreads;
@@ -74,10 +80,49 @@ public class CaseImporter extends AbstractImporterExecutor {
                     CaseConstants.CASE_ROOT_DOCUMENT_PATH, true,
                     noImportingThreads, new Integer(noImportingThreads),
                     getLogger());
-            importer.setFactory(new CaseManagementCaseImporterDocumentsFactory());
+            if (caseManagementCaseImporterDocumentsFactory == null) {
+                setCaseManagementCaseImporterDocumentsFactory(new CaseManagementCaseImporterDocumentsFactory());
+            }
+            if (caseManagementImporterThreadingPolicy == null) {
+                setCaseManagementImporterThreadingPolicy(new CaseManagementImporterThreadingPolicy());
+            }
+            if (caseImporterThreadedTask == null) {
+                setCaseImporterThreadedTask(new CaseImporterThreadedTask(null));
+            }
+
+            importer.setFactory(caseManagementCaseImporterDocumentsFactory);
+            importer.setThreadPolicy(caseManagementImporterThreadingPolicy);
+            importer.setRootImportTask(caseImporterThreadedTask);
             doRun(importer, Boolean.TRUE);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
+    }
+
+    public CaseManagementCaseImporterDocumentsFactory getCaseManagementCaseImporterDocumentsFactory() {
+        return caseManagementCaseImporterDocumentsFactory;
+    }
+
+    public void setCaseManagementCaseImporterDocumentsFactory(
+            CaseManagementCaseImporterDocumentsFactory caseManagementCaseImporterDocumentsFactory) {
+        this.caseManagementCaseImporterDocumentsFactory = caseManagementCaseImporterDocumentsFactory;
+    }
+
+    public CaseManagementImporterThreadingPolicy getCaseManagementImporterThreadingPolicy() {
+        return caseManagementImporterThreadingPolicy;
+    }
+
+    public void setCaseManagementImporterThreadingPolicy(
+            CaseManagementImporterThreadingPolicy caseManagementImporterThreadingPolicy) {
+        this.caseManagementImporterThreadingPolicy = caseManagementImporterThreadingPolicy;
+    }
+
+    public CaseImporterThreadedTask getCaseImporterThreadedTask() {
+        return caseImporterThreadedTask;
+    }
+
+    public void setCaseImporterThreadedTask(
+            CaseImporterThreadedTask caseImporterThreadedTask) {
+        this.caseImporterThreadedTask = caseImporterThreadedTask;
     }
 }

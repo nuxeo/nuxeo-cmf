@@ -26,12 +26,12 @@
   </caseItems>
   <recipients>
   	<action>
-  	 <mailbox>user1-lambda</mailbox>
+  	 <mailbox>user-user1</mailbox>
   	</action>
-  	<copy>
-  	 <mailbox>user2-lambda</mailbox>
-  	 <mailbox>user3-lambda</mailbox>
-  	</copy>
+  	<information>
+  	 <mailbox>user-user2</mailbox>
+  	 <mailbox>user-user3</mailbox>
+  	</information>
   </recipients>
 </document>
 <document>
