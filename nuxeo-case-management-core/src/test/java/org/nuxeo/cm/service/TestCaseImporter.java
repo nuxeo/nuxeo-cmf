@@ -7,6 +7,8 @@ import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.PathRef;
+import org.nuxeo.ecm.core.api.tree.DefaultDocumentTreeSorter;
+import org.nuxeo.ecm.core.api.tree.DocumentTreeSorter;
 import org.nuxeo.runtime.api.Framework;
 
 public class TestCaseImporter extends CaseManagementRepositoryTestCase {
@@ -26,8 +28,13 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
 
         DocumentModel kaseParentDoc = session.getDocument(new PathRef(
                 distributionService.getParentDocumentPathForCase(session)));
-        DocumentModelList allCases = session.getChildren(kaseParentDoc.getRef());
+        DocumentTreeSorter sorter = new DefaultDocumentTreeSorter();
+        sorter.setSortPropertyPath("dc:title");
+
+        DocumentModelList allCases = session.getChildren(
+                kaseParentDoc.getRef(), null, null, null, sorter);
         assertEquals(4, allCases.size());
+
         DocumentModel caseDoc1 = allCases.get(0);
         assertNotNull(caseDoc1);
         assertEquals("Test Case", caseDoc1.getTitle());
@@ -36,7 +43,7 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         String caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
                 session, case1);
         DocumentModelList caseItemDocs = session.getChildren(new PathRef(
-                caseItemsParentPath));
+                caseItemsParentPath), null, null, null, sorter);
         assertEquals(2, caseItemDocs.size());
         assertEquals("hello.pdf", caseItemDocs.get(0).getTitle());
         assertEquals("hello2.pdf", caseItemDocs.get(1).getTitle());
@@ -49,7 +56,8 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         Case case2 = caseDoc2.getAdapter(Case.class);
         caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
                 session, case2);
-        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath));
+        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath),
+                null, null, null, sorter);
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello.pdf", caseItemDocs.get(0).getTitle());
 
@@ -59,7 +67,8 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         Case case3 = caseDoc3.getAdapter(Case.class);
         caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
                 session, case3);
-        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath));
+        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath),
+                null, null, null, sorter);
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello3.pdf", caseItemDocs.get(0).getTitle());
 
@@ -69,7 +78,8 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         Case case4 = caseDoc4.getAdapter(Case.class);
         caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
                 session, case4);
-        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath));
+        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath),
+                null, null, null, sorter);
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello4.pdf", caseItemDocs.get(0).getTitle());
 

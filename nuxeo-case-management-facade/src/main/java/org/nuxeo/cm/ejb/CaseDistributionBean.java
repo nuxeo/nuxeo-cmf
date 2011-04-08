@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
@@ -186,6 +187,13 @@ public class CaseDistributionBean implements CaseDistributionService {
     public Case createEmptyCase(CoreSession session, String title, String id,
             Mailbox mailbox) {
         return createEmptyCase(session, title, id, mailbox);
+    }
+
+    @Override
+    public CaseLink sendCase(CoreSession session, Case kase,
+            DistributionInfo initialDistribution) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

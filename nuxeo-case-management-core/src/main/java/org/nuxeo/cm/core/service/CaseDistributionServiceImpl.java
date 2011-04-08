@@ -38,6 +38,7 @@ import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.core.caselink.CreateCaseLink;
 import org.nuxeo.cm.core.caselink.CreateDraftCaseLinkUnrestricted;
 import org.nuxeo.cm.core.caselink.UpdateCaseLinkUnrestricted;
+import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.event.CaseManagementEventConstants.EventNames;
 import org.nuxeo.cm.exception.CaseManagementException;
@@ -105,6 +106,19 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
+    }
+
+    public CaseLink sendCase(CoreSession session, Case kase,
+            DistributionInfo initialDistribution) {
+        Map<String, List<String>> recipients = initialDistribution.getAllParticipants();
+/*        String sender, Calendar date, String subject,
+        String comment, Case envelope,
+        Map<String, List<String>> internalRecipients,
+        Map<String, List<String>> externalRecipients
+        sendCase(session, postRequest, kase.isDraft());
+
+*/
+        return null;
     }
 
     /**

@@ -26,6 +26,7 @@ import java.util.Map;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -41,6 +42,14 @@ public interface CaseDistributionService extends Serializable {
      * Send an envelope to a mailbox.
      */
     CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean initial);
+
+    /**
+     * Distributes a case to a mailbox. the case is not currently in any
+     * mailbox, it was created by import
+     *
+     */
+    CaseLink sendCase(CoreSession session, Case kase,
+            DistributionInfo initialDistribution);
 
     /**
      * Remove a case link from the mailbox. It is the duty of a listener to
@@ -66,8 +75,7 @@ public interface CaseDistributionService extends Serializable {
      * Returns all the case links for this kase in this mailbox.
      *
      * @param session
-     * @param mailbox if <code>null</code> returns the links of all
-     *            mailboxes.
+     * @param mailbox if <code>null</code> returns the links of all mailboxes.
      * @param kase
      * @return
      */
