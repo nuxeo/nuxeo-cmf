@@ -10,7 +10,7 @@
   </filterset>
 
   <target name="init" unless="init.done">
-    <tstamp/> 
+    <tstamp/>
     <property name="outdir" value="${maven.project.build.directory}" />
     <property name="stagedir" value="${outdir}/stage" />
     <property name="finaltarget" value="../target" />
@@ -32,49 +32,49 @@
     </artifact:set>
     <fileset id="distribution-templates-corr" dir="src/main/resources" excludes="nuxeo-defaults/,cmf-funkload/"/>
   </target>
-  
+
   <target name="init-cmf-funkload">
     <artifact:set groupId="org.nuxeo.cm" type="jar" id="application-jars"/>
     <fileset id="distribution-templates-cmf-funkload" dir="src/main/resources" excludes="correspondence/,nuxeo-defaults/" />
   </target>
 
   <target name="update-cmf-defaults">
-    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" /> 
-    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" />
+    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
-    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
   </target>
 
   <target name="update-cmf-funkload-defaults">
-    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" /> 
-   <echo file="${app.path}/templates/cmf-funkload/nuxeo.defaults" append="yes" message="${line.separator}cmf-funkload.target=${deploy.dir}${line.separator}" /> 
-    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
-      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
-    </concat>    
-    <concat destfile="${app.path}/templates/cmf-funkload/nuxeo.defaults" append="yes"> 
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" />
+   <echo file="${app.path}/templates/cmf-funkload/nuxeo.defaults" append="yes" message="${line.separator}cmf-funkload.target=${deploy.dir}${line.separator}" />
+    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
-    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+    <concat destfile="${app.path}/templates/cmf-funkload/nuxeo.defaults" append="yes">
+      <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
+    </concat>
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
   </target>
 
   <target name="update-corr-defaults">
-    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" /> 
-    <echo file="${app.path}/templates/correspondence/nuxeo.defaults" append="yes" message="${line.separator}correspondence.target=${deploy.dir}${line.separator}" /> 
-    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes"> 
+    <echo file="${app.path}/templates/cmf/nuxeo.defaults" append="yes" message="${line.separator}cmf.target=${deploy.dir}${line.separator}" />
+    <echo file="${app.path}/templates/correspondence/nuxeo.defaults" append="yes" message="${line.separator}correspondence.target=${deploy.dir}${line.separator}" />
+    <concat destfile="${app.path}/templates/cmf/nuxeo.defaults" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
-    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/cmf.txt" />
     </concat>
-    <concat destfile="${app.path}/templates/correspondence/nuxeo.defaults" append="yes"> 
+    <concat destfile="${app.path}/templates/correspondence/nuxeo.defaults" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/corr.txt" />
     </concat>
-    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes"> 
+    <concat destfile="${app.path}/bin/nuxeo.conf" append="yes">
       <fileset file="src/main/resources/nuxeo-defaults/corr.txt" />
     </concat>
   </target>
@@ -85,15 +85,15 @@
     <antcall target="server" />
   </target>
 
-  <target name="set-distribution-properties"> 
-    <echo append="false" file="${distribution.properties.file}"> 
-## DO NOT MANUALLY EDIT THIS FILE 
-org.nuxeo.distribution.name=${org.nuxeo.distribution.name} 
-org.nuxeo.distribution.server=${org.nuxeo.distribution.server} 
-org.nuxeo.distribution.version=${org.nuxeo.distribution.version} 
-org.nuxeo.distribution.date=${org.nuxeo.distribution.date} 
-    </echo> 
-  </target> 
+  <target name="set-distribution-properties">
+    <echo append="false" file="${distribution.properties.file}">
+## DO NOT MANUALLY EDIT THIS FILE
+org.nuxeo.distribution.name=${org.nuxeo.distribution.name}
+org.nuxeo.distribution.server=${org.nuxeo.distribution.server}
+org.nuxeo.distribution.version=${org.nuxeo.distribution.version}
+org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
+    </echo>
+  </target>
 
   <target name="expand" unless="no.build">
     <artifact:expand depth="3" />
@@ -124,15 +124,15 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     <copy todir="${app.path}/templates/" overwrite="true">
       <fileset refid="${distribution.templates}"/>
     </copy>
-    <echo file="${app.path}/templates/nuxeo.defaults" append="yes" message="${line.separator}#include cmf${line.separator}nuxeo.templates=${default.templates}" /> 
+    <echo file="${app.path}/templates/nuxeo.defaults" append="yes" message="${line.separator}#include cmf${line.separator}nuxeo.templates=${default.templates}" />
     <antcall target="${update.nuxeo.defaults.task}" />
     <echo file="${app.path}/templates/common/config/nuxeo.properties" append="yes" message="${line.separator}org.nuxeo.ecm.product.name=${product.name}${line.separator}org.nuxeo.ecm.product.version=${nuxeo.cm.version}" />
-    <antcall target="set-distribution-properties"> 
-      <param name="distribution.properties.file" value="${app.path}/templates/common/config/distribution.properties" /> 
-      <param name="org.nuxeo.distribution.name" value="${distribution.name}" /> 
-      <param name="org.nuxeo.distribution.server" value="${distribution.server}"/> 
-      <param name="org.nuxeo.distribution.version" value="${nuxeo.cm.version}" /> 
-      <param name="org.nuxeo.distribution.date" value="${DSTAMP}${TSTAMP}"/> 
+    <antcall target="set-distribution-properties">
+      <param name="distribution.properties.file" value="${app.path}/templates/common/config/distribution.properties" />
+      <param name="org.nuxeo.distribution.name" value="${distribution.name}" />
+      <param name="org.nuxeo.distribution.server" value="${distribution.server}"/>
+      <param name="org.nuxeo.distribution.version" value="${nuxeo.cm.version}" />
+      <param name="org.nuxeo.distribution.date" value="${DSTAMP}${TSTAMP}"/>
     </antcall>
     <antcall target="zip" />
   </target>
@@ -143,28 +143,28 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
        basedir="${stagedir}" />
     <echo>Distribution built:
       ${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}.zip</echo>
-    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}-${distribution.shortName}.zip" classifier="${distribution}-${distribution.shortName}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />                                                                                                                                                               
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}-${distribution}-${distribution.shortName}.zip" classifier="${distribution}-${distribution.shortName}" type="zip" target="${maven.project.groupId}:${maven.project.artifactId}" />
   </target>
 
   <target name="run-tomcat" depends="init-cmf" if="maven.profile.tomcat">
-    <antcall target="build-server" />
+    <antcall target="build-server" inheritrefs="true" />
   </target>
 
   <target name="run-server" depends="init-cmf" if="maven.profile.server">
-    <antcall target="build-server" />
+    <antcall target="build-server" inheritrefs="true" />
   </target>
 
   <target name="run-corr-tomcat" depends="init-corr" if="maven.profile.tomcatCorr">
-    <antcall target="build-server" />
+    <antcall target="build-server" inheritrefs="true" />
   </target>
 
   <target name="run-corr-server" depends="init-corr" if="maven.profile.serverCorr">
     <echo>Building Nuxeo Correspondence based on JBoss</echo>
-    <antcall target="build-server" />
+    <antcall target="build-server" inheritrefs="true" />
   </target>
 
   <target name="run-tomcat-funkload" depends="init-cmf-funkload" if="maven.profile.funkloadLoadTest">
-    <antcall target="build-server" />
+    <antcall target="build-server" inheritrefs="true" />
   </target>
 
   <target name="server" depends="init">
