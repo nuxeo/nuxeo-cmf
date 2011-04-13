@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<component name="com.nuxeo.case-management.security.policy.contrib">
+
+  <extension target="org.nuxeo.ecm.core.security.SecurityService"
+    point="policies">
+ 
+    <policy name="caseSecurityPolicy"
+      class="org.nuxeo.cm.core.security.CaseSecurityPolicy" order="0" />
+ 
+  </extension>
+
+</component>

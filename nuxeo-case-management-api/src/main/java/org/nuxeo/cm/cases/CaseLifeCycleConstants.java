@@ -23,9 +23,22 @@ package org.nuxeo.cm.cases;
  */
 public class CaseLifeCycleConstants {
 
+
     public static final String STATE_DRAFT = "draft";
 
     public static final String STATE_SENT = "sent";
+
+    public static final String STATE_OPEN = "opened";
+
+    public static final String STATE_PROCESS = "processed";
+
+    public static final String STATE_ARCHIVE = "archived";
+
+    public static final String TRANSITION_OPEN = "open";
+
+    public static final String TRANSITION_PROCESS = "process";
+
+    public static final String TRANSITION_ARCHIVE = "archive";
 
     public static final String TRANSITION_SEND = "send";
 

@@ -29,6 +29,7 @@ import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementSecurityTestCase;
 import org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants;
@@ -89,6 +90,8 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
                 envelope, recipients, recipients);
         CaseLink post = caseDistributionService.sendCase(session, postRequest,
                 true);
+        DocumentModel kase = session.getDocument(envelope.getDocument().getRef());
+        assertEquals(CaseLifeCycleConstants.STATE_SENT, kase.getCurrentLifeCycleState());
         assertNotNull(post);
         assertFalse(post.isDraft());
         assertEquals(user1, post.getSender());

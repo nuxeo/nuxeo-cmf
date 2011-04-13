@@ -4,10 +4,18 @@
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
     point="listener">
 
-    <listener name="outgoingCreatedListener" async="false" postCommit="true"
+    <listener name="outgoingCreatedListener" async="false"
+      postCommit="true"
       class="org.nuxeo.correspondence.core.event.OutgoingCreatedListener"
       priority="120">
       <event>documentCreated</event>
+    </listener>
+
+    <listener name="envelopeDistributionListener" async="false"
+      postCommit="true"
+      class="org.nuxeo.correspondence.core.event.EnvelopeDistributionListener"
+      priority="120">
+      <event>afterCaseSentEvent</event>
     </listener>
 
   </extension>

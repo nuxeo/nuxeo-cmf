@@ -90,7 +90,7 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         // Initial sending
         distributionService.sendCase(session, postRequest, true);
 
-        assertFalse(envelope.isDraft());
+        assertTrue(envelope.isDraft());
         // Check mailbox of recipient and sender
         assertEquals(1, distributionService.getSentCaseLinks(session,
                 initialSender, 0, 0).size());
@@ -215,7 +215,7 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         // Initial sending
         distributionService.sendCase(session, postRequest, true);
 
-        assertFalse(envelope.isDraft());
+        assertTrue(envelope.isDraft());
         // Check mailbox of recipient and sender
         closeSession();
         session = openSessionAs(userManager.getPrincipal(user2));

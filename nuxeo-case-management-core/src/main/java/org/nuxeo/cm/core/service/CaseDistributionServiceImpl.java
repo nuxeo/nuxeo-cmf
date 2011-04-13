@@ -518,7 +518,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
                 String subject = postRequest.getSubject();
                 String comment = postRequest.getComment();
-                Case envelope = postRequest.getCase(session);
+                Case kase = postRequest.getCase(session);
 
                 // Create Event properties
                 Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
@@ -553,7 +553,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         comment);
                 eventProperties.put(
                         CaseManagementEventConstants.EVENT_CONTEXT_CASE,
-                        envelope);
+                        kase);
                 eventProperties.put(
                         CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS,
                         (Serializable) internalRecipientIds);
@@ -566,20 +566,15 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL,
                         isInitial);
 
-                fireEvent(session, envelope, eventProperties,
+                fireEvent(session, kase, eventProperties,
                         EventNames.beforeCaseSentEvent.name(),
                         EventNames.beforeCaseItemSentEvent.name());
 
                 if (isInitial) {
-
-                    // Update the lifecycle of the envelope
-                    envelope.getDocument().followTransition(
-                            CaseLifeCycleConstants.TRANSITION_SEND);
-
                     if (senderMailbox != null) {
                         // Update the Draft post for the sender
                         CaseLink draft = getDraftCaseLink(session,
-                                senderMailbox, envelope.getDocument().getId());
+                                senderMailbox, kase.getDocument().getId());
 
                         if (draft == null) {
                             throw new CaseManagementException(
@@ -587,7 +582,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         }
 
                         UpdateCaseLinkUnrestricted createPostUnrestricted = new UpdateCaseLinkUnrestricted(
-                                session, subject, comment, envelope,
+                                session, subject, comment, kase,
                                 senderMailbox, senderMailbox.getId(),
                                 internalRecipientIds, externalRecipients, true,
                                 isInitial, draft);
@@ -598,7 +593,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 } else if (senderMailbox != null) {
                     // No draft, create the Post for the sender
                     CreateCaseLink createPost = new CreateCaseLink(null,
-                            session, subject, comment, envelope, senderMailbox,
+                            session, subject, comment, kase, senderMailbox,
                             senderMailbox.getId(), internalRecipientIds,
                             externalRecipients, true, isInitial);
                     createPost.create();
@@ -611,13 +606,13 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         if (isActionable) {
                             CreateCaseLink createMessage = new CreateCaseLink(
                                     postRequest, session, subject, comment,
-                                    envelope, senderMailbox, recipient,
+                                    kase, senderMailbox, recipient,
                                     internalRecipientIds, externalRecipients,
                                     false, isInitial);
                             createMessage.create();
                         } else {
                             CreateCaseLink createMessage = new CreateCaseLink(
-                                    post, session, subject, comment, envelope,
+                                    post, session, subject, comment, kase,
                                     senderMailbox, recipient,
                                     internalRecipientIds, externalRecipients,
                                     false, isInitial);
@@ -626,7 +621,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     }
                 }
 
-                fireEvent(session, envelope, eventProperties,
+                fireEvent(session, kase, eventProperties,
                         EventNames.afterCaseSentEvent.name(),
                         EventNames.afterCaseItemSentEvent.name());
             } catch (ClientException e) {

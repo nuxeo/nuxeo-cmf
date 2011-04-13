@@ -37,6 +37,7 @@ import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
+import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
@@ -224,4 +225,36 @@ public class CaseManagementCaseActionsBean extends
         }
         return trashService;
     }
-}
+
+    public Boolean canCaseSelectionFollowTransition(String transition){
+        if (!isEmptyDraft()) {
+            List<DocumentModel> currentDraftCasesList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+            for (DocumentModel documentModel : currentDraftCasesList) {
+                CaseLink caselink = documentModel.getAdapter(CaseLink.class);
+                Case kase = caselink.getCase(documentManager);
+                if (!kase.canFollowTransition(transition)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public String followTranstionCaseSelection(String transition)
+            throws ClientException {
+        if (!isEmptyDraft()) {
+            List<DocumentModel> currentDraftCasesList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+            for (DocumentModel documentModel : currentDraftCasesList) {
+                CaseLink caselink = documentModel.getAdapter(CaseLink.class);
+                Case kase = caselink.getCase(documentManager);
+                kase.followTransition(transition);
+            }
+            EventManager.raiseEventsOnDocumentChildrenChange(getCurrentMailbox().getDocument());
+
+        } else {
+            log.debug("No documents selection in context to process delete on...");
+        }
+        return null;
+    }
+} 

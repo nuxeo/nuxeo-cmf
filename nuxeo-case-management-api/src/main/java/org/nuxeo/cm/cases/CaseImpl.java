@@ -57,10 +57,12 @@ public class CaseImpl implements Case {
         this.recipientsAdapter = recipientsAdapter;
     }
 
+    @Override
     public DocumentModel getDocument() {
         return document;
     }
 
+    @Override
     public List<CaseItem> getCaseItems(CoreSession session) {
         return Collections.unmodifiableList(getItems(session));
     }
@@ -95,6 +97,7 @@ public class CaseImpl implements Case {
         return emailIds;
     }
 
+    @Override
     public CaseItem getFirstItem(CoreSession session) {
         List<String> itemIds = getItemsId();
         if (itemIds == null || itemIds.isEmpty()) {
@@ -113,6 +116,7 @@ public class CaseImpl implements Case {
         return firstItem.getAdapter(CaseItem.class);
     }
 
+    @Override
     public boolean addCaseItem(CaseItem item, CoreSession session) {
         List<String> itemsId = getItemsId();
         String newId = item.getDocument().getId();
@@ -134,6 +138,7 @@ public class CaseImpl implements Case {
         }
     }
 
+    @Override
     public boolean removeCaseItem(CaseItem item, CoreSession session) {
         List<String> itemsId = getItemsId();
         String newId = item.getDocument().getId();
@@ -176,16 +181,19 @@ public class CaseImpl implements Case {
         return res;
     }
 
+    @Override
     public boolean moveUpEmailsInCase(List<CaseItem> selected,
             CoreSession session) {
         return moveEmailsInEnvelope(selected, true, session);
     }
 
+    @Override
     public boolean moveDownEmailsInCase(List<CaseItem> selected,
             CoreSession session) {
         return moveEmailsInEnvelope(selected, false, session);
     }
 
+    @Override
     public void save(CoreSession session) {
         try {
             session.saveDocument(document);
@@ -194,6 +202,7 @@ public class CaseImpl implements Case {
         }
     }
 
+    @Override
     public List<DocumentModel> getDocuments() {
         List<DocumentModel> result;
         CoreSession session = getDocumentSession();
@@ -211,6 +220,7 @@ public class CaseImpl implements Case {
         return result;
     }
 
+    @Override
     public List<DocumentModel> getDocuments(CoreSession session) {
         List<DocumentModel> result = new ArrayList<DocumentModel>();
         for (CaseItem item : getItems(session)) {
@@ -234,37 +244,66 @@ public class CaseImpl implements Case {
         return repo.open();
     }
 
+    @Override
     public boolean isDraft() throws ClientException {
         return CaseLifeCycleConstants.STATE_DRAFT.equals(document.getCurrentLifeCycleState());
     }
 
+    @Override
     public boolean isEmpty() throws ClientException {
         return getItemsId().isEmpty();
     }
 
+    @Override
     public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
         recipientsAdapter.addInitialExternalParticipants(recipients);
     }
 
+    @Override
     public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
         recipientsAdapter.addInitialInternalParticipants(recipients);
     }
 
+    @Override
     public void addParticipants(Map<String, List<String>> recipients) {
         recipientsAdapter.addParticipants(recipients);
     }
 
+    @Override
     public Map<String, List<String>> getAllParticipants() {
         return recipientsAdapter.getAllParticipants();
     }
 
+    @Override
     public Map<String, List<String>> getInitialExternalParticipants() {
         return recipientsAdapter.getInitialExternalParticipants();
     }
 
+    @Override
     public Map<String, List<String>> getInitialInternalParticipants() {
         return recipientsAdapter.getInitialInternalParticipants();
+    }
+
+    @Override
+    public boolean canFollowTransition(String transition) {
+        try {
+            if (document.getAllowedStateTransitions().contains(transition)) {
+                return true;
+            }
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public void followTransition(String transition) {
+        try {
+            document.followTransition(transition);
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
     }
 }

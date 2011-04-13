@@ -101,4 +101,17 @@ public interface Case extends HasParticipants, Serializable {
      */
     boolean isEmpty() throws ClientException;
 
+    /**
+     * @param life cycle transition
+     * @return true if the case can follow given transition.
+     */
+    boolean canFollowTransition(String transition);
+
+    /**
+     * Follow the given transition.
+     *
+     * @param life cycle transition
+     */
+    void followTransition(String transition);
+
 }

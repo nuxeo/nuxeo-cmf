@@ -44,6 +44,39 @@
       </filter>
     </action>
 
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_OPEN"
+      link="#{cmCaseActions.followTranstionCaseSelection('open')}" label="command.cm.open"
+      icon="" help="comand.cm.open.help">
+      <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
+      <filter id="canOpenCase">
+        <rule grant="true">
+          <condition>#{cmCaseActions.canCaseSelectionFollowTransition('open')}</condition>
+        </rule>
+      </filter>
+    </action>
+
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_PROCESS"
+      link="#{cmCaseActions.followTranstionCaseSelection('process')}" label="command.cm.process"
+      icon="" help="comand.cm.process.help">
+      <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
+      <filter id="canProcessCase">
+        <rule grant="true">
+          <condition>#{cmCaseActions.canCaseSelectionFollowTransition('process')}</condition>
+        </rule>
+      </filter>
+    </action>
+
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_ARCHIVE"
+      link="#{cmCaseActions.followTranstionCaseSelection('archive')}" label="command.cm.archive"
+      icon="" help="comand.cm.archive.help">
+      <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
+      <filter id="canArchiveCase">
+        <rule grant="true">
+          <condition>#{cmCaseActions.canCaseSelectionFollowTransition('archive')}</condition>
+        </rule>
+      </filter>
+    </action>
+
     <!-- filter out some actions -->
 
     <action id="TAB_MY_SUBSCRIPTIONS">

@@ -7,30 +7,33 @@
 
     <lifecycle name="case" defaultInitial="draft">
       <transitions>
-        <transition name="send" destinationState="sent">
-          <description>Send the envelope</description>
+        <transition name="open" destinationState="opened">
+          <description>open the case</description>
+        </transition>
+        <transition name="process" destinationState="processed">
+          <description>Process the case</description>
+        </transition>
+        <transition name="archive" destinationState="archived">
+          <description>Archive the case</description>
         </transition>
       </transitions>
-      <transition name="delete" destinationState="deleted">
-        <description>Move document to trash (temporary delete)</description>
-      </transition>
-      <transition name="undelete" destinationState="draft">
-        <description>Recover the document from trash</description>
-      </transition>
       <states>
         <state name="draft" description="Default state" initial="true">
           <transitions>
-            <transition>send</transition>
-            <transition>delete</transition>
+            <transition>open</transition>
           </transitions>
         </state>
-        <state name="sent" description="Content has been sent" initial="true">
-          <transitions></transitions>
-        </state>
-        <state name="deleted" description="Document is deleted">
+        <state name="opened" description="Case has been opened">
           <transitions>
-            <transition>undelete</transition>
+            <transition>process</transition>
           </transitions>
+        </state>
+        <state name="processed" description="Case is processed">
+          <transitions>
+            <transition>archive</transition>
+          </transitions>
+        </state>
+        <state name="archived" description="Case is archived">
         </state>
       </states>
     </lifecycle>

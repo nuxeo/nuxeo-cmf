@@ -32,6 +32,8 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 
 /**
+ * Set case recipients on caseitem.
+ * 
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class AfterCaseSentEventListener implements EventListener {
@@ -39,8 +41,8 @@ public class AfterCaseSentEventListener implements EventListener {
     @SuppressWarnings("unchecked")
     public void handleEvent(Event event) throws ClientException {
         Map<String, Serializable> properties = event.getContext().getProperties();
-        Case envelope = (Case) properties.get(EVENT_CONTEXT_CASE);
-        if (envelope == null) {
+        Case kase = (Case) properties.get(EVENT_CONTEXT_CASE);
+        if (kase == null) {
             return;
         }
         Map<String, List<String>> internalRecipients = (Map<String, List<String>>) properties.get(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS);
@@ -48,20 +50,20 @@ public class AfterCaseSentEventListener implements EventListener {
         boolean isInitial = (Boolean) properties.get(EVENT_CONTEXT_IS_INITIAL);
 
         // Set Envelope recipients
-        setRecipients(envelope, isInitial, internalRecipients,
+        setRecipients(kase, isInitial, internalRecipients,
                 externalRecipients);
-        envelope.save(event.getContext().getCoreSession());
+        kase.save(event.getContext().getCoreSession());
         // Set EnvelopeItems recipients
-        List<CaseItem> items = envelope.getCaseItems(event.getContext().getCoreSession());
+        List<CaseItem> items = kase.getCaseItems(event.getContext().getCoreSession());
         for (CaseItem item : items) {
             setRecipients(item, isInitial, internalRecipients,
                     externalRecipients);
-            item.setDefaultCase(envelope.getDocument().getId());
+            item.setDefaultCase(kase.getDocument().getId());
             item.save(event.getContext().getCoreSession());
         }
 
         try {
-            envelope.save(event.getContext().getCoreSession());
+            kase.save(event.getContext().getCoreSession());
         } catch (Exception e) {
             ClientException.wrap(e);
         }
