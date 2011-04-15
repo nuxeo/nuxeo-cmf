@@ -27,7 +27,10 @@
       <format-type>widget</format-type>
       <template>classification/classification_tree_explorer.xhtml</template>
     </view>
-
+    <view name="case tree" template-engine="jsf-facelets">
+      <format-type>widget</format-type>
+      <template>casemanagement/case/case_tree.xhtml</template>
+    </view>
     <view name="Case Management logo" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>incl/logo_case_management.xhtml</template>

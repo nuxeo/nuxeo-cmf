@@ -80,9 +80,7 @@
       <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
       <views>
-               
         <view id="edit_case" value="edit_case" />
-             
       </views>
       <subtypes>
         <type>CaseItem</type>
@@ -115,7 +113,7 @@
       <label>label.casemanagement.type.CaseItemDocument</label>
       <icon>/icons/case_item.png</icon>
       <bigIcon>/icons/case_item_100.png</bigIcon>
-      <default-view>view_cm_document</default-view>
+      <default-view>cm_view</default-view>
       <create-view>create_cm_document</create-view>
       <category>CaseItemDocument</category>
       <layouts mode="view">
