@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.treeExplorer">
+
+  <extension target="org.nuxeo.ecm.platform.treeManager" point="plugin">
+    <treeManagerPlugin name="caseNavigation">
+      <excludedFacets>
+        <facet name="HiddenInNavigation" />
+      </excludedFacets>
+      <leafFilterClass>org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter</leafFilterClass>
+      <sortPropertyPath>ecm:pos</sortPropertyPath>
+      <queryModel>CURRENT_DOC_CHILDREN</queryModel>
+    </treeManagerPlugin>
+  </extension>
+
+</component>
