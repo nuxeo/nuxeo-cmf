@@ -23,6 +23,8 @@ public class CaseManagementSecurityConstants {
 
     public static final String ACL_MAILBOX_PREFIX = "mailboxes";
 
+    public static final String ACL_PROCESSED_CASE_NAME = "processed";
+
     public static final String MAILBOX_PREFIX = "mailbox_";
 
     public static final String PUBLIC_SECURITY_LEVEL = "1";

@@ -46,7 +46,7 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
         item1 = new CaseItemImpl(document, adapter);
         document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i2");
         item2 = new CaseItemImpl(document, adapter);
-
+        kase.addCaseItem(item1, session);
         DocumentModel doc = kase.getDocument();
 
         // Set Read rights
@@ -57,6 +57,10 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
         acp.addACL(localACL);
         doc.setACP(acp, true);
         session.saveDocument(doc);
+        acp = item1.getDocument().getACP();
+        acp.addACL(localACL);
+        item1.getDocument().setACP(acp, true);
+        session.saveDocument(item1.getDocument());
         session.save();
     }
 
@@ -66,9 +70,6 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
                 kase.getDocument().getCurrentLifeCycleState());
         kase.followTransition(CaseLifeCycleConstants.TRANSITION_PROCESS);
         assertEquals(CaseLifeCycleConstants.STATE_PROCESS,
-                kase.getDocument().getCurrentLifeCycleState());
-        kase.followTransition(CaseLifeCycleConstants.TRANSITION_ARCHIVE);
-        assertEquals(CaseLifeCycleConstants.STATE_ARCHIVE,
                 kase.getDocument().getCurrentLifeCycleState());
         session.save();
     }
@@ -83,7 +84,20 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
             kase.save(session);
             fail();
         } catch (Exception e) {
-            assertEquals(e.getCause().getClass(), DocumentSecurityException.class);
-       }
+            assertEquals(e.getCause().getClass(),
+                    DocumentSecurityException.class);
+        }
+        CaseItem item = kase.getFirstItem(session);
+        try {
+            item.save(session);
+            fail();
+        } catch (Exception e) {
+            assertEquals(e.getCause().getClass(),
+                    DocumentSecurityException.class);
+        }
+
+        localDoc.followTransition(CaseLifeCycleConstants.TRANSITION_ARCHIVE);
+        assertEquals(CaseLifeCycleConstants.STATE_ARCHIVE,
+                localDoc.getCurrentLifeCycleState());
     }
 }

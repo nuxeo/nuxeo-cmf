@@ -38,6 +38,7 @@ import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.CaseLifeCycleConstants;
+import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
@@ -48,6 +49,7 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.trash.TrashService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
@@ -225,6 +227,30 @@ public class CaseManagementCaseActionsBean extends
         }
         return trashService;
     }
+
+    public Boolean getCanEditCurrentCase() throws ClientException{
+        Case currentCase = getCurrentCase();
+        if (currentCase == null) {
+            return false;
+        }
+        DocumentModel caseDoc = currentCase.getDocument();
+        if (caseDoc == null) {
+            return false;
+        }
+        LockableAdapter lockableCase = caseDoc.getAdapter(LockableAdapter.class);
+        if (lockableCase.isLocked(documentManager)) {
+            return false;
+        }
+
+        if (documentManager.hasPermission(caseDoc.getRef(),
+                SecurityConstants.WRITE)) {
+            return true;
+        }
+
+        return false;
+
+    }
+    
 
     public Boolean canCaseSelectionFollowTransition(String transition){
         if (!isEmptyDraft()) {

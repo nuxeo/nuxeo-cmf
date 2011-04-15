@@ -32,5 +32,4 @@ Nuxeo-Component: OSGI-INF/cm-framework.xml,
  OSGI-INF/cm-type-chains-contrib.xml,
  OSGI-INF/cm-routing-listener-contrib.xml,
  OSGI-INF/cm-caseimporter-service.xml,
- OSGI-INF/cm-caseimporter-default-reader-contrib.xml,
- OSGI-INF/cm-security-policy-contrib.xml
+ OSGI-INF/cm-caseimporter-default-reader-contrib.xml

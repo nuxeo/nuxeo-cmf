@@ -90,6 +90,12 @@
       priority="4">
       <event>beforeCaseLinkRemovedEvent</event>
     </listener>
+
+    <listener name="CaseProcessedListener" async="false" postCommit="false"
+      class="org.nuxeo.cm.core.event.CaseProcessedListener"
+      priority="190">
+      <event>lifecycle_transition_event</event>
+    </listener>
   </extension>
 
 </component>

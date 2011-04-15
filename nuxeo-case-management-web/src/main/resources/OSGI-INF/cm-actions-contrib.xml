@@ -278,6 +278,7 @@
       label="action.new.document" enabled="true">
       <category>CASE_ACTION_UPPER_LIST_HREF</category>
       <filter-id>isCmCase</filter-id>
+      <filter-id>canEditCase</filter-id>
     </action>
     <!-- End Mail Distribution actions -->
     <!-- remove usual comment tab for correspondance documents -->
@@ -489,6 +490,12 @@
     <filter id="canEditCaseItem">
       <rule grant="true">
         <condition>#{cmDocumentActions.canEditCurrentCaseItem}</condition>
+      </rule>
+    </filter>
+
+    <filter id="canEditCase">
+      <rule grant="true">
+        <condition>#{cmCaseActions.canEditCurrentCase}</condition>
       </rule>
     </filter>
 
