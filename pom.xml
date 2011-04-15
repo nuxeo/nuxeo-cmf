@@ -24,6 +24,55 @@
     <nuxeo.cm.version>1.7-SNAPSHOT</nuxeo.cm.version>
   </properties>
 
+  <profiles>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>server</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>tomcat</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>serverCorr</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>tomcatCorr</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>funkloadLoadTest</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+  </profiles>
+
+
   <modules>
     <module>nuxeo-case-management-api</module>
     <module>nuxeo-case-management-test</module>
@@ -31,7 +80,6 @@
     <module>nuxeo-case-management-lang</module>
     <module>nuxeo-case-management-facade</module>
     <module>nuxeo-case-management-web</module>
-    <module>nuxeo-case-management-distribution</module>
     <module>nuxeo-correspondence-api</module>
     <module>nuxeo-correspondence-core</module>
     <module>nuxeo-correspondence-web</module>
