@@ -28,6 +28,8 @@
           <fragment perspectives="default" type="generic fragment"/>
           <!-- calendar -->
           <fragment perspectives="view_calendar" type="generic fragment"/>
+          <!-- case tree -->
+          <fragment perspectives="default" type="generic fragment"/>
         </cell>
         <cell>
           <fragment type="generic fragment"/>
@@ -286,6 +288,9 @@
     </widget>
     <widget element="page[1]/section[2]/cell[1]/fragment[5]">
       <view>nuxeo5 calendar actions</view>
+    </widget>
+    <widget element="page[1]/section[2]/cell[1]/fragment[6]">
+      <view>case tree</view>
     </widget>
     <widget element="page[1]/section[2]/cell[2]/fragment[2]">
       <view>facelet region</view>
@@ -596,6 +601,16 @@
       </selector>
     </style>  
     <style inherit="default tabs" name="common style 1">
+      <selector path=".tooltip">
+        <color preset="default.text (Galaxy colors)" />
+        <border preset="blue.border (Galaxy borders)" />
+        <background preset="tooltip (Galaxy backgrounds)" />
+        <margin-bottom>5px !important</margin-bottom>
+        <padding>5px 5px 5px 23px !important</padding>
+        <display>none</display>
+        <max-width>20%</max-width>
+        <z-index>1000</z-index>
+      </selector>
       <selector path="h1, h2, h3, h4, h5, h6, form, p">
         <margin>0</margin>
         <padding>0</padding>
