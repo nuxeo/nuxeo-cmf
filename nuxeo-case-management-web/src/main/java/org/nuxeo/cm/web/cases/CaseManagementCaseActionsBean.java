@@ -53,6 +53,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.trash.TrashService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
+import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
@@ -77,6 +78,9 @@ public class CaseManagementCaseActionsBean extends
 
     @In(create = true)
     protected transient ResourcesAccessor resourcesAccessor;
+
+    @In(required = true, create = true)
+    protected WebActions webActions;
 
     @In(required = true, create = true)
     protected NavigationContext navigationContext;
@@ -277,7 +281,7 @@ public class CaseManagementCaseActionsBean extends
                 kase.followTransition(transition);
             }
             EventManager.raiseEventsOnDocumentChildrenChange(getCurrentMailbox().getDocument());
-
+            webActions.resetTabList();
         } else {
             log.debug("No documents selection in context to process delete on...");
         }

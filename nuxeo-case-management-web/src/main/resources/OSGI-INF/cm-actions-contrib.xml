@@ -146,6 +146,7 @@
       link="/casemanagement/caseitem/tabs/document_files_edit.xhtml" order="43"
       label="action.view.files">
       <category>VIEW_ACTION_LIST</category>
+      <filter-id>canEditCase</filter-id>
       <filter-id>canEditCaseItem</filter-id>
       <filter-id>mutable_document</filter-id>
       <filter-id>isCaseItemOrCase</filter-id>
