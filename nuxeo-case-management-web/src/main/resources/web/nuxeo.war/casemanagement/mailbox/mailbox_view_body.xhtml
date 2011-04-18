@@ -32,43 +32,6 @@
     <h:outputText value="#{currentMailbox.document.dublincore.description}" />
   </p>
 
-  <h:form id="mailboxActionsListForm">
-    <nxu:methodResult name="actions"
-      value="#{webActions.getActionsList('MAILBOX_ACTION_UPPER_LIST')}">
-      <f:subview rendered="#{!empty actions}">
-        <div class="action_bar">
-          <nxu:dataList layout="unorderedList" var="action"
-            value="#{actions}">
-            <nxh:commandLink action="#{action.getLink()}">
-              <h:graphicImage value="#{action.icon}"
-                title="#{messages[action.label]}" alt="#{messages[action.label]}" />
-              <h:outputText value="#{messages[action.label]}" />
-            </nxh:commandLink>
-          </nxu:dataList>
-        </div>
-      </f:subview>
-    </nxu:methodResult>
-    <nxu:methodResult name="actions"
-      value="#{webActions.getActionsList('MAILBOX_ACTION_UPPER_LIST_HREF')}">
-      <f:subview rendered="#{!empty actions}">
-        <div class="action_bar">
-          <nxu:dataList layout="unorderedList" var="action"
-            value="#{actions}">
-            <a href="#{action.getLink()}">
-              <h:graphicImage value="#{action.icon}" />
-              <h:outputText value="#{messages[action.label]}" />
-            </a>
-          </nxu:dataList>
-        </div>
-      </f:subview>
-    </nxu:methodResult>
-  </h:form>
-
-  <div style="clear:both"></div>
-
-  <ui:include src="/casemanagement/mailbox/mailbox_view_action_tabs.xhtml" />
-  <div style="clear:both"></div>
-
   <div class="tabsContent">
     <c:if test="#{cmMailboxTabsActionsBean.currentViewMailboxAction != null}">
       <ui:include
