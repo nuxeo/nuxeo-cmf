@@ -6,6 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:nxthemes="http://nuxeo.org/nxthemes"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout"
 	xmlns:nxu="http://nuxeo.org/nxweb/util"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:nxd="http://nuxeo.org/nxweb/document"
@@ -49,7 +50,12 @@
 		  </div>
 		  <f:subview rendered="#{currentCase != null}" id="caseView">
 		    <div class="pane ui-layout-south">
-		      <ui:include src="/casemanagement/caseitem/view_cm_case_body.xhtml" />
+		       <ui:include src="/select_document_type.xhtml" />
+           <ui:include src="/incl/document_action_tabs.xhtml"/>
+           <div style="clear:both"></div>
+           <div class="tabsContent">
+             <ui:include src="#{webActions.currentTabAction.link}"/>
+           </div>
         </div>
       </f:subview>
 		</div>

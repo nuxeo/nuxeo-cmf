@@ -35,7 +35,6 @@
         <layout>cm_mailbox_managers</layout>
       </layouts>
       <subtypes>
-        <type>CaseItem</type>
         <type>Case</type>
       </subtypes>
       <contentViews category="inbox">

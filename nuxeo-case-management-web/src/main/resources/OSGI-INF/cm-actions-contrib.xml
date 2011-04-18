@@ -87,7 +87,7 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
-    <action id="TAB_EDIT">
+    <!-- action id="TAB_EDIT">
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
@@ -97,7 +97,7 @@
 
     <action id="TAB_METADATA_EDIT">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action>
+    </action -->
 
     <!-- remove useless -->
     <action id="newDocument">
