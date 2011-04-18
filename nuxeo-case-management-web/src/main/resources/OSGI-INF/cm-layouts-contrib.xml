@@ -4,14 +4,15 @@
   <require>org.nuxeo.ecm.platform.routing.layouts.webapp</require>
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgettypes">
-    <widgetType name="summary_current_case">
+    <widgetType name="summary_current_caseitem">
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
       </handler-class>
       <property name="template">
-        /widgets/summary/summary_current_case_template.xhtml
+        /widgets/summary/summary_current_caseitem_template.xhtml
       </property>
     </widgetType>
+
     <widgetType name="summary_case_item_content">
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -24,7 +25,7 @@
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgets">
-    <widget name="summary_current_case" type="summary_current_case" />
+    <widget name="summary_current_caseitem" type="summary_current_caseitem" />
     <widget name="summary_case_item_content" type="summary_case_item_content" />
 
     <widget name="mailbox_id" type="text">
@@ -1261,13 +1262,30 @@
       </widget>
     </layout>
 
+
     <layout name="summary_current_case_layout">
       <templates>
         <template mode="any">/layouts/layout_summary_template.xhtml</template>
       </templates>
       <rows>
         <row>
-          <widget>summary_current_case</widget>
+          <!--this is to be changed after NXCM-261 is done -->
+          <widget>summary_current_document_dublincore</widget>
+        </row>
+        <row>
+          <widget>summary_current_document_tagging</widget>
+          <widget>summary_document_route_action</widget>
+        </row>
+      </rows>
+    </layout>
+
+    <layout name="summary_current_caseitem_layout">
+      <templates>
+        <template mode="any">/layouts/layout_summary_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>summary_current_caseitem</widget>
         </row>
         <row>
           <widget>summary_case_item_content</widget>

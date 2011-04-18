@@ -48,7 +48,7 @@
 		  <div class="pane ui-layout-center">
 		    <ui:include	src="/casemanagement/mailbox/mailbox_view_body.xhtml" />
 		  </div>
-		  <f:subview rendered="#{currentCase != null}" id="caseView">
+		  <f:subview rendered="#{cmContextActions.currentDocumentIsDistributable()}" id="caseView">
 		    <div class="pane ui-layout-south">
 		       <ui:include src="/select_document_type.xhtml" />
            <ui:include src="/incl/document_action_tabs.xhtml"/>
