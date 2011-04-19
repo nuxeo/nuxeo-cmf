@@ -6,12 +6,12 @@
       <h:outputText value="#{messages['label.summary.metadata']}" />
     </h3>
     
-    <c:if test="#{currentCaseItem != null}">
+    <c:if test="#{currentDocument != null}">
     <nxl:documentLayout mode="#{cmDocumentActions.caseItemLayoutMode}"
-    value="#{currentCaseItem}" />
+    value="#{currentDocument}" />
 
   <c:if
-    test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentCaseItem}">
+    test="#{!cmDocumentActions.editingCaseItem and cmDocumentActions.canEditCurrentDocument}">
     <h:commandButton styleClass="button" immediate="true"
       value="#{messages['label.casemanagement.startEditing']}" action="#{cmDocumentActions.startEditingCaseItem()}" />
   </c:if>
