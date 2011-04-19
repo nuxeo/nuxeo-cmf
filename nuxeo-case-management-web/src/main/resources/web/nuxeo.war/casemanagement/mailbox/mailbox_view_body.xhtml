@@ -9,6 +9,8 @@
   xmlns:nxd="http://nuxeo.org/nxweb/document"
   xmlns:nxh="http://nuxeo.org/nxweb/html">
 
+ <ui:include src="/casemanagement/mailbox/mailbox_view_action_tabs.xhtml" />
+ <div style="clear:both"></div> 
   <ui:include src="/casemanagement/mailbox/select_mailbox_document_type.xhtml" />
   <h:panelGroup rendered="#{currentMailbox.document.version}">
     <h1>
