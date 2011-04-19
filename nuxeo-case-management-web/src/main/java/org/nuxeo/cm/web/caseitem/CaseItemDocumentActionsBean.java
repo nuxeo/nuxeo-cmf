@@ -131,6 +131,9 @@ public class CaseItemDocumentActionsBean extends
                     getCurrentCase().getDocument().getId());
             documentManager.saveDocument(emailDoc);
             TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
+            Events.instance().raiseEvent(
+                    EventNames.DOCUMENT_CHILDREN_CHANGED,
+                    documentManager.getDocument(emailDoc.getRef()));
             return typeInfo.getDefaultView();
         }
         Mailbox currentMailbox = getCurrentMailbox();
@@ -148,6 +151,8 @@ public class CaseItemDocumentActionsBean extends
         Events.instance().raiseEvent(
                 EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
+
+
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(emailDoc.getType()));
@@ -182,6 +187,25 @@ public class CaseItemDocumentActionsBean extends
     protected DocumentModel getParentFolder() throws ClientException {
         return caseDistributionService.getParentDocumentForCase(documentManager);
     }
+
+
+    public boolean getCanEditCurrentDocument() throws ClientException {
+
+        DocumentModel currentDoc = navigationContext.getCurrentDocument();
+        if (currentDoc == null) {
+            return false;
+        }
+        LockableAdapter lockableMail = currentDoc.getAdapter(LockableAdapter.class);
+        if (lockableMail.isLocked(documentManager)) {
+            return false;
+        }
+        if (documentManager.hasPermission(currentDoc.getRef(),
+                SecurityConstants.WRITE)) {
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean getCanEditCurrentCaseItem() throws ClientException {
 

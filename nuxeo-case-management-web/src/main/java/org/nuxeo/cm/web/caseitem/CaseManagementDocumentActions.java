@@ -51,6 +51,14 @@ public interface CaseManagementDocumentActions extends Serializable {
      */
     boolean getCanEditCurrentCaseItem() throws ClientException;
 
+
+    /**
+     * Check if the current user can edit the document (right + lock)
+     *
+     * @throws ClientException
+     */
+    boolean getCanEditCurrentDocument() throws ClientException;
+
     /**
      * Saves changes hold by the changeableDocument document model.
      */
