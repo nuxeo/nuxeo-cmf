@@ -157,7 +157,7 @@
     </layout>
     <layout element="page[1]/section[2]/cell[1]">
       <width>18%</width>
-      <padding>5px</padding>
+      <padding-right>0.5em</padding-right>
     </layout>
     <layout element="page[1]/section[2]/cell[2]">
       <width>82%</width>
@@ -540,11 +540,13 @@
     
     <style inherit="default buttons" name="default tabs">
       <selector path=".tabsBar">
-        <border-bottom preset="tabsbar (Case Management borders)"/>
-        <width>100%</width>
-        <margin-top>5px</margin-top>
+        <border preset="tabsbar (Case Management borders)"/>
+        <border-bottom>none</border-bottom>
+        <width>99%</width>
         <line-height>normal</line-height>
         <float>left</float>
+        <margin-bottom>0.25em</margin-bottom>
+        <background preset="tabsbar (Case Management backgrounds)"/>
       </selector>
       <selector path=".tabsBar ul">
         <margin>0</margin>
@@ -552,24 +554,23 @@
         <list-style>none</list-style>
       </selector>
       <selector path=".tabsBar li">
-        <margin-right>5px</margin-right>
         <margin>0</margin>
         <padding>0</padding>
         <float>left</float>
       </selector>
-      <selector path=".tabsBar a, .tabsBar a:hover, .tabsBar a:visited">
+      <selector path=".tabsBar a, .tabsBar a:link, .tabsBar a:hover, .tabsBar a:visited">
         <color preset="tablink (Case Management colors)" />
-        <border preset="tabisnotselected (Case Management borders)"/>
-        <background preset="white (Case Management backgrounds)"/>
+        <background preset="tab (Case Management backgrounds)"/>
         <text-decoration>none</text-decoration>
         <font-weight>normal</font-weight>
         <display>block</display>
-        <padding>3px 7px</padding>
+        <padding>0.25em 0.75em</padding>
+        <margin-left>0.5em</margin-left>
         <float>left</float>
+        <text-transform>uppercase</text-transform>
       </selector>
       <selector path=".tabsBar li.selected a, .tabsBar li.selected a:hover, .tabsBar li.selected a:visited">
         <color preset="tablink.active (Case Management colors)" />
-        <border preset="tabiselected (Case Management borders)"/>
         <background preset="tabiselected (Case Management backgrounds)"/>
       </selector>
       <selector path=".tabsBar li a:hover">
@@ -577,21 +578,13 @@
         <background preset="tabiselected (Case Management backgrounds)"/>
       </selector>
       <selector path=".subtabsBar">
-        <border-bottom preset="subtabsbar (Case Management borders)"/>
         <font preset="default (Case Management borders)"/>
       </selector>
       <selector path=".subtabsBar a, .subtabsBar a:hover, .subtabsBar a:visited">
-        <color preset="subtablink (Case Management colors)" />
-        <border preset="subtabisnotselected (Case Management borders)"/>
       </selector>
       <selector path=".subtabsBar li a:hover">
-        <color preset="subtablink.active (Case Management colors)" />
-        <background preset="subtabiselected (Case Management backgrounds)"/>
       </selector>
       <selector path=".subtabsBar li.selected a, .subtabsBar li.selected a:hover, .subtabsBar li.selected a:visited">
-        <color preset="subtablink.active (Case Management colors)" />
-        <border preset="subtabiselected (Case Management borders)"/>
-        <background preset="subtabiselected (Case Management backgrounds)"/>
       </selector>
     </style>  
     <style inherit="default tabs" name="common style 1">
@@ -689,6 +682,9 @@
       <selector path="table.dataOutput thead th a, table.dataOutput thead th a:hover, table.dataOutput thead th a:active, table.dataOutput thead th a:visited">
         <color preset="tableheader (Case Management colors)" />
       </selector>
+      <selector path="table.dataOutput tbody a, table.dataOutput tbody a:link, table.dataOutput tbody a:hover, table.dataOutput tbody a:active, table.dataOutput tbody a:visited">
+        <color preset="black (Case Management colors)" />
+      </selector>
       <selector path=".boldColumn">
         <font-weight>bold !important</font-weight>
       </selector>
@@ -771,7 +767,7 @@
       </selector>
       <selector path=".listingLayoutSelector">
         <float>right</float>
-        <margin>11px 0 10px 7px</margin>
+        <margin>-30px 0 10px 7px</margin>
         <text-align>right</text-align>
       </selector>
       <selector path=".listingLayoutSelector .contentViewPageSelectorDesc">
@@ -1076,10 +1072,12 @@
       </selector>
       <selector path="table.dataOutput thead th">
         <border-bottom preset="tablelines (Case Management borders)"/>
+        <border-top preset="tablelines (Case Management borders)"/>
         <color preset="tableheader (Case Management colors)" />
         <background preset="tablethead (Case Management backgrounds)"/>
-        <padding>5px 3px</padding>
+        <padding>0.25em</padding>
         <text-align>left</text-align>
+        <font-weight>normal</font-weight>
       </selector>
       <selector path=".relationCommentList td">
         <border>0px none</border>
@@ -1138,9 +1136,7 @@
         <border preset="blue.border (Case Management borders)"/>
       </selector>
       <selector path=".dataOutput td">
-        <border-bottom preset="tablelines (Case Management borders)"/>
-        <border-top preset="tablelines (Case Management borders)"/>
-        <padding>5px 3px</padding>
+        <padding>0.25em</padding>
       </selector>
       <selector path=".dataOutput2Columns td">
         <vertical-align>top</vertical-align>
@@ -1226,7 +1222,7 @@
       </selector>
       <selector path=".tabsContent">
         <margin>0px</margin>
-        <padding>5px 10px 10px 10px</padding>
+        <padding>0px</padding>
       </selector>
       <selector path=".tabsContent table.trashTable thead th">
         <background-color preset="orange.lite (Case Management backgrounds)" />
@@ -1655,12 +1651,14 @@
       </selector>
       <selector path=".userClipboardContent">
         <margin>0px</margin>
-        <padding>10px 0 10px 3px</padding>
+        <padding>0.5em</padding>
+        <border-top preset="tabsbar (Case Management borders)" />
       </selector>
       <selector path=".userClipboard">
         <height>1%</height>
         <background-color preset="white (Case Management backgrounds)"/>
-        <margin>10px 0px 10px 0px</margin>
+        <margin>0</margin>
+        <margin-bottom>1em</margin-bottom>
         <font preset="small (Case Management fonts)" />
       </selector>
       <selector path=".userClipboard div">
@@ -1877,13 +1875,11 @@
         <display>none</display>
       </selector>
       <selector path=".dataOutput td, .dataList td">
-        <border-bottom preset="tablelines (Case Management borders)"/>
-        <border-top preset="tablelines (Case Management borders)"/>
-        <padding>5px 3px</padding>
+        <padding>0.25em</padding>
       </selector>
       <selector path=".dataOutput2Columns td">
         <vertical-align>top</vertical-align>
-        <padding>5px 3px</padding>
+        <padding>0.25em</padding>
       </selector>
       <selector path="img">
         <display>none</display>
@@ -1927,18 +1923,17 @@
     <!-- Left side -->
     <style element="page[1]/section[2]">
       <selector path="" view="section frame">
-        <border-top preset="whitethin (Case Management borders)"/>
       </selector>
     </style>
     <style element="page[1]/section[2]/cell[1]">
       <selector path="" view="cell frame">
-        <border-right preset="leftcolumn (Case Management borders)"/>
       </selector>
     </style>
     <style element="page[1]/section[2]/cell[1]/fragment[1]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[2]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[3]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[4]" inherit="tree and clipboard column" />
+    <style element="page[1]/section[2]/cell[1]/fragment[6]" inherit="tree and clipboard column" />
     <!-- Main cell -->
     <style element="page[1]/section[2]/cell[2]|page[2]/section[1]/cell[1]">
       <selector path="" view="cell frame">
@@ -1951,7 +1946,8 @@
     <!-- main fragment for default page & popup -->
     <style element="page[1]/section[2]/cell[2]/fragment[2]|page[2]/section[1]/cell[1]/fragment[1]" inherit="common style 1">
       <selector path="" view="facelet region">
-        <padding>0px 7px 7px 7px</padding>
+        <padding>0px</padding>
+        <padding-bottom>1em</padding-bottom>
       </selector>
     </style>
     <!-- main fragment for user dashboard -->
@@ -1959,18 +1955,18 @@
     <!-- Footer -->
     <style element="page[1]/section[3]|page[3]/section[4]">
       <selector path="" view="section frame">
-        <border-top preset="topbar (Case Management borders)"/>
+        <background preset="black (Case Management backgrounds)"/>
       </selector>
     </style>
     <style element="page[1]/section[3]/cell[1]/fragment[1]|page[3]/section[4]/cell[1]/fragment[1]" inherit="default buttons">
+      <selector path="" view="Nuxeo DM footer (Galaxy Theme)">
+        <color preset="white (Case Management colors)"/>
+        <font preset="small (Case Management fonts)"/>
+        <padding>1em</padding>
+      </selector>
       <selector path="form, p" view="Nuxeo DM footer (Galaxy Theme)">
         <margin>0</margin>
         <padding>0</padding>
-      </selector>
-      <selector path="" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="medium (Case Management colors)"/>
-        <font preset="small (Case Management fonts)"/>
-        <padding>5px 15px 5px 5px</padding>
       </selector>
       <selector path="div" view="Nuxeo DM footer (Galaxy Theme)">
         <margin>0</margin>
@@ -1979,17 +1975,17 @@
         <line-height>1.25em</line-height>
       </selector>
       <selector path="a" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link (Case Management colors)"/>
+        <color preset="white (Case Management colors)"/>
         <text-decoration>none</text-decoration>
       </selector>
       <selector path="a:visited" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link.visited (Case Management colors)"/>
+        <color preset="white (Case Management colors)"/>
       </selector>
       <selector path="a:active" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link.active (Case Management colors)"/>
+        <color preset="white (Case Management colors)"/>
       </selector>
       <selector path="a:hover" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="link (Case Management colors)"/>
+        <color preset="white (Case Management colors)"/>
         <text-decoration>underline</text-decoration>
       </selector>
     </style>
