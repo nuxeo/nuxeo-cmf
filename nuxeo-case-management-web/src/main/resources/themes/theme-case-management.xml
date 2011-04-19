@@ -397,17 +397,11 @@
     <widget element="page[4]/section[1]/cell[1]/fragment[2]">
       <view>facelet region</view>
     </widget>
-    <widget element="page[1]/section[2]/cell[2]/fragment[1]">
-      <view>Print and ZIP buttons</view>
-    </widget>
     <widget element="page[3]/section[2]">
       <view>section frame</view>
     </widget>
     <widget element="page[3]/section[2]/cell[1]">
       <view>cell frame</view>
-    </widget>
-    <widget element="page[3]/section[2]/cell[1]/fragment[1]">
-      <view>Print and ZIP buttons</view>
     </widget>
     <!-- buttons -->
     <style name="default buttons">
@@ -1952,10 +1946,8 @@
         <border-left preset="whitethin (Case Management borders)"/>
       </selector>
     </style>
-    <style element="page[1]/section[2]/cell[2]/fragment[1]" inherit="default buttons"/>
     <style element="page[3]/section[2]"/>
     <style element="page[3]/section[2]/cell[1]"/>
-    <style element="page[3]/section[2]/cell[1]/fragment[1]" inherit="default buttons" />
     <!-- main fragment for default page & popup -->
     <style element="page[1]/section[2]/cell[2]/fragment[2]|page[2]/section[1]/cell[1]/fragment[1]" inherit="common style 1">
       <selector path="" view="facelet region">
