@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="org.nuxeo.correspondence.types">
+  
   <require>com.nuxeo.case-management.types</require>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
 
@@ -12,9 +13,15 @@
       </deniedSubtypes>
     </type>
 
+
     <type id="Case">
       <default-view>view_cm_case</default-view>
+      <subtypes>
+        <type>CaseItem</type>
+        <type>Case</type>
+      </subtypes>
     </type>
+
 
     <type id="CorrespondenceMailbox">
       <label>label.correspondence.type.CorrespondenceMailbox</label>
