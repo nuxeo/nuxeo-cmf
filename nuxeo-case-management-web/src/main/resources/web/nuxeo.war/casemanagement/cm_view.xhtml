@@ -20,7 +20,6 @@
 		<link rel="bookmark"
 			href="#{navigationContext.currentDocumentFullUrl}" />
 	</ui:define>
-
 	<ui:define name="body">
 		<script>
       var mailboxId = "#{currentMailbox.id}";
@@ -48,14 +47,9 @@
 		  <div class="pane ui-layout-center">
 		    <ui:include	src="/casemanagement/mailbox/mailbox_view_body.xhtml" />
 		  </div>
-		  <f:subview rendered="#{cmContextActions.currentDocumentIsDistributable()}" id="caseView">
+		  <f:subview rendered="#{currentCase != null}" id="caseView">
 		    <div class="pane ui-layout-south">
-		       <ui:include src="/select_document_type.xhtml" />
-           <ui:include src="/incl/document_action_tabs.xhtml"/>
-           <div style="clear:both"></div>
-           <div class="tabsContent">
-             <ui:include src="#{webActions.currentTabAction.link}"/>
-           </div>
+		       <ui:include src="/casemanagement/caseitem/view_cm_case_body.xhtml" />
         </div>
       </f:subview>
 		</div>
