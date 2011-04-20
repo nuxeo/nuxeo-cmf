@@ -16,10 +16,6 @@
 
     <type id="Case">
       <default-view>view_cm_case</default-view>
-      <subtypes>
-        <type>CaseItem</type>
-        <type>Case</type>
-      </subtypes>
     </type>
 
 
