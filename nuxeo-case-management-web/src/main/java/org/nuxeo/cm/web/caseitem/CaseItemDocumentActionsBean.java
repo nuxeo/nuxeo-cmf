@@ -131,6 +131,9 @@ public class CaseItemDocumentActionsBean extends
                     getCurrentCase().getDocument().getId());
             documentManager.saveDocument(emailDoc);
             TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
+            Events.instance().raiseEvent(
+                    EventNames.DOCUMENT_CHILDREN_CHANGED,
+                    documentManager.getDocument(emailDoc.getRef()));
             return typeInfo.getDefaultView();
         }
         Mailbox currentMailbox = getCurrentMailbox();
