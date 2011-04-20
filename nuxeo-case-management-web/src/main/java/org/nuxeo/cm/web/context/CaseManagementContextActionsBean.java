@@ -33,6 +33,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 
 @Name("cmContextActions")
@@ -47,6 +48,9 @@ public class CaseManagementContextActionsBean implements Serializable,
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
+
+    @In(create = true)
+    protected NavigationContext navigationContext;
 
     @Override
     public String getCurrentCaseItemId() throws ClientException {
@@ -87,7 +91,6 @@ public class CaseManagementContextActionsBean implements Serializable,
                 cmContextHolder.setCurrentCaseItem(null);
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
-                cmContextHolder.setCurrentCase(null);
                 cmContextHolder.setCurrentCaseItem(newDocument);
             } else if (newDocument.hasSchema("classification")) {
                 cmContextHolder.setCurrentCase(null);
@@ -96,4 +99,11 @@ public class CaseManagementContextActionsBean implements Serializable,
         }
     }
 
+    public boolean currentDocumentIsDistributable() {
+        DocumentModel currentDoc = navigationContext.getCurrentDocument();
+        if (currentDoc == null) {
+            return false;
+        }
+        return currentDoc.hasFacet(CaseConstants.DISTRIBUTABLE_FACET);
+    }
 }
