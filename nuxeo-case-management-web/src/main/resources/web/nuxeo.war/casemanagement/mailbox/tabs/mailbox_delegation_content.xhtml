@@ -9,7 +9,7 @@
     
     <h:form id="mailbox_delegation">
       <nxl:layout name="cm_mailbox_managers" mode="edit"
-        value="#{changeableDocument}" />
+        value="#{currentDocument}" />
   
       <h:commandButton value="#{messages['label.casemanagement.save']}"
         action="#{cmMailboxActions.updateManagerTabMailbox()}"
