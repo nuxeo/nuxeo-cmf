@@ -36,6 +36,7 @@
       </layouts>
       <subtypes>
         <type>Case</type>
+        <type>CaseItem</type>
       </subtypes>
       <contentViews category="inbox">
         <contentView>mailbox_inbox_content</contentView>
