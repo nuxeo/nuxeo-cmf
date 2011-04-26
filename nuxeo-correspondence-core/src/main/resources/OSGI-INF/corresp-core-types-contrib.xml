@@ -41,16 +41,15 @@
       <schema name="file" />
       <schema name="files" />
       <schema name="uid" />
-      <schema name="correspondence_document" />
       <schema name="correspondence_incoming_mail" />
       <facet name="IncomingCorrespondence" />
     </doctype>
 
-    <doctype name="OutgoingCorrespondenceDocument" extends="CaseItem">
+    <doctype name="OutgoingCorrespondenceDocument" extends="CorrespondenceDocument">
       <schema name="file" />
       <schema name="files" />
       <schema name="uid" />
-      <schema name="correspondence_document" />
+      <schema name="correspondence_outgoing_mail"/>
       <facet name="OutgoingCorrespondence" />
     </doctype>
 
