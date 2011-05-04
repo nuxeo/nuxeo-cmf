@@ -32,6 +32,8 @@ public class TestCase extends CaseManagementRepositoryTestCase {
 
     protected Case envelope;
 
+    protected Case envelope2;
+
     protected CaseItem item1;
 
     protected CaseItem item2;
@@ -43,6 +45,9 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         DocumentModel document = createDocument(CaseConstants.CASE_TYPE, "env");
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         envelope = new CaseImpl(document, adapter);
+        document = createDocument(CaseConstants.CASE_TYPE, "env2");
+        adapter = document.getAdapter(HasParticipants.class);
+        envelope2 = new CaseImpl(document, adapter);
         document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i1");
         item1 = new CaseItemImpl(document, adapter);
         document = createDocument(CaseConstants.CASE_ITEM_DOCUMENT_TYPE, "i2");
@@ -58,7 +63,9 @@ public class TestCase extends CaseManagementRepositoryTestCase {
     public void testItemsMethods() throws ClientException {
         String envId = envelope.getDocument().getId();
         envelope.addCaseItem(item1, session);
+        envelope2.addCaseItem(item1, session);
         envelope.save(session);
+        envelope2.save(session);
         session.save();
         closeSession();
         openSession();
@@ -92,6 +99,10 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         envelope = new CaseImpl(document, adapter);
         assertEquals(2, envelope.getCaseItems(session).size());
         assertEquals(envelope.getFirstItem(session), item2);
+        
+        List<DocumentModel> itemCases = item1.getCases(session);
+        assertNotNull(itemCases);
+        assertEquals(2, itemCases.size());
     }
 
 }

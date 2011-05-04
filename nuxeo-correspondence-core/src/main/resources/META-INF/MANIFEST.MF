@@ -16,4 +16,5 @@ Nuxeo-Component: OSGI-INF/corresp-core-types-contrib.xml,
  OSGI-INF/corresp-event-listener-contrib.xml,
  OSGI-INF/corresp-mail-contrib.xml,
  OSGI-INF/corresp-uid-contrib.xml,
+ OSGI-INF/corresp-adapter-contrib.xml,
  OSGI-INF/corresp-contrib.xml
