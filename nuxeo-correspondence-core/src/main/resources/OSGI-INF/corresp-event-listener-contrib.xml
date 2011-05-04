@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.correspondence.event">
-
+  <require>com.nuxeo.case-management.eventContrib</require>
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
     point="listener">
 
@@ -11,6 +11,7 @@
       <event>documentCreated</event>
     </listener>
 
+    <listener name="caseDistributionListener" enabled="false" />
     <listener name="envelopeDistributionListener" async="false"
       postCommit="true"
       class="org.nuxeo.correspondence.core.event.EnvelopeDistributionListener"

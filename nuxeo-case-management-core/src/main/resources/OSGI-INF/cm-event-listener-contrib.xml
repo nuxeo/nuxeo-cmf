@@ -11,6 +11,13 @@
       <event>validateCaseLink</event>
     </listener>
 
+    <listener name="caseDistributionListener" async="false"
+      postCommit="false"
+      class="org.nuxeo.cm.core.event.CaseDistributionListener"
+      priority="120">
+      <event>afterCaseSentEvent</event>
+    </listener>
+
     <listener name="classificationListener" async="false" postCommit="true"
       class="org.nuxeo.cm.core.event.ClassificationMailboxListener"
       priority="120">
