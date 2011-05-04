@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
 
 /**
  * Mail envelope item.
@@ -133,5 +134,18 @@ public interface CaseItem extends HasParticipants, Serializable {
      * Persists the item.
      */
     void save(CoreSession session);
+
+    /**
+     * 
+     * @param coreSession
+     * @return list of cases containing the case item.
+     */
+    DocumentModelList getCases(CoreSession coreSession);
+
+    /**
+     * 
+     * @return true if case item is in more than one case.
+     */
+    boolean hasSeveralCases(CoreSession coreSession);
 
 }

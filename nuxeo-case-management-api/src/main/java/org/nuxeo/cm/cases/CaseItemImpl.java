@@ -29,6 +29,8 @@ import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.runtime.api.Framework;
 
@@ -37,6 +39,8 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class CaseItemImpl implements CaseItem {
+
+    private static final String QUERY_CASES = "SELECT * FROM Document WHERE case:documentsId = '%s'";
 
     private static final long serialVersionUID = 1L;
 
@@ -277,6 +281,21 @@ public class CaseItemImpl implements CaseItem {
 
     public Map<String, List<String>> getInitialInternalParticipants() {
         return recipientAdapter.getInitialInternalParticipants();
+    }
+
+    public DocumentModelList getCases(CoreSession session) {
+        try {
+            String query = String.format(QUERY_CASES, document.getId());
+            return session.query(query);
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean hasSeveralCases(CoreSession coreSession) {
+        DocumentModelList envelopes = getCases(coreSession);
+        return envelopes.size() > 1;
     }
 
 }

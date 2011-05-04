@@ -22,6 +22,8 @@ package org.nuxeo.correspondence.test.utils;
 public class CorrespondenceTestConstants {
 
     public static final String CORRESPONDENCE_CORE_BUNDLE = "org.nuxeo.correspondence.core";
+    
+    public static final String CORRESPONDENCE_API_BUNDLE = "org.nuxeo.correspondence.api";
 
     public static final String CORRESPONDENCE_CORE_TEST_BUNDLE = "org.nuxeo.correspondence.core.test";
 
