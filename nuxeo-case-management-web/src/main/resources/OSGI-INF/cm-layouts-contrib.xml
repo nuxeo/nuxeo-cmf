@@ -168,7 +168,8 @@
       <widgetModes>
         <mode value="create">edit</mode>
         <mode value="edit">
-          #{nxu:test(layoutValue.mlbx.type=='personal', 'view', 'edit')}
+          #{nxu:test(layoutValue.mlbx.type=='personal',
+          'view', 'edit')}
         </mode>
       </widgetModes>
       <properties mode="any">
@@ -243,7 +244,8 @@
         <mode value="create">hidden</mode>
       </widgetModes>
       <labels>
-        <label mode="any">label.mailbox.synchronizer.lastSyncUpdate</label>
+        <label mode="any">label.mailbox.synchronizer.lastSyncUpdate
+        </label>
       </labels>
       <translated>true</translated>
       <fields>
@@ -350,7 +352,8 @@
 
     <layout name="cm_mailbox">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -397,7 +400,8 @@
 
     <layout name="cm_mailbox_managers">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -411,7 +415,8 @@
 
     <layout name="cm_participants">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -428,7 +433,8 @@
 
     <layout name="head_cm_document">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -461,7 +467,8 @@
       </rows>
       <widget name="senders" type="list">
         <labels>
-          <label mode="any">label.casemanagement.document.senders</label>
+          <label mode="any">label.casemanagement.document.senders
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -483,47 +490,56 @@
       </widget>
       <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.document_date</label>
+          <label mode="any">label.casemanagement.document.document_date
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="receive_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.receive_date</label>
+          <label mode="any">label.casemanagement.document.receive_date
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>cmdoc:receive_date</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="sending_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.sending_date</label>
+          <label mode="any">label.casemanagement.document.sending_date
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>cmdoc:sending_date</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="initial_action_internal_participant_mailboxes"
@@ -535,7 +551,8 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_action_internal_participant_mailboxes</field>
+          <field>cmdist:initial_action_internal_participant_mailboxes
+          </field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -551,7 +568,8 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_internal_participant_mailboxes" type="list">
+      <widget name="initial_copy_internal_participant_mailboxes"
+        type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.internal.information
@@ -559,7 +577,8 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_copy_internal_participant_mailboxes</field>
+          <field>cmdist:initial_copy_internal_participant_mailboxes
+          </field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -584,7 +603,8 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_action_external_participant_mailboxes</field>
+          <field>cmdist:initial_action_external_participant_mailboxes
+          </field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -600,7 +620,8 @@
           </widget>
         </subWidgets>
       </widget>
-      <widget name="initial_copy_external_participant_mailboxes" type="list">
+      <widget name="initial_copy_external_participant_mailboxes"
+        type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.information
@@ -608,7 +629,8 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_copy_external_participant_mailboxes</field>
+          <field>cmdist:initial_copy_external_participant_mailboxes
+          </field>
         </fields>
         <subWidgets>
           <widget type="text">
@@ -626,7 +648,8 @@
       </widget>
       <widget name="reference" type="text">
         <labels>
-          <label mode="any">label.casemanagement.document.reference</label>
+          <label mode="any">label.casemanagement.document.reference
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -640,7 +663,8 @@
 
     <layout name="cm_case">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -654,7 +678,8 @@
 
     <layout name="cm_document">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -738,7 +763,8 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.name</label>
+              <label mode="any">label.casemanagement.document.name
+              </label>
             </labels>
             <fields>
               <field>name</field>
@@ -746,7 +772,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname
+              </label>
             </labels>
             <fields>
               <field>surname</field>
@@ -754,7 +781,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.service</label>
+              <label mode="any">label.casemanagement.document.service
+              </label>
             </labels>
             <fields>
               <field>service</field>
@@ -764,32 +792,38 @@
       </widget>
       <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.document_date</label>
+          <label mode="any">label.casemanagement.document.document_date
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="receive_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.receive_date</label>
+          <label mode="any">label.casemanagement.document.receive_date
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>cmdoc:receive_date</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="contactsSenders" type="template">
@@ -810,7 +844,8 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.name</label>
+              <label mode="any">label.casemanagement.document.name
+              </label>
             </labels>
             <fields>
               <field>name</field>
@@ -818,7 +853,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname
+              </label>
             </labels>
             <fields>
               <field>surname</field>
@@ -826,7 +862,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.service</label>
+              <label mode="any">label.casemanagement.document.service
+              </label>
             </labels>
             <fields>
               <field>service</field>
@@ -870,7 +907,8 @@
       </widget>
       <widget name="reference" type="text">
         <labels>
-          <label mode="any">label.casemanagement.document.reference</label>
+          <label mode="any">label.casemanagement.document.reference
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -893,7 +931,8 @@
 
     <layout name="edit_cm_document">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -930,17 +969,20 @@
       </widget>
       <widget name="document_date" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.document.document_date</label>
+          <label mode="any">label.casemanagement.document.document_date
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>cmdoc:document_date</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="contactsSenders" type="template">
@@ -961,7 +1003,8 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.name</label>
+              <label mode="any">label.casemanagement.document.name
+              </label>
             </labels>
             <fields>
               <field>name</field>
@@ -969,7 +1012,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname
+              </label>
             </labels>
             <fields>
               <field>surname</field>
@@ -977,7 +1021,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.service</label>
+              <label mode="any">label.casemanagement.document.service
+              </label>
             </labels>
             <fields>
               <field>service</field>
@@ -1042,7 +1087,8 @@
         <subWidgets>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.name</label>
+              <label mode="any">label.casemanagement.document.name
+              </label>
             </labels>
             <fields>
               <field>name</field>
@@ -1050,7 +1096,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.surname</label>
+              <label mode="any">label.casemanagement.document.surname
+              </label>
             </labels>
             <fields>
               <field>surname</field>
@@ -1058,7 +1105,8 @@
           </widget>
           <widget name="sender" type="text">
             <labels>
-              <label mode="any">label.casemanagement.document.service</label>
+              <label mode="any">label.casemanagement.document.service
+              </label>
             </labels>
             <fields>
               <field>service</field>
@@ -1071,7 +1119,8 @@
     <layout name="distribution_caselink">
 
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
 
       <rows>
@@ -1102,7 +1151,8 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_action_external_participant_mailboxes</field>
+          <field>cmdist:initial_action_external_participant_mailboxes
+          </field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1119,7 +1169,8 @@
         </subWidgets>
       </widget>
 
-      <widget name="initial_copy_external_participant_mailboxes" type="list">
+      <widget name="initial_copy_external_participant_mailboxes"
+        type="list">
         <labels>
           <label mode="any">
             label.casemanagement.document.initial.participant.external.information
@@ -1127,7 +1178,8 @@
         </labels>
         <translated>true</translated>
         <fields>
-          <field>cmdist:initial_copy_external_participant_mailboxes</field>
+          <field>cmdist:initial_copy_external_participant_mailboxes
+          </field>
         </fields>
         <subWidgets>
           <widget name="sender" type="text">
@@ -1147,7 +1199,8 @@
       <widget name="initial_action_internal_participant_mailboxes"
         type="template">
         <fields>
-          <field>cmdist:initial_action_internal_participant_mailboxes</field>
+          <field>cmdist:initial_action_internal_participant_mailboxes
+          </field>
         </fields>
         <labels>
           <label mode="any">
@@ -1168,7 +1221,8 @@
       <widget name="initial_copy_internal_participant_mailboxes"
         type="template">
         <fields>
-          <field>cmdist:initial_copy_internal_participant_mailboxes</field>
+          <field>cmdist:initial_copy_internal_participant_mailboxes
+          </field>
         </fields>
         <labels>
           <label mode="any">
@@ -1203,7 +1257,8 @@
 
     <layout name="cm_relation_search">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -1263,7 +1318,8 @@
 
     <layout name="summary_current_case_layout">
       <templates>
-        <template mode="any">/layouts/layout_summary_template.xhtml</template>
+        <template mode="any">/layouts/layout_summary_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -1279,7 +1335,8 @@
 
     <layout name="routing_task">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -1297,7 +1354,8 @@
           <field>rtsk:type</field>
         </fields>
         <labels>
-          <label mode="any">label.casemanagement.routing.task.type</label>
+          <label mode="any">label.casemanagement.routing.task.type
+          </label>
         </labels>
         <translated>true</translated>
         <properties widgetMode="any">
@@ -1312,17 +1370,20 @@
       </widget>
       <widget name="dueDate" type="datetime">
         <labels>
-          <label mode="any">label.casemanagement.routing.task.dueDate</label>
+          <label mode="any">label.casemanagement.routing.task.dueDate
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
           <field>rtsk:dueDate</field>
         </fields>
         <properties widgetMode="view">
-          <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="pattern">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
         <properties widgetMode="edit">
-          <property name="format">#{nxu:basicDateAndTimeFormater()}</property>
+          <property name="format">#{nxu:basicDateAndTimeFormater()}
+          </property>
         </properties>
       </widget>
       <widget name="automaticValidation" type="checkbox">
@@ -1351,7 +1412,8 @@
 
     <layout name="generic_mailboxes_routing_task">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -1360,7 +1422,8 @@
       </rows>
       <widget name="distribution_mailbox" type="template">
         <labels>
-          <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+          <label mode="any">label.casemanagement.routing.task.mailboxId
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -1377,7 +1440,8 @@
 
     <layout name="personal_mailboxes_routing_task">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -1386,7 +1450,8 @@
       </rows>
       <widget name="distribution_mailbox" type="template">
         <labels>
-          <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+          <label mode="any">label.casemanagement.routing.task.mailboxId
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -1403,7 +1468,8 @@
 
     <layout name="all_mailboxes_routing_task">
       <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
       </templates>
       <rows>
         <row>
@@ -1412,7 +1478,8 @@
       </rows>
       <widget name="distribution_mailbox" type="template">
         <labels>
-          <label mode="any">label.casemanagement.routing.task.mailboxId</label>
+          <label mode="any">label.casemanagement.routing.task.mailboxId
+          </label>
         </labels>
         <translated>true</translated>
         <fields>
@@ -1427,5 +1494,118 @@
       </widget>
     </layout>
 
+    <layout name="mailinglist">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>title</widget>
+        </row>
+        <row>
+          <widget>description</widget>
+        </row>
+        <row>
+          <widget>mailboxes</widget>
+        </row>
+      </rows>
+      <widget name="title" type="text">
+        <translated>true</translated>
+        <fields>
+          <field>title</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="required">true</property>
+          <property name="maxlength">255</property>
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="description" type="textarea">
+        <translated>true</translated>
+        <fields>
+          <field>description</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="styleClass">dataInputText</property>
+        </properties>
+      </widget>
+      <widget name="mailboxes" type="template">
+        <translated>true</translated>
+        <fields>
+          <field>mailboxIds</field>
+        </fields>
+        <properties mode="any">
+          <property name="template">
+            /casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
+          </property>
+        </properties>
+      </widget>
+    </layout>
+
+ <layout name="complexListWidgetLayout">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml</template>
+      </templates>
+      <rows>
+        <row>
+          <widget>complexListWidget</widget>
+        </row>
+      </rows>
+      <widget name="complexListWidget" type="list">
+        <labels>
+          <label mode="any">Complex List widget</label>
+        </labels>
+        <translated>false</translated>
+        <fields>
+          <field>mailbox:mailinglists</field>
+        </fields>
+        <properties widgetMode="edit">
+          <property name="required">true</property>
+        </properties>
+        <subWidgets>
+          <widget name="complexListItem" type="template">
+            <labels>
+              <label mode="any">Complex List item</label>
+            </labels>
+            <properties mode="any">
+              <property name="template">
+                /widgets/complex_list_item_widget_template.xhtml
+              </property>
+            </properties>
+            <!-- subwidgets for complex -->
+            <subWidgets>
+              <widget name="title" type="text">
+                <fields>
+                  <field>title</field>
+                </fields>
+                <labels>
+                  <label mode="any">String item</label>
+                </labels>
+              </widget>
+              <widget name="description" type="textarea">
+                <fields>
+                  <field>description</field>
+                </fields>
+                <labels>
+                  <label mode="any">String item</label>
+                </labels>
+              </widget>
+              <!-- widget name="mailboxes" type="template">
+                <translated>true</translated>
+                <fields>
+                  <field>mailbox_id</field>
+                </fields>
+                <properties mode="any">
+                <property name="template">
+                  /casemanagement_widgets/mailbox_suggestion_widget_template.xhtml
+                </property>
+               </properties>
+              </widget-->
+            </subWidgets>
+          </widget>
+        </subWidgets>
+      </widget>
+    </layout>
   </extension>
 </component>

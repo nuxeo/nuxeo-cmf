@@ -23,7 +23,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * Distribution information.
  * <p>
@@ -51,5 +50,11 @@ public interface DistributionInfo extends Serializable {
 
     public boolean hasParticipants();
 
+    public List<String> getForActionMailingLists();
 
+    public List<String> getForInformationMailingLists();
+
+    public List<MlInfo> getMlInfos();
+
+    public void setMlInfos(List<MlInfo> mailistInfos);
 }

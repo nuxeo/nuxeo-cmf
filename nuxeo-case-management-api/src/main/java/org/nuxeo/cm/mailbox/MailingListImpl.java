@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2006-2009 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2011 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,32 +12,25 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     Anahide Tchertchian
- *
- * $Id$
+ *     Nuxeo - initial API and implementation
  */
-
 package org.nuxeo.cm.mailbox;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Mailing list implementation using a complex property value as backend.
  *
- * @author Anahide Tchertchian
+ *
  */
-@Deprecated
-public class ParticipantListImpl implements ParticipantsList {
+public class MailingListImpl implements MailingList {
 
     private static final long serialVersionUID = 1L;
 
     protected final Map<String, Serializable> mlDoc;
 
-    public ParticipantListImpl(Map<String, Serializable> mlDoc) {
+    public MailingListImpl(Map<String, Serializable> mlDoc) {
         this.mlDoc = mlDoc;
     }
 
@@ -49,8 +42,9 @@ public class ParticipantListImpl implements ParticipantsList {
         return (String) mlDoc.get(MailboxConstants.MAILINGLIST_ID_FIELD);
     }
 
+    @SuppressWarnings("unchecked")
     public List<String> getMailboxIds() {
-        return Arrays.asList((String[]) mlDoc.get(MailboxConstants.MAILINGLIST_MAILBOX_FIELD));
+        return (List<String>) mlDoc.get(MailboxConstants.MAILINGLIST_MAILBOX_FIELD);
     }
 
     public String getTitle() {
@@ -66,12 +60,8 @@ public class ParticipantListImpl implements ParticipantsList {
     }
 
     public void setMailboxIds(List<String> mailboxes) {
-        ArrayList<String> serializableMailboxes = new ArrayList<String>();
-        if (mailboxes != null) {
-            serializableMailboxes.addAll(mailboxes);
-        }
         mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOX_FIELD,
-                serializableMailboxes);
+                (Serializable) mailboxes);
     }
 
     public void setTitle(String title) {

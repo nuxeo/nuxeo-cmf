@@ -48,8 +48,6 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     List<String> forActionMailboxes;
 
-    List<String> forActionMailingLists;
-
     List<String> forActionGroups;
 
     String[] forActionFunctions;
@@ -58,7 +56,7 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     List<String> forInformationGroups;
 
-    List<String> forInformationMailingLists;
+    List<MlInfo> mlInfos = new ArrayList<MlInfo>();
 
     String[] forInformationFunctions;
 
@@ -124,17 +122,8 @@ public class CMFDistributionInfo implements DistributionInfo {
         this.forInformationMailboxes = forInformationPersonalMailboxes;
     }
 
-    public void setForActionParticipantLists(List<String> forActionMailingLists) {
-        this.forActionMailingLists = forActionMailingLists;
-    }
-
     public void setForActionFunctions(String[] forActionFunctions) {
         this.forActionFunctions = forActionFunctions;
-    }
-
-    public void setForInformationParticipantLists(
-            List<String> forInformationMailingLists) {
-        this.forInformationMailingLists = forInformationMailingLists;
     }
 
     public void setForInformationFunctions(String[] forInformationFunctions) {
@@ -156,11 +145,17 @@ public class CMFDistributionInfo implements DistributionInfo {
         if (forActionMailboxes != null) {
             mailboxes.addAll(forActionMailboxes);
         }
+        for(MlInfo mli : mlInfos) {
+            if(CaseLinkType.FOR_ACTION.name().equals(mli.getType())) {
+                mailboxes.addAll(mli.getMailingList().getMailboxIds());
+            }
+        }
         return new ArrayList<String>(mailboxes);
     }
 
-    public List<String> getForActionParticipantLists() {
-        return forActionMailingLists;
+    @Override
+    public List<String> getForActionMailingLists() {
+        return getMailingLists(CaseLinkType.FOR_ACTION.name());
     }
 
     public List<String> getForActionFunctions() {
@@ -183,11 +178,27 @@ public class CMFDistributionInfo implements DistributionInfo {
         if (forInformationMailboxes != null) {
             mailboxes.addAll(forInformationMailboxes);
         }
+        for(MlInfo mli : mlInfos) {
+            if(CaseLinkType.FOR_INFORMATION.name().equals(mli.getType())) {
+                mailboxes.addAll(mli.getMailingList().getMailboxIds());
+            }
+        }
         return new ArrayList<String>(mailboxes);
     }
 
-    public List<String> getForInformationParticipantLists() {
-        return forInformationMailingLists;
+    @Override
+    public List<String> getForInformationMailingLists() {
+        return getMailingLists(CaseLinkType.FOR_INFORMATION.name());
+    }
+
+    protected List<String> getMailingLists(String type) {
+        List<String> result = new ArrayList<String>();
+        for(MlInfo mli : mlInfos) {
+            if(type.equals(mli.getType())) {
+                result.add(mli.getMailingList().getId());
+            }
+        }
+        return result;
     }
 
     public List<String> getForInformationFunctions() {
@@ -213,20 +224,32 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     public boolean hasParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes) && isEmpty(forActionMailingLists)
+        if (isEmpty(forActionMailboxes)
                 && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)
                 && isEmpty(forInformationMailboxes)
-                && isEmpty(forInformationMailingLists)
                 && isEmpty(getForInformationFunctions())
-                && isEmpty(forInformationGroups)) {
+                && isEmpty(forInformationGroups)
+                && !hasMailingList()) {
             res = false;
         }
         return res;
     }
 
+    /**
+     * @return
+     */
+    private boolean hasMailingList() {
+        for(MlInfo mli : mlInfos) {
+            if(!CaseLinkType.NONE.name().equals(mli.getType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean hasActionParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes) && isEmpty(forActionMailingLists)
+        if (isEmpty(forActionMailboxes) && getForActionMailingLists().isEmpty()
                 && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)) {
             res = false;
         }
@@ -247,6 +270,16 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     public void setForInformationGroups(List<String> forInformationGroups) {
         this.forInformationGroups = forInformationGroups;
+    }
+
+    @Override
+    public List<MlInfo> getMlInfos() {
+        return mlInfos;
+    }
+
+    @Override
+    public void setMlInfos(List<MlInfo> mlInfos) {
+        this.mlInfos = mlInfos;
     }
 
 }

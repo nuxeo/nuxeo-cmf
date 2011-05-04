@@ -23,6 +23,7 @@ package org.nuxeo.cm.mailbox;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -140,33 +141,54 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     void setFavorites(List<String> favorites) throws CaseManagementException;
 
     /**
-     * Gets the id list of mailing lists of this mailbox.
+     * Gets the id list of mailing lists of this mailbox. use
+     * {@link #getMailingListIds()} instead.
      */
+    @Deprecated
     List<String> getParticipantListIds();
+
+    List<String> getMailingListIds();
 
     /**
      * Gets the list of {@link ParticipantsList} objects of this mailbox.
      *
+     * use {@link #getMailingLists()} instead.
+     *
      * @throws CaseManagementException
      */
+    @Deprecated
     List<ParticipantsList> getParticipantLists();
+
+    List<MailingList> getMailingLists();
 
     /**
      * Returns a new bare mailing list
+     *
+     * use {@link #getMailingListTemplate()} instead.
      */
+    @Deprecated
     ParticipantsList getParticipantListTemplate();
+
+    MailingList getMailingListTemplate();
 
     /**
      * Add the given mailing list to this mailbox
      *
      * @param mailinglist the mailing list to add
      */
+    @Deprecated
     void addParticipantList(ParticipantsList mailinglist);
 
+    void addMailingList(MailingList mailinglist);
+
     /**
-     * Removes mailing list with given id from this mailbox
+     * Removes mailing list with given id from this mailbox use
+     * {@link #removeMailingList(String)} instead.
      */
+    @Deprecated
     void removeParticipantList(String mailinglistId);
+
+    void removeMailingList(String mailingListId);
 
     /**
      * Gets profiles for this mailbox
@@ -217,8 +239,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     List<String> getAllUsersAndGroups();
 
     /**
-     * @return the affiliated mailbox id. null if not affiliated mailbox
-     *         exists.
+     * @return the affiliated mailbox id. null if not affiliated mailbox exists.
      */
     String getAffiliatedMailboxId();
 
@@ -275,5 +296,11 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
      * @param origin
      */
     void setOrigin(String origin);
+
+    /**
+     * @param currentMailingList
+     * @return
+     */
+    Mailbox updateMailingList(MailingList currentMailingList);
 
 }

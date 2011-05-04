@@ -216,6 +216,14 @@
 
     </action>
 
+    <action id="TAB_MAILBOX_MAILINGLIST"
+      link="/casemanagement/mailbox/tabs/mailbox_mailing_list.xhtml"
+      order="30" label="label.casemanagement.mailingList" enabled="true"
+      icon="/icons/file.gif">
+      <category>MANAGE_MAILBOX_ACTION_LIST</category>
+
+    </action>
+
     <!-- Mailbox View Action -->
     <action id="TAB_MAILBOX_INBOX"
       link="/casemanagement/mailbox/tabs/mailbox_inbox_content.xhtml" order="20"
@@ -259,6 +267,22 @@
       label="label.casemanagement.action.distributionRequest"
       icon="/icons/case-management_distribute.gif" order="10">
       <category>VIEW_ACTION_LIST</category>
+      <filter-id>canDistributeCase</filter-id>
+    </action>
+
+    <action id="choose_particitants"
+      link="/casemanagement/caseitem/chose_participants.xhtml"
+      label="label.casemanagement.action.mailboxes"
+      icon="/icons/case-management_distribute.gif" order="10">
+      <category>distribute_cm_case_sub_tab</category>
+      <filter-id>canDistributeCase</filter-id>
+    </action>
+
+    <action id="choose_mailinglist"
+      link="/casemanagement/caseitem/choose_mailinglist.xhtml"
+      label="label.casemanagement.action.choosemailinglist"
+      icon="/icons/case-management_distribute.gif" order="10">
+      <category>distribute_cm_case_sub_tab</category>
       <filter-id>canDistributeCase</filter-id>
     </action>
 

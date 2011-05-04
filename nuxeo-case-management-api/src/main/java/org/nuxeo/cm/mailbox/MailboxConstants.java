@@ -69,7 +69,7 @@ public class MailboxConstants {
 
     public static final String FAVORITES_FIELD = "mlbx:favorites";
 
-    public static final String PARTICIPANTS_LIST_FIELD = "mlbx:participantlists";
+    public static final String MAILING_LIST_FIELD = "mlbx:mailinglists";
 
     public static final String CONFIDENTIALITY_FIELD = "mlbx:defaultconfidentiality";
 
@@ -81,7 +81,7 @@ public class MailboxConstants {
 
     public static final String SYNCHRONIZED_STATE_FIELD = "mlbx:synchronizedState";
 
-    public static final String PARTICIPANTLIST_ID_FIELD = "plid";
+    public static final String MAILINGLIST_ID_FIELD = "mlid";
 
     public static final String MAILINGLIST_TITLE_FIELD = "title";
 

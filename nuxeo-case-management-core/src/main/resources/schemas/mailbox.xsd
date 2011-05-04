@@ -23,27 +23,27 @@
 
   <xs:element name="defaultconfidentiality" type="xs:int" default="4" />
 
-  <xs:complexType name="participantlist">
+  <xs:complexType name="mailinglist">
     <xs:sequence>
-      <xs:element name="plid" type="xs:string" minOccurs="0"
+      <xs:element name="mlid" type="xs:string" minOccurs="0"
         maxOccurs="unbounded" />
       <xs:element name="title" type="xs:string" minOccurs="0"
         maxOccurs="unbounded" />
       <xs:element name="description" type="xs:string" minOccurs="0"
         maxOccurs="unbounded" />
-      <xs:element name="mailbox_id" type="cmxs:stringArray" minOccurs="0"
+      <xs:element name="mailbox_id" type="cmxs:stringList" minOccurs="0"
         maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="participantlists">
+  <xs:complexType name="mailinglists">
     <xs:sequence>
-      <xs:element name="plist" type="cmxs:participantlist" minOccurs="0"
+      <xs:element name="mlist" type="cmxs:mailinglist" minOccurs="0"
         maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
-  <xs:element name="participantlists" type="cmxs:participantlists" />
+  <xs:element name="mailinglists" type="cmxs:mailinglists" />
 
   <xs:element name="lastSyncUpdate" type="xs:date" />
   <xs:element name="origin" type="xs:string" default="" />

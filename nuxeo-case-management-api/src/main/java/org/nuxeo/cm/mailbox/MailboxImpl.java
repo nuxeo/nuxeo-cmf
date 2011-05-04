@@ -38,6 +38,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.model.Property;
+import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.schema.types.Field;
 import org.nuxeo.ecm.core.schema.types.ListType;
@@ -122,10 +123,10 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public ParticipantsList getParticipantListTemplate() {
+    public MailingList getMailingListTemplate() {
         try {
             Object value = null;
-            Property prop = doc.getProperty(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            Property prop = doc.getProperty(MailboxConstants.MAILING_LIST_FIELD);
             Field field = prop.getField();
             if (field != null) {
                 Type type = field.getType();
@@ -139,22 +140,22 @@ public class MailboxImpl implements Mailbox {
                         "Cannot get default template for mailing list");
             }
             Map<String, Serializable> map = (Map<String, Serializable>) value;
-            return new ParticipantListImpl(map);
+            return new MailingListImpl(map);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void addParticipantList(ParticipantsList ml) {
+    public void addMailingList(MailingList ml) {
         try {
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILING_LIST_FIELD);
             if (mailinglists != null) {
                 mls.addAll(mailinglists);
             }
             mls.add(ml.getMap());
-            setPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD, mls);
+            setPropertyValue(MailboxConstants.MAILING_LIST_FIELD, mls);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
@@ -184,7 +185,7 @@ public class MailboxImpl implements Mailbox {
         setPropertyValue(MailboxConstants.ID_FIELD, id);
     }
 
-    public List<String> getParticipantListIds() {
+    public List<String> getMailingListIds() {
         List<String> mlids = new ArrayList<String>();
         List<ParticipantsList> mls = getParticipantLists();
         if (mls != null) {
@@ -196,19 +197,52 @@ public class MailboxImpl implements Mailbox {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ParticipantsList> getParticipantLists() {
+    public List<MailingList> getMailingLists() {
         try {
-            List<ParticipantsList> mls = new ArrayList<ParticipantsList>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            List<MailingList> mls = new ArrayList<MailingList>();
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILING_LIST_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> mailinglist : mailinglists) {
-                    mls.add(new ParticipantListImpl(mailinglist));
+                    mls.add(new MailingListImpl(mailinglist));
                 }
             }
             return mls;
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Mailbox updateMailingList(MailingList currentMailingList) {
+        List<Map<String, Serializable>> mailinglists;
+        try {
+            mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILING_LIST_FIELD);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+        for (Map<String, Serializable> map : mailinglists) {
+            String mlid = (String) map.get(MailboxConstants.MAILINGLIST_ID_FIELD);
+            if (currentMailingList.getId().equals(mlid)) {
+                map.put(MailboxConstants.MAILINGLIST_TITLE_FIELD,
+                        currentMailingList.getTitle());
+                map.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD,
+                        currentMailingList.getDescription());
+                map.put(MailboxConstants.MAILINGLIST_MAILBOX_FIELD,
+                        (Serializable) currentMailingList.getMailboxIds());
+            }
+        }
+        try {
+            doc.setPropertyValue(MailboxConstants.MAILING_LIST_FIELD,
+                    (Serializable) mailinglists);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
+        }
+        return this;
     }
 
     public List<String> getNotifiedUsers() {
@@ -249,24 +283,20 @@ public class MailboxImpl implements Mailbox {
         return profiles != null && profiles.contains(profile);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-    public void removeParticipantList(String mailingListId) {
+    public void removeMailingList(String mailingListId) {
         try {
-            boolean set = false;
             ArrayList<Map<String, Serializable>> mls = new ArrayList<Map<String, Serializable>>();
-            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD);
+            List<Map<String, Serializable>> mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILING_LIST_FIELD);
             if (mailinglists != null) {
                 for (Map<String, Serializable> ml : mailinglists) {
-                    if (mailingListId.equals(ml.get(MailboxConstants.PARTICIPANTLIST_ID_FIELD))) {
-                        set = true;
-                    } else {
+                    if (!mailingListId.equals(ml.get(MailboxConstants.MAILINGLIST_ID_FIELD))) {
                         mls.add(ml);
                     }
                 }
             }
-            if (set) {
-                setPropertyValue(MailboxConstants.PARTICIPANTS_LIST_FIELD, mls);
-            }
+            setPropertyValue(MailboxConstants.MAILING_LIST_FIELD, mls);
         } catch (ClientException e) {
             throw new ClientRuntimeException(e);
         }
@@ -457,4 +487,28 @@ public class MailboxImpl implements Mailbox {
         setPropertyValue(MailboxConstants.ORIGIN_FIELD, origin);
     }
 
+    @Override
+    public List<String> getParticipantListIds() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<ParticipantsList> getParticipantLists() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ParticipantsList getParticipantListTemplate() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void addParticipantList(ParticipantsList mailinglist) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void removeParticipantList(String mailinglistId) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2006-2008 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2011 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,11 +12,8 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
- * $Id: MailingList.java 53707 2008-03-11 17:23:46Z gracinet $
+ *     Nuxeo - initial API and implementation
  */
-
 package org.nuxeo.cm.mailbox;
 
 import java.io.Serializable;
@@ -24,12 +21,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A mailing list is a set of users/groups. use {@link MailingList} instead.
  *
- * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
+ * A named set of mailbox.
  */
-@Deprecated
-public interface ParticipantsList extends Serializable {
+public interface MailingList extends Serializable {
 
     /**
      * Returns this mailing list id.
@@ -79,5 +74,4 @@ public interface ParticipantsList extends Serializable {
      * Gets the complete property map.
      */
     Map<String, Serializable> getMap();
-
 }
