@@ -187,9 +187,9 @@ public class MailboxImpl implements Mailbox {
 
     public List<String> getMailingListIds() {
         List<String> mlids = new ArrayList<String>();
-        List<ParticipantsList> mls = getParticipantLists();
+        List<MailingList> mls = getMailingLists();
         if (mls != null) {
-            for (ParticipantsList ml : mls) {
+            for (MailingList ml : mls) {
                 mlids.add(ml.getId());
             }
         }

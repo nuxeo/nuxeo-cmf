@@ -75,12 +75,12 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         mb.setFavorites(Arrays.asList(new String[] { "fav1", "fav2" }));
 
-        ParticipantsList ml = mb.getParticipantListTemplate();
+        MailingList ml = mb.getMailingListTemplate();
         ml.setId("mlid");
         ml.setTitle("ml title");
         ml.setDescription("ml description");
         ml.setMailboxIds(Arrays.asList(new String[] { "mb1", "mb2" }));
-        mb.addParticipantList(ml);
+        mb.addMailingList(ml);
 
         return session.createDocument(mb.getDocument());
     }
@@ -117,10 +117,10 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals(Arrays.asList(new String[] { "fav1", "fav2" }),
                 mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "mlid" }),
-                mb.getParticipantListIds());
-        List<ParticipantsList> mls = mb.getParticipantLists();
+                mb.getMailingListIds());
+        List<MailingList> mls = mb.getMailingLists();
         assertEquals(1, mls.size());
-        ParticipantsList ml = mls.get(0);
+        MailingList ml = mls.get(0);
         assertEquals("mlid", ml.getId());
         assertEquals("ml title", ml.getTitle());
         assertEquals("ml description", ml.getDescription());
@@ -149,14 +149,14 @@ public class TestMailbox extends SQLRepositoryTestCase {
         mb.setFavorites(Arrays.asList(new String[] { "fav1" }));
         mb.setConfidentiality(3);
 
-        mb.removeParticipantList("mlid");
+        mb.removeMailingList("mlid");
 
-        ParticipantsList ml = mb.getParticipantListTemplate();
+        MailingList ml = mb.getMailingListTemplate();
         ml.setId("newmlid");
         ml.setTitle("new ml title");
         ml.setDescription("new ml description");
         ml.setMailboxIds(Arrays.asList(new String[] { "mb1" }));
-        mb.addParticipantList(ml);
+        mb.addMailingList(ml);
 
         session.saveDocument(mb.getDocument());
 
@@ -184,9 +184,9 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
         assertEquals(Arrays.asList(new String[] { "fav1" }), mb.getFavorites());
         assertEquals(Arrays.asList(new String[] { "newmlid", }),
-                mb.getParticipantListIds());
+                mb.getMailingListIds());
 
-        List<ParticipantsList> mls = mb.getParticipantLists();
+        List<MailingList> mls = mb.getMailingLists();
         assertEquals(1, mls.size());
 
         ml = mls.get(0);
