@@ -121,11 +121,13 @@ public class CaseManagementDistributionActionsBean extends
                 }
                 distributionInfo.setFavoriteMailboxes(favoriteMailboxes);
             }
-            List<MlInfo> mlInfos = new ArrayList<MlInfo>();
-            for (MailingList list : currentMailbox.getMailingLists()) {
-                mlInfos.add(new MlInfoImpl(CaseLinkType.NONE.name(), list));
+            if (currentMailbox != null) {
+                List<MlInfo> mlInfos = new ArrayList<MlInfo>();
+                for (MailingList list : currentMailbox.getMailingLists()) {
+                    mlInfos.add(new MlInfoImpl(CaseLinkType.NONE.name(), list));
+                }
+                distributionInfo.setMlInfos(mlInfos);
             }
-            distributionInfo.setMlInfos(mlInfos);
             // entire envelope by default
             distributionInfo.setMode(CaseLinkMode.ENTIRE_ENVELOPE.getStringType());
         }

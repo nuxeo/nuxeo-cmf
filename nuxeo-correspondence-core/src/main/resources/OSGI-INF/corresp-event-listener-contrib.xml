@@ -11,7 +11,11 @@
       <event>documentCreated</event>
     </listener>
 
-    <listener name="caseDistributionListener" enabled="false" />
+    <listener name="caseDistributionListener" async="false"
+      postCommit="false"
+      class="org.nuxeo.cm.core.event.CaseDistributionListener"
+      priority="120" enabled="false" />
+    
     <listener name="envelopeDistributionListener" async="false"
       postCommit="true"
       class="org.nuxeo.correspondence.core.event.EnvelopeDistributionListener"
