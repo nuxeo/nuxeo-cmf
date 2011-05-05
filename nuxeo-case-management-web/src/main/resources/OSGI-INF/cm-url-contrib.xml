@@ -27,9 +27,8 @@
       <bindings>
         <binding name="tabId">#{webActions.currentTabId}</binding>
         <binding name="subTabId">#{webActions.currentSubTabId}</binding>
-        <binding name="currentCaseItemId">
-          #{cmContextActions.currentCaseItemId}
-        </binding>
+        <binding name="currentCaseItemId">#{cmContextActions.currentCaseItemId}</binding>
+        <binding name="tabIds">#{webActions.currentTabIds}</binding>
       </bindings>
     </urlPattern>
 
