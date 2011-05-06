@@ -1,0 +1,124 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link href="../concordion.css" rel="stylesheet" type="text/css" />
+<title>Login: Create users</title>
+</head>
+<body>
+<p><a href="../NuxeoCaseManagementTestPlan.html#plan">back to
+test plan</a></p>
+<h1>Login: Create Users</h1>
+<blockquote>
+<p>This is creating the users that will be used in the other tests</p>
+</blockquote>
+<ul>
+  <li>Having that
+  <ul>
+    <li>The server is started</li>
+  </ul>
+  </li>
+  <li>Login with administration rights to create Users
+  <ul>
+    <li>When
+    <ul>
+      <li>Administrator, on the site <span
+        concordion:set="#nuxeourl">http://localhost:8080/nuxeo</span>, <span
+        concordion:assertEquals="connectToLoginPage(#nuxeourl)">connects</span>
+      to the login page.</li>
+      <li>the user fills the following informations: <span
+        concordion:set="#username">Administrator</span> with the
+      password <span concordion:set="#password">Administrator</span> and
+      the language <span concordion:set="#language">English (United States)</span></li>
+      <li>the user <span
+        concordion:assertEquals="login(#username,#password,#language)">login</span></li>
+    </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>Then
+    <ul>
+      <li>the user is <span concordion:assertEquals="isConnected()">connected</span></li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+
+  <li>User creation
+  <ul>
+    <li>Creation of each user is done on the <span
+      concordion:set="#userLinkText">Users &amp; groups</span> link</li>
+    <li>For each user, we check that the user is not already by
+    typing its name and searching</li>
+    <li>Then we add the user by clicking on Create a new user with
+    the following informations:</li>
+  </ul>
+  </li>
+</ul>
+<table
+  concordion:execute="#created=createUser(#username,#firstname, #lastname,#company,#email,#password, #group)">
+  <tr>
+    <th concordion:set="#username">Username</th>
+    <th concordion:set="#firstname">First ame</th>
+    <th concordion:set="#lastname">Last name</th>
+    <th concordion:set="#company">Company</th>
+    <th concordion:set="#password">Password</th>
+    <th concordion:set="#email">Email</th>
+    <th concordion:set="#group">Group</th>
+    <th concordion:assertEquals="#created">Created</th>
+  </tr>
+  <tr>
+    <td>jdoe</td>
+    <td>John</td>
+    <td>Doe</td>
+    <td>Nuxeo</td>
+    <td>jdoe1</td>
+    <td>jdoe@nuxeo.com</td>
+    <td>members</td>
+    <td>Created</td>
+  </tr>
+  <tr>
+    <td>jsmith</td>
+    <td>John</td>
+    <td>Smith</td>
+    <td>Nuxeo</td>
+    <td>jsmith1</td>
+    <td>jsmith@nuxeo.com</td>
+    <td>members</td>
+    <td>Created</td>
+  </tr>
+  <tr>
+    <td>bree</td>
+    <td>Bree</td>
+    <td>Van de Kaamp</td>
+    <td>Nuxeo</td>
+    <td>bree1</td>
+    <td>bree@nuxeo.com</td>
+    <td>members</td>
+    <td>Created</td>
+  </tr>
+  <tr>
+    <td>lbramard</td>
+    <td>Lucien</td>
+    <td>Bramard</td>
+    <td>Nuxeo</td>
+    <td>lbramard1</td>
+    <td>lbramard@nuxeo.com</td>
+    <td>members</td>
+    <td>Created</td>
+  </tr>
+  <tr>
+    <td>linnet</td>
+    <td>Linnet</td>
+    <td>Scavo</td>
+    <td>Nuxeo</td>
+    <td>linnet1</td>
+    <td>linnet@nuxeo.com</td>
+    <td>members</td>
+    <td>Created</td>
+  </tr>
+</table>
+
+
+</body>
+</html>

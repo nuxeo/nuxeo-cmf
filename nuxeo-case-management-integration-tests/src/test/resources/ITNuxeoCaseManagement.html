@@ -1,0 +1,38 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+<title>Integration Tests Introduction</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link href="./concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>Introduction</h1>
+<h2>Purpose of this document</h2>
+<p>This document contains a set of tests allowing to ensure that the
+Nuxeo Case Management project works well.</p>
+
+<p>Nuxeo Case Management Framework is a framework based on our open
+source ECM platform Nuxeo Enterprise Platform (EP). It enables you to
+create applications dedicated to the management of documents composed of
+items, that evolve by being transfered to different persons responsible
+for their review or approval. For instance, a case can be a loan case
+composed of the different mandatory documents, a mail envelope with one
+or several documents, a legal case, etc.</p>
+
+<p>Based on Nuxeo Enterprise Platform (EP) like all Nuxeo ECM
+solutions, Nuxeo Case Management uses some principles of Nuxeo Document
+Management (DM) application, such as the access rights management in
+filing folders, users and vocabularies management, relations creation,
+etc. References to the Nuxeo DM User Guide for these common features are
+available in this guide.</p>
+
+
+<h1><a id="plan">Integration Tests</a></h1>
+<ol>
+  <li><a concordion:run="concordion" href="login/LoginOk.html">LoginOk.html</a>
+  This is testing that the log in works</li>
+  <li><a concordion:run="concordion" href="login/CreateUsers.html">CreateUsers.html</a>
+  Create the users</li>
+</ol>
+
+</body>
+</html>

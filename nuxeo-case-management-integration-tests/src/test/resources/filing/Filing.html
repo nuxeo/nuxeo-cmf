@@ -1,0 +1,74 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link href="../concordion.css" rel="stylesheet" type="text/css" />
+<title>Working with filing trees</title>
+</head>
+<body>
+<p><a href="../NuxeoCorrespondenceTestPlan.html#plan">back to
+test plan</a></p>
+<h1>Working with filing trees</h1>
+<blockquote>
+<p>Classification trees are folders associated to the mailboxes in
+which users can classify case items. It enables them to find and
+organize documents another way. Classification trees work the same way
+folders do in Nuxeo DM. Access is determined by access rights, documents
+can be deleted and moved into the folder's trash.</p>
+<p>Access rights are inherited from the mailbox. This means that all the mailbox delegates automatically have access to the mailbox's classification folders.</p>
+<p>You can classify cases as soon as:</p>
+<ul>
+  <li>you can access them (ie when you are a delegate of a recipient mailbox)</li>
+  <li>and you have "Classify" right in the target classification folder.</li>
+</ul>
+<p>The complete
+functional documentation can be found here: <a
+  href="https://doc.nuxeo.com/display/CMDOC/Working+with+filing+trees">Working
+with filing trees</a></p>
+</blockquote>
+<ul>
+  <li>Having that
+  <ul>
+    <li>The users John Doe and Bree are created</li>
+    <li>The server is started, connecting to
+    http://localhost:8080/nuxeo displays the default login page.</li>
+  </ul>
+  </li>
+  <li>Access rights are inherited from the mailbox.
+  This means that all the mailbox delegates automatically have access to
+  the mailbox's classification folders.
+  <ul>
+    <li>When
+    <ul>
+      <li>With its username <span concordion:set="#username">jdoe</span>
+      and its password <span concordion:set="#password">jdoe1</span> and
+      the language <span concordion:set="#language">English</span>, the
+      user John Doe <span
+        concordion:assertEquals="login(#username,#password,#language)">login</span></li>
+      <li>In the Administration tab of the mailbox, click on the
+      Delegation sub-tab</li>
+      <li>Add bree as a delegate by typing the first characters of
+      Bree and saving</li>
+      <li>With the username <span concordion:set="#username">bree</span>
+      and its password <span concordion:set="#password">bree1</span> and
+      the language <span concordion:set="#language">English</span>, the
+      user Bree <span
+        concordion:assertEquals="login(#username,#password,#language)">login</span></li>
+    </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>Then
+    <ul>
+      <li>Bree should see John Doe mailbox in her main page</li>
+      <li>Trying to delete her self from the mailbox delegates
+      should fail</li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+
+
+</ul>
+</body>
+</html>
