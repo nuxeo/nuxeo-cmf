@@ -58,6 +58,21 @@ public class CaseLinkRequestImpl implements CaseLink {
         this.internalRecipients = internalRecipients;
         this.externalRecipients = externalRecipients;
     }
+    
+    public CaseLinkRequestImpl(String sender, Date date, String subject,
+            String comment, Case envelope,
+            Map<String, List<String>> internalRecipients,
+            Map<String, List<String>> externalRecipients) {
+        this.sender = sender;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        this.date = cal;
+        this.subject = subject;
+        this.comment = comment;
+        this.envelope = envelope;
+        this.internalRecipients = internalRecipients;
+        this.externalRecipients = externalRecipients;
+    }
 
     public Map<String, List<String>> getAllParticipants() {
         return internalRecipients;
