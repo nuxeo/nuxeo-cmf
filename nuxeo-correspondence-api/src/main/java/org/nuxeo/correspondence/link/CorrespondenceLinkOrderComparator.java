@@ -17,18 +17,18 @@
  * $Id:$
  */
 
-package org.nuxeo.correspondence.relation;
+package org.nuxeo.correspondence.link;
 
 import java.text.Collator;
 import java.util.Comparator;
 
 /**
- * Comparator on statements using the order metadata.
+ * Comparator on link using the order metadata.
  *
  * @author ldoguin
  *
  */
-public class CorrespondenceStatementsComparator implements Comparator< CorrespondenceStatement> {
+public class CorrespondenceLinkOrderComparator implements Comparator< CorrespondenceLink> {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,10 +38,10 @@ public class CorrespondenceStatementsComparator implements Comparator< Correspon
         collator.setStrength(Collator.PRIMARY); // case+accent independent
     }
 
-    public CorrespondenceStatementsComparator() {
+    public CorrespondenceLinkOrderComparator() {
     }
 
-    public int compare(CorrespondenceStatement st1, CorrespondenceStatement st2) {
+    public int compare(CorrespondenceLink st1, CorrespondenceLink st2) {
         Long v1 = st1.getOrder();
         Long v2 = st2.getOrder();
         if (v1 == null && v2 == null) {

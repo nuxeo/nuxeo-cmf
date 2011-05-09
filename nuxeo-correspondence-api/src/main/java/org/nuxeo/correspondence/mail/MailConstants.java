@@ -28,7 +28,7 @@ public class MailConstants {
 
     public static final String MAIL_ENVELOPE_FACET = "Case";
 
-    public static final String MAIL_ENVELOPE_TYPE = "Case";
+    public static final String MAIL_ENVELOPE_TYPE = "CorrespondenceEnvelope";
 
     public static final String MAIL_DOCUMENT_TYPE = "CorrespondenceDocument";
 

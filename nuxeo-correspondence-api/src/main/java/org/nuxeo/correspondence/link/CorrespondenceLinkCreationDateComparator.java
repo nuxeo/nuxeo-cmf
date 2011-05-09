@@ -17,22 +17,22 @@
  * $Id: PleiadeEnvelopeStatementsComparator.java 13483 2009-03-19 12:52:45Z atchertchian $
  */
 
-package org.nuxeo.correspondence.relation;
+package org.nuxeo.correspondence.link;
 
 import java.util.Comparator;
 
 /**
- * Comparator on statements using the creation date metadata.
+ * Comparator on link using the creation date metadata.
  *
  * @author ldoguin
  *
  */
-public class CorrespondenceEnvelopeStatementsComparator implements
-        Comparator<CorrespondenceStatement> {
+public class CorrespondenceLinkCreationDateComparator implements
+        Comparator<CorrespondenceLink> {
 
     private static final long serialVersionUID = 1L;
 
-    public int compare(CorrespondenceStatement st1, CorrespondenceStatement st2) {
+    public int compare(CorrespondenceLink st1, CorrespondenceLink st2) {
         String v1 = st1.getCreationDate().toString();
         String v2 = st2.getCreationDate().toString();
         if (v1 == null && v2 == null) {

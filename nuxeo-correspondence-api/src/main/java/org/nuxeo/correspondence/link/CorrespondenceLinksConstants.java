@@ -17,19 +17,25 @@
  * $Id:$
  */
 
-package org.nuxeo.correspondence.relation;
+package org.nuxeo.correspondence.link;
 
 /**
- * Constants for mail envelope management
+ * Constants for correspondence links management.
  * 
  * @author ldoguin
  * 
  */
-public final class CorrespondenceRelationConstants {
+public final class CorrespondenceLinksConstants {
 
-    public static final String IS_ENVELOPE_OF_RESOURCE_PROPERTY_NAME = "crel:is_envelope_of_resource";
+    public static final String ENVELOPE_TO_MAIL_LINK_PROPERTY_NAME = "cetml:envelope_to_mail_link";
 
-    public static final String EMAIL_IS_ANSWER_TO_PROPERTY_NAME = "crel:email_is_answer_to";
+    public static final String MAIL_TO_MAIL_LINK_PROPERTY_NAME = "cmtml:mail_to_mail_link";
+
+    public static final String TARGET_DOCUMENTS_ID_PROPERTY_NAME = "cmtml:targetDocumentsId";
+
+    public static final String MAIL_TO_MAIL_LINK_FACET_NAME = "MailToMailLink";
+
+    public static final String ENVELOPE_TO_MAIL_LINK_FACET_NAME = "EnvelopeToMailLink";
 
     public static final String TARGET_DOC_ID_PROPERTY_NAME = "targetDocId";
 

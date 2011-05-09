@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:complexType name="statement">
+  <xs:complexType name="link">
     <xs:sequence>
       <xs:element name="targetDocId" type="xs:string" />
       <xs:element name="creationDate" type="xs:date" />

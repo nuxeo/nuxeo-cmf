@@ -3,9 +3,12 @@
 
   <extension target="org.nuxeo.ecm.core.api.DocumentAdapterService"
     point="adapters">
-    <adapter class="org.nuxeo.correspondence.relation.CorrespondenceRelation"
-      facet="CorrespondenceRelation"
-      factory="org.nuxeo.correspondence.core.adapter.CorrespondenceRelationAdapterFactory" />
+    <adapter class="org.nuxeo.correspondence.link.MailToMailLink"
+      facet="MailToMailLink"
+      factory="org.nuxeo.correspondence.core.adapter.MailToMailLinkAdapterFactory" />
+    <adapter class="org.nuxeo.correspondence.link.EnvelopeToMailLink"
+      facet="EnvelopeToMailLink"
+      factory="org.nuxeo.correspondence.core.adapter.EnvelopeToMailLinkAdapterFactory" />
   </extension>
 
 </component>

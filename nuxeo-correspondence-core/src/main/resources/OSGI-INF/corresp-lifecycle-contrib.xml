@@ -43,7 +43,7 @@
     <types>
       <type name="CorrespondenceMailboxRoot">default</type>
       <type name="CorrespondenceMailbox">default</type>
-      <type name="Case">correspondenceCase</type>
+      <type name="CorrespondenceEnvelope">correspondenceCase</type>
       <type name="CorrespondencePost">default</type>
       <type name="CorrespondenceDocument">correspondenceCase</type>
       <type name="IncomingCorrespondenceDocument">correspondenceCase</type>

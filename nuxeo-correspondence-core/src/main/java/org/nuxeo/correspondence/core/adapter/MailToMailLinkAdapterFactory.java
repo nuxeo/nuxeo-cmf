@@ -18,19 +18,23 @@
  */
 package org.nuxeo.correspondence.core.adapter;
 
-import org.nuxeo.correspondence.core.relation.CorrespondenceRelationImpl;
+import org.nuxeo.correspondence.core.link.MailToMailLinkImpl;
+import org.nuxeo.correspondence.link.CorrespondenceLinksConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 
 /**
  * @author ldoguin
  */
-public class CorrespondenceRelationAdapterFactory implements DocumentAdapterFactory {
+public class MailToMailLinkAdapterFactory implements DocumentAdapterFactory {
 
     @Override
     public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
             Class arg1) {
-        return new CorrespondenceRelationImpl(doc);
+        if (doc.hasFacet(CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_FACET_NAME)){
+            return new MailToMailLinkImpl(doc);
+        }
+        return null;
     }
 
 

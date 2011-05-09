@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://correspondence.nuxeo.com/schemas/mailToMailLink/"
+  xmlns:ncxs="http://correspondence.nuxeo.com/schemas/mailToMailLink/">
+
+  <xs:include schemaLocation="base.xsd" />
+  <xs:include schemaLocation="correspondence_link.xsd" />
+
+  <xs:element name="targetDocumentsId" type="ncxs:documentsIdType" />
+
+  <xs:complexType name="documentsIdType">
+    <xs:sequence>
+      <xs:element name="documentId" type="xs:string" minOccurs="0"
+        maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="mail_to_mail_link" type="ncxs:linkList" />
+
+  <xs:complexType name="linkList">
+    <xs:sequence>
+      <xs:element name="item" type="ncxs:link" minOccurs="0"
+        maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

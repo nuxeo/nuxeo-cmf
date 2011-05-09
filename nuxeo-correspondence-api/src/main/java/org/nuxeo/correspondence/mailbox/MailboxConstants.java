@@ -28,16 +28,6 @@ public class MailboxConstants {
         personal, generic
     }
 
-    public static final String MAILBOX_DOCUMENT_TYPE = "CorrespondenceMailbox";
-
-    public static final String MAILBOX_FACET = "Mailbox";
-
-    public static final String MAIL_ENVELOPE_TYPE = "Case";
-
-    public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "MailboxRoot";
-
-    public static final String MAILBOX_SCHEMA = "correspondence_mailbox";
-
     public static final String INCOMING_CONFIDENTIALITY_FIELD = "cmb:incoming_confidentiality";
 
     public static final String OUTGOING_CONFIDENTIALITY_FIELD = "cmb:outgoing_confidentiality";

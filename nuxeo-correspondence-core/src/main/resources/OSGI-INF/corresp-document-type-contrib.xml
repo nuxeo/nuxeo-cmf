@@ -9,7 +9,7 @@
   <extension target="org.nuxeo.cm.DocumentTypeService" point="documentType">
 
     <documentType>
-      <envelopeDocType>Case</envelopeDocType>
+      <envelopeDocType>CorrespondenceEnvelope</envelopeDocType>
       <postDocType>CorrespondencePost</postDocType>
       <mailboxDocType>CorrespondenceMailbox</mailboxDocType>
       <!--by default case items are incoming doc types-->
