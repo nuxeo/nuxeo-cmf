@@ -32,15 +32,15 @@ public class CaseLinkRequestImpl implements CaseLink {
 
     private static final long serialVersionUID = -2454486043183207094L;
 
-    final String sender;
+    protected final String sender;
 
-    final Calendar date;
+    protected final Calendar date;
 
-    final String subject;
+    protected final String subject;
 
-    final String comment;
+    protected final String comment;
 
-    final Case envelope;
+    protected final Case envelope;
 
     final Map<String, List<String>> internalRecipients;
 
@@ -67,8 +67,8 @@ public class CaseLinkRequestImpl implements CaseLink {
         return comment;
     }
 
-    public Calendar getDate() {
-        return date;
+    public Date getDate() {
+        return date.getTime();
     }
 
     public Case getCase(CoreSession session) {

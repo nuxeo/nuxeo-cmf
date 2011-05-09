@@ -72,8 +72,22 @@ public class CaseLinkImpl implements CaseLink {
         }
     }
 
-    public Calendar getDate() {
-        return getPropertyValue(DATE_FIELD);
+    protected Date getDatePropertyValue(String value) {
+        try {
+            Calendar cal = (Calendar) document.getPropertyValue(value);
+            if (cal != null) {
+                return cal.getTime();
+            }
+        } catch (PropertyException e) {
+            throw new CaseManagementRuntimeException(e);
+        } catch (ClientException e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+        return null;
+    }
+
+    public Date getDate() {
+        return getDatePropertyValue(DATE_FIELD);
     }
 
     public Case getCase(CoreSession session) {
@@ -108,7 +122,7 @@ public class CaseLinkImpl implements CaseLink {
     }
 
     public Date getSentDate() {
-        return getPropertyValue(SENT_DATE_FIELD);
+        return getDatePropertyValue(SENT_DATE_FIELD);
     }
 
     public String getType() {

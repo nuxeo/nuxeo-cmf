@@ -69,7 +69,7 @@ public interface CaseLink extends HasParticipants, Serializable {
     /**
      * Gets the date.
      */
-    Calendar getDate();
+    Date getDate();
 
     /**
      * Gets the sender.
