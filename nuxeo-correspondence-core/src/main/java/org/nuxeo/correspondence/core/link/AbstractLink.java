@@ -70,19 +70,26 @@ public abstract class AbstractLink implements CommonLink {
     }
 
     protected void addCorrespondenceLink(String xpath, CorrespondenceLink link) {
-        List<CorrespondenceLink> links = getPropertyValue(xpath);
+        List<Map> links = getPropertyValue(xpath);
         if (links == null) {
-            links = new ArrayList<CorrespondenceLink>();
+            links = new ArrayList<Map>();
         }
-        links.add(link);
-        setPropertyValue(xpath, (Serializable) links);
+        if (!links.contains(link)) {
+            links.add(link);
+            setPropertyValue(xpath, (Serializable) links);
+        }
     }
 
     protected void addAllCorrespondenceLinks(String xPath,
             List<CorrespondenceLink> links) {
-        List<CorrespondenceLink> existingLinks = getPropertyValue(xPath);
+        List<Map> existingLinks = getPropertyValue(xPath);
         if (existingLinks == null) {
-            existingLinks = new ArrayList<CorrespondenceLink>();
+            existingLinks = new ArrayList<Map>();
+        }
+        for (CorrespondenceLink link : links) {
+            if (existingLinks.contains(link)) {
+                links.remove(link);
+            }
         }
         existingLinks.addAll(links);
         setPropertyValue(xPath, (Serializable) existingLinks);
