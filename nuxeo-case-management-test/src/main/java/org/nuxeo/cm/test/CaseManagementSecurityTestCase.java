@@ -95,7 +95,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         // needed for users
         deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
         deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);
-        deployBundle(CaseManagementTestConstants.TYPES_BUNDLE);
+        deployBundle(CaseManagementTestConstants.DIRECTORY_TYPES_BUNDLE);
         deployBundle(CaseManagementTestConstants.DIRECTORY_SQL_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 

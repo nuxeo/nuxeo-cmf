@@ -110,21 +110,21 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployBundle("org.nuxeo.ecm.platform.search.api");
 
         // deploy api and core bundles
-        deployBundle("org.nuxeo.ecm.platform.classification.core");
-        deployBundle("org.nuxeo.ecm.platform.routing.core");
-        deployBundle("org.nuxeo.ecm.automation.core");
+        deployBundle(CaseManagementTestConstants.CLASSIFICATION_CORE_BUNDLE);
+        deployBundle(CaseManagementTestConstants.ROUTING_CORE_BUNDLE);
+        deployBundle(CaseManagementTestConstants.AUTOMATION_CORE_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
 
         // needed for users
-        deployBundle("org.nuxeo.ecm.directory");
-        deployBundle("org.nuxeo.ecm.platform.usermanager");
-        deployBundle("org.nuxeo.ecm.directory.types.contrib");
-        deployBundle("org.nuxeo.ecm.directory.sql");
+        deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
+        deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);
+        deployBundle(CaseManagementTestConstants.DIRECTORY_TYPES_BUNDLE);
+        deployBundle(CaseManagementTestConstants.DIRECTORY_SQL_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 
         // needed for default hierarchy
-        deployBundle("org.nuxeo.ecm.platform.content.template");
+        deployBundle(CaseManagementTestConstants.TEMPLATE_BUNDLE);
 
         routingService = Framework.getService(DocumentRoutingService.class);
         automationService = Framework.getService(AutomationService.class);

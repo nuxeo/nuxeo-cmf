@@ -38,10 +38,16 @@ public class CaseManagementTestConstants {
 
     public static final String USERMANAGER_BUNDLE = "org.nuxeo.ecm.platform.usermanager";
 
-    public static final String TYPES_BUNDLE = "org.nuxeo.ecm.directory.types.contrib";
+    public static final String DIRECTORY_TYPES_BUNDLE = "org.nuxeo.ecm.directory.types.contrib";
 
     public static final String DIRECTORY_SQL_BUNDLE = "org.nuxeo.ecm.directory.sql";
 
     public static final String TEMPLATE_BUNDLE = "org.nuxeo.ecm.platform.content.template";
+
+    public static final String CLASSIFICATION_CORE_BUNDLE = "org.nuxeo.ecm.platform.classification.core";
+
+    public static final String ROUTING_CORE_BUNDLE = "org.nuxeo.ecm.platform.routing.core";
+
+    public static final String AUTOMATION_CORE_BUNDLE = "org.nuxeo.ecm.automation.core";
 
 }
