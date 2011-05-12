@@ -102,12 +102,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
 
-        // deploy repository manager
-        deployBundle("org.nuxeo.ecm.core.api");
-
-        // deploy search
-        deployBundle("org.nuxeo.ecm.platform.search.api");
-
         // deploy api and core bundles
         deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
@@ -153,6 +147,19 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
         correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         assertNotNull(correspDocumentTypeService);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        database = null;
+        userManager = null;
+        distributionService = null;
+        correspMailboxService = null;
+        correspDistributionTypeService = null;
+        correspDocumentTypeService = null;
+        routingService = null;
+        automationService = null;
     }
 
     protected DocumentModel createDocument(String type, String id)
