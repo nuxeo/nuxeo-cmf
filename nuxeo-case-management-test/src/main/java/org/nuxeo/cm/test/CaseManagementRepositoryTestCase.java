@@ -102,6 +102,9 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
 
+        // deploy search for QueryModelService
+        deployBundle("org.nuxeo.ecm.platform.search.api");
+
         // deploy api and core bundles
         deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
