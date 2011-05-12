@@ -51,11 +51,6 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE);
     }
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-    }
-
     public void testEnvelopeSend() throws Throwable {
         Mailbox senderMailbox = createPersonalMailbox(user1);
         assertNotNull(senderMailbox);
@@ -91,7 +86,8 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         CaseLink post = caseDistributionService.sendCase(session, postRequest,
                 true);
         DocumentModel kase = session.getDocument(envelope.getDocument().getRef());
-        assertEquals(CaseLifeCycleConstants.STATE_SENT, kase.getCurrentLifeCycleState());
+        assertEquals(CaseLifeCycleConstants.STATE_SENT,
+                kase.getCurrentLifeCycleState());
         assertNotNull(post);
         assertFalse(post.isDraft());
         assertEquals(user1, post.getSender());
@@ -110,19 +106,19 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         DocumentModel message = docList.get(0);
         checkReadRight(message.getRef());
         session = openSessionAs(user2);
-        docList = session.query("select * from Document where  ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
+        docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + receiver1MailboxId + "'");
         assertEquals(1, docList.size());
         message = docList.get(0);
         checkReadRight(message.getRef());
         session = openSessionAs(user3);
-        docList = session.query("select * from Document where  ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
+        docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + receiver2MailboxId + "'");
         assertEquals(1, docList.size());
         message = docList.get(0);
         checkReadRight(message.getRef());
         session = openSessionAs(user);
-        docList = session.query("select * from Document where   ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
+        docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + forgottenUserMailboxId + "'");
         assertEquals(0, docList.size());
         boolean documentSecurityException = false;

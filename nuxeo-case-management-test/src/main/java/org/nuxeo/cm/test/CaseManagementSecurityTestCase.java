@@ -82,17 +82,13 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
     @Override
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
-        // deploy repository manager
-        deployBundle("org.nuxeo.ecm.core.api");
-
-        // deploy search
+        // deploy search for QueryModelService
         deployBundle("org.nuxeo.ecm.platform.search.api");
 
         // deploy api and core bundles
         deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
         deployBundle("org.nuxeo.ecm.automation.core");
-        // deploy api and core bundles
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
 
@@ -105,12 +101,12 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
 
         // needed for default hierarchy
         deployBundle(CaseManagementTestConstants.TEMPLATE_BUNDLE);
-
     }
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
+
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
 
@@ -157,7 +153,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
 
         doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
-        doc.setPropertyValue(IS_DRAFT_FIELD, true);
+        doc.setPropertyValue(IS_DRAFT_FIELD, Boolean.TRUE);
         doc.setPropertyValue(SENDER_FIELD, mb.getId());
 
         session.saveDocument(doc);

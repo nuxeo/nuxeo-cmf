@@ -37,9 +37,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
-/**
- * @author Anahide Tchertchian
- */
 public class TestMailboxManagementService extends
         CaseManagementRepositoryTestCase {
 

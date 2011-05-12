@@ -98,6 +98,10 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         super();
     }
 
+    public void setTestDatabase() {
+        database = DatabaseH2.INSTANCE;
+    }
+
     @Override
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
@@ -117,7 +121,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployBundle("org.nuxeo.ecm.platform.usermanager");
         deployBundle("org.nuxeo.ecm.directory.types.contrib");
         deployBundle("org.nuxeo.ecm.directory.sql");
-        deployBundle("org.nuxeo.ecm.webapp.core");
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 
         // needed for default hierarchy
@@ -125,10 +128,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
         routingService = Framework.getService(DocumentRoutingService.class);
         automationService = Framework.getService(AutomationService.class);
-    }
-
-    public void setTestDatabase() {
-        database = DatabaseH2.INSTANCE;
     }
 
     @Override
@@ -220,7 +219,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
         doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
                 envelope.getDocument().getId());
-        doc.setPropertyValue(IS_DRAFT_FIELD, true);
+        doc.setPropertyValue(IS_DRAFT_FIELD, Boolean.TRUE);
         doc.setPropertyValue(SENDER_FIELD, mb.getId());
 
         session.saveDocument(doc);
@@ -307,7 +306,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
                 new Date());
         step42.setPropertyValue(
                 CaseConstants.STEP_DISTRIBUTION_AUTOMATIC_VALIDATION_PROPERTY_NAME,
-                true);
+                Boolean.TRUE);
         session.saveDocument(step42);
         session.saveDocument(parallelFolder1);
         session.save();

@@ -26,6 +26,7 @@ import org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGene
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
+import org.nuxeo.ecm.classification.api.ClassificationConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.ACE;
@@ -53,6 +54,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         // deploy api and core bundles
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
+        deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
 
         // needed for users
@@ -132,7 +134,10 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
                 "/case-management/mailbox-root/group-5/"));
         assertNotNull(subGroup);
         List<DocumentModel> group5Children = session.getChildren(subGroup.getRef());
-        assertTrue(group5Children.isEmpty());
+        assertFalse(group5Children.isEmpty());
+        assertEquals(1, group5Children.size());
+        assertEquals(ClassificationConstants.CLASSIFICATION_ROOT,
+                group5Children.get(0).getType());
         // test onDelete event
         DirectoryService dirService = Framework.getService(DirectoryService.class);
         dirService.open("userDirectory").deleteEntry("user");

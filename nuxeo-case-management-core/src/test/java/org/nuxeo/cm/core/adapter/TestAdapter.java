@@ -25,6 +25,7 @@ public class TestAdapter extends SQLRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
         deployBundle("org.nuxeo.cm.core");
+        deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
         openSession();
     }

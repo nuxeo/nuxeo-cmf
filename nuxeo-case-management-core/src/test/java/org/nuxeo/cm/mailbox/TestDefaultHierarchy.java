@@ -23,9 +23,6 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
-/**
- * @author Anahide Tchertchian
- */
 public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
     private static final String CASE_MANAGEMENT = "/case-management";

@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.Map;
 
 import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseImpl;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.CaseItemImpl;
@@ -40,8 +39,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 /**
  * @author Laurent Doguin
  */
-public class TestCorrespondenceLink extends
-        CaseManagementRepositoryTestCase {
+public class TestCorrespondenceLink extends CaseManagementRepositoryTestCase {
 
     protected Case envelope;
 
@@ -60,8 +58,10 @@ public class TestCorrespondenceLink extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
+
         openSession();
-        DocumentModel document = createDocument(MailConstants.MAIL_ENVELOPE_TYPE, "env");
+        DocumentModel document = createDocument(
+                MailConstants.MAIL_ENVELOPE_TYPE, "env");
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         envelope = new CaseImpl(document, adapter);
         document = createDocument(MailConstants.OUTGOING_DOCUMENT_TYPE, "i1");
@@ -77,20 +77,23 @@ public class TestCorrespondenceLink extends
                 EnvelopeToMailLink.class);
         assertNotNull(envelopeToMailLinks);
         Calendar creationDate = Calendar.getInstance();
-        CorrespondenceLink correspondenceLink = new CorrespondenceLink(envelope.getDocument().getRef(),
-                item1.getDocument().getId(), "isEnvelopeResourceOf comment", 0l,
-                creationDate);
+        CorrespondenceLink correspondenceLink = new CorrespondenceLink(
+                envelope.getDocument().getRef(), item1.getDocument().getId(),
+                "isEnvelopeResourceOf comment", 0l, creationDate);
         envelopeToMailLinks.addEnvelopeToMailLink(correspondenceLink);
         envelopeToMailLinks.save(session);
 
-        Map<String, Serializable> link = envelopeToMailLinks.getEnvelopeToMailLink().get(0);
+        Map<String, Serializable> link = envelopeToMailLinks.getEnvelopeToMailLink().get(
+                0);
         assertNotNull(link);
         correspondenceLink = new CorrespondenceLink(link);
         assertNotNull(correspondenceLink);
-        assertEquals("isEnvelopeResourceOf comment", correspondenceLink.getComment());
-        assertEquals(item1.getDocument().getId(), correspondenceLink.getTargetDocId());
+        assertEquals("isEnvelopeResourceOf comment",
+                correspondenceLink.getComment());
+        assertEquals(item1.getDocument().getId(),
+                correspondenceLink.getTargetDocId());
         assertEquals(new Long(0), correspondenceLink.getOrder());
-        assertEquals(creationDate,  correspondenceLink.getCreationDate());
+        assertEquals(creationDate, correspondenceLink.getCreationDate());
 
         MailToMailLink mailToMailLinks = envelope.getDocuments(session).get(0).getAdapter(
                 MailToMailLink.class);
@@ -105,9 +108,10 @@ public class TestCorrespondenceLink extends
         correspondenceLink = new CorrespondenceLink(link);
         assertNotNull(correspondenceLink);
         assertEquals("emailIsAnswerTo comment", correspondenceLink.getComment());
-        assertEquals(item1.getDocument().getId(), correspondenceLink.getTargetDocId());
+        assertEquals(item1.getDocument().getId(),
+                correspondenceLink.getTargetDocId());
         assertEquals(new Long(0), correspondenceLink.getOrder());
-        assertEquals(creationDate,  correspondenceLink.getCreationDate());
+        assertEquals(creationDate, correspondenceLink.getCreationDate());
 
     }
 }

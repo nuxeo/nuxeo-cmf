@@ -71,7 +71,6 @@ public class TestCorrespondenceMailInjection extends
         deployBundle("org.nuxeo.ecm.platform.mail");
         deployBundle("org.nuxeo.ecm.platform.mimetype.api");
         deployBundle("org.nuxeo.ecm.platform.mimetype.core");
-        deployBundle("org.nuxeo.ecm.platform.routing.core");
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE);
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_TEST_BUNDLE);
     }
@@ -79,6 +78,7 @@ public class TestCorrespondenceMailInjection extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
+
         mailService = Framework.getService(MailService.class);
         assertNotNull(mailService);
         correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
