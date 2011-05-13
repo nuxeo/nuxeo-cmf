@@ -36,7 +36,6 @@ import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.core.caselink.CreateCaseLink;
 import org.nuxeo.cm.core.caselink.CreateDraftCaseLinkUnrestricted;
 import org.nuxeo.cm.core.caselink.UpdateCaseLinkUnrestricted;
@@ -50,7 +49,6 @@ import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.service.CaseManagementPersister;
-import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.common.utils.StringUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -58,6 +56,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.api.pathsegment.PathSegmentService;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
@@ -82,10 +81,17 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     protected CaseManagementPersister persister;
 
+    protected PathSegmentService pathSegmentService;
+
     public void setPersister(CaseManagementPersister persister) {
         this.persister = persister;
     }
 
+    public void setPathSegmentService(PathSegmentService pathSegmentService) {
+        this.pathSegmentService = pathSegmentService;
+    }
+
+    @Override
     public CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean isInitial) {
         try {
@@ -98,6 +104,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
     public CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean isInitial, boolean actionable) {
         try {
@@ -110,6 +117,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
     public CaseLink sendCase(CoreSession session, String origin, Case kase,
             DistributionInfo initialDistribution) {
         Map<String, List<String>> recipients = initialDistribution.getAllParticipants();
@@ -184,6 +192,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return posts;
     }
 
+    @Override
     public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
@@ -195,6 +204,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return getPosts(coreSession, offset, limit, query);
     }
 
+    @Override
     public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
             Case kase) {
         String query = String.format(
@@ -207,6 +217,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return getPosts(session, 0, 0, query);
     }
 
+    @Override
     public List<CaseLink> getSentCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
@@ -218,6 +229,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return getPosts(coreSession, offset, limit, query);
     }
 
+    @Override
     public List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
@@ -229,14 +241,13 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return getPosts(coreSession, offset, limit, query);
     }
 
+    @Override
     public CaseItem addCaseItemToCase(CoreSession session, Case kase,
             DocumentModel emailDoc) {
-        String parentPath = persister.getParentDocumentPathForCaseItem(session,
-                kase);
-        CaseItem item = emailDoc.getAdapter(CaseItem.class);
-        String docName = IdUtils.generateId("doc " + item.getTitle());
-        emailDoc.setPathInfo(parentPath, docName);
         try {
+            String parentPath = persister.getParentDocumentPathForCaseItem(session,
+                    kase);
+            emailDoc.setPathInfo(parentPath, pathSegmentService.generatePathSegment(emailDoc));
             CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
                     session, emailDoc, kase);
             mailCreator.runUnrestricted();
@@ -251,12 +262,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
     public Case createCase(CoreSession session, DocumentModel emailDoc,
             List<Mailbox> mailboxes) {
         try {
             String emailTitle = emailDoc.getTitle();
-            String caseId = IdUtils.generateId(emailTitle == null ? ""
-                    : emailTitle);
+            String caseId =  pathSegmentService.generatePathSegment(emailDoc);
             Case kase = createEmptyCase(session, emailTitle, caseId, mailboxes);
             addCaseItemToCase(session, kase, emailDoc);
             return kase;
@@ -265,6 +276,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
     public Case createCase(CoreSession session, DocumentModel emailDoc) {
         return createCase(session, emailDoc, new ArrayList<Mailbox>());
     }
@@ -277,13 +289,20 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 Collections.singletonList(mailbox));
     }
 
+    @Override
     public Case createEmptyCase(CoreSession session, String title, String id,
             List<Mailbox> mailboxes) {
+        return createEmptyCase(session, title, id,
+                getTypeService().getCaseType(), mailboxes);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            String type, List<Mailbox> mailboxes) {
         String parentPath = getParentDocumentPathForCase(session);
         DocumentModel kase;
         try {
-            kase = session.createDocumentModel(parentPath, id,
-                    getTypeService().getCaseType());
+            kase = session.createDocumentModel(parentPath, id, type);
             kase.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME, title);
             kase.putContextData("initialLifecycleState", null);
             return createEmptyCase(session, kase, mailboxes);
@@ -328,6 +347,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return caseDoc.getAdapter(Case.class);
     }
 
+    @Override
     public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
             Case envelope) {
         try {
@@ -356,6 +376,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
     public CaseLink getDraftCaseLink(CoreSession coreSession, Mailbox mailbox,
             String envelopeId) {
         if (mailbox == null) {
@@ -450,6 +471,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
+    @Override
     public void notify(CoreSession session, String name,
             DocumentModel document, Map<String, Serializable> eventProperties) {
         DocumentEventContext envContext = new DocumentEventContext(session,

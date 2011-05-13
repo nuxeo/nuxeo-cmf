@@ -18,7 +18,7 @@ package org.nuxeo.cm.core.service;
 
 import java.util.List;
 
-import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -26,10 +26,12 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.api.pathsegment.PathSegmentService;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * Creates an empty case from a given detached documentModel
@@ -52,8 +54,14 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        String caseTitle = (String) caseDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
-        caseDoc.setPathInfo(parentPath, caseTitle);
+        PathSegmentService pathSegmentService;
+        try {
+            pathSegmentService = Framework.getService(PathSegmentService.class);
+        } catch (Exception e) {
+            throw new CaseManagementRuntimeException(e);
+        }
+        String caseName = pathSegmentService.generatePathSegment(caseDoc);
+        caseDoc.setPathInfo(parentPath, caseName);
         caseDoc = session.createDocument(caseDoc);
         ACP acp = caseDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);

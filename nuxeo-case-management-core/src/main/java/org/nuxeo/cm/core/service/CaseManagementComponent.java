@@ -25,6 +25,8 @@ import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.CaseManagementPersister;
 import org.nuxeo.cm.service.MailboxCreator;
 import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.ecm.core.api.pathsegment.PathSegmentService;
+import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -55,6 +57,7 @@ public class CaseManagementComponent extends DefaultComponent {
         super.activate(context);
         this.mailboxService = new MailboxManagementServiceImpl();
         this.distributionService = new CaseDistributionServiceImpl();
+        distributionService.setPathSegmentService(Framework.getService(PathSegmentService.class));
     }
 
     @Override

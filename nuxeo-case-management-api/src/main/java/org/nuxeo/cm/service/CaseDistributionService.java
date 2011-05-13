@@ -135,6 +135,9 @@ public interface CaseDistributionService extends Serializable {
     Case createEmptyCase(CoreSession session, String title, String id,
             Mailbox mailbox);
 
+    Case createEmptyCase(CoreSession session, String title, String id,
+            String type, List<Mailbox> mailboxes);
+
     /**
      * @param mailboxes The list of mailboxes in which the document will be
      *            seen.
@@ -172,18 +175,28 @@ public interface CaseDistributionService extends Serializable {
             boolean initial, boolean actionable);
 
     /**
-     * @return
+     * This method calls {@link CaseManagementPersister} to find the parent document of
+     * a case to be created.
+     *
+     * @param session
+     * @return the case Parent Document
      */
     DocumentModel getParentDocumentForCase(CoreSession session);
 
     /**
+     * This method calls {@link CaseManagementPersister} to find the parent document path of
+     * a case to be created.
+     *
      * @param session
      * @return
      */
     String getParentDocumentPathForCase(CoreSession session);
 
     /**
-     * @param adapter
+     * This method calls {@link CaseManagementPersister} to create a
+     * {@link Case} from the given {@link CaseItem}
+     *
+     * @param {@link CaseItem}
      * @param documentManager
      * @return
      */
@@ -191,8 +204,10 @@ public interface CaseDistributionService extends Serializable {
             CoreSession documentManager);
 
     /**
-     * @param session
-     * @param case
+     * This method calls {@link CaseManagementPersister} to find the parent document path of
+     * a {@link CaseItem} to be created.
+     * @param coreSession
+     * @param the parent {@link Case}
      * @return
      */
     String getParentDocumentPathForCaseItem(CoreSession session, Case kase);

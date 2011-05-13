@@ -62,36 +62,42 @@ public class CaseDistributionBean implements CaseDistributionService {
                 mailboxes);
     }
 
+    @Override
     public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
             Case envelope) {
         return getCaseDistributionService().createDraftCaseLink(session,
                 mailbox, envelope);
     }
 
+    @Override
     public CaseLink getDraftCaseLink(CoreSession session, Mailbox mailbox,
             String envelopeId) {
         return getCaseDistributionService().getDraftCaseLink(session, mailbox,
                 envelopeId);
     }
 
+    @Override
     public List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         return getCaseDistributionService().getDraftCaseLinks(coreSession,
                 mailbox, offset, limit);
     }
 
+    @Override
     public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         return getCaseDistributionService().getReceivedCaseLinks(coreSession,
                 mailbox, offset, limit);
     }
 
+    @Override
     public List<CaseLink> getSentCaseLinks(CoreSession coreSession,
             Mailbox mailbox, long offset, long limit) {
         return getCaseDistributionService().getSentCaseLinks(coreSession,
                 mailbox, offset, limit);
     }
 
+    @Override
     public void notify(CoreSession session, String name,
             DocumentModel document, Map<String, Serializable> eventProperties) {
         getCaseDistributionService().notify(session, name, document,
@@ -99,12 +105,14 @@ public class CaseDistributionBean implements CaseDistributionService {
 
     }
 
+    @Override
     public CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean initial) {
         return getCaseDistributionService().sendCase(session, postRequest,
                 initial);
     }
 
+    @Override
     public CaseLink sendCase(CoreSession session, CaseLink postRequest,
             boolean initial, boolean isActionable) {
         return getCaseDistributionService().sendCase(session, postRequest,
@@ -128,6 +136,7 @@ public class CaseDistributionBean implements CaseDistributionService {
                 emailDoc);
     }
 
+    @Override
     public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
             Case kase) {
         return getCaseDistributionService().getCaseLinks(session, mailbox, kase);
@@ -180,13 +189,19 @@ public class CaseDistributionBean implements CaseDistributionService {
     @Override
     public Case createEmptyCase(CoreSession session, String title, String id,
             List<Mailbox> mailboxes) {
-        return createEmptyCase(session, title, id, mailboxes);
+        return getCaseDistributionService().createEmptyCase(session, title, id, mailboxes);
     }
 
     @Override
     public Case createEmptyCase(CoreSession session, String title, String id,
             Mailbox mailbox) {
-        return createEmptyCase(session, title, id, mailbox);
+        return getCaseDistributionService().createEmptyCase(session, title, id, mailbox);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            String type, List<Mailbox> mailboxes) {
+        return getCaseDistributionService().createEmptyCase(session, title, id, type, mailboxes);
     }
 
     @Override
