@@ -18,6 +18,8 @@ package org.nuxeo.cm.operation;
 
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementTestConstants;
+import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -25,11 +27,29 @@ import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteElement;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class TestOperationChains extends CaseManagementRepositoryTestCase {
+
+    protected DocumentRoutingService routingService;
+
+    protected AutomationService automationService;
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        deployBundle(CaseManagementTestConstants.ROUTING_CORE_BUNDLE);
+        deployBundle(CaseManagementTestConstants.AUTOMATION_CORE_BUNDLE);
+
+        routingService = Framework.getService(DocumentRoutingService.class);
+        assertNotNull(routingService);
+        automationService = Framework.getService(AutomationService.class);
+        assertNotNull(automationService);
+    }
 
     public void testChainsDeclaration() throws Exception {
         assertNotNull(routingService);

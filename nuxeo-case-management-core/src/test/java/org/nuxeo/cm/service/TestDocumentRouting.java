@@ -26,12 +26,14 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.core.caselink.ValidateDueCaseLinkUnrestricted;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRouteStep;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -41,6 +43,9 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
+
+    protected DocumentRoutingService routingService;
+
     protected DocumentRoute route;
 
     protected List<String> docIds = new ArrayList<String>();
@@ -48,6 +53,12 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        deployBundle(CaseManagementTestConstants.ROUTING_CORE_BUNDLE);
+        deployBundle(CaseManagementTestConstants.AUTOMATION_CORE_BUNDLE);
+
+        routingService = Framework.getService(DocumentRoutingService.class);
+        assertNotNull(routingService);
+
         openSession();
         setRepository();
         route = createComplexRoute(session);

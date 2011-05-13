@@ -35,7 +35,6 @@ import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.CaseManagementDistributionTypeService;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.service.MailboxManagementService;
-import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -43,7 +42,6 @@ import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
-import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
@@ -61,10 +59,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     protected CaseManagementDistributionTypeService correspDistributionTypeService;
 
     protected CaseManagementDocumentTypeService correspDocumentTypeService;
-
-    protected DocumentRoutingService routingService;
-
-    protected AutomationService automationService;
 
     protected static final String administrator = "Administrator";
 
@@ -109,13 +103,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         // deploy search for QueryModelService
         deployBundle("org.nuxeo.ecm.platform.search.api");
 
-        // deploy api and core bundles
-        deployBundle(CaseManagementTestConstants.CLASSIFICATION_CORE_BUNDLE);
-        deployBundle(CaseManagementTestConstants.ROUTING_CORE_BUNDLE);
-        deployBundle(CaseManagementTestConstants.AUTOMATION_CORE_BUNDLE);
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
-        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
-
         // needed for users
         deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
         deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);
@@ -126,8 +113,17 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         // needed for default hierarchy
         deployBundle(CaseManagementTestConstants.TEMPLATE_BUNDLE);
 
-        routingService = Framework.getService(DocumentRoutingService.class);
-        automationService = Framework.getService(AutomationService.class);
+        // deploy api and core bundles
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
+                "OSGI-INF/document-routing-service.xml");
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
+                "OSGI-INF/document-routing-core-types-contrib.xml");
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
+                "OSGI-INF/document-routing-querymodel-contrib.xml");
+        deployContrib(CaseManagementTestConstants.CLASSIFICATION_CORE_BUNDLE,
+                "OSGI-INF/classification-core-types-contrib.xml");
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
     }
 
     @Override
@@ -149,19 +145,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
         correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         assertNotNull(correspDocumentTypeService);
-    }
-
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-        database = null;
-        userManager = null;
-        distributionService = null;
-        correspMailboxService = null;
-        correspDistributionTypeService = null;
-        correspDocumentTypeService = null;
-        routingService = null;
-        automationService = null;
     }
 
     protected DocumentModel createDocument(String type, String id)

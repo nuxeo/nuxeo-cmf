@@ -3,12 +3,12 @@
   targetNamespace="http://correspondence.nuxeo.com/schemas/document/"
   xmlns:ncxs="http://correspondence.nuxeo.com/schemas/document/">
 
-  <xs:element name="firstResponseDate" type="xs:date" />
-  <xs:element name="responseDocumentIds" type="ncxs:stringArray" />
-  <xs:element name="repliedDocumentId" type="xs:string" />
-
   <xs:simpleType name="stringArray">
     <xs:list itemType="xs:string" />
   </xs:simpleType>
+
+  <xs:element name="firstResponseDate" type="xs:date" />
+  <xs:element name="responseDocumentIds" type="ncxs:stringArray" />
+  <xs:element name="repliedDocumentId" type="xs:string" />
 
 </xs:schema>

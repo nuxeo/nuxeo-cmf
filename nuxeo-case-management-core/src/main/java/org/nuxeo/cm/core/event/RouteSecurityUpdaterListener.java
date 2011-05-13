@@ -123,7 +123,13 @@ public class RouteSecurityUpdaterListener implements EventListener {
 
     protected DocumentRoutingService getDocumentRoutingService() {
         try {
-            return Framework.getService(DocumentRoutingService.class);
+            DocumentRoutingService service = Framework.getService(DocumentRoutingService.class);
+            if (service == null) {
+                throw new RuntimeException("DocumentRoutingService is missing");
+            }
+            return service;
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
