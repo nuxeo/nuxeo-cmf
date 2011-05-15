@@ -23,7 +23,12 @@
     <action id="POPUP_DOCUMENT_LOCK" enabled="false" />
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
-
+    <!-- Admin Center -->
+    <action id="AdminMain" link="#{adminViews.enter()}"
+      label="action.admin.center" order="30">
+      <category>USER_SERVICES</category>
+      <filter-id>only_for_manager</filter-id>
+    </action>
 
     <!-- Actions for the document selection -->
 
