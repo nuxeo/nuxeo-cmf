@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -299,18 +300,23 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     @Override
     public Case createEmptyCase(CoreSession session, String title, String id,
             String type, List<Mailbox> mailboxes) {
+        return createEmptyCase(session, title, id, type, null, mailboxes);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            String type, Date date, List<Mailbox> mailboxes) {
         String parentPath = getParentDocumentPathForCase(session);
         DocumentModel kase;
         try {
             kase = session.createDocumentModel(parentPath, id, type);
             kase.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME, title);
             kase.putContextData("initialLifecycleState", null);
-            return createEmptyCase(session, kase, mailboxes);
+            return createEmptyCase(session, kase, date, mailboxes);
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
     }
-
     public CaseManagementDocumentTypeService getTypeService() {
         try {
             return Framework.getService(CaseManagementDocumentTypeService.class);
@@ -327,10 +333,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 Collections.singletonList(mailbox));
     }
 
-    @Override
     public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            List<Mailbox> mailboxes) {
-        String parentPath = getParentDocumentPathForCase(session);
+            Date date, List<Mailbox> mailboxes) {
+        String parentPath = getParentDocumentPathForCase(session, date);
         CreateEmptyCaseUnrestricted emptyCaseCreator = new CreateEmptyCaseUnrestricted(
                 session, caseDoc, parentPath, mailboxes);
         try {
@@ -345,6 +350,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             throw new CaseManagementRuntimeException(e);
         }
         return caseDoc.getAdapter(Case.class);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
+            List<Mailbox> mailboxes) {
+        return createEmptyCase(session, caseDoc, null, mailboxes);
     }
 
     @Override
@@ -662,6 +673,11 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
+    public DocumentModel getParentDocumentForCase(CoreSession session, Date date) {
+        return persister.getParentDocumentForCase(session, date);
+    }
+
+    @Override
     public String getParentDocumentPathForCaseItem(CoreSession session,
             Case kase) {
         return persister.getParentDocumentPathForCaseItem(session, kase);
@@ -673,8 +689,14 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
+    public String getParentDocumentPathForCase(CoreSession session, Date date) {
+        return persister.getParentDocumentPathForCase(session, date);
+    }
+
+    @Override
     public Case createCaseFromExistingCaseItem(CaseItem item,
             CoreSession session) {
         return persister.createCaseFromExistingCaseItem(item, session);
     }
+
 }

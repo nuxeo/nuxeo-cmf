@@ -36,8 +36,18 @@ public abstract class CaseManagementAbstractPersister implements
 
     @Override
     public DocumentModel getParentDocumentForCase(CoreSession session) {
+        return getParentDocumentForCase(session, null);
+    }
+
+    @Override
+    public String getParentDocumentPathForCase(CoreSession session) {
+        return getParentDocumentPathForCase(session, null);
+    }
+
+    @Override
+    public DocumentModel getParentDocumentForCase(CoreSession session, Date date) {
         GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                session);
+                session, date);
         try {
             runner.runUnrestricted();
         } catch (ClientException e) {
@@ -47,9 +57,9 @@ public abstract class CaseManagementAbstractPersister implements
     }
 
     @Override
-    public String getParentDocumentPathForCase(CoreSession session) {
+    public String getParentDocumentPathForCase(CoreSession session, Date date) {
         GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                session);
+                session, date);
         try {
             runner.runUnrestricted();
         } catch (ClientException e) {
@@ -70,8 +80,15 @@ public abstract class CaseManagementAbstractPersister implements
 
         protected DocumentModel parent;
 
-        public GetParentPathUnrestricted(CoreSession session) {
+        protected Date date;
+
+        public GetParentPathUnrestricted(CoreSession session, Date date) {
             super(session);
+            if (date != null) {
+                this.date = date;
+            } else {
+                this.date = new Date();
+            }
         }
 
         public String getParentPath() {
@@ -89,9 +106,8 @@ public abstract class CaseManagementAbstractPersister implements
                     CaseConstants.CASE_ROOT_DOCUMENT_PATH));
             // Create (or retrieve) the current MailRoot folder
             // (/mail/YYYY/MM/DD)
-            Date now = new Date();
             parent = CaseTreeHelper.getOrCreateDateTreeFolder(session,
-                    mailRootdoc, now, CaseConstants.CASE_TREE_TYPE);
+                    mailRootdoc, date, CaseConstants.CASE_TREE_TYPE);
             parentPath = parent.getPathAsString();
         }
 

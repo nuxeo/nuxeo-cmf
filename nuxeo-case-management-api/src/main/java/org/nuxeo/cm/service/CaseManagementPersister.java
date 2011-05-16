@@ -16,6 +16,8 @@
  */
 package org.nuxeo.cm.service;
 
+import java.util.Date;
+
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -33,6 +35,26 @@ public interface CaseManagementPersister {
      * @return
      */
     String getParentDocumentPathForCase(CoreSession session);
+
+    /**
+     * Default implementation uses date to find or create a set of folders
+     * representing the given date hierarchy.
+     *
+     * @param session
+     * @param date
+     * @return
+     */
+    DocumentModel getParentDocumentForCase(CoreSession session, Date date);
+
+    /**
+     * Default implementation uses date to find or create a set of folders
+     * representing the given date hierarchy.
+     *
+     * @param session
+     * @param date
+     * @return
+     */
+    String getParentDocumentPathForCase(CoreSession session, Date date);
 
     /**
      * @param item

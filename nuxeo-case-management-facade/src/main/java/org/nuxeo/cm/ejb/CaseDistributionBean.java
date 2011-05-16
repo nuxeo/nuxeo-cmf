@@ -19,6 +19,7 @@
 package org.nuxeo.cm.ejb;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -160,9 +161,19 @@ public class CaseDistributionBean implements CaseDistributionService {
     }
 
     @Override
+    public DocumentModel getParentDocumentForCase(CoreSession session, Date date) {
+        return getCaseDistributionService().getParentDocumentForCase(session, date);
+    }
+
+    @Override
     public String getParentDocumentPathForCase(CoreSession session) {
         return getCaseDistributionService().getParentDocumentPathForCase(
                 session);
+    }
+
+    @Override
+    public String getParentDocumentPathForCase(CoreSession session, Date date) {
+        return getCaseDistributionService().getParentDocumentPathForCase(session, date);
     }
 
     @Override
@@ -202,6 +213,13 @@ public class CaseDistributionBean implements CaseDistributionService {
     public Case createEmptyCase(CoreSession session, String title, String id,
             String type, List<Mailbox> mailboxes) {
         return getCaseDistributionService().createEmptyCase(session, title, id, type, mailboxes);
+    }
+
+    @Override
+    public Case createEmptyCase(CoreSession session, String title, String id,
+            String type, Date date, List<Mailbox> mailboxes) {
+        return getCaseDistributionService().createEmptyCase(session, title, id,
+                type, date, mailboxes);
     }
 
     @Override

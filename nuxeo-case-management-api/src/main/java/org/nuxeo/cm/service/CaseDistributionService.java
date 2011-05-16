@@ -20,6 +20,7 @@
 package org.nuxeo.cm.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -138,6 +139,9 @@ public interface CaseDistributionService extends Serializable {
     Case createEmptyCase(CoreSession session, String title, String id,
             String type, List<Mailbox> mailboxes);
 
+    Case createEmptyCase(CoreSession session, String title, String id,
+            String type, Date date, List<Mailbox> mailboxes);
+
     /**
      * @param mailboxes The list of mailboxes in which the document will be
      *            seen.
@@ -184,6 +188,16 @@ public interface CaseDistributionService extends Serializable {
     DocumentModel getParentDocumentForCase(CoreSession session);
 
     /**
+     * This method calls {@link CaseManagementPersister} to find the parent document of
+     * a case to be created.
+     *
+     * @param session
+     * @param date
+     * @return the case Parent Document
+     */
+    DocumentModel getParentDocumentForCase(CoreSession session, Date date);
+
+    /**
      * This method calls {@link CaseManagementPersister} to find the parent document path of
      * a case to be created.
      *
@@ -191,6 +205,16 @@ public interface CaseDistributionService extends Serializable {
      * @return
      */
     String getParentDocumentPathForCase(CoreSession session);
+
+    /**
+     * This method calls {@link CaseManagementPersister} to find the parent document path of
+     * a case to be created.
+     *
+     * @param session
+     * @param date
+     * @return
+     */
+    String getParentDocumentPathForCase(CoreSession session, Date date);
 
     /**
      * This method calls {@link CaseManagementPersister} to create a
