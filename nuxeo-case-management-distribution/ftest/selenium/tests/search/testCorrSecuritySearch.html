@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>testSecuritySearch</title>
+<title>testCorrSecuritySearch</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">testSecuritySearch</td></tr>
+<tr><td rowspan="1" colspan="3">testCorrSecuritySearch</td></tr>
 </thead><tbody>
 <!-- test scenario
 Linnette, as member of the parent mailbox, has the same rights as the children mailboxes.
@@ -489,22 +489,22 @@ sender nor recipient.-->
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_cm_document:nxw_document_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:00</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:00 AM</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_cm_document:nxw_receive_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:01 AM</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_correspondence_document:nxw_sending_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:02 AM</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_head_correspondence_incoming_document:nxw_scan_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:03</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:03 AM</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -680,7 +680,7 @@ sender nor recipient.-->
 </tr>
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTestChild@view_cm_case</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTest@view_cm_case</td>
 	<td></td>
 </tr>
 <!-- Check if Bree can edit the document-->
@@ -813,7 +813,7 @@ sender nor recipient.-->
 </tr>
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTestChild@view_cm_case?tabId=&amp;conversationId=0NXMAIN</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTest@view_cm_case</td>
 	<td></td>
 </tr>
 <tr>
@@ -870,7 +870,7 @@ sender nor recipient.-->
 <!-- Check if Linnet can edit the document-->
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTestChild@view_cm_case</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTest@view_cm_case</td>
 	<td></td>
 </tr>
 <tr>
@@ -925,7 +925,7 @@ sender nor recipient.-->
 </tr>
 <tr>
 	<td>open</td>
-	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTestChild@view_cm_document</td>
+	<td>/nuxeo/nxpath/default/case-management/case-root/${currentYear}/${currentMonth}/${currentDay}/Send%20Mail%20to%20MailboxTest@view_cm_document</td>
 	<td></td>
 </tr>
 <tr>
