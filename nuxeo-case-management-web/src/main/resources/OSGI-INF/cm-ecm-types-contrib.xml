@@ -35,8 +35,8 @@
         <layout>cm_mailbox_managers</layout>
       </layouts>
       <subtypes>
-        <type>CaseItem</type>
         <type>Case</type>
+        <type>CaseItem</type>
       </subtypes>
       <contentViews category="inbox">
         <contentView>mailbox_inbox_content</contentView>
@@ -126,6 +126,9 @@
       <layouts mode="create">
         <layout>cm_document</layout>
         <layout>file</layout>
+      </layouts>
+      <layouts mode="summary">
+        <layout>summary_current_caseitem_layout</layout>
       </layouts>
       <layouts mode="any">
         <layout>cm_document</layout>

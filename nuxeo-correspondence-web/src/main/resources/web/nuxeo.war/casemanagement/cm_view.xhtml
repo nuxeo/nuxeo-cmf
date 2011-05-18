@@ -21,6 +21,8 @@
 			href="#{navigationContext.currentDocumentFullUrl}" />
 	</ui:define>
 	<ui:define name="body">
+        <ui:include src="/casemanagement/mailbox/mailbox_view_action_tabs.xhtml" />
+        <div style="clear:both"></div>
 		<script>
       var mailboxId = "#{currentMailbox.id}";
       var tabId = "#{currentViewMailboxAction}";
@@ -50,6 +52,7 @@
 		  <f:subview rendered="#{currentCase != null}" id="caseView">
 		    <div class="pane ui-layout-south">
 		       <ui:include src="/casemanagement/caseitem/view_cm_case_body.xhtml" />
+		      
         </div>
       </f:subview>
 		</div>

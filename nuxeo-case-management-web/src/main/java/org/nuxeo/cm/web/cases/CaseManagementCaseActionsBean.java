@@ -22,6 +22,7 @@ package org.nuxeo.cm.web.cases;
 import static org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager.CURRENT_DOCUMENT_SELECTION;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -37,7 +38,6 @@ import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
-import org.nuxeo.cm.cases.CaseLifeCycleConstants;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
@@ -51,6 +51,8 @@ import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.trash.TrashService;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
+import org.nuxeo.ecm.platform.routing.api.DocumentRouteElement;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
@@ -101,6 +103,17 @@ public class CaseManagementCaseActionsBean extends
 
         if (env != null) {
             return getCurrentCase().isDraft();
+        } else {
+            return false;
+        }
+    }
+    public boolean isCase(DocumentModel doc) throws ClientException {
+        if (doc == null) {
+            return false;
+        }
+        Case currentCase = doc.getAdapter(Case.class);
+        if (currentCase != null) {
+            return true;
         } else {
             return false;
         }
@@ -254,7 +267,6 @@ public class CaseManagementCaseActionsBean extends
         return false;
 
     }
-    
 
     public Boolean canCaseSelectionFollowTransition(String transition){
         if (!isEmptyDraft()) {
@@ -287,4 +299,5 @@ public class CaseManagementCaseActionsBean extends
         }
         return null;
     }
+
 } 

@@ -3,7 +3,7 @@
 <component name="org.nuxeo.correspondence.service.documentType">
 
   <require>org.nuxeo.cm.service.defaultContrib</require>
-  <require>org.nuxeo.correspondence.DocumentTypeService</require>
+  <require>org.nuxeo.cm.DocumentTypeService</require>
   <require>org.nuxeo.cm.service.documentType</require>
 
   <extension target="org.nuxeo.cm.DocumentTypeService" point="documentType">
