@@ -34,6 +34,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
+import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 
 @Name("cmContextActions")
@@ -89,6 +90,7 @@ public class CaseManagementContextActionsBean implements Serializable,
                     && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);
+                EventManager.raiseEventsOnDocumentChildrenChange(newDocument);
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCaseItem(newDocument);
