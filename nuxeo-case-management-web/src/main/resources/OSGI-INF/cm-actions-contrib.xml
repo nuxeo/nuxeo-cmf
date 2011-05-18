@@ -49,7 +49,7 @@
       </filter>
     </action>
 
-    <action id="CASEMANAGEMENT_CURRENT_SELECTION_OPEN"
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_OPEN" enabled="false"
       link="#{cmCaseActions.followTranstionCaseSelection('open')}" label="command.cm.open"
       icon="" help="comand.cm.open.help">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
@@ -60,7 +60,7 @@
       </filter>
     </action>
 
-    <action id="CASEMANAGEMENT_CURRENT_SELECTION_PROCESS"
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_PROCESS" enabled="false"
       link="#{cmCaseActions.followTranstionCaseSelection('process')}" label="command.cm.process"
       icon="" help="comand.cm.process.help">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
@@ -71,7 +71,7 @@
       </filter>
     </action>
 
-    <action id="CASEMANAGEMENT_CURRENT_SELECTION_ARCHIVE"
+    <action id="CASEMANAGEMENT_CURRENT_SELECTION_ARCHIVE" enabled="false"
       link="#{cmCaseActions.followTranstionCaseSelection('archive')}" label="command.cm.archive"
       icon="" help="comand.cm.archive.help">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
