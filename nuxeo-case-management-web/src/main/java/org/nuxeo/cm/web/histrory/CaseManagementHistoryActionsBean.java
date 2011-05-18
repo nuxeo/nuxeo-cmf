@@ -32,6 +32,7 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
@@ -71,6 +72,8 @@ public class CaseManagementHistoryActionsBean extends
 
     protected Map<Long, LinkedDocument> distributionLogEntriesLinkedDocs;
 
+    protected List<? extends LogEntry> caseDistributionLogEntries;
+
     @In(create = true)
     protected transient ContentHistoryActions contentHistoryActions;
 
@@ -82,6 +85,7 @@ public class CaseManagementHistoryActionsBean extends
         distributionLogEntries = null;
         distributionLogEntriesComments = null;
         distributionLogEntriesLinkedDocs = null;
+        caseDistributionLogEntries = null;
     }
 
     @Factory(value = "caseItemLogEntries", scope = EVENT)
@@ -128,6 +132,35 @@ public class CaseManagementHistoryActionsBean extends
             throws ClientException {
         return new SelectDataModelImpl("cm_distribution_history",
                 computeDistributionLogEntries(), null);
+    }
+
+
+    @Factory(value = "caseItemDistributionLogEntries", scope = EVENT)
+    public List<? extends LogEntry> computeCaseDistributionLogEntries()
+            throws AuditException {
+        if (caseDistributionLogEntries == null) {
+            try {
+                Case currentCase = getCurrentCase();
+                if (currentCase != null) {
+                    DocumentModel currentCaseDoc = currentCase.getDocument();
+                    if (currentCaseDoc != null) {
+                        caseDistributionLogEntries = contentHistoryActions.computeLogEntries(currentCaseDoc);
+                        caseDistributionLogEntries = distributionPostFilter(caseDistributionLogEntries);
+                    }
+                    
+                }
+            } catch (ClientException e) {
+                throw new AuditException(e);
+            }
+        }
+        return caseDistributionLogEntries;
+    }
+
+    @Factory(value = "caseDistributionLogEntriesSelectModel", scope = EVENT)
+    public SelectDataModel computeCaseSelectModelDistributionLogEntries()
+            throws ClientException {
+        return new SelectDataModelImpl("cm_distribution_history",
+                computeCaseDistributionLogEntries(), null);
     }
 
     @Factory(value = "caseItemLogEntriesComments", scope = EVENT)
@@ -248,5 +281,4 @@ public class CaseManagementHistoryActionsBean extends
 
         return otherLogEntries;
     }
-
 }

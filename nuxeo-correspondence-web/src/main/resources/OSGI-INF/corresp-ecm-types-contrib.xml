@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="org.nuxeo.correspondence.types">
+  
   <require>com.nuxeo.case-management.types</require>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
 

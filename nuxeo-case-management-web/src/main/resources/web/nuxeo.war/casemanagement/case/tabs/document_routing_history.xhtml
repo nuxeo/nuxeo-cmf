@@ -3,6 +3,7 @@
   xmlns:c="http://java.sun.com/jstl/core"
   xmlns:nxd="http://nuxeo.org/nxweb/document"
   xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout"
   xmlns:nxh="http://nuxeo.org/nxweb/html">
   
   <style>
@@ -16,15 +17,24 @@
       _white-space: pre;
     }
   </style>
-  
-  <h3><h:outputText value="#{messages['title.history']}" /></h3>
 
-   <nxu:set var="documents"  value="#{caseItemLogEntriesSelectModel}" >
+  <h3><h:outputText value="#{messages['label.casemanagement.distribution.history.routing']}" /></h3>
+  <h:form>
+  <table class="dataOutput">
+    <c:forEach var="row" items="#{cmRoutingActions.currentDocumentLinkedRoute}" varStatus="layoutListingStatus">
+      <c:set var="showListingHeader" value="#{layoutListingStatus.index == 0}" />
+      <nxl:layout name="cm_case_linked_route" value="#{row}" mode="view" />
+    </c:forEach>
+  </table>
+  </h:form>
+
+  <h3><h:outputText value="#{messages['label.casemanagement.distribution.history']}" /></h3>
+   <nxu:set var="documents"  value="#{caseDistributionLogEntriesSelectModel}" >
     <ui:decorate template="/incl/documents_layout_table.xhtml">
      <ui:param name="documents" value="#{documents}" />
      <ui:param name="showCheckboxes" value="#{true}" />
      <ui:param name="listName" value="CURRENT_SELECTION" />
-     <ui:param name="layoutName" value="cm_history" />
+     <ui:param name="layoutName" value="cm_distribution_history" />
     </ui:decorate>
    </nxu:set>
 

@@ -8,31 +8,11 @@
 
   <h:panelGroup>
     <div class="enveloppeTitleArea">
-
-      <div class="documentSwitch">
-        <h:form id="selectShownDocument">
-          <a4j:region>
-            <h:selectOneListbox id="envelopeEmails" class="dataInputText" size="1"
-              onchange="Element.next(this).firstChild.click();"
-              value="#{cmContextActions.currentCaseItemId}">
-              <nxu:selectItems
-                value="#{currentCase.documents}"
-                var="document"
-                itemValue="#{document.id}"
-                itemLabel="#{nxd:titleOrId(document)}" />
-            </h:selectOneListbox>
-            <div style="display: none;">
-              <h:commandButton value="submit" />
-            </div>
-          </a4j:region>
-          <div>
-            <h:outputText value="#{currentCase.documents.size()}" />
-            <h:outputText value=" #{messages['label.casemanagement.numberOfCaseItemsInCase']}" />
-          </div>
-        </h:form>
-      </div>
-
-      <h1><h:outputText value="#{nxd:titleOrId(currentDocument)} " /><c:if test="#{currentCaseItem !=null }">( <h:outputText value="#{nxd:titleOrId(currentCaseItem)}" /> )</c:if></h1>
+      <h1><h:outputText value="#{nxd:titleOrId(currentDocument)} " />
+        <c:if test="#{currentCaseItem !=null }">
+          ( <h:outputText value="#{nxd:titleOrId(currentCaseItem)}" /> )
+        </c:if>
+      </h1>
     </div>
 
   </h:panelGroup>

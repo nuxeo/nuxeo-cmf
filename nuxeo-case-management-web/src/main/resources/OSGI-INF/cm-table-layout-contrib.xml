@@ -375,6 +375,41 @@
       </columns>
     </layout>
 
+    <layout name="cm_case_linked_route">
+      <templates>
+        <template mode="any">/layouts/layout_listing_template.xhtml</template>
+      </templates>
+      <properties mode="any">
+        <property name="showListingHeader">true</property>
+        <property name="showRowEvenOddClass">true</property>
+      </properties>
+      <columns>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">false</property>
+            <property name="columnStyleClass">iconColumn</property>
+          </properties>
+          <widget>cm_icon_type</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_listing_route_title_link</widget>
+        </column>
+      </columns>
+      <widget name="cm_icon_type" type="listing_icon_type">
+        <labels>
+          <label mode="any"></label>
+        </labels>
+        <fields>
+          <field>document</field>
+          <field>document.id</field>
+          <field>document.type</field>
+        </fields>
+      </widget>
+    </layout>
+
 
   </extension>
 
