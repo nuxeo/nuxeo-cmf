@@ -40,6 +40,12 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testRoots() throws Exception {
         DocumentModel root = session.getRootDocument();
 

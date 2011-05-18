@@ -31,7 +31,7 @@
         maxOccurs="unbounded" />
       <xs:element name="description" type="xs:string" minOccurs="0"
         maxOccurs="unbounded" />
-      <xs:element name="mailbox_id" type="cmxs:stringList" minOccurs="0"
+      <xs:element name="mailbox_ids" type="cmxs:stringList" minOccurs="0"
         maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
@@ -48,7 +48,8 @@
   <xs:element name="lastSyncUpdate" type="xs:date" />
   <xs:element name="origin" type="xs:string" default="" />
   <xs:element name="synchronizerId" type="xs:string" />
-  <xs:element name="synchronizedState" type="xs:string" default="unsynchronised" />
+  <xs:element name="synchronizedState" type="xs:string"
+    default="unsynchronised" />
 
 
 </xs:schema>

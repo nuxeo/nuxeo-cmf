@@ -13,11 +13,28 @@
       </deniedSubtypes>
     </type>
 
-
-    <type id="Case">
+    <type id="CorrespondenceEnvelope">
+      <label>label.correspondence.type.CorrespondenceEnvelope</label>
+      <icon>/icons/case.png</icon>
+      <bigIcon>/icons/case_100.png</bigIcon>
       <default-view>view_cm_case</default-view>
+      <create-view>create_empty_case</create-view>
+      <views>
+        <view id="edit_case" value="edit_case" />
+      </views>
+      <subtypes>
+        <type>CaseItem</type>
+      </subtypes>
+      <layouts mode="create">
+        <layout>cm_case</layout>
+      </layouts>
+      <layouts mode="any">
+        <layout>dublincore</layout>
+      </layouts>
+      <layouts mode="summary">
+        <layout>summary_current_case_layout</layout>
+      </layouts>
     </type>
-
 
     <type id="CorrespondenceMailbox">
       <label>label.correspondence.type.CorrespondenceMailbox</label>

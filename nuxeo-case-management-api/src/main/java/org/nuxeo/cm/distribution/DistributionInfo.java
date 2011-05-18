@@ -46,7 +46,13 @@ public interface DistributionInfo extends Serializable {
 
     public Map<String, List<String>> getAllParticipants();
 
-    public boolean isEmpty(@SuppressWarnings("rawtypes") List list);
+    /**
+     * Returns true if given list is empty
+     *
+     * @deprecated has nothing to do with this interface
+     */
+    @Deprecated
+    public boolean isEmpty(List list);
 
     public boolean hasParticipants();
 
@@ -54,7 +60,7 @@ public interface DistributionInfo extends Serializable {
 
     public List<String> getForInformationMailingLists();
 
-    public List<MlInfo> getMlInfos();
+    public List<MailingListDistributionInfo> getMlInfos();
 
-    public void setMlInfos(List<MlInfo> mailistInfos);
+    public void setMlInfos(List<MailingListDistributionInfo> mailistInfos);
 }

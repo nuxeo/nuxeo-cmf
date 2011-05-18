@@ -39,6 +39,12 @@ public class TestCaseLink extends CaseManagementRepositoryTestCase {
         post = new CaseLinkImpl(document, adapter);
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testGetDocument() {
         assertNotNull(post);
         DocumentModel doc = post.getDocument();

@@ -46,6 +46,12 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         item = new CaseItemImpl(document, adapter);
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     /**
      * Test method for {@link org.nuxeo.cm.cases.CaseItemImpl#getDocument()}.
      */
@@ -118,12 +124,14 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         assertFalse(lockableDocument.isLocked(session));
 
         // User1 fetch the document and check that it is locked
+        closeSession();
         session = openSessionAs("user1");
         doc = session.getDocument(doc.getRef());
         lockableDocument = doc.getAdapter(LockableAdapter.class);
         assertTrue(lockableDocument.isLocked(session));
 
         // Admin unlock
+        closeSession();
         session = openSessionAs(SecurityConstants.ADMINISTRATOR);
         doc = session.getDocument(doc.getRef());
         lockableDocument = doc.getAdapter(LockableAdapter.class);
@@ -132,6 +140,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         session.save();
 
         // User1 fetch the document and check that it is unlocked
+        closeSession();
         session = openSessionAs("user1");
         doc = session.getDocument(doc.getRef());
         lockableDocument = doc.getAdapter(LockableAdapter.class);

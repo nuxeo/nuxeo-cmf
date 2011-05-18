@@ -49,6 +49,13 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         assertNotNull(routingService);
         automationService = Framework.getService(AutomationService.class);
         assertNotNull(automationService);
+        openSession();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
     }
 
     public void testChainsDeclaration() throws Exception {
@@ -60,7 +67,6 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
     }
 
     public void testDistributionTaskChain() throws Exception {
-        openSession();
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK);
         assertEquals(chainId,
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_TASK_CHAIN);
@@ -77,7 +83,6 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
     }
 
     public void testDistributionStepChain() throws Exception {
-        openSession();
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP);
         assertEquals(chainId,
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);

@@ -129,17 +129,17 @@
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_cm_document:nxw_document_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:00</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:00 AM</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_cm_document:nxw_receive_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:01</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:01 AM</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>document_create:nxl_correspondence_document:nxw_sending_dateInputDate</td>
-	<td>${currentDay}/${currentMonth}/${currentYear} 00:02</td>
+	<td>${currentMonth}/${currentDay}/${currentYear} 12:02 AM</td>
 </tr>
 <tr>
 	<td>watchA4jRequests</td>
@@ -187,18 +187,28 @@
 	<td></td>
 </tr>
 <tr>
+	<td>echo</td>
+	<td>${testfolderpath}/data/hello.pdf</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>//input[@type='file']</td>
 	<td>${testfolderpath}/data/hello.pdf</td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>15000</td>
+	<td>clickAndWait</td>
+	<td>link=Create</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Create</td>
+	<td>storeEval</td>
+	<td>selenium.browserbot.getCurrentWindow().document.body.innerHTML</td>
+	<td>innerhtml</td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${innerhtml}</td>
 	<td></td>
 </tr>
 <tr>

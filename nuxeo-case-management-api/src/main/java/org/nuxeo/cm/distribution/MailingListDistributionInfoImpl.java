@@ -16,16 +16,35 @@
  */
 package org.nuxeo.cm.distribution;
 
+import java.io.Serializable;
+
 import org.nuxeo.cm.mailbox.MailingList;
 
-/**
- * Information of the type of distribution of a mailing list. Used for UI.
- *
- */
-public interface MlInfo {
-    MailingList getMailingList();
+public class MailingListDistributionInfoImpl implements MailingListDistributionInfo, Serializable {
 
-    String getType();
+    private static final long serialVersionUID = 1L;
 
-    void setType(String type);
+    protected String type;
+
+    protected MailingList list;
+
+    public MailingListDistributionInfoImpl(String type, MailingList list) {
+        this.list = list;
+        this.type = type;
+    }
+
+    @Override
+    public MailingList getMailingList() {
+        return list;
+    }
+
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
+    }
 }

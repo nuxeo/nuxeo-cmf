@@ -47,6 +47,12 @@ public class TestMailbox extends SQLRepositoryTestCase {
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     protected DocumentModel getBareMailboxDoc() throws Exception {
         DocumentModel mailbox = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
         mailbox.setPathInfo(session.getRootDocument().getPathAsString(),
@@ -85,11 +91,6 @@ public class TestMailbox extends SQLRepositoryTestCase {
         mb.addMailingList(ml);
 
         return session.createDocument(mb.getDocument());
-    }
-
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
     }
 
     public void testMailboxCreation() throws Exception {

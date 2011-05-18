@@ -220,7 +220,12 @@ public class CaseManagementCaseActionsBean extends
         final List<DocumentRef> postRefs = new ArrayList<DocumentRef>();
         for (DocumentModel documentModel : workingList) {
             CaseLink caselink = documentModel.getAdapter(CaseLink.class);
-            caseRefs.add(caselink.getCase(documentManager).getDocument().getRef());
+            try {
+                caseRefs.add(caselink.getCase(documentManager).getDocument().getRef());
+            } catch (Exception e) {
+                // doc may not exist anymore
+                log.error(e, e);
+            }
             postRefs.add(documentModel.getRef());
         }
         new UnrestrictedSessionRunner(documentManager) {
@@ -245,7 +250,7 @@ public class CaseManagementCaseActionsBean extends
         return trashService;
     }
 
-    public Boolean getCanEditCurrentCase() throws ClientException{
+    public Boolean getCanEditCurrentCase() throws ClientException {
         Case currentCase = getCurrentCase();
         if (currentCase == null) {
             return false;
@@ -268,7 +273,7 @@ public class CaseManagementCaseActionsBean extends
 
     }
 
-    public Boolean canCaseSelectionFollowTransition(String transition){
+    public Boolean canCaseSelectionFollowTransition(String transition) {
         if (!isEmptyDraft()) {
             List<DocumentModel> currentDraftCasesList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
             for (DocumentModel documentModel : currentDraftCasesList) {
@@ -282,7 +287,7 @@ public class CaseManagementCaseActionsBean extends
         }
         return false;
     }
-    
+
     public String followTranstionCaseSelection(String transition)
             throws ClientException {
         if (!isEmptyDraft()) {
@@ -299,5 +304,4 @@ public class CaseManagementCaseActionsBean extends
         }
         return null;
     }
-
-} 
+}

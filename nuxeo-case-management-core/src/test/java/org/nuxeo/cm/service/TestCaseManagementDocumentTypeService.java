@@ -31,13 +31,6 @@ public class TestCaseManagementDocumentTypeService extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
-        /*
-         * deployContrib(
-         * CorrespondenceTestConstants.CASEMANAGEMENT_CORE_TEST_BUNDLE,
-         * "test-distribution-type-with-error-corresp-contrib.xml");
-         */
-        openSession();
     }
 
     public void testGetAllProperty() throws ClientException {

@@ -72,6 +72,12 @@ public class TestCorrespondenceLink extends CaseManagementRepositoryTestCase {
         envelope.addCaseItem(item2, session);
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testLink() throws Throwable {
         EnvelopeToMailLink envelopeToMailLinks = envelope.getDocument().getAdapter(
                 EnvelopeToMailLink.class);

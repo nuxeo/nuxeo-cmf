@@ -40,6 +40,7 @@ public class TestCaseManagementUserManager extends
 
     @Override
     public void tearDown() throws Exception {
+        closeSession();
         super.tearDown();
         System.clearProperty("org.nuxeo.runtime.testing");
     }

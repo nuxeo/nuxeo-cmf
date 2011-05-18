@@ -46,6 +46,7 @@ public class TestModel extends SQLRepositoryTestCase {
 
     @Override
     public void tearDown() throws Exception {
+        closeSession();
         super.tearDown();
     }
 

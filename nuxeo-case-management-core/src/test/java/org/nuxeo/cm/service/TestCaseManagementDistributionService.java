@@ -34,6 +34,12 @@ public class TestCaseManagementDistributionService extends
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testAddCaseItemToCase() throws Exception {
         Mailbox senderMailbox = getPersonalMailbox(user1);
         assertNotNull(senderMailbox);

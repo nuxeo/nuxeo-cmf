@@ -217,12 +217,14 @@ public class MailboxImpl implements Mailbox {
     public Mailbox updateMailingList(MailingList currentMailingList) {
         List<Map<String, Serializable>> mailinglists;
         try {
+            // get all existing mailing lists
             mailinglists = (List<Map<String, Serializable>>) doc.getPropertyValue(MailboxConstants.MAILING_LIST_FIELD);
         } catch (PropertyException e) {
             throw new RuntimeException(e);
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
+        // update current mailing list info
         for (Map<String, Serializable> map : mailinglists) {
             String mlid = (String) map.get(MailboxConstants.MAILINGLIST_ID_FIELD);
             if (currentMailingList.getId().equals(mlid)) {
@@ -230,11 +232,12 @@ public class MailboxImpl implements Mailbox {
                         currentMailingList.getTitle());
                 map.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD,
                         currentMailingList.getDescription());
-                map.put(MailboxConstants.MAILINGLIST_MAILBOX_FIELD,
+                map.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
                         (Serializable) currentMailingList.getMailboxIds());
             }
         }
         try {
+            // save all mailing lists + updated current one
             doc.setPropertyValue(MailboxConstants.MAILING_LIST_FIELD,
                     (Serializable) mailinglists);
         } catch (PropertyException e) {
