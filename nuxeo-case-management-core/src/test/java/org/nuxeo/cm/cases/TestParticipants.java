@@ -39,6 +39,12 @@ public class TestParticipants extends CaseManagementRepositoryTestCase {
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testParticipantsMethods() throws Exception {
         Map<String, List<String>> recipients1 = new HashMap<String, List<String>>();
         List<String> actionList1 = new ArrayList<String>();

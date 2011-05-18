@@ -23,6 +23,12 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testImport() throws Exception {
         // create mailboxes used by import
         Mailbox user1Mailbox = getPersonalMailbox(user1);

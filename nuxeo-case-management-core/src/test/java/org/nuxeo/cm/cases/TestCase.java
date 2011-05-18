@@ -54,6 +54,12 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         item2 = new CaseItemImpl(document, adapter);
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testGetDocument() {
         DocumentModel doc = envelope.getDocument();
         assertNotNull(doc);
@@ -99,7 +105,7 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         envelope = new CaseImpl(document, adapter);
         assertEquals(2, envelope.getCaseItems(session).size());
         assertEquals(envelope.getFirstItem(session), item2);
-        
+
         List<DocumentModel> itemCases = item1.getCases(session);
         assertNotNull(itemCases);
         assertEquals(2, itemCases.size());

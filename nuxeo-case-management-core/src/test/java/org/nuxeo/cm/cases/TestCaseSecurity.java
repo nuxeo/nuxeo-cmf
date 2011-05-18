@@ -64,6 +64,12 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
         session.save();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     private void archiveDoc() throws Exception {
         kase.followTransition(CaseLifeCycleConstants.TRANSITION_OPEN);
         assertEquals(CaseLifeCycleConstants.STATE_OPEN,
@@ -76,6 +82,9 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
 
     public void testCaseLifeCycle() throws Exception {
         archiveDoc();
+        if (session != null) {
+            closeSession();
+        }
         session = openSessionAs("user1");
         DocumentModel localDoc = session.getDocument(kase.getDocument().getRef());
         assertNotNull(localDoc);

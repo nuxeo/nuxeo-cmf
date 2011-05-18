@@ -40,11 +40,16 @@ public class TestCaseManagementDistributionTypeService extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-distribution-type-with-error-corresp-contrib.xml");
         openSession();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
     }
 
     public void testGetDistributionTypes() {

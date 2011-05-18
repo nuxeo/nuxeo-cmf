@@ -46,6 +46,12 @@ public class TestMailboxManagementService extends
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public void testDefaultPersonalMailboxCreation() throws Exception {
 
         correspMailboxService.createPersonalMailboxes(session, "toto");

@@ -74,6 +74,12 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
                 route.getDocument().getRef()).get(0).getCurrentLifeCycleState());
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     protected EventService getEventService() throws Exception {
         return Framework.getService(EventService.class);
     }

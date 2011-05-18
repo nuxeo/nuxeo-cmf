@@ -78,6 +78,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
 
     @Override
     public void tearDown() throws Exception {
+        closeSession();
         super.tearDown();
         MailboxSyncTestListener.resetCounter();
     }

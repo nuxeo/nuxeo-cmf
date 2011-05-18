@@ -48,6 +48,12 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         openSession();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
+    }
+
     public Mailbox getPersonalMailbox(String name) throws Exception {
         return correspMailboxService.createPersonalMailboxes(session, name).get(
                 0);

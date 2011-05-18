@@ -50,10 +50,16 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
                 "OSGI-INF/corresp-core-types-contrib.xml");
         deployContrib(CORRESPONDENCE_CORE_BUNDLE,
                 "OSGI-INF/corresp-uid-contrib.xml");
+        openSession();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
     }
 
     public DocumentModel createTestDocument() throws Exception {
-        openSession();
         // Create an incoming document
         DocumentModel folder = new DocumentModelImpl("/", "testfolder",
                 "Folder");

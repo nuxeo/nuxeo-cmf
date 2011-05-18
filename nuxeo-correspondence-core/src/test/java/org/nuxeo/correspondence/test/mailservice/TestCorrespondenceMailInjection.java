@@ -87,7 +87,12 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(postType);
         incomingDocumentType = CorrespondenceConstants.IN_CORRESPONDENCE_DOCUMENT;
         openSession();
+    }
 
+    @Override
+    public void tearDown() throws Exception {
+        closeSession();
+        super.tearDown();
     }
 
     /**
