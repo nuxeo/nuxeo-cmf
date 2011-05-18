@@ -30,7 +30,7 @@ public class ParticipantItem extends MailboxHeaderImpl {
 
     protected int hash;
 
-    String messageType;
+    protected String messageType;
 
     public ParticipantItem(String id, String title, String type) {
         super(id, title, type);

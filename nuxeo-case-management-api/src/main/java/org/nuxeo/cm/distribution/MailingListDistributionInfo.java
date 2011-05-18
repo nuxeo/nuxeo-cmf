@@ -16,35 +16,16 @@
  */
 package org.nuxeo.cm.distribution;
 
-import java.io.Serializable;
-
 import org.nuxeo.cm.mailbox.MailingList;
 
-public class MlInfoImpl implements MlInfo, Serializable {
+/**
+ * Holds a mailing list and the type of distribution to use for it. Used in UI.
+ */
+public interface MailingListDistributionInfo {
 
-    private static final long serialVersionUID = 1L;
+    MailingList getMailingList();
 
-    protected String type;
+    String getType();
 
-    protected MailingList list;
-
-    public MlInfoImpl(String type, MailingList list) {
-        this.list = list;
-        this.type = type;
-    }
-
-    @Override
-    public MailingList getMailingList() {
-        return list;
-    }
-
-    @Override
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(String type) {
-        this.type = type;
-    }
+    void setType(String type);
 }

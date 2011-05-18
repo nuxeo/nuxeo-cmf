@@ -42,25 +42,25 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     private static final long serialVersionUID = 6930633132089246322L;
 
-    String mode;
+    protected String mode;
 
-    List<ParticipantItem> favoriteMailboxes;
+    protected List<ParticipantItem> favoriteMailboxes;
 
-    List<String> forActionMailboxes;
+    protected List<String> forActionMailboxes;
 
-    List<String> forActionGroups;
+    protected List<String> forActionGroups;
 
-    String[] forActionFunctions;
+    protected String[] forActionFunctions;
 
-    List<String> forInformationMailboxes;
+    protected List<String> forInformationMailboxes;
 
-    List<String> forInformationGroups;
+    protected List<String> forInformationGroups;
 
-    List<MlInfo> mlInfos = new ArrayList<MlInfo>();
+    protected List<MailingListDistributionInfo> mlInfos = new ArrayList<MailingListDistributionInfo>();
 
-    String[] forInformationFunctions;
+    protected String[] forInformationFunctions;
 
-    String comment;
+    protected String comment;
 
     // getters & setters
 
@@ -145,8 +145,8 @@ public class CMFDistributionInfo implements DistributionInfo {
         if (forActionMailboxes != null) {
             mailboxes.addAll(forActionMailboxes);
         }
-        for(MlInfo mli : mlInfos) {
-            if(CaseLinkType.FOR_ACTION.name().equals(mli.getType())) {
+        for (MailingListDistributionInfo mli : mlInfos) {
+            if (CaseLinkType.FOR_ACTION.name().equals(mli.getType())) {
                 mailboxes.addAll(mli.getMailingList().getMailboxIds());
             }
         }
@@ -178,8 +178,8 @@ public class CMFDistributionInfo implements DistributionInfo {
         if (forInformationMailboxes != null) {
             mailboxes.addAll(forInformationMailboxes);
         }
-        for(MlInfo mli : mlInfos) {
-            if(CaseLinkType.FOR_INFORMATION.name().equals(mli.getType())) {
+        for (MailingListDistributionInfo mli : mlInfos) {
+            if (CaseLinkType.FOR_INFORMATION.name().equals(mli.getType())) {
                 mailboxes.addAll(mli.getMailingList().getMailboxIds());
             }
         }
@@ -193,8 +193,8 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     protected List<String> getMailingLists(String type) {
         List<String> result = new ArrayList<String>();
-        for(MlInfo mli : mlInfos) {
-            if(type.equals(mli.getType())) {
+        for (MailingListDistributionInfo mli : mlInfos) {
+            if (type.equals(mli.getType())) {
                 result.add(mli.getMailingList().getId());
             }
         }
@@ -217,19 +217,16 @@ public class CMFDistributionInfo implements DistributionInfo {
         return res;
     }
 
-    public boolean isEmpty(@SuppressWarnings("rawtypes")
-    List list) {
+    public boolean isEmpty(List list) {
         return list == null || list.isEmpty();
     }
 
     public boolean hasParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes)
-                && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)
-                && isEmpty(forInformationMailboxes)
+        if (isEmpty(forActionMailboxes) && isEmpty(getForActionFunctions())
+                && isEmpty(forActionGroups) && isEmpty(forInformationMailboxes)
                 && isEmpty(getForInformationFunctions())
-                && isEmpty(forInformationGroups)
-                && !hasMailingList()) {
+                && isEmpty(forInformationGroups) && !hasMailingList()) {
             res = false;
         }
         return res;
@@ -239,8 +236,8 @@ public class CMFDistributionInfo implements DistributionInfo {
      * @return
      */
     private boolean hasMailingList() {
-        for(MlInfo mli : mlInfos) {
-            if(!CaseLinkType.NONE.name().equals(mli.getType())) {
+        for (MailingListDistributionInfo mli : mlInfos) {
+            if (!CaseLinkType.NONE.name().equals(mli.getType())) {
                 return true;
             }
         }
@@ -273,12 +270,12 @@ public class CMFDistributionInfo implements DistributionInfo {
     }
 
     @Override
-    public List<MlInfo> getMlInfos() {
+    public List<MailingListDistributionInfo> getMlInfos() {
         return mlInfos;
     }
 
     @Override
-    public void setMlInfos(List<MlInfo> mlInfos) {
+    public void setMlInfos(List<MailingListDistributionInfo> mlInfos) {
         this.mlInfos = mlInfos;
     }
 

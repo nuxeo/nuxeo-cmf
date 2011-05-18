@@ -23,7 +23,6 @@ package org.nuxeo.cm.mailbox;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -141,8 +140,9 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     void setFavorites(List<String> favorites) throws CaseManagementException;
 
     /**
-     * Gets the id list of mailing lists of this mailbox. use
-     * {@link #getMailingListIds()} instead.
+     * Gets the id list of mailing lists of this mailbox.
+     *
+     * @deprecated since 1.7: use {@link #getMailingListIds()} instead.
      */
     @Deprecated
     List<String> getParticipantListIds();
@@ -152,23 +152,31 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     /**
      * Gets the list of {@link ParticipantsList} objects of this mailbox.
      *
-     * use {@link #getMailingLists()} instead.
-     *
-     * @throws CaseManagementException
+     * @deprecated since 1.7: use {@link #getMailingLists()} instead.
      */
     @Deprecated
     List<ParticipantsList> getParticipantLists();
 
+    /**
+     * Gets the list of {@link MailingList} objects of this mailbox.
+     *
+     * @since 1.7
+     */
     List<MailingList> getMailingLists();
 
     /**
-     * Returns a new bare mailing list
+     * Returns a new bare mailing list.
      *
-     * use {@link #getMailingListTemplate()} instead.
+     * @deprecated since 1.7, use {@link #getMailingListTemplate()} instead.
      */
     @Deprecated
     ParticipantsList getParticipantListTemplate();
 
+    /**
+     * Returns a new bare mailing list
+     *
+     * @since 1.7
+     */
     MailingList getMailingListTemplate();
 
     /**
@@ -182,12 +190,18 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     void addMailingList(MailingList mailinglist);
 
     /**
-     * Removes mailing list with given id from this mailbox use
-     * {@link #removeMailingList(String)} instead.
+     * Removes mailing list with given id from this mailbox.
+     *
+     * @deprecated since 1.7: use {@link #removeMailingList(String)} instead.
      */
     @Deprecated
     void removeParticipantList(String mailinglistId);
 
+    /**
+     * Removes mailing list with given id from this mailbox.
+     *
+     * @since 1.7
+     */
     void removeMailingList(String mailingListId);
 
     /**
@@ -239,7 +253,8 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     List<String> getAllUsersAndGroups();
 
     /**
-     * @return the affiliated mailbox id. null if not affiliated mailbox exists.
+     * @return the affiliated mailbox id. null if not affiliated mailbox
+     *         exists.
      */
     String getAffiliatedMailboxId();
 

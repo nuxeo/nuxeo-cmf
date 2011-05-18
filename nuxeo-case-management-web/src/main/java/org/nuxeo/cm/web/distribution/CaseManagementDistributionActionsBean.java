@@ -45,8 +45,8 @@ import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.distribution.CMFDistributionInfo;
 import org.nuxeo.cm.distribution.DistributionInfo;
-import org.nuxeo.cm.distribution.MlInfo;
-import org.nuxeo.cm.distribution.MlInfoImpl;
+import org.nuxeo.cm.distribution.MailingListDistributionInfo;
+import org.nuxeo.cm.distribution.MailingListDistributionInfoImpl;
 import org.nuxeo.cm.distribution.ParticipantItem;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailingList;
@@ -122,9 +122,10 @@ public class CaseManagementDistributionActionsBean extends
                 distributionInfo.setFavoriteMailboxes(favoriteMailboxes);
             }
             if (currentMailbox != null) {
-                List<MlInfo> mlInfos = new ArrayList<MlInfo>();
+                List<MailingListDistributionInfo> mlInfos = new ArrayList<MailingListDistributionInfo>();
                 for (MailingList list : currentMailbox.getMailingLists()) {
-                    mlInfos.add(new MlInfoImpl(CaseLinkType.NONE.name(), list));
+                    mlInfos.add(new MailingListDistributionInfoImpl(
+                            CaseLinkType.NONE.name(), list));
                 }
                 distributionInfo.setMlInfos(mlInfos);
             }
@@ -218,8 +219,7 @@ public class CaseManagementDistributionActionsBean extends
             kase.save(documentManager);
 
             resetWizard();
-            facesMessages.add(
-                    FacesMessage.SEVERITY_INFO,
+            facesMessages.add(FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "feedback.casemanagement.distribution.done"));
             // raise seam event to update the content view for the mailbox
