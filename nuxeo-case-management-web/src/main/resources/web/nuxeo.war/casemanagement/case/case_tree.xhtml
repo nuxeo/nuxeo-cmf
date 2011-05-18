@@ -7,7 +7,7 @@
   class="menu">
   <c:if test="#{currentCase != null}">
     <a4j:region renderRegionOnly="true">
-      <a4j:form ajaxSubmit="true">
+      <a4j:form id="case_tree_form" ajaxSubmit="true">
         <div style="float: right">
           <a4j:commandLink action="#{treeActions.reset}" reRender="treeNav">
             <h:graphicImage value="/img/refresh.png"
@@ -24,11 +24,13 @@
                 iconLeaf="#{nxd:iconPath(node.document)}"
                 iconExpanded="/icons/toggle_minus.png"
                 iconCollapsed="/icons/toggle_plus.png" rowKeyVar="rowKey"
-                stateVar="nodeState">
+                stateVar="nodeState"
+                id="case_tree_richtree">
                 <rich:recursiveTreeNodesAdaptor
+                  id="case_tree_recursiveTreeNodesAdaptor"
                   roots="#{treeActions.getTreeRoots('caseNavigation')}"
                   nodes="#{node.children}" var="node">
-                  <rich:treeNode highlightedClass="treeNodeHighlightedClass"
+                  <rich:treeNode id="case_tree_node" highlightedClass="treeNodeHighlightedClass"
                     selectedClass="treeNodeSelectedClass">
                     <div
                       class="#{nxu:test(node.document.id == currentDocument.id, 'selected', '')}"
