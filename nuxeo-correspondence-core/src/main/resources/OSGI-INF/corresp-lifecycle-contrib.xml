@@ -12,13 +12,13 @@
         <transition name="send" destinationState="sent">
           <description>Send the envelope</description>
         </transition>
+        <transition name="delete" destinationState="deleted">
+          <description>Move document to trash (temporary delete)</description>
+        </transition>
+        <transition name="undelete" destinationState="draft">
+          <description>Recover the document from trash</description>
+        </transition>
       </transitions>
-      <transition name="delete" destinationState="deleted">
-        <description>Move document to trash (temporary delete)</description>
-      </transition>
-      <transition name="undelete" destinationState="draft">
-        <description>Recover the document from trash</description>
-      </transition>
       <states>
         <state name="draft" description="Default state" initial="true">
           <transitions>
