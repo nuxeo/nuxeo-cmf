@@ -102,7 +102,8 @@ public class TestMailboxManagementService extends
         createMailbox();
 
         // log as given user and check he still got access
-        openSessionAs(user);
+        closeSession();
+        session = openSessionAs(user);
         Mailbox mb = correspMailboxService.getMailbox(session, "test");
         assertEquals("Test", mb.getTitle());
     }
@@ -136,7 +137,8 @@ public class TestMailboxManagementService extends
         assertEquals(MailboxConstants.type.generic.name(), mbGeneric.getType());
 
         // log as given user and check he still got access
-        openSessionAs(user);
+        closeSession();
+        session = openSessionAs(user);
         mailboxes = correspMailboxService.getUserMailboxes(session, user);
         assertEquals(2, mailboxes.size());
     }
