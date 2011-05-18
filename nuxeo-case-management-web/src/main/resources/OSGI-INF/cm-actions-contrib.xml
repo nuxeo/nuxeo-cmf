@@ -37,11 +37,6 @@
       icon="" help="comand.deleteDocs.help"
       confirm="if( !confirmDeleteDocumentsForever() ) return false;">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
-      <filter id="deleteDrafts">
-        <rule grant="true">
-          <facet>Mailbox</facet>
-        </rule>
-      </filter>
       <filter id="candDeleteDrafts">
         <rule grant="true">
           <condition>#{cmCaseActions.canPurge}</condition>
