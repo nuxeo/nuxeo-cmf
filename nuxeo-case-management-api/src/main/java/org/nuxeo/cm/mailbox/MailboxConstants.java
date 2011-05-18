@@ -87,7 +87,7 @@ public class MailboxConstants {
 
     public static final String MAILINGLIST_DESCRIPTION_FIELD = "description";
 
-    public static final String MAILINGLIST_MAILBOX_FIELD = "mailbox_id";
+    public static final String MAILINGLIST_MAILBOXES_FIELD = "mailbox_ids";
 
     public static final String MAILBOX_DELETED_STATE = "deleted";
 

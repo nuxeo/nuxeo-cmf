@@ -1526,7 +1526,7 @@
               <!-- widget name="mailboxes" type="template">
                 <translated>true</translated>
                 <fields>
-                <field>mailbox_id</field>
+                <field>mailbox_ids</field>
                 </fields>
                 <properties mode="any">
                 <property name="template">

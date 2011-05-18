@@ -232,7 +232,7 @@ public class MailboxImpl implements Mailbox {
                         currentMailingList.getTitle());
                 map.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD,
                         currentMailingList.getDescription());
-                map.put(MailboxConstants.MAILINGLIST_MAILBOX_FIELD,
+                map.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
                         (Serializable) currentMailingList.getMailboxIds());
             }
         }

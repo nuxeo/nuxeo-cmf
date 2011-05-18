@@ -43,7 +43,7 @@ public class MailingListImpl implements MailingList {
 
     @SuppressWarnings("unchecked")
     public List<String> getMailboxIds() {
-        return (List<String>) mlDoc.get(MailboxConstants.MAILINGLIST_MAILBOX_FIELD);
+        return (List<String>) mlDoc.get(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD);
     }
 
     public String getTitle() {
@@ -59,7 +59,7 @@ public class MailingListImpl implements MailingList {
     }
 
     public void setMailboxIds(List<String> mailboxes) {
-        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOX_FIELD,
+        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
                 (Serializable) mailboxes);
     }
 
