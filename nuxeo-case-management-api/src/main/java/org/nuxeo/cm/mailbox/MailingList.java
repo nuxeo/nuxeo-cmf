@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A named set of mailboxes.
  *
- * A named set of mailbox.
+ * @since 1.7
  */
 public interface MailingList extends Serializable {
 

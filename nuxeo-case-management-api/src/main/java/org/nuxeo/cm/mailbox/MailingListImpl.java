@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
- *
+ * @since 1.7
  */
 public class MailingListImpl implements MailingList {
 

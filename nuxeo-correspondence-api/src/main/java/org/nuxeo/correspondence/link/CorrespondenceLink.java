@@ -25,8 +25,11 @@ import org.nuxeo.ecm.core.api.DocumentRef;
 
 /**
  * @author ldoguin
+ * @since 1.7
  */
 public class CorrespondenceLink extends HashMap<String, Serializable> {
+
+    private static final long serialVersionUID = 1L;
 
     private DocumentRef sourceDocumentRef;
 
