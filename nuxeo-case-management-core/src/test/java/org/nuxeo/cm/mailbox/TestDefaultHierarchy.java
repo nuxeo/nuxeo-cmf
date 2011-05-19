@@ -56,7 +56,7 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
         assertEquals(CASE_MANAGEMENT, domain.getPathAsString());
 
         DocumentModelList domainChildren = session.getChildren(domain.getRef());
-        assertEquals(2, domainChildren.size());
+        assertEquals(3, domainChildren.size());
 
         DocumentModel mailRoot = domainChildren.get(0);
         DocumentModel mailboxRoot = domainChildren.get(1);
