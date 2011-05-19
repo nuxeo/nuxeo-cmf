@@ -92,6 +92,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     }
 
     public boolean hasMailbox(CoreSession session, String muid) {
+        // use getMailboxHeader so that check is unrestricted
         return getMailboxHeader(session, muid) != null;
     }
 
@@ -248,8 +249,8 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     }
 
     public boolean hasUserPersonalMailbox(CoreSession session, String userId) {
-        // FIXME: shouldn't check be unrestricted?
-        return getUserPersonalMailbox(session, userId) != null;
+        String muid = getUserPersonalMailboxId(userId);
+        return hasMailbox(session, muid);
     }
 
     /**

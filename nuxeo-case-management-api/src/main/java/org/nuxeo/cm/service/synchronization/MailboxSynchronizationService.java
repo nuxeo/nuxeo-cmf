@@ -20,6 +20,9 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
+ * Service that handles mailboxes creation/update/deletion by synchronizing
+ * them according to users and groups directories.
+ *
  * @author Laurent Doguin
  */
 public interface MailboxSynchronizationService extends Serializable {

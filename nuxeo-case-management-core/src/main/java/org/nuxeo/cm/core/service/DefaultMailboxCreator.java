@@ -39,6 +39,8 @@ import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
 /**
+ * Default creator for a personal mailbox
+ *
  * @author Anahide Tchertchian
  */
 public class DefaultMailboxCreator implements MailboxCreator {
@@ -97,8 +99,9 @@ public class DefaultMailboxCreator implements MailboxCreator {
             mailboxModel.setPathInfo(res.get(0).getPathAsString(),
                     IdUtils.generateId(mailbox.getTitle()));
             mailboxModel = session.createDocument(mailboxModel);
-            session.save();// This will be queried after, needs a save to be
-                            // found
+            // save because the mailbox will be queried just after in another
+            // session
+            session.save();
             mailbox = mailboxModel.getAdapter(Mailbox.class);
 
             return Collections.singletonList(mailbox);

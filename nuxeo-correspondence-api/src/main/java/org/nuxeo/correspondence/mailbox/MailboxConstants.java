@@ -24,10 +24,6 @@ package org.nuxeo.correspondence.mailbox;
  */
 public class MailboxConstants {
 
-    public enum type {
-        personal, generic
-    }
-
     public static final String INCOMING_CONFIDENTIALITY_FIELD = "cmb:incoming_confidentiality";
 
     public static final String OUTGOING_CONFIDENTIALITY_FIELD = "cmb:outgoing_confidentiality";

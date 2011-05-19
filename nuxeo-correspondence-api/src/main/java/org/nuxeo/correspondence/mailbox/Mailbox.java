@@ -20,14 +20,13 @@
 
 package org.nuxeo.correspondence.mailbox;
 
-import java.io.Serializable;
 
 /**
  * Mailbox interface
  *
  * @author Anahide Tchertchian
  */
-public interface Mailbox extends Serializable, Comparable<Mailbox> {
+public interface Mailbox extends org.nuxeo.cm.mailbox.Mailbox {
 
     /**
      * Returns the default confidentiality for incoming mails for this mailbox.

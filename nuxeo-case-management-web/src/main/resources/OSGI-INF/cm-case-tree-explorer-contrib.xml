@@ -7,7 +7,7 @@
         <facet name="HiddenInNavigation" />
       </excludedFacets>
       <leafFilterClass>org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter</leafFilterClass>
-      <sortPropertyPath>ecm:pos</sortPropertyPath>
+      <sortPropertyPath>dc:title</sortPropertyPath>
       <queryModel>CURRENT_DOC_CHILDREN</queryModel>
     </treeManagerPlugin>
   </extension>

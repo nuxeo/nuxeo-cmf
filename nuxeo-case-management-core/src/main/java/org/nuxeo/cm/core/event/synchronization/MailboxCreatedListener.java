@@ -16,6 +16,15 @@
  */
 package org.nuxeo.cm.core.event.synchronization;
 
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -25,7 +34,7 @@ import java.util.Map;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants;
+import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.synchronisedState;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -36,20 +45,24 @@ import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.event.Event;
 
 /**
+ * Creates a mailbox filling id, title, title, and adding default user (if
+ * mailbox is personal) or group (otherwise) on top of synchronization
+ * information.
+ *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
 public class MailboxCreatedListener extends AbstractSyncMailboxListener {
 
     public void handleEvent(Event event) throws ClientException {
         Map<String, Serializable> properties = event.getContext().getProperties();
-        String mailboxTitle = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE);
-        String directoryName = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME);
-        String parentSynchronizerId = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID);
-        String synchronizerId = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID);
-        String owner = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER);
-        String type = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE);
-        String entryId = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID);
-        Calendar synchronizeDate = (Calendar) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE);
+        String mailboxTitle = (String) properties.get(EVENT_CONTEXT_MAILBOX_TITLE);
+        String directoryName = (String) properties.get(EVENT_CONTEXT_DIRECTORY_NAME);
+        String parentSynchronizerId = (String) properties.get(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID);
+        String synchronizerId = (String) properties.get(EVENT_CONTEXT_SYNCHRONIZER_ID);
+        String owner = (String) properties.get(EVENT_CONTEXT_MAILBOX_OWNER);
+        String type = (String) properties.get(EVENT_CONTEXT_MAILBOX_TYPE);
+        String entryId = (String) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY_ID);
+        Calendar synchronizeDate = (Calendar) properties.get(EVENT_CONTEXT_SYNCHRONIZED_DATE);
 
         CoreSession session = event.getContext().getCoreSession();
         try {
@@ -86,7 +99,7 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
                     IdUtils.generateId(mailboxTitle), getMailboxType());
             Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
             // Set mailbox properties
-            mailbox.setSynchronizeState(MailboxSynchronizationConstants.synchronisedState.synchronised.toString());
+            mailbox.setSynchronizeState(synchronisedState.synchronised.toString());
             if (synchronizerId != null && !"".equals(synchronizerId)) {
                 mailbox.setSynchronizerId(synchronizerId);
             }
@@ -116,8 +129,9 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
 
             mailboxModel = session.createDocument(mailboxModel);
             session.saveDocument(mailboxModel);
-            session.save();// necessary because the mailbox will be queried
-                            // after
+            // save because the mailbox will be queried just after in another
+            // session
+            session.save();
         } catch (Exception e) {
             throw new CaseManagementException(
                     "Error during mailboxes creation", e);

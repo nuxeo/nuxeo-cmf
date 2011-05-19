@@ -32,6 +32,8 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 /**
+ * Puts a mailbox in deleted state.
+ *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
 public class MailboxDeletedListener extends AbstractSyncMailboxListener {

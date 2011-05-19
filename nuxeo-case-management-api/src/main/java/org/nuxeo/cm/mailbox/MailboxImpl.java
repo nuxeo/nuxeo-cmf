@@ -449,6 +449,11 @@ public class MailboxImpl implements Mailbox {
         return getStringProperty(MailboxConstants.AFFILIATED_MAILBOX_ID);
     }
 
+    @Override
+    public void setAffiliatedMailboxId(String mbid) {
+        setPropertyValue(MailboxConstants.AFFILIATED_MAILBOX_ID, mbid);
+    }
+
     public String getSynchronizeState() {
         return getStringProperty(MailboxConstants.SYNCHRONIZED_STATE_FIELD);
     }
@@ -460,9 +465,9 @@ public class MailboxImpl implements Mailbox {
     public Boolean isSynchronized() {
         if (MailboxSynchronizationConstants.synchronisedState.synchronised.toString().equals(
                 getSynchronizeState())) {
-            return true;
+            return Boolean.TRUE;
         } else {
-            return false;
+            return Boolean.FALSE;
         }
     }
 

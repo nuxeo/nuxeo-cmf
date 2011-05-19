@@ -259,6 +259,11 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     String getAffiliatedMailboxId();
 
     /**
+     * Sets the affiliated mailbox id.
+     */
+    void setAffiliatedMailboxId(String mbid);
+
+    /**
      * @return Mailbox current synchronized state
      */
     String getSynchronizeState();
