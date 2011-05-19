@@ -33,6 +33,7 @@
       <template>
         <templateItem typeName="CaseRoot" id="case-root" title="Case" />
         <templateItem typeName="MailboxRoot" id="mailbox-root" title="Mailbox" />
+        <templateItem typeName="SectionRoot" id="sections" title="Sections" description="Sections"/>
       </template>
     </factoryBinding>
 
