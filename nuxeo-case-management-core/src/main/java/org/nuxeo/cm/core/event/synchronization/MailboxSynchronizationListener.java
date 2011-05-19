@@ -32,7 +32,7 @@ public class MailboxSynchronizationListener implements EventListener {
 
     private static final Log log = LogFactory.getLog(MailboxSynchronizationListener.class);
 
-    public static Boolean doingSync = false;
+    public static boolean doingSync = false;
 
     public void handleEvent(Event event) throws ClientException {
         try {
@@ -41,9 +41,9 @@ public class MailboxSynchronizationListener implements EventListener {
                 MailboxSynchronizationService syncService = Framework.getService(MailboxSynchronizationService.class);
                 syncService.doSynchronize();
                 doingSync = false;
-
             } else {
-                log.info("Scheduled synchronization won't run because previous one ain't done yet.");
+                log.info("Scheduled synchronization will not run"
+                        + " because a previous synchronization is not done yet.");
             }
         } catch (Exception e) {
             doingSync = false;

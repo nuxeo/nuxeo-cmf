@@ -17,6 +17,7 @@
 package org.nuxeo.cm.core.service.synchronization;
 
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY;
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID;
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER;
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE;
@@ -319,6 +320,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         // initiate eventPropertiesMap
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY_ID, entryId);
+        eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY, entry);
         eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
         eventProperties.put(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID,
                 parentSynchronizerId);
