@@ -1,0 +1,88 @@
+/*
+ * (C) Copyright 2011 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the GNU Lesser General Public License (LGPL)
+ * version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * Contributors: Sun Seng David TAN <stan@nuxeo.com>, Mariana Cedica <mcedica@nuxeo.com>
+ */
+package org.nuxeo.cm.cases;
+
+import java.util.Calendar;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.test.CaseManagementTestConstants;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.PathRef;
+import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
+import org.nuxeo.runtime.transaction.TransactionHelper;
+
+public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
+
+    static Log log = LogFactory.getLog(TestMailTreeHelper.class);
+
+    protected DocumentModel mailFolderDocument;
+
+    @Override
+    protected void deployRepositoryContrib() throws Exception {
+        super.deployRepositoryContrib();
+        deployBundle("org.nuxeo.ecm.core.api");
+        deployBundle("org.nuxeo.ecm.platform.classification.core");
+        deployBundle("org.nuxeo.ecm.platform.routing.core");
+        deployBundle("org.nuxeo.ecm.automation.core");
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
+        deployBundle("org.nuxeo.ecm.webapp.core");
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
+        deployBundle("org.nuxeo.ecm.platform.content.template");
+
+    }
+
+    @Override
+    public void setUp() throws Exception {
+        // to have the test working with postgres - setup postgres database
+        // "nuxeojunittests" on localhost with nuxeo/nuxeo
+        // database = DatabasePostgreSQL.INSTANCE;
+        super.setUp();
+        openSession();
+        // make sure this is actually created before the others docs
+        mailFolderDocument = session.getDocument(new PathRef(
+                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+        assertNotNull(mailFolderDocument);
+        TransactionHelper.commitOrRollbackTransaction();
+        closeSession(session);
+        openSession();
+    }
+
+    public void testSimple() throws Exception {
+        CaseTreeHelper.getOrCreateTxDateTreeFolder(session, mailFolderDocument,
+                Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
+        DocumentModelList docs = session.query("Select * from Document");
+        assertEquals(6, docs.size());
+    }
+
+    public void testParallelDocumentCreation() throws Exception {
+        Thread[] threads = new Thread[2];
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new MailTreeCreator(session,
+                    mailFolderDocument));
+            threads[i].start();
+        }
+        Thread.sleep(500);
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].join();
+        }
+        DocumentModelList docs = session.query("Select * from Document");
+        assertEquals(6, docs.size());
+    }
+
+}
