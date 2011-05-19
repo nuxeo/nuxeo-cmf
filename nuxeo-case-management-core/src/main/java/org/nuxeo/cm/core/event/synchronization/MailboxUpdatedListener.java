@@ -16,6 +16,11 @@
  */
 package org.nuxeo.cm.core.event.synchronization;
 
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +28,6 @@ import java.util.Map;
 
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
-import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -32,6 +36,9 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.runtime.api.Framework;
 
 /**
+ * Updates a mailbox setting users/groups on top on synchronisation
+ * information.
+ *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
 public class MailboxUpdatedListener extends AbstractSyncMailboxListener {
@@ -55,13 +62,13 @@ public class MailboxUpdatedListener extends AbstractSyncMailboxListener {
         List<String> newUsers = new LinkedList<String>();
         List<String> newGroups = new LinkedList<String>();
         Map<String, Serializable> properties = docEventContext.getProperties();
-        String type = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE);
-        String mailboxTitle = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE);
-        String owner = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER);
+        String type = (String) properties.get(EVENT_CONTEXT_MAILBOX_TYPE);
+        String mailboxTitle = (String) properties.get(EVENT_CONTEXT_MAILBOX_TITLE);
+        String owner = (String) properties.get(EVENT_CONTEXT_MAILBOX_OWNER);
         if (owner != null && !"".equals(owner)) {
             newUsers.add(owner);
         }
-        String entryId = (String) properties.get(MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID);
+        String entryId = (String) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY_ID);
         Boolean isPersonal = false;
         if (type != null && !"".equals(type)) {
             if (MailboxConstants.type.personal.toString().equals(type)) {

@@ -20,12 +20,6 @@
 
 package org.nuxeo.correspondence.mailbox;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
-import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
@@ -33,66 +27,13 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  *
  * @author Anahide Tchertchian
  */
-public class MailboxImpl implements Mailbox {
+public class MailboxImpl extends org.nuxeo.cm.mailbox.MailboxImpl implements
+        Mailbox {
 
     private static final long serialVersionUID = 1L;
 
-    protected DocumentModel doc;
-
     public MailboxImpl(DocumentModel doc) {
-        this.doc = doc;
-    }
-
-    public DocumentModel getDocument() {
-        return doc;
-    }
-
-    protected String getStringProperty(String property) {
-        try {
-            return (String) doc.getPropertyValue(property);
-        } catch (ClientException e) {
-            throw new ClientRuntimeException(e);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    protected List<String> getStringListProperty(String property) {
-        try {
-            List<String> res = null;
-            Object propValue = doc.getPropertyValue(property);
-            if (propValue instanceof List) {
-                res = (List<String>) propValue;
-            } else if (propValue instanceof String[]) {
-                res = Arrays.asList((String[]) propValue);
-            } else if (propValue != null) {
-                throw new ClientRuntimeException(String.format(
-                        "Unexpected non-list value for prop %s: %s", property,
-                        propValue));
-            }
-            return res;
-        } catch (ClientException e) {
-            throw new ClientRuntimeException(e);
-        }
-    }
-
-    protected Integer getIntegerProperty(String property) {
-        try {
-            Object value = doc.getPropertyValue(property);
-            if (value instanceof Long) {
-                return Integer.valueOf(((Long) value).toString());
-            }
-            return null;
-        } catch (ClientException e) {
-            throw new ClientRuntimeException(e);
-        }
-    }
-
-    protected void setPropertyValue(String property, Serializable value) {
-        try {
-            doc.setPropertyValue(property, value);
-        } catch (ClientException e) {
-            throw new ClientRuntimeException(e);
-        }
+        super(doc);
     }
 
     public void setIncomingConfidentiality(Integer confidentiality) {
@@ -111,11 +52,6 @@ public class MailboxImpl implements Mailbox {
 
     public Integer getIncomingConfidentiality() {
         return getIntegerProperty(MailboxConstants.INCOMING_CONFIDENTIALITY_FIELD);
-    }
-
-    // TODO implement this!
-    public int compareTo(Mailbox other) {
-        return 0;
     }
 
 }

@@ -16,6 +16,15 @@
  */
 package org.nuxeo.cm.core.service.synchronization;
 
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,9 +43,10 @@ import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxTitleGenerator;
 import org.nuxeo.cm.service.synchronization.MailboxDirectorySynchronizationDescriptor;
 import org.nuxeo.cm.service.synchronization.MailboxGroupSynchronizationDescriptor;
-import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants;
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationService;
 import org.nuxeo.cm.service.synchronization.MailboxUserSynchronizationDescriptor;
+import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EventNames;
+import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.synchronisedState;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -308,30 +318,15 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
         // initiate eventPropertiesMap
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID,
-                entryId);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME,
-                directoryName);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID,
+        eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY_ID, entryId);
+        eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
+        eventProperties.put(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID,
                 parentSynchronizerId);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID,
-                synchronizerId);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE,
-                generatedTitle);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER,
-                owner);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE,
-                type);
-        eventProperties.put(
-                MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE,
-                now);
+        eventProperties.put(EVENT_CONTEXT_SYNCHRONIZER_ID, synchronizerId);
+        eventProperties.put(EVENT_CONTEXT_MAILBOX_TITLE, generatedTitle);
+        eventProperties.put(EVENT_CONTEXT_MAILBOX_OWNER, owner);
+        eventProperties.put(EVENT_CONTEXT_MAILBOX_TYPE, type);
+        eventProperties.put(EVENT_CONTEXT_SYNCHRONIZED_DATE, now);
         eventProperties.put(CoreEventConstants.SESSION_ID,
                 coreSession.getSessionId());
 
@@ -350,8 +345,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     cf.setLastSyncUpdate(now);
                     coreSession.saveDocument(cfDoc);
                     log.debug(String.format("Update Mailbox %s", synchronizerId));
-                    notify(
-                            MailboxSynchronizationConstants.EventNames.onMailboxUpdated.toString(),
+                    notify(EventNames.onMailboxUpdated.toString(),
                             cf.getDocument(), eventProperties, coreSession);
 
                 } else {
@@ -383,13 +377,12 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         coreSession.saveDocument(cfDoc);
                         log.debug(String.format("Update Mailbox %s",
                                 synchronizerId));
-                        notify(
-                                MailboxSynchronizationConstants.EventNames.onMailboxUpdated.toString(),
+                        notify(EventNames.onMailboxUpdated.toString(),
                                 cf.getDocument(), eventProperties, coreSession);
                     } else {
                         // set doublon: A user created a CF with the same title
                         // we assume he doesn't want the same mailbox created
-                        cf.setSynchronizeState(MailboxSynchronizationConstants.synchronisedState.doublon.toString());
+                        cf.setSynchronizeState(synchronisedState.doublon.toString());
                         cf.setLastSyncUpdate(now);
                         coreSession.saveDocument(cfDoc);
                         log.debug(String.format(
@@ -400,9 +393,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             } else {
                 // throws onMailboxCreated
                 log.debug(String.format("Creates Mailbox %s", synchronizerId));
-                notify(
-                        MailboxSynchronizationConstants.EventNames.onMailboxCreated.toString(),
-                        null, eventProperties, coreSession);
+                notify(EventNames.onMailboxCreated.toString(), null,
+                        eventProperties, coreSession);
             }
         }
     }
@@ -429,24 +421,16 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             }
             synchronizerId = cf.getSynchronizerId();
             eventProperties = new HashMap<String, Serializable>();
-            eventProperties.put(
-                    MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME,
-                    directoryName);
-            eventProperties.put(
-                    MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID,
-                    synchronizerId);
-            eventProperties.put(
-                    MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE,
+            eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
+            eventProperties.put(EVENT_CONTEXT_SYNCHRONIZER_ID, synchronizerId);
+            eventProperties.put(EVENT_CONTEXT_MAILBOX_TITLE,
                     mailboxDoc.getTitle());
-            eventProperties.put(
-                    MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE,
-                    now);
+            eventProperties.put(EVENT_CONTEXT_SYNCHRONIZED_DATE, now);
             log.debug(String.format(
                     "Mailbox %s has been remove from directory, deleting it.",
                     synchronizerId));
-            notify(
-                    MailboxSynchronizationConstants.EventNames.onMailboxDeleted.toString(),
-                    mailboxDoc, eventProperties, coreSession);
+            notify(EventNames.onMailboxDeleted.toString(), mailboxDoc,
+                    eventProperties, coreSession);
         }
     }
 
