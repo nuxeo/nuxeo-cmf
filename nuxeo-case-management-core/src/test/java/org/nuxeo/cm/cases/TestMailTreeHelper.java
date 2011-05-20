@@ -66,8 +66,24 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
     public void testSimple() throws Exception {
         CaseTreeHelper.getOrCreateTxDateTreeFolder(session, mailFolderDocument,
                 Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
-        DocumentModelList docs = session.query("Select * from Document");
-        assertEquals(6, docs.size());
+
+        DocumentModel caseRootFolder = session.getDocument(new PathRef(
+                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+        DocumentModelList yearsDocs = session.getChildren(caseRootFolder.getRef());
+        assertEquals(
+                "the total number of years documents in the tree date folder is",
+                yearsDocs.size(), 1);
+
+        DocumentModelList monthsDocs = session.getChildren(yearsDocs.get(0).getRef());
+        assertEquals(
+                "the total number of months documents in the tree date folder is",
+                monthsDocs.size(), 1);
+
+        DocumentModelList daysDocs = session.getChildren(monthsDocs.get(0).getRef());
+        assertEquals(
+                "the total number of days documents in the tree date folder is",
+                daysDocs.size(), 1);
+
     }
 
     public void testParallelDocumentCreation() throws Exception {
@@ -81,8 +97,22 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         for (int i = 0; i < threads.length; i++) {
             threads[i].join();
         }
-        DocumentModelList docs = session.query("Select * from Document");
-        assertEquals(6, docs.size());
+        DocumentModel caseRootFolder = session.getDocument(new PathRef(
+                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+        DocumentModelList yearsDocs = session.getChildren(caseRootFolder.getRef());
+        assertEquals(
+                "the total number of years documents in the tree date folder is",
+                yearsDocs.size(), 1);
+
+        DocumentModelList monthsDocs = session.getChildren(yearsDocs.get(0).getRef());
+        assertEquals(
+                "the total number of months documents in the tree date folder is",
+                monthsDocs.size(), 1);
+
+        DocumentModelList daysDocs = session.getChildren(monthsDocs.get(0).getRef());
+        assertEquals(
+                "the total number of days documents in the tree date folder is",
+                daysDocs.size(), 1);
     }
 
 }
