@@ -36,6 +36,7 @@ import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
+import org.nuxeo.ecm.webapp.tree.TreeActions;
 
 @Name("cmContextActions")
 @Scope(ScopeType.CONVERSATION)
@@ -49,6 +50,10 @@ public class CaseManagementContextActionsBean implements Serializable,
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
+    
+
+    @In(create = true, required = false)
+    protected transient TreeActions treeActions;
 
     @In(create = true)
     protected NavigationContext navigationContext;
@@ -90,6 +95,7 @@ public class CaseManagementContextActionsBean implements Serializable,
                     && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);
+                treeActions.reset();
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCaseItem(newDocument);
