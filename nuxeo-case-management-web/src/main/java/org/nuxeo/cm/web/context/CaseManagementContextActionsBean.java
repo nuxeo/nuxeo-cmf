@@ -90,7 +90,6 @@ public class CaseManagementContextActionsBean implements Serializable,
                     && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);
-                EventManager.raiseEventsOnDocumentChildrenChange(newDocument);
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCaseItem(newDocument);
