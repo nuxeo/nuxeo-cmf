@@ -41,7 +41,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.audit.api.AuditException;
 import org.nuxeo.ecm.platform.audit.api.LogEntry;
 import org.nuxeo.ecm.platform.audit.web.listener.ContentHistoryActions;
-import org.nuxeo.ecm.platform.audit.web.listener.ejb.LinkedDocument;
+import org.nuxeo.ecm.platform.audit.api.comment.LinkedDocument;
 import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 
