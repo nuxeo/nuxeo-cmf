@@ -138,7 +138,7 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
-        assertEquals("laurent O'doguin", sender.getName());
+        assertEquals("laurent O'doguin (nuxeo/reponseD)", sender.getName());
         assertEquals("ldoguin@nuxeo.com", sender.getEmail());
         assertEquals("user-ldoguin", sender.getMailboxIdd());
 
@@ -147,7 +147,7 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(recipients);
         assertEquals(1, recipients.size());
         Contact recipient = recipients.get(0);
-        assertEquals("nicolas ulrich", recipient.getName());
+        assertEquals("nicolas ulrich (nuxeo/starship)", recipient.getName());
         assertEquals("nulrich@nuxeo.com", recipient.getEmail());
         assertEquals("user-nulrich", recipient.getMailboxIdd());
 
@@ -219,7 +219,7 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
-        assertEquals("laurent O'doguin", sender.getName());
+        assertEquals("laurent O'doguin (nuxeo/reponseD)", sender.getName());
         assertEquals("ldoguin@nuxeo.com", sender.getEmail());
         assertEquals("user-ldoguin", sender.getMailboxIdd());
 
@@ -228,7 +228,7 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(recipients);
         assertEquals(1, recipients.size());
         Contact recipient = recipients.get(0);
-        assertEquals("nicolas ulrich", recipient.getName());
+        assertEquals("nicolas ulrich (nuxeo/starship)", recipient.getName());
         assertEquals("nulrich@nuxeo.com", recipient.getEmail());
         assertEquals("user-nulrich", recipient.getMailboxIdd());
 
@@ -301,7 +301,7 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
-        assertEquals("laurent O'doguin", sender.getName());
+        assertEquals("laurent O'doguin (nuxeo/reponseD)", sender.getName());
         assertEquals("ldoguin@nuxeo.com", sender.getEmail());
         assertEquals("user-ldoguin", sender.getMailboxIdd());
 
@@ -310,7 +310,7 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(recipients);
         assertEquals(1, recipients.size());
         Contact recipient = recipients.get(0);
-        assertEquals("nicolas ulrich", recipient.getName());
+        assertEquals("nicolas ulrich (nuxeo/starship)", recipient.getName());
         assertEquals("nulrich@nuxeo.com", recipient.getEmail());
         assertEquals("user-nulrich", recipient.getMailboxIdd());
 
