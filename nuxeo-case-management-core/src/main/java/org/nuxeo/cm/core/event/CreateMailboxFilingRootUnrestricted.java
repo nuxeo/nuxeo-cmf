@@ -54,7 +54,8 @@ public class CreateMailboxFilingRootUnrestricted extends
     public void run() throws ClientException {
         Mailbox mb = doc.getAdapter(Mailbox.class);
         String filingRootName = getFilingRootNamePrefix() + mb.getTitle();
-        String filingFolderId = IdUtils.generateId(filingRootName);
+        String filingFolderId = IdUtils.generateId(filingRootName, "-", true,
+                24);
         DocumentModel filingRoot = session.createDocumentModel(
                 doc.getPathAsString(), filingFolderId,
                 ClassificationConstants.CLASSIFICATION_ROOT);

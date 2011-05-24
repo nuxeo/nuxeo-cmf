@@ -91,7 +91,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertTrue(userDirectorySynchronizer.getTitleGenerator() instanceof DefaultPersonalMailboxTitleGenerator);
 
         MailboxGroupSynchronizationDescriptor groupDirectorySynchronizer = synchronizationService.getGroupSynchronizer();
-        assertTrue(groupDirectorySynchronizer.isEnabled());
+        assertEquals(Boolean.TRUE, groupDirectorySynchronizer.isEnabled());
 
         // Test service override
         deployContrib(
@@ -107,7 +107,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertTrue(userDirectorySynchronizer.getTitleGenerator() instanceof DefaultPersonalMailboxTitleGenerator);
 
         groupDirectorySynchronizer = synchronizationService.getGroupSynchronizer();
-        assertTrue(!groupDirectorySynchronizer.isEnabled());
+        assertEquals(Boolean.FALSE, groupDirectorySynchronizer.isEnabled());
     }
 
     public void testSynchro() throws Exception {
@@ -268,7 +268,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         ACP userACP = userMailboxDoc.getACP();
         ACL userACL = userACP.getACL(ACL.LOCAL_ACL);
         ACE[] userACE = userACL.getACEs();
-        Boolean found = false;
+        boolean found = false;
         for (ACE ace : userACE) {
             if (ace.toString().endsWith("user:ReadWrite:true")) {
                 found = true;

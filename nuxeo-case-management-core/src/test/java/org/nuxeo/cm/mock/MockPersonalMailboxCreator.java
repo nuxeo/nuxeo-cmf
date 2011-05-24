@@ -26,6 +26,7 @@ import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.MailboxCreator;
+import org.nuxeo.cm.service.MailboxTitleGenerator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -40,7 +41,12 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
 
     public String getPersonalMailboxId(DocumentModel userModel) {
         String userId = userModel.getId();
-        return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId);
+        return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId, "-", true, 24);
+    }
+
+    @Override
+    public MailboxTitleGenerator getTitleGenerator() {
+        return null;
     }
 
     public List<Mailbox> createMailboxes(CoreSession session, String user)

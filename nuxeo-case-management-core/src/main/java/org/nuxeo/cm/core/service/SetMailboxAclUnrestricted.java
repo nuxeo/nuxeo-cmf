@@ -44,21 +44,32 @@ public class SetMailboxAclUnrestricted extends UnrestrictedSessionRunner {
     // Mailbox document model
     protected final DocumentRef ref;
 
-    public SetMailboxAclUnrestricted(CoreSession session, DocumentRef ref) {
+    protected final String permission;
+
+    public SetMailboxAclUnrestricted(CoreSession session, DocumentRef ref,
+            String permission) {
         super(session);
         this.ref = ref;
+        if (permission == null) {
+            throw new RuntimeException("Permission cannot be null");
+        }
+        this.permission = permission;
+    }
+
+    public SetMailboxAclUnrestricted(CoreSession session, DocumentRef ref) {
+        this(session, ref, SecurityConstants.READ_WRITE);
     }
 
     @Override
     public void run() throws ClientException {
         DocumentModel doc = session.getDocument(ref);
         Mailbox mb = doc.getAdapter(Mailbox.class);
-        ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
-        ACL mailACL = new ACLImpl(mb.getId());
         List<String> total = mb.getAllUsersAndGroups();
-        if (!total.isEmpty()) {
+        if (total != null && !total.isEmpty()) {
+            ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
+            ACL mailACL = new ACLImpl(mb.getId());
             for (String user : total) {
-                ACE ace = new ACE(user, SecurityConstants.READ_WRITE, true);
+                ACE ace = new ACE(user, permission, true);
                 localACL.add(ace);
                 mailACL.add(ace);
             }

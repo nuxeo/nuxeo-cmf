@@ -19,8 +19,6 @@
 
 package org.nuxeo.cm.core.event;
 
-import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.DOCUMENT_CREATED;
-
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -37,18 +35,12 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 public class ClassificationMailboxListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
-        String eventId = event.getName();
-        if (!eventId.equals(DOCUMENT_CREATED)) {
-            return;
-        }
-
         DocumentEventContext docCtx = null;
         if (event.getContext() instanceof DocumentEventContext) {
             docCtx = (DocumentEventContext) event.getContext();
         } else {
             return;
         }
-        // set all rights to mailbox users
 
         DocumentModel doc = docCtx.getSourceDocument();
         if (!doc.hasFacet(CaseConstants.MAILBOX_FACET)) {

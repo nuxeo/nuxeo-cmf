@@ -35,6 +35,13 @@ public interface MailboxCreator {
 
     String getPersonalMailboxId(DocumentModel userModel);
 
+    /**
+     * Returns the title generator to use when creating the personal mailbox
+     *
+     * @since 1.7
+     */
+    MailboxTitleGenerator getTitleGenerator();
+
     List<Mailbox> createMailboxes(CoreSession session, String user)
             throws CaseManagementException;
 

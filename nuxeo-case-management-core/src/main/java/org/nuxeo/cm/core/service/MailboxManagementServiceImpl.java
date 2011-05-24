@@ -123,13 +123,13 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         for (String muid : muids) {
             DocumentModelList res = executeQueryModel(session,
                     QUERY_GET_MAILBOX_FROM_ID, new Object[] { muid });
-
             if (res == null || res.isEmpty()) {
+                log.error(String.format("No mailbox found with id '%s'", muid));
                 continue;
             }
             if (res.size() > 1) {
                 log.warn(String.format(
-                        "Several mailboxes with id %s, returning first found",
+                        "Several mailboxes with id '%s', returning first found",
                         muid));
             }
 

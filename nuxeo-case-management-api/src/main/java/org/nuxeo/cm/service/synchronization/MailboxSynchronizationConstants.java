@@ -48,6 +48,8 @@ public class MailboxSynchronizationConstants {
 
     public static final String EVENT_CONTEXT_DIRECTORY_NAME = "eventContextDirectoryName";
 
+    public static final String EVENT_CONTEXT_DIRECTORY_SCHEMA_NAME = "eventContextDirectorySchemaName";
+
     public static final String EVENT_CONTEXT_SYNCHRONIZED_DATE = "eventContextSynchronizedDate";
 
     public static final String EVENT_CONTEXT_MAILBOX_TYPE = "eventContextMailboxType";

@@ -24,11 +24,13 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.service.MailboxCreator;
+import org.nuxeo.cm.service.MailboxTitleGenerator;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -49,9 +51,24 @@ public class DefaultMailboxCreator implements MailboxCreator {
 
     private static final Log log = LogFactory.getLog(DefaultMailboxCreator.class);
 
+    protected String getMailboxType() throws ClientException {
+        CaseManagementDocumentTypeService correspDocumentTypeService;
+        try {
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
+        return correspDocumentTypeService.getMailboxType();
+    }
+
     public String getPersonalMailboxId(DocumentModel userModel) {
         String userId = userModel.getId();
-        return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId);
+        return IdUtils.generateId(NuxeoPrincipal.PREFIX + userId, "-", true, 24);
+    }
+
+    @Override
+    public MailboxTitleGenerator getTitleGenerator() {
+        return new DefaultPersonalMailboxTitleGenerator();
     }
 
     public List<Mailbox> createMailboxes(CoreSession session, String user)
@@ -64,7 +81,6 @@ public class DefaultMailboxCreator implements MailboxCreator {
         }
 
         try {
-
             // Retrieve the user
             UserManager userManager = Framework.getService(UserManager.class);
             if (userManager == null) {
@@ -82,22 +98,21 @@ public class DefaultMailboxCreator implements MailboxCreator {
             Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
 
             // Set mailbox properties
-            mailbox.setId(getPersonalMailboxId(userModel));
-            mailbox.setTitle(getUserDisplayName(userModel));
+            String id = getPersonalMailboxId(userModel);
+            mailbox.setId(id);
+            MailboxTitleGenerator gen = getTitleGenerator();
+            if (gen == null) {
+                // fallback on default title generator
+                gen = new DefaultPersonalMailboxTitleGenerator();
+            }
+            mailbox.setTitle(gen.getMailboxTitle(userModel));
             mailbox.setOwner(user);
             mailbox.setType(MailboxConstants.type.personal.name());
+            mailboxModel.setPathInfo(getMailboxParentPath(session),
+                    getMailboxPathSegment(mailboxModel));
+            // call hook method
+            beforeMailboxCreation(session, mailbox, userModel);
 
-            // XXX: save it in first mailbox folder found for now
-            DocumentModelList res = session.query(String.format(
-                    "SELECT * from %s",
-                    MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
-            if (res == null || res.isEmpty()) {
-                throw new CaseManagementException(
-                        "Cannot find any mailbox folder");
-            }
-
-            mailboxModel.setPathInfo(res.get(0).getPathAsString(),
-                    IdUtils.generateId(mailbox.getTitle()));
             mailboxModel = session.createDocument(mailboxModel);
             // save because the mailbox will be queried just after in another
             // session
@@ -112,37 +127,42 @@ public class DefaultMailboxCreator implements MailboxCreator {
         }
     }
 
-    protected String getUserSchemaName() {
-        return "user";
+    /**
+     * Hook method to fill additional info on mailbox, or override other info
+     */
+    protected void beforeMailboxCreation(CoreSession session, Mailbox mailbox,
+            DocumentModel userEntry) {
+        // do nothing
     }
 
-    protected String getUserDisplayName(DocumentModel userModel)
+    protected String getMailboxParentPath(CoreSession session)
             throws ClientException {
-        String schemaName = getUserSchemaName();
-        String first = (String) userModel.getProperty(schemaName, "firstName");
-        String last = (String) userModel.getProperty(schemaName, "lastName");
-        if (first == null || first.length() == 0) {
-            if (last == null || last.length() == 0) {
-                return userModel.getId();
-            } else {
-                return last;
-            }
-        } else {
-            if (last == null || last.length() == 0) {
-                return first;
-            } else {
-                return first + ' ' + last;
-            }
-        }
+        return getNewMailboxParentPath(session);
     }
 
-    private String getMailboxType() throws ClientException {
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
-        return correspDocumentTypeService.getMailboxType();
+    protected String getMailboxPathSegment(DocumentModel mailboxModel)
+            throws ClientException {
+        return getNewMailboxPathSegment(mailboxModel);
     }
+
+    public static String getNewMailboxParentPath(CoreSession session)
+            throws ClientException {
+        // XXX: save it in first mailbox folder found for now
+        DocumentModelList res = session.query(String.format("SELECT * from %s",
+                MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
+        if (res == null || res.isEmpty()) {
+            throw new CaseManagementException("Cannot find any mailbox folder");
+        }
+        return res.get(0).getPathAsString();
+    }
+
+    public static String getNewMailboxPathSegment(DocumentModel mailboxModel)
+            throws ClientException {
+        String baseid = mailboxModel.getTitle();
+        if (baseid == null) {
+            throw new ClientException("No base id for mailbox path creation");
+        }
+        return IdUtils.generateId(baseid, "-", true, 24);
+    }
+
 }

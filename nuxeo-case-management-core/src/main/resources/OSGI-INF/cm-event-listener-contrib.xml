@@ -19,6 +19,7 @@
     <listener name="classificationListener" async="false" postCommit="true"
       class="org.nuxeo.cm.core.event.ClassificationMailboxListener"
       priority="120">
+      <event>documentCreated</event>
     </listener>
 
     <listener name="loginSuccessListener" async="false" postCommit="false"

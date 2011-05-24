@@ -41,6 +41,7 @@ import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.service.MailboxTitleGenerator;
 import org.nuxeo.cm.service.synchronization.MailboxDirectorySynchronizationDescriptor;
 import org.nuxeo.cm.service.synchronization.MailboxGroupSynchronizationDescriptor;
@@ -63,10 +64,13 @@ import org.nuxeo.ecm.core.event.impl.UnboundEventContext;
 import org.nuxeo.ecm.core.query.sql.model.DateLiteral;
 import org.nuxeo.ecm.directory.DirectoryException;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
+import org.nuxeo.ecm.platform.usermanager.UserManagerImpl;
 import org.nuxeo.ecm.platform.web.common.exceptionhandling.ExceptionHelper;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
+import org.nuxeo.runtime.services.event.Event;
+import org.nuxeo.runtime.services.event.EventService;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
@@ -90,17 +94,17 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
     protected EventProducer eventProducer;
 
-    private final Map<String, MailboxDirectorySynchronizationDescriptor> directorySynchronizer = new HashMap<String, MailboxDirectorySynchronizationDescriptor>();
+    protected final Map<String, MailboxDirectorySynchronizationDescriptor> directorySynchronizer = new HashMap<String, MailboxDirectorySynchronizationDescriptor>();
 
-    private MailboxUserSynchronizationDescriptor userSynchronizer;
+    protected MailboxUserSynchronizationDescriptor userSynchronizer;
 
-    private MailboxGroupSynchronizationDescriptor groupSynchronizer;
+    protected MailboxGroupSynchronizationDescriptor groupSynchronizer;
 
-    private int count;
+    protected int count;
 
-    private int total;
+    protected int total;
 
-    private int batchSize = 100;
+    protected int batchSize = 100;
 
     @Override
     public void registerContribution(Object contribution,
@@ -142,7 +146,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         }
     }
 
-    private MailboxDirectorySynchronizationDescriptor mergeDirectoryContribution(
+    protected MailboxDirectorySynchronizationDescriptor mergeDirectoryContribution(
             MailboxDirectorySynchronizationDescriptor existingDirSynchronizer,
             MailboxDirectorySynchronizationDescriptor synchronizer)
             throws InstantiationException, IllegalAccessException {
@@ -194,6 +198,26 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         SynchronizeSessionRunner runner = new SynchronizeSessionRunner(
                 repo.getName());
         runner.runUnrestricted();
+
+        flushJaasCache();
+    }
+
+    /**
+     * Flushes jaas cache otherwise mailboxes may not be updated on users who
+     * login, logout and login again
+     */
+    // FIXME: should be also called when editing a Mailbox in the interface
+    protected void flushJaasCache() {
+        try {
+            EventService eventService = Framework.getService(EventService.class);
+            if (eventService != null) {
+                eventService.sendEvent(new Event(
+                        UserManagerImpl.USERMANAGER_TOPIC,
+                        UserManagerImpl.USERCHANGED_EVENT_ID, this, null));
+            }
+        } catch (Exception e) {
+            log.error(e);
+        }
     }
 
     protected void synchronizeGroupList(Map<String, List<String>> groupMap,
@@ -218,6 +242,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                                 groupName);
                         generatedTitle = titleGenerator.getMailboxTitle(groupModel);
                         synchronizeMailbox(groupModel, directoryName,
+                                userManager.getGroupSchemaName(),
                                 parentSynchronizerId, synchronizerId,
                                 groupName, generatedTitle, null, type, now,
                                 coreSession);
@@ -278,7 +303,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     synchronizerId = String.format("%s:%s", directoryName,
                             userId);
                     generatedTitle = titleGenerator.getMailboxTitle(userModel);
-                    synchronizeMailbox(userModel, directoryName, "",
+                    synchronizeMailbox(userModel, directoryName,
+                            userManager.getUserSchemaName(), "",
                             synchronizerId, userId, generatedTitle, userId,
                             type, now, coreSession);
                     if (++count % batchSize == 0) {
@@ -312,10 +338,22 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
     }
 
     protected void synchronizeMailbox(DocumentModel entry,
-            String directoryName, String parentSynchronizerId,
-            String synchronizerId, String entryId, String generatedTitle,
-            String owner, String type, Calendar now, CoreSession coreSession)
-            throws ClientException {
+            String directoryName, String directorySchema,
+            String parentSynchronizerId, String synchronizerId, String entryId,
+            String generatedTitle, String owner, String type, Calendar now,
+            CoreSession coreSession) throws ClientException {
+
+        // TODO: hook mailbox resolvers so that synchronizerId can be
+        // customized depending on what mailbox is found
+        DocumentModel cfDoc = getMailboxFromSynchronizerId(synchronizerId,
+                coreSession);
+
+        Mailbox cf = null;
+        if (cfDoc != null) {
+            cf = cfDoc.getAdapter(Mailbox.class);
+            // use the actual synchronizer id
+            synchronizerId = cf.getSynchronizerId();
+        }
 
         // initiate eventPropertiesMap
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
@@ -332,12 +370,6 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         eventProperties.put(CoreEventConstants.SESSION_ID,
                 coreSession.getSessionId());
 
-        DocumentModel cfDoc = getMailboxFromSynchronizerId(synchronizerId,
-                coreSession);
-        Mailbox cf = null;
-        if (cfDoc != null) {
-            cf = cfDoc.getAdapter(Mailbox.class);
-        }
         if (cf != null) {
             Calendar lastSyncUpdate = cf.getLastSyncUpdate();
             // Look if case has already been updated during this batch.
@@ -395,10 +427,21 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             } else {
                 // throws onMailboxCreated
                 log.debug(String.format("Creates Mailbox %s", synchronizerId));
-                notify(EventNames.onMailboxCreated.toString(), null,
+                DocumentModel mailboxModel = coreSession.createDocumentModel(getMailboxType());
+                notify(EventNames.onMailboxCreated.toString(), mailboxModel,
                         eventProperties, coreSession);
             }
         }
+    }
+
+    protected String getMailboxType() throws ClientException {
+        CaseManagementDocumentTypeService correspDocumentTypeService;
+        try {
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
+        return correspDocumentTypeService.getMailboxType();
     }
 
     protected void handleDeletedMailboxes(String directoryName, Calendar now,

@@ -32,7 +32,7 @@ public class MailboxGroupSynchronizationDescriptor {
 
     public Boolean isEnabled() {
         if (enabled == null) {
-            return true;
+            return Boolean.TRUE;
         }
         return enabled;
     }

@@ -16,9 +16,7 @@
  */
 package org.nuxeo.cm.web.mailbox;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.faces.application.FacesMessage;
@@ -31,17 +29,14 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailingList;
-import org.nuxeo.cm.mailbox.ParticipantsList;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * Bean used to manage the mailing list of the current Mailbox.
- *
  */
 @Name("mailingListActions")
 @Scope(ScopeType.CONVERSATION)
@@ -96,13 +91,11 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
         for (MailingList mailingList : existingMls) {
             if (newTitle.equals(mailingList.getTitle())) {
                 Object[] params = { newTitle };
-                facesMessages.add(
-                        FacesMessage.SEVERITY_WARN,
+                facesMessages.add(FacesMessage.SEVERITY_WARN,
                         resourcesAccessor.getMessages().get(
                                 "feedback.mailinglist.create.duplicateName"),
                         params);
-                facesMessages.addToControl(
-                        "newMlTitle",
+                facesMessages.addToControl("newMlTitle",
                         FacesMessage.SEVERITY_WARN,
                         resourcesAccessor.getMessages().get(
                                 "feedback.mailinglist.create.duplicateName"),
@@ -118,8 +111,7 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
         getCurrentMailbox().addMailingList(currentMailingList);
         getCurrentMailbox().save(documentManager);
         newTitle = null;
-        facesMessages.add(
-                FacesMessage.SEVERITY_INFO,
+        facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
                         "feedback.mailinglist.create.success"));
         return null;
@@ -141,8 +133,7 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
         getCurrentMailbox().save(documentManager);
         newTitle = null;
         currentMailingList = null;
-        facesMessages.add(
-                FacesMessage.SEVERITY_INFO,
+        facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
                         "feedback.mailinglist.list.deleted"));
         return null;
@@ -165,11 +156,11 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
     }
 
     public void updateCurrentMailingList() throws ClientException {
-        Mailbox mailbox = getCurrentMailbox().updateMailingList(currentMailingList);
-        //xxx update doc with current mailing list
-         mailbox.save(documentManager);
-        facesMessages.add(
-                FacesMessage.SEVERITY_INFO,
+        Mailbox mailbox = getCurrentMailbox().updateMailingList(
+                currentMailingList);
+        // xxx update doc with current mailing list
+        mailbox.save(documentManager);
+        facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(
                         "feedback.mailinglist.list.saved"));
     }

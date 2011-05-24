@@ -66,7 +66,7 @@ public class TestMailboxManagementService extends
 
         Mailbox mb = mailboxes.get(0);
         assertEquals("user-user", mb.getId());
-        assertEquals("User Lambda", mb.getTitle());
+        assertEquals("User Lambda (mycomp)", mb.getTitle());
         assertEquals(MailboxConstants.type.personal.name(), mb.getType());
         assertEquals(user, mb.getOwner());
     }
@@ -127,7 +127,7 @@ public class TestMailboxManagementService extends
 
         Mailbox mbPerso = mailboxes.get(0);
         assertEquals("user-user", mbPerso.getId());
-        assertEquals("User Lambda", mbPerso.getTitle());
+        assertEquals("User Lambda (mycomp)", mbPerso.getTitle());
         assertEquals(MailboxConstants.type.personal.name(), mbPerso.getType());
         assertEquals(user, mbPerso.getOwner());
 

@@ -25,12 +25,51 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
 public class DefaultPersonalMailboxTitleGenerator implements
         MailboxTitleGenerator {
 
-    public String getMailboxTitle(DocumentModel directoryEntry)
+    protected String getUserFirstNameProperty() {
+        return "user:firstName";
+    }
+
+    protected String getUserLastNameProperty() {
+        return "user:lastName";
+    }
+
+    protected String getUserCompanyProperty() {
+        return "user:company";
+    }
+
+    public String getMailboxTitle(DocumentModel userModel)
             throws PropertyException, ClientException {
-        String firstName = (String) directoryEntry.getPropertyValue("user:firstName");
-        String lastName = (String) directoryEntry.getPropertyValue("user:lastName");
-        String company = (String) directoryEntry.getPropertyValue("user:company");
-        return String.format("%s %s (%s)", firstName, lastName, company);
+
+        String res = "";
+        String first = null;
+        if (getUserFirstNameProperty() != null) {
+            first = (String) userModel.getPropertyValue(getUserFirstNameProperty());
+        }
+        String last = null;
+        if (getUserLastNameProperty() != null) {
+            last = (String) userModel.getPropertyValue(getUserLastNameProperty());
+        }
+        if (first == null || first.length() == 0) {
+            if (last == null || last.length() == 0) {
+                res = userModel.getId();
+            } else {
+                res = last;
+            }
+        } else {
+            if (last == null || last.length() == 0) {
+                res = first;
+            } else {
+                res = first + ' ' + last;
+            }
+        }
+        String company = null;
+        if (getUserCompanyProperty() != null) {
+            company = (String) userModel.getPropertyValue(getUserCompanyProperty());
+        }
+        if (company != null) {
+            res += " (" + company + ")";
+        }
+        return res;
     }
 
 }

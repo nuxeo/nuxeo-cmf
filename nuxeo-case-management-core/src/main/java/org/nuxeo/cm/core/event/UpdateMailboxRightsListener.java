@@ -44,7 +44,6 @@ public class UpdateMailboxRightsListener implements EventListener {
             return;
         }
         // set all rights to mailbox users
-
         DocumentModel doc = docCtx.getSourceDocument();
         if (!doc.hasFacet(CaseConstants.MAILBOX_FACET)) {
             return;

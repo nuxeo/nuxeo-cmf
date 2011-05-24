@@ -16,9 +16,18 @@
  */
 package org.nuxeo.cm.core.event.synchronization;
 
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TYPE;
+
+import java.io.Serializable;
+import java.util.Map;
+
+import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -26,7 +35,7 @@ import org.nuxeo.runtime.api.Framework;
  */
 public abstract class AbstractSyncMailboxListener implements EventListener {
 
-    protected String getMailboxType() throws ClientException {
+    public static String getMailboxType() throws ClientException {
         CaseManagementDocumentTypeService correspDocumentTypeService;
         try {
             correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
@@ -34,6 +43,57 @@ public abstract class AbstractSyncMailboxListener implements EventListener {
             throw new ClientException(e);
         }
         return correspDocumentTypeService.getMailboxType();
+    }
+
+    public static DocumentModel getMailboxDocument(Event event)
+            throws ClientException {
+        DocumentEventContext docEventContext = null;
+        if (event.getContext() instanceof DocumentEventContext) {
+            docEventContext = (DocumentEventContext) event.getContext();
+        } else {
+            // can't get associated Document.
+            throw new ClientException("Could not get Document from event");
+        }
+        return docEventContext.getSourceDocument();
+    }
+
+    public static String getMailboxType(Event event) {
+        Map<String, Serializable> properties = event.getContext().getProperties();
+        return (String) properties.get(EVENT_CONTEXT_MAILBOX_TYPE);
+    }
+
+    public static boolean isMailboxType(Event event, MailboxConstants.type type) {
+        String eventType = getMailboxType(event);
+        if (eventType != null && !"".equals(eventType)) {
+            if (eventType.equals(type.name())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isMailboxPersonal(Event event) {
+        return isMailboxType(event, MailboxConstants.type.personal);
+    }
+
+    public static boolean isMailboxGeneric(Event event) {
+        return isMailboxType(event, MailboxConstants.type.generic);
+    }
+
+    public static String getGroupUpdatePolicy(Event event) {
+        Map<String, Serializable> properties = event.getContext().getProperties();
+        return (String) properties.get(MailboxConstants.GROUP_UPDATE_SYNC_POLICY_PROPERTY);
+    }
+
+    public static boolean isGroupUpdatePolicy(Event event,
+            MailboxConstants.updatePolicy updatePolicy) {
+        String eventPolicy = getGroupUpdatePolicy(event);
+        if (eventPolicy != null && !"".equals(eventPolicy)) {
+            if (eventPolicy.equals(updatePolicy.name())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
