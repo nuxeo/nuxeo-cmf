@@ -23,6 +23,15 @@
     <action id="POPUP_DOCUMENT_LOCK" enabled="false" />
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
+    <!-- add back login/logout links (see NXP-6418) -->
+    <action id="non_anonymous_logout">
+      <category>USER_SERVICES_BOTTOM</category>
+    </action>
+    <action id="login">
+      <category>USER_SERVICES_BOTTOM</category>
+    </action>
+    <!-- end of login/logout actions -->
+
     <!-- Admin Center -->
     <action id="AdminMain" link="#{adminViews.enter()}"
       label="action.admin.center" order="30">
