@@ -121,6 +121,9 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         List<DocumentModel> docs = new ArrayList<DocumentModel>();
 
         for (String muid : muids) {
+            if (muid == null) {
+                continue;
+            }
             DocumentModelList res = executeQueryModel(session,
                     QUERY_GET_MAILBOX_FROM_ID, new Object[] { muid });
             if (res == null || res.isEmpty()) {

@@ -17,6 +17,7 @@
 package org.nuxeo.cm.core.service.synchronization;
 
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME;
+import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_SCHEMA_NAME;
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY;
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_ENTRY_ID;
 import static org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_OWNER;
@@ -360,6 +361,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY_ID, entryId);
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY, entry);
         eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
+        eventProperties.put(EVENT_CONTEXT_DIRECTORY_SCHEMA_NAME,
+                directorySchema);
         eventProperties.put(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID,
                 parentSynchronizerId);
         eventProperties.put(EVENT_CONTEXT_SYNCHRONIZER_ID, synchronizerId);
@@ -401,6 +404,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             }
             if (cf != null) {
                 Calendar lastSyncUpdate = cf.getLastSyncUpdate();
+                boolean setDoublon = false;
                 // Look if case has already been updated during this batch.
                 if (lastSyncUpdate == null || !lastSyncUpdate.equals(now)) {
                     if (cf.isSynchronized()) {
@@ -414,15 +418,19 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         notify(EventNames.onMailboxUpdated.toString(),
                                 cf.getDocument(), eventProperties, coreSession);
                     } else {
-                        // set doublon: A user created a CF with the same title
-                        // we assume he doesn't want the same mailbox created
-                        cf.setSynchronizeState(synchronisedState.doublon.toString());
-                        cf.setLastSyncUpdate(now);
-                        coreSession.saveDocument(cfDoc);
-                        log.debug(String.format(
-                                "set Doublon state for Mailbox %s",
-                                synchronizerId));
+                        setDoublon = true;
                     }
+                } else {
+                    setDoublon = true;
+                }
+                if (setDoublon) {
+                    // set doublon: A user created a CF with the same title
+                    // we assume he doesn't want the same mailbox created
+                    cf.setSynchronizeState(synchronisedState.doublon.toString());
+                    cf.setLastSyncUpdate(now);
+                    coreSession.saveDocument(cfDoc);
+                    log.debug(String.format("set Doublon state for Mailbox %s",
+                            synchronizerId));
                 }
             } else {
                 // throws onMailboxCreated
