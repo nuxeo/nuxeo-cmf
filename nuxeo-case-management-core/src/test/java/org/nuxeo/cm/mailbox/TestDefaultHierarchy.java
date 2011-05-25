@@ -19,20 +19,12 @@
 
 package org.nuxeo.cm.mailbox;
 
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
 public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
-
-    private static final String CASE_MANAGEMENT = "/case-management";
-
-    private static final String MAILBOX_FOLDER = CASE_MANAGEMENT
-            + "/mailbox-root";
-
-    private static final String CASE = CASE_MANAGEMENT + "/case-root";
-
-    private static final String CASE_ROOT_TYPE = "CaseRoot";
 
     @Override
     public void setUp() throws Exception {
@@ -53,7 +45,7 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
         assertEquals(1, rootChildren.size());
 
         DocumentModel domain = rootChildren.get(0);
-        assertEquals(CASE_MANAGEMENT, domain.getPathAsString());
+        assertEquals(CaseConstants.CASE_DOMAIN_PATH, domain.getPathAsString());
 
         DocumentModelList domainChildren = session.getChildren(domain.getRef());
         assertEquals(3, domainChildren.size());
@@ -63,12 +55,16 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
 
         // don't assume that the clidren's order will be the same on all
         // databases
-        if (CASE_ROOT_TYPE.equals(mailRoot.getType())) {
-            assertEquals(CASE, mailRoot.getPathAsString());
-            assertEquals(MAILBOX_FOLDER, mailboxRoot.getPathAsString());
+        if (CaseConstants.CASE_ROOT_TYPE.equals(mailRoot.getType())) {
+            assertEquals(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+                    mailRoot.getPathAsString());
+            assertEquals(MailboxConstants.MAILBOX_ROOT_DOCUMENT_PATH,
+                    mailboxRoot.getPathAsString());
         } else {
-            assertEquals(CASE, mailboxRoot.getPathAsString());
-            assertEquals(MAILBOX_FOLDER, mailRoot.getPathAsString());
+            assertEquals(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+                    mailboxRoot.getPathAsString());
+            assertEquals(MailboxConstants.MAILBOX_ROOT_DOCUMENT_PATH,
+                    mailRoot.getPathAsString());
         }
 
     }

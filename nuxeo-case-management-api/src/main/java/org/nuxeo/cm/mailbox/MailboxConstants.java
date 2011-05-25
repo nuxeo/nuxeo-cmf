@@ -22,6 +22,7 @@ package org.nuxeo.cm.mailbox;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
@@ -41,7 +42,14 @@ public class MailboxConstants {
 
     public static final String MAILBOX_FACET = "Mailbox";
 
-    public static final String CASE_TYPE = "Case";
+    /**
+     * @deprecated since 1.7: use {@link CaseConstants#CASE_TYPE}
+     */
+    @Deprecated
+    public static final String CASE_TYPE = CaseConstants.CASE_TYPE;
+
+    public static final String MAILBOX_ROOT_DOCUMENT_PATH = CaseConstants.CASE_DOMAIN_PATH
+            + "/mailbox-root";
 
     public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "MailboxRoot";
 
