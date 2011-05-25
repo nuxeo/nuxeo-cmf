@@ -45,34 +45,40 @@
     </action>
 
     <action id="CASEMANAGEMENT_CURRENT_SELECTION_OPEN" enabled="false"
-      link="#{cmCaseActions.followTranstionCaseSelection('open')}" label="command.cm.open"
-      icon="" help="comand.cm.open.help">
+      link="#{cmCaseActions.followTranstionCaseSelection('open')}"
+      label="command.cm.open" icon="" help="comand.cm.open.help">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
       <filter id="canOpenCase">
         <rule grant="true">
-          <condition>#{cmCaseActions.canCaseSelectionFollowTransition('open')}</condition>
+          <condition>
+            #{cmCaseActions.canCaseSelectionFollowTransition('open')}
+          </condition>
         </rule>
       </filter>
     </action>
 
     <action id="CASEMANAGEMENT_CURRENT_SELECTION_PROCESS" enabled="false"
-      link="#{cmCaseActions.followTranstionCaseSelection('process')}" label="command.cm.process"
-      icon="" help="comand.cm.process.help">
+      link="#{cmCaseActions.followTranstionCaseSelection('process')}"
+      label="command.cm.process" icon="" help="comand.cm.process.help">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
       <filter id="canProcessCase">
         <rule grant="true">
-          <condition>#{cmCaseActions.canCaseSelectionFollowTransition('process')}</condition>
+          <condition>
+            #{cmCaseActions.canCaseSelectionFollowTransition('process')}
+          </condition>
         </rule>
       </filter>
     </action>
 
     <action id="CASEMANAGEMENT_CURRENT_SELECTION_ARCHIVE" enabled="false"
-      link="#{cmCaseActions.followTranstionCaseSelection('archive')}" label="command.cm.archive"
-      icon="" help="comand.cm.archive.help">
+      link="#{cmCaseActions.followTranstionCaseSelection('archive')}"
+      label="command.cm.archive" icon="" help="comand.cm.archive.help">
       <category>CASE_MANAGEMENT_CURRENT_SELECTION_LIST</category>
       <filter id="canArchiveCase">
         <rule grant="true">
-          <condition>#{cmCaseActions.canCaseSelectionFollowTransition('archive')}</condition>
+          <condition>
+            #{cmCaseActions.canCaseSelectionFollowTransition('archive')}
+          </condition>
         </rule>
       </filter>
     </action>
@@ -89,15 +95,15 @@
 
     <!-- action id="TAB_EDIT">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action>
-
-    <action id="TAB_METADATA_VIEW">
+      </action>
+      
+      <action id="TAB_METADATA_VIEW">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action>
-
-    <action id="TAB_METADATA_EDIT">
+      </action>
+      
+      <action id="TAB_METADATA_EDIT">
       <filter-id>isNotCaseItemOrCase</filter-id>
-    </action -->
+      </action -->
 
     <!-- remove useless -->
     <action id="newDocument">
@@ -223,8 +229,8 @@
     </action>
 
     <action id="TAB_MAILBOX_MAILINGLIST"
-      link="/casemanagement/mailbox/tabs/mailbox_mailing_list.xhtml"
-      order="30" label="label.casemanagement.mailingList" enabled="true"
+      link="/casemanagement/mailbox/tabs/mailbox_mailing_list.xhtml" order="30"
+      label="label.casemanagement.mailingList" enabled="true"
       icon="/icons/file.gif">
       <category>MANAGE_MAILBOX_ACTION_LIST</category>
 
