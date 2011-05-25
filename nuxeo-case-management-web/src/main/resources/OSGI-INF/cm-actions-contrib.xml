@@ -23,12 +23,18 @@
     <action id="POPUP_DOCUMENT_LOCK" enabled="false" />
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
-    <!-- add back login/logout links (see NXP-6418) -->
+    <!-- add back login/logout + personal workspace links (see NXP-6418) -->
     <action id="non_anonymous_logout">
       <category>USER_SERVICES_BOTTOM</category>
     </action>
     <action id="login">
       <category>USER_SERVICES_BOTTOM</category>
+    </action>
+    <action id="SHOW_REPOSITORY">
+      <category>USER_SERVICES</category>
+    </action>
+    <action id="SHOW_PERSONAL_WORKSPACE">
+      <category>USER_SERVICES</category>
     </action>
     <!-- end of login/logout actions -->
 
