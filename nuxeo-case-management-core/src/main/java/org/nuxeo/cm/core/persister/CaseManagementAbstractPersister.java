@@ -34,6 +34,22 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 public abstract class CaseManagementAbstractPersister implements
         CaseManagementPersister {
 
+    protected String caseRootPath;
+
+    @Override
+    public String getCaseRootPath() {
+        if (caseRootPath == null) {
+            // default value
+            return CaseConstants.CASE_ROOT_DOCUMENT_PATH;
+        }
+        return caseRootPath;
+    }
+
+    @Override
+    public void setCaseRootPath(String caseRootPath) {
+        this.caseRootPath = caseRootPath;
+    }
+
     @Override
     public DocumentModel getParentDocumentForCase(CoreSession session) {
         return getParentDocumentForCase(session, null);
@@ -103,7 +119,7 @@ public abstract class CaseManagementAbstractPersister implements
         public void run() throws ClientException {
             // Retrieve the MailRoot folder
             DocumentModel mailRootdoc = session.getDocument(new PathRef(
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+                    getCaseRootPath()));
             // Create (or retrieve) the current MailRoot folder
             // (/mail/YYYY/MM/DD)
             parent = CaseTreeHelper.getOrCreateDateTreeFolder(session,

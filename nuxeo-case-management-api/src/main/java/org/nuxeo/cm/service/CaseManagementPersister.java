@@ -28,6 +28,20 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  */
 public interface CaseManagementPersister {
 
+    /**
+     * Returns the case root path in the application.
+     *
+     * @since 1.7
+     */
+    String getCaseRootPath();
+
+    /**
+     * Sets the case root path in the application.
+     *
+     * @since 1.7
+     */
+    void setCaseRootPath(String caseRootPath);
+
     DocumentModel getParentDocumentForCase(CoreSession session);
 
     /**

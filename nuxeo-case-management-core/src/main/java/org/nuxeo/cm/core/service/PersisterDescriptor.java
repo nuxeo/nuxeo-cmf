@@ -29,8 +29,15 @@ public class PersisterDescriptor {
     @XNode("@class")
     protected Class<CaseManagementPersister> klass;
 
+    @XNode("@caseRootPath")
+    protected String caseRootPath;
+
     public Class<CaseManagementPersister> getKlass() {
         return klass;
+    }
+
+    public String getCaseRootPath() {
+        return caseRootPath;
     }
 
 }

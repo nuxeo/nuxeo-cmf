@@ -90,6 +90,10 @@ public class CaseManagementComponent extends DefaultComponent {
         } else if (PERSISTER_EXTENSION_POINT.equals(extensionPoint)) {
             PersisterDescriptor desc = (PersisterDescriptor) contribution;
             CaseManagementPersister persister = desc.getKlass().newInstance();
+            String rootPath = desc.getCaseRootPath();
+            if (rootPath != null) {
+                persister.setCaseRootPath(rootPath);
+            }
             distributionService.setPersister(persister);
         } else {
             log.warn("Unknown extension point " + extensionPoint);
