@@ -5,7 +5,7 @@ DIR_DISTRIB=${3:-"cm"}
 
 echo "using distribution: $DISTRIBUTION"
 # Build Nuxeo Case Management
-mvn clean install || exit 1
+mvn -Dmaven.test.skip=true clean install || exit 1
 mvn -P$PROFILE -f nuxeo-case-management-distribution/pom.xml clean install || exit 1
 
 # start JBoss
