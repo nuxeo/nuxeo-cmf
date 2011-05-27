@@ -60,6 +60,7 @@ import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventProducer;
+import org.nuxeo.ecm.core.event.ReconnectedEventBundle;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.core.event.impl.UnboundEventContext;
 import org.nuxeo.ecm.core.query.sql.model.DateLiteral;
@@ -359,6 +360,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         // initiate eventPropertiesMap
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY_ID, entryId);
+        // avoid reconnecting document
+        entry.putContextData(
+                ReconnectedEventBundle.SKIP_REFETCH_DOCUMENT_CONTEXT_KEY,
+                Boolean.TRUE);
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY, entry);
         eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
         eventProperties.put(EVENT_CONTEXT_DIRECTORY_SCHEMA_NAME,
