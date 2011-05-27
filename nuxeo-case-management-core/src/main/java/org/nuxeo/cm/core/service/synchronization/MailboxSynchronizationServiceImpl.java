@@ -602,8 +602,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     total = userManager.getGroupIds().size();
                     boolean txStarted = false;
                     try {
-                        txStarted = TransactionHelper.startTransaction();
-                        log.debug("New Transaction started during Mailbox synchronization");
+                        if (!TransactionHelper.isTransactionActive()) {
+                            txStarted = TransactionHelper.startTransaction();
+                            log.debug("New Transaction started during Mailbox synchronization");
+                        }
                         synchronizeGroupList(topBatch, directoryName,
                                 directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
@@ -644,8 +646,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
                     boolean txStarted = false;
                     try {
-                        txStarted = TransactionHelper.startTransaction();
-                        log.debug("New Transaction started during Mailbox synchronization");
+                        if (!TransactionHelper.isTransactionActive()) {
+                            txStarted = TransactionHelper.startTransaction();
+                            log.debug("New Transaction started during Mailbox synchronization");
+                        }
                         synchronizeUserList(userIds, directoryName,
                                 directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
