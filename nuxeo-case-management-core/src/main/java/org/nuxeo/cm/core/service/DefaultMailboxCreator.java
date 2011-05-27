@@ -109,7 +109,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
             mailbox.setOwner(user);
             mailbox.setType(MailboxConstants.type.personal.name());
             mailboxModel.setPathInfo(getMailboxParentPath(session),
-                    getMailboxPathSegment(mailboxModel));
+                    getMailboxPathSegment(userModel, mailboxModel));
             // call hook method
             beforeMailboxCreation(session, mailbox, userModel);
 
@@ -140,8 +140,8 @@ public class DefaultMailboxCreator implements MailboxCreator {
         return getNewMailboxParentPath(session);
     }
 
-    protected String getMailboxPathSegment(DocumentModel mailboxModel)
-            throws ClientException {
+    protected String getMailboxPathSegment(DocumentModel dirEntry,
+            DocumentModel mailboxModel) throws ClientException {
         return getNewMailboxPathSegment(mailboxModel);
     }
 

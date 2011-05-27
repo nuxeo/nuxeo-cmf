@@ -119,7 +119,8 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
             mailbox.setType(type);
             mailbox.setId(id);
             mailboxModel.setPathInfo(getMailboxParentPath(session,
-                    parentSynchronizerId), getMailboxPathSegment(mailboxModel));
+                    parentSynchronizerId), getMailboxPathSegment(entry,
+                    mailboxModel));
 
             // call hook
             beforeMailboxCreation(mailbox, event);
@@ -162,8 +163,8 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
         return res.get(0).getPathAsString();
     }
 
-    protected String getMailboxPathSegment(DocumentModel mailboxModel)
-            throws ClientException {
+    protected String getMailboxPathSegment(DocumentModel dirEntry,
+            DocumentModel mailboxModel) throws ClientException {
         return DefaultMailboxCreator.getNewMailboxPathSegment(mailboxModel);
     }
 
