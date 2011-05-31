@@ -434,7 +434,10 @@
 
     <filter id="isCmCase">
       <rule grant="true">
-        <condition>#{cmCaseActions.isCase(document)}</condition>
+        <facet>Distributable</facet>
+      </rule>
+      <rule grant="false">
+        <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
