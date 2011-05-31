@@ -28,6 +28,8 @@
           <fragment perspectives="default" type="generic fragment"/>
           <!-- calendar -->
           <fragment perspectives="view_calendar" type="generic fragment"/>
+          <!-- case tree -->
+          <fragment perspectives="default" type="generic fragment"/>
         </cell>
         <cell>
           <fragment type="generic fragment"/>
@@ -286,6 +288,9 @@
     </widget>
     <widget element="page[1]/section[2]/cell[1]/fragment[5]">
       <view>nuxeo5 calendar actions</view>
+    </widget>
+    <widget element="page[1]/section[2]/cell[1]/fragment[6]">
+      <view>case tree</view>
     </widget>
     <widget element="page[1]/section[2]/cell[2]/fragment[2]">
       <view>facelet region</view>
@@ -1918,6 +1923,7 @@
     <style element="page[1]/section[2]/cell[1]/fragment[2]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[3]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[4]" inherit="tree and clipboard column" />
+    <style element="page[1]/section[2]/cell[1]/fragment[6]" inherit="tree and clipboard column" />
     <!-- Main cell -->
     <style element="page[1]/section[2]/cell[2]|page[2]/section[1]/cell[1]">
       <selector path="" view="cell frame">

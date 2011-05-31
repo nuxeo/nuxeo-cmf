@@ -8,7 +8,7 @@
       </excludedFacets>
       <leafFilterClass>org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter</leafFilterClass>
       <sortPropertyPath>dc:title</sortPropertyPath>
-      <queryModel>CURRENT_DOC_CHILDREN</queryModel>
+      <pageProvider>CaseDocumentPageProvider</pageProvider>
     </treeManagerPlugin>
   </extension>
 
