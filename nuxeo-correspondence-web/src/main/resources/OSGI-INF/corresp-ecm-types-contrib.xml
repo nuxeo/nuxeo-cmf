@@ -107,6 +107,9 @@
         <layout>head_cm_document</layout>
         <layout>head_correspondence_incoming_document</layout>
       </layouts>
+      <layouts mode="summary">
+        <layout>summary_current_caseitem_layout</layout>
+      </layouts>
       <layouts mode="any">
         <layout>cm_document</layout>
         <layout>correspondence_document</layout>
@@ -130,6 +133,9 @@
       </layouts>
       <layouts mode="header">
         <layout>head_cm_document</layout>
+      </layouts>
+      <layouts mode="summary">
+        <layout>summary_current_caseitem_layout</layout>
       </layouts>
       <layouts mode="any">
         <layout>cm_document</layout>
