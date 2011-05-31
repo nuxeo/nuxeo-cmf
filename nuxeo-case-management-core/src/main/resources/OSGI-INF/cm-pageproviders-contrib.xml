@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.cm.pageproviders">
+
+  <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+    point="providers">
+
+    <genericPageProvider name="CaseDocumentPageProvider"
+      class="org.nuxeo.cm.core.persister.CaseDocumentPageProvider">
+      <pageSize>20</pageSize>
+    </genericPageProvider>
+
+  </extension>
+
+</component>

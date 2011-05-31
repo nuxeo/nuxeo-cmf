@@ -17,7 +17,7 @@
       <label>label.correspondence.type.CorrespondenceEnvelope</label>
       <icon>/icons/case.png</icon>
       <bigIcon>/icons/case_100.png</bigIcon>
-      <default-view>view_cm_case</default-view>
+      <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
       <views>
         <view id="edit_case" value="edit_case" />
@@ -39,7 +39,7 @@
     <type id="CorrespondenceMailbox">
       <label>label.correspondence.type.CorrespondenceMailbox</label>
       <icon>/icons/correspondence_mailbox.png</icon>
-      <default-view>mailbox_view</default-view>
+      <default-view>cm_view</default-view>
       <create-view>mailbox_create</create-view>
       <layouts mode="any">
         <layout>cm_mailbox</layout>
@@ -94,7 +94,7 @@
       <label>label.correspondence.type.IncomingCorrespondenceDocument</label>
       <icon>/icons/incoming_mail.png</icon>
       <bigIcon>/icons/incoming_mail_100.png</bigIcon>
-      <default-view>view_cm_document</default-view>
+      <default-view>cm_view</default-view>
       <create-view>create_incoming_document</create-view>
       <category>CaseItemDocument</category>
       <layouts mode="view">
@@ -119,7 +119,7 @@
       <label>label.correspondence.type.OutgoingCorrespondenceDocument</label>
       <icon>/icons/outgoing_mail.png</icon>
       <bigIcon>/icons/outgoing_mail_100.png</bigIcon>
-      <default-view>view_correspondence_document</default-view>
+      <default-view>cm_view</default-view>
       <create-view>create_cm_document</create-view>
       <category>CaseItemDocument</category>
       <!-- TODO: create view -->
