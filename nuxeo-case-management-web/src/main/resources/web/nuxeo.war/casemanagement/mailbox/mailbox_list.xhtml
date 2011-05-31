@@ -19,18 +19,18 @@
         layout="unorderedList"
         itemStyleClass="#{nxu:test(mailbox.document.mlbx.mailbox_id == currentMailbox.id, 'selected', '')}">
         <f:subview rendered="#{mailbox.document.mlbx.mailbox_id == currentMailbox.id}">
-          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}"
               newConversation="true" target="_BLANK">
             <img src="icons/external.gif" style="vertical-align: top"
                  alt="#{messages['permalink.newTab']}"
                  title="#{messages['permalink.newTab']}" />
           </nxd:restDocumentLink>
-          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view">
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}">
             <nxh:outputText value="#{mailbox.document.dublincore.title}" />
           </nxd:restDocumentLink>
         </f:subview>
         <f:subview rendered="#{mailbox.document.mlbx.mailbox_id != currentMailbox.id}">
-          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}" tab="view"
+          <nxd:restDocumentLink styleClass="permalink" document="#{mailbox.document}"
             newConversation="true" target="_BLANK">
             <img src="icons/external.gif" style="vertical-align: top"
               alt="#{messages['permalink.newTab']}"
