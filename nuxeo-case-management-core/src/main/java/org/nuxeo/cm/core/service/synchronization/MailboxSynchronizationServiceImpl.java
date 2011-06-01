@@ -33,8 +33,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,10 +46,10 @@ import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.service.MailboxTitleGenerator;
 import org.nuxeo.cm.service.synchronization.MailboxDirectorySynchronizationDescriptor;
 import org.nuxeo.cm.service.synchronization.MailboxGroupSynchronizationDescriptor;
-import org.nuxeo.cm.service.synchronization.MailboxSynchronizationService;
-import org.nuxeo.cm.service.synchronization.MailboxUserSynchronizationDescriptor;
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.EventNames;
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.synchronisedState;
+import org.nuxeo.cm.service.synchronization.MailboxSynchronizationService;
+import org.nuxeo.cm.service.synchronization.MailboxUserSynchronizationDescriptor;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -168,18 +168,22 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         return existingDirSynchronizer;
     }
 
+    @Override
     public Map<String, MailboxDirectorySynchronizationDescriptor> getSynchronizerMap() {
         return directorySynchronizer;
     }
 
+    @Override
     public MailboxUserSynchronizationDescriptor getUserSynchronizer() {
         return userSynchronizer;
     }
 
+    @Override
     public MailboxGroupSynchronizationDescriptor getGroupSynchronizer() {
         return groupSynchronizer;
     }
 
+    @Override
     public void doSynchronize() throws Exception {
         RepositoryManager mgr;
         try {
@@ -240,6 +244,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                 for (String groupName : groups) {
                     try {
                         groupModel = userManager.getGroupModel(groupName);
+                        if (groupModel == null) {
+                            log.error("Could not synchronize mailbox for user " + groupName);
+                            continue;
+                        }
                         synchronizerId = String.format("%s:%s", directoryName,
                                 groupName);
                         generatedTitle = titleGenerator.getMailboxTitle(groupModel);
@@ -302,6 +310,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             for (String userId : userIds) {
                 try {
                     userModel = userManager.getUserModel(userId);
+                    if (userModel == null) {
+                        log.error("Could not synchronize mailbox for user " + userId);
+                        continue;
+                    }
                     synchronizerId = String.format("%s:%s", directoryName,
                             userId);
                     generatedTitle = titleGenerator.getMailboxTitle(userModel);
@@ -494,7 +506,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
     protected DocumentModel getMailboxFromSynchronizerId(String id,
             CoreSession coreSession) throws ClientException {
-        String query = String.format(QUERY_GET_MAILBOX_FROM_ID, id);
+        String query = String.format(QUERY_GET_MAILBOX_FROM_ID, escape(id));
         DocumentModelList mailboxDocs = coreSession.query(query);
         if (mailboxDocs == null || mailboxDocs.isEmpty()) {
             log.debug(String.format("Mailbox with id %s does not exist", id));
