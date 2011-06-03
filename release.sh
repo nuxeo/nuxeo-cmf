@@ -12,6 +12,6 @@ sed -i s/$CURRENT_VERSION/$RELEASE_VERSION/g ./nuxeo-case-management-distributio
 
 
 #Build and copy
-mvn -Ptomcat,tomcatCorr,server,serverCorr install
+mvn -Prelease,tomcat,tomcatCorr,server,serverCorr install
 
 
