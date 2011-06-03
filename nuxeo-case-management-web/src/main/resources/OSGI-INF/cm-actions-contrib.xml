@@ -427,7 +427,7 @@
     <filter id="canCreateCase">
       <rule grant="true">
         <condition>
-          #{currentMailbox.getProfiles().contains('cellule_courrier')}
+          #{cmMailboxActions.getCurrentMailboxHasProfile('cellule_courrier')}
         </condition>
       </rule>
     </filter>

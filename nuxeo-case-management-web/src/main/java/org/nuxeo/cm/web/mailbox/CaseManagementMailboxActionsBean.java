@@ -384,4 +384,15 @@ public class CaseManagementMailboxActionsBean extends
         return navigationContext.navigateToId(caseDocumentId);
     }
 
+    public boolean getCurrentMailboxHasProfile(String mailboxProfile) throws ClientException {
+        Mailbox currentMailbox = getCurrentMailbox();
+        if (currentMailbox == null) {
+            return false;
+        }
+        List<String> profiles = currentMailbox.getProfiles();
+        if (profiles == null) {
+            return false;
+        }
+        return profiles.contains(mailboxProfile);
+    }
 }
