@@ -269,7 +269,7 @@
       <view>Case Management logo</view>
     </widget>
     <widget element="page[1]/section[1]/cell[2]/fragment[1]">
-      <view>User services (Galaxy theme)</view>
+      <view>Nuxeo header</view>
     </widget>
     <widget element="page[1]/section[1]/cell[3]/fragment[1]">
       <view>nuxeo5 includes</view>
@@ -296,7 +296,7 @@
       <view>facelet region</view>
     </widget>
     <widget element="page[1]/section[3]/cell[1]/fragment[1]">
-      <view>Nuxeo DM footer (Galaxy Theme)</view>
+      <view>Nuxeo footer</view>
     </widget>
     <!-- Page 2 -->
     <widget element="page[2]">
@@ -349,7 +349,7 @@
       <view>Case Management logo</view>
     </widget>
     <widget element="page[3]/section[1]/cell[2]/fragment[1]">
-      <view>User services (Galaxy theme)</view>
+      <view>Nuxeo header</view>
     </widget>
     <widget element="page[3]/section[1]/cell[3]/fragment[1]">
       <view>nuxeo5 includes</view>
@@ -379,7 +379,7 @@
       <view>nuxeo5 user sections</view>
     </widget>
     <widget element="page[3]/section[4]/cell[1]/fragment[1]">
-      <view>Nuxeo DM footer (Galaxy Theme)</view>
+      <view>Nuxeo footer</view>
     </widget>
     <!-- Page 4 : print page -->
     <widget element="page[4]">
@@ -429,27 +429,7 @@
         <text-align>right</text-align>
       </selector>
     </style>
-    <style name="header style" inherit="default buttons">
-      <selector path=".searchService, .userActions">
-        <font preset="small (Case Management fonts)"/>
-        <color preset="header.text (Case Management colors)" />
-        <line-height>185%</line-height>
-      </selector>
-      <selector path=".searchService">
-        <vertical-align>middle</vertical-align>
-        <float>right</float>
-        <padding>2px 2px 0px 0px</padding>
-      </selector>
-      <selector path=".userActions">
-        <padding-top>11px</padding-top>
-      </selector>
-      <selector path=".directoryFilter, .searchField">
-        <border preset="dataInput (Case Management borders)" />
-        <background preset="search (Case Management backgrounds)"/>
-        <margin>0 5px 10px 0</margin>
-        <padding>3px 3px 3px 20px</padding>
-        <font-size>11px</font-size>
-      </selector>
+    <style name="header and footer style" inherit="default buttons">
       <selector path="a, a:link, a:visited">
         <text-decoration>none</text-decoration>
       </selector>
@@ -464,20 +444,195 @@
         <margin-right>2px</margin-right>
         <vertical-align>middle</vertical-align>
       </selector>
-      <selector path=".advancedSearchLink">
-        <margin>0 2px 0 0</margin>
-        <padding>0</padding>
-        <line-height>1%</line-height>
-      </selector>
-      <selector path=".userServices .button">
-        <margin-right>4px</margin-right>
-      </selector>
       <selector path="form">
         <margin>0</margin>
         <padding>0</padding>
       </selector>
+      <selector path=".userActions">
+        <font preset="small (Case Management fonts)"/>
+        <color preset="header.text (Case Management colors)" />
+        <line-height>185%</line-height>
+        <padding>5px 0 0 0</padding>
+        <text-align>left</text-align>
+        <float>left</float>
+        <margin>0 0 0 15px</margin>
+      </selector>
+      <selector path=".searchService">
+        <padding-top>4px</padding-top>
+        <font preset="small (Case Management fonts)"/>
+      </selector>
+      <selector path=".searchService input.button">
+        <margin>3px 5px 0 3px</margin>
+        <padding>2px</padding>
+      </selector>
+      <selector path=".userServicesBlock">
+        <float>left</float>
+        <padding-top>10px</padding-top>
+      </selector>
+      <selector path=".userSearchBlock">
+        <float>right</float>
+      </selector>
+      <selector path=".userMenuActions">
+        <font preset="default (Case Management fonts)"/>
+        <color preset="header.text (Case Management colors)" />
+        <line-height>185%</line-height>
+        <padding>0px</padding>
+        <text-align>left</text-align>
+        <float>left</float>
+        <margin>0 0 0 15px</margin>
+      </selector>
+      <selector path=".userMenuActions ul, .userMenuActions ul ul">
+        <list-style>none</list-style>
+      </selector>
+      <selector path=".userMenuActions ul">
+        <margin>0</margin>
+        <padding>0</padding>
+        <height>28px</height>
+      </selector>
+      <selector path=".userMenuActions ul li">
+        <float>left</float>
+        <text-align>left</text-align>
+      </selector>
+      <selector path=".userMenuActions ul li a:hover, .userMenuActions ul li:hover">
+        <background-color preset="white (Case Management backgrounds)" />
+        <color preset="header.userMenuHover (Case Management colors)" />
+      </selector>
+      <selector path=".userMenuActions a">
+        <display>block</display>
+        <text-decoration>none</text-decoration>
+        <margin>0</margin>
+        <color preset="header.userMenu (Case Management colors)" />
+        <background-color preset="white (Case Management backgrounds)" />
+      </selector>
+      <selector path=".userMenuActions a.userButton">
+        <background preset="header.userMenu (Case Management backgrounds)"/>
+        <padding>3px 8px 5px 23px</padding>
+      </selector>
+      <selector path=".userMenuActions li ul">
+        <display>none</display>
+        <position>absolute</position>
+        <width>180px</width>
+        <height>auto</height>
+        <border preset="header.userMenuList (Case Management borders)" />
+        <box-shadow>3px 3px 5px rgba(0, 0, 0, 0.5)</box-shadow>
+        <border-top>none</border-top>
+        <z-index>1000</z-index>
+      </selector>
+      <selector path=".userMenuActions li:hover ul">
+        <display>block</display>
+      </selector>
+      <selector path=".userMenuActions li ul a">
+        <padding>4px 4px 4px 22px</padding>
+      </selector>
+      <selector path=".userMenuActions ul li li">
+        <width>180px</width>
+      </selector>
+       <selector path=".userMenuActions ul ul a:hover">
+        <background-color preset="header.userListLinkHover (Case Management backgrounds)" />
+      </selector>
+      <selector path=".userMenuActions input.button">
+        <margin>0 5px</margin>
+      </selector>
+      <selector path=".mainTabs">
+        <font preset="default (Case Management fonts)"/>
+        <line-height>normal</line-height>
+        <height>28px</height>
+        <float>left</float>
+      </selector>
+      <selector path=".mainTabs ul">
+        <margin>0</margin>
+        <padding>0</padding>
+      </selector>
+      <selector path=".mainTabs li">
+        <background-color preset="header.mainTabs (Case Management backgrounds)" />
+        <display>inline</display>
+        <float>left</float>
+        <height>28px</height>
+        <margin>0 5px</margin>
+      </selector>
+      <selector path=".mainTabs a, .mainTabs a:visited">
+        <color preset="header.mainTabs (Case Management colors)" />
+        <display>inline-block</display>
+        <font-size>12px</font-size>
+        <padding>5px 11px 8px</padding>
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path=".mainTabs a:hover">
+        <color preset="header.mainTabsHover (Case Management colors)" />
+      </selector>
+      <selector path=".mainTabs li.selected">
+        <background-color preset="header.mainTabsSelected (Case Management backgrounds)" />
+      </selector>
+      <selector path=".mainTabs li.selected a, .mainTabs li.selected a:hover, .mainTabs li.selected a:visited">
+        <color preset="header.mainTabsSelected (Case Management colors)" />
+        <font-weight>bold</font-weight>
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path=".mainTabs li a:hover">
+        <text-decoration>none</text-decoration>
+      </selector>
+      <!-- Fix rss-font-grid inheritance from Opensocial -->
+      <selector path=".searchService input.directoryFilter">
+        <padding>1px 0</padding>
+        <font preset="small (Case Management fonts)" />
+      </selector>
+      <selector path=".footerDefaultLinks">
+        <border-top preset="footer (Case Management borders)"/>
+        <background preset="footer (Case Management backgrounds)"/>
+        <padding>15px</padding>
+      </selector>
+      <selector path=".footerBlock">
+        <margin>0</margin>
+        <line-height>1.25em</line-height>
+        <padding>0</padding>
+        <font preset="small (Case Management fonts)"/>
+      </selector>
+      <selector path=".footerBlock div">
+        <margin>0</margin>
+        <line-height>1.25em</line-height>
+        <padding>0</padding>
+        <font preset="small (Case Management fonts)"/>
+      </selector>
+      <selector path=".footerBlock form, .footerBlock p">
+        <margin>5px 0px 0px 0px</margin>
+        <padding>0</padding>
+      </selector>
+      <selector path=".nuxLinks">
+        <float>right</float>
+        <padding-left>20px</padding-left>
+      </selector>
+      <selector path=".nuxLinks a">
+        <vertical-align>middle</vertical-align>
+      </selector>
+      <selector path=".copyrights">
+        <float>right</float>
+        <padding>2px 20px 0 0</padding>
+        <color preset="footer.text (Case Management colors)" />
+      </selector>
+      <selector path="a.twitt">
+        <background preset="footer.twittLink (Case Management backgrounds)" />
+        <height>16px</height>
+        <width>16px</width>
+        <display>inline-block</display>
+        <margin>0px 5px</margin>
+      </selector>
+      <selector path="a.twitt:hover">
+        <background-position>left bottom</background-position>
+      </selector>
+      <selector path="a.linkedin">
+        <background preset="footer.linkedInLink (Case Management backgrounds)" />
+        <height>16px</height>
+        <width>16px</width>
+        <display>inline-block</display>
+        <margin>0px 5px</margin>
+      </selector>
+      <selector path="a.linkedin:hover">
+        <background-position>-16px bottom</background-position>
+      </selector>
+      <selector path=".clear">
+        <clear>both</clear>
+      </selector>
     </style>
-    
     <!--
     <style name="breadcrumbs style">
       <selector path="">
@@ -537,7 +692,6 @@
         <margin>0</margin>
       </selector>
     </style> -->
-    
     <style inherit="default buttons" name="default tabs">
       <selector path=".tabsBar">
         <border preset="tabsbar (Case Management borders)"/>
@@ -559,7 +713,7 @@
         <float>left</float>
       </selector>
       <selector path=".tabsBar a, .tabsBar a:link, .tabsBar a:hover, .tabsBar a:visited">
-        <color preset="tablink (Case Management colors)" />
+        <color preset="tabslink (Case Management colors)" />
         <background preset="tab (Case Management backgrounds)"/>
         <text-decoration>none</text-decoration>
         <font-weight>normal</font-weight>
@@ -1919,7 +2073,7 @@
       </selector>
     </style>
     <!-- user services -->
-    <style element="page[1]/section[1]/cell[2]/fragment[1]|page[3]/section[1]/cell[2]/fragment[1]" inherit="header style" />
+    <style element="page[1]/section[1]/cell[2]/fragment[1]|page[3]/section[1]/cell[2]/fragment[1]" inherit="header and footer style" />
     <!-- Left side -->
     <style element="page[1]/section[2]">
       <selector path="" view="section frame">
@@ -1958,35 +2112,10 @@
         <background preset="black (Case Management backgrounds)"/>
       </selector>
     </style>
-    <style element="page[1]/section[3]/cell[1]/fragment[1]|page[3]/section[4]/cell[1]/fragment[1]" inherit="default buttons">
-      <selector path="" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="white (Case Management colors)"/>
+    <style element="page[1]/section[3]/cell[1]/fragment[1]|page[3]/section[4]/cell[1]/fragment[1]" inherit="header and footer style">
+      <selector path="" view="Nuxeo footer">
         <font preset="small (Case Management fonts)"/>
-        <padding>1em</padding>
-      </selector>
-      <selector path="form, p" view="Nuxeo DM footer (Galaxy Theme)">
-        <margin>0</margin>
-        <padding>0</padding>
-      </selector>
-      <selector path="div" view="Nuxeo DM footer (Galaxy Theme)">
-        <margin>0</margin>
-        <font preset="small (Case Management fonts)"/>
-        <padding>0</padding>
-        <line-height>1.25em</line-height>
-      </selector>
-      <selector path="a" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="white (Case Management colors)"/>
-        <text-decoration>none</text-decoration>
-      </selector>
-      <selector path="a:visited" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="white (Case Management colors)"/>
-      </selector>
-      <selector path="a:active" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="white (Case Management colors)"/>
-      </selector>
-      <selector path="a:hover" view="Nuxeo DM footer (Galaxy Theme)">
-        <color preset="white (Case Management colors)"/>
-        <text-decoration>underline</text-decoration>
+        <color preset="header.text (Case Management colors)" />
       </selector>
     </style>
   </formats>
