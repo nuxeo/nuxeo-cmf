@@ -57,28 +57,74 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
 	<td>link=Groups</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>searchForm:searchText</td>
-	<td>routeManagers</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@id='searchForm:searchButton']</td>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
+	<td>type</td>
+	<td>//input[@id='groupsListingView:searchForm:searchText']</td>
+	<td>routeManagers</td>
+</tr>
+
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='groupsListingView:searchForm:searchButton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().document.getElementById('groupsListingView:groups_listing') != null</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
 	<td>link=routeManagers</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
 	<td>link=Edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
@@ -88,13 +134,8 @@
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>editGroup:nxl_group:nxw_members_suggest</td>
-	<td>jdoe</td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().document.getElementById('editGroup:nxl_group:nxw_members_suggestionBox:suggest').style.display != 'none'</td>
-	<td>10000</td>
+	<td>//input[@name='viewGroupView:editGroup:nxl_group_2:nxw_members_2_suggest']</td>
+	<td>jdo</td>
 </tr>
 <tr>
 	<td>waitForA4jRequest</td>
@@ -103,22 +144,42 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//*[@id='editGroup:nxl_group:nxw_members_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>//*[@id='viewGroupView:editGroup:nxl_group_2:nxw_members_2_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
 	<td>John Doe</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//*[@id='editGroup:nxl_group:nxw_members_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>watchA4jRequests</td>
+	<td></td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().document.getElementById('editGroup:nxl_group:nxw_members_list:0:nxw_members_listItem') != null</td>
-	<td>10000</td>
+	<td>click</td>
+	<td>//*[@id='viewGroupView:editGroup:nxl_group_2:nxw_members_2_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
 	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>routeManagers</td>
 	<td></td>
 </tr>
 
