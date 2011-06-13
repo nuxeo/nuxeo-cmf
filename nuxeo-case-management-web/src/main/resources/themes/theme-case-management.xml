@@ -142,7 +142,7 @@
     </layout>
     <layout element="page[1]/section[1]/cell[1]">
       <width>18%</width>
-      <padding>2px 0px 0px 0px</padding>
+      <text-align>center</text-align>
     </layout>
     <layout element="page[1]/section[1]/cell[2]">
       <width>82%</width>
@@ -157,7 +157,6 @@
     </layout>
     <layout element="page[1]/section[2]/cell[1]">
       <width>18%</width>
-      <padding-right>0.5em</padding-right>
     </layout>
     <layout element="page[1]/section[2]/cell[2]">
       <width>82%</width>
@@ -190,7 +189,7 @@
     </layout>
     <layout element="page[3]/section[1]/cell[1]">
       <width>18%</width>
-      <padding>2px 0px 0px 0px</padding>
+      <text-align>center</text-align>
     </layout>
     <layout element="page[3]/section[1]/cell[2]">
       <width>82%</width>
@@ -574,7 +573,7 @@
       <!-- Fix rss-font-grid inheritance from Opensocial -->
       <selector path=".searchService input.directoryFilter">
         <padding>1px 0</padding>
-        <font preset="small (Case Management fonts)" />
+        <font preset="default (Case Management fonts)" />
       </selector>
       <selector path=".footerDefaultLinks">
         <border-top preset="footer (Case Management borders)"/>
@@ -1375,8 +1374,8 @@
         <border preset="buttons.hover (Case Management borders)" />
       </selector>
       <selector path=".tabsContent">
-        <margin>0px</margin>
-        <padding>0px</padding>
+        <margin>0</margin>
+        <padding>0 5px</padding>
       </selector>
       <selector path=".tabsContent table.trashTable thead th">
         <background-color preset="orange.lite (Case Management backgrounds)" />
@@ -1413,6 +1412,7 @@
         <color preset="titles (Case Management colors)" />
         <font preset="title1 (Case Management fonts)"/>
         <overflow>auto</overflow>
+        <margin>0 0 3px 10px</margin>
       </selector>
       <selector path=".dataRowEven">
         <background preset="white (Case Management backgrounds)"/>
@@ -1731,6 +1731,50 @@
       <selector path="td.routeRowBackground3">
         <background-color>#ecf4ff </background-color>
       </selector>
+      <!-- Advanced Search -->
+      <selector path=".listShuttleTable .listShuttleSelectionActions a">
+        <display>block</display>
+      </selector>
+      <!-- Popup search document relation -->
+      <selector path=".genericPopUp">
+        <background-color preset="white (Case Management backgrounds)" />
+        <position>absolute</position>
+        <width>400px</width>
+        <border preset="genericPopUp (Case Management borders)" />
+        <z-index>10000</z-index>
+        <display>none</display>
+      </selector>
+      <selector path=".genericPopUp .closePopUpHeader">
+        <text-align>right</text-align>
+        <border-bottom preset="genericPopUp.title (Case Management borders)" />
+        <background-color preset="genericPopUp.title (Case Management backgrounds)" />
+        <padding>3px</padding>
+      </selector>
+      <selector path=".genericPopUp .closePopUpHeader .closePopUp">
+        <float>right</float>
+        <cursor>pointer</cursor>
+      </selector>
+      <selector path=".genericPopUp .closePopUpHeader .popUpTitle">
+        <float>left</float>
+        <font-size>110%</font-size>
+      </selector>
+      <selector path=".genericPopUp .popUpContent">
+        <overflow>auto</overflow>
+        <height>390px</height>
+        <padding>10px</padding>
+      </selector>
+      <!-- huge popUp -->
+      <selector path=".bigPopUp">
+        <width>80%</width>
+        <height>70%</height>
+      </selector>
+      <!-- For RFaces Navigation Tree in the main area -->
+      <selector path=".dataInput .dr-tree td, .dataInput .dr-tree td td">
+        <padding>1px</padding>
+      </selector>
+      <selector path=".fieldColumn .dr-tree img">
+        <margin>0</margin>
+      </selector>
     </style>
     <style name="tree and clipboard column" inherit="common style 1">
       <selector path="div,dd,dt,dl,img,p,h1,h2,h3,h4,h5,form,hr,fieldset">
@@ -1806,11 +1850,9 @@
       <selector path=".userClipboardContent">
         <margin>0px</margin>
         <padding>0.5em</padding>
-        <border-top preset="tabsbar (Case Management borders)" />
       </selector>
       <selector path=".userClipboard">
         <height>1%</height>
-        <background-color preset="white (Case Management backgrounds)"/>
         <margin>0</margin>
         <margin-bottom>1em</margin-bottom>
         <font preset="small (Case Management fonts)" />
@@ -1839,6 +1881,9 @@
       <selector path=".menu dl">
         <margin>0px</margin>
       </selector>
+      <selector path=".menuForm">
+        <margin-bottom>20px</margin-bottom>
+      </selector>
       <selector path=".menu dd">
         <margin>0px</margin>
         <padding>10px 0px</padding>
@@ -1848,6 +1893,9 @@
       </selector>
       <selector path="td.dr-tree-h-text, td.dr-tree-h-text span, td.dr-tree-h-text a.treeLink">
         <white-space>normal</white-space>
+      </selector>
+      <selector path=".caseTree">
+        <padding>10px 0 0</padding>
       </selector>
       <!-- Faceted Search -->
       <selector path=".facetedSearchActionBar">
@@ -1896,9 +1944,13 @@
       <selector path=".facetedSearchBlock input, .facetedSearchBlock select">
         <width>100%</width>
       </selector>
+      <selector path=".facetedSearchBlock input.rich-calendar-input">
+        <width>68%</width>
+        <margin>1px 3px 1px 5px</margin>
+      </selector>
       <selector path=".facetedSearchBlock .dataInputTextDate">
         <width>45px</width>
-        <font-size>9px</font-size>
+        <font preset="small (Case Management fonts)"/>
         <margin>0 5px 3px 3px</margin>
       </selector>
       <selector path=".facetedSearchBlock .widgetContent">
@@ -1966,22 +2018,21 @@
       <selector path=".UserSuggestionInput table">
         <width>100%</width>
       </selector>
-      <!-- Specific to Case Management and Correspondence -->
-      <selector path=".userMailboxesContent ul" view="mailboxes list">
+      <selector path=".userMailboxesContent ul">
         <margin>0</margin>
         <padding>0</padding>
         <list-style>none</list-style>
         <font-size>10px</font-size>
       </selector>
-      <selector path=".userMailboxesContent ul li" view="mailboxes list">
+      <selector path=".userMailboxesContent ul li">
         <margin>0</margin>
         <padding>1px 0</padding>
       </selector>
-      <selector path=".userMailboxesContent ul li.selected" view="mailboxes list">
+      <selector path=".userMailboxesContent ul li.selected, .menuForm .selected">
         <background-color>#ebffee</background-color>
         <font-weight>bold</font-weight>
       </selector>
-      <selector path=".userMailboxesContent a.permalink" view="mailboxes list">
+      <selector path=".userMailboxesContent a.permalink">
         <padding>0px 0px 0px 5px</padding>
       </selector>
       <selector path="h4">
@@ -2081,6 +2132,7 @@
     </style>
     <style element="page[1]/section[2]/cell[1]">
       <selector path="" view="cell frame">
+        <background-color preset="leftcolumn (Case Management backgrounds)" />
       </selector>
     </style>
     <style element="page[1]/section[2]/cell[1]/fragment[1]" inherit="tree and clipboard column" />

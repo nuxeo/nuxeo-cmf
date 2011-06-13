@@ -10,13 +10,13 @@
       <a4j:form id="case_tree_form" ajaxSubmit="true">
         <div style="float: right">
           <a4j:commandLink action="#{treeActions.reset}" reRender="treeNav">
-            <h:graphicImage value="/img/refresh.png"
+            <h:graphicImage value="/icons/refresh.png"
               alt="#{messages['label.refresh']}"
               title="#{messages['label.refresh']}" />
           </a4j:commandLink>
         </div>
         <dl>
-          <dd class="menuForm">
+          <dd class="menuForm caseTree">
             <h:panelGroup id="caseTreeNav">
               <rich:tree adviseNodeOpened="#{treeActions.adviseNodeOpened}"
                 changeExpandListener="#{treeActions.changeExpandListener}"
