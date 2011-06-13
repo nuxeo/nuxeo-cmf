@@ -65,6 +65,9 @@
           translateTitle="true" iconPath="/icons/document_listing_icon.png" />
       </resultLayouts>
 
+      <showFilterForm>true</showFilterForm>
+      <showPageSizeSelector>false</showPageSizeSelector>
+      <showRefreshCommand>false</showRefreshCommand>
     </contentView>
 
     <contentView name="mailbox_sent_content">
@@ -94,6 +97,9 @@
         <layout name="cm_sent_caselink" title="document_listing"
           translateTitle="true" iconPath="/icons/document_listing_icon.png" />
       </resultLayouts>
+      <showFilterForm>true</showFilterForm>
+      <showPageSizeSelector>false</showPageSizeSelector>
+      <showRefreshCommand>false</showRefreshCommand>
 
     </contentView>
 
@@ -127,7 +133,9 @@
 
       <selectionList>CURRENT_SELECTION</selectionList>
       <actions category="CASE_MANAGEMENT_CURRENT_SELECTION_LIST" />
-
+	  <showFilterForm>true</showFilterForm>
+      <showPageSizeSelector>false</showPageSizeSelector>
+      <showRefreshCommand>false</showRefreshCommand>
     </contentView>
 
     <contentView name="mailbox_plans_content">

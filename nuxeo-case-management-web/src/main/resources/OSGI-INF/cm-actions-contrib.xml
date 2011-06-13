@@ -8,6 +8,8 @@
   <require>org.nuxeo.ecm.platform.comment.actions</require>
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
   <require>org.nuxeo.ecm.platform.routing.actions</require>
+  <require>org.nuxeo.ecm.user.center.actions</require>
+  
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
@@ -24,26 +26,20 @@
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
     <!-- add back login/logout + personal workspace links (see NXP-6418) -->
-    <action id="non_anonymous_logout">
-      <category>USER_SERVICES_BOTTOM</category>
-    </action>
+
     <action id="login">
       <category>USER_SERVICES_BOTTOM</category>
     </action>
     <action id="SHOW_REPOSITORY">
       <category>USER_SERVICES</category>
     </action>
-    <action id="SHOW_PERSONAL_WORKSPACE">
-      <category>USER_SERVICES</category>
+    <action id="documents" link="view_documents" label="label.main.tab.case.management" order="40">
+      <category>MAIN_TABS</category>
     </action>
-    <!-- end of login/logout actions -->
+    <action id="home" enabled="false" />
 
-    <!-- Admin Center -->
-    <action id="AdminMain" link="#{adminViews.enter()}"
-      label="action.admin.center" order="30">
-      <category>USER_SERVICES</category>
-      <filter-id>only_for_manager</filter-id>
-    </action>
+    
+    <!-- end of login/logout actions -->
 
     <!-- Actions for the document selection -->
 
