@@ -142,7 +142,7 @@
     </layout>
     <layout element="page[1]/section[1]/cell[1]">
       <width>18%</width>
-      <padding>2px 0px 0px 0px</padding>
+      <text-align>center</text-align>
     </layout>
     <layout element="page[1]/section[1]/cell[2]">
       <width>82%</width>
@@ -190,7 +190,7 @@
     </layout>
     <layout element="page[3]/section[1]/cell[1]">
       <width>18%</width>
-      <padding>2px 0px 0px 0px</padding>
+      <text-align>center</text-align>
     </layout>
     <layout element="page[3]/section[1]/cell[2]">
       <width>82%</width>
@@ -454,192 +454,191 @@
         <margin>0</margin>
         <padding>0</padding>
       </selector>
-        <selector path=".userActions">
-         <font preset="small (Case Management fonts)"/>
-         <color preset="header.text (Case Management colors)" />
-         <line-height>185%</line-height>
-         <padding>5px 0 0 0</padding>
-         <text-align>left</text-align>
-         <float>left</float>
-         <margin>0 0 0 15px</margin>
+      <selector path=".userActions">
+        <font preset="small (Correspondence fonts)"/>
+        <color preset="header.text (Correspondence colors)" />
+        <line-height>185%</line-height>
+        <padding>5px 0 0 0</padding>
+        <text-align>left</text-align>
+        <float>left</float>
+        <margin>0 0 0 15px</margin>
       </selector>
       <selector path=".searchService">
-       <padding-top>4px</padding-top>
-       <font preset="small (Case Management fonts)"/>
+        <padding-top>4px</padding-top>
+        <font preset="small (Correspondence fonts)"/>
       </selector>
       <selector path=".searchService input.button">
-       <margin>3px 5px 0 3px</margin>
+        <margin>3px 5px 0 3px</margin>
         <padding>2px</padding>
-       </selector>
-	  <selector path=".userServicesBlock">
-	   <float>left</float>
-	   <padding-top>10px</padding-top>
-	  </selector>
-	  <selector path=".userSearchBlock">
-	   <float>right</float>
-	  </selector>
-	  <selector path=".userMenuActions">
-	   <font preset="default (Case Management fonts)"/>
-	   <color preset="header.text (Case Management colors)" />
-	   <line-height>185%</line-height>
-	   <padding>0px</padding>
-	   <text-align>left</text-align>
-	   <float>left</float>
-	   <margin>0 0 0 15px</margin>
-	  </selector>
-	  <selector path=".userMenuActions ul, .userMenuActions ul ul">
-	   <list-style>none</list-style>
-	  </selector>
-	  <selector path=".userMenuActions ul">
-	   <margin>0</margin>
-	   <padding>0</padding>
-	   <height>28px</height>
-	  </selector>
-	  <selector path=".userMenuActions ul li">
-	   <float>left</float>
-	   <text-align>left</text-align>
-	  </selector>
-	  <selector path=".userMenuActions ul li a:hover, .userMenuActions ul li:hover">
-	   <background-color preset="white (Case Management backgrounds)" />
-	   <color preset="header.userMenuHover (Case Management colors)" />
-	  </selector>
-	   <selector path=".userMenuActions a">
-	   <display>block</display>
-	   <text-decoration>none</text-decoration>
-	   <margin>0</margin>
-	   <color preset="header.userMenu (Case Management colors)" />
-	   <background-color preset="white (Case Management backgrounds)" />
-	  </selector>
-	  <selector path=".userMenuActions a.userButton">
-	   <background preset="header.userMenu (Case Management backgrounds)"/>
-	   <padding>3px 8px 5px 23px</padding>
-	  </selector>
-	  <selector path=".userMenuActions li ul">
-	   <display>none</display>
-	   <position>absolute</position>
-	   <width>180px</width>
-	   <height>auto</height>
-	   <border preset="header.userMenuList (Case Management borders)" />
-	   <box-shadow>3px 3px 5px rgba(0, 0, 0, 0.5)</box-shadow>
-	   <border-top>none</border-top>
-	   <z-index>1000</z-index>
-	  </selector>
-	   <selector path=".userMenuActions li:hover ul">
-	   <display>block</display>
-	  </selector>
-	  <selector path=".userMenuActions li ul a">
-	   <padding>4px 4px 4px 22px</padding>
-	  </selector>
-	  <selector path=".userMenuActions ul li li">
-	   <width>180px</width>
-	  </selector>
-	  <selector path=".userMenuActions ul ul a:hover">
-	   <background-color preset="header.userListLinkHover (Case Management backgrounds)" />
-	  </selector>
-	  <selector path=".userMenuActions input.button">
-	   <margin>0 5px</margin>
-	  </selector>
-	  <selector path=".mainTabs">
-	   <font preset="default (Case Management fonts)"/>
-	   <line-height>normal</line-height>
-	   <height>28px</height>
-	   <float>left</float>
-	  </selector>
-	  <selector path=".mainTabs ul">
-	   <margin>0</margin>
-	   <padding>0</padding>
-	  </selector>
-	  <selector path=".mainTabs li">
-	   <background-color preset="header.mainTabs (Case Management backgrounds)" />
-	   <display>inline</display>
-	  <float>left</float>
-	   <height>28px</height>
-	   <margin>0 5px</margin>
-	  </selector>
-	  <selector path=".mainTabs a, .mainTabs a:visited">
-	   <color preset="header.mainTabs (Case Management colors)" />
-	   <display>inline-block</display>
-	    <font-size>12px</font-size>
-	   <padding>5px 11px 8px</padding>
-	   <text-decoration>none</text-decoration>
-	  </selector>
-	  <selector path=".mainTabs a:hover">
-	   <color preset="header.mainTabsHover (Case Management colors)" />
-	  </selector>
-	  <selector path=".mainTabs li.selected">
-	   <background-color preset="header.mainTabsSelected (Case Management backgrounds)" />
-	  </selector>
-	  <selector path=".mainTabs li.selected a, .mainTabs li.selected a:hover, .mainTabs li.selected a:visited">
-	   <color preset="header.mainTabsSelected (Case Management colors)" />
-	   <font-weight>bold</font-weight>
-	   <text-decoration>none</text-decoration>
-	  </selector>
-	  <selector path=".mainTabs li a:hover">
-	   <text-decoration>none</text-decoration>
-	  </selector>
-	   <!-- Fix rss-font-grid inheritance from Opensocial -->
-	  <selector path=".searchService input.directoryFilter">
-	   <padding>1px 0</padding>
-	   <font preset="small (Case Management fonts)" />
-	  </selector>
-	  <selector path=".footerDefaultLinks">
-	   <border-top preset="footer (Case Management borders)"/>
-	   <background preset="footer (Case Management backgrounds)"/>
-	   <padding>15px</padding>
-	  </selector>
-	  <selector path=".footerBlock">
-	   <margin>0</margin>
-	   <line-height>1.25em</line-height>
-	   <padding>0</padding>
-	   <font preset="small (Case Management fonts)"/>
-	  </selector>
-	  <selector path=".footerBlock div">
-	   <margin>0</margin>
-	   <line-height>1.25em</line-height>
-	   <padding>0</padding>
-	   <font preset="small (Case Management fonts)"/>
-	  </selector>
-	  <selector path=".footerBlock form, .footerBlock p">
-	   <margin>5px 0px 0px 0px</margin>
-	   <padding>0</padding>
-	  </selector>
-	  <selector path=".nuxLinks">
-	   <float>right</float>
-	   <padding-left>20px</padding-left>
-	  </selector>
-	  <selector path=".nuxLinks a">
-	   <vertical-align>middle</vertical-align>
-	  </selector>
-	  <selector path=".copyrights">
-	   <float>right</float>
-	   <padding>2px 20px 0 0</padding>
-	   <color preset="footer.text (Case Management colors)" />
-	  </selector>
-	  <selector path="a.twitt">
-	   <background preset="footer.twittLink (Case Management backgrounds)" />
-	   <height>16px</height>
-	   <width>16px</width>
-	   <display>inline-block</display>
-	   <margin>0px 5px</margin>
-	  </selector>
-	  <selector path="a.twitt:hover">
-	   <background-position>left bottom</background-position>
-	  </selector>
-	  <selector path="a.linkedin">
-	   <background preset="footer.linkedInLink (Case Management backgrounds)" />
-	   <height>16px</height>
-	   <width>16px</width>
-	   <display>inline-block</display>
-	   <margin>0px 5px</margin>
-	  </selector>
-	  <selector path="a.linkedin:hover">
-	   <background-position>-16px bottom</background-position>
-	  </selector>
-	  <selector path=".clear">
-	  <clear>both</clear>
-	  </selector> 
-	    </style>
-    
+      </selector>
+      <selector path=".userServicesBlock">
+        <float>left</float>
+        <padding-top>10px</padding-top>
+      </selector>
+      <selector path=".userSearchBlock">
+        <float>right</float>
+      </selector>
+      <selector path=".userMenuActions">
+        <font preset="default (Correspondence fonts)"/>
+        <color preset="header.text (Correspondence colors)" />
+        <line-height>185%</line-height>
+        <padding>0px</padding>
+        <text-align>left</text-align>
+        <float>left</float>
+        <margin>0 0 0 15px</margin>
+      </selector>
+      <selector path=".userMenuActions ul, .userMenuActions ul ul">
+        <list-style>none</list-style>
+      </selector>
+      <selector path=".userMenuActions ul">
+        <margin>0</margin>
+        <padding>0</padding>
+        <height>28px</height>
+      </selector>
+      <selector path=".userMenuActions ul li">
+        <float>left</float>
+        <text-align>left</text-align>
+      </selector>
+      <selector path=".userMenuActions ul li a:hover, .userMenuActions ul li:hover">
+        <background-color preset="white (Correspondence backgrounds)" />
+        <color preset="header.userMenuHover (Correspondence colors)" />
+      </selector>
+      <selector path=".userMenuActions a">
+        <display>block</display>
+        <text-decoration>none</text-decoration>
+        <margin>0</margin>
+        <color preset="header.userMenu (Correspondence colors)" />
+        <background-color preset="white (Correspondence backgrounds)" />
+      </selector>
+      <selector path=".userMenuActions a.userButton">
+        <background preset="header.userMenu (Correspondence backgrounds)"/>
+        <padding>3px 8px 5px 23px</padding>
+      </selector>
+      <selector path=".userMenuActions li ul">
+        <display>none</display>
+        <position>absolute</position>
+        <width>180px</width>
+        <height>auto</height>
+        <border preset="header.userMenuList (Correspondence borders)" />
+        <box-shadow>3px 3px 5px rgba(0, 0, 0, 0.5)</box-shadow>
+        <border-top>none</border-top>
+        <z-index>1000</z-index>
+      </selector>
+      <selector path=".userMenuActions li:hover ul">
+        <display>block</display>
+      </selector>
+      <selector path=".userMenuActions li ul a">
+        <padding>4px 4px 4px 22px</padding>
+      </selector>
+      <selector path=".userMenuActions ul li li">
+        <width>180px</width>
+      </selector>
+       <selector path=".userMenuActions ul ul a:hover">
+        <background-color preset="header.userListLinkHover (Correspondence backgrounds)" />
+      </selector>
+      <selector path=".userMenuActions input.button">
+        <margin>0 5px</margin>
+      </selector>
+      <selector path=".mainTabs">
+        <font preset="default (Correspondence fonts)"/>
+        <line-height>normal</line-height>
+        <height>28px</height>
+        <float>left</float>
+      </selector>
+      <selector path=".mainTabs ul">
+        <margin>0</margin>
+        <padding>0</padding>
+      </selector>
+      <selector path=".mainTabs li">
+        <background-color preset="header.mainTabs (Correspondence backgrounds)" />
+        <display>inline</display>
+        <float>left</float>
+        <height>28px</height>
+        <margin>0 5px</margin>
+      </selector>
+      <selector path=".mainTabs a, .mainTabs a:visited">
+        <color preset="header.mainTabs (Correspondence colors)" />
+        <display>inline-block</display>
+        <font-size>12px</font-size>
+        <padding>5px 11px 8px</padding>
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path=".mainTabs a:hover">
+        <color preset="header.mainTabsHover (Correspondence colors)" />
+      </selector>
+      <selector path=".mainTabs li.selected">
+        <background-color preset="header.mainTabsSelected (Correspondence backgrounds)" />
+      </selector>
+      <selector path=".mainTabs li.selected a, .mainTabs li.selected a:hover, .mainTabs li.selected a:visited">
+        <color preset="header.mainTabsSelected (Correspondence colors)" />
+        <font-weight>bold</font-weight>
+        <text-decoration>none</text-decoration>
+      </selector>
+      <selector path=".mainTabs li a:hover">
+        <text-decoration>none</text-decoration>
+      </selector>
+      <!-- Fix rss-font-grid inheritance from Opensocial -->
+      <selector path=".searchService input.directoryFilter">
+        <padding>1px 0</padding>
+        <font preset="default (Correspondence fonts)" />
+      </selector>
+      <selector path=".footerDefaultLinks">
+        <border-top preset="footer (Correspondence borders)"/>
+        <background preset="footer (Correspondence backgrounds)"/>
+        <padding>15px</padding>
+      </selector>
+      <selector path=".footerBlock">
+        <margin>0</margin>
+        <line-height>1.25em</line-height>
+        <padding>0</padding>
+        <font preset="small (Correspondence fonts)"/>
+      </selector>
+      <selector path=".footerBlock div">
+        <margin>0</margin>
+        <line-height>1.25em</line-height>
+        <padding>0</padding>
+        <font preset="small (Correspondence fonts)"/>
+      </selector>
+      <selector path=".footerBlock form, .footerBlock p">
+        <margin>5px 0px 0px 0px</margin>
+        <padding>0</padding>
+      </selector>
+      <selector path=".nuxLinks">
+        <float>right</float>
+        <padding-left>20px</padding-left>
+      </selector>
+      <selector path=".nuxLinks a">
+        <vertical-align>middle</vertical-align>
+      </selector>
+      <selector path=".copyrights">
+        <float>right</float>
+        <padding>2px 20px 0 0</padding>
+        <color preset="footer.text (Correspondence colors)" />
+      </selector>
+      <selector path="a.twitt">
+        <background preset="footer.twittLink (Correspondence backgrounds)" />
+        <height>16px</height>
+        <width>16px</width>
+        <display>inline-block</display>
+        <margin>0px 5px</margin>
+      </selector>
+      <selector path="a.twitt:hover">
+        <background-position>left bottom</background-position>
+      </selector>
+      <selector path="a.linkedin">
+        <background preset="footer.linkedInLink (Correspondence backgrounds)" />
+        <height>16px</height>
+        <width>16px</width>
+        <display>inline-block</display>
+        <margin>0px 5px</margin>
+      </selector>
+      <selector path="a.linkedin:hover">
+        <background-position>-16px bottom</background-position>
+      </selector>
+      <selector path=".clear">
+        <clear>both</clear>
+      </selector>
+    </style>
     <!--
     <style name="breadcrumbs style">
       <selector path="">
@@ -699,7 +698,6 @@
         <margin>0</margin>
       </selector>
     </style> -->
-    
     <style inherit="default buttons" name="default tabs">
       <selector path=".tabsBar">
         <border-bottom preset="tabsbar (Correspondence borders)"/>
@@ -756,7 +754,6 @@
         <background preset="subtabiselected (Correspondence backgrounds)"/>
       </selector>
     </style>
-    
     <style inherit="default tabs" name="common style 1">
       <selector path=".tooltip">
         <color preset="default.text (Galaxy colors)" />
@@ -852,6 +849,9 @@
       <selector path="table.dataOutput thead th a, table.dataOutput thead th a:hover, table.dataOutput thead th a:active, table.dataOutput thead th a:visited">
         <color preset="tableheader (Correspondence colors)" />
       </selector>
+      <selector path="table.dataOutput tbody a, table.dataOutput tbody a:link, table.dataOutput tbody a:hover, table.dataOutput tbody a:active, table.dataOutput tbody a:visited">
+        <color preset="black (Correspondence colors)" />
+      </selector>
       <selector path=".boldColumn">
         <font-weight>bold !important</font-weight>
       </selector>
@@ -940,10 +940,6 @@
       <selector path=".listingLayoutSelector .contentViewPageSelectorDesc">
         <float>left</float>
         <padding>2px 3px 0 0</padding>
-      </selector> 
-      <selector path=".nuxLinks">
-        <float>right</float>
-        <padding-left>20px</padding-left>
       </selector>
       <selector path=".listingLayoutSelector .langSelect">
         <float>left</float>
@@ -1619,7 +1615,7 @@
       <selector path=".listShuttleTable .listShuttleSelectionActions a">
         <display>block</display>
       </selector>
-      <!-- Specific to Case Management & Correspondence -->
+      <!-- Specific to Correspondence & Correspondence -->
       <selector path=".float">
         <float>left</float>
       </selector>
@@ -1724,6 +1720,50 @@
         <border>1px solid</border>
         <color>#eee</color>
         <height>1px</height>
+      </selector>
+      <!-- Advanced Search -->
+      <selector path=".listShuttleTable .listShuttleSelectionActions a">
+        <display>block</display>
+      </selector>
+      <!-- Popup search document relation -->
+      <selector path=".genericPopUp">
+        <background-color preset="white (Correspondence backgrounds)" />
+        <position>absolute</position>
+        <width>400px</width>
+        <border preset="genericPopUp (Correspondence borders)" />
+        <z-index>10000</z-index>
+        <display>none</display>
+      </selector>
+      <selector path=".genericPopUp .closePopUpHeader">
+        <text-align>right</text-align>
+        <border-bottom preset="genericPopUp.title (Correspondence borders)" />
+        <background-color preset="genericPopUp.title (Correspondence backgrounds)" />
+        <padding>3px</padding>
+      </selector>
+      <selector path=".genericPopUp .closePopUpHeader .closePopUp">
+        <float>right</float>
+        <cursor>pointer</cursor>
+      </selector>
+      <selector path=".genericPopUp .closePopUpHeader .popUpTitle">
+        <float>left</float>
+        <font-size>110%</font-size>
+      </selector>
+      <selector path=".genericPopUp .popUpContent">
+        <overflow>auto</overflow>
+        <height>390px</height>
+        <padding>10px</padding>
+      </selector>
+      <!-- huge popUp -->
+      <selector path=".bigPopUp">
+        <width>80%</width>
+        <height>70%</height>
+      </selector>
+      <!-- For RFaces Navigation Tree in the main area -->
+      <selector path=".dataInput .dr-tree td, .dataInput .dr-tree td td">
+        <padding>1px</padding>
+      </selector>
+      <selector path=".fieldColumn .dr-tree img">
+        <margin>0</margin>
       </selector>
     </style>
     <style name="tree and clipboard column" inherit="common style 1">
@@ -1888,9 +1928,13 @@
       <selector path=".facetedSearchBlock input, .facetedSearchBlock select">
         <width>100%</width>
       </selector>
+      <selector path=".facetedSearchBlock input.rich-calendar-input">
+        <width>68%</width>
+        <margin>1px 3px 1px 5px</margin>
+      </selector>
       <selector path=".facetedSearchBlock .dataInputTextDate">
         <width>45px</width>
-        <font-size>9px</font-size>
+        <font preset="small (Correspondence fonts)"/>
         <margin>0 5px 3px 3px</margin>
       </selector>
       <selector path=".facetedSearchBlock .widgetContent">
@@ -1958,22 +2002,22 @@
       <selector path=".UserSuggestionInput table">
         <width>100%</width>
       </selector>
-      <!-- Specific to Case Management and Correspondence -->
-      <selector path=".userMailboxesContent ul" view="mailboxes list">
+      <!-- Specific to Correspondence and Correspondence -->
+      <selector path=".userMailboxesContent ul">
         <margin>0</margin>
         <padding>0</padding>
         <list-style>none</list-style>
         <font-size>10px</font-size>
       </selector>
-      <selector path=".userMailboxesContent ul li" view="mailboxes list">
+      <selector path=".userMailboxesContent ul li">
         <margin>0</margin>
         <padding>1px 0</padding>
       </selector>
-      <selector path=".userMailboxesContent ul li.selected" view="mailboxes list">
+      <selector path=".userMailboxesContent ul li.selected">
         <background-color>#ebffee</background-color>
         <font-weight>bold</font-weight>
       </selector>
-      <selector path=".userMailboxesContent a.permalink" view="mailboxes list">
+      <selector path=".userMailboxesContent a.permalink">
         <padding>0px 0px 0px 5px</padding>
       </selector>
       <selector path="h4">
@@ -2106,17 +2150,12 @@
     <!-- Footer -->
     <style element="page[1]/section[3]|page[3]/section[4]">
       <selector path="" view="section frame">
-        <border-top preset="topbar (Correspondence borders)"/>
+        <background preset="black (Correspondence backgrounds)"/>
       </selector>
     </style>
     <style element="page[1]/section[3]/cell[1]/fragment[1]|page[3]/section[4]/cell[1]/fragment[1]" inherit="header and footer style">
-     <selector path="" view="Nuxeo footer"> 
-        <margin>0</margin>
-        <padding>0</padding>
-      </selector>
-      <selector path="" view="Nuxeo DM footer (Galaxy Theme)">
-         <font preset="small (Correspondence fonts)"/>
-         <color preset="link (Correspondence colors)"/>
+     <selector path="" view="Nuxeo footer">
+        <font preset="small (Correspondence fonts)"/>
         <color preset="header.text (Correspondence colors)" />
       </selector>
     </style>
