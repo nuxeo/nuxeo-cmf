@@ -150,14 +150,17 @@ public abstract class CaseManagementContextBoundInstance implements
         return cachedMailbox;
     }
 
+    @Override
     public DocumentModel getCurrentCaseItem() throws ClientException {
         return cmContextHolder.getCurrentCaseItem();
     }
 
+    @Override
     public Case getCurrentCase() throws ClientException {
         return cmContextHolder.getCurrentCase();
     }
 
+    @Override
     public Mailbox getCurrentMailbox() throws ClientException {
         return cmContextHolder.getCurrentMailbox();
     }
