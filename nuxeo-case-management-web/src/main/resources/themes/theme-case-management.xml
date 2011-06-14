@@ -1781,6 +1781,12 @@
         <margin>0</margin>
         <padding>0</padding>
       </selector>
+      <selector path=".tabsBar">
+        <background preset="lefttabsbar (Case Management backgrounds)"/>
+      </selector>
+      <selector path=".tabsBar li.selected a, .tabsBar li.selected a:hover, .tabsBar li.selected a:visited">
+        <background preset="lefttabiselected (Case Management backgrounds)"/>
+      </selector>
       <selector path=".treeLink a, .treeLink a:link, .treeLink a:visited">
         <font-weight>normal</font-weight>
         <text-decoration>none</text-decoration>
@@ -2029,7 +2035,7 @@
         <padding>1px 0</padding>
       </selector>
       <selector path=".userMailboxesContent ul li.selected, .menuForm .selected">
-        <background-color>#ebffee</background-color>
+        <background-color>#ddf1df</background-color>
         <font-weight>bold</font-weight>
       </selector>
       <selector path=".userMailboxesContent a.permalink">
