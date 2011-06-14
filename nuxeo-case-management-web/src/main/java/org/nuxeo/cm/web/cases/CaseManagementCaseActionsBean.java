@@ -176,6 +176,7 @@ public class CaseManagementCaseActionsBean extends
             List<DocumentModel> currentDraftCasesList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
             purgeCaseSelection(currentDraftCasesList);
             EventManager.raiseEventsOnDocumentChildrenChange(getCurrentMailbox().getDocument());
+            documentsListsManager.resetWorkingList(CURRENT_DOCUMENT_SELECTION);
         } else {
             log.debug("No documents selection in context to process delete on...");
         }
@@ -195,8 +196,8 @@ public class CaseManagementCaseActionsBean extends
             return getTrashService().canDelete(docs,
                     documentManager.getPrincipal(), false);
         } catch (ClientException e) {
-            log.error("Cannot check delete permission", e);
-            return false;
+            throw new ClientRuntimeException("Cannot check delete permission",
+                    e);
         }
     }
 
@@ -214,6 +215,28 @@ public class CaseManagementCaseActionsBean extends
             }
             postRefs.add(documentModel.getRef());
         }
+        // check if the current document is a selected case or case item to
+        // purge. Redirect if needed
+        DocumentRef currentDocRef = navigationContext.getCurrentDocument().getRef();
+        boolean containsSelectedDocument = false;
+        if (caseRefs.contains(currentDocRef)) {
+            containsSelectedDocument = true;
+        }
+        for (DocumentRef caseRef : caseRefs) {
+            if (containsSelectedDocument) {
+                break;
+            }
+            List<CaseItem> items = documentManager.getDocument(caseRef).getAdapter(
+                    Case.class).getCaseItems(documentManager);
+            for (CaseItem caseItem : items) {
+                if (currentDocRef.equals(caseItem.getDocument().getRef())) {
+                    containsSelectedDocument = true;
+                    break;
+                }
+            }
+        }
+
+        // Perform the purge.
         new UnrestrictedSessionRunner(documentManager) {
             @Override
             public void run() throws ClientException {
@@ -223,6 +246,13 @@ public class CaseManagementCaseActionsBean extends
                 getTrashService().purgeDocuments(session, postRefs);
             }
         }.runUnrestricted();
+
+        // if not selected, a simple refresh is needed. otherwise do a full
+        // redirect
+        if (containsSelectedDocument) {
+            navigationContext.setCurrentDocument(getCurrentMailbox().getDocument());
+        }
+
     }
 
     protected TrashService getTrashService() {

@@ -68,14 +68,19 @@ public abstract class CaseManagementContextBoundInstance implements
             return;
         }
         Mailbox currentMailbox = correspContextHolder.getCurrentMailbox();
-        if (hasCacheKeyChanged(generateMailboxCacheKey(cachedMailbox),
-                generateMailboxCacheKey(currentMailbox))) {
+        if (currentMailbox == null
+                || cachedMailbox == null
+                || hasCacheKeyChanged(generateMailboxCacheKey(cachedMailbox),
+                        generateMailboxCacheKey(currentMailbox))) {
             resetMailboxCache(cachedMailbox, currentMailbox);
             cachedMailbox = currentMailbox;
         }
         Case currentEnvelope = correspContextHolder.getCurrentCase();
-        if (hasCacheKeyChanged(generateCaseCacheKey(cachedEnvelope),
-                generateCaseCacheKey(currentEnvelope))) {
+        if (currentEnvelope == null
+                || cachedEnvelope == null
+                || !documentManager.exists(cachedEnvelope.getDocument().getRef())
+                || hasCacheKeyChanged(generateCaseCacheKey(cachedEnvelope),
+                        generateCaseCacheKey(currentEnvelope))) {
             resetCaseCache(cachedEnvelope, currentEnvelope);
             cachedEnvelope = currentEnvelope;
         }
@@ -83,8 +88,12 @@ public abstract class CaseManagementContextBoundInstance implements
             return;
         }
         DocumentModel currentEmail = correspContextHolder.getCurrentCaseItem();
-        if (hasCacheKeyChanged(generateCurrentCaseItemCacheKey(cachedEmail),
-                generateCurrentCaseItemCacheKey(currentEmail))) {
+        if (currentEmail == null
+                || cachedEmail == null
+                || !documentManager.exists(cachedEmail.getRef())
+                || hasCacheKeyChanged(
+                        generateCurrentCaseItemCacheKey(cachedEmail),
+                        generateCurrentCaseItemCacheKey(currentEmail))) {
             resetCurrentCaseItemCache(cachedEmail, currentEmail);
             cachedEmail = currentEmail;
         }
