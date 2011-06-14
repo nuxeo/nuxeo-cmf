@@ -940,8 +940,11 @@
       <selector path=".listingLayoutSelector .contentViewPageSelectorDesc">
         <float>left</float>
         <padding>2px 3px 0 0</padding>
-      </selector> <selector path=".nuxLinks">
-	  
+      </selector> 
+      <selector path=".nuxLinks">
+        <float>right</float>
+        <padding-left>20px</padding-left>
+      </selector>
       <selector path=".listingLayoutSelector .langSelect">
         <float>left</float>
         <margin>0px 0 10px</margin>
