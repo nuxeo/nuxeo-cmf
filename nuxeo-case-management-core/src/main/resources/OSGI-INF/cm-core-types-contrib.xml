@@ -74,6 +74,7 @@
       <schema name="case" />
       <facet name="Distributable" />
       <facet name="Routable" />
+      <facet name="Commentable" />
       <facet name="Classifiable" />
     </doctype>
 

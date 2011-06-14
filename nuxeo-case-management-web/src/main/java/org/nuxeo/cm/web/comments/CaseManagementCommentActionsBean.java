@@ -30,6 +30,7 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.web.context.CaseManagementContextHolder;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
@@ -76,38 +77,16 @@ public class CaseManagementCommentActionsBean extends
     }
 
     public String addComment() throws ClientException {
-        // if in case, add the comment to teh case item
-        if (!isCurrentDocumentCase()) {
-            return commentManagerActions.addComment();
-        }
-        return commentManagerActions.createComment(getCurrentCaseItem());
+        return commentManagerActions.createComment(navigationContext.getCurrentDocument());
     }
 
     @Factory(value = "caseItemThreadedComments", scope = EVENT)
     public List<ThreadEntry> getCommentsAsThread() throws ClientException {
-        if (!isCurrentDocumentCase()) {
-            return commentManagerActions.getCommentsAsThread(null);
-        }
-        return commentManagerActions.getCommentsAsThread(getCurrentCaseItem());
+        return commentManagerActions.getCommentsAsThread(navigationContext.getCurrentDocument());
     }
 
     public List<Action> getActionsForComment() throws ClientException {
-        if (!isCurrentDocumentCase()) {
-            return commentManagerActions.getActionsForComment();
-        }
         return commentManagerActions.getActionsForComment(CASE_MANAGEMENT_COMMENT_ACTIONS);
     }
 
-    protected boolean isCurrentDocumentCase() {
-        DocumentModel currentDoc = navigationContext.getCurrentDocument();
-        Case currentCase = currentDoc.getAdapter(Case.class);
-        if (currentCase != null) {
-            return true;
-        }
-        CaseItem currentCaseItem = currentDoc.getAdapter(CaseItem.class);
-        if (currentCaseItem != null) {
-            return true;
-        }
-        return false;
-    }
 }
