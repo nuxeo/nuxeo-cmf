@@ -18,7 +18,6 @@ from nuxeo.pages import *
 from xml_importer.pdf import *
 from nuxeo.testcase import NuxeoTestCase
 import urllib2, base64, sys
-import simplejson as json
 from pprint import pprint
 
 
