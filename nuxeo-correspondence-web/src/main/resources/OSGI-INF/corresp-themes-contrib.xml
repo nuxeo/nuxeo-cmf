@@ -49,6 +49,11 @@
         <default-theme>correspondence/default</default-theme>
         <default-perspective>default</default-perspective>
       </negotiation>
+      
+      
+      <view id="/user_dashboard.xhtml">
+        <theme>case-management/user_dashboard</theme>
+      </view>
 
     </application>
 
