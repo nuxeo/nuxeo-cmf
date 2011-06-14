@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-
 <component name="org.nuxeo.cm.contentview.contrib">
-
+  
+  <require>org.nuxeo.platform.audit.contentView.contrib</require>
+  
   <extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
     point="contentViews">
 
@@ -223,8 +224,18 @@
       <actions category="CURRENT_SELECTION_LIST" />
 
     </contentView>
-
-
+    
+    <!--see NXCM-372-->
+    <contentView name="DOCUMENT_HISTORY">
+      <showFilterForm>false</showFilterForm>
+      <showPageSizeSelector>false</showPageSizeSelector>
+      <showRefreshCommand>false</showRefreshCommand>
+      <resultLayouts>
+        <layout name="history_listing" title="history_listing"
+          translateTitle="true" iconPath="/icons/document_listing_icon.png"
+          showCSVExport="false" showPDFExport="false" />
+      </resultLayouts>
+    </contentView>
 
   </extension>
 
