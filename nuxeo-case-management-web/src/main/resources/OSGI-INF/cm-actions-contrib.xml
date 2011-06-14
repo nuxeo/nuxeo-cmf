@@ -335,7 +335,7 @@
     </action>
 
     <action id="TAB_CASE_MANAGEMENT_COMMENTS"
-      link="/casemanagement/caseitem/tabs/document_comments.xhtml"
+      link="/incl/tabs/document_comments.xhtml"
       enabled="true" order="80" label="action.view.comments">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isEmptyCase</filter-id>
@@ -343,7 +343,7 @@
       <filter-id>not_anonymous</filter-id>
     </action>
 
-    <action id="newComment" link="#{cmCommentActions.addComment}" enabled="true"
+    <action id="newComment" link="#{commentManagerActions.addComment}" enabled="true"
       label="command.add">
       <category>CASE_MANAGEMENT_COMMENT_ACTIONS</category>
     </action>
