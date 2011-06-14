@@ -798,7 +798,7 @@ class RouteInstancePage(LoginPage):
         fl = self.fl
         fl.assert_(case in fl.getBody())
         fl.assert_("draft" not in fl.getBody())
-        fl.assert_("ready" not in fl.getBody())
+        fl.assert_("done"  in fl.getBody())
         fl.assert_("running" not in fl.getBody())
         fl.assert_("done" in fl.getBody())
         return RouteInstancePage(self.fl)
@@ -1041,7 +1041,7 @@ class MailboxPage(FolderPage):
         fl.assert_("("+caseitem+" )" in fl.getBody())
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
-        fl.assert_("file:content/" + pdf_name in fl.getBody())
+        fl.assert_( pdf_name in fl.getBody())
         ids = []
         caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
         caseId = self.getDocUid()
