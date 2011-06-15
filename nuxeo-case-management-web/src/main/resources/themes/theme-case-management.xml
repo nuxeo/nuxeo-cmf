@@ -20,10 +20,6 @@
         <cell>
           <!-- tree view -->
           <fragment perspectives="default" type="generic fragment"/>
-          <!-- mailbox list -->
-          <fragment perspectives="default" type="generic fragment"/>
-          <!-- classification tree -->
-          <fragment perspectives="default" type="generic fragment"/>
           <!-- clip board -->
           <fragment perspectives="default" type="generic fragment"/>
           <!-- calendar -->
@@ -277,18 +273,12 @@
       <view>nuxeo5 tree explorer</view>
     </widget>
     <widget element="page[1]/section[2]/cell[1]/fragment[2]">
-      <view>mailboxes list</view>
-    </widget>
-    <widget element="page[1]/section[2]/cell[1]/fragment[3]">
-      <view>classification tree</view>
-    </widget>
-    <widget element="page[1]/section[2]/cell[1]/fragment[4]">
       <view>nuxeo5 clip board</view>
     </widget>
-    <widget element="page[1]/section[2]/cell[1]/fragment[5]">
+    <widget element="page[1]/section[2]/cell[1]/fragment[3]">
       <view>nuxeo5 calendar actions</view>
     </widget>
-    <widget element="page[1]/section[2]/cell[1]/fragment[6]">
+    <widget element="page[1]/section[2]/cell[1]/fragment[4]">
       <view>case tree</view>
     </widget>
     <widget element="page[1]/section[2]/cell[2]/fragment[2]">
@@ -2143,9 +2133,7 @@
     </style>
     <style element="page[1]/section[2]/cell[1]/fragment[1]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[2]" inherit="tree and clipboard column" />
-    <style element="page[1]/section[2]/cell[1]/fragment[3]" inherit="tree and clipboard column" />
     <style element="page[1]/section[2]/cell[1]/fragment[4]" inherit="tree and clipboard column" />
-    <style element="page[1]/section[2]/cell[1]/fragment[6]" inherit="tree and clipboard column" />
     <!-- Main cell -->
     <style element="page[1]/section[2]/cell[2]|page[2]/section[1]/cell[1]">
       <selector path="" view="cell frame">

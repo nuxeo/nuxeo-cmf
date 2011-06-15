@@ -26,19 +26,10 @@
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
     <!-- add back login/logout + personal workspace links (see NXP-6418) -->
-
-    <action id="login">
-      <category>USER_SERVICES_BOTTOM</category>
-    </action>
-    <action id="SHOW_REPOSITORY">
-      <category>USER_SERVICES</category>
-    </action>
     <action id="documents" link="view_documents" label="label.main.tab.case.management" order="40">
       <category>MAIN_TABS</category>
     </action>
     <action id="home" enabled="false" />
-
-    
     <!-- end of login/logout actions -->
 
     <!-- Actions for the document selection -->

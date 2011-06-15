@@ -11,22 +11,6 @@
   <!-- views -->
   <extension target="org.nuxeo.theme.services.ThemeService" point="views">
 
-    <!-- displays the mailboxes in left menu -->
-    <view name="mailboxes list" template-engine="jsf-facelets">
-      <format-type>widget</format-type>
-      <template>casemanagement/mailbox/mailbox_list.xhtml</template>
-      <resource>dragdrop.js</resource>
-      <resource>contextmenu.js</resource>
-      <resource>jquery.layout.js</resource>
-      <resource>jquery.ui.js</resource>
-      <resource>jquery.ui.layout.css</resource>
-      <resource>jquery.cookie.js</resource>
-    </view>
-    <!-- displays the user classification roots in left menu -->
-    <view name="classification tree" template-engine="jsf-facelets">
-      <format-type>widget</format-type>
-      <template>classification/classification_tree_explorer.xhtml</template>
-    </view>
     <view name="case tree" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>casemanagement/case/case_tree.xhtml</template>
@@ -34,6 +18,12 @@
     <view name="Case Management logo" template-engine="jsf-facelets">
       <format-type>widget</format-type>
       <template>incl/logo_case_management.xhtml</template>
+      <resource>dragdrop.js</resource>
+      <resource>contextmenu.js</resource>
+      <resource>jquery.layout.js</resource>
+      <resource>jquery.ui.js</resource>
+      <resource>jquery.ui.layout.css</resource>
+      <resource>jquery.cookie.js</resource>
     </view>
 
     <view name="Print and ZIP buttons" template-engine="jsf-facelets">

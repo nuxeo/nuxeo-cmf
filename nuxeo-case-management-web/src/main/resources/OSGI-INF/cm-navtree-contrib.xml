@@ -5,12 +5,27 @@
   <require>
     org.nuxeo.ecm.virtualnavigation.directory.DirectoryTreeService.contrib
   </require>
+  <require>
+    org.nuxeo.ecm.virtualnavigation.tagsContrib
+  </require>
 
   <extension target="org.nuxeo.ecm.webapp.directory.DirectoryTreeService"
     point="trees">
     <directoryTree name="bySubjectsNavigation" enabled="false" />
     <directoryTree name="byCoverageNavigation" enabled="false" />
     <directoryTree name="byType" enabled="false" />
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.virtualnavigation.NavTreeService"
+      point="navigationTree">
+
+    <navTree treeId="MAILBOXES_FOLDER" treeLabel="label.byMailboxesFolder"
+     xhtmlview="/casemanagement/mailbox/mailbox_list.xhtml" order="1" />
+
+    <navTree treeId="CLASSIFICATION_FOLDER" treeLabel="label.byClassificationFolder"
+     xhtmlview="/classification/classification_tree_explorer.xhtml" order="90" />
+
+
   </extension>
 
 </component>
