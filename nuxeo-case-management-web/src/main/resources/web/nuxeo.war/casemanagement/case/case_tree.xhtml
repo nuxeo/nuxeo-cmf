@@ -28,7 +28,7 @@
                 id="case_tree_richtree">
                 <rich:recursiveTreeNodesAdaptor
                   id="case_tree_recursiveTreeNodesAdaptor"
-                  roots="#{treeActions.getTreeRoots('caseNavigation')}"
+                  roots="#{treeActions.getCaseTreeRoots('caseNavigation', currentCase.getDocument())}"
                   nodes="#{node.children}" var="node">
                   <rich:treeNode id="case_tree_node" highlightedClass="treeNodeHighlightedClass"
                     selectedClass="treeNodeSelectedClass">
