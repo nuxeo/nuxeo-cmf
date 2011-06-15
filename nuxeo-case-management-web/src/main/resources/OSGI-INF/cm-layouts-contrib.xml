@@ -2,6 +2,29 @@
 <component name="com.nuxeo.case-management.layouts">
 
   <require>org.nuxeo.ecm.platform.routing.layouts.webapp</require>
+
+  <!-- overriding default nuxeo relation_search_path widget: don't show all 
+    domains (would cause permission issues on generic relation tabs). This is 
+    a full copy as merge is not yet implemented in this extension point -->
+  <require>org.nuxeo.ecm.relations.web.layouts.contrib</require>
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="widgets">
+    <widget name="relation_search_path" type="select_path_tree">
+      <labels>
+        <label mode="any">label.relation.search.path</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>rel_srch:ecm_path</field>
+      </fields>
+      <properties widgetMode="edit">
+        <property name="styleClass">dataInputText</property>
+        <property name="labelOpenPopUp">label.relation.addPath</property>
+        <property name="showAllDomains">true</property>
+      </properties>
+    </widget>
+  </extension>
+
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgettypes">
     <widgetType name="summary_current_caseitem">
