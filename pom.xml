@@ -12,7 +12,7 @@
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.7-SNAPSHOT</version>
+  <version>1.7.1</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>
@@ -20,8 +20,8 @@
   </description>
 
   <properties>
-    <nuxeo.cm.version>1.7-SNAPSHOT</nuxeo.cm.version>
-    <nuxeo.routing.version>5.4.3-SNAPSHOT</nuxeo.routing.version>
+    <nuxeo.cm.version>1.7.1</nuxeo.cm.version>
+    <nuxeo.routing.version>5.4.3-I20110615_2100</nuxeo.routing.version>
   </properties>
 
   <profiles>
