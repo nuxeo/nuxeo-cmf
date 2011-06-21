@@ -66,6 +66,15 @@
         <assembly.name>assemble</assembly.name>
       </properties>
     </profile>
+    <profile>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <id>enableWizard</id>
+      <properties>
+        <assembly.name>assemble</assembly.name>
+      </properties>
+    </profile>
   </profiles>
 
   <dependencies>

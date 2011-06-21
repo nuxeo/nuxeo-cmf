@@ -85,6 +85,12 @@
     <antcall target="server" />
   </target>
 
+  <target name="set-wizard">
+      <echo append="true" file="${app.path}/bin/nuxeo.conf">
+nuxeo.wizard.done=false
+      </echo>
+  </target>
+
   <target name="set-distribution-properties">
     <echo append="false" file="${distribution.properties.file}">
 ## DO NOT MANUALLY EDIT THIS FILE
@@ -134,6 +140,9 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
       <param name="org.nuxeo.distribution.version" value="${nuxeo.cm.version}" />
       <param name="org.nuxeo.distribution.date" value="${DSTAMP}${TSTAMP}"/>
     </antcall>
+    <nx:profile name="enableWizard">
+      <antcall target="set-wizard" />
+    </nx:profile>
     <antcall target="zip" />
   </target>
 
