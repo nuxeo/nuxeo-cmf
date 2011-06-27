@@ -10,7 +10,8 @@
           <nxu:dataList layout="unorderedList" var="action"
             value="#{actions}">
             <a href="#{action.getLink()}">
-              <h:graphicImage value="#{action.icon}" />
+              <h:graphicImage value="#{action.icon}"
+                rendered="#{not empty action.icon}" />
               <h:outputText value="#{messages[action.label]}" />
             </a>
           </nxu:dataList>
