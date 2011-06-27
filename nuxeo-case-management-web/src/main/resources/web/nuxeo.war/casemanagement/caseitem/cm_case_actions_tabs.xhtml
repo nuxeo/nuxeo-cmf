@@ -30,7 +30,7 @@
               <h:graphicImage value="#{action.icon}"
                 title="#{messages[action.label]}"
                 alt="#{messages[action.label]}"
-                rendered="not empty action.icon" />
+                rendered="#{not empty action.icon}" />
             </nxh:commandLink>
           </nxu:dataList>
         </f:subview>
