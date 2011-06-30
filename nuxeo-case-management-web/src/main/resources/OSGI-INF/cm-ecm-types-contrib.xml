@@ -36,7 +36,6 @@
       </layouts>
       <subtypes>
         <type>Case</type>
-        <type>CaseItem</type>
       </subtypes>
       <contentViews category="inbox">
         <contentView>mailbox_inbox_content</contentView>
@@ -79,6 +78,7 @@
       <bigIcon>/icons/case_100.png</bigIcon>
       <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
+      <category>Document</category>
       <views>
         <view id="edit_case" value="edit_case" />
       </views>

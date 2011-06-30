@@ -77,6 +77,36 @@
 	<td></td>
 </tr>
 <tr>
+	<td>clickAndWait</td>
+	<td>link=Case</td>
+	<td></td>
+</tr>
+<tr>
+	<td>retrieveTestFolderPath</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_cm_case:nxw_title</td>
+	<td>Case test incoming mail</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Case saved</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Case test incoming mail</td>
+	<td></td>
+</tr>
+<tr>
 	<td>mouseDown</td>
 	<td>link=New</td>
 	<td></td>
@@ -192,13 +222,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>CaseItem saved</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Test incoming mail</td>
+	<td>verifyElementPresent</td>
+	<td>link=Test incoming mail</td>
 	<td></td>
 </tr>
 <tr>
