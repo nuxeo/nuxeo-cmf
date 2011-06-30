@@ -8,9 +8,7 @@
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
-<thead>
-<tr><td rowspan="1" colspan="3">testCaseDistribution</td></tr>
-</thead><tbody>
+<tbody>
 <tr>
 	<td>setTimeout</td>
 	<td>120000</td>
@@ -111,6 +109,36 @@
 <tr>
 	<td>mouseDown</td>
 	<td>link=New</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Case</td>
+	<td></td>
+</tr>
+<tr>
+	<td>retrieveTestFolderPath</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>document_create:nxl_cm_case:nxw_title</td>
+	<td>Case incoming mail for John, cc to Smith</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Case saved</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Case incoming mail for John, cc to Smith</td>
 	<td></td>
 </tr>
 <tr>
@@ -229,16 +257,16 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>CaseItem saved</td>
-	<td></td>
-</tr>
-<!-- Start incomming mail distribution-->
-<tr>
 	<td>verifyElementPresent</td>
 	<td>Link=Incoming mail for John, cc to Smith</td>
 	<td></td>
 </tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Incoming mail for John, cc to Smith</td>
+	<td></td>
+</tr>
+<!-- Start incomming mail distribution-->
 <tr>
 	<td>verifyElementPresent</td>
 	<td>link=Distribute</td>
@@ -401,6 +429,17 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
+	<td>link=Case incoming mail for John, cc to Smith</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Case incoming mail for John, cc to Smith</td>
+	<td></td>
+</tr>
+
+<tr>
+	<td>verifyElementPresent</td>
 	<td>link=Incoming mail for John, cc to Smith</td>
 	<td></td>
 </tr>
@@ -466,7 +505,7 @@
 </tr>
 <tr>
 	<td>verifyTextNotPresent</td>
-	<td>Incoming mail for John, cc to Smith</td>
+	<td>Case incoming mail for John, cc to Smith</td>
 	<td></td>
 </tr>
 <tr>
@@ -513,7 +552,7 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Incoming mail for John, cc to Smith</td>
+	<td>link=Case incoming mail for John, cc to Smith</td>
 	<td></td>
 </tr>
 <tr>
@@ -560,7 +599,7 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Incoming mail for John, cc to Smith</td>
+	<td>link=Case incoming mail for John, cc to Smith</td>
 	<td></td>
 </tr>
 <tr>
