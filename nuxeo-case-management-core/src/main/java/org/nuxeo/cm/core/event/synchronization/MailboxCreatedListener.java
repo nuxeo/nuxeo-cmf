@@ -60,6 +60,7 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
 
     // TODO: factor out personal mailbox creation, as same logic needs to be
     // implemented in MailboxCreator contribution and here
+    @Override
     public void handleEvent(Event event) throws ClientException {
         try {
             Map<String, Serializable> properties = event.getContext().getProperties();
@@ -126,9 +127,12 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
             beforeMailboxCreation(mailbox, event);
 
             mailboxModel = session.createDocument(mailboxModel);
+
+            mailbox = mailboxModel.getAdapter(Mailbox.class);
+            afterMailboxCreation(mailbox, event);
             // save because the mailbox will be queried just after in another
             // session
-            session.save();
+            mailbox.save(session);
         } catch (Exception e) {
             throw new CaseManagementException(
                     "Error during mailboxes creation", e);
@@ -140,6 +144,15 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
      * Hook method to fill additional info on mailbox, or override other info
      */
     protected void beforeMailboxCreation(Mailbox mailbox, Event event)
+            throws ClientException {
+        // do nothing
+    }
+
+    /**
+     * Hook method to override other info filled by
+     * {@link #CoreSession.createDocument(DocumentModel)} method.
+     */
+    protected void afterMailboxCreation(Mailbox mailbox, Event event)
             throws ClientException {
         // do nothing
     }
