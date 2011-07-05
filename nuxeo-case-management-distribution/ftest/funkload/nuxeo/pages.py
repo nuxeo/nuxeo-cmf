@@ -980,7 +980,7 @@ class MailboxPage(FolderPage):
     def addIncomingCaseItemManagementProfile(self):
        fl = self.fl
        server_url = fl.server_url
-       fl.assert_("Incoming Case Item Management" in fl.getBody())
+       fl.assert_("Case creation" in fl.getBody())
        fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['document_edit:nxl_cm_mailbox:nxw_mailbox_profiles', 'cellule_courrier'],
             ['document_edit:update_mailbox', 'Save'],
@@ -1006,9 +1006,10 @@ class MailboxPage(FolderPage):
         server_url = fl.server_url
         # Click on create new Case
         fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['selectDocumentTypeForCreationFormFormMailbox:selectMailboxDocTypePanelOpenedState', '1'],
             ['selectDocumentTypeForCreationFormFormMailbox_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['selectDocumentTypeForCreationFormFormMailbox:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationFormFormMailbox:selectDocumentTypeForCreationTable:1:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
+            ['selectDocumentTypeForCreationFormFormMailbox:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationFormFormMailbox:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
             description="click on create new case")
         # Create a Case
         p = fl.post(server_url + "/casemanagement/case/create_empty_case.faces", params=[
