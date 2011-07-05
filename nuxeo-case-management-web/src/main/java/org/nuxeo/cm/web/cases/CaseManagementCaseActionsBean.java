@@ -22,7 +22,10 @@ package org.nuxeo.cm.web.cases;
 import static org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager.CURRENT_DOCUMENT_SELECTION;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,16 +43,17 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
-import org.nuxeo.cm.web.distribution.CaseManagementDistributionActionsBean;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.trash.TrashService;
+import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
@@ -70,7 +74,7 @@ public class CaseManagementCaseActionsBean extends
 
     private static final long serialVersionUID = 1L;
 
-    private static final Log log = LogFactory.getLog(CaseManagementDistributionActionsBean.class);
+    private static final Log log = LogFactory.getLog(CaseManagementCaseActionsBean.class);
 
     @In(create = true, required = false)
     protected transient FacesMessages facesMessages;
@@ -207,6 +211,18 @@ public class CaseManagementCaseActionsBean extends
         final List<DocumentRef> postRefs = new ArrayList<DocumentRef>();
         for (DocumentModel documentModel : workingList) {
             CaseLink caselink = documentModel.getAdapter(CaseLink.class);
+            String caseId = caselink.getCase(documentManager).getDocument().getId();
+
+            List<DocumentRoute> relatedRoutes = getDocumentRoutingService().getDocumentRoutesForAttachedDocument(
+                    documentManager, caseId);
+            if (relatedRoutes != null && relatedRoutes.size() > 0) {
+                // Cancel deletion - at least one route is related to at least one Case
+                facesMessages.add(
+                        FacesMessage.SEVERITY_INFO,
+                        resourcesAccessor.getMessages().get(
+                                "feedback.case.selection.delete.existing.route"));
+                return;
+            }
             try {
                 caseRefs.add(caselink.getCase(documentManager).getDocument().getRef());
             } catch (Exception e) {
