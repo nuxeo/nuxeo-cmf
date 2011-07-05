@@ -961,9 +961,9 @@ class MailboxPage(FolderPage):
            params.append(['mb_view_action_tab_form:mb_view_action_tab_list:3:mb_view_action_tab_link', 'mb_view_action_tab_form:mb_view_action_tab_list:3:mb_view_action_tab_link'])         
        p = fl.post(server_url + "/casemanagement/cm_view.faces", params,
             description="view manage tab in the inbox")
-       if("Incoming Case Item Management" not in p.body):
-           logi(p.body)
-       fl.assert_("Incoming Case Item Management" in p.body)
+       if("Case creation" not in p.body):
+           fl.logi(p.body)
+       fl.assert_("Case creation" in p.body)
        return MailboxPage(self.fl)
     
     def viewInboxTab(self):
@@ -1018,7 +1018,7 @@ class MailboxPage(FolderPage):
             ['document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink', 'document_create:emptyCaseCreateActionView:emptyCaseCreateActionList:0:caseActionUpperListLink']],
             description="create new case")
         if("New" not in p.body):
-            logi(p.body)
+            fl.logi(p.body)
         fl.assert_("New" in p.body) 
         # Add a Case Item
         fl.post(server_url + "/casemanagement/cm_view.faces", params=[
