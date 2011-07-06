@@ -21,9 +21,13 @@ createUsers: start users-CMF stop
 
 createCaseItems: start create-Cases stop
 
+viewCases: start view-Cases stop
+
 testCMF: start test-CMF stop
 
 testBench: start test-bench stop
+
+testViewCaseBench: start test-view-bench stop
 
 start:
 	-mkdir -p $(REPORT) $(LOG_HOME)
@@ -41,10 +45,18 @@ test-CMF:
 	fl-run-test -d  --simple-fetch test_CMF.py $(FLOPS)
 	
 create-Cases:
-	fl-run-test -d -V --simple-fetch create_Cases.py $(FLOPS)	
+	fl-run-test -d  --simple-fetch create_Cases.py $(FLOPS)	
+
+view-Cases:
+	fl-run-test -d -V --simple-fetch view_Cases.py $(FLOPS)	
+
 
 test-bench:
 	-fl-run-bench --simple-fetch test_CMF.py CMF.test_CMF  --label=test -c 10 -D 300 -m 0.1 -M .5 -s 1 $(FLOPS)
+	-fl-build-report -T 3 $(LOG_HOME)/cmf-bench.xml --html -o $(REPORT)
+
+test-view-bench:
+	-fl-run-bench --simple-fetch view-Cases.py CMF.viewCases  --label=test -c 10 -D 300 -m 0.1 -M .5 -s 1 $(FLOPS)
 	-fl-build-report -T 3 $(LOG_HOME)/cmf-bench.xml --html -o $(REPORT)
 
 clean:

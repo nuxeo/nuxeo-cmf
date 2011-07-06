@@ -948,6 +948,23 @@ class MailboxPage(FolderPage):
         BasePage.login(self, user, password)
         return MailboxPage(self.fl)
 
+    def viewMailbox(self, mailbox):
+       fl = self.fl
+       server_url = fl.server_url
+       p = fl.get(server_url + "/nxpath/default/case-management/mailbox-root/"+mailbox+"@cm_view?tabIds=%3A&conversationId=0NXMAIN", description="Get /nuxeo/logout")
+       return MailboxPage(self.fl)
+   
+    def viewFirstCaseInMailbox(self):
+       fl = self.fl
+       server_url = fl.server_url
+       p = fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['mailbox_draft_content_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title', 'mailbox_draft_content:nxl_cm_draft_caselink:nxw_cm_mailbox_draft_listing_title_link:link_title']],
+            description="Post /nuxeo/casemanagement/cm_view.faces")
+       fl.assert_("New" in p.body)
+       return MailboxPage(self.fl)  
+        
     def logout(self):
       fl = self.fl
       server_url = fl.server_url
@@ -993,6 +1010,64 @@ class MailboxPage(FolderPage):
             description="add incoming caseItem management profile")
        return MailboxPage(self.fl)
 
+    def addMailboxDelegates(self, user):
+      fl = self.fl
+      server_url = fl.server_url
+      fl.assert_("Case creation" in fl.getBody())
+      fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['AJAXREQUEST', 'document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_ajax_region'],
+            ['document_edit:nxl_cm_mailbox:nxw_title', 'John Doe (Nuxeo)'],
+            ['document_edit:nxl_cm_mailbox:nxw_description', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggest', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggestionBox_selection', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailboxId', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_sync_state', 'doublon'],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggest', user],
+            ['document_edit_SUBMIT', '1'],
+            ['javax.faces.ViewState',  fl.getLastJsfState()],
+            ['hideVirtualGroups', 'false'],
+            ['userSuggestionSearchType', 'USER_TYPE'],
+            ['userSuggestionMaxSearchResults', '0'],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox', 'document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox'],
+            ['ajaxSingle', 'document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox'],
+            ['inputvalue',user],
+            ['AJAX:EVENTS_COUNT', '1']],
+            description="Post /nuxeo/casemanagement/cm_view.faces")
+      fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['AJAXREQUEST', 'document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_ajax_region'],
+            ['document_edit:nxl_cm_mailbox:nxw_title', 'John Doe (Nuxeo)'],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailboxId', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_sync_state', 'doublon'],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggest', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox_selection', '0'],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggest', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggestionBox_selection', ''],
+            ['document_edit_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['hideVirtualGroups', 'false'],
+            ['userSuggestionSearchType', 'USER_TYPE'],
+            ['userSuggestionMaxSearchResults', '0'],
+            ['suggestionSelectionListId', 'nxw_mailbox_users_list'],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox:nxw_mailbox_users_listRegion_select', 'document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox:nxw_mailbox_users_listRegion_select']],
+            description="Post /nuxeo/casemanagement/cm_view.faces")
+      fl.post(server_url + "/casemanagement/cm_view.faces", params=[
+            ['document_edit:nxl_cm_mailbox:nxw_title', 'John Doe (Nuxeo)'],
+            ['document_edit:nxl_cm_mailbox:nxw_description', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggest', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailbox_suggestionBox_selection', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_affiliation_mailboxId', ''],
+            ['document_edit:nxl_cm_mailbox:nxw_mailbox_sync_state', 'doublon'],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggest', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_users_suggestionBox_selection', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggest', ''],
+            ['document_edit:nxl_cm_mailbox_managers:nxw_mailbox_groups_suggestionBox_selection', ''],
+            ['document_edit:update_mailbox', 'Save'],
+            ['document_edit_SUBMIT', '1'],
+            ['javax.faces.ViewState', fl.getLastJsfState()]],
+            description="Post /nuxeo/casemanagement/cm_view.faces")
+      return MailboxPage(self.fl)
+   
+
     def viewDraftTab(self):
         fl = self.fl
         server_url = fl.server_url
@@ -1037,8 +1112,8 @@ class MailboxPage(FolderPage):
             ['document_create:nxl_cm_document:nxw_document_type', '23'],
             ['document_create:nxl_cm_document:nxw_confidentiality', '4'],
             ['document_create:nxl_cm_document:nxw_body', ''],
-             ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'upload'],
-            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload(pathToPdf)],
+             ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'none'],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload("")],
             ['document_create_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
