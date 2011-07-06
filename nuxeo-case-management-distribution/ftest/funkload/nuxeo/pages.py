@@ -101,8 +101,6 @@ class BasePage:
             description="Login " + user)
         fl.assert_('LoginFailed=true' not in fl.getLastUrl(),
                    'Login failed for %s:%s' % (user, password))
-        fl.assert_(fl.listHref(content_pattern="Log out"),
-                   "No log out link found on the welcome page")
         fl.current_login = user
         return FolderPage(self.fl)
 
@@ -949,6 +947,12 @@ class MailboxPage(FolderPage):
     def login(self, user, password):
         BasePage.login(self, user, password)
         return MailboxPage(self.fl)
+
+    def logout(self):
+      fl = self.fl
+      server_url = fl.server_url
+      p = fl.get(server_url + "/logout", description="Get /nuxeo/logout")
+      return MailboxPage(self.fl)
     
     def viewManageTab(self):
        fl = self.fl
