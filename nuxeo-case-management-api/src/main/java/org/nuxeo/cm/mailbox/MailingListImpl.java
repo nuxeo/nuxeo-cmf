@@ -17,6 +17,7 @@
 package org.nuxeo.cm.mailbox;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -33,40 +34,53 @@ public class MailingListImpl implements MailingList {
         this.mlDoc = mlDoc;
     }
 
+    @Override
     public String getDescription() {
         return (String) mlDoc.get(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD);
     }
 
+    @Override
     public String getId() {
         return (String) mlDoc.get(MailboxConstants.MAILINGLIST_ID_FIELD);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public List<String> getMailboxIds() {
         return (List<String>) mlDoc.get(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD);
     }
 
+    @Override
     public String getTitle() {
         return (String) mlDoc.get(MailboxConstants.MAILINGLIST_TITLE_FIELD);
     }
 
+    @Override
     public void setDescription(String descr) {
         mlDoc.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD, descr);
     }
 
+    @Override
     public void setId(String id) {
         mlDoc.put(MailboxConstants.MAILINGLIST_ID_FIELD, id);
     }
 
+    @Override
     public void setMailboxIds(List<String> mailboxes) {
+        // use hash set to remove duplicates from list.
+        LinkedHashSet<String> lhs = new LinkedHashSet<String>(mailboxes);
+        mailboxes.clear();
+        mailboxes.addAll(lhs);
         mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
                 (Serializable) mailboxes);
     }
 
+    @Override
     public void setTitle(String title) {
         mlDoc.put(MailboxConstants.MAILINGLIST_TITLE_FIELD, title);
     }
 
+    @Override
     public Map<String, Serializable> getMap() {
         return mlDoc;
     }
