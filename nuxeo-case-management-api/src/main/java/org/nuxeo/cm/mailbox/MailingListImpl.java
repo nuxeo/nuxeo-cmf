@@ -17,6 +17,7 @@
 package org.nuxeo.cm.mailbox;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class MailingListImpl implements MailingList {
     public void setMailboxIds(List<String> mailboxes) {
         // use hash set to remove duplicates from list.
         LinkedHashSet<String> lhs = new LinkedHashSet<String>(mailboxes);
-        mailboxes.clear();
+        mailboxes = new ArrayList<String>();
         mailboxes.addAll(lhs);
         mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
                 (Serializable) mailboxes);
