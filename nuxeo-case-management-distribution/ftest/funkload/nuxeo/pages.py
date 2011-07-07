@@ -1121,7 +1121,7 @@ class MailboxPage(FolderPage):
         fl.assert_("("+caseitem+" )" in fl.getBody())
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
-        fl.assert_( pdf_name in fl.getBody())
+        #fl.assert_( pdf_name in fl.getBody())
         ids = []
         caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
         caseId = self.getDocUid()
