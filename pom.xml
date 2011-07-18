@@ -22,6 +22,7 @@
   <properties>
     <nuxeo.cm.version>1.8-SNAPSHOT</nuxeo.cm.version>
     <nuxeo.routing.version>5.4.3-SNAPSHOT</nuxeo.routing.version>
+    <nuxeo.cmf.addons.version>5.4.2</nuxeo.cmf.addons.version>
   </properties>
 
   <profiles>
@@ -111,22 +112,22 @@
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-classification-api</artifactId>
-        <version>${nuxeo.features.version}</version>
+        <version>${nuxeo.cmf.addons.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-classification-core</artifactId>
-        <version>${nuxeo.features.version}</version>
+        <version>${nuxeo.cmf.addons.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-classification-facade</artifactId>
-        <version>${nuxeo.features.version}</version>
+        <version>${nuxeo.cmf.addons.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-classification-web</artifactId>
-        <version>${nuxeo.features.version}</version>
+        <version>${nuxeo.cmf.addons.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
