@@ -1112,8 +1112,8 @@ class MailboxPage(FolderPage):
             ['document_create:nxl_cm_document:nxw_document_type', '23'],
             ['document_create:nxl_cm_document:nxw_confidentiality', '4'],
             ['document_create:nxl_cm_document:nxw_body', ''],
-             ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'none'],
-            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload("")],
+             ['document_create:nxl_file:nxw_file:nxw_file_file:choice', 'upload'],
+            ['document_create:nxl_file:nxw_file:nxw_file_file:upload', Upload(pathToPdf)],
             ['document_create_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
@@ -1121,7 +1121,7 @@ class MailboxPage(FolderPage):
         fl.assert_("("+caseitem+" )" in fl.getBody())
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
-        #fl.assert_( pdf_name in fl.getBody())
+        fl.assert_( pdf_name in fl.getBody())
         ids = []
         caseItemId = extractToken(fl.getBody(), "nxfile/default/", "/")
         caseId = self.getDocUid()
@@ -1132,6 +1132,7 @@ class MailboxPage(FolderPage):
     def viewCaseItem(self,case, caseitem, caseItemId):
        fl = self.fl
        server_url = fl.server_url
+       fl.logi("View case item ID" + caseItemId)
        now = datetime.datetime.now()
        p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?subTabId=&tabId=TAB_CASE_MANAGEMENT_VIEW&conversationId=0NXMAIN&currentCaseItemId=" + caseItemId,
             description="view case item")
