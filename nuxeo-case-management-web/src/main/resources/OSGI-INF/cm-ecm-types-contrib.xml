@@ -78,7 +78,7 @@
       <bigIcon>/icons/case_100.png</bigIcon>
       <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
-      <category>Document</category>
+      <category>SimpleDocument</category>
       <views>
         <view id="edit_case" value="edit_case" />
       </views>
