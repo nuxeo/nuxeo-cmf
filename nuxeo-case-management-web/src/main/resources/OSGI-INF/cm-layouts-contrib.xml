@@ -402,9 +402,6 @@
           <widget>mailbox_parent</widget>
         </row>
         <row>
-          <widget>mailbox_affiliation</widget>
-        </row>
-        <row>
           <widget>mailbox_sync_state</widget>
         </row>
         <row>
