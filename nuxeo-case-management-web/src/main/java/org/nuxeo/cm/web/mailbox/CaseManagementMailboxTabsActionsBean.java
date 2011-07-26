@@ -93,6 +93,10 @@ public class CaseManagementMailboxTabsActionsBean extends
         return viewMailboxActionTabs;
     }
 
+    public void resetViewMailboxActionTabs(){
+        viewMailboxActionTabs = null;
+    }
+
     /**
      * @return All the Actions for Mailbox Management
      */

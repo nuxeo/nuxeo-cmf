@@ -66,6 +66,7 @@ import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.UserAction;
 import org.nuxeo.ecm.platform.ui.web.util.ComponentUtils;
+import org.nuxeo.ecm.webapp.contentbrowser.DocumentActions;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
@@ -99,6 +100,12 @@ public class CaseManagementMailboxActionsBean extends
 
     @In(create = true)
     protected transient ResourcesAccessor resourcesAccessor;
+
+    @In(create = true, required = true)
+    protected DocumentActions documentActions;
+
+    @In(create = true, required = true)
+    protected CaseManagementMailboxTabsActionsBean cmMailboxTabsActionsBean;
 
     @RequestParameter
     protected String mailboxSuggestionSearchType;
@@ -217,6 +224,16 @@ public class CaseManagementMailboxActionsBean extends
                 throw new ValidatorException(message);
             }
         }
+    }
+
+    /**
+     * Update the mailbox and reset ViewMailboxAction tabs.
+     *
+     * @throws ClientException
+     */
+    public String updateCurrentMailbox() throws ClientException {
+        cmMailboxTabsActionsBean.resetViewMailboxActionTabs();
+        return documentActions.updateCurrentDocument();
     }
 
     /**
