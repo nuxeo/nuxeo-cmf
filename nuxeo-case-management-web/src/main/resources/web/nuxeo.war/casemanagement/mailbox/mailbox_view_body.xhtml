@@ -28,8 +28,9 @@
       <h:outputText value="#{nxd:titleOrId(currentMailbox.document)}" />
     </h1>
   </h:panelGroup>
-  <ui:include src="/incl/message_banner.xhtml" />
-
+  <c:if test="#{currentCase == null}" >
+    <ui:include src="/incl/message_banner.xhtml" />
+  </c:if>
   <p class="currentDocumentDescription">
     <h:outputText value="#{currentMailbox.document.dublincore.description}" />
   </p>
