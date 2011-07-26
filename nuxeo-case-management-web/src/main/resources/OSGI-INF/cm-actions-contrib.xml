@@ -288,6 +288,7 @@
       label="label.casemanagement.action.distributionRequest"
       icon="/icons/case-management_distribute.gif" order="10">
       <category>VIEW_ACTION_LIST</category>
+      <filter-id>isNotCaseItem</filter-id>
       <filter-id>canDistributeCase</filter-id>
     </action>
 
@@ -491,7 +492,6 @@
 
     <filter id="isCaseItem">
       <rule grant="true">
-        <facet>Distributable</facet>
         <facet>CaseGroupable</facet>
       </rule>
     </filter>
@@ -499,7 +499,6 @@
     <filter id="isNotCaseItem">
       <rule grant="false">
         <facet>CaseGroupable</facet>
-        <facet>Distributable</facet>
       </rule>
     </filter>
 
