@@ -9,7 +9,7 @@
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
   <require>org.nuxeo.ecm.platform.routing.actions</require>
   <require>org.nuxeo.ecm.user.center.actions</require>
-  
+
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
@@ -26,7 +26,8 @@
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
     <!-- add back login/logout + personal workspace links (see NXP-6418) -->
-    <action id="documents" link="view_documents" label="label.main.tab.case.management" order="40">
+    <action id="documents" link="view_documents"
+      label="label.main.tab.case.management" order="40">
       <category>MAIN_TABS</category>
     </action>
     <action id="home" enabled="false" />
@@ -164,13 +165,24 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
 
-    <action id="CASE_CREATE" link="#{cmDocumentActions.createCaseItemInCase}"
-      label="command.create">
-      <category>CASE_CREATE_BOTTOM_LIST</category>
+    <action id="CASE_ITEM_CREATE"
+      link="#{cmDocumentActions.createCaseItemInCase}" label="command.create"
+      order="0">
+      <category>CASE_ITEM_CREATE_BOTTOM_LIST</category>
+    </action>
+
+    <action id="CANCEL_CASE_ITEM_CREATE" link="#{navigationContext.goBack()}"
+      order="10" label="command.cancel" immediate="true">
+      <category>CASE_ITEM_CREATE_BOTTOM_LIST</category>
     </action>
 
     <action id="EMPTY_CASE_CREATE" link="#{cmDocumentActions.createEmptyCase}"
-      label="command.create">
+      label="command.create" order="0">
+      <category>EMPTY_CASE_CREATE_BOTTOM_LIST</category>
+    </action>
+
+    <action id="CANCEL_CASE_CREATE" link="#{navigationContext.goBack()}"
+      order="10" label="command.cancel" immediate="true">
       <category>EMPTY_CASE_CREATE_BOTTOM_LIST</category>
     </action>
 
@@ -321,16 +333,16 @@
     </action>
 
     <action id="TAB_CASE_MANAGEMENT_COMMENTS"
-      link="/incl/tabs/document_comments.xhtml"
-      enabled="true" order="80" label="action.view.comments">
+      link="/incl/tabs/document_comments.xhtml" enabled="true" order="80"
+      label="action.view.comments">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isEmptyCase</filter-id>
       <filter-id>mutable_document</filter-id>
       <filter-id>not_anonymous</filter-id>
     </action>
 
-    <action id="newComment" link="#{commentManagerActions.addComment}" enabled="true"
-      label="command.add">
+    <action id="newComment" link="#{commentManagerActions.addComment}"
+      enabled="true" label="command.add">
       <category>CASE_MANAGEMENT_COMMENT_ACTIONS</category>
     </action>
 

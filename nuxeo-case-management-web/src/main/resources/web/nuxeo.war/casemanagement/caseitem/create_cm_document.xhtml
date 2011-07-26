@@ -28,7 +28,7 @@
 
         <div class="action_bar nofloat">
           <nxu:methodResult name="actions"
-            value="#{webActions.getActionsList('CASE_CREATE_BOTTOM_LIST_HREF')}">
+            value="#{webActions.getActionsList('CASE_ITEM_CREATE_BOTTOM_LIST_HREF')}">
             <f:subview rendered="#{!empty actions}">
               <nxu:dataList layout="unorderedList" var="action"
                 value="#{actions}">
@@ -41,19 +41,18 @@
             </f:subview>
           </nxu:methodResult>
           <nxu:methodResult name="actions"
-            value="#{webActions.getActionsList('CASE_CREATE_BOTTOM_LIST')}">
+            value="#{webActions.getActionsList('CASE_ITEM_CREATE_BOTTOM_LIST')}">
             <f:subview rendered="#{!empty actions}" id="caseCreateBottomActionView">
               <nxu:dataList layout="unorderedList" var="action"
                 value="#{actions}" id="caseCreateBottomActionList">
                 <nxh:commandLink action="#{action.getLink()}"
+                  immediate="#{action.immediate}"
                   id="caseActionUpperListLink">
                   <h:outputText value="#{messages[action.label]}" />
                 </nxh:commandLink>
               </nxu:dataList>
             </f:subview>
           </nxu:methodResult>
-          <h:commandLink class="button" value="#{messages['command.cancel']}"
-            action="#{navigationContext.goBack()}" immediate="true" />
         </div>
       </h:form>
     </div>
