@@ -28,6 +28,22 @@
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
     point="widgettypes">
     <widgetType name="summary_current_caseitem">
+       <configuration>
+        <sinceVersion>1.8</sinceVersion>
+        <title>CaseItem summary</title>
+        <description>
+          This widgets displays the metadatas for the current Case or Case Item and allows to modify them.
+        </description>
+        <categories>
+          <category>summary</category>
+          <category>cmf</category>
+        </categories>
+        <supportedModes>
+          <mode>view</mode>
+          <mode>edit</mode>
+        </supportedModes>
+        <!-- no configurable properties -->
+      </configuration>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
       </handler-class>
@@ -37,6 +53,22 @@
     </widgetType>
 
     <widgetType name="summary_case_item_content">
+       <configuration>
+        <sinceVersion>1.8</sinceVersion>
+        <title>CaseItem attached files summary</title>
+        <description>
+          This widgets displays the attached files on the current Case Item and allows to modify them.
+        </description>
+        <categories>
+          <category>summary</category>
+          <category>cmf</category>
+        </categories>
+        <supportedModes>
+          <mode>view</mode>
+          <mode>edit</mode>
+        </supportedModes>
+        <!-- no configurable properties -->
+      </configuration>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
       </handler-class>
