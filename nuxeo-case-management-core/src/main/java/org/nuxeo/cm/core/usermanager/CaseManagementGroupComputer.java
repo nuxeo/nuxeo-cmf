@@ -100,16 +100,16 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     List<Mailbox> mailboxes = getService().getUserMailboxes(
                             session, nuxeoPrincipal.getName());
                     List<String> res = new ArrayList<String>();
-                    String userMailboxId = getService().getUserPersonalMailboxId(username);
-                    if (userMailboxId != null) {
-                        res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                                + userMailboxId);
-                    }
                     if (mailboxes != null) {
                         for (Mailbox folder : mailboxes) {
                             res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX
                                     + folder.getId());
                         }
+                    }
+                    String userMailboxId = CaseManagementSecurityConstants.MAILBOX_PREFIX
+                            + getService().getUserPersonalMailboxId(username);
+                    if (userMailboxId != null && !res.contains(userMailboxId)) {
+                        res.add(userMailboxId);
                     }
                     return res;
                 } finally {
