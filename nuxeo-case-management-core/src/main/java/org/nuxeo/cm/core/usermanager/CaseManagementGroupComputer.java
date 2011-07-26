@@ -57,6 +57,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     /**
      * Returns an empty list for efficiency
      */
+    @Override
     public List<String> getAllGroupIds() throws Exception {
         return Collections.emptyList();
     }
@@ -70,6 +71,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return Collections.emptyList();
     }
 
+    @Override
     public List<String> getGroupMembers(String groupName) throws Exception {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getService(), groupName);
@@ -81,6 +83,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      * Method called at startup to compute users groups, so returns an empty
      * list when local thread is flagged.
      */
+    @Override
     public List<String> getGroupsForUser(NuxeoPrincipalImpl nuxeoPrincipal)
             throws Exception {
         if (nuxeoPrincipal != null) {
@@ -96,8 +99,12 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     // TODO: optimize, retrieving ids directly on service (?)
                     List<Mailbox> mailboxes = getService().getUserMailboxes(
                             session, nuxeoPrincipal.getName());
-
                     List<String> res = new ArrayList<String>();
+                    String userMailboxId = getService().getUserPersonalMailboxId(username);
+                    if (userMailboxId != null) {
+                        res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX
+                                + userMailboxId);
+                    }
                     if (mailboxes != null) {
                         for (Mailbox folder : mailboxes) {
                             res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX
@@ -119,6 +126,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return Collections.emptyList();
     }
 
+    @Override
     public List<String> getParentsGroupNames(String groupName) throws Exception {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getService(), groupName);
@@ -126,6 +134,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return runner.getMailboxParentNames();
     }
 
+    @Override
     public List<String> getSubGroupsNames(String groupName) throws Exception {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getService(), groupName);
