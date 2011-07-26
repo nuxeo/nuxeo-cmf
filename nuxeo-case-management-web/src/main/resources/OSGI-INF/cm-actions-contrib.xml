@@ -30,7 +30,7 @@
       label="label.main.tab.case.management" order="40">
       <category>MAIN_TABS</category>
     </action>
-    <action id="home" enabled="false" />
+    <action id="home" enabled="true" />
     <!-- end of login/logout actions -->
 
     <!-- Actions for the document selection -->
