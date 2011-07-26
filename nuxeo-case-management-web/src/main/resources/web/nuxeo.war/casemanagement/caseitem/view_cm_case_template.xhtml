@@ -8,13 +8,11 @@
 
   <h:panelGroup>
     <div class="enveloppeTitleArea">
-      <h1><h:outputText value="#{nxd:titleOrId(currentCase.document)} " />
-        <c:if test="#{currentCaseItem !=null }">
-          ( <h:outputText value="#{nxd:titleOrId(currentCaseItem)}" /> )
-        </c:if>
+      <h1>
+        <nxu:graphicImage value="#{nxd:iconPath(currentDocument)}" />
+        <h:outputText value="#{nxd:titleOrId(currentDocument)} " />
       </h1>
     </div>
-
   </h:panelGroup>
 
   <p class="currentDocumentDescription">
