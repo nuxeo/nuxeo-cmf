@@ -1118,7 +1118,7 @@ class MailboxPage(FolderPage):
             ['javax.faces.ViewState', fl.getLastJsfState()],
             ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
             description="create new case item")
-        fl.assert_("("+caseitem+" )" in fl.getBody())
+        fl.assert_(caseitem in fl.getBody())
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
         fl.assert_( pdf_name in fl.getBody())
@@ -1136,7 +1136,7 @@ class MailboxPage(FolderPage):
        now = datetime.datetime.now()
        p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?subTabId=&tabId=TAB_CASE_MANAGEMENT_VIEW&conversationId=0NXMAIN&currentCaseItemId=" + caseItemId,
             description="view case item")
-       fl.assert_("("+caseitem+" )" in fl.getBody())
+       fl.assert_(caseitem in fl.getBody())
        return CaseItemPage(self.fl)
    
     #change this to use the id of the case? 
