@@ -492,12 +492,14 @@
 
     <filter id="isCaseItem">
       <rule grant="true">
-        <facet>CaseGroupable</facet>
+      <facet>Distributable</facet>
+      <facet>CaseGroupable</facet>
       </rule>
     </filter>
 
     <filter id="isNotCaseItem">
       <rule grant="false">
+        <facet>Distributable</facet>
         <facet>CaseGroupable</facet>
       </rule>
     </filter>
