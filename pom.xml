@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
     <artifactId>nuxeo-features-parent</artifactId>
-    <version>5.4.2-HF04</version>
+    <version>5.4.2-HF05</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.8-SNAPSHOT</version>
+  <version>1.8</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>
@@ -20,8 +20,8 @@
   </description>
 
   <properties>
-    <nuxeo.cm.version>1.8-SNAPSHOT</nuxeo.cm.version>
-    <nuxeo.routing.version>5.4.3-SNAPSHOT</nuxeo.routing.version>
+    <nuxeo.cm.version>1.8</nuxeo.cm.version>
+    <nuxeo.routing.version>5.4.3-I20110729</nuxeo.routing.version>
   </properties>
 
   <profiles>
