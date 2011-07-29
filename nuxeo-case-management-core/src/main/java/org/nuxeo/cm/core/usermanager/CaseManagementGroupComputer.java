@@ -20,9 +20,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginContext;
@@ -67,7 +67,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      */
     @Override
     public List<String> searchGroups(Map<String, Serializable> filter,
-            HashSet<String> fulltext) throws Exception {
+            Set<String> fulltext) throws Exception {
         return Collections.emptyList();
     }
 

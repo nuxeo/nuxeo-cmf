@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
     <artifactId>nuxeo-features-parent</artifactId>
-    <version>5.4.2-HF04</version>
+    <version>5.4.3-SNAPSHOT</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.8-SNAPSHOT</version>
+  <version>1.9-SNAPSHOT</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>
@@ -20,8 +20,7 @@
   </description>
 
   <properties>
-    <nuxeo.cm.version>1.8-SNAPSHOT</nuxeo.cm.version>
-    <nuxeo.routing.version>5.4.3-SNAPSHOT</nuxeo.routing.version>
+    <nuxeo.cm.version>1.9-SNAPSHOT</nuxeo.cm.version>
   </properties>
 
   <profiles>
@@ -96,17 +95,17 @@
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-platform-document-routing-api</artifactId>
-        <version>${nuxeo.routing.version}</version>
+        <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-platform-document-routing-core</artifactId>
-        <version>${nuxeo.routing.version}</version>
+        <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-platform-document-routing-web</artifactId>
-        <version>${nuxeo.routing.version}</version>
+        <version>${nuxeo.features.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>

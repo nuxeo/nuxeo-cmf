@@ -65,9 +65,9 @@ public class CMVirtualUserManager {
                 DirectoryService dirService = Framework.getService(DirectoryService.class);
                 userDirSession = dirService.open("userDirectory");
                 if (userDirSession.getEntry(currentUser.getName()) == null) {
-                    return true;
+                    isCurrentUserVirtual = true;
                 } else {
-                    return false;
+                    isCurrentUserVirtual = false;
                 }
             } catch (DirectoryException e) {
                 throw new ClientException(e);
@@ -76,9 +76,8 @@ public class CMVirtualUserManager {
                     userDirSession.close();
                 }
             }
-        } else {
-            return isCurrentUserVirtual;
         }
+        return isCurrentUserVirtual;
     }
 
 }
