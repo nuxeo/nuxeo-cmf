@@ -407,10 +407,21 @@
     <action id="ADD_STEP_BETWEEN"
       link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'in';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
 
+    <!-- hide profile for Administrator user -->
+    <action id="Profile" >
+      <filter-id>isNotVirtualUser</filter-id>
+    </action>
+    
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="filters">
+
+    <filter id="isNotVirtualUser">
+      <rule grant="false">
+        <condition>#{cmVirtualUserManager.isCurrentUserVirtual()}</condition>
+      </rule>
+    </filter>
 
     <filter id="newCmMailbox">
       <rule grant="true">
