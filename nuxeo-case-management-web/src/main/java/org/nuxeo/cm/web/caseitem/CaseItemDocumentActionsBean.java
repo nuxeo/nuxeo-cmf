@@ -322,4 +322,13 @@ public class CaseItemDocumentActionsBean extends
         editingMail = false;
     }
 
+    public boolean isCaseItem() throws ClientException{
+     DocumentModel currentDoc = navigationContext.getCurrentDocument();
+     if (currentDoc == null) {
+         return false;
+     }
+     boolean isDistributable = currentDoc.hasFacet(CaseConstants.DISTRIBUTABLE_FACET);
+     boolean isCaseGroupable= currentDoc.hasFacet(CaseConstants.CASE_GROUPABLE_FACET);
+     return isDistributable&&isCaseGroupable;
+   }    
 }

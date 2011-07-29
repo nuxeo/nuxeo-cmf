@@ -64,4 +64,12 @@ public interface CaseManagementDocumentActions extends Serializable {
      */
     void updateCurrentCaseItem() throws ClientException;
 
+
+    /**
+     * Check if the current document is a CaseItem
+     *
+     * @throws ClientException
+     */
+    boolean isCaseItem() throws ClientException;
+    
 }

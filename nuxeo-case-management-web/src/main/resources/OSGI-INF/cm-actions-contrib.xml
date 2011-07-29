@@ -492,15 +492,13 @@
 
     <filter id="isCaseItem">
       <rule grant="true">
-      <facet>Distributable</facet>
-      <facet>CaseGroupable</facet>
+	 <condition>#{cmDocumentActions.isCaseItem()}</condition>
       </rule>
     </filter>
 
     <filter id="isNotCaseItem">
       <rule grant="false">
-        <facet>Distributable</facet>
-        <facet>CaseGroupable</facet>
+      	<condition>#{cmDocumentActions.isCaseItem()}</condition>
       </rule>
     </filter>
 
