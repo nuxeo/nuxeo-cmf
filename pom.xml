@@ -13,13 +13,13 @@
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.6-2</version>
+  <version>1.6.3-SNAPSHOT</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>The parent module for Nuxeo Case Management Framework</description>
 
   <properties>
-    <nuxeo.cm.version>1.6-2</nuxeo.cm.version>
+    <nuxeo.cm.version>1.6.3-SNAPSHOT</nuxeo.cm.version>
   </properties>
 
   <modules>
