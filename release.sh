@@ -1,7 +1,38 @@
 #!/bin/bash
-CURRENT_VERSION=1.9-SNAPSHOT
-RELEASE_VERSION=1.9
+CURRENT_VERSION=1.8
+RELEASE_VERSION=1.8
 WORKSPACE=release-$RELEASE_VERSION
+#fix me
+NX_REPO=/home/mariana/.m2/repository/org/nuxeo/cm
+WORK_DIR=`pwd`
+mkdir //archives
+
+
+fix_zip() {
+    zip_path=$1
+    zip_name=$2
+    [  ! -z "$zip_name" ] && rm -rf /tmp/$zip_name
+    unzip -q $zip_path -d /tmp/$zip_name
+    cd /tmp/$zip_name
+    [ ! -d "$zip_name" ] && mv nuxeo* $zip_name
+    chmod +x $zip_name/bin/*ctl $zip_name/bin/*.sh $zip_name/bin/*.command $zip_name/*.command
+    echo "nuxeo.wizard.done=false" >> $zip_name/bin/nuxeo.conf
+    rm -f $zip_path
+    zip -rq $zip_path $zip_name
+    cd -
+    rm -rf /tmp/$zip_name
+}
+
+prepare() {
+    zip_source=$1
+    zip_name=$2
+    zip_path=$WORK_DIR/archives/$zip_name.zip
+    [ -e $zip_path ] && rm -f $zip_path
+    mv $zip_source $zip_path || exit 1
+    fix_zip $zip_path $zip_name
+    echo "### $zip_path done."
+    (cd $WORK_DIR/archives; md5sum $zip_name.zip | tee $zip_name.zip.md5) || exit 1
+}
 
 
 # Change Application version version
@@ -11,18 +42,32 @@ sed -i s/$CURRENT_VERSION/$RELEASE_VERSION/g ./nuxeo-case-management-distributio
 sed -i s/$CURRENT_VERSION/$RELEASE_VERSION/g ./nuxeo-case-management-distribution/src/main/resources/cmf-funkload/nuxeo.defaults
 
 
-#Build and deploy the different packages
-#mvn clean deploy -Pqa,release,tomcat,tomcatCorr,server,serverCorr 
+prepare() {
+    zip_source=$1
+    zip_name=$2
+    zip_path=$WORK_DIR/archives/$zip_name.zip
+    [ -e $zip_path ] && rm -f $zip_path
+    mv $zip_source $zip_path || exit 1
+    fix_zip $zip_path $zip_name
+    echo "### $zip_path done."
+    (cd $WORK_DIR/archives; md5sum $zip_name.zip | tee $zip_name.zip.md5) || exit 1
+}
 
-#Package release
-#mvn -PenableWizard,tomcat install
-mkdir $WORKSPACE
-cp -r ./nuxeo-case-management-distribution/target/stage/nuxeo-cm-tomcat $WORKSPACE/nuxeo-cmf-$RELEASE_VERSION-tomcat
 
-cd $WORKSPACE/
-chmod +x nuxeo-cmf-$RELEASE_VERSION-tomcat/*.command nuxeo-cmf-$RELEASE_VERSION-tomcat/bin/*ctl nuxeo-cmf-$RELEASE_VERSION-tomcat/bin/.sh nuxeo-cmf-$RELEASE_VERSION-tomcat/bin/*.command
+#Build and copy
+mvn -Prelease,tomcat,server install
 
-zip -r nuxeo-cmf-$RELEASE_VERSION-tomcat.zip  nuxeo-cmf-$RELEASE_VERSION-tomcat
-md5sum nuxeo-cmf-$RELEASE_VERSION-tomcat.zip | tee nuxeo-cmf-$RELEASE_VERSION-tomcat.md5 
+# Tomcat
+prepare "$NX_REPO"/nuxeo-case-management-distribution/1.8/nuxeo-case-management-distribution-1.8-tomcat-cmf.zip nuxeo-case-management-distribution-$RELEASE_VERSION-tomcat-cmf
+
+#deploy maven artifacts
+mvn clean deploy  -Prelease,qa
+
+cd $WORK_DIR/nuxeo-case-management-distribution/
+mvn clean deploy  -Pserver,release,qa
+mvn clean deploy  -Ptomcat,release,qa
+
+
+
 
 
