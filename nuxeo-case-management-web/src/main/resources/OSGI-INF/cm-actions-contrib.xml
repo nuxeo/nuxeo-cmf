@@ -4,7 +4,6 @@
   <require>org.nuxeo.ecm.platform.actions</require>
   <require>org.nuxeo.ecm.platform.notifications.web.actions</require>
   <require>org.nuxeo.ecm.platform.actions.relations.web</require>
-  <require>org.nuxeo.ecm.platform.forum.actions</require>
   <require>org.nuxeo.ecm.platform.comment.actions</require>
   <require>org.nuxeo.ecm.platform.userworkspace.actions</require>
   <require>org.nuxeo.ecm.classification.web.actions</require>
