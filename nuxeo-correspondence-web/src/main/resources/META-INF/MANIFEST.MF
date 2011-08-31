@@ -16,5 +16,4 @@ Nuxeo-Component: OSGI-INF/corresp-layouts-contrib.xml,
   OSGI-INF/corresp-documentslists-contrib.xml,
   OSGI-INF/corresp-querymodel-contrib.xml,
   OSGI-INF/corresp-resultprovider-contrib.xml,
-  OSGI-INF/corresp-themes-contrib.xml,
   OSGI-INF/corresp-treemanager-contrib.xml

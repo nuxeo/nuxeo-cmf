@@ -6,6 +6,8 @@
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
 
+    <action id="documents" label="label.main.tab.correspondence" />
+    
     <!-- Add distribution layout to incoming draft mail -->
     <action id="distribute_cm_case">
       <filter-id>isNotIncomingInitialEnvelope</filter-id>
