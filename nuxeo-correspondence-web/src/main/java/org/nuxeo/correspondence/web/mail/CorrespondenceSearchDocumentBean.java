@@ -126,8 +126,7 @@ public class CorrespondenceSearchDocumentBean extends
         resetEmailAttachmentsSearchResults();
         // navigate to current email edit view
         DocumentModel currentDoc = navigationContext.getCurrentDocument();
-        return navigationContext.navigateToDocument(currentDoc,
-                "edit_outgoing_envelope");
+        return navigationContext.navigateToDocument(currentDoc);
     }
 
     protected void resetEmailAttachmentsSearchResults() {

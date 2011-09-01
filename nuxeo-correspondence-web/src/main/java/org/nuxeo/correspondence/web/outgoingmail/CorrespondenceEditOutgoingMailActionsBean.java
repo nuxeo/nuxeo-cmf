@@ -142,12 +142,12 @@ public class CorrespondenceEditOutgoingMailActionsBean extends
 
         // redirect to edit view
         TypeInfo typeInfo = envelope.getAdapter(TypeInfo.class);
-        return typeInfo.getView("edit_outgoing_envelope");
+        return typeInfo.getDefaultView();
     }
 
     /**
      * Open the Draft Post in edit
-     *
+     * 
      * @throws Exception
      */
     public String openDistribution() throws Exception {

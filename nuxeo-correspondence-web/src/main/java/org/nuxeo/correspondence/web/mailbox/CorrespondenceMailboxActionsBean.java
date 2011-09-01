@@ -72,7 +72,7 @@ public class CorrespondenceMailboxActionsBean extends
 
     /**
      * Check if the current envelope display an incoming mail
-     *
+     * 
      * @return true if it's an incoming mail
      * @throws ClientException
      */
@@ -118,8 +118,7 @@ public class CorrespondenceMailboxActionsBean extends
         DocumentModel mailDoc = envelope.getFirstItem(documentManager).getDocument();
         if (mailDoc.hasFacet(MailConstants.OUTGOING_MAIL_FACET)) {
             // Edit the outgoing mail
-            String view = navigationContext.navigateToDocument(envelopeDoc,
-                    "edit_outgoing_envelope");
+            String view = navigationContext.navigateToDocument(envelopeDoc);
             // Lock the document
             LockableAdapter lockable = mailDoc.getAdapter(LockableAdapter.class);
 
