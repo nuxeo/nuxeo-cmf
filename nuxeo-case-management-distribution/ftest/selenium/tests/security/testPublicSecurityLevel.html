@@ -81,7 +81,7 @@ but cannot modify it.
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Create a new document IncomingCorrespondenceDocument</td>
+	<td>Create a new document Incoming mail</td>
 	<td></td>
 </tr>
 <tr>
@@ -136,7 +136,7 @@ but cannot modify it.
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>IncomingCorrespondenceDocument saved</td>
+	<<td>Incoming mail saved</td>
 	<td></td>
 </tr>
 <!-- Send mail -->
@@ -212,53 +212,28 @@ but cannot modify it.
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>//input[@value='Edit']</td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>//input[@value='Edit']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementNotPresent</td>
-	<td>//input[@value='Edit']</td>
+	<td>link=Edit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Save</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=Cancel</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>caseView:document_properties:nxl_summary_current_case_layout:commentarea</td>
+	<td>//*[@id='caseView:document_edit']/x:table[2]/x:tbody/x:tr/x:td[3]/x:textarea</td>
 	<td>document modified by Jdoe</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Save</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>link=Save</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementNotPresent</td>
-	<td>link=Cancel</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>//input[@value='Edit']</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
@@ -304,53 +279,33 @@ but cannot modify it.
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>//input[@value='Edit']</td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>//input[@value='Edit']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementNotPresent</td>
-	<td>//input[@value='Edit']</td>
+	<td>link=Edit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Save</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=Cancel</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>caseView:document_properties:nxl_summary_current_case_layout:commentarea</td>
+	<td>//*[@id='caseView:document_edit']/x:table[2]/x:tbody/x:tr/x:td[3]/x:textarea</td>
 	<td>document modified by Bree</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Save</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>link=Save</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementNotPresent</td>
-	<td>link=Cancel</td>
+	<td>//input[@value='Save']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//input[@value='Edit']</td>
+	<td>link=Edit</td>
 	<td></td>
 </tr>
 <tr>
@@ -407,7 +362,7 @@ but cannot modify it.
 <!-- Check that Lucien should not be able to edit the document-->
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>//input[@value='Edit']</td>
+	<td>link=Edit</td>
 	<td></td>
 </tr>
 <tr>
