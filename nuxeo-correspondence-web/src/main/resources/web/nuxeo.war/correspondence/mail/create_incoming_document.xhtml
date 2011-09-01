@@ -53,27 +53,7 @@
             </f:subview>
           </nxu:methodResult>
         </div>
-      <div style="clear:both;"></div>
-      <div>
-			  <nxl:layout name="cm_participants" mode="edit"
-			    value="#{distributionInfo}" />
-			  
-				<div class="action_bar nofloat">
-				<nxu:methodResult name="actions"
-				  value="#{webActions.getActionsList('CREATE_INITIAL_DISTRIBUTION_BOTTOM_LIST')}">
-				  <f:subview rendered="#{!empty actions}">
-				    <nxu:dataList layout="unorderedList" var="action"
-				      value="#{actions}">
-				      <nxh:commandLink action="#{action.getLink()}"
-				        id="caseActionUpperListLink">
-				        <h:outputText value="#{messages[action.label]}" />
-				      </nxh:commandLink>
-				    </nxu:dataList>
-				  </f:subview>
-				</nxu:methodResult>
-				</div>
-			</div>
-			<div style="clear:both;"></div>
+    	<div style="clear:both;"></div>
       </h:form>
     </div>
   </ui:define>
