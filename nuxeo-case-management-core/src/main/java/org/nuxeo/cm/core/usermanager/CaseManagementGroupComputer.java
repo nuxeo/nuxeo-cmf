@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.HashSet;
 
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginContext;
@@ -45,7 +45,7 @@ import org.nuxeo.runtime.api.Framework;
 /**
  * Group computer for case management, adding mailboxes ids to the user virtual
  * groups so that it can be used for permissions resolution.
- *
+ * 
  * @author Anahide Tchertchian
  */
 public class CaseManagementGroupComputer extends AbstractGroupComputer {
@@ -67,7 +67,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      */
     @Override
     public List<String> searchGroups(Map<String, Serializable> filter,
-            Set<String> fulltext) throws Exception {
+            HashSet<String> fulltext) throws Exception {
         return Collections.emptyList();
     }
 
