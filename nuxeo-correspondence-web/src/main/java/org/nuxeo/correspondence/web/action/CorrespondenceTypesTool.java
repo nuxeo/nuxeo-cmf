@@ -26,12 +26,14 @@ import java.util.Set;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.cm.cases.CaseConstants;
+import org.nuxeo.cm.cases.Case;
+import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.web.context.CaseManagementContextHolderBean;
 import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.schema.SchemaManager;
 import org.nuxeo.ecm.platform.types.Type;
@@ -48,7 +50,12 @@ public class CorrespondenceTypesTool extends TypesTool {
     @In(create = true, required = false)
     protected transient CaseManagementContextHolderBean cmContextHolder;
 
+    @In(create = true, required = false)
+    protected transient CoreSession documentManager;
+
     private static final String CELLULE_COURRIER = "cellule_courrier";
+
+    private static final String CASE_DOCUMENT_CATEGORY = "CaseDocument";
 
     private static final long serialVersionUID = 1L;
 
@@ -59,15 +66,21 @@ public class CorrespondenceTypesTool extends TypesTool {
     @Override
     protected Map<String, List<Type>> filterTypeMap(
             Map<String, List<Type>> docTypeMap) {
-        boolean isCurrentCaseItemIncomingCorrespondence = isCurrentCaseItemIncomingCorrespondence();
-        boolean isCurrentCaseItemOutgoingCorrespondence = isCurrentCaseItemOutgoingCorrespondence();
+        // If not null, parent doc is envelope so no need to filter
+        // This should be remove and parent Doc should be given as parameter
+        if (docTypeMap.get(CASE_DOCUMENT_CATEGORY) != null) {
+            return docTypeMap;
+        }
+
+        boolean isCurrentCaseItemIncomingCorrespondence = hasCurrentCaseItemGivenFacet(CorrespondenceConstants.INCOMING_CORRESPONDENCE_FACET);
+        boolean isCurrentCaseItemOutgoingCorrespondence = hasCurrentCaseItemGivenFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET);
 
         for (List<Type> types : docTypeMap.values()) {
             for (Iterator<Type> it = types.iterator(); it.hasNext();) {
                 Type type = it.next();
-                if (!(isCelluleCourrierMailbox() || isAllowedOutsideCelluleCourrier(
+                if (!isAllowed(
                         type, isCurrentCaseItemIncomingCorrespondence,
-                        isCurrentCaseItemOutgoingCorrespondence))) {
+                        isCurrentCaseItemOutgoingCorrespondence)) {
                     it.remove();
                 }
             }
@@ -75,7 +88,7 @@ public class CorrespondenceTypesTool extends TypesTool {
         return docTypeMap;
     }
 
-    protected boolean isAllowedOutsideCelluleCourrier(Type type,
+    protected boolean isAllowed(Type type,
             boolean isCurrentCaseItemIncomingCorrespondence,
             boolean isCurrentCaseItemOutgoingCorrespondence) {
         try {
@@ -88,49 +101,48 @@ public class CorrespondenceTypesTool extends TypesTool {
             boolean currentTypeIsOutgoing = outgoingTypes.contains(type.getId());
             if (isCurrentCaseItemIncomingCorrespondence) {
                 return currentTypeIsIncoming;
-            } else if (isCurrentCaseItemOutgoingCorrespondence()) {
+            } else if (isCurrentCaseItemOutgoingCorrespondence) {
                 return currentTypeIsOutgoing;
             }
-            return currentTypeIsOutgoing;
+            if (isCelluleCourrierMailbox()) {
+                return true;
+            } else {
+                return currentTypeIsOutgoing;
+            }
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
 
     protected boolean isCelluleCourrierMailbox() {
-        DocumentModel model = getCurrentItem();
-        if (model.hasFacet(CaseConstants.MAILBOX_FACET)) {
-            Mailbox mailbox = model.getAdapter(Mailbox.class);
-            return mailbox.getProfiles().contains(CELLULE_COURRIER);
-        }
-        return false;
-    }
-
-    protected boolean isCurrentCaseItemIncomingCorrespondence() {
         try {
-            DocumentModel currentCaseItem = cmContextHolder.getCurrentCaseItem();
-            if (currentCaseItem == null) {
-                return false;
-            } else if (currentCaseItem.hasFacet(CorrespondenceConstants.INCOMING_CORRESPONDENCE_FACET)) {
-                return true;
-            } else {
-                return false;
+            Mailbox mailbox = cmContextHolder.getCurrentMailbox();
+            if (mailbox != null) {
+                return mailbox.getProfiles().contains(CELLULE_COURRIER);
             }
+            return false;
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
 
-    protected boolean isCurrentCaseItemOutgoingCorrespondence() {
+    protected boolean hasCurrentCaseItemGivenFacet(String facet) {
         try {
-            DocumentModel currentCaseItem = cmContextHolder.getCurrentCaseItem();
-            if (currentCaseItem == null) {
-                return false;
-            } else if (currentCaseItem.hasFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET)) {
-                return true;
-            } else {
-                return false;
+            DocumentModel caseItemDocument = cmContextHolder.getCurrentCaseItem();
+            if (caseItemDocument == null) {
+                Case kase = cmContextHolder.getCurrentCase();
+                if (kase != null) {
+                    CaseItem caseItem = kase.getFirstItem(documentManager);
+                    if (caseItem == null) {
+                        return false;
+                    } else {
+                        caseItemDocument = caseItem.getDocument();
+                    }
+                } else {
+                    return false;
+                }
             }
+            return caseItemDocument.hasFacet(facet);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }

@@ -15,15 +15,17 @@
 
     <type id="CorrespondenceEnvelope">
       <label>label.correspondence.type.CorrespondenceEnvelope</label>
-      <icon>/icons/case.png</icon>
-      <bigIcon>/icons/case_100.png</bigIcon>
+      <icon>/icons/correspondence_mail.png</icon>
+      <bigIcon>/icons/mail_100.png</bigIcon>
       <default-view>cm_view</default-view>
       <create-view>create_empty_case</create-view>
+      <category>CaseDocument</category>
       <views>
         <view id="edit_case" value="edit_case" />
       </views>
       <subtypes>
-        <type>CaseItem</type>
+        <type>IncomingCorrespondenceDocument</type>
+        <type>OutgoingCorrespondenceDocument</type>
       </subtypes>
       <layouts mode="create">
         <layout>cm_case</layout>
@@ -50,6 +52,7 @@
         <layout>cm_mailbox_managers</layout>
       </layouts>
       <subtypes>
+        <type>CorrespondenceEnvelope</type>
         <type>IncomingCorrespondenceDocument</type>
         <type>OutgoingCorrespondenceDocument</type>
       </subtypes>
