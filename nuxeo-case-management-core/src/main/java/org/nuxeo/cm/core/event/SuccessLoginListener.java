@@ -31,6 +31,7 @@ import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * Listen to loginSuccess event and create the personal mailbox if needed
@@ -43,13 +44,16 @@ public class SuccessLoginListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
         CoreSession session = null;
+        boolean isNewTransactionStarted = false;
         try {
             MailboxManagementService nxcService = Framework.getService(MailboxManagementService.class);
             if (nxcService == null) {
                 throw new CaseManagementException(
                         "CorrespondenceService not found.");
             }
-
+            if (!TransactionHelper.isTransactionActive()) {
+                isNewTransactionStarted = TransactionHelper.startTransaction();
+            }
             SimplePrincipal principal = (SimplePrincipal) event.getContext().getPrincipal();
             session = getCoreSession();
             if (!nxcService.hasUserPersonalMailbox(session, principal.getName())) {
@@ -61,6 +65,9 @@ public class SuccessLoginListener implements EventListener {
         } finally {
             if (session != null) {
                 Repository.close(session);
+            }
+            if (isNewTransactionStarted) {
+                TransactionHelper.commitOrRollbackTransaction();
             }
         }
     }

@@ -41,6 +41,7 @@ import org.nuxeo.ecm.platform.api.login.UserIdentificationInfoCallbackHandler;
 import org.nuxeo.ecm.platform.computedgroups.AbstractGroupComputer;
 import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
  * Group computer for case management, adding mailboxes ids to the user virtual
@@ -92,11 +93,15 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                 disableRetrieveMailboxes.set(true);
                 CoreSession session = null;
                 LoginContext loginContext = null;
+                boolean isNewTransactionStarted = false;
                 try {
                     final String username = nuxeoPrincipal.getName();
                     loginContext = loginOnContext(username);
                     session = openCoreSession(username);
                     // TODO: optimize, retrieving ids directly on service (?)
+                    if (!TransactionHelper.isTransactionActive()) {
+                        isNewTransactionStarted = TransactionHelper.startTransaction();
+                    }
                     List<Mailbox> mailboxes = getService().getUserMailboxes(
                             session, nuxeoPrincipal.getName());
                     List<String> res = new ArrayList<String>();
@@ -113,6 +118,9 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     }
                     return res;
                 } finally {
+                    if (isNewTransactionStarted) {
+                        TransactionHelper.commitOrRollbackTransaction();
+                    }
                     closeCoreSession(session);
                     disableRetrieveMailboxes.remove();
                     if (loginContext != null) {
