@@ -82,8 +82,7 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
 
         Case envelope = getCurrentCase();
 
-        return navigationContext.navigateToDocument(envelope.getDocument(),
-                "edit_outgoing_envelope");
+        return navigationContext.navigateToDocument(envelope.getDocument());
 
     }
 

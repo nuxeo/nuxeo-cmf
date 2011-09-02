@@ -20,14 +20,6 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>edit_outgoing_envelope</from-outcome>
-      <to-view-id>
-        /correspondence/outgoingmail/outgoingmail_edit.xhtml
-      </to-view-id>
-      <redirect />
-    </navigation-case>
-
-    <navigation-case>
       <from-outcome>distribution_outgoing_post</from-outcome>
       <to-view-id>
         /correspondence/outgoingmail/outgoingmail_distribution.xhtml
