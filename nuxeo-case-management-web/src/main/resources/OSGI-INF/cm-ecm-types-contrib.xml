@@ -249,6 +249,38 @@
         <type>DocumentRouteStep</type>
       </deniedSubtypes>
     </type>
+    
+    <type id="DecisionalDistributionTask" coreType="DecisionalDistributionTask">
+      <label>label.casemanagement.type.DistributionTask</label>
+      <icon>/icons/distribution_task.png</icon>
+      <bigIcon>/icons/distribution_task_100.png</bigIcon>
+      <category>SimpleDocument</category>
+      <description>File.description</description>
+      <default-view>view_documents</default-view>
+      <edit-view>edit_route_element</edit-view>
+      <layouts mode="any">
+        <layout>heading</layout>
+        <layout>routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>heading</layout>
+        <layout>dublincore</layout>
+        <layout>routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
+      </layouts>
+      <layouts mode="view" />
+    </type>
+    
+    <type id="ConditionalStepFolder">
+      <subtypes>
+        <type>StepFolder</type>
+        <type>DecisionalDistributionTask</type>
+      </subtypes>
+      <deniedSubtypes>
+        <type>DocumentRouteStep</type>
+      </deniedSubtypes>
+    </type>
 
   </extension>
 

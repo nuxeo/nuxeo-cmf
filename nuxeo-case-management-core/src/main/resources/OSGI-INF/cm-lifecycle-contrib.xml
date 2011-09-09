@@ -104,6 +104,7 @@
       <type name="GenericDistributionTask">documentRouteElement</type>
       <type name="PersonalDistributionTask">documentRouteElement</type>
       <type name="DistributionStep">documentRouteElement</type>
+      <type name="DecisionalDistributionTask">documentRouteElement</type>
     </types>
   </extension>
 

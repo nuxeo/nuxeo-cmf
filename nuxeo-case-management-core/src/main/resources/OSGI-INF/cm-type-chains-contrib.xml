@@ -15,6 +15,9 @@
       undoChainIdFromDone="simpleUndo" />
     <mapping documentType="DistributionStep" chainId="DistributionStepChain"
       undoChainIdFromRunning="simpleUndo" undoChainIdFromDone="simpleUndo" />
+    <mapping documentType="DecisionalDistributionTask" chainId="DecisionalDistributionTaskChain"
+      undoChainIdFromRunning="undoRunningActionable"
+      undoChainIdFromDone="simpleUndo" />  
   </extension>
 
 </component>

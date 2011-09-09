@@ -108,6 +108,9 @@
       <facet name="Commentable" />
     </doctype>
 
+    <doctype name="DecisionalDistributionTask" extends="DistributionTask">
+    </doctype>
+
     <doctype name="GenericDistributionTask" extends="DocumentRouteStep">
       <schema name="routing_task" />
       <facet name="RouteStep" />
