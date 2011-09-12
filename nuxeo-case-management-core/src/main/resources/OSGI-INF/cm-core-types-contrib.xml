@@ -129,6 +129,13 @@
       <facet name="Commentable" />
     </doctype>
 
+    <doctype name="SectionRoot" extends="Folder">
+      <facet name="HiddenInNavigation" />
+      <facet name="SuperSpace"/>
+      <subtypes>
+        <type>Section</type>
+      </subtypes>
+    </doctype>
 
   </extension>
 </component>
