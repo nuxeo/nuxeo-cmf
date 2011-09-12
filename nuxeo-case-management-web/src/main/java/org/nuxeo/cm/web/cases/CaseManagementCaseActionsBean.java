@@ -22,7 +22,6 @@ package org.nuxeo.cm.web.cases;
 import static org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager.CURRENT_DOCUMENT_SELECTION;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -49,12 +48,12 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
-import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.trash.TrashService;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
+import org.nuxeo.ecm.platform.routing.web.RelatedRouteActionBean;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
@@ -93,6 +92,9 @@ public class CaseManagementCaseActionsBean extends
 
     @In(required = false, create = true)
     protected transient DocumentsListsManager documentsListsManager;
+
+    @In(required = true, create = true)
+    protected transient RelatedRouteActionBean relatedRouteAction;
 
     protected transient TrashService trashService;
 
@@ -197,6 +199,16 @@ public class CaseManagementCaseActionsBean extends
             return false;
         }
         try {
+            CaseLink caseLink = null;
+            for (DocumentModel doc : docs) {
+                caseLink = doc .getAdapter(CaseLink.class);
+                if (caseLink == null) {
+                    return false;
+                }
+                if (relatedRouteAction.hasRelatedRoute(caseLink.getCaseId())) {
+                    return false;
+                }
+            }
             return getTrashService().canDelete(docs,
                     documentManager.getPrincipal(), false);
         } catch (ClientException e) {
@@ -336,8 +348,5 @@ public class CaseManagementCaseActionsBean extends
         }
         return null;
     }
-    
-    
- 
-    
+
 }

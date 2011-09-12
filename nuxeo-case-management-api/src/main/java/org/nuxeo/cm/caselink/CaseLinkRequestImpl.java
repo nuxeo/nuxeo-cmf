@@ -58,7 +58,7 @@ public class CaseLinkRequestImpl implements CaseLink {
         this.internalRecipients = internalRecipients;
         this.externalRecipients = externalRecipients;
     }
-    
+
     public CaseLinkRequestImpl(String sender, Date date, String subject,
             String comment, Case envelope,
             Map<String, List<String>> internalRecipients,
@@ -74,46 +74,66 @@ public class CaseLinkRequestImpl implements CaseLink {
         this.externalRecipients = externalRecipients;
     }
 
+    @Override
     public Map<String, List<String>> getAllParticipants() {
         return internalRecipients;
     }
 
+    @Override
     public String getComment() {
         return comment;
     }
 
+    @Override
     public Date getDate() {
         return date.getTime();
     }
 
+    @Override
     public Case getCase(CoreSession session) {
         return envelope;
     }
 
+    @Override
+    public String getCaseId() {
+        DocumentModel envelopeDoc = envelope.getDocument();
+        if (envelopeDoc == null) {
+            return null;
+        }
+        return envelopeDoc.getId();
+    }
+
+    @Override
     public String getId() {
         throw new UnsupportedOperationException("Post request have no id.");
     }
 
+    @Override
     public Map<String, List<String>> getInitialInternalParticipants() {
         return internalRecipients;
     }
 
+    @Override
     public Map<String, List<String>> getInitialExternalParticipants() {
         return externalRecipients;
     }
 
+    @Override
     public String getSender() {
         return sender;
     }
 
+    @Override
     public String getSubject() {
         return subject;
     }
 
+    @Override
     public String getSenderMailboxId() {
         return null;
     }
 
+    @Override
     public Date getSentDate() {
         throw new UnsupportedOperationException(
                 "Post request have no sending date.");
@@ -123,40 +143,48 @@ public class CaseLinkRequestImpl implements CaseLink {
         throw new UnsupportedOperationException("Post request have no subject.");
     }
 
+    @Override
     public String getType() {
         throw new UnsupportedOperationException("Post request have no type.");
     }
 
+    @Override
     public boolean isRead() {
         throw new UnsupportedOperationException(
                 "Post request have no read marker.");
     }
 
+    @Override
     public void save(CoreSession session) {
         throw new UnsupportedOperationException(
                 "Post request can not be saved.");
     }
 
+    @Override
     public DocumentModel getDocument() {
         throw new UnsupportedOperationException(
                 "Post request have no document.");
     }
 
+    @Override
     public boolean isDraft() {
         throw new UnsupportedOperationException(
                 "Post request have no draft status.");
     }
 
+    @Override
     public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
+    @Override
     public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
+    @Override
     public void addParticipants(Map<String, List<String>> recipients) {
         throw new UnsupportedOperationException("Not implemented");
     }

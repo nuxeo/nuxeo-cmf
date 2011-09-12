@@ -57,6 +57,7 @@ public class CaseLinkImpl implements CaseLink {
         recipientAdapter = recipientAdapted;
     }
 
+    @Override
     public String getComment() {
         return getPropertyValue(COMMENT_FIELD);
     }
@@ -86,10 +87,12 @@ public class CaseLinkImpl implements CaseLink {
         return null;
     }
 
+    @Override
     public Date getDate() {
         return getDatePropertyValue(DATE_FIELD);
     }
 
+    @Override
     public Case getCase(CoreSession session) {
         Case envelope;
         try {
@@ -105,34 +108,47 @@ public class CaseLinkImpl implements CaseLink {
         return envelope;
     }
 
+    @Override
+    public String getCaseId() {
+        return getPropertyValue(CASE_DOCUMENT_ID_FIELD);
+    }
+
+    @Override
     public String getId() {
         return document.getId();
     }
 
+    @Override
     public String getSender() {
         return getPropertyValue(SENDER_FIELD);
     }
 
+    @Override
     public String getSubject() {
         return getPropertyValue(SUBJECT_FIELD);
     }
 
+    @Override
     public String getSenderMailboxId() {
         return getPropertyValue(SENDER_MAILBOX_ID_FIELD);
     }
 
+    @Override
     public Date getSentDate() {
         return getDatePropertyValue(SENT_DATE_FIELD);
     }
 
+    @Override
     public String getType() {
         return getPropertyValue(TYPE_FIELD);
     }
 
+    @Override
     public boolean isRead() {
         return (Boolean) getPropertyValue(IS_READ_FIELD);
     }
 
+    @Override
     public void save(CoreSession session) {
         try {
             session.saveDocument(document);
@@ -141,36 +157,44 @@ public class CaseLinkImpl implements CaseLink {
         }
     }
 
+    @Override
     public DocumentModel getDocument() {
         return document;
     }
 
+    @Override
     public boolean isDraft() {
         return (Boolean) getPropertyValue(IS_DRAFT_FIELD);
     }
 
+    @Override
     public void addInitialExternalParticipants(
             Map<String, List<String>> recipients) {
         recipientAdapter.addInitialExternalParticipants(recipients);
     }
 
+    @Override
     public void addInitialInternalParticipants(
             Map<String, List<String>> recipients) {
         recipientAdapter.addInitialInternalParticipants(recipients);
     }
 
+    @Override
     public void addParticipants(Map<String, List<String>> recipients) {
         recipientAdapter.addParticipants(recipients);
     }
 
+    @Override
     public Map<String, List<String>> getAllParticipants() {
         return recipientAdapter.getAllParticipants();
     }
 
+    @Override
     public Map<String, List<String>> getInitialExternalParticipants() {
         return recipientAdapter.getInitialExternalParticipants();
     }
 
+    @Override
     public Map<String, List<String>> getInitialInternalParticipants() {
         return recipientAdapter.getInitialInternalParticipants();
     }

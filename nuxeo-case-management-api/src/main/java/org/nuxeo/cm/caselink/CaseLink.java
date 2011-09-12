@@ -18,7 +18,6 @@
 package org.nuxeo.cm.caselink;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.nuxeo.cm.cases.Case;
@@ -85,6 +84,11 @@ public interface CaseLink extends HasParticipants, Serializable {
      * The mail envelope sent.
      */
     Case getCase(CoreSession session);
+
+    /**
+     * Gets the Id of the associated Case;
+     */
+    String getCaseId();
 
     /**
      * Gets the send date of the post.
