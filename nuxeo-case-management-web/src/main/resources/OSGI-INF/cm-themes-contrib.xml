@@ -80,7 +80,8 @@
   <extension target="org.nuxeo.theme.services.ThemeService" point="resources">
     <resource name="jquery.layout.js">
       <path>scripts/jquery.layout.js</path>
-      <require>jquery.js</require>
+      <require>jquery.ui.js</require>
+      <require>jquery.cookie.js</require>
     </resource>
     <resource name="jquery.ui.js">
       <path>scripts/jquery.ui.js</path>
