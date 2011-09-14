@@ -398,13 +398,13 @@
     <!-- routing action -->
 
     <action id="ADD_STEP_BEFORE"
-      link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'before';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
+      link="javascript:document.getElementById('selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'before';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
 
     <action id="ADD_STEP_AFTER"
-      link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'after';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
+      link="javascript:document.getElementById('selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'after';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
 
     <action id="ADD_STEP_BETWEEN"
-      link="javascript:document.getElementById('caseView:selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'in';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
+      link="javascript:document.getElementById('selectRouteElementsTypeForCreationForm:hiddenDocOrder').value = 'in';Richfaces.showModalPanel('selectRouteElementsTypePanel');" />
 
     <!-- hide profile for Administrator user -->
     <action id="Profile" >
