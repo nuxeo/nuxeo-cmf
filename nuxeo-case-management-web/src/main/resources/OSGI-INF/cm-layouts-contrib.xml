@@ -1342,7 +1342,6 @@
         <row>
           <widget>summary_case_item_content</widget>
           <widget>summary_current_document_tagging</widget>
-          <widget>summary_document_route_action</widget>
         </row>
       </rows>
     </layout>
