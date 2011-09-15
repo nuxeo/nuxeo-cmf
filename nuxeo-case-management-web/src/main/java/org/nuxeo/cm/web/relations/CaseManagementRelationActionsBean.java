@@ -80,7 +80,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Retrieves relations for current email.
- *
+ * 
  * @author Anahide Tchertchian
  */
 @Name("cmRelationActions")
@@ -421,13 +421,15 @@ public class CaseManagementRelationActionsBean extends
             notifyEvent(RelationEvents.AFTER_RELATION_CREATION, currentDoc,
                     options, eventComment);
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "label.relation.created"));
         }
 
         if (alreadySet) {
-            facesMessages.add(FacesMessage.SEVERITY_WARN,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_WARN,
                     resourcesAccessor.getMessages().get(
                             "label.relation.already.exists"));
         }
@@ -469,7 +471,8 @@ public class CaseManagementRelationActionsBean extends
             // make sure statements will be recomputed
             resetStatements();
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "label.relation.deleted"));
         }
