@@ -1102,9 +1102,9 @@ class MailboxPage(FolderPage):
         fl.assert_("New" in p.body) 
         # Add a Case Item
         fl.post(server_url + "/casemanagement/cm_view.faces", params=[
-            ['caseView:selectDocumentTypeForCreationForm_SUBMIT', '1'],
+            ['selectDocumentTypeForCreationForm_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['caseView:selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'caseView:selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
+            ['selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink', 'selectDocumentTypeForCreationForm:selectDocumentTypeForCreationTable:0:selectDocumentTypeForCreationCategory:0:selectDocumentTypeForCreationCategoryTable:0:selectDocumentTypeForCreationCategoryTitleLink']],
             description="click to create a new case item")
         # Save the Case Item
         fl.post(server_url + "/casemanagement/caseitem/create_cm_document.faces", params=[
