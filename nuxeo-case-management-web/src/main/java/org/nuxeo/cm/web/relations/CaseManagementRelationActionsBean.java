@@ -72,6 +72,7 @@ import org.nuxeo.ecm.platform.relations.web.NodeInfoImpl;
 import org.nuxeo.ecm.platform.relations.web.StatementInfo;
 import org.nuxeo.ecm.platform.relations.web.StatementInfoComparator;
 import org.nuxeo.ecm.platform.relations.web.StatementInfoImpl;
+import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
@@ -110,6 +111,9 @@ public class CaseManagementRelationActionsBean extends
 
     @In(create = true)
     protected transient QueryModelActions queryModelActions;
+
+    @In(create = true)
+    protected transient NavigationContext navigationContext;
 
     @In(required = false)
     protected transient Principal currentUser;
@@ -332,8 +336,9 @@ public class CaseManagementRelationActionsBean extends
     public List<DocumentModel> getDocumentRelationSuggestions(Object input)
             throws ClientException {
         try {
+            String docId = navigationContext.getCurrentDocument().getId();
             QueryModel qm = queryModelActions.get(CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL);
-            Object[] params = { getCurrentCaseItem().getId(), input };
+            Object[] params = { docId, input };
             PagedDocumentsProvider pageProvider = qm.getResultsProvider(
                     documentManager, params, null);
             return pageProvider.getCurrentPage();
