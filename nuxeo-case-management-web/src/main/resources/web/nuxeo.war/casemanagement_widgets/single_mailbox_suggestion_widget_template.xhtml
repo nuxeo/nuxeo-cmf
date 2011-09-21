@@ -7,6 +7,10 @@
   xmlns:rich="http://richfaces.org/rich"
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
   
+<c:if test="#{widget.mode != 'edit'}">
+	   <h:outputText id="#{widget.id}_view_mailbox" value="#{field_0}"/>
+</c:if>
+
 <c:if test="#{widget.mode == 'edit'}">
 
   <c:set var="minChars"

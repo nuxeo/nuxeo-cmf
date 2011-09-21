@@ -151,11 +151,14 @@
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
-        <layout>dublincore</layout>
         <layout>routing_task</layout>
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
-      <layouts mode="view" />
+      <layouts mode="view" >
+        <layout>heading</layout>
+        <layout>routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
+      </layouts>
     </type>
 
     <type id="GenericDistributionTask" coreType="GenericDistributionTask">
@@ -173,11 +176,14 @@
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
-        <layout>dublincore</layout>
         <layout>routing_task</layout>
         <layout>generic_mailboxes_routing_task</layout>
       </layouts>
-      <layouts mode="view" />
+      <layouts mode="view" >
+        <layout>heading</layout>
+        <layout>routing_task</layout>
+        <layout>generic_mailboxes_routing_task</layout>
+      </layouts>
     </type>
 
     <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
@@ -195,11 +201,14 @@
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
-        <layout>dublincore</layout>
         <layout>routing_task</layout>
         <layout>personal_mailboxes_routing_task</layout>
       </layouts>
-      <layouts mode="view" />
+      <layouts mode="view" >
+        <layout>heading</layout>
+        <layout>routing_task</layout>
+        <layout>personal_mailboxes_routing_task</layout>
+      </layouts>
     </type>
 
     <type id="DistributionStep" coreType="DistributionStep">
@@ -216,10 +225,12 @@
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
-        <layout>dublincore</layout>
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
-      <layouts mode="view" />
+      <layouts mode="view">
+        <layout>heading</layout>
+        <layout>all_mailboxes_routing_task</layout>
+      </layouts>
     </type>
 
     <type id="StepFolder">
@@ -265,11 +276,14 @@
       </layouts>
       <layouts mode="edit">
         <layout>heading</layout>
-        <layout>dublincore</layout>
         <layout>routing_task</layout>
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
-      <layouts mode="view" />
+      	<layout>heading</layout>
+        <layout>routing_task</layout>
+        <layout>all_mailboxes_routing_task</layout>
+      <layouts mode="view" >
+      </layouts>
     </type>
     
     <type id="ConditionalStepFolder">
