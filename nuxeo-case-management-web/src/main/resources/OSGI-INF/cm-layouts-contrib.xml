@@ -236,6 +236,9 @@
         <property name="required">true</property>
         <property name="userSuggestionSearchType">USER_TYPE</property>
       </properties>
+      <properties widgetMode="view">
+        <property name="userSuggestionSearchType">USER_TYPE</property>
+      </properties>
     </widget>
 
     <!-- XXX: depends on mailbox_owner and mailbox_type widget names: throws 
