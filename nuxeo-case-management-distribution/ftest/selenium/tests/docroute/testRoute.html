@@ -223,6 +223,21 @@
 	<td>E</td>
 	<td></td>
 </tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>DecisionalDistributionTask</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>F.1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>F.2</td>
+	<td></td>
+</tr>
 <!-- verify distribution step A -->
 <tr>
 	<td>click</td>
@@ -514,13 +529,96 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextNotPresent</td>
+	<td>clickAndWait</td>
+	<td>Link=Case test route mail</td>
+	<td></td>
+</tr>
+<!--Validate DecisionalTaskStep->
+<!-- Validate C2.1 -->
+<tr>
+	<td>open</td>
+	<td>/nuxeo/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>linnet</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>linnet1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
 	<td>Approve</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>Link=Case test route mail</td>
+	<td>Link=Approve</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Approve</td>
+	<td></td>
+</tr>
+<!--validate that smith got the last email, Validate Option1-->
+<tr>
+	<td>open</td>
+	<td>/nuxeo/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>jsmith</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>jsmith1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Approve</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Link=Approve</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Approve</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Case test route mail</td>
 	<td></td>
 </tr>
 <!-- Validate route instance -->
@@ -611,8 +709,43 @@
 </tr>
 <tr>
 	<td>verifyText</td>
+	<td>//form[@id='orderable_document_content']/table/tbody/tr[6]/td[9]</td>
+	<td>done</td>
+</tr>
+<tr>
+	<td>verifyText</td>
 	<td>//span[@id='document_view:documentViewPanel']/div[2]/div[1]/table/tbody/tr/td[2]</td>
 	<td>done</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//form[@id='orderable_document_content']/table/tbody/tr[6]/td[9]</td>
+	<td>done</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=F</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Option 1</td> 
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Option 2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//span[@id='orderable_document_content:nxl_document_listing_ajax_1:nxw_listing_lifecycle_1']</td>
+	<td>done</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//span[@id='orderable_document_content:nxl_document_listing_ajax_2:nxw_listing_lifecycle_2']</td>
+	<td>canceled</td>
 </tr>
 <tr>
 	<td>open</td>

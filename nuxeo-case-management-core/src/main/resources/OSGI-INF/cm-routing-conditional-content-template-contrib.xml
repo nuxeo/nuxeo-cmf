@@ -13,7 +13,7 @@
       factoryName="SimpleTemplateFactory" targetType="ConditionalStepFolder">
       <template>
         <templateItem typeName="DecisionalDistributionTask" id="routeDocStep"
-          title="DecisionalDistributionTask" description="Decisional distribution task" />
+          title="DecisionalDistributionTask" description="Decisional distribution task, if approved, Option 1 is executed, if refused, Option2 is executed" />
         <templateItem typeName="StepFolder" id="option1"
           title="Option 1" description="Branch executed if option1 is chosen" />
         <templateItem typeName="StepFolder" id="option2" title="Option 2"
