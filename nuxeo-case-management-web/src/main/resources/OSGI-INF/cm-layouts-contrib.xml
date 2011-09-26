@@ -402,6 +402,23 @@
       </properties>
     </widget>
 
+    <widget name="participatingDocuments" type="template">
+      <labels>
+        <label mode="any">label.document.routing.participatingDocuments</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>docri:participatingDocuments</field>
+      </fields>
+      <properties mode="any">
+        <property name="template">
+          /casemanagement_widgets/document_combobox_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="cssStyleClass">dataInputText</property>
+      </properties>
+    </widget>
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
