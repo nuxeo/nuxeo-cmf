@@ -7,6 +7,12 @@
   xmlns:rich="http://richfaces.org/rich"
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
   
+   <script type="text/javascript">
+            function printObjectsSelected(output, sgcomponent){
+                output.innerHTML=sgcomponent.getSelectedItems().pluck('state');
+            }
+  </script>
+  
 <c:if test="#{widget.mode != 'edit'}">
 	   <h:outputText id="#{widget.id}_view_mailbox" value="#{field_0}"/>
 </c:if>
@@ -38,7 +44,7 @@
           var="result" fetchValue=""
           nothingLabel="#{messages['label.content.empty.search']}"
           minChars="#{minChars}" frequency="#{frequency}"
-          requestDelay="#{requestDelay}">
+          requestDelay="#{requestDelay}"   onobjectchange="printObjectsSelected(#{rich:element('objects')}, #{rich:component('suggestion')});">
           <f:param name="mailboxSuggestionSearchType"
             value="#{widget.properties['mailboxSuggestionSearchType']}" />
           <a4j:support event="onselect" id="#{widget.id}_a4jSupport"
