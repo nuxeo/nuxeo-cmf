@@ -402,6 +402,24 @@
       </properties>
     </widget>
 
+    <widget name="document_related_route" type="template">
+      <labels>
+        <label mode="any">label.document.routing.related.route</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>relatedRouteModelDocumentId</field>
+      </fields>
+      <properties mode="any">
+        <property name="template">
+          /documentrouting_widgets/documentroute_related_route_combobox_widget_template.xhtml
+        </property>
+      </properties>
+      <properties widgetMode="edit">
+        <property name="cssStyleClass">dataInputText</property>
+      </properties>
+    </widget>
+
     <widget name="participatingDocuments" type="template">
       <labels>
         <label mode="any">label.document.routing.participatingDocuments</label>
