@@ -140,7 +140,7 @@
       <label>label.casemanagement.type.DistributionTask</label>
       <icon>/icons/distribution_task.png</icon>
       <bigIcon>/icons/distribution_task_100.png</bigIcon>
-      <category>SimpleDocument</category>
+      <category>Steps</category>
       <description>File.description</description>
       <default-view>view_documents</default-view>
       <edit-view>edit_route_element</edit-view>
@@ -165,7 +165,7 @@
       <label>label.casemanagement.type.GenericDistributionTask</label>
       <icon>/icons/generic_distribution_task.png</icon>
       <bigIcon>/icons/generic_distribution_task_100.png</bigIcon>
-      <category>SimpleDocument</category>
+      <category>Steps</category>
       <description>File.description</description>
       <default-view>view_documents</default-view>
       <edit-view>edit_route_element</edit-view>
@@ -190,7 +190,7 @@
       <label>label.casemanagement.type.PersonalDistributionTask</label>
       <icon>/icons/personal_distribution_task.png</icon>
       <bigIcon>/icons/personal_distribution_task_100.png</bigIcon>
-      <category>SimpleDocument</category>
+      <category>Steps</category>
       <description>File.description</description>
       <default-view>view_documents</default-view>
       <edit-view>edit_route_element</edit-view>
@@ -215,7 +215,7 @@
       <label>label.casemanagement.type.DistributionStep</label>
       <icon>/icons/distribution_step.png</icon>
       <bigIcon>/icons/distribution_step_100.png</bigIcon>
-      <category>SimpleDocument</category>
+      <category>Steps</category>
       <description>File.description</description>
       <default-view>view_documents</default-view>
       <edit-view>edit_route_element</edit-view>
@@ -265,7 +265,7 @@
       <label>label.casemanagement.type.DistributionTask</label>
       <icon>/icons/distribution_task.png</icon>
       <bigIcon>/icons/distribution_task_100.png</bigIcon>
-      <category>SimpleDocument</category>
+      <category>Steps</category>
       <description>File.description</description>
       <default-view>view_documents</default-view>
       <edit-view>edit_route_element</edit-view>
