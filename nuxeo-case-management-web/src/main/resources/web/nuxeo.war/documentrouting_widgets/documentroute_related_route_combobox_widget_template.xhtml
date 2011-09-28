@@ -7,8 +7,9 @@
   xmlns:rich="http://richfaces.org/rich">
 
   <script type="text/javascript">
-    function openSuggestionBox(elementId) {
-      document.getElementById(elementId).component.callSuggestion(true);
+    function openSuggestionBox() {
+      var element = document.getElementById("suggestionBoxContainer").firstChild;
+      document.getElementById(element.id).component.callSuggestion(true);
     }
   </script>
 
@@ -28,7 +29,7 @@
             <h:inputText id="#{widget.id}_route_suggest"
               onkeydown="if (event.keyCode == 13) {return false;}" />
             <h:graphicImage value="/img/arrow.png"
-              onclick="openSuggestionBox('distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:#{widget.id}_route_suggestionBox');"
+              onclick="openSuggestionBox();"
               alt="" />
             <a4j:status>
               <f:facet name="start">
@@ -37,34 +38,36 @@
             </a4j:status>
           </h:panelGrid> 
         </span>
-        <rich:suggestionbox id="#{widget.id}_route_suggestionBox"
-          for="#{widget.id}_route_suggest" tokens=""
-          suggestionAction="#{docRoutingSuggestionActions.getRouteModelSuggestions}"
-          var="result" fetchValue=""
-          nothingLabel="#{messages['label.content.empty.search']}"
-          minChars="#{minChars}" frequency="#{frequency}"
-          requestDelay="#{requestDelay}">
-          <f:param name="mailboxSuggestionSearchType"
-            value="#{widget.properties['mailboxSuggestionSearchType']}" />
-          <a4j:support event="onselect"
-            focus="#{widget.id}_route_suggest" bypassUpdates="true"
-            reRender="#{widget.id}_route_region" id="#{widget.id}_a4jSupport">
+        <span id="suggestionBoxContainer">
+          <rich:suggestionbox id="#{widget.id}_route_suggestionBox"
+            for="#{widget.id}_route_suggest" tokens=""
+            suggestionAction="#{docRoutingSuggestionActions.getRouteModelSuggestions}"
+            var="result" fetchValue=""
+            nothingLabel="#{messages['label.content.empty.search']}"
+            minChars="#{minChars}" frequency="#{frequency}"
+            requestDelay="#{requestDelay}">
             <f:param name="mailboxSuggestionSearchType"
               value="#{widget.properties['mailboxSuggestionSearchType']}" />
-            <f:setPropertyActionListener value="#{result.id}"
-                  target="#{suggestionActions.selectedValue}" />
-            <nxu:actionListenerMethod value="#{suggestionActions.addSingleBoundSelection}" />
-            <f:param name="suggestionSelectionHiddenId"
-              value="#{widget.id}_routeId" />
-            <f:param name="suggestionSelectionOutputId"
-              value="#{widget.id}_route" />
-            <f:param name="suggestionSelectionDeleteId"
-              value="#{widget.id}_selection_reset" />
-          </a4j:support>
-          <h:column>
-            <h:outputText value="#{result.title}" />
-          </h:column>
-        </rich:suggestionbox>
+            <a4j:support event="onselect"
+              focus="#{widget.id}_route_suggest" bypassUpdates="true"
+              reRender="#{widget.id}_route_region" id="#{widget.id}_a4jSupport">
+              <f:param name="mailboxSuggestionSearchType"
+                value="#{widget.properties['mailboxSuggestionSearchType']}" />
+              <f:setPropertyActionListener value="#{result.id}"
+                    target="#{suggestionActions.selectedValue}" />
+              <nxu:actionListenerMethod value="#{suggestionActions.addSingleBoundSelection}" />
+              <f:param name="suggestionSelectionHiddenId"
+                value="#{widget.id}_routeId" />
+              <f:param name="suggestionSelectionOutputId"
+                value="#{widget.id}_route" />
+              <f:param name="suggestionSelectionDeleteId"
+                value="#{widget.id}_selection_reset" />
+            </a4j:support>
+            <h:column>
+              <h:outputText value="#{result.title}" />
+            </h:column>
+          </rich:suggestionbox>
+        </span>
         <br />
         <h:outputText value="#{messages['label.suggestion.help.combo']} " />
       </h:panelGroup>
