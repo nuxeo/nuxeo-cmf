@@ -21,9 +21,7 @@
       <resource>dragdrop.js</resource>
       <resource>contextmenu.js</resource>
       <resource>jquery.layout.js</resource>
-      <resource>jquery.ui.js</resource>
       <resource>jquery.ui.layout.css</resource>
-      <resource>jquery.cookie.js</resource>
     </view>
 
     <view name="Print and ZIP buttons" template-engine="jsf-facelets">
