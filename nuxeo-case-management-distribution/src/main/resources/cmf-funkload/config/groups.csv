@@ -1,6 +1,5 @@
 groupname, grouplabel, description
 "members","Members group","Group of users with read access rights"
 "administrators","Administrators group","Group of users with adminstrative rights"
-"routeManagers","routeManagers","Group of users with adminstrative rights"
 
 

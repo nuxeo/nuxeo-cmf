@@ -5,14 +5,6 @@
     <mapping documentType="DistributionTask" chainId="DistributionTaskChain"
       undoChainIdFromRunning="undoRunningActionable"
       undoChainIdFromDone="simpleUndo" />
-    <mapping documentType="GenericDistributionTask"
-      chainId="GenericDistributionTaskChain"
-      undoChainIdFromRunning="undoRunningActionable"
-      undoChainIdFromDone="simpleUndo" />
-    <mapping documentType="PersonalDistributionTask"
-      chainId="PersonalDistributionTaskChain"
-      undoChainIdFromRunning="undoRunningActionable"
-      undoChainIdFromDone="simpleUndo" />
     <mapping documentType="DistributionStep" chainId="DistributionStepChain"
       undoChainIdFromRunning="simpleUndo" undoChainIdFromDone="simpleUndo" />
     <mapping documentType="DecisionalDistributionTask" chainId="DecisionalDistributionTaskChain"

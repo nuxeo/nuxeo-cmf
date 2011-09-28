@@ -22,42 +22,6 @@
       </operation>
       <operation id="Case.Management.Distribution" />
     </chain>
-    <chain id="GenericDistributionTaskChain">
-      <operation id="Case.Management.CreateCaseLink" />
-      <operation id="Case.Management.Step.CaseLink.Mapping">
-        <param name="actionnable" type="boolean">true</param>
-        <param name="mappingProperties" type="Properties">
-          <property key="dc:title">Case:dc:title</property>
-          <property key="acslk:dueDate">Step:rtsk:dueDate</property>
-          <property key="acslk:automaticValidation">
-            Step:rtsk:automaticValidation
-          </property>
-        </param>
-        <param name="leavingChainsProperties" type="Properties">
-          <property key="validate">validateAndRemoveLink</property>
-          <property key="refuse">refuseAndRemoveLink</property>
-        </param>
-      </operation>
-      <operation id="Case.Management.Distribution" />
-    </chain>
-    <chain id="PersonalDistributionTaskChain">
-      <operation id="Case.Management.CreateCaseLink" />
-      <operation id="Case.Management.Step.CaseLink.Mapping">
-        <param name="actionnable" type="boolean">true</param>
-        <param name="mappingProperties" type="Properties">
-          <property key="dc:title">Case:dc:title</property>
-          <property key="acslk:dueDate">Step:rtsk:dueDate</property>
-          <property key="acslk:automaticValidation">
-            Step:rtsk:automaticValidation
-          </property>
-        </param>
-        <param name="leavingChainsProperties" type="Properties">
-          <property key="validate">validateAndRemoveLink</property>
-          <property key="refuse">refuseAndRemoveLink</property>
-        </param>
-      </operation>
-      <operation id="Case.Management.Distribution" />
-    </chain>
     <chain id="DistributionStepChain">
       <operation id="Case.Management.CreateCaseLink" />
       <operation id="Case.Management.Step.CaseLink.Mapping">

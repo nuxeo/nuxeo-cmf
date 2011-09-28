@@ -161,56 +161,6 @@
       </layouts>
     </type>
 
-    <type id="GenericDistributionTask" coreType="GenericDistributionTask">
-      <label>label.casemanagement.type.GenericDistributionTask</label>
-      <icon>/icons/generic_distribution_task.png</icon>
-      <bigIcon>/icons/generic_distribution_task_100.png</bigIcon>
-      <category>Steps</category>
-      <description>File.description</description>
-      <default-view>view_documents</default-view>
-      <edit-view>edit_route_element</edit-view>
-      <layouts mode="any">
-        <layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>generic_mailboxes_routing_task</layout>
-      </layouts>
-      <layouts mode="edit">
-        <layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>generic_mailboxes_routing_task</layout>
-      </layouts>
-      <layouts mode="view" >
-        <layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>generic_mailboxes_routing_task</layout>
-      </layouts>
-    </type>
-
-    <type id="PersonalDistributionTask" coreType="PersonalDistributionTask">
-      <label>label.casemanagement.type.PersonalDistributionTask</label>
-      <icon>/icons/personal_distribution_task.png</icon>
-      <bigIcon>/icons/personal_distribution_task_100.png</bigIcon>
-      <category>Steps</category>
-      <description>File.description</description>
-      <default-view>view_documents</default-view>
-      <edit-view>edit_route_element</edit-view>
-      <layouts mode="any">
-        <layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>personal_mailboxes_routing_task</layout>
-      </layouts>
-      <layouts mode="edit">
-        <layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>personal_mailboxes_routing_task</layout>
-      </layouts>
-      <layouts mode="view" >
-        <layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>personal_mailboxes_routing_task</layout>
-      </layouts>
-    </type>
-
     <type id="DistributionStep" coreType="DistributionStep">
       <label>label.casemanagement.type.DistributionStep</label>
       <icon>/icons/distribution_step.png</icon>
@@ -238,8 +188,6 @@
       <subtypes>
         <type>StepFolder</type>
         <type>DistributionTask</type>
-        <type>GenericDistributionTask</type>
-        <type>PersonalDistributionTask</type>
         <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
@@ -252,8 +200,6 @@
       <subtypes>
         <type>StepFolder</type>
         <type>DistributionTask</type>
-        <type>GenericDistributionTask</type>
-        <type>PersonalDistributionTask</type>
         <type>DistributionStep</type>
       </subtypes>
       <deniedSubtypes>
