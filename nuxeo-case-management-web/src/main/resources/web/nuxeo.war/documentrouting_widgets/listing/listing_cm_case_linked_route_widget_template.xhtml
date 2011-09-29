@@ -6,11 +6,27 @@
   xmlns:c="http://java.sun.com/jstl/core"
   xmlns:rich="http://richfaces.org/rich">
 
-  <div class="popupTarget" docRef="#{field_1.ref}">
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('#routeLink').fancybox({
+          'titlePosition' : 'inside',
+          'autoScale' : true,
+          'transitionIn' :'none',
+          'transitionOut' : 'none',
+          'enableEscapeButton': true,
+          'centerOnScroll': true
+        });
+    });
+  </script>
 
-      <h:commandLink value="#{nxd:titleOrId(field_0)}" target="_blank"
-        action="#{cmRoutingActions.navigateToRouteTab(field_0)}" />
+  <a id="routeLink" title="#{nxd:titleOrId(field_0)}" href="#route-frame">
+    <h:outputText value="#{nxd:titleOrId(field_0)}" />
+  </a>
 
+  <div style="display: none">
+    <iframe src="#{cmRoutingActions.getRouteTabUrl(field_0)}"
+      frameborder="1" height="600px" width="900px" scrolling="auto"
+      id="route-frame"> </iframe>
   </div>
 
 </div>

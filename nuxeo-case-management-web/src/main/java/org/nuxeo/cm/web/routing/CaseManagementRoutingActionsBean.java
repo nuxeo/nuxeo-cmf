@@ -86,6 +86,12 @@ public class CaseManagementRoutingActionsBean extends
         return view;
     }
 
+    public String getRouteTabUrl(DocumentModel routeDoc) throws ClientException {
+        navigationContext.setCurrentDocument(routeDoc);
+        String url = navigationContext.getCurrentDocumentFullUrl();
+        return url;
+    }
+
     public List<DocumentRoute> getCurrentDocumentLinkedRoute() throws Exception {
         List<DocumentRoute> routes = new LinkedList<DocumentRoute>();
         DocumentModel currentDoc = navigationContext.getCurrentDocument();
