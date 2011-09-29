@@ -65,26 +65,36 @@
           value="#{messages['label.suggestion.help.minChars.start']} " />
         <h:outputText
           value="#{minChars} #{messages['label.suggestion.help.minChars.end']}" />
+        <br />
+        <h:outputText
+          value="#{messages['label.suggestion.help.all']}" />
         <h:message for="#{widget.id}_mailboxId" styleClass="errorMessage" />
       </h:panelGroup>
 
-      <h:panelGroup id="#{widget.id}_mailbox_region">
-        <a4j:commandLink id="#{widget.id}_selection_reset"
-          actionListener="#{suggestionActions.clearSingleSelection}"
-          ignoreDupResponses="true" ajaxSingle="true" bypassUpdates="true"
-          reRender="#{widget.id}_mailbox_region"
-          rendered="#{!empty field_0 and widget.properties.renderResetButton}">
-          <h:graphicImage id="#{widget.id}_delete" rendered="#{widget.properties.renderResetButton}"
-            value="/icons/action_delete.gif" />
-          <f:param name="suggestionSelectionOutputId"
-            value="#{widget.id}_mailbox" />
-          <f:param name="suggestionSelectionHiddenId"
-            value="#{widget.id}_mailboxId" />
-          <f:param name="suggestionSelectionDeleteId"
-            value="#{widget.id}_selection_reset" />
-        </a4j:commandLink>
-        <h:inputHidden required="#{widget.required}" id="#{widget.id}_mailboxId" value="#{field_0}" />
-        <h:outputText id="#{widget.id}_mailbox" value="#{cm:mailboxTitle(documentManager,field_0)}"/>
+      <h:panelGroup>
+        <a4j:outputPanel ajaxRendered="false" id="#{widget.id}_mailbox_region">
+          <a4j:commandLink id="#{widget.id}_selection_reset"
+            actionListener="#{suggestionActions.clearSingleSelection}"
+            ignoreDupResponses="true" ajaxSingle="true" bypassUpdates="true"
+            reRender="#{widget.id}_mailbox_region"
+            rendered="#{!empty field_0 and widget.properties.renderResetButton}">
+            <h:graphicImage id="#{widget.id}_delete" rendered="#{widget.properties.renderResetButton}"
+              value="/icons/action_delete.gif" />
+            <f:param name="suggestionSelectionOutputId"
+              value="#{widget.id}_mailbox" />
+            <f:param name="suggestionSelectionHiddenId"
+              value="#{widget.id}_mailboxId" />
+            <f:param name="suggestionSelectionDeleteId"
+              value="#{widget.id}_selection_reset" />
+          </a4j:commandLink>
+          <h:inputHidden required="#{widget.required}" id="#{widget.id}_mailboxId" value="#{field_0}" />
+          <h:outputText id="suggestion"
+            value="#{cm:mailboxTitle(documentManager,suggestionActions.selectedValue)}"
+            rendered="#{!empty suggestionActions.selectedValue}" />
+          <h:outputText id="#{widget.id}_mailbox"
+            value="#{cm:mailboxTitle(documentManager,field_0)}"
+            rendered="#{empty suggestionActions.selectedValue &amp;&amp; !empty field_0}" />
+        </a4j:outputPanel>
       </h:panelGroup>
 
     </h:panelGrid>
