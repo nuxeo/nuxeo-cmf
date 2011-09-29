@@ -1485,6 +1485,7 @@
           <field>rtsk:distributionMailboxId</field>
         </fields>
         <properties mode="any">
+          <property name="required">true</property>
           <property name="template">
             /casemanagement_widgets/single_mailbox_suggestion_widget_template.xhtml
           </property>

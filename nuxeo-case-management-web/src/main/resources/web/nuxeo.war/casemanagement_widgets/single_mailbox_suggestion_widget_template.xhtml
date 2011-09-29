@@ -8,7 +8,7 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
   
 <c:if test="#{widget.mode != 'edit'}">
-	   <h:outputText id="#{widget.id}_view_mailbox" value="#{field_0}"/>
+	   <h:outputText id="#{widget.id}_view_mailbox" value="#{cm:mailboxTitle(documentManager,field_0)}"/>
 </c:if>
 
 <c:if test="#{widget.mode == 'edit'}">
@@ -65,6 +65,7 @@
           value="#{messages['label.suggestion.help.minChars.start']} " />
         <h:outputText
           value="#{minChars} #{messages['label.suggestion.help.minChars.end']}" />
+        <h:message for="#{widget.id}_mailboxId" styleClass="errorMessage" />
       </h:panelGroup>
 
       <h:panelGroup id="#{widget.id}_mailbox_region">
@@ -72,9 +73,9 @@
           actionListener="#{suggestionActions.clearSingleSelection}"
           ignoreDupResponses="true" ajaxSingle="true" bypassUpdates="true"
           reRender="#{widget.id}_mailbox_region"
-          rendered="#{!empty field_0}">
-          <h:graphicImage id="#{widget.id}_delete"
-            value="/icons/action_delete.gif" rendered="false" />
+          rendered="#{!empty field_0 and widget.properties.renderResetButton}">
+          <h:graphicImage id="#{widget.id}_delete" rendered="#{widget.properties.renderResetButton}"
+            value="/icons/action_delete.gif" />
           <f:param name="suggestionSelectionOutputId"
             value="#{widget.id}_mailbox" />
           <f:param name="suggestionSelectionHiddenId"
@@ -82,9 +83,8 @@
           <f:param name="suggestionSelectionDeleteId"
             value="#{widget.id}_selection_reset" />
         </a4j:commandLink>
-        <h:inputHidden id="#{widget.id}_mailboxId" value="#{field_0}" />
-         <h:outputText id="#{widget.id}_mailbox" value="#{field_0}"/>
-        <h:message for="#{widget.id}_mailboxId" styleClass="errorMessage" />
+        <h:inputHidden required="#{widget.required}" id="#{widget.id}_mailboxId" value="#{field_0}" />
+        <h:outputText id="#{widget.id}_mailbox" value="#{cm:mailboxTitle(documentManager,field_0)}"/>
       </h:panelGroup>
 
     </h:panelGrid>
