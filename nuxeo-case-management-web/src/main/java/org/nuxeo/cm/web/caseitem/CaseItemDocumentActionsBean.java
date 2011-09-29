@@ -134,6 +134,8 @@ public class CaseItemDocumentActionsBean extends
             Events.instance().raiseEvent(
                     EventNames.DOCUMENT_CHILDREN_CHANGED,
                     documentManager.getDocument(emailDoc.getRef()));
+            // Navigating to the new case item
+            navigationContext.navigateToDocument(emailDoc);
             return typeInfo.getDefaultView();
         }
         Mailbox currentMailbox = getCurrentMailbox();
