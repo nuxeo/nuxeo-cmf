@@ -386,6 +386,7 @@
       icon="/icons/case-management_distribute.gif" order="10">
       <category>DISTRIBUTION_CASE_ACTION_LIST</category>
       <filter-id>isCmCase</filter-id>
+      <filter-id>isRoutable</filter-id>
     </action>
 
     <action id="TAB_DISTRIBUTION_FAVORITES"
