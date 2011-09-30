@@ -10,11 +10,12 @@
 <a4j:region renderRegionOnly="true" >
  <a4j:outputPanel id="#{widget.id}_routeHistoryPanel"  ajaxRendered="true">
  <c:if test="#{cmRoutingActions.getShowHistoryPanel()}">
-    <rich:modalPanel id="#{widget.id}_showRouteHistoryPanel" autosized="true" styleClass="ViewFolderFormPanel" >
-        <f:facet name="header">
-           <nxu:set var="routeTable" value="#{routeTable}" >
-          
-               <nxu:set var="routeTable" value="#{routeTable}" >
+    <rich:modalPanel id="#{widget.id}_showRouteHistoryPanel" autosized="true">
+       <f:facet name="header">
+         <h:outputText value="#{messages['label.document.routing.related.route']}" />
+        </f:facet>
+       <nxu:set var="routeTable" value="#{routeTable}" >
+            <nxu:set var="routeTable" value="#{routeTable}" >
                       <nxu:set var="documents" value="#{routingActions.computeSelectDataModelRouteElements(field_0)}" cache="true" >
                           <nxu:set var="showCheckboxes" value="#{true}" >
                                  <nxu:set var="listName" value="CURRENT_SELECTION" >
@@ -27,7 +28,7 @@
                   </nxu:set>
          </nxu:set>
    </nxu:set>
-      </f:facet>
+
      <f:facet name="controls">
       <h:panelGroup>
         <a4j:form id="viewFolderHideForm">
@@ -35,7 +36,7 @@
             actionListener="#{cmRoutingActions.setShowHistoryPanel(false)}"
             id="#{widget.id}_viewFolderHideLink"
             onclick="Richfaces.hideModalPanel('#{widget.id}_showRouteHistoryPanel')"
-            immediate="true" reRender="viewFolderPanel">
+            immediate="true" reRender="#{widget.id}_routeHistoryPanel">
             <h:graphicImage value="/img/close.png" styleClass="hidelink" />
           </a4j:commandLink>
         </a4j:form>
