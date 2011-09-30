@@ -345,6 +345,29 @@
         /documentrouting_widgets/listing/listing_cm_case_linked_route_widget_template.xhtml
       </property>
     </widgetType>
+    
+     <widgetType name="listing_cm_case_display_popup_related_route">
+
+      <documentation>
+        This widget type displays a link to a route.
+        It displays the route in a popup.
+        <br />
+        It requires the following fields configuration:
+        <ul>
+          <li>
+            first field maps the document model, it will be used to display the
+            document link and its title
+          </li>
+        </ul>
+      </documentation>
+
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /documentrouting_widgets/listing/listing_cm_case_display_popup_related_route_widget_template.xhtml
+      </property>
+    </widgetType>
 
   </extension>
 
@@ -663,7 +686,33 @@
       </fields>
     </widget>
 
-
+    <widget name="cm_case_display_popup_related_route"
+      type="listing_cm_case_display_popup_related_route">
+      <labels>
+        <label mode="any">label.content.header.title</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>document</field>
+      </fields>
+    </widget>
+    
+     <widget name="dr_history_listing_document_route_folder_element_type"
+      type="listing_document_route_folder_element_type">
+      <labels>
+        <label mode="any">label.document.route.content.header.type</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>routeElement.document</field>
+        <field>routeElement.document.id</field>
+        <field>routeElement.document.hasFacet('Folderish')</field>
+      </fields>
+      <properties mode="any">
+        <property name="showAvailableActionsOnRouteElement">false</property>
+      </properties>
+    </widget> 
+    
   </extension>
 
 </component>
