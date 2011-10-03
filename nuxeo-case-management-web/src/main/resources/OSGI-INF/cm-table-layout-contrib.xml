@@ -322,6 +322,7 @@
       <properties mode="any">
         <property name="showListingHeader">true</property>
         <property name="showRowEvenOddClass">true</property>
+        <property name="showRouteLokingInfo">true</property>
       </properties>
       <columns>
         <column>
@@ -374,6 +375,56 @@
         </column>
       </columns>
     </layout>
+    
+  
+   <layout name="history_document_routing_route_content">
+      <templates>
+        <template mode="any">/layouts/layout_route_listing_template.xhtml</template>
+      </templates>
+      <properties mode="any">
+        <property name="showListingHeader">true</property>
+        <property name="showRowEvenOddClass">true</property>
+        <property name="showRouteLokingInfo">false</property>
+      </properties>
+      <columns>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_history_listing_document_route_folder_element_type</widget>
+        </column>
+         <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_listing_title_link</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_listing_document_route_element_type</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>dr_listing_route_element_state</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_listing_routing_task_mailbox</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+          </properties>
+          <widget>cm_listing_routing_task_due_date</widget>
+        </column>
+      </columns>
+    </layout>
 
     <layout name="cm_case_linked_route">
       <templates>
@@ -395,7 +446,7 @@
           <properties mode="any">
             <property name="useFirstWidgetLabelAsColumnHeader">true</property>
           </properties>
-          <widget>cm_listing_route_title_link</widget>
+          <widget>cm_case_display_popup_related_route</widget>
         </column>
       </columns>
       <widget name="cm_icon_type" type="listing_icon_type">

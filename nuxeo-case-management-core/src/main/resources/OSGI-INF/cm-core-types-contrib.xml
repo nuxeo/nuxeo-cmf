@@ -32,7 +32,7 @@
   
     <facet name="Mailbox" />
     <facet name="CaseLink" />
-    <facet name="Routable" />
+ 
 
     <facet name="Distributable">
       <schema name="distribution" />
