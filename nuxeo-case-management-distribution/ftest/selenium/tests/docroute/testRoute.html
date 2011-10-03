@@ -23,6 +23,153 @@
 	<td></td>
 	<td></td>
 </tr>
+
+<tr>
+	<td>open</td>
+	<td>/nuxeo/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/nuxeo/login.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>Administrator</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>Administrator</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Administrator</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Link=Admin Center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Link=Users &amp; groups</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Groups</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//input[@id='groupsListingView:searchForm:searchText']</td>
+	<td>admi</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='groupsListingView:searchForm:searchButton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=administrators</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>//input[@name='viewGroupView:editGroup:nxl_group_2:nxw_group_members_2_suggest']</td>
+	<td>doe</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().document.getElementById('viewGroupView:editGroup:nxl_group_2:nxw_group_members_2_suggestionBox').style.display != 'none'</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//*[@id='viewGroupView:editGroup:nxl_group_2:nxw_group_members_2_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td>John Doe</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id='viewGroupView:editGroup:nxl_group_2:nxw_group_members_2_suggestionBox:suggest']/x:tbody/x:tr[1]/x:td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().document.getElementById('viewGroupView:editGroup:nxl_group_2:nxw_group_members_2_list:1:nxw_group_members_2_listItem') != null</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Save']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+
 <tr>
 	<td>open</td>
 	<td>/nuxeo/logout</td>
@@ -645,6 +792,11 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td></td>
 	<td></td>
 </tr>
 <tr>
