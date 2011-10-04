@@ -112,7 +112,7 @@ class CMF(NuxeoTestCase):
     
     def attachRouteAndStart(self, user, passwd, case, caseitem, caseItemId, route):
         p = MailboxPage(self).login(user, passwd).viewDraftTab().viewCaseItem(case, caseitem, caseItemId)
-        routeInstanceName = CaseItemPage(self).attachRouteAndStart(route , self.routeModelId).viewRelatedStartedRoute(case)
+        routeInstanceName = CaseItemPage(self).viewDistributionTab(case).viewCurrentRouteTab(case).attachRouteAndStart(route , self.routeModelId).viewRelatedStartedRoute(case)
         p.logout()
         return routeInstanceName
     
@@ -145,7 +145,7 @@ class CMF(NuxeoTestCase):
         caseItemId = ids[1]
         caseId = ids[0]
         routeInstanceName = self.attachRouteAndStart(routeManager[0], routeManager[1], case, caseItem, caseItemId, route)
-        stepsDocIds = self.extractRouteStepsIds(routeManager[0], routeManager[1], routeInstanceName) 
+        stepsDocIds = self.extractRouteStepsIds('Administrator', 'Administrator', routeInstanceName) 
         usersWithTasks = self.updateRoute(routeManager[0], routeManager[1], case , route, stepsDocIds)
        
         #FIXME : approve the first already running task ( this step couldn't be modified)/ tried automatic validation

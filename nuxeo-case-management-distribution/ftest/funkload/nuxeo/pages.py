@@ -748,9 +748,8 @@ class RouteInstancePage(LoginPage):
         fl = self.fl
         server_url = fl.server_url
         now = datetime.datetime.now()
-        p = fl.get(server_url + "/nxpath/default/case-management/document-route-instances-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(routeInstance) + "@view_documents?tabId=&conversationId=0NXMAIN",
+        p = fl.get(server_url + "/nxpath/default/case-management/document-route-instances-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(routeInstance) + "@view_documents?tabIds=:TAB_MANAGE:TAB_DOCUMENT_ROUTE_CONTENT&conversationId=0NXMAIN",
             description="view route instance")
-        fl.assert_("Participating documents" in p.body)
         return RouteInstancePage(self.fl)
         
         
@@ -809,38 +808,44 @@ class CaseItemPage(BasePage):
     def attachRouteAndStart(self, route, routeDocId):
         fl = self.fl
         server_url = fl.server_url
-        fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:a4j_route_region'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', '(COP'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
-            ['document_properties_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
-            ['ajaxSingle', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
-            ['inputvalue', route],
-            ['AJAX:EVENTS_COUNT', '1']],
-            description="Post /nuxeo/casemanageme.../view_cm_case.faces")
         p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['AJAXREQUEST', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:a4j_route_region'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', '0'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
-            ['document_properties_SUBMIT', '1'],
-            ['javax.faces.ViewState', fl.getLastJsfState()],
+            ['AJAXREQUEST', 'distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:a4j_route_region'],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', 'Fun'],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
+            ['distribution_participants_SUBMIT', '1'],
+            ['javax.faces.ViewState',  fl.getLastJsfState()],
+            ['ajaxSingle', 'distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
+            ['mailboxSuggestionSearchType', ''],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox', 'distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox'],
+            ['inputvalue', 'Fun'],
+            ['AJAX:EVENTS_COUNT', '1']],
+            description="Post /nuxeo/casemanagement/cm_view.faces")
+        fl.assert_('Error' not in p.body) 
+        p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
+         ['AJAXREQUEST', 'distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:a4j_route_region'],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', '0'],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_routeId', ''],
+            ['distribution_participants_SUBMIT', '1'],
+            ['javax.faces.ViewState',  fl.getLastJsfState()],
             ['suggestionSelectionDeleteId', 'nxw_document_related_route_selection_reset'],
             ['suggestionSelectionHiddenId', 'nxw_document_related_route_routeId'],
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_a4jSupport', 'document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_a4jSupport'],
+            ['mailboxSuggestionSearchType', ''],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_a4jSupport', 'distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox:nxw_document_related_route_a4jSupport'],
             ['suggestionSelectionOutputId', 'nxw_document_related_route_route']],
-            description="attach route")
+            description="Post /nuxeo/casemanagement/cm_view.faces")
         fl.assert_(route in p.body)
         p = fl.post(server_url + "/casemanagement/caseitem/view_cm_case.faces", params=[
-            ['document_properties:nxl_summary_current_case_layout:nxl_document_related_route:nxw_document_related_route_routeId', routeDocId],
-            ['document_properties:nxl_summary_current_case_layout:start_route', 'Start'],
-            ['document_properties_SUBMIT', '1'],
+           ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggest', ''],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_route_suggestionBox_selection', ''],
+            ['distribution_participants:nxl_current_case_current_route_layout:nxl_document_related_route:nxw_document_related_route_routeId',routeDocId],
+            ['distribution_participants:nxl_current_case_current_route_layout:start_route', 'Start'],
+            ['distribution_participants_SUBMIT', '1'],
             ['javax.faces.ViewState', fl.getLastJsfState()]],
-            description="start route")
-        fl.assert_("A route is started from this document " in p.body)
+            description="Post /nuxeo/casemanagement/cm_view.faces")
+
+        fl.assert_("The route "+route+" is started from this document " in p.body)
         return CaseItemPage(self.fl)
     
     def downloadFile(self, caseItemDocId ,pdfFile):
@@ -930,13 +935,22 @@ class CaseItemPage(BasePage):
             description="refresh view related route started on this case")
       return CaseItemPage(self)
   
-    def viewDistributionTab(self):
+    def viewDistributionTab(self, case):
       fl = self.fl
       server_url = fl.server_url
       now = datetime.datetime.now()
       p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?tabId=distribute_cm_case&conversationId=0NXMAIN",
-            description="view case item")
-      return CaseItemPage(self)
+            description="view distribution Tab")
+      return CaseItemPage(self.fl)
+
+    def viewCurrentRouteTab(self, case):
+      fl = self.fl
+      server_url = fl.server_url
+      now = datetime.datetime.now()
+      p = fl.get(server_url + "/nxpath/default/case-management/case-root/" +  now.strftime("%Y/%m/%d") + "/" + quote(case) + "@view_cm_case?tabIds=:distribute_cm_case:current_route&conversationId=0NXMAIN",
+            description="view current route tab")
+      fl.assert_("Related route" in p.body)
+      return CaseItemPage(self.fl)
     
     def distributeCase(self):
       fl = self.fl
@@ -1083,6 +1097,7 @@ class MailboxPage(FolderPage):
     def createCaseItem(self, case, caseitem, pathToPdf):
         fl = self.fl
         server_url = fl.server_url
+        now = datetime.datetime.now()
         # Click on create new Case
         fl.post(server_url + "/casemanagement/cm_view.faces", params=[
             ['selectDocumentTypeForCreationFormFormMailbox:selectMailboxDocTypePanelOpenedState', '1'],
@@ -1119,6 +1134,8 @@ class MailboxPage(FolderPage):
             ['document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink', 'document_create:caseCreateBottomActionView:caseCreateBottomActionList:0:caseActionUpperListLink']],
             description="create new case item")
         fl.assert_(caseitem in fl.getBody())
+        fl.get(server_url + "/nxpath/default/case-management/case-root/"+now.strftime("%Y/%m/%d") + "/" + quote(case) +"@cm_view?tabIds=%3A&conversationId=0NXMAIN",
+            description="Get /nuxeo/nxpath/defau...qqqqqqqqqqq@cm_view")
         path = pathToPdf.split("/")
         pdf_name = path[len(path) - 1]
         fl.assert_( pdf_name in fl.getBody())
