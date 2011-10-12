@@ -37,6 +37,7 @@ import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.cases.LockableAdapter;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
 import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
@@ -52,9 +53,11 @@ import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.UserAction;
 import org.nuxeo.ecm.webapp.action.TypesTool;
+import org.nuxeo.ecm.webapp.contentbrowser.DocumentActionsBean;
 import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Anahide Tchertchian
@@ -81,6 +84,11 @@ public class CaseItemDocumentActionsBean extends
 
     @In(create = true)
     protected transient CaseDistributionService caseDistributionService;
+
+    protected CaseManagementDocumentTypeService caseManagementDocumentTypeService;
+
+    @In(create = true)
+    protected transient DocumentActionsBean documentActions;
 
     @In(create = true, required = false)
     protected transient FacesMessages facesMessages;
@@ -116,30 +124,15 @@ public class CaseItemDocumentActionsBean extends
         }
     }
 
-    public String createCaseItemInCase() throws ClientException {
+    public String createCaseItemInDefaultCase() throws ClientException {
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
-        // The new mail
-        Case kase = getCurrentCase();
-        if (kase != null
-                && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null) {
-            // adding a case item in a case
-            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(
-                    documentManager, kase, emailDoc);
-            emailDoc = newCaseItem.getDocument();
-            emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                    CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
-                    getCurrentCase().getDocument().getId());
-            documentManager.saveDocument(emailDoc);
-            TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
-            Events.instance().raiseEvent(
-                    EventNames.DOCUMENT_CHILDREN_CHANGED,
-                    documentManager.getDocument(emailDoc.getRef()));
-            // Navigating to the new case item
-            navigationContext.navigateToDocument(emailDoc);
-            return typeInfo.getDefaultView();
-        }
         Mailbox currentMailbox = getCurrentMailbox();
-        // creating a case item in a case
+        try {
+            getCaseManagementDocumentTypeService().markDocumentAsCaseItem(
+                    emailDoc);
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
         Case envelope = caseDistributionService.createCase(documentManager,
                 emailDoc, Collections.singletonList(currentMailbox));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
@@ -153,8 +146,6 @@ public class CaseItemDocumentActionsBean extends
         Events.instance().raiseEvent(
                 EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
-
-
         facesMessages.add(FacesMessage.SEVERITY_INFO,
                 resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(emailDoc.getType()));
@@ -162,9 +153,42 @@ public class CaseItemDocumentActionsBean extends
         // Navigate to the created envelope
         DocumentModel envelopeDocModel = envelope.getDocument();
         navigationContext.navigateToDocument(envelopeDocModel);
-
         TypeInfo typeInfo = envelopeDocModel.getAdapter(TypeInfo.class);
         return typeInfo.getDefaultView();
+    }
+
+    public String createCaseItemInCase() throws ClientException {
+        DocumentModel emailDoc = navigationContext.getChangeableDocument();
+        // The new mail
+        Case kase = getCurrentCase();
+        if (kase != null
+                && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null
+                && navigationContext.getCurrentDocument().equals(
+                        kase.getDocument())) {
+            // adding a case item in a case
+            // creating a case item in a case
+            try {
+                getCaseManagementDocumentTypeService().markDocumentAsCaseItem(
+                        emailDoc);
+            } catch (Exception e) {
+                throw new ClientException(e);
+            }
+            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(
+                    documentManager, kase, emailDoc);
+            emailDoc = newCaseItem.getDocument();
+            emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
+                    CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
+                    getCurrentCase().getDocument().getId());
+            documentManager.saveDocument(emailDoc);
+
+            TypeInfo typeInfo = kase.getDocument().getAdapter(TypeInfo.class);
+            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                    documentManager.getDocument(emailDoc.getRef()));
+            // Navigating to the new case item
+            navigationContext.navigateToDocument(emailDoc);
+            return typeInfo.getDefaultView();
+        }
+        return documentActions.saveDocument();
     }
 
     public String createEmptyCase() throws ClientException {
@@ -190,7 +214,6 @@ public class CaseItemDocumentActionsBean extends
         return caseDistributionService.getParentDocumentForCase(documentManager);
     }
 
-
     public boolean getCanEditCurrentDocument() throws ClientException {
 
         DocumentModel currentDoc = navigationContext.getCurrentDocument();
@@ -207,7 +230,6 @@ public class CaseItemDocumentActionsBean extends
         }
         return false;
     }
-
 
     public boolean getCanEditCurrentCaseItem() throws ClientException {
 
@@ -324,13 +346,21 @@ public class CaseItemDocumentActionsBean extends
         editingMail = false;
     }
 
-    public boolean isCaseItem() throws ClientException{
-     DocumentModel currentDoc = navigationContext.getCurrentDocument();
-     if (currentDoc == null) {
-         return false;
-     }
-     boolean isDistributable = currentDoc.hasFacet(CaseConstants.DISTRIBUTABLE_FACET);
-     boolean isCaseGroupable= currentDoc.hasFacet(CaseConstants.CASE_GROUPABLE_FACET);
-     return isDistributable&&isCaseGroupable;
-   }    
+    public boolean isCaseItem() throws ClientException {
+        DocumentModel currentDoc = navigationContext.getCurrentDocument();
+        if (currentDoc == null) {
+            return false;
+        }
+        boolean isDistributable = currentDoc.hasFacet(CaseConstants.DISTRIBUTABLE_FACET);
+        boolean isCaseGroupable = currentDoc.hasFacet(CaseConstants.CASE_GROUPABLE_FACET);
+        return isDistributable && isCaseGroupable;
+    }
+
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
+            throws Exception {
+        if (caseManagementDocumentTypeService == null) {
+            caseManagementDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
+        }
+        return caseManagementDocumentTypeService;
+    }
 }

@@ -161,7 +161,7 @@ public class CorrespondenceDocumentActionsBean extends
     public String createAndDistributeIncomingDocument() throws ClientException {
         DistributionInfo distributionInfos = distributionInfo;
         if (cmDistributionActions.validateDistributionParticipants()) {
-            cmDocumentActions.createCaseItemInCase();
+            cmDocumentActions.createCaseItemInDefaultCase();
             return cmDistributionActions.validateWizard(distributionInfos);
         }
         return null;

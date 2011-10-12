@@ -131,7 +131,7 @@ public class CorrespondenceEditOutgoingMailActionsBean extends
     }
 
     public String createOutgoingMailDocumentInEnvelope() throws ClientException {
-        cmDocumentActions.createCaseItemInCase();
+        cmDocumentActions.createCaseItemInDefaultCase();
         // get the created envelope and email
         DocumentModel envelope = getCurrentCase().getDocument();
         DocumentModel email = getCurrentCaseItem();

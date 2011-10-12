@@ -35,7 +35,7 @@
                     <div
                       class="#{nxu:test(node.document.id == currentDocument.id, 'selected', '')}"
                       id="docRefTarget:#{node.document.id}">
-                      <nxd:restDocumentLink document="#{node.document}"
+                      <nxd:restDocumentLink document="#{node.document}" view="cm_view"
                         styleClass="treeLink">
                         <h:outputText value="#{nxd:titleOrId(node.document)}" />
                       </nxd:restDocumentLink>

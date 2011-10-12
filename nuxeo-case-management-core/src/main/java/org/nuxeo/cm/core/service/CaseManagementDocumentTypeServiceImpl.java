@@ -16,7 +16,9 @@
  */
 package org.nuxeo.cm.core.service;
 
+import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.service.CaseManagementDocumentTypeService;
+import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -89,4 +91,14 @@ public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
         return caseItemDocType;
     }
 
+    @Override
+    public void markDocumentAsCase(DocumentModel document) {
+        document.addFacet(CaseConstants.DISTRIBUTABLE_FACET);
+    }
+
+    @Override
+    public void markDocumentAsCaseItem(DocumentModel document) {
+        document.addFacet(CaseConstants.CASE_GROUPABLE_FACET);
+        document.addFacet(CaseConstants.DISTRIBUTABLE_FACET);
+    }
 }

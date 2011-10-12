@@ -331,9 +331,10 @@
       link="javascript:Richfaces.showModalPanel('selectDocTypePanel');"
       label="action.new.document" enabled="true">
       <category>CASE_ACTION_UPPER_LIST_HREF</category>
-      <filter-id>isCmCase</filter-id>
+      <filter id="folder"/>
       <filter-id>canEditCase</filter-id>
     </action>
+    
     <!-- End Mail Distribution actions -->
     <!-- remove usual comment tab for correspondance documents -->
     <action id="view_comments">
@@ -511,7 +512,7 @@
 
     <filter id="isCaseItem">
       <rule grant="true">
-	 <condition>#{cmDocumentActions.isCaseItem()}</condition>
+	    <condition>#{cmDocumentActions.isCaseItem()}</condition>
       </rule>
     </filter>
 

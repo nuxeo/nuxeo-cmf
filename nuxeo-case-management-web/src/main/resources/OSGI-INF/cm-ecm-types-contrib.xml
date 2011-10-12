@@ -5,10 +5,6 @@
 
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
 
-    <!-- remove useless -->
-    <type id="File" remove="true" />
-    <type id="Note" remove="true" />
-
     <type id="MailboxRoot">
       <label>label.casemanagement.type.CaseManagementMailboxRoot</label>
       <icon>/icons/folder.gif</icon>
@@ -77,6 +73,7 @@
       <icon>/icons/case.png</icon>
       <bigIcon>/icons/case_100.png</bigIcon>
       <default-view>cm_view</default-view>
+      <cm-view>cm_view</cm-view>
       <create-view>create_empty_case</create-view>
       <category>SimpleDocument</category>
       <views>
@@ -84,6 +81,7 @@
       </views>
       <subtypes>
         <type>CaseItem</type>
+        <type>Folder</type>
       </subtypes>
       <layouts mode="create">
         <layout>cm_case</layout>
@@ -115,6 +113,7 @@
       <bigIcon>/icons/case_item_100.png</bigIcon>
       <default-view>cm_view</default-view>
       <create-view>create_cm_document</create-view>
+      <cm-view>cm_view</cm-view>
       <category>CaseItemDocument</category>
       <layouts mode="view">
         <layout>cm_document</layout>
@@ -135,6 +134,25 @@
         <layout>file</layout>
       </layouts>
     </type>
+    
+     <type id="Folder">
+       <create-view>create_cm_document</create-view>
+       <cm-view>cm_view</cm-view>
+       <subtypes>
+        <type>Folder</type>
+        <type>File</type>
+        <type>Note</type>
+      </subtypes>
+     </type>
+   
+     <type id="File">
+       <cm-view>cm_view</cm-view>
+     </type> 
+     
+     <type id="Note">
+       <cm-view>cm_view</cm-view>
+     </type> 
+
 
     <type id="DistributionTask" coreType="DistributionTask">
       <label>label.casemanagement.type.DistributionTask</label>
