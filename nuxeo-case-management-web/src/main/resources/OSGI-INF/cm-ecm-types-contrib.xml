@@ -143,6 +143,15 @@
         <type>File</type>
         <type>Note</type>
       </subtypes>
+      <deniedSubtypes>
+        <type>DocumentRoute</type>
+        <type>Picture</type>
+        <type>BlogSite</type>
+        <type>FacetedSearchDefault</type>
+        <type>WebSite</type>
+        <type>PictureBook</type>
+        <type>OrderedFolder</type>
+      </deniedSubtypes>
      </type>
    
      <type id="File">
