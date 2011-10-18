@@ -34,7 +34,6 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
-import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.tree.TreeActions;
 
@@ -50,7 +49,7 @@ public class CaseManagementContextActionsBean implements Serializable,
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
-    
+
 
     @In(create = true, required = false)
     protected transient TreeActions treeActions;
@@ -89,6 +88,9 @@ public class CaseManagementContextActionsBean implements Serializable,
             // mailbox case
             if (newDocument.hasFacet(CaseConstants.MAILBOX_FACET)) {
                 cmContextHolder.setCurrentMailbox(newDocument.getAdapter(Mailbox.class));
+                cmContextHolder.setCurrentRouteRoot(null);
+                cmContextHolder.setCurrentClassificationRoot(null);
+                treeActions.reset();
             }
             // document cases
             if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
@@ -99,9 +101,18 @@ public class CaseManagementContextActionsBean implements Serializable,
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCaseItem(newDocument);
-            } else if (newDocument.hasSchema("classification")) {
+            } else if (newDocument.getType().equals("ClassificationRoot")) {
+                cmContextHolder.setCurrentClassificationRoot(newDocument);
                 cmContextHolder.setCurrentCase(null);
                 cmContextHolder.setCurrentCaseItem(null);
+                cmContextHolder.setCurrentMailbox(null);
+                treeActions.reset();
+            } else if (newDocument.getType().equals("RouteRoot")) {
+                cmContextHolder.setCurrentRouteRoot(newDocument);
+                cmContextHolder.setCurrentCase(null);
+                cmContextHolder.setCurrentCaseItem(null);
+                cmContextHolder.setCurrentMailbox(null);
+                treeActions.reset();
             }
         }
     }

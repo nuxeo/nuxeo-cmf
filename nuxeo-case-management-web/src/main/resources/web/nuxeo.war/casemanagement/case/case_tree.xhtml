@@ -5,7 +5,7 @@
   xmlns:nxh="http://nuxeo.org/nxweb/html"
   xmlns:nxu="http://nuxeo.org/nxweb/util" xmlns:rich="http://richfaces.org/rich"
   class="menu">
-  <c:if test="#{currentCase != null}">
+  <c:if test="#{treeActions.getRenderChildTree() and treeActions.rootDocument != null}">
     <a4j:region renderRegionOnly="true">
       <a4j:form id="case_tree_form" ajaxSubmit="true">
         <div style="float: right">
@@ -28,14 +28,14 @@
                 id="case_tree_richtree">
                 <rich:recursiveTreeNodesAdaptor
                   id="case_tree_recursiveTreeNodesAdaptor"
-                  roots="#{treeActions.getCaseTreeRoots('caseNavigation', currentCase.getDocument())}"
+                  roots="#{treeActions.getChildrenTreeRoots()}"
                   nodes="#{node.children}" var="node">
                   <rich:treeNode id="case_tree_node" highlightedClass="treeNodeHighlightedClass"
                     selectedClass="treeNodeSelectedClass">
                     <div
                       class="#{nxu:test(node.document.id == currentDocument.id, 'selected', '')}"
                       id="docRefTarget:#{node.document.id}">
-                      <nxd:restDocumentLink document="#{node.document}" view="cm_view"
+                      <nxd:restDocumentLink document="#{node.document}" view="#{treeActions.docView}"
                         styleClass="treeLink">
                         <h:outputText value="#{nxd:titleOrId(node.document)}" />
                       </nxd:restDocumentLink>

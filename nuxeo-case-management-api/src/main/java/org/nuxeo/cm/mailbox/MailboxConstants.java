@@ -53,6 +53,8 @@ public class MailboxConstants {
 
     public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "MailboxRoot";
 
+    public static final String ROUTE_ROOT_DOCUMENT_TYPE = "RouteRoot";
+
     public static final String MAILBOX_SCHEMA = "mailbox";
 
     public static final String ID_FIELD = "mlbx:mailbox_id";

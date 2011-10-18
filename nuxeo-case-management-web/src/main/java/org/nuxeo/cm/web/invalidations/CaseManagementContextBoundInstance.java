@@ -174,6 +174,16 @@ public abstract class CaseManagementContextBoundInstance implements
         return cmContextHolder.getCurrentMailbox();
     }
 
+    @Override
+    public DocumentModel getCurrentRouteRoot() throws ClientException {
+        return cmContextHolder.getCurrentRouteRoot();
+    }
+
+    @Override
+    public DocumentModel getCurrentClassificationRoot() throws ClientException {
+        return cmContextHolder.getCurrentClassificationRoot();
+    }
+
     protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
             throws ClientException {
         // do nothing: to implement in subclasses

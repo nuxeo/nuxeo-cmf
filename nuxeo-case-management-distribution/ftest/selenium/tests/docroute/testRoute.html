@@ -23,7 +23,6 @@
 	<td></td>
 	<td></td>
 </tr>
-
 <tr>
 	<td>open</td>
 	<td>/nuxeo/logout</td>
@@ -169,7 +168,6 @@
 	<td>10000</td>
 	<td></td>
 </tr>
-
 <tr>
 	<td>open</td>
 	<td>/nuxeo/logout</td>
@@ -196,8 +194,28 @@
 	<td></td>
 </tr>
 <tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//*[@id=&quot;virtualNavTreeTab:virtualNavTreeList:4:virtualNavTreeLink&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Routes - John Doe (Nuxeo)</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>link=Personal Workspace</td>
+	<td>link=Routes - John Doe (Nuxeo)</td>
 	<td></td>
 </tr>
 <!-- Validate the route -->
@@ -387,8 +405,18 @@
 </tr>
 <!-- verify distribution step A -->
 <tr>
+	<td>watchA4jRequests</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>virtualNavTreeTab:virtualNavTreeList:1:virtualNavTreeLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForA4jRequest</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>

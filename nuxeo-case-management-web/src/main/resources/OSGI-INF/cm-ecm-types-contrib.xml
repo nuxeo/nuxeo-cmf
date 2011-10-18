@@ -48,6 +48,9 @@
       <contentViews category="plans">
         <contentView>mailbox_plans_content</contentView>
       </contentViews>
+      <contentViews category="mailboxRoutes">
+        <contentView>mailbox_routes_content</contentView>
+      </contentViews>
       <contentViews category="content">
         <contentView>document_content</contentView>
       </contentViews>
@@ -267,6 +270,54 @@
       <deniedSubtypes>
         <type>DocumentRouteStep</type>
       </deniedSubtypes>
+    </type>
+
+    <type id="RouteRoot">
+      <label>label.casemanagement.type.RouteRoot</label>
+      <icon>/icons/folder.gif</icon>
+      <bigIcon>/icons/folder_100.png</bigIcon>
+      <category>Collaborative</category>
+      <description>RouteRoot.description</description>
+      <default-view>view_documents</default-view>
+      <subtypes>
+        <type>DocumentRoute</type>
+        <type>RouteFolder</type>
+      </subtypes>
+      <layouts mode="any">
+        <layout>heading</layout>
+      </layouts>
+      <contentViews category="content">
+        <contentView>document_content</contentView>
+      </contentViews>
+      <contentViews category="trash_content">
+        <contentView showInExportView="false">
+          document_trash_content
+        </contentView>
+      </contentViews>
+    </type>
+    
+    <type id="RouteFolder">
+      <label>label.casemanagement.type.RouteFolder</label>
+      <icon>/icons/folder.gif</icon>
+      <bigIcon>/icons/folder_100.png</bigIcon>
+      <category>Collaborative</category>
+      <description>RouteFolder.description</description>
+      <default-view>view_documents</default-view>
+      <subtypes>
+        <type>DocumentRoute</type>
+        <type>RouteFolder</type>
+      </subtypes>
+      <layouts mode="any">
+        <layout>heading</layout>
+      </layouts>
+      <contentViews category="content">
+        <contentView>document_content</contentView>
+      </contentViews>
+      <contentViews category="trash_content">
+        <contentView showInExportView="false">
+          document_trash_content
+        </contentView>
+      </contentViews>
     </type>
 
   </extension>

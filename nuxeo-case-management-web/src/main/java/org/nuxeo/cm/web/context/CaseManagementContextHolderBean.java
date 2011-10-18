@@ -52,19 +52,26 @@ public class CaseManagementContextHolderBean implements
 
     protected DocumentModel currentEmail;
 
+    protected DocumentModel currentClassificationRoot;
+
+    protected DocumentModel currentRouteRoot;
+
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
+    @Override
     @Factory(value = "currentMailbox", scope = ScopeType.EVENT)
     public Mailbox getCurrentMailbox() throws ClientException {
         return currentMailbox;
     }
 
+    @Override
     @Factory(value = "currentCase", scope = ScopeType.EVENT)
     public Case getCurrentCase() throws ClientException {
         return currentEnvelope;
     }
 
+    @Override
     @Factory(value = "currentCaseItem", scope = ScopeType.EVENT)
     public DocumentModel getCurrentCaseItem() throws ClientException {
         if (currentEmail == null && currentEnvelope != null
@@ -73,6 +80,18 @@ public class CaseManagementContextHolderBean implements
             currentEmail = currentEnvelope.getFirstItem(documentManager).getDocument();
         }
         return currentEmail;
+    }
+
+    @Override
+    @Factory(value = "currentClassificationRoot", scope = ScopeType.EVENT)
+    public DocumentModel getCurrentClassificationRoot() throws ClientException {
+        return currentClassificationRoot;
+    }
+
+    @Override
+    @Factory(value = "currentRouteRoot", scope = ScopeType.EVENT)
+    public DocumentModel getCurrentRouteRoot() throws ClientException {
+        return currentRouteRoot;
     }
 
     public void setCurrentMailbox(Mailbox currentMailbox) {
@@ -87,6 +106,14 @@ public class CaseManagementContextHolderBean implements
 
     public void setCurrentCaseItem(DocumentModel currentEmail) {
         this.currentEmail = currentEmail;
+    }
+
+    public void setCurrentClassificationRoot(DocumentModel currentClassificationRoot) {
+        this.currentClassificationRoot = currentClassificationRoot;
+    }
+
+    public void setCurrentRouteRoot(DocumentModel currentRouteRoot) {
+        this.currentRouteRoot = currentRouteRoot;
     }
 
 }

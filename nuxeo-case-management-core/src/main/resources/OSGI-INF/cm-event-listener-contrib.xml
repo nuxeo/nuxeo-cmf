@@ -22,6 +22,12 @@
       <event>documentCreated</event>
     </listener>
 
+    <listener name="routeRootListener" async="false" postCommit="true"
+      class="org.nuxeo.cm.core.event.RouteMailboxListener"
+      priority="125">
+      <event>documentCreated</event>
+    </listener>
+
     <listener name="loginSuccessListener" async="false" postCommit="false"
       class="org.nuxeo.cm.core.event.SuccessLoginListener" priority="150">
       <event>loginSuccess</event>
