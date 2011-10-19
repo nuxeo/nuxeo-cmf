@@ -34,6 +34,9 @@
           </transitions>
         </state>
         <state name="archived" description="Case is archived">
+          <transitions>
+            <transition>open</transition>
+          </transitions>
         </state>
       </states>
     </lifecycle>
