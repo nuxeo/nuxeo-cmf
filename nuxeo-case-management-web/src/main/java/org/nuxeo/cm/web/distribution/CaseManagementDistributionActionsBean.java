@@ -63,7 +63,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 
 /**
  * Distribution actions bean.
- *
+ * 
  * @author Anahide Tchertchian
  */
 @Name("cmDistributionActions")
@@ -219,7 +219,8 @@ public class CaseManagementDistributionActionsBean extends
             kase.save(documentManager);
 
             resetWizard();
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "feedback.casemanagement.distribution.done"));
             // raise seam event to update the content view for the mailbox
@@ -236,6 +237,13 @@ public class CaseManagementDistributionActionsBean extends
         if (kase == null) {
             return false;
         }
+
+        // make sure it is indeed a case
+        if (!kase.getDocument().getType().equals(
+                navigationContext.getCurrentDocument().getType())) {
+            return false;
+        }
+
         if (kase.isEmpty()) {
             return false;
         }
