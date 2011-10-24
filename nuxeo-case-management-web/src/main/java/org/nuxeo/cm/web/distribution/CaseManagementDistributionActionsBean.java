@@ -236,6 +236,12 @@ public class CaseManagementDistributionActionsBean extends
         if (kase == null) {
             return false;
         }
+	// make sure it is indeed a case
+        if (!kase.getDocument().getType().equals(
+               navigationContext.getCurrentDocument().getType())) {
+            return false;
+        }
+
         if (kase.isEmpty()) {
             return false;
         }
