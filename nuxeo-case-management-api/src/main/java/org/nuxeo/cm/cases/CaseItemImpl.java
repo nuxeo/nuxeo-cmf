@@ -40,7 +40,7 @@ import org.nuxeo.runtime.api.Framework;
  */
 public class CaseItemImpl implements CaseItem {
 
-    private static final String QUERY_CASES = "SELECT * FROM Document WHERE case:documentsId = '%s'";
+    private static final String QUERY_CASES = "SELECT * FROM Document WHERE case:documentsId = '%s' AND ecm:isProxy = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:isCheckedInVersion = 0";
 
     private static final long serialVersionUID = 1L;
 
