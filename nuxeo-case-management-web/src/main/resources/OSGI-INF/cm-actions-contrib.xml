@@ -107,12 +107,13 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
       </action -->
 
-    <!-- remove useless -->
     <action id="newDocument">
+      <filter-id>create</filter-id>
       <filter-id>isNotCmCase</filter-id>
       <filter-id>isNotCaseItem</filter-id>
       <filter-id>isNotMailbox</filter-id>
     </action>
+
     <action id="newFile" enabled="false" />
     <action id="TAB_CONTENT">
       <filter-id>hideFromMailbox</filter-id>
@@ -371,6 +372,14 @@
 
     </action>
 
+    <action id="TAB_MAILBOX_ROUTES"
+      link="/casemanagement/mailbox/tabs/mailbox_routes_content.xhtml" order="28"
+      label="label.casemanagement.routesMailbox" enabled="true"
+      icon="/icons/file.gif">
+      <category>MANAGE_MAILBOX_ACTION_LIST</category>
+
+    </action>
+
     <action id="newCaseItemDocument"
       link="javascript:Richfaces.showModalPanel('selectMailboxDocTypePanel');"
       label="action.new.document" enabled="true">
@@ -575,6 +584,14 @@
     <filter id="isEmptyCase">
       <rule grant="false">
         <condition>#{cmCaseActions.isEmptyCase()}</condition>
+      </rule>
+    </filter>
+
+    <filter id="create" append="true">
+      <rule grant="true">
+        <permission>AddChildren</permission>
+        <type>RouteFolder</type>
+        <type>RouteRoot</type>
       </rule>
     </filter>
 

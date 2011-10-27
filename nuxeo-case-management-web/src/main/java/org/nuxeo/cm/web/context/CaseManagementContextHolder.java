@@ -38,4 +38,14 @@ public interface CaseManagementContextHolder extends Serializable {
 
     DocumentModel getCurrentCaseItem() throws ClientException;
 
+    /**
+     * @since 1.9
+     */
+    DocumentModel getCurrentRouteRoot() throws ClientException;
+
+    /**
+     * @since 1.9
+     */
+    DocumentModel getCurrentClassificationRoot() throws ClientException;
+
 }

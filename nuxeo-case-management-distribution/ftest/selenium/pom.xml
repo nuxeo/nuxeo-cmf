@@ -16,22 +16,19 @@
   <build>
     <plugins>
       <plugin>
+        <!-- DEPRECATED, remove when run.sh is no more used. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <configuration>
           <artifactItems>
             <artifactItem>
               <groupId>org.seleniumhq.selenium</groupId>
-              <artifactId>selenium-server</artifactId>
-              <version>2.0a4</version>
-              <classifier>standalone</classifier>
+              <artifactId>selenium-server-standalone</artifactId>
+              <version>2.6.0</version>
               <overWrite>true</overWrite>
               <outputDirectory>.</outputDirectory>
               <destFileName>selenium-server.jar</destFileName>
             </artifactItem>
-            <!--
-              We should test org.seleniumhq.selenium.client-drivers:selenium-java-client-driver
-            -->
           </artifactItems>
         </configuration>
       </plugin>
