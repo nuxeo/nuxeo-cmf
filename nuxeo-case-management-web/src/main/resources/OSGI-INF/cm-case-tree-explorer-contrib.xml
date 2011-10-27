@@ -2,11 +2,30 @@
 <component name="org.nuxeo.cm.treeExplorer">
 
   <extension target="org.nuxeo.ecm.platform.treeManager" point="plugin">
-    <treeManagerPlugin name="caseNavigation">
+    <treeManagerPlugin name="MAILBOXES_FOLDER">
       <excludedFacets>
         <facet name="HiddenInNavigation" />
       </excludedFacets>
-      <leafFilterClass>org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter</leafFilterClass>
+      <sortPropertyPath>dc:title</sortPropertyPath>
+      <pageProvider>CaseDocumentPageProvider</pageProvider>
+    </treeManagerPlugin>
+
+    <treeManagerPlugin name="CLASSIFICATION_FOLDER">
+      <excludedFacets>
+        <facet name="HiddenInNavigation" />
+      </excludedFacets>
+      <sortPropertyPath>dc:title</sortPropertyPath>
+      <pageProvider>CaseDocumentPageProvider</pageProvider>
+    </treeManagerPlugin>
+
+    <treeManagerPlugin name="ROUTE_FOLDER">
+      <excludedFacets>
+        <facet name="HiddenInNavigation" />
+      </excludedFacets>
+      <includedFacets>
+        <facet name="Folderish" />
+      </includedFacets>
+      <filterClass>org.nuxeo.ecm.core.api.tree.DefaultDocumentTreeFilter</filterClass>
       <sortPropertyPath>dc:title</sortPropertyPath>
       <pageProvider>CaseDocumentPageProvider</pageProvider>
     </treeManagerPlugin>

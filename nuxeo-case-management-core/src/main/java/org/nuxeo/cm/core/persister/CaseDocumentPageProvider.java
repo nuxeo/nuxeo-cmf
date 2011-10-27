@@ -19,7 +19,6 @@ package org.nuxeo.cm.core.persister;
 import static org.nuxeo.cm.cases.CaseConstants.CASE_GROUPABLE_FACET;
 import static org.nuxeo.cm.cases.CaseConstants.DISTRIBUTABLE_FACET;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.nuxeo.cm.cases.Case;
@@ -57,14 +56,13 @@ public class CaseDocumentPageProvider extends CoreQueryDocumentPageProvider {
             if (parent.hasFacet(DISTRIBUTABLE_FACET) && !parent.hasFacet(CASE_GROUPABLE_FACET)) {
                 Case kase = parent.getAdapter(Case.class);
                 return kase.getDocuments(coreSession);
-            } else if (parent.hasFacet(DISTRIBUTABLE_FACET) && parent.hasFacet(CASE_GROUPABLE_FACET)) {
+            } else  {
                 return coreSession.getChildren(parent.getRef(), null,
                         SecurityConstants.READ);
             }
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
-        return Collections.emptyList();
     }
 
 

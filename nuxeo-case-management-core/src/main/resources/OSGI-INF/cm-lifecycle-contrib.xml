@@ -100,6 +100,8 @@
       <type name="MailboxRoot">default</type>
       <type name="Mailbox">default</type>
       <type name="CaseRoot">default</type>
+      <type name="RouteRoot">default</type>
+      <type name="RouteFolder">default</type>
       <type name="Case">case</type>
       <type name="CaseLink">caselink</type>
       <type name="CaseItem">default</type>

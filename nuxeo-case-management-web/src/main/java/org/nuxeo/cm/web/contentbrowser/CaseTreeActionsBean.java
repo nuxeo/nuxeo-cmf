@@ -26,15 +26,18 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.nuxeo.cm.web.context.CaseManagementContextHolderBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.Filter;
 import org.nuxeo.ecm.core.api.Sorter;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
 import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
+import org.nuxeo.ecm.virtualnavigation.action.MultiNavTreeManager;
 import org.nuxeo.ecm.webapp.tree.DocumentTreeNode;
 import org.nuxeo.ecm.webapp.tree.DocumentTreeNodeImpl;
 import org.nuxeo.ecm.webapp.tree.TreeActionsBean;
@@ -55,8 +58,63 @@ public class CaseTreeActionsBean extends TreeActionsBean {
 
     private static final Log log = LogFactory.getLog(CaseTreeActionsBean.class);
 
-    public List<DocumentTreeNode> getCaseTreeRoots(String treeName,
-            DocumentModel currentDocument) throws ClientException {
+    @In
+    protected transient MultiNavTreeManager multiNavTreeManager;
+
+    @In(create = true, required = false)
+    protected transient CaseManagementContextHolderBean cmContextHolder;
+
+    protected enum SupportedNavigationTrees {
+        MAILBOXES_FOLDER, CLASSIFICATION_FOLDER, ROUTE_FOLDER
+    }
+
+    private boolean renderChildTree;
+
+    private String treeName;
+
+    private String docView;
+
+    private DocumentModel rootDocument;
+
+    public boolean getRenderChildTree() throws ClientException {
+        if (!renderChildTree) {
+            for (SupportedNavigationTrees navTree : SupportedNavigationTrees.values()) {
+                if (navTree.toString().equals(
+                        multiNavTreeManager.getSelectedNavigationTree())) {
+                    treeName = multiNavTreeManager.getSelectedNavigationTree();
+                    setNavigationChildTreeContext();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void resetChildTree() {
+        reset();
+        treeName = null;
+        rootDocument = null;
+        renderChildTree = false;
+        docView = null;
+    }
+
+    protected void setNavigationChildTreeContext() throws ClientException {
+        String navTree = multiNavTreeManager.getSelectedNavigationTree();
+        if (navTree.equals(SupportedNavigationTrees.MAILBOXES_FOLDER.toString())) {
+            if (cmContextHolder.getCurrentCase() != null) {
+                rootDocument =  cmContextHolder.getCurrentCase().getDocument();
+                docView = "cm_view";
+            }
+        } else if (navTree.equals(SupportedNavigationTrees.CLASSIFICATION_FOLDER.toString())) {
+            rootDocument = cmContextHolder.getCurrentClassificationRoot();
+            docView = "view_documents";
+        } else if (navTree.equals(SupportedNavigationTrees.ROUTE_FOLDER.toString())) {
+            rootDocument = cmContextHolder.getCurrentRouteRoot();
+            docView = "view_documents";
+        }
+    }
+
+    public List<DocumentTreeNode> getChildrenTreeRoots() throws ClientException {
         if (treeInvalidator.needsInvalidation()) {
             reset();
             treeInvalidator.invalidationDone();
@@ -65,8 +123,8 @@ public class CaseTreeActionsBean extends TreeActionsBean {
         if (currentTree == null) {
             currentTree = new ArrayList<DocumentTreeNode>();
             DocumentModel firstAccessibleParent = null;
-            if (currentDocument != null) {
-                firstAccessibleParent = currentDocument;
+            if (rootDocument != null) {
+                firstAccessibleParent = rootDocument;
             }
             if (firstAccessibleParent != null) {
                 Filter filter = null;
@@ -115,4 +173,11 @@ public class CaseTreeActionsBean extends TreeActionsBean {
         return trees.get(treeName);
     }
 
+    public DocumentModel getRootDocument() {
+        return rootDocument;
+    }
+
+    public String getDocView() {
+        return docView;
+    }
 }

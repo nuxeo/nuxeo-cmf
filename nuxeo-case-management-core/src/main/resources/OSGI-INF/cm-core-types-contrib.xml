@@ -126,5 +126,20 @@
       </subtypes>
     </doctype>
 
+    <doctype name="RouteRoot" extends="Folder">
+      <facet name="SuperSpace"/>
+      <subtypes>
+        <type>DocumentRoute</type>
+        <type>RouteFolder</type>
+      </subtypes>
+    </doctype>
+
+    <doctype name="RouteFolder" extends="Folder">
+      <subtypes>
+        <type>DocumentRoute</type>
+        <type>RouteFolder</type>
+      </subtypes>
+    </doctype>
+
   </extension>
 </component>

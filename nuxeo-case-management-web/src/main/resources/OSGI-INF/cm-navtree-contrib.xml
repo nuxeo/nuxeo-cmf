@@ -23,7 +23,10 @@
      xhtmlview="/casemanagement/mailbox/mailbox_list.xhtml" order="1" />
 
     <navTree treeId="CLASSIFICATION_FOLDER" treeLabel="label.byClassificationFolder"
-     xhtmlview="/classification/classification_tree_explorer.xhtml" order="90" />
+     xhtmlview="/classification/cm_classification_tree_explorer.xhtml" order="90" />
+
+    <navTree treeId="ROUTE_FOLDER" treeLabel="label.byRouteFolder"
+     xhtmlview="/incl/route_tree_explorer.xhtml" order="95" />
 
 
   </extension>
