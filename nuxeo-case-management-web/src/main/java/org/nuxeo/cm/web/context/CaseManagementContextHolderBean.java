@@ -108,7 +108,8 @@ public class CaseManagementContextHolderBean implements
         this.currentEmail = currentEmail;
     }
 
-    public void setCurrentClassificationRoot(DocumentModel currentClassificationRoot) {
+    public void setCurrentClassificationRoot(
+            DocumentModel currentClassificationRoot) {
         this.currentClassificationRoot = currentClassificationRoot;
     }
 
@@ -116,4 +117,11 @@ public class CaseManagementContextHolderBean implements
         this.currentRouteRoot = currentRouteRoot;
     }
 
+    public void resetCurrentContext() {
+        currentMailbox = null;
+        currentEnvelope = null;
+        currentEmail = null;
+        currentClassificationRoot = null;
+        currentRouteRoot = null;
+    }
 }

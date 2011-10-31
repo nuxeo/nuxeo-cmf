@@ -114,6 +114,8 @@ public class CaseManagementContextActionsBean implements Serializable,
                 cmContextHolder.setCurrentCaseItem(null);
                 cmContextHolder.setCurrentMailbox(null);
                 treeActions.resetChildTree();
+            } else {
+                cmContextHolder.resetCurrentContext();
             }
         }
     }
