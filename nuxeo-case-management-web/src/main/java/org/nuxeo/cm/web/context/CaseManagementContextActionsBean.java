@@ -29,13 +29,13 @@ import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.web.contentbrowser.CaseTreeActionsBean;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
-import org.nuxeo.ecm.webapp.tree.TreeActions;
 
 @Name("cmContextActions")
 @Scope(ScopeType.CONVERSATION)
@@ -50,9 +50,8 @@ public class CaseManagementContextActionsBean implements Serializable,
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
-
-    @In(create = true, required = false)
-    protected transient TreeActions treeActions;
+    @In(create = true)
+    protected transient CaseTreeActionsBean treeActions;
 
     @In(create = true)
     protected NavigationContext navigationContext;
@@ -88,16 +87,18 @@ public class CaseManagementContextActionsBean implements Serializable,
             // mailbox case
             if (newDocument.hasFacet(CaseConstants.MAILBOX_FACET)) {
                 cmContextHolder.setCurrentMailbox(newDocument.getAdapter(Mailbox.class));
+                cmContextHolder.setCurrentCase(null);
+                cmContextHolder.setCurrentCaseItem(null);
                 cmContextHolder.setCurrentRouteRoot(null);
                 cmContextHolder.setCurrentClassificationRoot(null);
-                treeActions.reset();
+                treeActions.resetChildTree();
             }
             // document cases
             if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);
-                treeActions.reset();
+                treeActions.resetChildTree();
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCaseItem(newDocument);
@@ -106,13 +107,13 @@ public class CaseManagementContextActionsBean implements Serializable,
                 cmContextHolder.setCurrentCase(null);
                 cmContextHolder.setCurrentCaseItem(null);
                 cmContextHolder.setCurrentMailbox(null);
-                treeActions.reset();
+                treeActions.resetChildTree();
             } else if (newDocument.getType().equals("RouteRoot")) {
                 cmContextHolder.setCurrentRouteRoot(newDocument);
                 cmContextHolder.setCurrentCase(null);
                 cmContextHolder.setCurrentCaseItem(null);
                 cmContextHolder.setCurrentMailbox(null);
-                treeActions.reset();
+                treeActions.resetChildTree();
             }
         }
     }

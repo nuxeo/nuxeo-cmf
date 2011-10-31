@@ -136,7 +136,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertNotNull(subGroup);
         List<DocumentModel> group5Children = session.getChildren(subGroup.getRef());
         assertFalse(group5Children.isEmpty());
-        assertEquals(1, group5Children.size());
+        assertEquals(2, group5Children.size());
         assertEquals(ClassificationConstants.CLASSIFICATION_ROOT,
                 group5Children.get(0).getType());
         // test onDelete event
