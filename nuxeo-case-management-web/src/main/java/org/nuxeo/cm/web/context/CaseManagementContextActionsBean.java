@@ -94,7 +94,7 @@ public class CaseManagementContextActionsBean implements Serializable,
                 treeActions.resetChildTree();
             }
             // document cases
-            if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
+            else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
                 cmContextHolder.setCurrentCaseItem(null);

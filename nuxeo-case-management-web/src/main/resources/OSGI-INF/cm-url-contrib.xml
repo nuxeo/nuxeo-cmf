@@ -13,7 +13,7 @@
     <!-- override: component does not implement merging -->
     <urlPattern name="default" enabled="false" />
 
-    <urlPattern name="cm" enabled="true">
+    <urlPattern name="cmf" enabled="true">
       <defaultURLPolicy>true</defaultURLPolicy>
       <needBaseURL>true</needBaseURL>
       <needRedirectFilter>true</needRedirectFilter>
@@ -24,13 +24,17 @@
       <newDocumentViewBinding>
         #{restHelper.newDocumentView}
       </newDocumentViewBinding>
+      <documentViewBindingApplies>
+        #{mainTabsActions.isOnMainTab('cmf')}
+      </documentViewBindingApplies>
       <bindings>
         <binding name="tabId">#{webActions.currentTabId}</binding>
         <binding name="subTabId">#{webActions.currentSubTabId}</binding>
         <binding name="currentCaseItemId">#{cmContextActions.currentCaseItemId}</binding>
         <binding name="tabIds">#{webActions.currentTabIds}</binding>
+        <binding name="language" callGetter="false">#{restHelper.localeString}</binding>
       </bindings>
-    </urlPattern>
+     </urlPattern>
 
   </extension>
 

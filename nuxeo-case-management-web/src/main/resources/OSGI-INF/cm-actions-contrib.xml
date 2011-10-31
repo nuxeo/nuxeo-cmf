@@ -25,10 +25,13 @@
     <action id="POPUP_DOCUMENT_UNLOCK" enabled="false" />
 
     <!-- add back login/logout + personal workspace links (see NXP-6418) -->
-    <action id="documents" link="view_documents"
+    <action id="cmf" link="view_documents"
       label="label.main.tab.case.management" order="40">
       <category>MAIN_TABS</category>
     </action>
+    
+    <action id="documents" enabled="false"/>
+    
     <action id="home" enabled="true" />
     <!-- end of login/logout actions -->
 

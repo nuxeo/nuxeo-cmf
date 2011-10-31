@@ -58,7 +58,7 @@ public class CaseTreeActionsBean extends TreeActionsBean {
 
     private static final Log log = LogFactory.getLog(CaseTreeActionsBean.class);
 
-    @In
+    @In(create = true)
     protected transient MultiNavTreeManager multiNavTreeManager;
 
     @In(create = true, required = false)
@@ -102,7 +102,7 @@ public class CaseTreeActionsBean extends TreeActionsBean {
         String navTree = multiNavTreeManager.getSelectedNavigationTree();
         if (navTree.equals(SupportedNavigationTrees.MAILBOXES_FOLDER.toString())) {
             if (cmContextHolder.getCurrentCase() != null) {
-                rootDocument =  cmContextHolder.getCurrentCase().getDocument();
+                rootDocument = cmContextHolder.getCurrentCase().getDocument();
                 docView = "cm_view";
             }
         } else if (navTree.equals(SupportedNavigationTrees.CLASSIFICATION_FOLDER.toString())) {

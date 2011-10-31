@@ -53,6 +53,8 @@ public class CaseManagementStartupHelper extends StartupHelper {
 
     private static final Log log = LogFactory.getLog(CaseManagementStartupHelper.class);
 
+    public static final String CMF_TAB = "MAIN_TABS:cmf";
+
     @In(create = true)
     protected transient CaseManagementMailboxActionsBean cmMailboxActions;
 
@@ -71,6 +73,7 @@ public class CaseManagementStartupHelper extends StartupHelper {
                     documentManager, user);
             if (userMailbox != null) {
                 page = navigationContext.navigateToDocument(userMailbox.getDocument());
+                webActions.setCurrentTabIds(CMF_TAB);
             }
         } catch (Exception e) {
             log.error("Could not redirect to user mailbox", e);
