@@ -82,7 +82,8 @@ public class CaseManagementContextActionsBean implements Serializable,
     // XXX: see if needs to be moved
     @Override
     @Observer(value = { EventNames.DOCUMENT_SELECTION_CHANGED }, create = true)
-    public void currentDocumentChanged(DocumentModel newDocument) {
+    public void currentDocumentChanged(DocumentModel newDocument)
+            throws ClientException {
         if (newDocument != null) {
             // mailbox case
             if (newDocument.hasFacet(CaseConstants.MAILBOX_FACET)) {
@@ -114,6 +115,12 @@ public class CaseManagementContextActionsBean implements Serializable,
                 cmContextHolder.setCurrentCaseItem(null);
                 cmContextHolder.setCurrentMailbox(null);
                 treeActions.resetChildTree();
+            } else if (cmContextHolder.getCurrentCase() != null) {
+                // xxx: if I'm in a folderish case
+                if (!cmContextHolder.getCurrentCase().getDocument().getPath().isPrefixOf(
+                        newDocument.getPath())) {
+                    cmContextHolder.resetCurrentContext();
+                }
             } else {
                 cmContextHolder.resetCurrentContext();
             }
