@@ -45,6 +45,12 @@
       <category>VIEW_MAILBOX_ACTION_LIST</category>
     </action>
 
+    <action id="CASE_ITEM_CREATE"
+      link="#{cmDocumentActions.createCaseItemInDefaultCase}" label="command.create"
+      order="0">
+      <category>CASE_ITEM_CREATE_BOTTOM_LIST</category>
+    </action>
+
     <!-- Mailbox Actions -->
     <action id="newMailbox" enabled="false" />
     <action id="newCorrespondenceMailbox"
