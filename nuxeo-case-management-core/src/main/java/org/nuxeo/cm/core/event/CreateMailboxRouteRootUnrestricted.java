@@ -21,11 +21,16 @@ package org.nuxeo.cm.core.event;
 
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.api.security.ACE;
+import org.nuxeo.ecm.core.api.security.ACL;
+import org.nuxeo.ecm.core.api.security.ACP;
+import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
  * Create a route root document as a child of the mailBox, in unrestricted
@@ -57,6 +62,12 @@ public class CreateMailboxRouteRootUnrestricted extends
         routeRoot.setPropertyValue(MailboxConstants.TITLE_FIELD,
                 routeRootName);
         routeRoot = session.createDocument(routeRoot);
+        ACP acp = routeRoot.getACP();
+        ACL acl = acp.getOrCreateACL(ACL.LOCAL_ACL);
+        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
+                + mb.getId(), SecurityConstants.EVERYTHING, true));
+        acp.addACL(acl);
+        routeRoot.setACP(acp, true);
         session.saveDocument(routeRoot);
     }
 
