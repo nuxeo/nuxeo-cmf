@@ -1,0 +1,94 @@
+/*
+Specific styles for the Document Management View
+=Frame -> specifiy left column style
+=Document list -> specifics to document browsing
+=Advanced Search -> for advanced search view
+=Clipboard & Worklist -> styles in the left column
+author: lkemen@nuxeo.com
+*/
+
+/* =Frame */
+.nxMainContainer .column { background-color: "neutral.lighter (__FLAVOR__ background)"; box-shadow: -2px -1px 5px #9F9F9F inset; padding: 0 }
+.nxMainContainer .content { padding:  0 }
+.nxMainContainer .themeRegion { min-height: 550px }
+
+/* =Main frame */
+.tabsBar { background: none; border-bottom: 1px solid; border-color: "neutral.lighter (__FLAVOR__ border)"; float: none; font-size: 90%; line-height: normal; margin: .4em auto .25em; width: 99% }
+.tabsBar ul { list-style: none; height: 1.5em; margin: 0 0 -0.5em }
+.tabsBar li { float: left; margin: 0; padding: 0 }
+.tabsBar a, .tabsBar a:link, .tabsBar a:hover, .tabsBar a:visited { background-color: "color.major.light (__FLAVOR__ background)"; border-radius: 0; float: left; padding: .25em .5em; text-decoration: none; text-transform: uppercase }
+.tabsBar li.selected a, .tabsBar li.selected a:hover, .tabsBar li.selected a:visited; .tabsBar li a:hover { background: #fff; color: #000; padding: .25em  .5em }
+.subtabsBar { border-color: "neutral.lighter (__FLAVOR__ border)" }
+.tabsContent { padding: 1em }
+
+
+/* Fix from inheritance */
+h1 { padding:	.5em .4em }
+h3 { padding: .8em 1em 1em }
+.action_bar { margin: 1em }
+.action_bar ul { float: left }
+.dataOutput td {padding: 0.25em }
+.buttonsGadget {margin: .4em 0 .4em 12em}
+.relationCreateLabelColumn { width: 8em}
+table.dataOutput thead th { border-width: 1px; border-style: solid none; border-color: "neutral.light (__FLAVOR__ border)"; font-weight: normal; padding: .25em}
+.dataOutput2Columns td { padding: .3em .2em }
+.listShuttleTable .listShuttleSelectionActions a { display: block }
+.smallIcon { height: 16px; width: 16px }
+.currentDocumentDescription { padding: .3em .7em }
+
+/* Case management styles */
+.modeButton a { background-color: "neutral.light (__FLAVOR__ background)"; border-width: 1px; border-style: solid none; border-color: "neutral.light (__FLAVOR__ border)"; color: #333; float: right; font-size: .9em; padding: .3em .4em }
+.enveloppeTitleArea h1 img { margin-right: .5em }
+
+.classificationView { width: 100% }
+.classificationView .labelColumn { text-align: left }
+
+.documentSwitch { float: right; padding-top: .5em; padding-right: .9em; text-align: center }
+.documentSwitch select { margin-bottom: .5em }
+.documentSwitch p {color: #fff; text-align: center }
+.documentSwitch p a img { vertical-align: middle }
+
+.prevEnveloppe, .nextEnveloppe { padding: .7em }
+.prevEnveloppe { float: left }
+.nextEnveloppe { float: right }
+
+.tabsBar .email_header_actions a, .tabsBar .email_header_actions a:hover, .tabsBar .email_header_actions a:visited { margin-top: .1em; margin-left: .1em }
+.email_header { margin: 0; padding: 0 1.2em;}
+.email_header .dataInput { margin-top: 0; margin-right: 2.3em }
+.email_header .dataInput td { padding: 0 }
+.email_header .dataInput td.labelColumn { padding-right: .4em; width: 200px }
+.email_header .foldableBox { margin-top: .4em; margin-bottom: .4em }
+.email_header_actions { float: right; margin: 0; padding: 0}
+.email_header_actions a { background-color: #fff }
+.email_header_actions a img { float: left }
+.email_header .foldableBox h3, .email_header .foldableBox h3.unfolded { background-color:transparent; border: none; font-size: 1em; margin-bottom: 0 }
+.email_header .foldableBox .boxBody { background-color: transparent }
+.currentEmailActions { padding-left: 1.8em }
+
+.tabsContent hr { border: 1px solid; color: #eee; height: 1px }
+.dataOutput td.cellVerticalBorder { border-right: 1px solid #c7c7c7; vertical-align: top }
+
+.cellActionIcon { cursor: pointer }
+.stepExecutionIcon { margin-top: 1.3em }
+
+td.routeRowBackground0 { background-color: #EED8D8 }
+td.routeRowBackground1 { background-color: #FEE0C6 }
+td.routeRowBackground2 { background-color: #FF7F7F }
+td.routeRowBackground3 { background-color: #ecf4ff }
+
+/* Left column */
+.nxMainContainer .column .tabsBar a { background-color: "neutral.lighter (__FLAVOR__ background)"; padding: 0.25em .4em }
+.nxMainContainer .column .tabsBar li.selected a, .nxMainContainer .column .tabsBar li a:hover, .nxMainContainer .column .tabsBar li.selected a:visited { background: #fff }
+
+.userClipboard { margin: 0 }
+.userClipboard h4 { border-width: 1px; border-style: none none dotted; border-color: "neutral.light (__FLAVOR__ border)"; font-size: 1.2em; margin: .5em 0 .6em; padding: .2em .3em }
+.userClipboardContent { padding: .5em }
+
+.menuForm { margin-bottom: 20px }
+
+.caseTree { padding: 10px 0 0 }
+
+.userMailboxesContent ul { font-size: .9em; list-style: none; margin: 0; padding: 0 }
+.userMailboxesContent ul li {margin: 0; padding: .1em 0 }
+.userMailboxesContent ul li.selected, .menuForm .selected { background-color: "color.major.medium (__FLAVOR__ background)"; font-weight: bold }
+.userMailboxesContent a.permalink { padding: 0 0 0 .4em }

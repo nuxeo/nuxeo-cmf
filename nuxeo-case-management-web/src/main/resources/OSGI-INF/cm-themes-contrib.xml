@@ -15,10 +15,9 @@
       <format-type>widget</format-type>
       <template>casemanagement/case/case_tree.xhtml</template>
     </view>
-    <view name="Case Management logo" template-engine="jsf-facelets">
+
+    <view name="nuxeo5 includes" template-engine="jsf-facelets" merge="true">
       <format-type>widget</format-type>
-      <template>incl/logo_case_management.xhtml</template>
-      <resource>dragdrop.js</resource>
       <resource>contextmenu.js</resource>
       <resource>jquery.layout.js</resource>
       <resource>jquery.ui.layout.css</resource>
@@ -34,7 +33,8 @@
   <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
 
     <theme>
-      <src>themes/theme-case-management.xml</src>
+      <!--src>themes/theme-case-management.xml</src-->
+      <src>themes/theme-case-management-new.xml</src>
     </theme>
 
   </extension>
@@ -51,27 +51,55 @@
         <default-perspective>default</default-perspective>
       </negotiation>
 
-      <view id="/user_dashboard.xhtml">
-        <theme>case-management/user_dashboard</theme>
-      </view>
-
     </application>
 
+  </extension>
+
+  <!-- mapping between theme pages and resources -->
+  <!--  -->
+
+  <extension target="org.nuxeo.theme.styling.service" point="pages">
+
+    <themePage name="case-management/default">
+      <defaultFlavor>default</defaultFlavor>
+      <flavors>
+        <flavor>default</flavor>
+        <flavor>rainbow</flavor>
+      </flavors>
+      <styles>
+        <style>basics</style>
+        <style>buttons_and_actions</style>
+        <style>header</style>
+        <style>body</style>
+        <style>footer</style>
+        <style>navigation</style>
+        <style>tables</style>
+        <style>forms</style>
+        <style>popups</style>
+        <style>messages_and_tooltips</style>
+        <style>foldable_boxes</style>
+        <style>richfaces_components</style>
+        <style>tabs_content</style>
+        <style>faceted_search</style>
+        <style>nuxeo_casemanagement_specific</style>
+      </styles>
+    </themePage>
+
+  </extension>
+
+  <extension target="org.nuxeo.theme.styling.service" point="styles">
+    <style name="nuxeo_casemanagement_specific">
+      <src>themes/css/nuxeo_casemanagement_specific.css</src>
+    </style>
   </extension>
 
   <!-- Styles presets -->
   <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
 
-    <palette name="Case Management borders"
-      src="themes/palettes/case-management-borders.properties"
-      category="border" />
-    <palette name="Case Management backgrounds"
-      src="themes/palettes/case-management-backgrounds.properties"
-      category="background" />
-    <palette name="Case Management fonts"
-      src="themes/palettes/case-management-fonts.properties" category="font" />
-    <palette name="Case Management colors"
-      src="themes/palettes/case-management-colors.properties" category="color" />
+    <palette name="Case Management borders" src="themes/palettes/case-management-borders.properties" category="border" />
+    <palette name="Case Management backgrounds" src="themes/palettes/case-management-backgrounds.properties" category="background" />
+    <palette name="Case Management fonts" src="themes/palettes/case-management-fonts.properties" category="font" />
+    <palette name="Case Management colors" src="themes/palettes/case-management-colors.properties" category="color" />
 
   </extension>
   <!-- resources -->
