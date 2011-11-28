@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <component name="org.nuxeo.cm.service.mailboxManagement">
+  <require>org.nuxeo.ecm.core.api.pathsegment.PathSegmentService</require>
 
   <implementation class="org.nuxeo.cm.core.service.CaseManagementComponent" />
 
