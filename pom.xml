@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.nuxeo.ecm.platform</groupId>
-    <artifactId>nuxeo-features-parent</artifactId>
+    <groupId>org.nuxeo.ecm.distribution</groupId>
+    <artifactId>nuxeo-distribution</artifactId>
     <version>5.5-SNAPSHOT</version>
   </parent>
 
@@ -212,6 +212,11 @@
         <artifactId>nuxeo-case-management-test</artifactId>
         <version>${nuxeo.cm.version}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.cm</groupId>
+        <artifactId>nuxeo-distribution-cmf</artifactId>
+        <version>${nuxeo.cm.version}</version>
       </dependency>
       <!-- correspondence -->
       <dependency>
