@@ -39,4 +39,13 @@
 
   </extension>
 
+  <extension
+    target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService"
+    point="postContentCreationHandlers">
+
+    <postContentCreationHandler name="cmStructureHandler"
+      class="org.nuxeo.cm.core.event.CmStructureHandler" />
+
+  </extension>
+
 </component>

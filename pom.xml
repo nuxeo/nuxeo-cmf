@@ -150,6 +150,11 @@
         <artifactId>nuxeo-platform-relations-web</artifactId>
         <version>${nuxeo.features.version}</version>
       </dependency>
+	  <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-content-template-manager</artifactId>
+        <version>${nuxeo.features.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-platform-webapp-core</artifactId>
