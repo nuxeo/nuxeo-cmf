@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -12,7 +11,7 @@
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>1.9-SNAPSHOT</version>
+  <version>5.5-SNAPSHOT</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>
@@ -20,59 +19,8 @@
   </description>
 
   <properties>
-    <nuxeo.cm.version>1.9-SNAPSHOT</nuxeo.cm.version>
-    <nuxeo.routing.version>5.5-SNAPSHOT</nuxeo.routing.version>
-
+    <nuxeo.cmf.version>5.5-SNAPSHOT</nuxeo.cmf.version>
   </properties>
-
-  <profiles>
-    <profile>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <id>server</id>
-      <modules>
-        <module>nuxeo-case-management-distribution</module>
-      </modules>
-    </profile>
-    <profile>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <id>tomcat</id>
-      <modules>
-        <module>nuxeo-case-management-distribution</module>
-      </modules>
-    </profile>
-    <profile>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <id>serverCorr</id>
-      <modules>
-        <module>nuxeo-case-management-distribution</module>
-      </modules>
-    </profile>
-    <profile>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <id>tomcatCorr</id>
-      <modules>
-        <module>nuxeo-case-management-distribution</module>
-      </modules>
-    </profile>
-    <profile>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <id>funkloadLoadTest</id>
-      <modules>
-        <module>nuxeo-case-management-distribution</module>
-      </modules>
-    </profile>
-  </profiles>
-
 
   <modules>
     <module>nuxeo-case-management-api</module>
@@ -85,180 +33,104 @@
     <module>nuxeo-correspondence-web</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>server</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>tomcat</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>serverCorr</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>tomcatCorr</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>funkloadLoadTest</id>
+      <modules>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+    <profile>
+      <!-- Build all distributions -->
+      <id>all-distributions</id>
+      <modules>
+        <module>nuxeo-distribution-cmf</module>
+        <module>nuxeo-marketplace-cmf</module>
+        <module>nuxeo-case-management-distribution</module>
+      </modules>
+    </profile>
+  </profiles>
+
   <dependencyManagement>
     <dependencies>
-      <!-- ADDONS -->
-      <dependency>
-        <groupId>org.nuxeo.ecm.automation</groupId>
-        <artifactId>nuxeo-automation-core</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-document-routing-api</artifactId>
-        <version>${nuxeo.routing.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-document-routing-core</artifactId>
-        <version>${nuxeo.routing.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-document-routing-web</artifactId>
-        <version>${nuxeo.routing.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-classification-api</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-classification-core</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-classification-web</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-audit-client</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-ear</artifactId>
-        <version>${nuxeo.features.version}</version>
-        <type>pom</type>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-mail-core</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-mail-test</artifactId>
-        <version>${nuxeo.features.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-relations-web</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-webapp-core</artifactId>
-        <version>${nuxeo.features.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-annotations-core-contrib</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-virtualnavigation-web</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-relations-api</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <!-- CASE MANAGEMENT -->
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-api</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-core</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-facade</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-web</artifactId>
-        <version>${nuxeo.cm.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.cm</groupId>
-        <artifactId>nuxeo-case-management-ear</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-lang</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-case-management-test</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.cm</groupId>
         <artifactId>nuxeo-distribution-cmf</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
+        <type>zip</type>
       </dependency>
       <!-- correspondence -->
       <dependency>
         <groupId>org.nuxeo.correspondence</groupId>
         <artifactId>nuxeo-correspondence-api</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.correspondence</groupId>
         <artifactId>nuxeo-correspondence-core</artifactId>
-        <version>${nuxeo.cm.version}</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.nuxeo.correspondence</groupId>
         <artifactId>nuxeo-correspondence-web</artifactId>
-        <version>${nuxeo.cm.version}</version>
-      </dependency>
-      <!-- nuxeo platform importer -->
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-importer-core</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.runtime</groupId>
-        <artifactId>nuxeo-runtime-jtajca</artifactId>
-        <version>${nuxeo.core.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <!-- integration tests -->
-      <dependency>
-        <groupId>org.nuxeo.ecm.distribution</groupId>
-        <artifactId>nuxeo-functional-tests</artifactId>
-        <version>${nuxeo.distribution.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.concordion</groupId>
-        <artifactId>concordion</artifactId>
-        <version>1.3.1</version>
+        <version>${nuxeo.cmf.version}</version>
       </dependency>
     </dependencies>
-
   </dependencyManagement>
 
   <developers>
@@ -275,7 +147,6 @@
     </developerConnection>
     <url>http://hg.nuxeo.org/nuxeo-case-management/</url>
   </scm>
-
 
   <repositories>
     <repository>
@@ -295,7 +166,6 @@
         <enabled>false</enabled>
       </releases>
       <snapshots>
-        <updatePolicy>always</updatePolicy>
         <enabled>true</enabled>
       </snapshots>
     </repository>
@@ -321,7 +191,6 @@
         <enabled>false</enabled>
       </releases>
       <snapshots>
-        <updatePolicy>always</updatePolicy>
         <enabled>true</enabled>
       </snapshots>
     </pluginRepository>
