@@ -124,7 +124,7 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-document-routing-*"/>
-      <artifact:resolveFile key="org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:${nuxeo.routing.version}:jar" />
+      <artifact:resolveFile key="org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:${nuxeo.cmf.version}:jar" />
       <artifact:set refid="${application.jars}" />
     </copy>
     <!-- Deploy custom configuration -->
