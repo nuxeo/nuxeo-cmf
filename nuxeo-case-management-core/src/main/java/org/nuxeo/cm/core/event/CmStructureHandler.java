@@ -21,6 +21,11 @@ import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
+import org.nuxeo.ecm.core.api.security.ACE;
+import org.nuxeo.ecm.core.api.security.ACL;
+import org.nuxeo.ecm.core.api.security.ACP;
+import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
+import org.nuxeo.ecm.core.api.security.impl.ACPImpl;
 import org.nuxeo.ecm.platform.content.template.service.PostContentCreationHandler;
 
 /**
@@ -31,35 +36,52 @@ public class CmStructureHandler implements PostContentCreationHandler {
 
     public static final String DC_TITLE = "dc:title";
 
+    /**
+     * This handler execute commands to create CMF content structure if doesn't
+     * exist
+     */
     @Override
     public void execute(CoreSession session) {
         try {
-            PathRef domainPath = new PathRef("case-management/");
+            PathRef domainPath = new PathRef("/case-management");
             if (!session.exists(domainPath)) {
                 DocumentModel caseContainer = session.createDocumentModel("/",
-                        "Case Management", "Domain");
+                        "case-management", "Domain");
                 caseContainer.setPropertyValue(DC_TITLE, "Case Management");
-                session.createDocument(caseContainer);
+
+                // CMF rights management
+                ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
+                ACE ace1 = new ACE("administrators", "Everything", true);
+                ACE ace2 = new ACE("Administrator", "Everything", true);
+                ACE ace3 = new ACE("members","Read", false);
+                localACL.add(ace1);
+                localACL.add(ace2);
+                localACL.add(ace3);
+                ACP acp = new ACPImpl();
+                acp.addACL(localACL);
+
+                DocumentModel domain = session.createDocument(caseContainer);
+                domain.setACP(acp, true);
             } else {
-                PathRef casePath = new PathRef("case-management/case-root");
+                PathRef casePath = new PathRef("/case-management/case-root");
                 PathRef mailboxPath = new PathRef(
-                        "case-management/mailbox-root");
-                PathRef sectionsPath = new PathRef("case-management/sections");
+                        "/case-management/mailbox-root");
+                PathRef sectionsPath = new PathRef("/case-management/sections");
                 if (!session.exists(casePath)) {
                     DocumentModel caseContainer = session.createDocumentModel(
-                            "case-management/", "Case", "CaseRoot");
+                            "/case-management", "case-root", "CaseRoot");
                     caseContainer.setPropertyValue(DC_TITLE, "Case");
                     session.createDocument(caseContainer);
                 }
                 if (!session.exists(mailboxPath)) {
                     DocumentModel caseContainer = session.createDocumentModel(
-                            "case-management/", "Mailbox", "MailboxRoot");
+                            "/case-management", "mailbox-root", "MailboxRoot");
                     caseContainer.setPropertyValue(DC_TITLE, "Mailbox");
                     session.createDocument(caseContainer);
                 }
                 if (!session.exists(sectionsPath)) {
                     DocumentModel caseContainer = session.createDocumentModel(
-                            "case-management/", "Sections", "SectionRoot");
+                            "/case-management", "sections", "SectionRoot");
                     caseContainer.setPropertyValue(DC_TITLE, "Sections");
                     session.createDocument(caseContainer);
                 }
