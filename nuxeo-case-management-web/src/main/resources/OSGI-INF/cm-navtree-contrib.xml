@@ -5,9 +5,6 @@
   <require>
     org.nuxeo.ecm.virtualnavigation.directory.DirectoryTreeService.contrib
   </require>
-  <require>
-    org.nuxeo.ecm.virtualnavigation.tagsContrib
-  </require>
 
   <extension target="org.nuxeo.ecm.webapp.directory.DirectoryTreeService"
     point="trees">
