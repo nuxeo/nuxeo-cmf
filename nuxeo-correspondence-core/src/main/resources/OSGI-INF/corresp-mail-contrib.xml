@@ -2,6 +2,8 @@
 
 <component name="org.nuxeo.correspondence.mailActions">
 
+  <require>org.nuxeo.cmf.mailActions</require>
+
   <extension target="org.nuxeo.ecm.platform.MailService" point="actionPipes">
 
     <pipe name="casemanagementMailBox">

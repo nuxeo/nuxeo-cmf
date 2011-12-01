@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.cmf.mailActions">
+
+  <extension target="org.nuxeo.ecm.platform.MailService"
+    point="actionPipes">
+
+    <pipe name="casemanagementMailBox">
+      <action>org.nuxeo.cm.mail.actionpipe.StartAction</action>
+      <action>org.nuxeo.cm.mail.actionpipe.ExtractMessageInformation
+      </action>
+      <action>org.nuxeo.cm.mail.actionpipe.ParseMailBody</action>
+      <action>
+        org.nuxeo.cm.mail.actionpipe.CreateAndDistributeDocuments
+      </action>
+      <action>org.nuxeo.cm.mail.actionpipe.EndAction</action>
+    </pipe>
+
+  </extension>
+
+</component>

@@ -248,6 +248,13 @@
 
     </action>
 
+    <action id="CASEITEM_DELETE" link="#{cmCaseActions.RemoveCaseItem()}"
+      label="label.casemanagement.action.delete" order="0" enable="true">
+      <category>CASE_ACTION_UPPER_LIST</category>
+      <filter-id>isCaseItem</filter-id>
+      <filter-id>canEditCaseItem</filter-id>
+    </action>
+
     <!-- Mailbox View Action -->
     <action id="TAB_MAILBOX_INBOX"
       link="/casemanagement/mailbox/tabs/mailbox_inbox_content.xhtml" order="20"

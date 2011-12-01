@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.nuxeo.cm</groupId>
     <artifactId>nuxeo-case-management-parent</artifactId>
-    <version>1.9-SNAPSHOT</version>
+    <version>5.5-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-core</artifactId>
   <name>Case Management Core</name>
   <description>Case Management Core</description>
@@ -89,7 +87,7 @@
       <artifactId>jaxen</artifactId>
     </dependency>
 
-    <!-- test deps-->
+    <!-- test scope -->
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-test</artifactId>
@@ -119,15 +117,12 @@
     <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-storage-sql-test</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.runtime</groupId>
       <artifactId>nuxeo-runtime-jtajca</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- end of test deps-->
-
   </dependencies>
 
 </project>

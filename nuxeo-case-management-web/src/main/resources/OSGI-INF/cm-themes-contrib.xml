@@ -18,6 +18,7 @@
 
     <view name="nuxeo5 includes" template-engine="jsf-facelets" merge="true">
       <format-type>widget</format-type>
+      <resource>dragdrop.js</resource>
       <resource>contextmenu.js</resource>
       <resource>jquery.layout.js</resource>
       <resource>jquery.ui.layout.css</resource>

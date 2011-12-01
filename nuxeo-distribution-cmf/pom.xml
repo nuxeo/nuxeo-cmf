@@ -5,14 +5,13 @@
   <parent>
     <groupId>org.nuxeo.cm</groupId>
     <artifactId>nuxeo-case-management-parent</artifactId>
-    <version>1.9-SNAPSHOT</version>
+    <version>5.5-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-distribution-cmf</artifactId>
   <packaging>zip</packaging>
-  <name>Case Management distribution</name>
-  <description>Case Management distribution</description>
+  <name>Case Management EAR</name>
+  <description>Case Management EAR</description>
 
   <dependencies>
     <dependency>
@@ -30,16 +29,26 @@
     </dependency>
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
-      <artifactId>nuxeo-case-management-facade</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-web</artifactId>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.cm</groupId>
       <artifactId>nuxeo-case-management-lang</artifactId>
     </dependency>
+
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.correspondence</groupId> -->
+    <!-- <artifactId>nuxeo-correspondence-api</artifactId> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.correspondence</groupId> -->
+    <!-- <artifactId>nuxeo-correspondence-core</artifactId> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.correspondence</groupId> -->
+    <!-- <artifactId>nuxeo-correspondence-web</artifactId> -->
+    <!-- </dependency> -->
+
     <!-- addons -->
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
@@ -68,18 +77,6 @@
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-importer-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.correspondence</groupId>
-      <artifactId>nuxeo-correspondence-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.correspondence</groupId>
-      <artifactId>nuxeo-correspondence-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.correspondence</groupId>
-      <artifactId>nuxeo-correspondence-web</artifactId>
     </dependency>
   </dependencies>
 

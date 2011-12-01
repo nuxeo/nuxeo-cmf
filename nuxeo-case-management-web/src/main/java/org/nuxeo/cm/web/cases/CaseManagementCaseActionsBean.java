@@ -349,4 +349,16 @@ public class CaseManagementCaseActionsBean extends
         return null;
     }
 
+    /**
+     * Removes a mail from the current envelope.
+     * Navigate to the Case view.
+     */
+    public void RemoveCaseItem() throws Exception{
+        Case currentEnvelope = getCurrentCase();
+        DocumentModel doc = getCurrentCaseItem();
+        CaseItem item = doc.getAdapter(CaseItem.class);
+        currentEnvelope.removeCaseItem(item, documentManager);
+        navigationContext.navigateToDocument(currentEnvelope.getDocument()); 
+    }
+
 }
