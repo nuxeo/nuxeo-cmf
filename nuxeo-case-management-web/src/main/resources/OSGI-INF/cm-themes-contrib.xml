@@ -34,8 +34,7 @@
   <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
 
     <theme>
-      <!--src>themes/theme-case-management.xml</src-->
-      <src>themes/theme-case-management-new.xml</src>
+      <src>themes/case-management.xml</src>
     </theme>
 
   </extension>
@@ -57,8 +56,6 @@
   </extension>
 
   <!-- mapping between theme pages and resources -->
-  <!--  -->
-
   <extension target="org.nuxeo.theme.styling.service" point="pages">
 
     <themePage name="case-management/default">
@@ -94,15 +91,6 @@
     </style>
   </extension>
 
-  <!-- Styles presets -->
-  <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
-
-    <palette name="Case Management borders" src="themes/palettes/case-management-borders.properties" category="border" />
-    <palette name="Case Management backgrounds" src="themes/palettes/case-management-backgrounds.properties" category="background" />
-    <palette name="Case Management fonts" src="themes/palettes/case-management-fonts.properties" category="font" />
-    <palette name="Case Management colors" src="themes/palettes/case-management-colors.properties" category="color" />
-
-  </extension>
   <!-- resources -->
   <extension target="org.nuxeo.theme.services.ThemeService" point="resources">
     <resource name="jquery.layout.js">
