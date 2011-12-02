@@ -291,7 +291,8 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         session = openSessionAs(principal2);
         assertNotNull(routingService);
         route = routingService.createNewInstance(route, docIds, session);
-        Mailbox user2Mailbox = getPersonalMailbox(user2);
+        //user has already a personal mailbox
+        Mailbox user2Mailbox = correspMailboxService.getUserPersonalMailbox(session, user2);
         List<CaseLink> links = distributionService.getReceivedCaseLinks(
                 session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
