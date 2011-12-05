@@ -315,6 +315,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(4, links.size());
         closeSession();
         session = openSessionAs("administrators");
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         route.cancel(session);
         assertTrue(route.isCanceled());
         closeSession();
