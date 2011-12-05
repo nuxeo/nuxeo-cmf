@@ -50,14 +50,19 @@ public class CmStructureHandler implements PostContentCreationHandler {
                 caseContainer.setPropertyValue(DC_TITLE, "Case Management");
 
                 // CMF rights management
-                ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
-                ACE ace1 = new ACE("administrators", "Everything", true);
-                ACE ace2 = new ACE("Administrator", "Everything", true);
-                ACE ace3 = new ACE("members","Read", false);
-                localACL.add(ace1);
-                localACL.add(ace2);
-                localACL.add(ace3);
+                // Block inherited ACL
                 ACP acp = new ACPImpl();
+                ACL inheritedACL = new ACLImpl(ACL.INHERITED_ACL);
+                ACE inheritedACE = new ACE("Everyone", "Everything", false);
+                inheritedACL.add(inheritedACE);
+                acp.addACL(inheritedACL);
+
+                // Add new local ACL
+                ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
+                ACE localAce1 = new ACE("administrators", "Everything", true);
+                ACE localAce2 = new ACE("Administrator", "Everything", true);
+                localACL.add(localAce1);
+                localACL.add(localAce2);
                 acp.addACL(localACL);
 
                 DocumentModel domain = session.createDocument(caseContainer);
