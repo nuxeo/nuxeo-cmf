@@ -5,6 +5,35 @@
 
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
 
+    <type id="CMFDomain">
+      <label>Domain</label>
+      <icon>/icons/domain.gif</icon>
+      <bigIcon>/icons/domain.gif</bigIcon>
+      <category>SuperDocument</category>
+      <description>Domain.description</description>
+      <default-view>view_documents</default-view>
+      <create-view>create_domain</create-view>
+      <views>
+        <view id="user_dashboard" value="user_dashboard" />
+        <view id="opensocial_dashboard" value="opensocial_dashboard" />
+      </views>
+      <layouts mode="any">
+        <layout>heading</layout>
+      </layouts>
+      <layouts mode="edit">
+        <layout>heading</layout>
+        <layout>dublincore</layout>
+      </layouts>
+      <contentViews category="content">
+        <contentView>document_content</contentView>
+      </contentViews>
+      <contentViews category="trash_content">
+        <contentView showInExportView="false">
+          document_trash_content
+        </contentView>
+      </contentViews>
+    </type>
+
     <type id="MailboxRoot">
       <label>label.casemanagement.type.CaseManagementMailboxRoot</label>
       <icon>/icons/folder.gif</icon>

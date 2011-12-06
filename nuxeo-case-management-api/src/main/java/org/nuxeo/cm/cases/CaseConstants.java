@@ -26,10 +26,19 @@ public class CaseConstants {
 
     public static final String CASE_TREE_TYPE = "Folder";
 
-    public static final String CASE_DOMAIN_PATH = "/case-management";
+    public static final String CASE_DOMAIN_PARENT_PATH = "/";
 
-    public static final String CASE_ROOT_DOCUMENT_PATH = CASE_DOMAIN_PATH
-            + "/case-root";
+    public static final String CASE_DOMAIN_NAME = "case-management";
+
+    public static final String CASE_DOMAIN_TYPE = "CMFDomain";
+
+    public static final String CASE_DOMAIN_PATH = CASE_DOMAIN_PARENT_PATH
+            + CASE_DOMAIN_NAME;
+
+    public static final String CASE_ROOT_DOCUMENT_NAME = "case-root";
+
+    public static final String CASE_ROOT_DOCUMENT_PATH = CASE_DOMAIN_PATH + "/"
+            + CASE_ROOT_DOCUMENT_NAME;
 
     public static final String CASE_ROOT_TYPE = "CaseRoot";
 

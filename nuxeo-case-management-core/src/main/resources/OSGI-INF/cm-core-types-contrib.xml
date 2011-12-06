@@ -33,7 +33,6 @@
     <facet name="Mailbox" />
     <facet name="CaseLink" />
 
-
     <facet name="Distributable">
       <schema name="distribution" />
     </facet>
@@ -41,6 +40,8 @@
     <facet name="CaseGroupable">
       <schema name="case_item" />
     </facet>
+
+    <doctype name="CMFDomain" extends="Domain" />
 
     <doctype name="MailboxRoot" extends="Document">
       <schema name="common" />

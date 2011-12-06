@@ -19,54 +19,170 @@
 
 package org.nuxeo.cm.mailbox;
 
+import java.util.Arrays;
+
 import org.nuxeo.cm.cases.CaseConstants;
-import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
+import org.nuxeo.cm.test.CaseManagementTestConstants;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.NuxeoPrincipal;
+import org.nuxeo.ecm.core.api.PathRef;
+import org.nuxeo.ecm.core.api.security.SecurityConstants;
+import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
+import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 
-public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
+public class TestDefaultHierarchy extends SQLRepositoryTestCase {
+
+    protected NuxeoPrincipal realAdmin;
+
+    protected NuxeoPrincipalImpl memberUser;
+
+    protected NuxeoPrincipal anonymousUser;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
+
+        // needed for users
+        deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
+        deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);
+        deployBundle(CaseManagementTestConstants.DIRECTORY_TYPES_BUNDLE);
+        deployBundle(CaseManagementTestConstants.DIRECTORY_SQL_BUNDLE);
+        deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
+
+        // contributions to the ContentTemplate service
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
+                "OSGI-INF/content-template-framework.xml");
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
+                "OSGI-INF/content-template-listener.xml");
+
+        // deploy CMF document types
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
+                "OSGI-INF/document-routing-core-types-contrib.xml");
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
+                "OSGI-INF/cm-core-types-contrib.xml");
+
+        realAdmin = new NuxeoPrincipalImpl("realAdmin", false, true);
+        memberUser = new NuxeoPrincipalImpl("memberUser", false, false);
+        memberUser.setGroups(Arrays.asList(new String[] { "members" }));
+        memberUser.updateAllGroups();
+        anonymousUser = new NuxeoPrincipalImpl("anonymous", true, false);
+    }
+
+    public void testRootsWithCAP() throws Exception {
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
+                "OSGI-INF/content-template-contrib.xml");
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
+                "OSGI-INF/cm-content-template-contrib.xml");
+
         openSession();
+        try {
+            DocumentModel domain = session.getRootDocument();
+            assertTrue(session.hasPermission(realAdmin, domain.getRef(),
+                    SecurityConstants.READ));
+            assertTrue(session.hasPermission(memberUser, domain.getRef(),
+                    SecurityConstants.READ));
+            assertFalse(session.hasPermission(anonymousUser, domain.getRef(),
+                    SecurityConstants.READ));
+
+            DocumentModelList domainChildren = session.getChildren(domain.getRef());
+            assertEquals(2, domainChildren.size());
+
+            DocumentModel defaultDomain = session.getChild(domain.getRef(),
+                    "default-domain");
+            assertNotNull(defaultDomain);
+            assertTrue(session.hasPermission(realAdmin, defaultDomain.getRef(),
+                    SecurityConstants.READ));
+            assertTrue(session.hasPermission(memberUser,
+                    defaultDomain.getRef(), SecurityConstants.READ));
+            assertFalse(session.hasPermission(anonymousUser,
+                    defaultDomain.getRef(), SecurityConstants.READ));
+
+            checkCMFDomainHierarchy();
+        } finally {
+            closeSession();
+        }
     }
 
-    @Override
-    public void tearDown() throws Exception {
-        closeSession();
-        super.tearDown();
+    public void testRootsWithoutCAP() throws Exception {
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
+                "OSGI-INF/cm-content-template-contrib.xml");
+
+        openSession();
+        try {
+            DocumentModel domain = session.getRootDocument();
+            assertTrue(session.hasPermission(realAdmin, domain.getRef(),
+                    SecurityConstants.READ));
+            assertTrue(session.hasPermission(memberUser, domain.getRef(),
+                    SecurityConstants.READ));
+            assertFalse(session.hasPermission(anonymousUser, domain.getRef(),
+                    SecurityConstants.READ));
+
+            DocumentModelList domainChildren = session.getChildren(domain.getRef());
+            assertEquals(1, domainChildren.size());
+
+            checkCMFDomainHierarchy();
+        } finally {
+            closeSession();
+        }
     }
 
-    public void testRoots() throws Exception {
-        DocumentModel root = session.getRootDocument();
-
-        DocumentModelList rootChildren = session.getChildren(root.getRef());
-        assertEquals(1, rootChildren.size());
-
-        DocumentModel domain = rootChildren.get(0);
+    protected void checkCMFDomainHierarchy() throws Exception {
+        DocumentModel domain = session.getDocument(new PathRef(
+                CaseConstants.CASE_DOMAIN_PATH));
         assertEquals(CaseConstants.CASE_DOMAIN_PATH, domain.getPathAsString());
+        assertTrue(session.hasPermission(realAdmin, domain.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, domain.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, domain.getRef(),
+                SecurityConstants.READ));
 
         DocumentModelList domainChildren = session.getChildren(domain.getRef());
         assertEquals(3, domainChildren.size());
 
-        DocumentModel mailRoot = domainChildren.get(0);
-        DocumentModel mailboxRoot = domainChildren.get(1);
+        DocumentModel mailRoot = session.getChild(domain.getRef(),
+                CaseConstants.CASE_ROOT_DOCUMENT_NAME);
+        assertNotNull(mailRoot);
+        assertTrue(session.hasPermission(realAdmin, mailRoot.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, mailRoot.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, mailRoot.getRef(),
+                SecurityConstants.READ));
 
-        // don't assume that the clidren's order will be the same on all
-        // databases
-        if (CaseConstants.CASE_ROOT_TYPE.equals(mailRoot.getType())) {
-            assertEquals(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    mailRoot.getPathAsString());
-            assertEquals(MailboxConstants.MAILBOX_ROOT_DOCUMENT_PATH,
-                    mailboxRoot.getPathAsString());
-        } else {
-            assertEquals(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    mailboxRoot.getPathAsString());
-            assertEquals(MailboxConstants.MAILBOX_ROOT_DOCUMENT_PATH,
-                    mailRoot.getPathAsString());
-        }
+        DocumentModel mailboxRoot = session.getChild(domain.getRef(),
+                MailboxConstants.MAILBOX_ROOT_DOCUMENT_NAME);
+        assertNotNull(mailboxRoot);
+        assertTrue(session.hasPermission(realAdmin, mailboxRoot.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, mailboxRoot.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, mailboxRoot.getRef(),
+                SecurityConstants.READ));
 
+        DocumentModel sectionsRoot = session.getChild(domain.getRef(),
+                "sections");
+        assertNotNull(sectionsRoot);
+        assertTrue(session.hasPermission(realAdmin, sectionsRoot.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, sectionsRoot.getRef(),
+                SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, sectionsRoot.getRef(),
+                SecurityConstants.READ));
+    }
+
+    protected NuxeoPrincipal getRealAdmin() throws ClientException {
+        return new NuxeoPrincipalImpl("realAdmin", false, true);
+    }
+
+    protected NuxeoPrincipal getSimpleUser() throws ClientException {
+        return new NuxeoPrincipalImpl("simpleUser", false, false);
+    }
+
+    protected NuxeoPrincipal getAnonymousUser() throws ClientException {
+        return new NuxeoPrincipalImpl("anonymous", true, false);
     }
 
 }

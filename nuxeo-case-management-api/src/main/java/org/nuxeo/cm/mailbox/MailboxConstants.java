@@ -48,8 +48,10 @@ public class MailboxConstants {
     @Deprecated
     public static final String CASE_TYPE = CaseConstants.CASE_TYPE;
 
+    public static final String MAILBOX_ROOT_DOCUMENT_NAME = "mailbox-root";
+
     public static final String MAILBOX_ROOT_DOCUMENT_PATH = CaseConstants.CASE_DOMAIN_PATH
-            + "/mailbox-root";
+            + "/" + MAILBOX_ROOT_DOCUMENT_NAME;
 
     public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "MailboxRoot";
 
