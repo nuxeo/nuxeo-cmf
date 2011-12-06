@@ -11,8 +11,8 @@
 
   <artifactId>nuxeo-case-management-distribution</artifactId>
   <packaging>pom</packaging>
-  <name>Case Management distribution</name>
-  <description>Case Management distribution</description>
+  <name>DEPRECATED - Case Management distribution</name>
+  <description>DEPRECATED - Case Management distribution</description>
 
   <properties>
     <jboss.lib>../target/lib</jboss.lib>

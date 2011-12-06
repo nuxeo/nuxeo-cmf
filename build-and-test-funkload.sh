@@ -21,11 +21,11 @@ HIDE_FF=true nuxeo-case-management-distribution/ftest/selenium/run.sh -funkload
 
 cd nuxeo-case-management-distribution/ftest/funkload
 make createUsers
-make testCMF 
+make testCMF
 ret1=$?
 #Run funkload tests
 
-# Strop JBoss
+# Stop JBoss
 cd ../../..
 nuxeo-case-management-distribution/target/nuxeo-${DIR_DISTRIB}-$DISTRIBUTION/bin/nuxeoctl stop || exit 1
 

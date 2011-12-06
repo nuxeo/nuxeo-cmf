@@ -19,7 +19,7 @@ nuxeo-case-management-distribution/target/nuxeo-${DIR_DISTRIB}-$DISTRIBUTION/bin
 HIDE_FF=true nuxeo-case-management-distribution/ftest/selenium/run.sh
 ret1=$?
 
-# Strop JBoss
+# Stop JBoss
 nuxeo-case-management-distribution/target/nuxeo-${DIR_DISTRIB}-$DISTRIBUTION/bin/nuxeoctl stop || exit 1
 
 # Exit if some tests failed

@@ -124,7 +124,7 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-document-routing-*"/>
-      <artifact:resolveFile key="org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:${nuxeo.cmf.version}:jar" />
+      <artifact:resolveFile key="org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:${nuxeo.addons.version}:jar" />
       <artifact:set refid="${application.jars}" />
     </copy>
     <!-- Deploy custom configuration -->
@@ -133,12 +133,12 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     </copy>
     <echo file="${app.path}/templates/nuxeo.defaults" append="yes" message="${line.separator}#include cmf${line.separator}nuxeo.templates=${default.templates}" />
     <antcall target="${update.nuxeo.defaults.task}" />
-    <echo file="${app.path}/templates/common/config/nuxeo.properties" append="yes" message="${line.separator}org.nuxeo.ecm.product.name=${product.name}${line.separator}org.nuxeo.ecm.product.version=${nuxeo.cmf.version}" />
+    <echo file="${app.path}/templates/common/config/nuxeo.properties" append="yes" message="${line.separator}org.nuxeo.ecm.product.name=${product.name}${line.separator}org.nuxeo.ecm.product.version=${nuxeo.addons.version}" />
     <antcall target="set-distribution-properties">
       <param name="distribution.properties.file" value="${app.path}/templates/common/config/distribution.properties" />
       <param name="org.nuxeo.distribution.name" value="${distribution.name}" />
       <param name="org.nuxeo.distribution.server" value="${distribution.server}"/>
-      <param name="org.nuxeo.distribution.version" value="${nuxeo.cmf.version}" />
+      <param name="org.nuxeo.distribution.version" value="${nuxeo.addons.version}" />
       <param name="org.nuxeo.distribution.date" value="${DSTAMP}${TSTAMP}"/>
     </antcall>
     <nx:profile name="enableWizard">
