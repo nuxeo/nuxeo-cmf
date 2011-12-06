@@ -137,11 +137,11 @@
         <layout>file</layout>
       </layouts>
     </type>
-    
-     <type id="Folder">
-       <create-view>create_cm_document</create-view>
-       <cm-view>cm_view</cm-view>
-       <subtypes>
+
+    <type id="Folder">
+      <create-view>create_cm_document</create-view>
+      <cm-view>cm_view</cm-view>
+      <subtypes>
         <type>Folder</type>
         <type>File</type>
         <type>Note</type>
@@ -155,15 +155,15 @@
         <type>PictureBook</type>
         <type>OrderedFolder</type>
       </deniedSubtypes>
-     </type>
-   
-     <type id="File">
-       <cm-view>cm_view</cm-view>
-     </type> 
-     
-     <type id="Note">
-       <cm-view>cm_view</cm-view>
-     </type> 
+    </type>
+
+    <type id="File">
+      <cm-view>cm_view</cm-view>
+    </type>
+
+    <type id="Note">
+      <cm-view>cm_view</cm-view>
+    </type>
 
 
     <type id="DistributionTask" coreType="DistributionTask">
@@ -184,7 +184,7 @@
         <layout>routing_task</layout>
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
-      <layouts mode="view" >
+      <layouts mode="view">
         <layout>heading</layout>
         <layout>routing_task</layout>
         <layout>all_mailboxes_routing_task</layout>
@@ -236,7 +236,7 @@
         <type>DocumentRouteStep</type>
       </deniedSubtypes>
     </type>
-    
+
     <type id="DecisionalDistributionTask" coreType="DecisionalDistributionTask">
       <label>label.casemanagement.type.DistributionTask</label>
       <icon>/icons/distribution_task.png</icon>
@@ -255,13 +255,13 @@
         <layout>routing_task</layout>
         <layout>all_mailboxes_routing_task</layout>
       </layouts>
-      	<layout>heading</layout>
-        <layout>routing_task</layout>
-        <layout>all_mailboxes_routing_task</layout>
-      <layouts mode="view" >
+      <layout>heading</layout>
+      <layout>routing_task</layout>
+      <layout>all_mailboxes_routing_task</layout>
+      <layouts mode="view">
       </layouts>
     </type>
-    
+
     <type id="ConditionalStepFolder">
       <subtypes>
         <type>StepFolder</type>
@@ -295,7 +295,7 @@
         </contentView>
       </contentViews>
     </type>
-    
+
     <type id="RouteFolder">
       <label>label.casemanagement.type.RouteFolder</label>
       <icon>/icons/folder.gif</icon>

@@ -29,10 +29,10 @@
   </extension>
 
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
-  
+
     <facet name="Mailbox" />
     <facet name="CaseLink" />
- 
+
 
     <facet name="Distributable">
       <schema name="distribution" />
@@ -84,8 +84,8 @@
       <schema name="dublincore" />
       <schema name="distribution" />
       <schema name="mailbox" />
-      <!-- Mailbox are requested when the user in loggin in but its principal 
-        is not set yet. If not prefetch, then this will thrown an exception when 
+      <!-- Mailbox are requested when the user in loggin in but its principal
+        is not set yet. If not prefetch, then this will thrown an exception when
         the check is done to get the propery. -->
       <prefetch>mlbx:mailbox_id</prefetch>
       <facet name="Folderish" />
@@ -120,14 +120,14 @@
 
     <doctype name="SectionRoot" extends="Folder">
       <facet name="HiddenInNavigation" />
-      <facet name="SuperSpace"/>
+      <facet name="SuperSpace" />
       <subtypes>
         <type>Section</type>
       </subtypes>
     </doctype>
 
     <doctype name="RouteRoot" extends="Folder">
-      <facet name="SuperSpace"/>
+      <facet name="SuperSpace" />
       <subtypes>
         <type>DocumentRoute</type>
         <type>RouteFolder</type>
