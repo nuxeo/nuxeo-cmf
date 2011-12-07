@@ -23,7 +23,6 @@ import java.util.Arrays;
 
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
@@ -171,18 +170,6 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
                 SecurityConstants.READ));
         assertFalse(session.hasPermission(anonymousUser, sectionsRoot.getRef(),
                 SecurityConstants.READ));
-    }
-
-    protected NuxeoPrincipal getRealAdmin() throws ClientException {
-        return new NuxeoPrincipalImpl("realAdmin", false, true);
-    }
-
-    protected NuxeoPrincipal getSimpleUser() throws ClientException {
-        return new NuxeoPrincipalImpl("simpleUser", false, false);
-    }
-
-    protected NuxeoPrincipal getAnonymousUser() throws ClientException {
-        return new NuxeoPrincipalImpl("anonymous", true, false);
     }
 
 }
