@@ -72,10 +72,30 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
     public void testRootsWithCAP() throws Exception {
         deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
                 "OSGI-INF/content-template-contrib.xml");
+        // open session before deploying CMF => repo will be initialized now
+        openSession();
+        DocumentModel domainBefore = session.getRootDocument();
+        DocumentModelList domainChildrenBefore = session.getChildren(domainBefore.getRef());
+        assertEquals(1, domainChildrenBefore.size());
+        DocumentModel defaultDomainBefore = session.getChild(
+                domainBefore.getRef(), "default-domain");
+        assertNotNull(defaultDomainBefore);
+        // close session and reopen it again after to trigger CMF
+        // initialization
+        closeSession();
+
+        // force re-initialization of repo to simulate first access
+        undeployContrib("org.nuxeo.ecm.core.storage.sql.test",
+                database.getDeploymentContrib());
+        deployContrib("org.nuxeo.ecm.core.storage.sql.test",
+                database.getDeploymentContrib());
+
+        // deploy CMF contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-content-template-contrib.xml");
 
         openSession();
+
         try {
             DocumentModel domain = session.getRootDocument();
             assertTrue(session.hasPermission(realAdmin, domain.getRef(),
@@ -105,10 +125,14 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
     }
 
     public void testRootsWithoutCAP() throws Exception {
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
+                "OSGI-INF/content-template-contrib.xml");
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-content-template-contrib.xml");
-
+        // open session after deploying CMF => repo will be initialized only
+        // now
         openSession();
+
         try {
             DocumentModel domain = session.getRootDocument();
             assertTrue(session.hasPermission(realAdmin, domain.getRef(),
