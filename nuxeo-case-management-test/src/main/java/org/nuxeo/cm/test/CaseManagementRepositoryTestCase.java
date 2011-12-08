@@ -38,7 +38,6 @@ import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.storage.sql.DatabaseH2;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
@@ -92,10 +91,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         super();
     }
 
-    public void setTestDatabase() {
-        database = DatabaseH2.INSTANCE;
-    }
-
     @Override
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
@@ -130,7 +125,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     @Override
     public void setUp() throws Exception {
-        setTestDatabase();
         super.setUp();
 
         userManager = Framework.getService(UserManager.class);
