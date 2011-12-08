@@ -28,6 +28,7 @@
               <nxu:dataList layout="unorderedList" var="action"
                 value="#{actions}">
                 <nxh:commandLink action="#{action.getLink()}"
+                  onclick="#{action.confirm}"
                   id="caseActionUpperListLink">
                   <h:outputText value="#{messages[action.label]}" />
                 </nxh:commandLink>

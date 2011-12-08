@@ -42,6 +42,7 @@
                 value="#{actions}" id="caseCreateBottomActionList">
                 <nxh:commandLink action="#{action.getLink()}"
                   immediate="#{action.immediate}"
+                  onclick="#{action.confirm}"
                   id="caseActionUpperListLink">
                   <h:outputText value="#{messages[action.label]}" />
                 </nxh:commandLink>
