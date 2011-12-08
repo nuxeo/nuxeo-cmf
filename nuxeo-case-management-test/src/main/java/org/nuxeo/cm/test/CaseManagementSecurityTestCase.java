@@ -82,8 +82,11 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
     @Override
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
-        // deploy search for QueryModelService
+
+        // deploy search for QueryModelService for BBB
         deployBundle("org.nuxeo.ecm.platform.search.api");
+        // deploy page provider service
+        deployBundle("org.nuxeo.ecm.platform.query.api");
 
         // deploy api and core bundles
         deployBundle("org.nuxeo.ecm.platform.classification.core");

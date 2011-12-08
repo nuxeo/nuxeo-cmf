@@ -38,15 +38,14 @@ import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.event.EventProducer;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
-import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.ecm.directory.Directory;
 import org.nuxeo.ecm.directory.DirectoryException;
 import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
+import org.nuxeo.ecm.platform.query.api.PageProvider;
+import org.nuxeo.ecm.platform.query.api.PageProviderService;
+import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
@@ -55,12 +54,8 @@ import org.nuxeo.runtime.api.Framework;
  */
 public class MailboxManagementServiceImpl implements MailboxManagementService {
 
-    // FIXME: do not use a query model: this is service specific and won't
-    // change
     protected static final String QUERY_GET_ALL_MAILBOX = "GET_ALL_MAILBOX";
 
-    // FIXME: do not use a query model: this is service specific and won't
-    // change
     protected static final String QUERY_GET_MAILBOX_FROM_ID = "GET_MAILBOX_FROM_ID";
 
     private static final long serialVersionUID = 1L;
@@ -75,19 +70,15 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         if (muid == null) {
             return null;
         }
-
-        DocumentModelList res = executeQueryModel(session,
-                QUERY_GET_MAILBOX_FROM_ID, new Object[] { muid });
-
+        List<DocumentModel> res = executeQuery(session,
+                QUERY_GET_MAILBOX_FROM_ID, muid);
         if (res == null || res.isEmpty()) {
             return null;
         }
-
         if (res.size() > 1) {
             log.warn(String.format(
                     "Several mailboxes with id %s, returning first found", muid));
         }
-
         return res.get(0).getAdapter(Mailbox.class);
     }
 
@@ -113,19 +104,17 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     }
 
     public List<Mailbox> getMailboxes(CoreSession session, List<String> muids) {
-
         if (muids == null) {
             return null;
         }
 
         List<DocumentModel> docs = new ArrayList<DocumentModel>();
-
         for (String muid : muids) {
             if (muid == null) {
                 continue;
             }
-            DocumentModelList res = executeQueryModel(session,
-                    QUERY_GET_MAILBOX_FROM_ID, new Object[] { muid });
+            List<DocumentModel> res = executeQuery(session,
+                    QUERY_GET_MAILBOX_FROM_ID, muid);
             if (res == null || res.isEmpty()) {
                 log.error(String.format("No mailbox found with id '%s'", muid));
                 continue;
@@ -135,7 +124,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
                         "Several mailboxes with id '%s', returning first found",
                         muid));
             }
-
             docs.add(res.get(0));
         }
         return MailboxConstants.getMailboxList(docs);
@@ -155,11 +143,10 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
 
     public List<Mailbox> getUserMailboxes(CoreSession session, String user) {
         // return all mailboxes user has access to
-        DocumentModelList res = executeQueryModel(session,
-                QUERY_GET_ALL_MAILBOX);
+        // FIXME: need the user as param...
+        List<DocumentModel> res = executeQuery(session, QUERY_GET_ALL_MAILBOX);
 
         List<Mailbox> mailboxes = new ArrayList<Mailbox>();
-
         // Load all the Mailbox adapters
         if (res != null && !res.isEmpty()) {
             for (DocumentModel mbModel : res) {
@@ -319,40 +306,35 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     }
 
     /**
-     * Executes a query model.
+     * Executes a page provider query.
      *
-     * @param queryModel The name of the query model
+     * @param ppName the page provider name
+     * @param params optional parameters for this provider name
      * @return the corresponding documentModels
      */
-    protected DocumentModelList executeQueryModel(CoreSession session,
-            String queryModel) {
-        return executeQueryModel(session, queryModel, new Object[] {});
-    }
-
-    /**
-     * Executes a query model.
-     *
-     * @param queryModel The name of the query model
-     * @param params params if the query model
-     * @return the corresponding documentModels
-     */
-    protected DocumentModelList executeQueryModel(CoreSession session,
-            String queryModel, Object[] params) {
-        // TODO use session query instead of query model
-        QueryModelService qmService;
+    @SuppressWarnings("unchecked")
+    protected List<DocumentModel> executeQuery(CoreSession session,
+            String ppName, Object... params) {
+        PageProviderService pps;
         try {
-            qmService = Framework.getService(QueryModelService.class);
+            pps = Framework.getService(PageProviderService.class);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }
-        if (qmService == null) {
-            throw new CaseManagementRuntimeException("Query Manager not found");
+        if (pps == null) {
+            throw new CaseManagementRuntimeException(
+                    "PageProviderService not found");
         }
-        QueryModelDescriptor qmd = qmService.getQueryModelDescriptor(queryModel);
-        QueryModel qm = new QueryModel(qmd);
-        DocumentModelList list;
+
+        HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
+                (Serializable) session);
+
+        List<DocumentModel> list;
         try {
-            list = qm.getDocuments(session, params);
+            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) pps.getPageProvider(
+                    ppName, null, null, null, props, params);
+            list = pp.getCurrentPage();
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         }

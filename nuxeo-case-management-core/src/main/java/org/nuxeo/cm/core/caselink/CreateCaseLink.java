@@ -125,7 +125,7 @@ public class CreateCaseLink {
     public void create() throws ClientException {
         GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                 session, recipientId);
-        getMailboxesUnrestricted.run();
+        getMailboxesUnrestricted.runUnrestricted();
         List<Mailbox> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
             throw new CaseManagementException(

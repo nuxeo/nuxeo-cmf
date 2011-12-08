@@ -4,6 +4,26 @@
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
     point="providers">
 
+    <!-- Case Management Default Service -->
+
+    <coreQueryPageProvider name="GET_MAILBOX_FROM_ID">
+      <pattern>
+        SELECT * FROM Document WHERE mlbx:mailbox_id=? AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'Mailbox'
+      </pattern>
+      <pageSize>0</pageSize>
+      <maxPageSize>0</maxPageSize>
+    </coreQueryPageProvider>
+
+    <coreQueryPageProvider name="GET_ALL_MAILBOX">
+      <pattern>
+        SELECT * FROM Document WHERE ecm:currentLifeCycleState !=
+        'deleted' AND ecm:mixinType = 'Mailbox'
+      </pattern>
+      <pageSize>0</pageSize>
+      <maxPageSize>0</maxPageSize>
+    </coreQueryPageProvider>
+
     <genericPageProvider name="CaseDocumentPageProvider"
       class="org.nuxeo.cm.core.persister.CaseDocumentPageProvider">
       <pageSize>20</pageSize>

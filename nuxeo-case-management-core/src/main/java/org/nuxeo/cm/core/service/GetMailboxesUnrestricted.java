@@ -22,18 +22,11 @@ package org.nuxeo.cm.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
-import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -42,10 +35,6 @@ import org.nuxeo.runtime.api.Framework;
  * @author Laurent Doguin
  */
 public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
-
-    private static final Log log = LogFactory.getLog(GetMailboxesUnrestricted.class);
-
-    private static final String QUERY_GET_MAILBOX_FROM_ID = "GET_MAILBOX_FROM_ID";
 
     protected List<Mailbox> mailboxes = new ArrayList<Mailbox>();
 
@@ -73,41 +62,18 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
         if (muids == null) {
             return;
         }
-        List<DocumentModel> docs = getMailboxesDocumentModel(muids);
-        mailboxes = MailboxConstants.getMailboxList(docs);
-    }
-
-    protected List<DocumentModel> getMailboxesDocumentModel(List<String> muids)
-            throws ClientException {
-
-        if (muids == null || muids.isEmpty()) {
-            return null;
-        }
-
-        List<DocumentModel> docs = new ArrayList<DocumentModel>();
+        MailboxManagementService service = null;
         try {
-            QueryModelService qmService = Framework.getService(QueryModelService.class);
-            QueryModelDescriptor qmd = qmService.getQueryModelDescriptor(QUERY_GET_MAILBOX_FROM_ID);
-            QueryModel qm = new QueryModel(qmd);
-
-            for (String muid : muids) {
-
-                DocumentModelList res = qm.getDocuments(session,
-                        new Object[] { muid });
-
-                if (res.size() > 1) {
-                    log.warn(String.format(
-                            "Several mailboxes with id %s, returning first found",
-                            muid));
-                }
-                if (res.size() > 0) {
-                    docs.add(res.get(0));
-                }
-            }
-            return docs;
+            service = Framework.getService(MailboxManagementService.class);
+        } catch (ClientException e) {
+            throw e;
         } catch (Exception e) {
             throw new ClientException(e);
         }
+        if (service == null) {
+            throw new ClientException("MailboxManagementService not found");
+        }
+        mailboxes = service.getMailboxes(session, muids);
     }
 
     public List<Mailbox> getMailboxes() {

@@ -128,6 +128,22 @@ public class MailboxConstants {
         return res;
     }
 
+    /**
+     * Returns mailbox headers for given mailboxes
+     *
+     * @since 5.5
+     * @param mailboxes
+     */
+    public static List<MailboxHeader> getMailboxHeaders(List<Mailbox> mailboxes) {
+        List<MailboxHeader> res = new ArrayList<MailboxHeader>();
+        if (mailboxes != null) {
+            for (Mailbox mailbox : mailboxes) {
+                res.add(mailbox.getDocument().getAdapter(MailboxHeader.class));
+            }
+        }
+        return res;
+    }
+
     private MailboxConstants() {
     }
 

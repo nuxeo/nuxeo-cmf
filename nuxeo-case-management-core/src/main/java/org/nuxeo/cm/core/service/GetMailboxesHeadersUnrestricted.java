@@ -25,7 +25,6 @@ import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
  * Get mailboxes headers using an unrestricted session and the given muids.
@@ -43,8 +42,10 @@ public class GetMailboxesHeadersUnrestricted extends GetMailboxesUnrestricted {
 
     @Override
     public void run() throws ClientException {
-        List<DocumentModel> docs = getMailboxesDocumentModel(muids);
-        mailboxesHeaders = MailboxConstants.getMailboxHeaderList(docs);
+        super.run();
+        if (mailboxes != null) {
+            mailboxesHeaders = MailboxConstants.getMailboxHeaders(mailboxes);
+        }
     }
 
     public List<MailboxHeader> getMailboxesHeaders() {

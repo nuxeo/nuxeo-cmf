@@ -542,7 +542,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 String senderMailboxId = postRequest.getSender();
                 GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
                         session, senderMailboxId);
-                getMailboxesUnrestricted.run();
+                getMailboxesUnrestricted.runUnrestricted();
                 List<Mailbox> senderMailboxes = getMailboxesUnrestricted.getMailboxes();
                 Mailbox senderMailbox = null;
                 if (senderMailboxes != null && !senderMailboxes.isEmpty()) {

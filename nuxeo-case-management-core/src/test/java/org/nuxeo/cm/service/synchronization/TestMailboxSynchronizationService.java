@@ -27,6 +27,7 @@ import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbDel
 import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbUpdatedForGroup;
 import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbUpdatedForUser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,12 +38,16 @@ import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.classification.api.ClassificationConstants;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreInstance;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.directory.api.DirectoryService;
+import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -56,6 +61,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
 
     protected MailboxManagementService mbService;
 
+    protected UserManager umService;
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -63,8 +70,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         // deploy repository manager
         deployBundle("org.nuxeo.ecm.core.api");
 
-        // deploy search
-        deployBundle("org.nuxeo.ecm.platform.search.api");
+        // deploy page provider service
+        deployBundle("org.nuxeo.ecm.platform.query.api");
 
         // deploy api and core bundles
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
@@ -95,6 +102,9 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
 
         mbService = Framework.getService(MailboxManagementService.class);
         assertNotNull(mbService);
+
+        umService = Framework.getService(UserManager.class);
+        assertNotNull(umService);
     }
 
     @Override
@@ -312,4 +322,73 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(inheritedACL, inhValue.toString());
     }
 
+    public void testGetMailboxes() throws Exception {
+        syncService.doSynchronize();
+        session.save();
+
+        checkMailboxes("user", 2, new String[] { "user-user", "group-group-1" });
+        checkMailboxes("user1", 4, new String[] { "user-user1",
+                "group-group-1", "group-group-5", "group-group-4-2" });
+        checkMailboxes("user2", 5, new String[] { "user-user2",
+                "group-group-2", "group-group-4-1", "group-group-4-1-1",
+                "group-group-4-1-2", });
+        checkMailboxes("user3", 4, new String[] { "user-user3",
+                "group-group-3", "group-members", "group-group-4-1-1" });
+    }
+
+    protected void checkMailboxes(String user, int numberOfMailboxes,
+            String[] mailboxes) throws ClientException {
+        // check mailboxes with own user session
+        CoreSession userSession = null;
+        try {
+            NuxeoPrincipal pal = umService.getPrincipal(user);
+            userSession = openSessionAs(pal);
+            List<Mailbox> userMailboxes = mbService.getUserMailboxes(
+                    userSession, user);
+            checkMailboxes(userMailboxes, user, numberOfMailboxes, mailboxes);
+        } finally {
+            if (userSession != null) {
+                CoreInstance.getInstance().close(userSession);
+            }
+        }
+
+        // check mailboxes with admin session
+        // disabled: FIXME: NXCM-506: when using the default user session
+        // (who's an admin, mailboxes retrieved should be the same than the
+        // ones retrieved when using a session with given user as principal)
+        // List<Mailbox> userMailboxes = mbService.getUserMailboxes(session,
+        // user);
+        // checkMailboxes(userMailboxes, user, numberOfMailboxes, mailboxes);
+    }
+
+    protected void checkMailboxes(List<Mailbox> userMailboxes, String user,
+            int numberOfMailboxes, String[] mailboxes) {
+        assertFalse(userMailboxes.isEmpty());
+        List<String> mbIds = new ArrayList<String>();
+        for (Mailbox mailbox : userMailboxes) {
+            mbIds.add(mailbox.getId());
+        }
+        assertEquals(numberOfMailboxes, userMailboxes.size());
+
+        for (String mailbox : mailboxes) {
+            assertTrue("User " + user + " is missing mailbox " + mailbox,
+                    mbIds.contains(mailbox));
+        }
+
+        boolean personalMbFound = false;
+        for (Mailbox mailbox : userMailboxes) {
+            if (("user-" + user).equals(mailbox.getId())) {
+                // personal mailbox
+                assertEquals(MailboxConstants.type.personal.name(),
+                        mailbox.getType());
+                assertEquals(user, mailbox.getOwner());
+                personalMbFound = true;
+            } else {
+                assertEquals(MailboxConstants.type.generic.name(),
+                        mailbox.getType());
+            }
+        }
+        assertTrue("No personal mailbox found for user " + user,
+                personalMbFound);
+    }
 }

@@ -6,22 +6,6 @@
     target="org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService"
     point="model">
 
-    <!-- Case Management Default Service -->
-
-    <queryModel name="GET_MAILBOX_FROM_ID">
-      <pattern>
-        SELECT * FROM Document WHERE mlbx:mailbox_id=? AND
-        ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType = 'Mailbox'
-      </pattern>
-    </queryModel>
-
-    <queryModel name="GET_ALL_MAILBOX">
-      <pattern>
-        SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND
-        ecm:mixinType = 'Mailbox'
-      </pattern>
-    </queryModel>
-
     <queryModel name="byType">
       <max>10</max>
       <whereClause>
