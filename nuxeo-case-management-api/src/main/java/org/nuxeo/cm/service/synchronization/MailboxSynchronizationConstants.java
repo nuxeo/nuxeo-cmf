@@ -37,7 +37,11 @@ public class MailboxSynchronizationConstants {
         onMailboxUpdated,
         /**
          */
-        onMailboxDeleted
+        onMailboxDeleted;
+
+        public boolean equals(String eventName) {
+            return name().equals(eventName);
+        }
     }
 
     public static final String NO_CHILDREN = "noChildren";

@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,12 +35,15 @@ import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.NuxeoGroup;
+import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfo;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfoCallbackHandler;
 import org.nuxeo.ecm.platform.computedgroups.AbstractGroupComputer;
 import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
+import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
@@ -60,6 +64,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      */
     @Override
     public List<String> getAllGroupIds() throws Exception {
+        // should handle computed virtual groups?
         return Collections.emptyList();
     }
 
@@ -69,13 +74,14 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     @Override
     public List<String> searchGroups(Map<String, Serializable> filter,
             Set<String> fulltext) throws Exception {
+        // should handle computed virtual groups?
         return Collections.emptyList();
     }
 
     @Override
     public List<String> getGroupMembers(String groupName) throws Exception {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
-                getRepoName(), getService(), groupName);
+                getRepoName(), getMailboxManager(), groupName);
         runner.runUnrestricted();
         return runner.getMailboxMembers();
     }
@@ -85,25 +91,24 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      * list when local thread is flagged.
      */
     @Override
-    public List<String> getGroupsForUser(NuxeoPrincipalImpl nuxeoPrincipal)
+    public List<String> getGroupsForUser(NuxeoPrincipalImpl pal)
             throws Exception {
-        if (nuxeoPrincipal != null) {
-
+        if (pal != null) {
             if (!Boolean.TRUE.equals(disableRetrieveMailboxes.get())) {
-                disableRetrieveMailboxes.set(true);
+                disableRetrieveMailboxes.set(Boolean.TRUE);
                 CoreSession session = null;
                 LoginContext loginContext = null;
                 boolean isNewTransactionStarted = false;
                 try {
-                    final String username = nuxeoPrincipal.getName();
+                    final String username = pal.getName();
                     loginContext = loginOnContext(username);
                     session = openCoreSession(username);
                     // TODO: optimize, retrieving ids directly on service (?)
                     if (!TransactionHelper.isTransactionActive()) {
                         isNewTransactionStarted = TransactionHelper.startTransaction();
                     }
-                    List<Mailbox> mailboxes = getService().getUserMailboxes(
-                            session, nuxeoPrincipal.getName());
+                    List<Mailbox> mailboxes = getMailboxManager().getUserMailboxes(
+                            session, pal.getName());
                     List<String> res = new ArrayList<String>();
                     if (mailboxes != null) {
                         for (Mailbox folder : mailboxes) {
@@ -112,9 +117,15 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                         }
                     }
                     String userMailboxId = CaseManagementSecurityConstants.MAILBOX_PREFIX
-                            + getService().getUserPersonalMailboxId(username);
+                            + getMailboxManager().getUserPersonalMailboxId(
+                                    username);
                     if (userMailboxId != null && !res.contains(userMailboxId)) {
                         res.add(userMailboxId);
+                    }
+                    // add virtual groups used for mailboxes rights
+                    List<String> vgroups = getVirtualGroupsForMailboxHierarchy(pal);
+                    if (vgroups != null) {
+                        res.addAll(vgroups);
                     }
                     return res;
                 } finally {
@@ -134,10 +145,39 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return Collections.emptyList();
     }
 
+    protected List<String> getVirtualGroupsForMailboxHierarchy(
+            NuxeoPrincipal pal) throws ClientException {
+        UserManager um = getUM();
+        List<String> res = new ArrayList<String>();
+
+        Set<String> checkedGroups = new HashSet<String>();
+        List<String> groupsToProcess = new ArrayList<String>();
+        groupsToProcess.addAll(pal.getGroups());
+
+        while (!groupsToProcess.isEmpty()) {
+            String groupName = groupsToProcess.remove(0);
+            if (!checkedGroups.contains(groupName)) {
+                checkedGroups.add(groupName);
+                NuxeoGroup nxGroup = null;
+                if (um != null) {
+                    nxGroup = um.getGroup(groupName);
+                }
+                if (nxGroup != null) {
+                    // add member groups instead
+                    groupsToProcess.addAll(nxGroup.getMemberGroups());
+                    // add prefix
+                    res.add(CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX
+                            + nxGroup.getName());
+                }
+            }
+        }
+        return res;
+    }
+
     @Override
     public List<String> getParentsGroupNames(String groupName) throws Exception {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
-                getRepoName(), getService(), groupName);
+                getRepoName(), getMailboxManager(), groupName);
         runner.runUnrestricted();
         return runner.getMailboxParentNames();
     }
@@ -145,7 +185,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     @Override
     public List<String> getSubGroupsNames(String groupName) throws Exception {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
-                getRepoName(), getService(), groupName);
+                getRepoName(), getMailboxManager(), groupName);
         runner.runUnrestricted();
         return runner.getMailboxSubFolderNames();
     }
@@ -155,10 +195,11 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      */
     @Override
     public boolean hasGroup(String name) throws Exception {
+        // should handle computed virtual groups?
         return false;
     }
 
-    protected MailboxManagementService getService() {
+    protected MailboxManagementService getMailboxManager() {
         if (cfms == null) {
             cfms = Framework.getLocalService(MailboxManagementService.class);
         }

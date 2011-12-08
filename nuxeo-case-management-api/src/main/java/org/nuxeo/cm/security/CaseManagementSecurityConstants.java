@@ -27,6 +27,12 @@ public class CaseManagementSecurityConstants {
 
     public static final String MAILBOX_PREFIX = "mailbox_";
 
+    /**
+     * Marker for virtual groups corresponding to real groups, but with inverse
+     * hierarchy resolution.
+     */
+    public static final String MAILBOX_GROUP_PREFIX = "cmfgroup_";
+
     public static final String PUBLIC_SECURITY_LEVEL = "1";
 
 }

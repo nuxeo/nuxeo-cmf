@@ -16,86 +16,90 @@
  */
 package org.nuxeo.cm.service.synchronization;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import junit.framework.Assert;
+
+import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 /**
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
 public class MailboxSyncTestListener implements EventListener {
 
-    private static final Log log = LogFactory.getLog(MailboxSyncTestListener.class);
+    public static List<String> mbCreatedForGroup = new ArrayList<String>();
 
-    public static int onMailboxCreatedForGroup = 0;
+    public static List<String> mbUpdatedForGroup = new ArrayList<String>();
 
-    public static int onMailboxUpdatedForGroup = 0;
+    public static List<String> mbDeletedForGroup = new ArrayList<String>();
 
-    public static int onMailboxDeletedForGroup = 0;
+    public static List<String> mbCreatedForUser = new ArrayList<String>();
 
-    public static int onMailboxCreatedForUser = 0;
+    public static List<String> mbUpdatedForUser = new ArrayList<String>();
 
-    public static int onMailboxUpdatedForUser = 0;
-
-    public static int onMailboxDeletedForUser = 0;
+    public static List<String> mbDeletedForUser = new ArrayList<String>();
 
     public void handleEvent(Event event) throws ClientException {
-        String MailboxTitle = (String) event.getContext().getProperty(
+        String eventName = event.getName();
+        String failMessage = "Error handling event " + eventName + ": ";
+        String mbTitle = (String) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE);
-        if (MailboxTitle == null || "".equals(MailboxTitle)) {
-            log.error("MailboxTitle was not set");
-            return;
-        }
+        Assert.assertFalse(failMessage + "Empty mailbox title",
+                StringUtils.isEmpty(mbTitle));
         Calendar synchronizerDate = (Calendar) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE);
-        if (synchronizerDate == null || "".equals(synchronizerDate)) {
-            log.error("synchronizerDate was not set");
-            return;
-        }
+        Assert.assertFalse(
+                failMessage + "Empty synchronizer date for mailbox with title "
+                        + mbTitle,
+                synchronizerDate == null
+                        || StringUtils.isEmpty(synchronizerDate.toString()));
         String synchronizerId = (String) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID);
-        if (synchronizerId == null || "".equals(synchronizerId)) {
-            log.error("synchronizerId was not set");
-            return;
-        }
+        Assert.assertFalse(failMessage
+                + "Empty synchronizer id for mailbox with title " + mbTitle,
+                StringUtils.isEmpty(synchronizerId));
+        DocumentModel mbDoc = ((DocumentEventContext) event.getContext()).getSourceDocument();
+        Assert.assertNotNull(failMessage
+                + "Null document for mailbox with title " + mbTitle, mbDoc);
+        String mbPath = mbDoc.getPathAsString();
+        Assert.assertFalse(failMessage
+                + "Empty path for mailbox document with title " + mbTitle,
+                StringUtils.isEmpty(mbPath));
         if ("userDirectory".equals(event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME))) {
-            if (event.getName().equals(
-                    MailboxSynchronizationConstants.EventNames.onMailboxCreated.toString())) {
-                onMailboxCreatedForUser++;
-            } else if (event.getName().equals(
-                    MailboxSynchronizationConstants.EventNames.onMailboxDeleted.toString())) {
-                onMailboxDeletedForUser++;
-            } else if (event.getName().equals(
-                    MailboxSynchronizationConstants.EventNames.onMailboxUpdated.toString())) {
-                onMailboxUpdatedForUser++;
+            if (MailboxSynchronizationConstants.EventNames.onMailboxCreated.equals(eventName)) {
+                mbCreatedForUser.add(mbPath);
+            } else if (MailboxSynchronizationConstants.EventNames.onMailboxDeleted.equals(eventName)) {
+                mbDeletedForUser.add(mbPath);
+            } else if (MailboxSynchronizationConstants.EventNames.onMailboxUpdated.equals(eventName)) {
+                mbUpdatedForUser.add(mbPath);
             }
         } else if ("groupDirectory".equals(event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME))) {
-            if (event.getName().equals(
-                    MailboxSynchronizationConstants.EventNames.onMailboxCreated.toString())) {
-                onMailboxCreatedForGroup++;
-            } else if (event.getName().equals(
-                    MailboxSynchronizationConstants.EventNames.onMailboxDeleted.toString())) {
-                onMailboxDeletedForGroup++;
-            } else if (event.getName().equals(
-                    MailboxSynchronizationConstants.EventNames.onMailboxUpdated.toString())) {
-                onMailboxUpdatedForGroup++;
+            if (MailboxSynchronizationConstants.EventNames.onMailboxCreated.equals(eventName)) {
+                mbCreatedForGroup.add(mbPath);
+            } else if (MailboxSynchronizationConstants.EventNames.onMailboxDeleted.equals(eventName)) {
+                mbDeletedForGroup.add(mbPath);
+            } else if (MailboxSynchronizationConstants.EventNames.onMailboxUpdated.equals(eventName)) {
+                mbUpdatedForGroup.add(mbPath);
             }
         }
     }
 
-    public static void resetCounter() {
-        onMailboxCreatedForGroup = 0;
-        onMailboxUpdatedForGroup = 0;
-        onMailboxDeletedForGroup = 0;
-        onMailboxCreatedForUser = 0;
-        onMailboxUpdatedForUser = 0;
-        onMailboxDeletedForUser = 0;
+    public static void reset() {
+        mbCreatedForGroup.clear();
+        mbUpdatedForGroup.clear();
+        mbDeletedForGroup.clear();
+        mbCreatedForUser.clear();
+        mbUpdatedForUser.clear();
+        mbDeletedForUser.clear();
     }
 
 }

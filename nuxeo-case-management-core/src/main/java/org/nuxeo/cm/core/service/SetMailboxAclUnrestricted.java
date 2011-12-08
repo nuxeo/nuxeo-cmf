@@ -22,6 +22,7 @@ package org.nuxeo.cm.core.service;
 import java.util.List;
 
 import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -68,11 +69,23 @@ public class SetMailboxAclUnrestricted extends UnrestrictedSessionRunner {
         List<String> total = mb.getAllUsersAndGroups();
         if (total != null && !total.isEmpty()) {
             ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
-            // ACL mailACL = new ACLImpl(mb.getId());
-            for (String user : total) {
-                ACE ace = new ACE(user, permission, true);
-                localACL.add(ace);
-                // mailACL.add(ace);
+            // set a specific ACL for groups so that mailbox hierarchy is
+            // preserved, see NXCM-499
+            List<String> users = mb.getAllUsers();
+            if (users != null && !users.isEmpty()) {
+                for (String user : users) {
+                    ACE ace = new ACE(user, permission, true);
+                    localACL.add(ace);
+                }
+            }
+            List<String> groups = mb.getGroups();
+            if (groups != null && !groups.isEmpty()) {
+                for (String group : groups) {
+                    ACE ace = new ACE(
+                            CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX
+                                    + group, permission, true);
+                    localACL.add(ace);
+                }
             }
             ACP acp = doc.getACP();
             acp.removeACL(ACL.LOCAL_ACL);

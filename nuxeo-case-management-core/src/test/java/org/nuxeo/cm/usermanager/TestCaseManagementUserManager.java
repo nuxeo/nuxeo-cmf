@@ -17,12 +17,14 @@
 
 package org.nuxeo.cm.usermanager;
 
+import static org.nuxeo.cm.security.CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX;
+import static org.nuxeo.cm.security.CaseManagementSecurityConstants.MAILBOX_PREFIX;
+
 import java.util.List;
 
 import org.nuxeo.cm.mailbox.Mailbox;
-import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
-import org.nuxeo.ecm.core.api.NuxeoGroup;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.platform.computedgroups.UserManagerWithComputedGroups;
 import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
@@ -46,44 +48,46 @@ public class TestCaseManagementUserManager extends
     }
 
     public void testGetPrincipalGroups() throws Exception {
+        assertTrue(userManager instanceof UserManagerWithComputedGroups);
+
+        checkUser(user, 3,
+                new String[] { "group_1", MAILBOX_PREFIX + "user-user",
+                        MAILBOX_GROUP_PREFIX + "group_1" });
+
+        checkUser(user2, 7, new String[] { "group_2", "group_4_1",
+                MAILBOX_PREFIX + "user-user2",
+                MAILBOX_GROUP_PREFIX + "group_2",
+                MAILBOX_GROUP_PREFIX + "group_4_1",
+                MAILBOX_GROUP_PREFIX + "group_4_1_1",
+                MAILBOX_GROUP_PREFIX + "group_4_1_2" });
+
+        checkUser(user3, 8, new String[] { "group_3", "members", "group_4_1_1",
+                "group_unknown", MAILBOX_PREFIX + "user-user3",
+                MAILBOX_GROUP_PREFIX + "group_3",
+                MAILBOX_GROUP_PREFIX + "members",
+                MAILBOX_GROUP_PREFIX + "group_4_1_1" });
+
+    }
+
+    protected void checkUser(String user, int numberOfGroups, String[] groups)
+            throws ClientException {
         Mailbox mailbox = correspMailboxService.createPersonalMailboxes(
                 session, user).get(0);
         assertNotNull(mailbox);
         assertTrue(correspMailboxService.hasMailbox(session, mailbox.getId()));
-
-        Mailbox mailbox2 = correspMailboxService.createPersonalMailboxes(
-                session, user2).get(0);
-        assertNotNull(mailbox2);
-        assertTrue(correspMailboxService.hasMailbox(session, mailbox2.getId()));
-        assertTrue(userManager instanceof UserManagerWithComputedGroups);
 
         NuxeoPrincipal pal = userManager.getPrincipal(user);
         assertNotNull(pal);
         assertTrue(pal instanceof NuxeoPrincipalImpl);
         assertFalse(pal.isAdministrator());
 
-        List<String> groups = pal.getGroups();
-        assertNotNull(groups);
-        assertEquals(2, groups.size());
-        assertTrue(groups.contains("group_1"));
-        assertTrue(groups.contains(CaseManagementSecurityConstants.MAILBOX_PREFIX + "user-user"));
-
-        pal = userManager.getPrincipal(user2);
-        assertNotNull(pal);
-        assertTrue(pal instanceof NuxeoPrincipalImpl);
-        assertFalse(pal.isAdministrator());
-
-        groups = pal.getGroups();
-        assertNotNull(groups);
-        assertEquals(4, groups.size());
-        assertTrue(groups.contains("group_2"));
-        assertTrue(groups.contains(CaseManagementSecurityConstants.MAILBOX_PREFIX + "user-user2"));
-
-        NuxeoGroup grp = userManager.getGroup(CaseManagementSecurityConstants.MAILBOX_PREFIX + "user-user2");
-        assertNull(grp);
-
-        grp = userManager.getGroup("user-user2");
-        assertNull(grp);
+        List<String> pGroups = pal.getGroups();
+        assertNotNull(pGroups);
+        assertEquals(pGroups.toString(), numberOfGroups, pGroups.size());
+        for (String group : groups) {
+            assertTrue("User " + user + " is missing group " + group,
+                    pGroups.contains(group));
+        }
     }
 
 }
