@@ -19,6 +19,7 @@
 
 package org.nuxeo.cm.core.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -108,6 +109,12 @@ public class DefaultMailboxCreator implements MailboxCreator {
             mailbox.setTitle(gen.getMailboxTitle(userModel));
             mailbox.setOwner(user);
             mailbox.setType(MailboxConstants.type.personal.name());
+
+            // Set case creation profile
+            List<String> list = new ArrayList<String>();
+            list.add("cellule_courrier");
+            mailbox.setProfiles(list);
+
             mailboxModel.setPathInfo(getMailboxParentPath(session),
                     getMailboxPathSegment(userModel, mailboxModel));
             // call hook method
