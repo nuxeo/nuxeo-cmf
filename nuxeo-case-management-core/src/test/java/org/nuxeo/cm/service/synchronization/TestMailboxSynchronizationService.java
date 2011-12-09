@@ -175,9 +175,9 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(9, mbUpdatedForGroup.size());
         assertEquals(9, mbUpdatedForUser.size());
         assertEquals(2, mbDeletedForGroup.size());
-        assertEquals(MB_ROOT + "group-4", mbDeletedForGroup.get(0));
+        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4"));
+        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
         // group-4-1 is kept because it has sub mailboxes(?)
-        assertEquals(MB_ROOT + "group-4/group-4-2", mbDeletedForGroup.get(1));
 
         assertEquals(1, mbDeletedForUser.size());
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-3")));
