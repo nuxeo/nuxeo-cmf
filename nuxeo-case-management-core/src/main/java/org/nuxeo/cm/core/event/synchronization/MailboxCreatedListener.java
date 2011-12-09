@@ -122,7 +122,7 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
 
             // Set case creation profile
             List<String> list = new ArrayList<String>();
-            list.add("cellule_courrier");
+            list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
             mailbox.setProfiles(list);
 
             mailbox.setId(id);

@@ -130,6 +130,7 @@ public class TestMailboxManagementService extends
         assertEquals("User Lambda (mycomp)", mbPerso.getTitle());
         assertEquals(MailboxConstants.type.personal.name(), mbPerso.getType());
         assertEquals(user, mbPerso.getOwner());
+        assertEquals(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE,mbPerso.getProfiles().get(0).toString());
 
         Mailbox mbGeneric = mailboxes.get(1);
         assertEquals("test", mbGeneric.getId());

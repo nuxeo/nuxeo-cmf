@@ -112,7 +112,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
 
             // Set case creation profile
             List<String> list = new ArrayList<String>();
-            list.add("cellule_courrier");
+            list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
             mailbox.setProfiles(list);
 
             mailboxModel.setPathInfo(getMailboxParentPath(session),
