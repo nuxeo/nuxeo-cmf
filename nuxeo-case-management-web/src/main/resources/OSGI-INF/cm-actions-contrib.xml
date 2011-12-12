@@ -209,7 +209,7 @@
       <filter-id>isNotCaseItemOrCase</filter-id>
     </action>
     <action id="TAB_CASE_MANAGEMENT_PREVIEW"
-      link="/casemanagement/caseitem/tabs/document_annotation_preview.xhtml"
+      link="/incl/tabs/preview_tab.xhtml"
       enabled="true" order="200" label="label.document.preview"
       icon="/icons/file.gif">
       <category>VIEW_ACTION_LIST</category>
