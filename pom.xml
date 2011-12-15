@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-addons-parent</artifactId>
-    <version>5.5</version>
+    <version>5.5.0-HF01-SNAPSHOT</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>5.5</version>
+  <version>5.5.0-HF01-SNAPSHOT</version>
   <name>Nuxeo Case Management Framework</name>
   <packaging>pom</packaging>
   <description>The parent module for Nuxeo Case Management Framework</description>
