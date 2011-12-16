@@ -52,7 +52,7 @@ public interface CaseManagementDocumentTypeService extends Serializable {
      * Adds the needed facets to the given document in order to be used as a
      * caseItem
      *
-     * @since 1.9
+     * @since 5.5
      * @param document
      */
     void markDocumentAsCaseItem(DocumentModel document);
@@ -61,7 +61,7 @@ public interface CaseManagementDocumentTypeService extends Serializable {
      * Adds the needed facets to the given document in order to be used as a
      * case
      *
-     * @since 1.9
+     * @since 5.5
      * @param document
      */
     void markDocumentAsCase(DocumentModel document);

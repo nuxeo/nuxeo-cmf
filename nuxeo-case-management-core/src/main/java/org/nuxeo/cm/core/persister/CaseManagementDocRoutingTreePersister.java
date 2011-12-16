@@ -31,7 +31,7 @@ import org.nuxeo.runtime.api.Framework;
  * Override default persister to create route copy in the personal Route Root.
  *
  * @author ldoguin
- * @since 1.9
+ * @since 5.5
  */
 public class CaseManagementDocRoutingTreePersister extends DocumentRoutingTreePersister {
 

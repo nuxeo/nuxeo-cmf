@@ -38,7 +38,7 @@ import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
  * Handles route folders actions
  *
  * @author Laurent Doguin
- * @since 1.9
+ * @since 5.5
  */
 @Name("routeFolderActions")
 @Scope(ScopeType.CONVERSATION)

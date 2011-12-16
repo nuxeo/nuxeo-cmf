@@ -116,7 +116,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             List<DocumentModel> res = executeQuery(session,
                     QUERY_GET_MAILBOX_FROM_ID, muid);
             if (res == null || res.isEmpty()) {
-                log.error(String.format("No mailbox found with id '%s'", muid));
+                log.warn(String.format("No mailbox found with id '%s'", muid));
                 continue;
             }
             if (res.size() > 1) {

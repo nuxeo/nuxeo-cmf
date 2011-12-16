@@ -31,7 +31,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
  * created.
  *
  * @author Laurent Doguin
- * @since 1.9
+ * @since 5.5
  */
 public class RouteMailboxListener implements EventListener {
 
