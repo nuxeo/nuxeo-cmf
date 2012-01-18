@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,8 +65,6 @@ import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
 import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
 import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
 import org.nuxeo.runtime.api.Framework;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Correspondence service core implementation
@@ -282,7 +281,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         return createCase(session, emailDoc, new ArrayList<Mailbox>());
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Case createEmptyCase(CoreSession session, String title, String id,
             Mailbox mailbox) {
@@ -325,7 +323,6 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
             Mailbox mailbox) {
