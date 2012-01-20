@@ -64,6 +64,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
     public void testProperties() throws ClientException {
         String id = item.getDocument().getId();
         Calendar date = GregorianCalendar.getInstance();
+        int millis = date.get(Calendar.MILLISECOND);
         String title = "my title";
         String cdf = "4";
 
@@ -80,7 +81,13 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         item = new CaseItemImpl(model, adapter);
         assertEquals(item.getTitle(), title);
         assertEquals(item.getConfidentiality(), cdf);
-        assertEquals(item.getSendingDate(), date);
+        Calendar sendingDate = item.getSendingDate();
+        // SQL Server < 2008 does not have full millisecond resolution
+        int sendingMillis = sendingDate.get(Calendar.MILLISECOND);
+        if (sendingMillis != millis) {
+            sendingDate.set(Calendar.MILLISECOND, millis);
+        }
+        assertEquals(sendingDate, date);
     }
 
     public void testCreateCase() throws ClientException {
