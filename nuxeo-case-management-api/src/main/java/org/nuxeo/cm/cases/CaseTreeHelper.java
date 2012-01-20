@@ -101,13 +101,13 @@ public class CaseTreeHelper {
      * @since 1.7
      */
     public static final DocumentModel getOrCreateTxDateTreeFolder(
-            CoreSession session, DocumentModel root, Date date,
+            String repositoryName, DocumentModel root, Date date,
             String folderType) throws ClientException {
         String subPath = new SimpleDateFormat("yyyy/MM/dd").format(date);
-        return getOrCreateTxPath(session, root, subPath, folderType);
+        return getOrCreateTxPath(repositoryName, root, subPath, folderType);
     }
 
-    public static final DocumentModel getOrCreateTxPath(CoreSession session,
+    public static final DocumentModel getOrCreateTxPath(String repositoryName,
             DocumentModel rootDocument, String subPath, String folderType)
             throws ClientException {
         lock.lock();
@@ -116,7 +116,7 @@ public class CaseTreeHelper {
             TransactionHelper.startTransaction();
             try {
                 UnrestrictedRootTreeCreator rootTreeCreator = new UnrestrictedRootTreeCreator(
-                        session, rootDocument, subPath, folderType);
+                        repositoryName, rootDocument, subPath, folderType);
                 rootTreeCreator.runUnrestricted();
                 return rootTreeCreator.getChild();
             } finally {
@@ -141,9 +141,9 @@ public class CaseTreeHelper {
 
         DocumentModel child;
 
-        protected UnrestrictedRootTreeCreator(CoreSession session,
+        protected UnrestrictedRootTreeCreator(String repositoryName,
                 DocumentModel rootDoc, String subPath, String folderType) {
-            super(session);
+            super(repositoryName);
             this.subPath = subPath;
             this.folderType = folderType;
             this.rootDoc = rootDoc;

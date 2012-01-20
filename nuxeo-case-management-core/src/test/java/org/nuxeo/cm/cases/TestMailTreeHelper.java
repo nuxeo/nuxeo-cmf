@@ -59,15 +59,15 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         assertNotNull(mailFolderDocument);
         closeSession();
         TransactionHelper.commitOrRollbackTransaction();
-        TransactionHelper.startTransaction();
-        openSession();
     }
 
     public void testSimple() throws Exception {
-        CaseTreeHelper.getOrCreateTxDateTreeFolder(session, mailFolderDocument,
-                Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
+        CaseTreeHelper.getOrCreateTxDateTreeFolder(database.repositoryName,
+                mailFolderDocument, Calendar.getInstance().getTime(),
+                CaseConstants.CASE_TREE_TYPE);
 
         TransactionHelper.startTransaction();
+        openSession();
 
         DocumentModel caseRootFolder = session.getDocument(new PathRef(
                 CaseConstants.CASE_ROOT_DOCUMENT_PATH));
@@ -91,7 +91,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
     public void testParallelDocumentCreation() throws Exception {
         Thread[] threads = new Thread[2];
         for (int i = 0; i < threads.length; i++) {
-            threads[i] = new Thread(new MailTreeCreator(session,
+            threads[i] = new Thread(new MailTreeCreator(database.repositoryName,
                     mailFolderDocument));
             threads[i].start();
         }
@@ -101,6 +101,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         }
 
         TransactionHelper.startTransaction();
+        openSession();
 
         DocumentModel caseRootFolder = session.getDocument(new PathRef(
                 CaseConstants.CASE_ROOT_DOCUMENT_PATH));

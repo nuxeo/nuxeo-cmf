@@ -31,13 +31,13 @@ import org.nuxeo.runtime.transaction.TransactionHelper;
 public class MailTreeCreator implements Runnable {
     public static final Log log = LogFactory.getLog(MailTreeCreator.class);
 
-    CoreSession coreSession;
+    String repositoryName;
 
     DocumentModel mailFolderDocument;
 
-    public MailTreeCreator(CoreSession coreSession,
+    public MailTreeCreator(String repositoryName,
             DocumentModel mailFolderDocumentModel) {
-        this.coreSession = coreSession;
+        this.repositoryName = repositoryName;
         mailFolderDocument = mailFolderDocumentModel;
     }
 
@@ -47,7 +47,7 @@ public class MailTreeCreator implements Runnable {
         try {
             TransactionHelper.commitOrRollbackTransaction();
             DocumentModel rootRef = CaseTreeHelper.getOrCreateTxDateTreeFolder(
-                    coreSession, mailFolderDocument,
+                    repositoryName, mailFolderDocument,
                     Calendar.getInstance().getTime(),
                     CaseConstants.CASE_TREE_TYPE);
             assertNotNull(rootRef);
