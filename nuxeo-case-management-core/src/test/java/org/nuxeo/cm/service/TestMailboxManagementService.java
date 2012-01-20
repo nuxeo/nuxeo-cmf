@@ -125,6 +125,11 @@ public class TestMailboxManagementService extends
         assertFalse(mailboxes.isEmpty());
         assertEquals(2, mailboxes.size());
 
+        // query result order is not fixed
+        if ("test".equals(mailboxes.get(0).getId())) {
+            Collections.reverse(mailboxes);
+        }
+
         Mailbox mbPerso = mailboxes.get(0);
         assertEquals("user-user", mbPerso.getId());
         assertEquals("User Lambda (mycomp)", mbPerso.getTitle());
