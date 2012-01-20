@@ -220,8 +220,10 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
 
     public DocumentRoute createComplexRoute(CoreSession session)
             throws Exception {
+        createDocumentModel(session, "routes", "Folder", "/case-management");
         DocumentModel route = createDocumentModel(session, "route",
-                DocumentRoutingConstants.DOCUMENT_ROUTE_DOCUMENT_TYPE, "/");
+                DocumentRoutingConstants.DOCUMENT_ROUTE_DOCUMENT_TYPE,
+                "/case-management/routes");
         DocumentModel step1 = createDocumentModel(session, "step1",
                 CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP,
                 route.getPathAsString());
