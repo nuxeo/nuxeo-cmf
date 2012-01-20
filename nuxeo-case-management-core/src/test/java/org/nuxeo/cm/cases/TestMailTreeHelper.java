@@ -53,19 +53,21 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         // "nuxeojunittests" on localhost with nuxeo/nuxeo
         // database = DatabasePostgreSQL.INSTANCE;
         super.setUp();
-        openSession();
         // make sure this is actually created before the others docs
         mailFolderDocument = session.getDocument(new PathRef(
                 CaseConstants.CASE_ROOT_DOCUMENT_PATH));
         assertNotNull(mailFolderDocument);
+        closeSession();
         TransactionHelper.commitOrRollbackTransaction();
-        closeSession(session);
+        TransactionHelper.startTransaction();
         openSession();
     }
 
     public void testSimple() throws Exception {
         CaseTreeHelper.getOrCreateTxDateTreeFolder(session, mailFolderDocument,
                 Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
+
+        TransactionHelper.startTransaction();
 
         DocumentModel caseRootFolder = session.getDocument(new PathRef(
                 CaseConstants.CASE_ROOT_DOCUMENT_PATH));
@@ -97,6 +99,9 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         for (int i = 0; i < threads.length; i++) {
             threads[i].join();
         }
+
+        TransactionHelper.startTransaction();
+
         DocumentModel caseRootFolder = session.getDocument(new PathRef(
                 CaseConstants.CASE_ROOT_DOCUMENT_PATH));
         DocumentModelList yearsDocs = session.getChildren(caseRootFolder.getRef());
