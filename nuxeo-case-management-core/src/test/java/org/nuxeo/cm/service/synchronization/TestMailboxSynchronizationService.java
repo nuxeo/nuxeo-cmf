@@ -28,6 +28,7 @@ import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbUpd
 import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbUpdatedForUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -161,6 +162,11 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         List<DocumentModel> group5Children = session.getChildren(group5.getRef());
         assertFalse(group5Children.isEmpty());
         assertEquals(2, group5Children.size());
+        // order is database-dependent
+        if (MailboxConstants.ROUTE_ROOT_DOCUMENT_TYPE.equals(group5Children.get(
+                0).getType())) {
+            Collections.reverse(group5Children);
+        }
         assertEquals(ClassificationConstants.CLASSIFICATION_ROOT,
                 group5Children.get(0).getType());
         // test onDelete event
