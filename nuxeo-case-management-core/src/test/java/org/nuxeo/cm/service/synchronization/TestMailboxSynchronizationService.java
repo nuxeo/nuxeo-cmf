@@ -178,11 +178,10 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         session.save();
         assertEquals(0, mbCreatedForGroup.size());
         assertEquals(0, mbCreatedForUser.size());
-        assertEquals(9, mbUpdatedForGroup.size());
+        assertEquals(10, mbUpdatedForGroup.size());
         assertEquals(9, mbUpdatedForUser.size());
-        assertEquals(2, mbDeletedForGroup.size());
+        assertEquals(1, mbDeletedForGroup.size());
         assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4"));
-        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
         // group-4-1 is kept because it has sub mailboxes(?)
 
         assertEquals(1, mbDeletedForUser.size());
@@ -224,7 +223,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         syncService.doSynchronize();
         assertEquals(0, mbCreatedForGroup.size());
         assertEquals(0, mbCreatedForUser.size());
-        assertEquals(8, mbUpdatedForGroup.size());
+        assertEquals(9, mbUpdatedForGroup.size());
         assertEquals(9, mbUpdatedForUser.size());
         assertEquals(0, mbDeletedForGroup.size());
         assertEquals(0, mbDeletedForUser.size());

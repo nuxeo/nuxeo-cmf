@@ -3,6 +3,3 @@ parentGroupId, childGroupId
 "group_4_1","group_4_1_1"
 "group_4_1","group_4_1_2"
 "group_4","group_4_2"
-"group_4","subgroup_unknown"
-"group_unknown","group_4_2"
-"group_unknown","subgroup_unknown"
