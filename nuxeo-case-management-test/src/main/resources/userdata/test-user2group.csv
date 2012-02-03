@@ -9,3 +9,6 @@ userId, groupId
 "user3","group_3"
 "user3","members"
 "user3","group_4_1_1"
+"user3","group_unknown"
+"user_unknown","group_3"
+"user_unknown","group_unkown"
