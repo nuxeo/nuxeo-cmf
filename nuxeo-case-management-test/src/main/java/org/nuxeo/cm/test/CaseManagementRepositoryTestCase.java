@@ -126,6 +126,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        fireFrameworkStarted();
 
         userManager = Framework.getService(UserManager.class);
         assertNotNull(userManager);
