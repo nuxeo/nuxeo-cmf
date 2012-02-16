@@ -55,8 +55,12 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
 
     @Override
     public void tearDown() throws Exception {
-        closeSession();
-        super.tearDown();
+        try {
+            closeSession();
+        } finally {
+            NamingContextFactory.revertSetAsInitial();
+            super.tearDown();
+        }
     }
 
     public DocumentModel createTestDocument() throws Exception {
