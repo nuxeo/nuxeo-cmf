@@ -95,6 +95,9 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         deployContrib(
                 CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-cm-synchronization-contrib.xml");
+
+        fireFrameworkStarted();
+
         openSession();
 
         syncService = Framework.getService(MailboxSynchronizationService.class);

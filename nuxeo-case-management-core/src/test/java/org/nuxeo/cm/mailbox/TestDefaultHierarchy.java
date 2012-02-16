@@ -29,6 +29,7 @@ import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
+import org.nuxeo.ecm.platform.content.template.listener.RepositoryInitializationListener;
 import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 
 public class TestDefaultHierarchy extends SQLRepositoryTestCase {
@@ -72,6 +73,8 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
     public void testRootsWithCAP() throws Exception {
         deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
                 "OSGI-INF/content-template-contrib.xml");
+        fireFrameworkStarted();
+
         // open session before deploying CMF => repo will be initialized now
         openSession();
         DocumentModel domainBefore = session.getRootDocument();
@@ -93,8 +96,9 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         // deploy CMF contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-content-template-contrib.xml");
-
         openSession();
+        // reinit by hand, framework start event runs only once
+        new RepositoryInitializationListener().doInitializeRepository(session);
 
         try {
             DocumentModel domain = session.getRootDocument();
@@ -129,6 +133,8 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
                 "OSGI-INF/content-template-contrib.xml");
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-content-template-contrib.xml");
+        fireFrameworkStarted();
+
         // open session after deploying CMF => repo will be initialized only
         // now
         openSession();
