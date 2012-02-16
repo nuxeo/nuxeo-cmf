@@ -55,9 +55,14 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
 
     @Override
     public void tearDown() throws Exception {
-        closeSession();
-        NuxeoContainer.uninstall();
-        super.tearDown();
+        try {
+            closeSession();
+        } finally {
+            if (NuxeoContainer.isInstalled()) {
+                NuxeoContainer.uninstall();
+            }
+            super.tearDown();
+        }
     }
 
     public DocumentModel createTestDocument() throws Exception {
