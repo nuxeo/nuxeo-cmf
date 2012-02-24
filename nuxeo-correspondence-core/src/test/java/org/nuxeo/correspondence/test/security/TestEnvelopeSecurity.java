@@ -49,6 +49,7 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         super.deployRepositoryContrib();
         deployBundle("org.nuxeo.ecm.platform.routing.core");
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE);
+        fireFrameworkStarted();
     }
 
     public void testEnvelopeSend() throws Throwable {

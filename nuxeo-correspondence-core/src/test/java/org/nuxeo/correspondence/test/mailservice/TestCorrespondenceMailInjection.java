@@ -86,6 +86,7 @@ public class TestCorrespondenceMailInjection extends
         String postType = correspDocumentTypeService.getCaseLinkType();
         assertNotNull(postType);
         incomingDocumentType = CorrespondenceConstants.IN_CORRESPONDENCE_DOCUMENT;
+        fireFrameworkStarted();
         openSession();
     }
 

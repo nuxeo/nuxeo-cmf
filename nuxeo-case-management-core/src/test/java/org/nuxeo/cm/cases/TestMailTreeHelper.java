@@ -53,6 +53,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         // "nuxeojunittests" on localhost with nuxeo/nuxeo
         // database = DatabasePostgreSQL.INSTANCE;
         super.setUp();
+        fireFrameworkStarted();
         openSession();
         // make sure this is actually created before the others docs
         mailFolderDocument = session.getDocument(new PathRef(

@@ -20,6 +20,7 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
         deployBundle("org.nuxeo.ecm.platform.importer.core");
+        fireFrameworkStarted();
         openSession();
     }
 

@@ -45,6 +45,7 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        fireFrameworkStarted();
         openSession();
     }
 
@@ -54,6 +55,7 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
         super.tearDown();
     }
 
+    @Override
     public Mailbox getPersonalMailbox(String name) throws Exception {
         return correspMailboxService.createPersonalMailboxes(session, name).get(
                 0);

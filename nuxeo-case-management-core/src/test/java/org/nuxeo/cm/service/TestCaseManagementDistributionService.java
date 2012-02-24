@@ -31,6 +31,7 @@ public class TestCaseManagementDistributionService extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        fireFrameworkStarted();
         openSession();
     }
 

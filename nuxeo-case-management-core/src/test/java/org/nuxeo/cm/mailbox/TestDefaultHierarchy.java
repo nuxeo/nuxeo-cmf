@@ -29,6 +29,7 @@ public class TestDefaultHierarchy extends CaseManagementRepositoryTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        fireFrameworkStarted();
         openSession();
     }
 

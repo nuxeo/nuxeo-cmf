@@ -43,6 +43,7 @@ public class TestMailboxManagementService extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        fireFrameworkStarted();
         openSession();
     }
 

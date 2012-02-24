@@ -33,6 +33,7 @@ public class TestCaseManagementUserManager extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        fireFrameworkStarted();
         openSession();
         // set test property so that login module stuff is ignored during tests
         System.setProperty("org.nuxeo.runtime.testing", "true");

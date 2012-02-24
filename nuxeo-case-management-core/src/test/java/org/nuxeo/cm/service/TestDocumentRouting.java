@@ -58,7 +58,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
 
         routingService = Framework.getService(DocumentRoutingService.class);
         assertNotNull(routingService);
-
+        fireFrameworkStarted();
         openSession();
         setRepository();
         route = createComplexRoute(session);
