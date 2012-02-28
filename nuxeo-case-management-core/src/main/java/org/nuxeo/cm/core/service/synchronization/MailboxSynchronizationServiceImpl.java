@@ -260,7 +260,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         if (groupChilds != null && !groupChilds.isEmpty()) {
                             nextChildrenBatch.put(synchronizerId, groupChilds);
                         }
-                        if (++count % batchSize == 0) {
+                        if (++count % batchSize == 0 && count != 0) {
                             if (txStarted) {
                                 log.debug("Transaction ended during Mailbox synchronization");
                                 TransactionHelper.commitOrRollbackTransaction();
@@ -311,7 +311,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                 try {
                     userModel = userManager.getUserModel(userId);
                     if (userModel == null) {
-                        log.error("Could not synchronize mailbox for user " + userId);
+                        log.error("Could not synchronize mailbox for user "
+                                + userId);
                         continue;
                     }
                     synchronizerId = String.format("%s:%s", directoryName,
@@ -321,7 +322,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             userManager.getUserSchemaName(), "",
                             synchronizerId, userId, generatedTitle, userId,
                             type, now, coreSession);
-                    if (++count % batchSize == 0) {
+                    if (++count % batchSize == 0 && count != 0) {
                         if (txStarted) {
                             log.debug("Transaction ended during Mailbox synchronization");
                             TransactionHelper.commitOrRollbackTransaction();
@@ -617,8 +618,9 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     log.info("Start groups synchronization");
                     count = 0;
                     total = userManager.getGroupIds().size();
-                    boolean txStarted = false;
+                    Boolean txStarted = true;
                     try {
+                        // Check if transaction started
                         if (!TransactionHelper.isTransactionActive()) {
                             txStarted = TransactionHelper.startTransaction();
                             log.debug("New Transaction started during Mailbox synchronization");
@@ -636,6 +638,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         if (txStarted) {
                             TransactionHelper.commitOrRollbackTransaction();
                             log.debug("Transaction ended during Mailbox synchronization");
+                            TransactionHelper.startTransaction();
+                            log.debug("New Transaction started during Mailbox synchronization");
                         }
                     }
                     log.info("Looking for deleted group entries");
@@ -660,9 +664,9 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     log.debug("Start users synchronization");
                     count = 0;
                     total = userIds.size();
-
-                    boolean txStarted = false;
+                    Boolean txStarted = true;
                     try {
+                        // Check if transaction started
                         if (!TransactionHelper.isTransactionActive()) {
                             txStarted = TransactionHelper.startTransaction();
                             log.debug("New Transaction started during Mailbox synchronization");
@@ -680,6 +684,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         if (txStarted) {
                             TransactionHelper.commitOrRollbackTransaction();
                             log.debug("Transaction ended during Mailbox synchronization");
+                            TransactionHelper.startTransaction();
+                            log.debug("New Transaction started during Mailbox synchronization");
                         }
                     }
                     log.debug(String.format("Updated %d/%d mailboxes", count,
