@@ -122,7 +122,7 @@ org.nuxeo.distribution.date=${org.nuxeo.distribution.date}
     <!-- Deploy Custom plugins -->
     <copy todir="${plugins.dir}">
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-classification-*"/>
-      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-importer-core"/>
+      <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-importer-core"/>
       <artifact:set groupId="org.nuxeo.ecm.platform" artifactId="nuxeo-platform-document-routing-*"/>
       <artifact:resolveFile key="org.nuxeo.ecm.platform:nuxeo-platform-document-routing-core:${nuxeo.addons.version}:jar" />
       <artifact:set refid="${application.jars}" />

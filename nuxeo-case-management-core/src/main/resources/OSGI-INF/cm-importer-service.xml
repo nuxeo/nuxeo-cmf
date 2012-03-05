@@ -10,7 +10,7 @@
 
   <extension-point name="importer">
     <documentation>
-      The simple importer uses the nuxeo-platform-importer-core to import files
+      The simple importer uses the nuxeo-importer-core to import files
       into NXCM. The different variables are read from the contribution to the
       SimpleImporter service. They are:
 
