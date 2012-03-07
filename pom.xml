@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
     <artifactId>nuxeo-features-parent</artifactId>
-    <version>5.4.2.1-SNAPSHOT</version>
+    <version>5.4.2-HF18</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
@@ -21,7 +21,7 @@
 
   <properties>
     <nuxeo.cm.version>1.8.2-HF02-SNAPSHOT</nuxeo.cm.version>
-    <nuxeo.routing.version> 5.4.3-I20110902_0115</nuxeo.routing.version>
+    <nuxeo.routing.version>5.4.3-I20110902_0115</nuxeo.routing.version>
 
   </properties>
 
