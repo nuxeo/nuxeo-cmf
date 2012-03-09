@@ -165,6 +165,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         List<DocumentModel> group5Children = session.getChildren(group5.getRef());
         assertFalse(group5Children.isEmpty());
         assertEquals(2, group5Children.size());
+        group5Children = session.getChildren(group5.getRef(),
+                ClassificationConstants.CLASSIFICATION_ROOT);
         // order is database-dependent
         if (MailboxConstants.ROUTE_ROOT_DOCUMENT_TYPE.equals(group5Children.get(
                 0).getType())) {
@@ -184,8 +186,10 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(9, mbUpdatedForGroup.size());
         assertEquals(9, mbUpdatedForUser.size());
         assertEquals(2, mbDeletedForGroup.size());
-        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4"));
-        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
+        assertTrue(mbDeletedForGroup.toString(),
+                mbDeletedForGroup.contains(MB_ROOT + "group-4"));
+        assertTrue(mbDeletedForGroup.toString(),
+                mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
         // group-4-1 is kept because it has sub mailboxes(?)
 
         assertEquals(1, mbDeletedForUser.size());
