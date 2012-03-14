@@ -57,6 +57,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.DocumentRef;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.pathsegment.PathSegmentService;
 import org.nuxeo.ecm.core.event.EventProducer;
@@ -135,7 +136,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     /**
      * Executes a query model.
-     *
+     * 
      * @param queryModel The name of the query model
      * @return the corresponding documentModels
      */
@@ -146,7 +147,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     /**
      * Executes a query model.
-     *
+     * 
      * @param queryModel The name of the query model
      * @param params params if the query model
      * @return the corresponding documentModels
@@ -245,9 +246,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     public CaseItem addCaseItemToCase(CoreSession session, Case kase,
             DocumentModel emailDoc) {
         try {
-            String parentPath = persister.getParentDocumentPathForCaseItem(session,
-                    kase);
-            emailDoc.setPathInfo(parentPath, pathSegmentService.generatePathSegment(emailDoc));
+            String parentPath = persister.getParentDocumentPathForCaseItem(
+                    session, kase);
+            emailDoc.setPathInfo(parentPath,
+                    pathSegmentService.generatePathSegment(emailDoc));
             CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
                     session, emailDoc, kase);
             mailCreator.runUnrestricted();
@@ -267,7 +269,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             List<Mailbox> mailboxes) {
         try {
             String emailTitle = emailDoc.getTitle();
-            String caseId =  pathSegmentService.generatePathSegment(emailDoc);
+            String caseId = pathSegmentService.generatePathSegment(emailDoc);
             Case kase = createEmptyCase(session, emailTitle, caseId, mailboxes);
             addCaseItemToCase(session, kase, emailDoc);
             return kase;
@@ -315,6 +317,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             throw new RuntimeException(e);
         }
     }
+
     public CaseManagementDocumentTypeService getTypeService() {
         try {
             return Framework.getService(CaseManagementDocumentTypeService.class);
@@ -373,7 +376,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                             CaseConstants.TITLE_PROPERTY_NAME), envelope,
                     mailbox);
             runner.runUnrestricted();
-            CaseLink draft = runner.getCreatedPost();
+            DocumentModel draftDoc = session.getDocument(new IdRef(
+                    runner.getCreatedPostDocRef()));
+            CaseLink draft = draftDoc.getAdapter(CaseLink.class);
             eventProperties.put(
                     CaseManagementEventConstants.EVENT_CONTEXT_DRAFT, draft);
             fireEvent(session, envelope, eventProperties,
@@ -494,7 +499,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     /**
      * Retrieves and caches the Event Producer Service.
-     *
+     * 
      * @return The Event Producer Service
      * @throws Exception
      */
@@ -582,8 +587,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         CaseManagementEventConstants.EVENT_CONTEXT_COMMENT,
                         comment);
                 eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_CASE,
-                        kase);
+                        CaseManagementEventConstants.EVENT_CONTEXT_CASE, kase);
                 eventProperties.put(
                         CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS,
                         (Serializable) internalRecipientIds);
@@ -612,10 +616,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         }
 
                         UpdateCaseLinkUnrestricted createPostUnrestricted = new UpdateCaseLinkUnrestricted(
-                                session, subject, comment, kase,
-                                senderMailbox, senderMailbox.getId(),
-                                internalRecipientIds, externalRecipients, true,
-                                isInitial, draft);
+                                session, subject, comment, kase, senderMailbox,
+                                senderMailbox.getId(), internalRecipientIds,
+                                externalRecipients, true, isInitial, draft);
                         createPostUnrestricted.run();
                         post = createPostUnrestricted.getUpdatedPost();
                     }

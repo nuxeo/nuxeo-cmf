@@ -39,12 +39,12 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * A creator of {@link CaseLink}.
- *
+ * 
  * @author Nicolas Ulrich
  */
 public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
-    protected CaseLink createdPost;
+    protected String createdPostDocRef;
 
     protected final String subject;
 
@@ -52,8 +52,8 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     protected final Mailbox sender;
 
-    public CaseLink getCreatedPost() {
-        return createdPost;
+    public String getCreatedPostDocRef() {
+        return createdPostDocRef;
     }
 
     public CreateDraftCaseLinkUnrestricted(String repositoryName,
@@ -79,7 +79,7 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
                 correspDocumentTypeService.getCaseLinkType());
         setPostValues(doc);
         doc = session.createDocument(doc);
-        createdPost = doc.getAdapter(CaseLink.class);
+        createdPostDocRef = doc.getId();
     }
 
     /**
