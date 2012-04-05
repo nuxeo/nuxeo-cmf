@@ -181,18 +181,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         MailboxSyncTestListener.reset();
         syncService.doSynchronize();
         session.save();
-        assertEquals(0, mbCreatedForGroup.size());
-        assertEquals(0, mbCreatedForUser.size());
-        assertEquals(9, mbUpdatedForGroup.size());
-        assertEquals(9, mbUpdatedForUser.size());
-        assertEquals(2, mbDeletedForGroup.size());
-        assertTrue(mbDeletedForGroup.toString(),
-                mbDeletedForGroup.contains(MB_ROOT + "group-4"));
-        assertTrue(mbDeletedForGroup.toString(),
-                mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
-        // group-4-1 is kept because it has sub mailboxes(?)
 
-        assertEquals(1, mbDeletedForUser.size());
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-3")));
         assertEquals("deleted", getState(MB_ROOT + "group-4"));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-4")));
@@ -212,6 +201,20 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-5/")));
         group5 = session.getDocument(new PathRef(MB_ROOT + "group-5/"));
         assertEquals("project", group5.getCurrentLifeCycleState());
+
+        assertEquals(0, mbCreatedForGroup.size());
+        assertEquals(0, mbCreatedForUser.size());
+        assertEquals(9, mbUpdatedForGroup.size());
+        assertEquals(9, mbUpdatedForUser.size());
+        assertEquals(2, mbDeletedForGroup.size());
+        assertTrue(mbDeletedForGroup.toString(),
+                mbDeletedForGroup.contains(MB_ROOT + "group-4"));
+        assertTrue(mbDeletedForGroup.toString(),
+                mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
+        // group-4-1 is kept because it has sub mailboxes(?)
+
+        assertEquals(1, mbDeletedForUser.size());
+
         Mailbox cfGroup = group5.getAdapter(Mailbox.class);
         String groupOwner = cfGroup.getOwner();
         assertNull(groupOwner);
