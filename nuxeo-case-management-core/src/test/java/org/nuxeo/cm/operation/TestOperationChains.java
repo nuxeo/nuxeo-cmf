@@ -16,6 +16,11 @@
  */
 package org.nuxeo.cm.operation;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
@@ -39,7 +44,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
 
     protected AutomationService automationService;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         deployBundle(CaseManagementTestConstants.ROUTING_CORE_BUNDLE);
@@ -52,12 +57,13 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testChainsDeclaration() throws Exception {
         assertNotNull(routingService);
         assertNotNull(automationService);
@@ -66,6 +72,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
                 CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
     }
 
+    @Test
     public void testDistributionTaskChain() throws Exception {
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK);
         assertEquals(chainId,
@@ -82,6 +89,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         automationService.run(ctx, chainId);
     }
 
+    @Test
     public void testDistributionStepChain() throws Exception {
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP);
         assertEquals(chainId,

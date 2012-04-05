@@ -26,6 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.cases.Case;
@@ -40,18 +45,19 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 public class TestMailboxManagementService extends
         CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testDefaultPersonalMailboxCreation() throws Exception {
 
         correspMailboxService.createPersonalMailboxes(session, "toto");
@@ -71,6 +77,7 @@ public class TestMailboxManagementService extends
         assertEquals(user, mb.getOwner());
     }
 
+    @Test
     public void testPersonalMailboxCreatorContribution() throws Exception {
         // override creation behaviour
         deployContrib(
@@ -89,6 +96,7 @@ public class TestMailboxManagementService extends
         assertEquals(user, mb.getOwner());
     }
 
+    @Test
     public void testGetUserPersonalMailboxId() throws Exception {
         String totoMbId = correspMailboxService.getUserPersonalMailboxId("toto");
         assertNull(totoMbId);
@@ -98,6 +106,7 @@ public class TestMailboxManagementService extends
         assertEquals("user-user", userMbId);
     }
 
+    @Test
     public void testGetMailbox() throws Exception {
         createMailbox();
 
@@ -108,12 +117,14 @@ public class TestMailboxManagementService extends
         assertEquals("Test", mb.getTitle());
     }
 
+    @Test
     public void testHasMailbox() throws Exception {
         createMailbox();
         assertTrue(correspMailboxService.hasMailbox(session, "test"));
         assertFalse(correspMailboxService.hasMailbox(session, "foo"));
     }
 
+    @Test
     public void testGetMailboxes() throws Exception {
         correspMailboxService.createPersonalMailboxes(session, user);
 
@@ -149,6 +160,7 @@ public class TestMailboxManagementService extends
         assertEquals(2, mailboxes.size());
     }
 
+    @Test
     public void testSearchMailboxes() throws Exception {
         // create personal mailboxes for users, calling getMailboxes on each
         correspMailboxService.getUserMailboxes(session, user);
@@ -183,6 +195,7 @@ public class TestMailboxManagementService extends
         // assertFalse(mailboxes.isEmpty());
     }
 
+    @Test
     public void testSendCase() throws Exception {
         Mailbox senderMailbox = getPersonalMailbox(user1);
         assertNotNull(senderMailbox);

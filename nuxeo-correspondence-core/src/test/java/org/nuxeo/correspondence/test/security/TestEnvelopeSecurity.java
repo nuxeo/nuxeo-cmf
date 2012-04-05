@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
@@ -51,6 +54,7 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE);
     }
 
+    @Test
     public void testEnvelopeSend() throws Throwable {
         Mailbox senderMailbox = createPersonalMailbox(user1);
         assertNotNull(senderMailbox);

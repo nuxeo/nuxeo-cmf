@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.caselink.CaseLinkType;
@@ -33,18 +38,19 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  */
 public class TestParticipants extends CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testParticipantsMethods() throws Exception {
         Map<String, List<String>> recipients1 = new HashMap<String, List<String>>();
         List<String> actionList1 = new ArrayList<String>();

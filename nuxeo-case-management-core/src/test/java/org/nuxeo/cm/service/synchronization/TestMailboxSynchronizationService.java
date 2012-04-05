@@ -32,6 +32,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
@@ -64,7 +69,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
 
     protected UserManager umService;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -111,13 +116,14 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertNotNull(umService);
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
         MailboxSyncTestListener.reset();
     }
 
+    @Test
     public void testService() throws Exception {
         Map<String, MailboxDirectorySynchronizationDescriptor> synchronizerMap = syncService.getSynchronizerMap();
         MailboxUserSynchronizationDescriptor userDirectorySynchronizer = syncService.getUserSynchronizer();
@@ -141,6 +147,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(Boolean.FALSE, groupDirectorySynchronizer.isEnabled());
     }
 
+    @Test
     public void testSynchro() throws Exception {
         syncService.doSynchronize();
         session.save();
@@ -241,6 +248,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         return session.getCurrentLifeCycleState(new PathRef(path));
     }
 
+    @Test
     public void testSynchroWithExistingMailbox() throws Exception {
         // create a mailbox
         DocumentModel membersGroupMailboxDoc = session.createDocumentModel(
@@ -305,6 +313,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals("userDirectory", origin);
     }
 
+    @Test
     public void testRights() throws Exception {
         syncService.doSynchronize();
         session.save();
@@ -335,6 +344,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(inheritedACL, inhValue.toString());
     }
 
+    @Test
     public void testGetMailboxes() throws Exception {
         syncService.doSynchronize();
         session.save();

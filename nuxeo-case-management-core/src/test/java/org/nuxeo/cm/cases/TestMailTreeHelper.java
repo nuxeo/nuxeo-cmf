@@ -19,6 +19,10 @@ import java.util.Calendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -47,7 +51,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
 
     }
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         // to have the test working with postgres - setup postgres database
         // "nuxeojunittests" on localhost with nuxeo/nuxeo
@@ -61,6 +65,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         TransactionHelper.commitOrRollbackTransaction();
     }
 
+    @Test
     public void testSimple() throws Exception {
         CaseTreeHelper.getOrCreateTxDateTreeFolder(database.repositoryName,
                 mailFolderDocument, Calendar.getInstance().getTime(),
@@ -88,6 +93,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
 
     }
 
+    @Test
     public void testParallelDocumentCreation() throws Exception {
         Thread[] threads = new Thread[2];
         for (int i = 0; i < threads.length; i++) {

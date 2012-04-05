@@ -16,6 +16,11 @@
  */
 package org.nuxeo.cm.cases;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkConstants;
 import org.nuxeo.cm.caselink.CaseLinkImpl;
@@ -28,7 +33,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 public class TestCaseLink extends CaseManagementRepositoryTestCase {
     protected CaseLink post;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
@@ -39,12 +44,13 @@ public class TestCaseLink extends CaseManagementRepositoryTestCase {
         post = new CaseLinkImpl(document, adapter);
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testGetDocument() {
         assertNotNull(post);
         DocumentModel doc = post.getDocument();

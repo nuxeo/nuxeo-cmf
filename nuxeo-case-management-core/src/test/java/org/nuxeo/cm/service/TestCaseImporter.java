@@ -1,5 +1,10 @@
 package org.nuxeo.cm.service;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkType;
 import org.nuxeo.cm.cases.Case;
@@ -16,19 +21,20 @@ import org.nuxeo.runtime.api.Framework;
 
 public class TestCaseImporter extends CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         deployBundle("org.nuxeo.ecm.platform.importer.core");
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testImport() throws Exception {
         // create mailboxes used by import
         Mailbox user1Mailbox = getPersonalMailbox(user1);

@@ -19,6 +19,10 @@
 
 package org.nuxeo.cm.service;
 
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 
@@ -28,11 +32,12 @@ import org.nuxeo.ecm.core.api.ClientException;
 public class TestCaseManagementDocumentTypeService extends
         CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
     }
 
+    @Test
     public void testGetAllProperty() throws ClientException {
         assertEquals("Case", correspDocumentTypeService.getCaseType());
         assertEquals("CaseLink", correspDocumentTypeService.getCaseLinkType());
