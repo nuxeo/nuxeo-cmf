@@ -16,6 +16,11 @@
  */
 package org.nuxeo.cm.service;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.mailbox.Mailbox;
@@ -28,18 +33,19 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 public class TestCaseManagementDistributionService extends
         CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testAddCaseItemToCase() throws Exception {
         Mailbox senderMailbox = getPersonalMailbox(user1);
         assertNotNull(senderMailbox);

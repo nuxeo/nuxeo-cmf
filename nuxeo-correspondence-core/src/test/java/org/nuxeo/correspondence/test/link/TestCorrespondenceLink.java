@@ -23,6 +23,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseImpl;
 import org.nuxeo.cm.cases.CaseItem;
@@ -55,7 +60,7 @@ public class TestCorrespondenceLink extends CaseManagementRepositoryTestCase {
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE);
     }
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -72,12 +77,13 @@ public class TestCorrespondenceLink extends CaseManagementRepositoryTestCase {
         envelope.addCaseItem(item2, session);
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testLink() throws Throwable {
         EnvelopeToMailLink envelopeToMailLinks = envelope.getDocument().getAdapter(
                 EnvelopeToMailLink.class);

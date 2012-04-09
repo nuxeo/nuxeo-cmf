@@ -27,6 +27,9 @@ import static org.nuxeo.cm.caselink.CaseLinkConstants.SENDER_FIELD;
 import java.util.Date;
 import java.util.UUID;
 
+import org.junit.Before;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
@@ -123,7 +126,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
     }
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         fireFrameworkStarted();

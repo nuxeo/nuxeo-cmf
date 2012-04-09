@@ -19,6 +19,11 @@ package org.nuxeo.cm.cases;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -35,7 +40,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
 
     protected CaseItem item;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
@@ -46,7 +51,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         item = new CaseItemImpl(document, adapter);
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -55,12 +60,14 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
     /**
      * Test method for {@link org.nuxeo.cm.cases.CaseItemImpl#getDocument()}.
      */
+    @Test
     public void testGetDocument() {
         DocumentModel model = item.getDocument();
         assertNotNull(model);
         assertTrue(model.hasFacet(CaseConstants.CASE_GROUPABLE_FACET));
     }
 
+    @Test
     public void testProperties() throws ClientException {
         String id = item.getDocument().getId();
         Calendar date = GregorianCalendar.getInstance();
@@ -90,6 +97,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
         assertEquals(sendingDate, date);
     }
 
+    @Test
     public void testCreateCase() throws ClientException {
         Case envelope = item.createMailCase(session,
                 session.getRootDocument().getPathAsString(), null);
@@ -107,6 +115,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
     }
 
     @SuppressWarnings("deprecation")
+    @Test
     public void testLock() throws ClientException {
 
         DocumentModel doc = item.getDocument();

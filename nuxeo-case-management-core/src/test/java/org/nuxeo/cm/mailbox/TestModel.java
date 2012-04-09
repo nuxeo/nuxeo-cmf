@@ -21,6 +21,11 @@ package org.nuxeo.cm.mailbox;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -33,7 +38,7 @@ import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
  */
 public class TestModel extends SQLRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -44,7 +49,7 @@ public class TestModel extends SQLRepositoryTestCase {
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -57,6 +62,7 @@ public class TestModel extends SQLRepositoryTestCase {
         return session.createDocument(folder);
     }
 
+    @Test
     public void testCaseItemCreation() throws Exception {
 
         DocumentModel folder = createTestFolder();

@@ -22,6 +22,11 @@ package org.nuxeo.cm.mailbox;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -35,7 +40,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
     private static final String MAILBOX = "mailbox";
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -47,7 +52,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -93,6 +98,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         return session.createDocument(mb.getDocument());
     }
 
+    @Test
     public void testMailboxCreation() throws Exception {
         createMailboxDoc();
 
@@ -133,6 +139,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals((Integer) 4, mb.getConfidentiality());
     }
 
+    @Test
     public void testMailboxEdition() throws Exception {
         createMailboxDoc();
 

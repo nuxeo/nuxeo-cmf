@@ -29,6 +29,11 @@ import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
@@ -75,7 +80,7 @@ public class TestCorrespondenceMailInjection extends
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_TEST_BUNDLE);
     }
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -89,7 +94,7 @@ public class TestCorrespondenceMailInjection extends
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -100,6 +105,7 @@ public class TestCorrespondenceMailInjection extends
      *
      * @throws Exception
      */
+    @Test
     public void testParseMailEnglishThunderbird() throws Exception {
         // initialize mailboxes
         Mailbox forwarderMailbox = getPersonalMailbox(nulrich);
@@ -180,6 +186,7 @@ public class TestCorrespondenceMailInjection extends
      *
      * @throws Exception
      */
+    @Test
     public void testParseMailFrenchThunderbird() throws Exception {
         // initialize mailboxes
         Mailbox forwarderMailbox = getPersonalMailbox(nulrich);
@@ -260,6 +267,7 @@ public class TestCorrespondenceMailInjection extends
      *
      * @throws Exception
      */
+    @Test
     public void testParseMailGmail() throws Exception {
         // initialize mailboxes
         Mailbox forwarderMailbox = getPersonalMailbox(nulrich);
@@ -337,6 +345,7 @@ public class TestCorrespondenceMailInjection extends
         assertEquals(0, origSenderSentPosts.size());
     }
 
+    @Test
     public void testActionPipe() {
         MessageActionPipe pipe = mailService.getPipe("casemanagementMailBox");
         assertNotNull(pipe);
@@ -383,6 +392,7 @@ public class TestCorrespondenceMailInjection extends
      *
      * @throws Exception
      */
+    @Test
     public void testEmailEnglishForwardEnFr() throws Exception {
         String filePath = "data/test_double-forward_en_fr.eml";
         emailEnglishAssertions(filePath);
@@ -393,6 +403,7 @@ public class TestCorrespondenceMailInjection extends
      *
      * @throws Exception
      */
+    @Test
     public void testEmailEnglishForwardEnEn() throws Exception {
         String filePath = "data/test_double-forward_en_en.eml";
         emailEnglishAssertions(filePath);

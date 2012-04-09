@@ -25,6 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.caselink.CaseLinkRequestImpl;
 import org.nuxeo.cm.caselink.CaseLinkType;
@@ -42,13 +47,13 @@ import org.nuxeo.ecm.core.api.IdRef;
  */
 public class TestDistribution extends CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -59,6 +64,7 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 0);
     }
 
+    @Test
     public void testSendCase() throws Exception {
 
         // Initialize mailboxes
@@ -185,6 +191,7 @@ public class TestDistribution extends CaseManagementRepositoryTestCase {
                 receiverMailbox1.getId()));
     }
 
+    @Test
     public void testSendCaseAndRemove() throws Exception {
 
         // Initialize mailboxes

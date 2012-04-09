@@ -19,6 +19,11 @@ package org.nuxeo.cm.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.caselink.ActionableCaseLink;
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
@@ -50,7 +55,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
 
     protected List<String> docIds = new ArrayList<String>();
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         deployBundle(CaseManagementTestConstants.ROUTING_CORE_BUNDLE);
@@ -74,7 +79,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
                 route.getDocument().getRef()).get(0).getCurrentLifeCycleState());
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -94,6 +99,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         docIds.add(envelope.getDocument().getId());
     }
 
+    @Test
     public void testRunRouteWithUndo() throws Exception {
         NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
         closeSession();
@@ -204,6 +210,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertTrue(route.isDone());
     }
 
+    @Test
     public void testRunRoute() throws Exception {
         NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
         closeSession();
@@ -285,6 +292,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertTrue(route.isDone());
     }
 
+    @Test
     public void testCancelRoute() throws Exception {
         NuxeoPrincipal principal2 = userManager.getPrincipal(user2);
         closeSession();

@@ -21,7 +21,10 @@ package org.nuxeo.cm.service;
 
 import java.util.Set;
 
-import junit.framework.Assert;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
@@ -37,7 +40,7 @@ public class TestCaseManagementDistributionTypeService extends
 
     private static final String FOR_INFORMATION = "FOR_INFORMATION";
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         deployContrib(
@@ -46,18 +49,20 @@ public class TestCaseManagementDistributionTypeService extends
         openSession();
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testGetDistributionTypes() {
         Set<String> types = correspDistributionTypeService.getDistributionTypes();
         assertTrue(types.contains(FOR_INFORMATION));
         assertTrue(types.contains(FOR_ACTION));
     }
 
+    @Test
     public void testGetAllProperty() throws ClientException {
         assertEquals("all_action_participant_mailboxes",
                 correspDistributionTypeService.getAllProperty(FOR_ACTION));
@@ -65,6 +70,7 @@ public class TestCaseManagementDistributionTypeService extends
                 correspDistributionTypeService.getAllProperty(FOR_INFORMATION));
     }
 
+    @Test
     public void testGetExternalProperty() throws ClientException {
         assertEquals("initial_action_external_participant_mailboxes",
                 correspDistributionTypeService.getExternalProperty(FOR_ACTION));
@@ -73,6 +79,7 @@ public class TestCaseManagementDistributionTypeService extends
                 correspDistributionTypeService.getExternalProperty(FOR_INFORMATION));
     }
 
+    @Test
     public void testGetInternalProperty() throws ClientException {
         assertEquals("initial_action_internal_participant_mailboxes",
                 correspDistributionTypeService.getInternalProperty(FOR_ACTION));
@@ -81,18 +88,20 @@ public class TestCaseManagementDistributionTypeService extends
                 correspDistributionTypeService.getInternalProperty(FOR_INFORMATION));
     }
 
+    @Test
     public void testDistributionTypeError() {
         try {
             correspDistributionTypeService.getInternalProperty("FAKE");
-            Assert.fail("No Exception throwed");
+            fail("No Exception throwed");
         } catch (ClientException e) {
         }
     }
 
+    @Test
     public void testPropertyError() {
         try {
             correspDistributionTypeService.getInternalProperty("TEST_ERROR");
-            Assert.fail("No Exception throwed");
+            fail("No Exception throwed");
         } catch (ClientException e) {
         }
     }

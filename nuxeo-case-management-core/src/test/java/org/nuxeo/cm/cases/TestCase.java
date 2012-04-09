@@ -19,6 +19,11 @@ package org.nuxeo.cm.cases;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -38,7 +43,7 @@ public class TestCase extends CaseManagementRepositoryTestCase {
 
     protected CaseItem item2;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
@@ -54,18 +59,20 @@ public class TestCase extends CaseManagementRepositoryTestCase {
         item2 = new CaseItemImpl(document, adapter);
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
     }
 
+    @Test
     public void testGetDocument() {
         DocumentModel doc = envelope.getDocument();
         assertNotNull(doc);
         assertEquals(CaseConstants.CASE_TYPE, doc.getType());
     }
 
+    @Test
     public void testItemsMethods() throws ClientException {
         String envId = envelope.getDocument().getId();
         envelope.addCaseItem(item1, session);

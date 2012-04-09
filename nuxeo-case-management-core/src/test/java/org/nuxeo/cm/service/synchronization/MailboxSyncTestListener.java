@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import junit.framework.Assert;
+import static org.junit.Assert.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -51,25 +51,25 @@ public class MailboxSyncTestListener implements EventListener {
         String failMessage = "Error handling event " + eventName + ": ";
         String mbTitle = (String) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE);
-        Assert.assertFalse(failMessage + "Empty mailbox title",
+        assertFalse(failMessage + "Empty mailbox title",
                 StringUtils.isEmpty(mbTitle));
         Calendar synchronizerDate = (Calendar) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE);
-        Assert.assertFalse(
+        assertFalse(
                 failMessage + "Empty synchronizer date for mailbox with title "
                         + mbTitle,
                 synchronizerDate == null
                         || StringUtils.isEmpty(synchronizerDate.toString()));
         String synchronizerId = (String) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID);
-        Assert.assertFalse(failMessage
+        assertFalse(failMessage
                 + "Empty synchronizer id for mailbox with title " + mbTitle,
                 StringUtils.isEmpty(synchronizerId));
         DocumentModel mbDoc = ((DocumentEventContext) event.getContext()).getSourceDocument();
-        Assert.assertNotNull(failMessage
+        assertNotNull(failMessage
                 + "Null document for mailbox with title " + mbTitle, mbDoc);
         String mbPath = mbDoc.getPathAsString();
-        Assert.assertFalse(failMessage
+        assertFalse(failMessage
                 + "Empty path for mailbox document with title " + mbTitle,
                 StringUtils.isEmpty(mbPath));
         if ("userDirectory".equals(event.getContext().getProperty(

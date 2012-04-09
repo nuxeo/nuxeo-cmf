@@ -24,7 +24,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import org.nuxeo.cm.contact.Contact;
 import org.nuxeo.cm.contact.Contacts;
@@ -34,7 +35,7 @@ import org.nuxeo.cm.mail.actionpipe.ParseMailBody;
 /**
  * @author Anahide Tchertchian
  */
-public class TestMailBodyParser extends TestCase {
+public class TestMailBodyParser {
 
     public void matchContact(String expectedName, String expectedEmail,
             Contact actual) throws Exception {
@@ -116,6 +117,7 @@ public class TestMailBodyParser extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testEmailEnglish() throws Exception {
         // Body content part from email forwarded through Thunderbird mailer
         String content = "\n\n-------- Original Message --------\nSubject: \tRENOUVELLEMENT DE SUPPORT ANNUEL\nDate: \tWed, 14 Jan 2009 15:15:25 +0100\nFrom: \tAnahide TCHERTCHIAN <at@nuxeo.com>\nTo: \t<arussel@nuxeo.com>\n\n\nObjet : [correspondence] courriel test pour fonctionnalit\u00e9 \n\nBonjour,\n\nVeuillez trouver ci-joint un devis pour le renouvellement de votre support\nannuel pour la p�riode du 26/02/09 AU 26/02/10.\n\n\nMerci de bien vouloir nous faire parvenir un bon de commande.\n\nNous restons � votre disposition pour tout compl�ment d'information,\n\n\nBien cordialement,\n\nAnahide TCHERTCHIAN\nAssistante Commerciale\ne-mail : at@nuxeo.com\n\n\n";
@@ -135,6 +137,7 @@ public class TestMailBodyParser extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testEmailEnglishWithCc() throws Exception {
         // Another body content with two "TO" and two "CC"
         String content = "\n\n-------- Original Message --------\nSubject: \tRENOUVELLEMENT DE SUPPORT ANNUEL\nDate: \tWed, 14 Jan 2009 15:15:25 +0100\nFrom: \tAnahide TCHERTCHIAN <at@nuxeo.com>\nTo: \t<arussel@nuxeo.com> ; Jean Dupuis <jean.dupuis@mail.fr>\nCc: \tSebastien Blanc <s.b@mail.fr>; benoit perrier <b.l@mail.fr>\n\n\n\nBonjour,\n\nVeuillez trouver ci-joint un devis pour le renouvellement de votre support\nannuel pour la p�riode du 26/02/09 AU 26/02/10.\n\n\nMerci de bien vouloir nous faire parvenir un bon de commande.\n\nNous restons � votre disposition pour tout compl�ment d'information,\n\n\nBien cordialement,\n\nAnahide TCHERTCHIAN\n\ne-mail : at@nuxeo.com\n\n\n";
@@ -150,6 +153,7 @@ public class TestMailBodyParser extends TestCase {
 
     }
 
+    @Test
     public void testBodyParser() throws Exception {
         Map<String, Object> context = new HashMap<String, Object>();
         String content = "\n________________________________\n\nDe : Alain Escaffre [mailto:aescaffre@nuxeo.com]\nEnvoy\u00e9 : lundi 19 mai 2008 09:06\n\u00c0 : doguin laurent\nCc : Anahide Tchertchian; Oriane TIAN; Alain Escaffre\nObjet : [correspondence] courriel test pour fonctionnalit\u00e9 \"transfert de courriel vers correspondence\"\n\nCeci est un courriel de test";

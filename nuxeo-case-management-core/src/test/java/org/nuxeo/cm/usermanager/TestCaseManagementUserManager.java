@@ -22,6 +22,11 @@ import static org.nuxeo.cm.security.CaseManagementSecurityConstants.MAILBOX_PREF
 
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -32,7 +37,7 @@ import org.nuxeo.ecm.platform.usermanager.NuxeoPrincipalImpl;
 public class TestCaseManagementUserManager extends
         CaseManagementRepositoryTestCase {
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
         openSession();
@@ -40,13 +45,14 @@ public class TestCaseManagementUserManager extends
         System.setProperty("org.nuxeo.runtime.testing", "true");
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
         System.clearProperty("org.nuxeo.runtime.testing");
     }
 
+    @Test
     public void testGetPrincipalGroups() throws Exception {
         assertTrue(userManager instanceof UserManagerWithComputedGroups);
 

@@ -21,6 +21,10 @@ package org.nuxeo.cm.mailbox;
 
 import java.util.Arrays;
 
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -40,7 +44,7 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
 
     protected NuxeoPrincipal anonymousUser;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -70,6 +74,7 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         anonymousUser = new NuxeoPrincipalImpl("anonymous", true, false);
     }
 
+    @Test
     public void testRootsWithCAP() throws Exception {
         deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
                 "OSGI-INF/content-template-contrib.xml");
@@ -128,6 +133,7 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         }
     }
 
+    @Test
     public void testRootsWithoutCAP() throws Exception {
         deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
                 "OSGI-INF/content-template-contrib.xml");
