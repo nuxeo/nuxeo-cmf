@@ -188,6 +188,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         DocumentModel entry = dirService.open("groupDirectory").getEntry(
                 "group_4");
         assertNull(entry);
+        Thread.sleep(1000);
         MailboxSyncTestListener.reset();
         syncService.doSynchronize();
         session.save();
