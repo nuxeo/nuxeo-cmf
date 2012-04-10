@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.derby.tools.sysinfo;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
@@ -51,6 +52,7 @@ import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
+import org.nuxeo.ecm.core.storage.sql.DatabaseHelper;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
@@ -188,7 +190,9 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         DocumentModel entry = dirService.open("groupDirectory").getEntry(
                 "group_4");
         assertNull(entry);
-        Thread.sleep(1000);
+        if ("MySQL".equals(DatabaseHelper.DB_PROPERTY)) {
+            Thread.sleep(1000);
+        }
         MailboxSyncTestListener.reset();
         syncService.doSynchronize();
         session.save();
