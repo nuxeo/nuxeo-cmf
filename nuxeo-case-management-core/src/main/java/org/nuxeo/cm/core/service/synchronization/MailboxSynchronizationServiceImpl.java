@@ -245,7 +245,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     try {
                         groupModel = userManager.getGroupModel(groupName);
                         if (groupModel == null) {
-                            log.error("Could not synchronize mailbox for user " + groupName);
+                            log.error("Could not synchronize mailbox for user "
+                                    + groupName);
                             continue;
                         }
                         synchronizerId = String.format("%s:%s", directoryName,
@@ -311,7 +312,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                 try {
                     userModel = userManager.getUserModel(userId);
                     if (userModel == null) {
-                        log.error("Could not synchronize mailbox for user " + userId);
+                        log.error("Could not synchronize mailbox for user "
+                                + userId);
                         continue;
                     }
                     synchronizerId = String.format("%s:%s", directoryName,
@@ -608,7 +610,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     throw new CaseManagementRuntimeException(e);
                 }
                 if (titleGenerator != null) {
-                    now = GregorianCalendar.getInstance();
+                    now = Calendar.getInstance();
                     directoryName = userManager.getGroupDirectoryName();
                     directoryIdField = userManager.getGroupIdField();
                     List<String> topLevelgroups = userManager.getTopLevelGroups();
