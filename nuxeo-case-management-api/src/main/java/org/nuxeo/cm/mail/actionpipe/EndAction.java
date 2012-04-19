@@ -22,6 +22,8 @@ package org.nuxeo.cm.mail.actionpipe;
 import javax.mail.Message;
 import javax.mail.Flags.Flag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 
 /**
@@ -31,6 +33,8 @@ import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
  */
 public class EndAction extends AbstractCaseManagementMailAction {
 
+    private static final Log log = LogFactory.getLog(EndAction.class);
+
     public boolean execute(ExecutionContext context) throws Exception {
         try {
             Message message = context.getMessage();
@@ -38,6 +42,7 @@ public class EndAction extends AbstractCaseManagementMailAction {
             message.setFlag(Flag.FLAGGED, false);
             return true;
         } catch (Exception e) {
+            log.error("Failed to execute EndAction", e);
             return false;
         }
     }

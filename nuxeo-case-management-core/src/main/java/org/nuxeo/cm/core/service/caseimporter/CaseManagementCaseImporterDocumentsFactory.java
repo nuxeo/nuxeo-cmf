@@ -19,6 +19,8 @@ package org.nuxeo.cm.core.service.caseimporter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.core.service.caseimporter.sourcenodes.CaseItemSourceNode;
@@ -37,6 +39,8 @@ import org.nuxeo.runtime.api.Framework;
 
 public class CaseManagementCaseImporterDocumentsFactory extends
         CaseManagementCaseItemDocumentFactory {
+
+    private static final Log log = LogFactory.getLog(CaseManagementCaseImporterDocumentsFactory.class);
 
     private CaseManagementDocumentTypeService cmTypeService;
 
@@ -84,6 +88,7 @@ public class CaseManagementCaseImporterDocumentsFactory extends
         try {
             writer.write(xdoc);
         } catch (Exception e) {
+            log.error("Failed to read ExportedDocument", e);
         }
         doc = session.getDocument(doc.getRef());
         notifyCaseImported(session, doc, node);

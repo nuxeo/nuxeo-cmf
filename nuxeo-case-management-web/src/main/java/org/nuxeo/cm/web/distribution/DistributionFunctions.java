@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxHeader;
 import org.nuxeo.cm.service.MailboxManagementService;
@@ -36,6 +38,8 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  */
 public class DistributionFunctions {
+
+    private static final Log log = LogFactory.getLog(DistributionFunctions.class);
 
     public static final int NUMBER_OF_WORDS = 50;
 
@@ -79,6 +83,7 @@ public class DistributionFunctions {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailbox(session, mailboxId);
         } catch (Exception e) {
+            log.error("Failed to get mailbox: " + mailboxId, e);
             return null;
         }
     }
@@ -89,6 +94,7 @@ public class DistributionFunctions {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailboxHeader(session, mailboxId);
         } catch (Exception e) {
+            log.error("Failed to get mailbox headers: " + mailboxId, e);
             return null;
         }
     }
@@ -99,6 +105,7 @@ public class DistributionFunctions {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailboxes(session, mailboxIds);
         } catch (Exception e) {
+            log.error("Failed to get mailboxes: " + mailboxIds, e);
             return null;
         }
     }
@@ -109,6 +116,7 @@ public class DistributionFunctions {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailboxesHeaders(session, mailboxIds);
         } catch (Exception e) {
+            log.error("Failed to get mailboxes headers: " + mailboxIds, e);
             return null;
         }
     }

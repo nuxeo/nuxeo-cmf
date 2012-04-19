@@ -21,6 +21,8 @@ package org.nuxeo.correspondence.web.mailbox;
 
 import java.io.Serializable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -51,6 +53,8 @@ public class CorrespondenceMailboxActionsBean extends
 
     private static final long serialVersionUID = 1L;
 
+    private static final Log log = LogFactory.getLog(CorrespondenceMailboxActionsBean.class);
+
     @In(create = true)
     protected NavigationContext navigationContext;
 
@@ -72,7 +76,7 @@ public class CorrespondenceMailboxActionsBean extends
 
     /**
      * Check if the current envelope display an incoming mail
-     * 
+     *
      * @return true if it's an incoming mail
      * @throws ClientException
      */
@@ -92,11 +96,8 @@ public class CorrespondenceMailboxActionsBean extends
         try {
             correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         } catch (Exception e) {
-            /*
-             * log.error("Could not retrieve CorrespondenceDocumentType
-             * Service", e);
-             */
-
+            log.error("Could not retrieve CorrespondenceDocumentType Service",
+                    e);
         }
 
         Case currentEnvelope = getCurrentCase();
