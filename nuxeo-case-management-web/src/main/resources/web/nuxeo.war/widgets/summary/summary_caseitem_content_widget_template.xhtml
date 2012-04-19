@@ -31,15 +31,13 @@
           <h:outputText value=" (#{nxu:printFileSize(blobHolderGenerator.getBlobHolder(currentCaseItem).blob.length)})"/>
         </nxh:outputLink>
 
-        <c:if test="#{conversionActions.pdfConverterAvailability.available}">
-          <nxu:methodResult name="hasPDFCapabilities" value="#{conversionActions.isExportableToPDF(blobHolderGenerator.getBlobHolder(currentCaseItem))}">
-            <h:panelGroup rendered="#{hasPDFCapabilities}">
-            <nxh:commandLink action="#{conversionActions.generatePdfFileFromBlobHolder(blobHolderGenerator.getBlobHolder(currentCaseItem))}">
-              <nxh:graphicImage value="/icons/pdf.png" title="#{messages['label.document.generatePdf']}"/>
-            </nxh:commandLink>
-            </h:panelGroup>
-          </nxu:methodResult>
-        </c:if>
+        <nxu:methodResult name="hasPDFCapabilities" value="#{conversionActions.isExportableToPDF(blobHolderGenerator.getBlobHolder(currentCaseItem))}">
+          <h:panelGroup rendered="#{hasPDFCapabilities}">
+          <nxh:commandLink action="#{conversionActions.generatePdfFileFromBlobHolder(blobHolderGenerator.getBlobHolder(currentCaseItem))}">
+            <nxh:graphicImage value="/icons/pdf.png" title="#{messages['label.document.generatePdf']}"/>
+          </nxh:commandLink>
+          </h:panelGroup>
+        </nxu:methodResult>
 
         <nxu:methodResult name="editable"
           value="#{liveEditHelper.isDocumentLiveEditable(currentCaseItem, 'file', 'content')}">
