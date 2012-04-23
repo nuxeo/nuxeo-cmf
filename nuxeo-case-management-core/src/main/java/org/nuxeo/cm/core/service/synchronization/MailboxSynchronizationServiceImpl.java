@@ -621,10 +621,14 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     total = userManager.getGroupIds().size();
                     boolean txStarted = false;
                     try {
-                        if (!TransactionHelper.isTransactionActive()) {
-                            txStarted = TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
+                        if (TransactionHelper.isTransactionActive()) {
+                            TransactionHelper.commitOrRollbackTransaction();
+                            log.debug("Commiting existing transaction before Mailbox (group) synchronization");
                         }
+
+                        txStarted = TransactionHelper.startTransaction();
+                        log.debug("New Transaction started during Mailbox (group) synchronization");
+
                         synchronizeGroupList(topBatch, directoryName,
                                 directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
@@ -665,10 +669,14 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
                     boolean txStarted = false;
                     try {
-                        if (!TransactionHelper.isTransactionActive()) {
-                            txStarted = TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
+                        if (TransactionHelper.isTransactionActive()) {
+                            TransactionHelper.commitOrRollbackTransaction();
+                            log.debug("Commiting existing transaction before Mailbox (user) synchronization");
                         }
+
+                        txStarted = TransactionHelper.startTransaction();
+                        log.debug("New Transaction started during Mailbox (user) synchronization");
+
                         synchronizeUserList(userIds, directoryName,
                                 directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
