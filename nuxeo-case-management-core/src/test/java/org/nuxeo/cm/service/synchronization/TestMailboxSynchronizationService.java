@@ -19,12 +19,18 @@
 
 package org.nuxeo.cm.service.synchronization;
 
+import static org.nuxeo.cm.mailbox.MailboxConstants.MAILBOX_ROOT_DOCUMENT_PATH;
+
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator;
+import org.nuxeo.cm.service.synchronization.MailboxSyncTestListener;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailboxConstants;
+import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.classification.api.ClassificationConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -34,14 +40,26 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.directory.api.DirectoryService;
+import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
+
+
 
 /**
  * @author Laurent Doguin
  */
 public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
 
+    protected static String MB_ROOT = MAILBOX_ROOT_DOCUMENT_PATH + "/";
+
+    protected MailboxSynchronizationService syncService;
+
+    protected MailboxManagementService mbService;
+
+    protected UserManager umService;
+
     @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -112,10 +130,12 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     }
 
     public void testSynchro() throws Exception {
-        MailboxSynchronizationService synchronizationService = Framework.getService(MailboxSynchronizationService.class);
-        assertNotNull(synchronizationService);
+        syncService= Framework.getService(MailboxSynchronizationService.class);
+        assertNotNull(syncService);
         // test synchronization
-        synchronizationService.doSynchronize();
+        Framework.getProperties().load(
+                new FileInputStream(getResource("cmf.properties").getFile()));
+        syncService.doSynchronize();
         session.save();
         assertEquals(11, MailboxSyncTestListener.onMailboxCreatedForGroup);
         assertEquals(10, MailboxSyncTestListener.onMailboxCreatedForUser);
@@ -145,7 +165,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         dirService.open("userDirectory").deleteEntry("user");
         dirService.open("groupDirectory").deleteEntry("group_4");
         MailboxSyncTestListener.resetCounter();
-        synchronizationService.doSynchronize();
+        syncService.doSynchronize();
         session.save();
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForUser);
@@ -184,7 +204,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         membersMailbox.setSynchronizeState(MailboxSynchronizationConstants.synchronisedState.unsynchronised.toString());
         membersMailbox.save(session);
         MailboxSyncTestListener.resetCounter();
-        synchronizationService.doSynchronize();
+        syncService.doSynchronize();
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForGroup);
         assertEquals(0, MailboxSyncTestListener.onMailboxCreatedForUser);
         assertEquals(9, MailboxSyncTestListener.onMailboxUpdatedForGroup);

@@ -103,6 +103,10 @@ public class MailboxConstants {
 
     public static final String SYNC_BATCH_SIZE_PROPERTY = "cm.mailboxes.updateBatchSize";
 
+    public static final String MAILBOX_CASE_CREATION_PROFILE = "cellule_courrier";
+
+    public static final String SYNC_DELETE_MAILBOXES_PROPERTY = "cm.syncro.delete.mailboxes";
+    
     public static List<MailboxHeader> getMailboxHeaderList(
             List<DocumentModel> docs) {
         List<MailboxHeader> res = new ArrayList<MailboxHeader>();
