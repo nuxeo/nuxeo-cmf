@@ -27,9 +27,15 @@ import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbDel
 import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbUpdatedForGroup;
 import static org.nuxeo.cm.service.synchronization.MailboxSyncTestListener.mbUpdatedForUser;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator;
 import org.nuxeo.cm.mailbox.Mailbox;
@@ -64,6 +70,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     protected UserManager umService;
 
     @Override
+    @Before
     public void setUp() throws Exception {
         super.setUp();
 
@@ -111,6 +118,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     }
 
     @Override
+    @After
     public void tearDown() throws Exception {
         closeSession();
         super.tearDown();
@@ -141,6 +149,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     }
 
     public void testSynchro() throws Exception {
+        Framework.getProperties().load(
+                new FileInputStream(getResource("cmf.properties").getFile()));
         syncService.doSynchronize();
         session.save();
 

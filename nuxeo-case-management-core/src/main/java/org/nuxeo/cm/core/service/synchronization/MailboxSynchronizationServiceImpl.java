@@ -108,6 +108,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
     protected int batchSize = 100;
 
+    protected boolean deleteOldMailboxes;
+
     @Override
     public void registerContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor)
@@ -200,6 +202,9 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         if (batchSize != null && !"".equals(batchSize)) {
             this.batchSize = Integer.parseInt(batchSize);
         }
+        deleteOldMailboxes = Boolean.parseBoolean(Framework.getProperty(
+                MailboxConstants.SYNC_DELETE_MAILBOXES_PROPERTY, "false"));
+
         Repository repo = mgr.getDefaultRepository();
         SynchronizeSessionRunner runner = new SynchronizeSessionRunner(
                 repo.getName());
@@ -644,8 +649,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             log.debug("Transaction ended during Mailbox synchronization");
                         }
                     }
-                    log.info("Looking for deleted group entries");
-                    handleDeletedMailboxes(directoryName, now, session);
+                    if (deleteOldMailboxes) {
+                        log.info("Looking for deleted group entries");
+                        handleDeletedMailboxes(directoryName, now, session);
+                    }
                     log.info("Group directory has been synchronized");
                 } else {
                     log.error("Could not find GroupTitleGenerator, abort group directory synchronization.");
@@ -694,7 +701,9 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     }
                     log.debug(String.format("Updated %d/%d mailboxes", count,
                             total));
-                    handleDeletedMailboxes(directoryName, now, session);
+                    if (deleteOldMailboxes) {
+                        handleDeletedMailboxes(directoryName, now, session);
+                    }
                     log.info("User directory has been synchronized");
                 } else {
                     log.error("Could not find UserTitleGenerator, abort user directory synchronization.");
