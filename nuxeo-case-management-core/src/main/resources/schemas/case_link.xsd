@@ -14,6 +14,7 @@
   <xs:element name="isSent" type="xs:boolean" default="false" />
   <xs:element name="sender" type="xs:string" />
   <xs:element name="type" type="xs:string" />
+  <!-- FIXME: useless (?) -->
   <xs:element name="typeInfo" type="xs:string" />
   <xs:element name="senderMailboxId" type="xs:string" />
   <xs:element name="sentDate" type="xs:date" />
