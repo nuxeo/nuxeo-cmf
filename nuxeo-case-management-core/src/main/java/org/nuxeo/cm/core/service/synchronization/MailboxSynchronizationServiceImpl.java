@@ -108,6 +108,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
     protected int batchSize = 100;
 
+    protected boolean deleteOldMailboxes;
+
     @Override
     public void registerContribution(Object contribution,
             String extensionPoint, ComponentInstance contributor)
@@ -200,6 +202,9 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         if (batchSize != null && !"".equals(batchSize)) {
             this.batchSize = Integer.parseInt(batchSize);
         }
+        deleteOldMailboxes = Boolean.parseBoolean(Framework.getProperty(
+                MailboxConstants.SYNC_DELETE_MAILBOXES_PROPERTY, "false"));
+
         Repository repo = mgr.getDefaultRepository();
         SynchronizeSessionRunner runner = new SynchronizeSessionRunner(
                 repo.getName());
@@ -245,7 +250,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     try {
                         groupModel = userManager.getGroupModel(groupName);
                         if (groupModel == null) {
-                            log.error("Could not synchronize mailbox for user " + groupName);
+                            log.error("Could not synchronize mailbox for user "
+                                    + groupName);
                             continue;
                         }
                         synchronizerId = String.format("%s:%s", directoryName,
@@ -260,7 +266,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         if (groupChilds != null && !groupChilds.isEmpty()) {
                             nextChildrenBatch.put(synchronizerId, groupChilds);
                         }
-                        if (++count % batchSize == 0 && count != 0) {
+                        if (++count % batchSize == 0) {
                             if (txStarted) {
                                 log.debug("Transaction ended during Mailbox synchronization");
                                 TransactionHelper.commitOrRollbackTransaction();
@@ -322,7 +328,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             userManager.getUserSchemaName(), "",
                             synchronizerId, userId, generatedTitle, userId,
                             type, now, coreSession);
-                    if (++count % batchSize == 0 && count != 0) {
+                    if (++count % batchSize == 0) {
                         if (txStarted) {
                             log.debug("Transaction ended during Mailbox synchronization");
                             TransactionHelper.commitOrRollbackTransaction();
@@ -609,7 +615,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     throw new CaseManagementRuntimeException(e);
                 }
                 if (titleGenerator != null) {
-                    now = GregorianCalendar.getInstance();
+                    now = Calendar.getInstance();
                     directoryName = userManager.getGroupDirectoryName();
                     directoryIdField = userManager.getGroupIdField();
                     List<String> topLevelgroups = userManager.getTopLevelGroups();
@@ -618,13 +624,16 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     log.info("Start groups synchronization");
                     count = 0;
                     total = userManager.getGroupIds().size();
-                    Boolean txStarted = true;
+                    boolean txStarted = false;
                     try {
-                        // Check if transaction started
-                        if (!TransactionHelper.isTransactionActive()) {
-                            txStarted = TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
+                        if (TransactionHelper.isTransactionActive()) {
+                            TransactionHelper.commitOrRollbackTransaction();
+                            log.debug("Commiting existing transaction before Mailbox (group) synchronization");
                         }
+
+                        txStarted = TransactionHelper.startTransaction();
+                        log.debug("New Transaction started during Mailbox (group) synchronization");
+
                         synchronizeGroupList(topBatch, directoryName,
                                 directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
@@ -638,12 +647,12 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         if (txStarted) {
                             TransactionHelper.commitOrRollbackTransaction();
                             log.debug("Transaction ended during Mailbox synchronization");
-                            TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
                         }
                     }
-                    log.info("Looking for deleted group entries");
-                    handleDeletedMailboxes(directoryName, now, session);
+                    if (deleteOldMailboxes) {
+                        log.info("Looking for deleted group entries");
+                        handleDeletedMailboxes(directoryName, now, session);
+                    }
                     log.info("Group directory has been synchronized");
                 } else {
                     log.error("Could not find GroupTitleGenerator, abort group directory synchronization.");
@@ -664,13 +673,17 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     log.debug("Start users synchronization");
                     count = 0;
                     total = userIds.size();
-                    Boolean txStarted = true;
+
+                    boolean txStarted = false;
                     try {
-                        // Check if transaction started
-                        if (!TransactionHelper.isTransactionActive()) {
-                            txStarted = TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
+                        if (TransactionHelper.isTransactionActive()) {
+                            TransactionHelper.commitOrRollbackTransaction();
+                            log.debug("Commiting existing transaction before Mailbox (user) synchronization");
                         }
+
+                        txStarted = TransactionHelper.startTransaction();
+                        log.debug("New Transaction started during Mailbox (user) synchronization");
+
                         synchronizeUserList(userIds, directoryName,
                                 directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
@@ -684,13 +697,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         if (txStarted) {
                             TransactionHelper.commitOrRollbackTransaction();
                             log.debug("Transaction ended during Mailbox synchronization");
-                            TransactionHelper.startTransaction();
-                            log.debug("New Transaction started during Mailbox synchronization");
                         }
                     }
                     log.debug(String.format("Updated %d/%d mailboxes", count,
                             total));
-                    handleDeletedMailboxes(directoryName, now, session);
+                    if (deleteOldMailboxes) {
+                        handleDeletedMailboxes(directoryName, now, session);
+                    }
                     log.info("User directory has been synchronized");
                 } else {
                     log.error("Could not find UserTitleGenerator, abort user directory synchronization.");
