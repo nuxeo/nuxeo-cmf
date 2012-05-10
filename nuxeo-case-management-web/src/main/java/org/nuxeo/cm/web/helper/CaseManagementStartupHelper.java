@@ -23,6 +23,7 @@ import static org.jboss.seam.ScopeType.SESSION;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
@@ -30,11 +31,7 @@ import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.web.mailbox.CaseManagementMailboxActionsBean;
-import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
-import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.webapp.helpers.StartupHelper;
 import org.nuxeo.runtime.api.Framework;
 
@@ -62,9 +59,10 @@ public class CaseManagementStartupHelper extends StartupHelper {
     protected transient NuxeoPrincipal currentNuxeoPrincipal;
 
     @Override
-    public String initServerAndFindStartupPage() throws ClientException {
-        String page = super.initServerAndFindStartupPage();
-        initCurrentDomain();
+    @Begin(id = "#{conversationIdGenerator.nextMainConversationId}", join = true)
+    public String initDomainAndFindStartupPage(String domainTitle, String viewId) {
+        String page = super.initDomainAndFindStartupPage(domainTitle, viewId);
+
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             // select mailbox to display
@@ -79,28 +77,6 @@ public class CaseManagementStartupHelper extends StartupHelper {
             log.error("Could not redirect to user mailbox", e);
         }
         return page;
-    }
-
-    protected void initCurrentDomain() throws ClientException {
-        // initialize framework context
-        if (documentManager == null) {
-            documentManager = navigationContext.getOrCreateDocumentManager();
-        }
-        // get the domains from selected server
-        DocumentModel rootDocument = documentManager.getRootDocument();
-
-        if (!documentManager.hasPermission(rootDocument.getRef(),
-                SecurityConstants.READ_CHILDREN)) {
-            // user cannot see the root => do not set current document yet
-        } else {
-            DocumentModelList domains = documentManager.getChildren(rootDocument.getRef());
-
-            if (domains.size() > 0) {
-                navigationContext.setCurrentDocument(domains.get(0));
-            } else {
-                log.warn("No domain found: cannot set current document");
-            }
-        }
     }
 
 }
