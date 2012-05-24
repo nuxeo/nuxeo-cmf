@@ -1,5 +1,5 @@
 #!/bin/bash -x
-PROFILE=${1:-"server"}
+PROFILE=${1:-"tomcat"}
 DISTRIBUTION=${2:-$PROFILE}
 DIR_DISTRIB=${3:-"cm"}
 
