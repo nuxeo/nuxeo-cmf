@@ -46,6 +46,9 @@ public class TestModel extends SQLRepositoryTestCase {
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-core-types-contrib.xml");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
+        deployBundle("org.nuxeo.ecm.platform.classification.api");
+        deployBundle("org.nuxeo.ecm.platform.classification.core");
+        fireFrameworkStarted();
         openSession();
     }
 
