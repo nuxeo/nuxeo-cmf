@@ -15,10 +15,7 @@
       </templates>
       <rows>
         <row>
-          <widget>faceted_searches_selector</widget>
-        </row>
-        <row>
-          <widget>saved_faceted_searches_selector</widget>
+          <widget>all_saved_faceted_searches_selector</widget>
         </row>
         <row>
           <widget>actions_bar</widget>
