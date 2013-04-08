@@ -19,6 +19,7 @@ package org.nuxeo.cm.web.contentbrowser;
 import static org.jboss.seam.ScopeType.CONVERSATION;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jboss.seam.annotations.Create;
@@ -62,11 +63,17 @@ public class CMMultiNavTreeManager extends MultiNavTreeManager {
 
     protected List<NavTreeDescriptor> getNavTree(boolean includeStdNav) {
         List<NavTreeDescriptor> result = new ArrayList<NavTreeDescriptor>();
-        if (includeStdNav) {
-            result.add(new NavTreeDescriptor(STD_NAV_TREE, STD_NAV_TREE_LABEL));
-        }
         NavTreeService navTreeService = Framework.getLocalService(NavTreeService.class);
         result.addAll(navTreeService.getTreeDescriptors());
+        if (!includeStdNav) {
+            Iterator<NavTreeDescriptor> it = result.iterator();
+            while (it.hasNext()) {
+                if (it.next().getTreeId().equals(STD_NAV_TREE)) {
+                    it.remove();
+                    break;
+                }
+            }
+        }
         return result;
     }
 
