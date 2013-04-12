@@ -136,7 +136,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     /**
      * Executes a query model.
-     * 
+     *
      * @param queryModel The name of the query model
      * @return the corresponding documentModels
      */
@@ -147,7 +147,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     /**
      * Executes a query model.
-     * 
+     *
      * @param queryModel The name of the query model
      * @param params params if the query model
      * @return the corresponding documentModels
@@ -499,7 +499,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
     /**
      * Retrieves and caches the Event Producer Service.
-     * 
+     *
      * @return The Event Producer Service
      * @throws Exception
      */
