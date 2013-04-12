@@ -248,10 +248,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         try {
             String parentPath = persister.getParentDocumentPathForCaseItem(
                     session, kase);
-            emailDoc.setPathInfo(parentPath,
-                    pathSegmentService.generatePathSegment(emailDoc));
             CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
-                    session, emailDoc, kase);
+                    session, emailDoc, kase.getDocument().getACP(), parentPath);
             mailCreator.runUnrestricted();
             DocumentModel mail = session.getDocument(mailCreator.getDocRef());
             CaseItem newCaseItem = mail.getAdapter(CaseItem.class);

@@ -19,9 +19,6 @@ package org.nuxeo.cm.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nuxeo.cm.cases.Case;
-import org.nuxeo.cm.exception.CaseManagementRuntimeException;
-import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -31,7 +28,6 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
-import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
  * Creates a new caseItem document from a given document model
@@ -42,53 +38,37 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
 
     protected final DocumentModel doc;
 
-    protected List<Mailbox> mailboxes;
-
-    protected Case kase;
+    protected final ACP caseACP;
 
     protected DocumentRef ref;
 
-    public CreateCaseItemUnrestricted(CoreSession session, DocumentModel doc,
-            List<Mailbox> mailboxes) {
-        super(session);
-        this.doc = doc;
-        this.mailboxes = mailboxes;
-    }
+    protected final String parentPath;
 
     public CreateCaseItemUnrestricted(CoreSession session, DocumentModel doc,
-            Case kase) {
+            ACP caseACP, String parentPath) throws ClientException {
         super(session);
+        if (doc.getId() != null) {
+            // don't detach if not yet created
+            doc.detach(true);
+        }
         this.doc = doc;
-        this.kase = kase;
+        this.caseACP = caseACP;
+        this.parentPath = parentPath;
     }
 
     @Override
     public void run() throws ClientException {
-        DocumentModel newDoc = session.createDocument(doc);
+        DocumentModel newDoc = session.createDocumentModel(parentPath,
+                doc.getName(), doc.getType());
         newDoc.copyContent(doc);
+        newDoc = session.createDocument(newDoc);
         ACP acp = newDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-        addACL(acl);
+        List<ACE> aces = caseACP.getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+        acl.addAll(aces == null ? new ArrayList<ACE>() : aces);
         acp.addACL(acl);
         session.setACP(newDoc.getRef(), acp, true);
         ref = newDoc.getRef();
-    }
-
-    private void addACL(ACL acl) {
-        if (mailboxes != null) {
-            for (Mailbox mailbox : mailboxes) {
-                acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                        + mailbox.getId(), SecurityConstants.READ_WRITE, true));
-            }
-        } else {
-            try {
-                List<ACE> aces = kase.getDocument().getACP().getACL(
-                        CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-                acl.addAll(aces == null ? new ArrayList<ACE>() : aces);
-            } catch (ClientException e) {
-                throw new CaseManagementRuntimeException(e);
-            }
-        }
     }
 
     public DocumentRef getDocRef() {

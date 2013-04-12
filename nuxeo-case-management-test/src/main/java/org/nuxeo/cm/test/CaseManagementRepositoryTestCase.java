@@ -159,7 +159,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         DocumentModel model = getMailEnvelopeModel();
         model.setPropertyValue(DC_TITLE, CASE_TITLE);
         DocumentModel doc = session.createDocument(model);
-        session.saveDocument(doc);
         session.save();
         return doc.getAdapter(Case.class);
     }
@@ -167,7 +166,6 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     public CaseItem getMailEnvelopeItem() throws Exception {
         DocumentModel model = getMailEnvelopeItemModel();
         DocumentModel doc = session.createDocument(model);
-        session.saveDocument(doc);
         session.save();
         return doc.getAdapter(CaseItem.class);
     }
