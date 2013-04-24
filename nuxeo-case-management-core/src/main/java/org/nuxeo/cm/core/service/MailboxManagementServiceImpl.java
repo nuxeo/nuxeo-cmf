@@ -333,7 +333,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         List<DocumentModel> list;
         try {
             PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) pps.getPageProvider(
-                    ppName, null, null, null, props, null, params);
+                    ppName, null, null, null, props, params);
             list = pp.getCurrentPage();
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
