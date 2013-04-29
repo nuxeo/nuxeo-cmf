@@ -30,7 +30,8 @@
 
     <a4j:region renderRegionOnly="true">
 
-      <a4j:outputPanel ajaxRendered="true" id="#{widget.id}_region">
+      <a4j:outputPanel ajaxRendered="true" id="#{widget.id}_region"
+        layout="block">
 
         <h:dataTable
           value="#{currentCase.documents}"
