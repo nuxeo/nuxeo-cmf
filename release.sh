@@ -1,11 +1,11 @@
 #!/bin/bash
-CURRENT_VERSION=1.8
-RELEASE_VERSION=1.8
+CURRENT_VERSION=1.8.2-HF07-SNAPSHOT
+RELEASE_VERSION=1.8.2-HF07
 WORKSPACE=release-$RELEASE_VERSION
 #fix me
-NX_REPO=/home/mariana/.m2/repository/org/nuxeo/cm
+NX_REPO=/home/thierry/.m2/repository/org/nuxeo/cm
 WORK_DIR=`pwd`
-mkdir //archives
+mkdir archives
 
 
 fix_zip() {
@@ -55,10 +55,10 @@ prepare() {
 
 
 #Build and copy
-mvn -Prelease,tomcat,server install
+#mvn -Prelease,tomcat,server install
 
 # Tomcat
-prepare "$NX_REPO"/nuxeo-case-management-distribution/1.8/nuxeo-case-management-distribution-1.8-tomcat-cmf.zip nuxeo-case-management-distribution-$RELEASE_VERSION-tomcat-cmf
+prepare "$NX_REPO"/nuxeo-case-management-distribution/$RELEASE_VERSION/nuxeo-case-management-distribution-$RELEASE_VERSION-tomcat-cmf.zip nuxeo-case-management-distribution-$RELEASE_VERSION-tomcat-cmf
 
 #deploy maven artifacts
 mvn clean deploy  -Prelease,qa
