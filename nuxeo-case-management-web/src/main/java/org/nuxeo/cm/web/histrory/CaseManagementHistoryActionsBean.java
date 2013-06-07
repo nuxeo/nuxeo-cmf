@@ -31,9 +31,11 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.event.CaseManagementEventConstants;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -280,5 +282,13 @@ public class CaseManagementHistoryActionsBean extends
         }
 
         return otherLogEntries;
+    }
+    
+    @Observer(value = {CaseManagementWebConstants.EVENT_CASE_MANAGEMENT_CASE_SENT})
+    public void onCaseSent() {
+        distributionLogEntriesLinkedDocs = null;
+        distributionLogEntriesComments = null;
+        caseDistributionLogEntries = null;
+        distributionLogEntries = null;
     }
 }

@@ -34,6 +34,8 @@ public class CaseManagementWebConstants {
     public static final String CREATE_NEW_CASE_KEY = "createNewCaseKey";
 
     public static final String DOCUMENT_ROUTE_TAB_ID = "TAB_DOCUMENT_ROUTE_ELEMENTS";
+    
+    public static final String EVENT_CASE_MANAGEMENT_CASE_SENT = "eventCmCaseSent";
 
     private CaseManagementWebConstants() {
     }

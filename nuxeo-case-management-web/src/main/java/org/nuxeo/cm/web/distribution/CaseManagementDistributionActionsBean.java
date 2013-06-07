@@ -52,6 +52,7 @@ import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.mailbox.MailingList;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -224,6 +225,9 @@ public class CaseManagementDistributionActionsBean extends
                             "feedback.casemanagement.distribution.done"));
             // raise seam event to update the content view for the mailbox
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
+                    currentMailbox.getDocument());
+            Events.instance().raiseEvent(
+                    CaseManagementWebConstants.EVENT_CASE_MANAGEMENT_CASE_SENT,
                     currentMailbox.getDocument());
         }
         // navigate to default view
