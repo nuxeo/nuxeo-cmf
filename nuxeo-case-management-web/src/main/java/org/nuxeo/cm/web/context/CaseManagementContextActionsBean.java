@@ -26,15 +26,16 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.core.Events;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.mailbox.Mailbox;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
-import org.nuxeo.ecm.webapp.helpers.EventManager;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.tree.TreeActions;
 
@@ -50,7 +51,6 @@ public class CaseManagementContextActionsBean implements Serializable,
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
-    
 
     @In(create = true, required = false)
     protected transient TreeActions treeActions;
@@ -93,9 +93,13 @@ public class CaseManagementContextActionsBean implements Serializable,
             // document cases
             if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && !newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
-                cmContextHolder.setCurrentCase(newDocument.getAdapter(Case.class));
+                Case currentCase = newDocument.getAdapter(Case.class);
+                cmContextHolder.setCurrentCase(currentCase);
                 cmContextHolder.setCurrentCaseItem(null);
                 treeActions.reset();
+                Events.instance().raiseEvent(
+                        CaseManagementWebConstants.EVENT_CURRENT_CASE_CHANGED,
+                        currentCase);
             } else if (newDocument.hasFacet(CaseConstants.DISTRIBUTABLE_FACET)
                     && newDocument.hasFacet(CaseConstants.CASE_GROUPABLE_FACET)) {
                 cmContextHolder.setCurrentCaseItem(newDocument);

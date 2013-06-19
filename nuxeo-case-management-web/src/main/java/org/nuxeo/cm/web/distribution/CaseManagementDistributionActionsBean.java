@@ -226,9 +226,6 @@ public class CaseManagementDistributionActionsBean extends
             // raise seam event to update the content view for the mailbox
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                     currentMailbox.getDocument());
-            Events.instance().raiseEvent(
-                    CaseManagementWebConstants.EVENT_CASE_MANAGEMENT_CASE_SENT,
-                    currentMailbox.getDocument());
         }
         // navigate to default view
         webActions.resetCurrentTab();

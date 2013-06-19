@@ -35,7 +35,7 @@ public class CaseManagementWebConstants {
 
     public static final String DOCUMENT_ROUTE_TAB_ID = "TAB_DOCUMENT_ROUTE_ELEMENTS";
     
-    public static final String EVENT_CASE_MANAGEMENT_CASE_SENT = "eventCmCaseSent";
+    public static final String EVENT_CURRENT_CASE_CHANGED = "eventCurrentCmCaseChanged";
 
     private CaseManagementWebConstants() {
     }

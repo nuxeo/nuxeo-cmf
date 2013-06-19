@@ -42,8 +42,8 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.audit.api.AuditException;
 import org.nuxeo.ecm.platform.audit.api.LogEntry;
-import org.nuxeo.ecm.platform.audit.web.listener.ContentHistoryActions;
 import org.nuxeo.ecm.platform.audit.api.comment.LinkedDocument;
+import org.nuxeo.ecm.platform.audit.web.listener.ContentHistoryActions;
 import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 
@@ -136,7 +136,6 @@ public class CaseManagementHistoryActionsBean extends
                 computeDistributionLogEntries(), null);
     }
 
-
     @Factory(value = "caseItemDistributionLogEntries", scope = EVENT)
     public List<? extends LogEntry> computeCaseDistributionLogEntries()
             throws AuditException {
@@ -149,7 +148,7 @@ public class CaseManagementHistoryActionsBean extends
                         caseDistributionLogEntries = contentHistoryActions.computeLogEntries(currentCaseDoc);
                         caseDistributionLogEntries = distributionPostFilter(caseDistributionLogEntries);
                     }
-                    
+
                 }
             } catch (ClientException e) {
                 throw new AuditException(e);
@@ -283,12 +282,13 @@ public class CaseManagementHistoryActionsBean extends
 
         return otherLogEntries;
     }
-    
-    @Observer(value = {CaseManagementWebConstants.EVENT_CASE_MANAGEMENT_CASE_SENT})
-    public void onCaseSent() {
+
+    @Observer(value = { CaseManagementWebConstants.EVENT_CURRENT_CASE_CHANGED })
+    public void onCurrentCaseChanged() throws ClientException {
         distributionLogEntriesLinkedDocs = null;
         distributionLogEntriesComments = null;
         caseDistributionLogEntries = null;
         distributionLogEntries = null;
+        logEntries = null;
     }
 }

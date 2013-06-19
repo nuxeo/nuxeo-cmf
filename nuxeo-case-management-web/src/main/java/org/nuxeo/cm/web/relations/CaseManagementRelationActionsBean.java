@@ -39,8 +39,10 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
+import org.nuxeo.cm.web.CaseManagementWebConstants;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -421,13 +423,15 @@ public class CaseManagementRelationActionsBean extends
             notifyEvent(RelationEvents.AFTER_RELATION_CREATION, currentDoc,
                     options, eventComment);
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "label.relation.created"));
         }
 
         if (alreadySet) {
-            facesMessages.add(FacesMessage.SEVERITY_WARN,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_WARN,
                     resourcesAccessor.getMessages().get(
                             "label.relation.already.exists"));
         }
@@ -469,7 +473,8 @@ public class CaseManagementRelationActionsBean extends
             // make sure statements will be recomputed
             resetStatements();
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "label.relation.deleted"));
         }
@@ -481,5 +486,10 @@ public class CaseManagementRelationActionsBean extends
             DocumentModel newEmail) throws ClientException {
         resetStatements();
         resetCreateFormValues();
+    }
+
+    @Observer(value = { CaseManagementWebConstants.EVENT_CURRENT_CASE_CHANGED })
+    public void onCurrentCaseChanged() throws ClientException {
+        resetStatements();
     }
 }
