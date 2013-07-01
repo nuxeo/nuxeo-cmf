@@ -1,6 +1,6 @@
 #!/bin/bash
-CURRENT_VERSION=1.8.2-HF07-SNAPSHOT
-RELEASE_VERSION=1.8.2-HF07
+CURRENT_VERSION=1.8.2-HF08-SNAPSHOT
+RELEASE_VERSION=1.8.2-HF08
 WORKSPACE=release-$RELEASE_VERSION
 #fix me
 NX_REPO=/home/thierry/.m2/repository/org/nuxeo/cm
@@ -55,7 +55,7 @@ prepare() {
 
 
 #Build and copy
-#mvn -Prelease,tomcat,server install
+mvn -Prelease,tomcat,server install
 
 # Tomcat
 prepare "$NX_REPO"/nuxeo-case-management-distribution/$RELEASE_VERSION/nuxeo-case-management-distribution-$RELEASE_VERSION-tomcat-cmf.zip nuxeo-case-management-distribution-$RELEASE_VERSION-tomcat-cmf
