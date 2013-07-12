@@ -1,10 +1,10 @@
 /*
- * (C) Copyright 2006-2008 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2013 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
  * (LGPL) version 2.1 which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/lgpl.html
+ * http://www.gnu.org/licenses/lgpl-2.1.html
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,10 +14,13 @@
  * Contributors:
  *     <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
- * $Id: TestMailBodyParser.java 15964 2009-10-29 12:25:21Z bligault $
  */
 
 package org.nuxeo.correspondence.test.mailservice;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,8 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.nuxeo.cm.contact.Contact;
 import org.nuxeo.cm.contact.Contacts;
 import org.nuxeo.cm.mail.actionpipe.MailActionPipeConstants;
@@ -50,7 +51,7 @@ public class TestMailBodyParser {
      * @throws Exception
      */
     private void emailEnglishAssertions(String content) throws Exception {
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
 
         ParseMailBody.parse(content, context);
         assertFalse(context.isEmpty());
@@ -66,8 +67,8 @@ public class TestMailBodyParser {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
         matchContact("", to, actualTo.get(0));
@@ -82,7 +83,7 @@ public class TestMailBodyParser {
      * @throws Exception
      */
     private void emailEnglishWithCcAssertions(String content) throws Exception {
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
 
         ParseMailBody.parse(content, context);
         assertFalse(context.isEmpty());
@@ -98,8 +99,8 @@ public class TestMailBodyParser {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(2, actualTo.size());
         matchContact("", to, actualTo.get(0));
@@ -155,7 +156,7 @@ public class TestMailBodyParser {
 
     @Test
     public void testBodyParser() throws Exception {
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         String content = "\n________________________________\n\nDe : Alain Escaffre [mailto:aescaffre@nuxeo.com]\nEnvoy\u00e9 : lundi 19 mai 2008 09:06\n\u00c0 : doguin laurent\nCc : Anahide Tchertchian; Oriane TIAN; Alain Escaffre\nObjet : [correspondence] courriel test pour fonctionnalit\u00e9 \"transfert de courriel vers correspondence\"\n\nCeci est un courriel de test";
 
         ParseMailBody.parse(content, context);
@@ -176,8 +177,8 @@ public class TestMailBodyParser {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
         matchContact(to, null, actualTo.get(0));
@@ -188,7 +189,7 @@ public class TestMailBodyParser {
         matchContact(cc3, null, actualCc.get(2));
 
         // again without copy and not "mailto" from
-        context = new HashMap<String, Object>();
+        context = new HashMap<>();
         content = "\n________________________________\n\nDe : Alain Escaffre\nEnvoy\u00e9 : lundi 19 mai 2008 09:06\n\u00c0 : doguin laurent\nObjet : [correspondence] courriel test pour fonctionnalit\u00e9 \"transfert de courriel vers correspondence\"\n\nCeci est un courriel de test";
         ParseMailBody.parse(content, context);
         assertFalse(context.isEmpty());
@@ -197,8 +198,8 @@ public class TestMailBodyParser {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, null, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
         matchContact(to, null, actualTo.get(0));
@@ -206,7 +207,7 @@ public class TestMailBodyParser {
         assertNull(actualCc);
 
         // again without action or copy
-        context = new HashMap<String, Object>();
+        context = new HashMap<>();
         content = "\n________________________________\n\nDe : GUITTER Solen [mailto:solen.guitter@nuxeo.com]\nEnvoy\u00e9 : jeudi 4 f\u00e9vrier 2008 16:46\nObjet : Tirez pleinement parti du format XML !";
         ParseMailBody.parse(content, context);
         assertFalse(context.isEmpty());
@@ -219,8 +220,8 @@ public class TestMailBodyParser {
         date.setTimeInMillis(0);
         date.set(2008, 1, 4, 16, 46);
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertNull(actualTo);
         actualCc = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_CC_RECIPIENTS_KEY);

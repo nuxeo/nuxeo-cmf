@@ -1,10 +1,10 @@
 /*
- * (C) Copyright 2006-2010 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2013 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
  * (LGPL) version 2.1 which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/lgpl.html
+ * http://www.gnu.org/licenses/lgpl-2.1.html
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,26 +14,29 @@
  * Contributors:
  *     <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  *
- * $Id:
  */
 
 package org.nuxeo.correspondence.test.mailservice;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.nuxeo.cm.caselink.CaseLink;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
@@ -70,6 +73,9 @@ public class TestCorrespondenceMailInjection extends
 
     protected String incomingDocumentType;
 
+    private final SimpleDateFormat parserSDF = new SimpleDateFormat(
+            "EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH);
+
     @Override
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
@@ -80,6 +86,7 @@ public class TestCorrespondenceMailInjection extends
         deployBundle(CorrespondenceTestConstants.CORRESPONDENCE_CORE_TEST_BUNDLE);
     }
 
+    @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -94,6 +101,7 @@ public class TestCorrespondenceMailInjection extends
         openSession();
     }
 
+    @Override
     @After
     public void tearDown() throws Exception {
         closeSession();
@@ -126,11 +134,11 @@ public class TestCorrespondenceMailInjection extends
         List<DocumentModel> linkedDocs = envelope.getDocuments();
         DocumentModel firstDoc = linkedDocs.get(0);
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals("Thu Feb 25 15:14:35 CET 2010",
-                receptionDate.getTime().toString());
+        assertEquals(parserSDF.parse("Thu Feb 25 15:14:35 CET 2010"),
+                receptionDate.getTime());
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals("Thu Feb 25 15:15:25 CET 2010",
-                importDate.getTime().toString());
+        assertEquals(parserSDF.parse("Thu Feb 25 15:15:25 CET 2010"),
+                importDate.getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals("<14A8EDFD-E93E-4E05-B1F3-7F2EED488BCB@nuxeo.com>",
                 reference);
@@ -181,8 +189,8 @@ public class TestCorrespondenceMailInjection extends
     }
 
     /**
-     * copy of the previous test but with a mail forwarded using thunderbird
-     * (french)
+     * copy of the previous test but with a mail forwarded using Thunderbird
+     * (French)
      *
      * @throws Exception
      */
@@ -208,12 +216,12 @@ public class TestCorrespondenceMailInjection extends
         DocumentModel firstDoc = linkedDocs.get(0);
         // initial message reception
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals("Mon Dec 06 18:08:41 CET 2010",
-                receptionDate.getTime().toString());
+        assertEquals(parserSDF.parse("Mon Dec 06 18:08:41 CET 2010"),
+                receptionDate.getTime());
         // date of the initial message
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals("Wed Sep 22 12:49:11 CEST 2010",
-                importDate.getTime().toString());
+        assertEquals(parserSDF.parse("Wed Sep 22 12:49:11 CEST 2010"),
+                importDate.getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals("<4CFD1899.9070005@nuxeo.com>", reference);
         String origin = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME);
@@ -289,12 +297,12 @@ public class TestCorrespondenceMailInjection extends
         DocumentModel firstDoc = linkedDocs.get(0);
         // initial message reception
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals("Wed Dec 08 18:25:20 CET 2010",
-                receptionDate.getTime().toString());
+        assertEquals(parserSDF.parse("Wed Dec 08 18:25:20 CET 2010"),
+                receptionDate.getTime());
         // date of the initial message
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals("Wed Dec 08 00:00:00 CET 2010",
-                importDate.getTime().toString());
+        assertEquals(parserSDF.parse("Wed Dec 08 00:00:00 CET 2010"),
+                importDate.getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals(
                 "<AANLkTinYj41ADFjFqb=kBYnKzM6jdNMV1OQYDEodMahJ@mail.gmail.com>",
@@ -388,7 +396,7 @@ public class TestCorrespondenceMailInjection extends
     }
 
     /**
-     * Test english then french forwarded mail
+     * Test English then French forwarded mail
      *
      * @throws Exception
      */
@@ -399,7 +407,7 @@ public class TestCorrespondenceMailInjection extends
     }
 
     /**
-     * Test english twice forwarded mail
+     * Test English twice forwarded mail
      *
      * @throws Exception
      */
