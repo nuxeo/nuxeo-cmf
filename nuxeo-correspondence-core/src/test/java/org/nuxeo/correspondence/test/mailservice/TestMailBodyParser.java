@@ -1,10 +1,10 @@
 /*
- * (C) Copyright 2006-2008 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2013 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
  * (LGPL) version 2.1 which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/lgpl.html
+ * http://www.gnu.org/licenses/lgpl-2.1.html
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,7 +14,6 @@
  * Contributors:
  *     <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  *
- * $Id: TestMailBodyParser.java 15964 2009-10-29 12:25:21Z bligault $
  */
 
 package org.nuxeo.correspondence.test.mailservice;
@@ -65,8 +64,8 @@ public class TestMailBodyParser extends TestCase {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
         matchContact("", to, actualTo.get(0));
@@ -97,8 +96,8 @@ public class TestMailBodyParser extends TestCase {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(2, actualTo.size());
         matchContact("", to, actualTo.get(0));
@@ -172,8 +171,8 @@ public class TestMailBodyParser extends TestCase {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
         matchContact(to, null, actualTo.get(0));
@@ -193,8 +192,8 @@ public class TestMailBodyParser extends TestCase {
         assertEquals(1, actualSenders.size());
         matchContact(fromName, null, actualSenders.get(0));
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
         matchContact(to, null, actualTo.get(0));
@@ -215,8 +214,8 @@ public class TestMailBodyParser extends TestCase {
         date.setTimeInMillis(0);
         date.set(2008, 1, 4, 16, 46);
         assertEquals(
-                date,
-                context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY));
+                date.getTime(),
+                ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertNull(actualTo);
         actualCc = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_CC_RECIPIENTS_KEY);
