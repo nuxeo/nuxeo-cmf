@@ -26,7 +26,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,8 +69,8 @@ public class TestCorrespondenceMailInjection extends
 
     protected String incomingDocumentType;
 
-    private final SimpleDateFormat parserSDF = new SimpleDateFormat(
-            "EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH);
+    protected final SimpleDateFormat emailDateParser = new SimpleDateFormat(
+            "EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 
     @Override
     protected void deployRepositoryContrib() throws Exception {
@@ -86,7 +85,6 @@ public class TestCorrespondenceMailInjection extends
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
         mailService = Framework.getService(MailService.class);
         assertNotNull(mailService);
         correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
@@ -128,11 +126,13 @@ public class TestCorrespondenceMailInjection extends
         List<DocumentModel> linkedDocs = envelope.getDocuments();
         DocumentModel firstDoc = linkedDocs.get(0);
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(parserSDF.parse("Thu Feb 25 15:14:35 CET 2010"),
-                receptionDate.getTime());
+        assertEquals(
+                emailDateParser.parse("Thu, 25 Feb 2010 15:14:35 +0100").getTime(),
+                receptionDate.getTime().getTime());
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(parserSDF.parse("Thu Feb 25 15:15:25 CET 2010"),
-                importDate.getTime());
+        assertEquals(
+                emailDateParser.parse("Thu, 25 Feb 2010 15:15:25 +0100").getTime(),
+                importDate.getTime().getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals("<14A8EDFD-E93E-4E05-B1F3-7F2EED488BCB@nuxeo.com>",
                 reference);
@@ -209,12 +209,14 @@ public class TestCorrespondenceMailInjection extends
         DocumentModel firstDoc = linkedDocs.get(0);
         // initial message reception
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(parserSDF.parse("Mon Dec 06 18:08:41 CET 2010"),
-                receptionDate.getTime());
+        assertEquals(
+                emailDateParser.parse("Mon, 06 Dec 2010 18:08:41 +0100").getTime(),
+                receptionDate.getTime().getTime());
         // date of the initial message
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(parserSDF.parse("Wed Sep 22 12:49:11 CEST 2010"),
-                importDate.getTime());
+        assertEquals(
+                emailDateParser.parse("Wed, 22 Sep 2010 12:49:11 +0200").getTime(),
+                importDate.getTime().getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals("<4CFD1899.9070005@nuxeo.com>", reference);
         String origin = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME);
@@ -289,12 +291,14 @@ public class TestCorrespondenceMailInjection extends
         DocumentModel firstDoc = linkedDocs.get(0);
         // initial message reception
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(parserSDF.parse("Wed Dec 08 18:25:20 CET 2010"),
-                receptionDate.getTime());
+        assertEquals(
+                emailDateParser.parse("Wed, 8 Dec 2010 18:25:20 +0100").getTime(),
+                receptionDate.getTime().getTime());
         // date of the initial message
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(parserSDF.parse("Wed Dec 08 00:00:00 CET 2010"),
-                importDate.getTime());
+        assertEquals(
+                new SimpleDateFormat("yyyy/M/d").parse("2010/12/8").getTime(),
+                importDate.getTime().getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals(
                 "<AANLkTinYj41ADFjFqb=kBYnKzM6jdNMV1OQYDEodMahJ@mail.gmail.com>",
@@ -426,20 +430,14 @@ public class TestCorrespondenceMailInjection extends
 
         String title = (String) firstDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         assertEquals("[Fwd: RENOUVELLEMENT DE SUPPORT ANNUEL NUXEO]", title);
-
-        Calendar expectedOriginReceptionDate = new GregorianCalendar();
-        expectedOriginReceptionDate.setTimeInMillis(0);
-        expectedOriginReceptionDate.set(2009, 0, 14, 15, 15, 25);
         Calendar originalReceptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(expectedOriginReceptionDate.getTime().toString(),
-                originalReceptionDate.getTime().toString());
-
-        Calendar expectedReceptionDate = new GregorianCalendar();
-        expectedReceptionDate.setTimeInMillis(0);
-        expectedReceptionDate.set(2009, Calendar.MARCH, 17, 13, 39, 05);
+        assertEquals(
+                emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
+                originalReceptionDate.getTime().getTime());
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(expectedReceptionDate.getTime().toString(),
-                receptionDate.getTime().toString());
+        assertEquals(
+                emailDateParser.parse("Tue, 17 Mar 2009 13:39:05 +0100").getTime(),
+                receptionDate.getTime().getTime());
 
         Contacts senders = Contacts.getContactsForDoc(firstDoc,
                 CaseConstants.CONTACTS_SENDERS);
