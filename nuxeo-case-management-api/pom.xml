@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.nuxeo.cm</groupId>
     <artifactId>nuxeo-case-management-parent</artifactId>
-    <version>5.7.1</version>
+    <version>7.5.1.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>nuxeo-case-management-api</artifactId>
