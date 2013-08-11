@@ -109,6 +109,7 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         assertEquals(1, docList.size());
         DocumentModel message = docList.get(0);
         checkReadRight(message.getRef());
+        session.save();
         closeSession();
         session = openSessionAs(user2);
         docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
