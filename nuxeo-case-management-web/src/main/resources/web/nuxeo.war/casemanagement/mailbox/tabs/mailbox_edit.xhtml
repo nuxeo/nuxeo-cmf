@@ -6,9 +6,10 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
 
 <h:form enctype="multipart/form-data" id="document_edit">
-  
+
   <nxl:documentLayout mode="edit" value="#{currentDocument}" />
-  <ui:include src="/incl/document_versioning.xhtml" />
+  <nxl:layout name="document_edit_form_options"
+    mode="edit" value="#{currentDocument}" />
 
   <table class="dataInput">
     <tbody>
