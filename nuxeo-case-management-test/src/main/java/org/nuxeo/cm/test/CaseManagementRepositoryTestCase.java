@@ -19,6 +19,7 @@
 
 package org.nuxeo.cm.test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_DOCUMENT_ID_FIELD;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE;
 import static org.nuxeo.cm.caselink.CaseLinkConstants.IS_DRAFT_FIELD;
@@ -28,8 +29,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.junit.Before;
-import static org.junit.Assert.*;
-
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseConstants;
 import org.nuxeo.cm.cases.CaseItem;
@@ -119,7 +118,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
                 "OSGI-INF/document-routing-core-types-contrib.xml");
         deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
-                "OSGI-INF/document-routing-querymodel-contrib.xml");
+                "OSGI-INF/pageproviders-contrib.xml");
         deployContrib(CaseManagementTestConstants.CLASSIFICATION_CORE_BUNDLE,
                 "OSGI-INF/classification-core-types-contrib.xml");
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
