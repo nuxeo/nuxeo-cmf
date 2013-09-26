@@ -22,15 +22,10 @@ package org.nuxeo.correspondence.web.mail;
 
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.cases.CaseItem;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
@@ -38,18 +33,8 @@ import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.PagedDocumentsProvider;
-import org.nuxeo.ecm.core.api.SortInfo;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
-import org.nuxeo.ecm.platform.ui.web.api.ResultsProviderFarm;
-import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
-import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
-import org.nuxeo.ecm.platform.ui.web.pagination.ResultsProviderFarmUserException;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
-import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
-import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
-import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 
 /**
  * @author Nicolas Ulrich
@@ -59,18 +44,13 @@ import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 @CaseManagementContextBound
 public class CorrespondenceSearchDocumentBean extends
         CaseManagementContextBoundInstance implements
-        CorrespondenceSearchDocument, ResultsProviderFarm {
+        CorrespondenceSearchDocument {
+
+    private static final long serialVersionUID = 1L;
 
     protected static final String MAIL_ATTACHEMENT_SEARCH = "MAIL_ATTACHEMENT_SEARCH";
 
     protected static final String MAIL_ATTACHEMENT_SEARCH_PROVIDER = "MAIL_ATTACHEMENT_SEARCH_PROVIDER";
-
-    private static final long serialVersionUID = 1L;
-
-    private static final Log log = LogFactory.getLog(CorrespondenceSearchDocumentBean.class);
-
-    @In(required = true)
-    protected transient QueryModelActions queryModelActions;
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -78,17 +58,8 @@ public class CorrespondenceSearchDocumentBean extends
     @In(create = true)
     protected transient NavigationContext navigationContext;
 
-    @In(create = true, required = false)
-    protected transient FacesMessages facesMessages;
-
-    @In(create = true)
-    protected transient ResourcesAccessor resourcesAccessor;
-
     @In(create = true)
     protected transient DocumentsListsManager documentsListsManager;
-
-    @In(create = true, required = false)
-    protected transient ResultsProvidersCache resultsProvidersCache;
 
     protected String searchString;
 
@@ -107,19 +78,7 @@ public class CorrespondenceSearchDocumentBean extends
     }
 
     public void searchMailDocument() {
-        try {
-            // TODO: Search unrestricted
-            resultsProvidersCache.invalidate(MAIL_ATTACHEMENT_SEARCH_PROVIDER);
-            DocumentModelList searchEmailResults = resultsProvidersCache.get(
-                    MAIL_ATTACHEMENT_SEARCH_PROVIDER).getCurrentPage();
-            hasSearchResults = !searchEmailResults.isEmpty();
-        } catch (ClientException e) {
-            facesMessages.add(FacesMessage.SEVERITY_WARN,
-                    resourcesAccessor.getMessages().get(
-                            "label.search.service.wrong.query"));
-            // log.error("ClientException in search popup : " +
-            // e.getMessage());
-        }
+        hasSearchResults = true;
     }
 
     public String cancelEmailAttachmentsSearch() throws ClientException {
@@ -132,17 +91,7 @@ public class CorrespondenceSearchDocumentBean extends
     protected void resetEmailAttachmentsSearchResults() {
         hasSearchResults = false;
         searchString = null;
-        resultsProvidersCache.invalidate(MAIL_ATTACHEMENT_SEARCH_PROVIDER);
         documentsListsManager.resetWorkingList(MAIL_ATTACHEMENT_SEARCH);
-    }
-
-    public SelectDataModel getSearchEmailResults() throws ClientException {
-        DocumentModelList searchEmailResults = resultsProvidersCache.get(
-                MAIL_ATTACHEMENT_SEARCH_PROVIDER).getCurrentPage();
-        List<DocumentModel> selectedDocuments = documentsListsManager.getWorkingList(MAIL_ATTACHEMENT_SEARCH);
-        SelectDataModel model = new SelectDataModelImpl(
-                MAIL_ATTACHEMENT_SEARCH, searchEmailResults, selectedDocuments);
-        return model;
     }
 
     /**
@@ -167,44 +116,6 @@ public class CorrespondenceSearchDocumentBean extends
 
         // navigate to current email edit view
         return cancelEmailAttachmentsSearch();
-    }
-
-    public PagedDocumentsProvider getResultsProvider(String name)
-            throws ClientException, ResultsProviderFarmUserException {
-        return getResultsProvider(name, null);
-    }
-
-    public PagedDocumentsProvider getResultsProvider(String name,
-            SortInfo sortInfo) throws ClientException,
-            ResultsProviderFarmUserException {
-        PagedDocumentsProvider provider = null;
-
-        if (MAIL_ATTACHEMENT_SEARCH_PROVIDER.equals(name)) {
-            Object[] params = { searchString };
-            try {
-                provider = getQmDocuments(name, params, sortInfo);
-            } catch (Exception e) {
-                log.error("sorted query failed");
-                log.debug(e);
-                log.error("retrying without sort parameters");
-                provider = getQmDocuments(name, params, null);
-            }
-        }
-
-        if (provider == null) {
-            throw new ClientException(String.format(
-                    "Provider '%s' is not handled by this component", name));
-        }
-
-        provider.setName(name);
-        return provider;
-
-    }
-
-    protected PagedDocumentsProvider getQmDocuments(String qmName,
-            Object[] params, SortInfo sortInfo) throws ClientException {
-        return queryModelActions.get(qmName).getResultsProvider(
-                documentManager, params, sortInfo);
     }
 
 }

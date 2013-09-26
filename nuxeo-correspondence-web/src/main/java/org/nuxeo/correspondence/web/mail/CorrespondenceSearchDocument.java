@@ -20,7 +20,6 @@
 package org.nuxeo.correspondence.web.mail;
 
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 
 public interface CorrespondenceSearchDocument {
 
@@ -31,9 +30,6 @@ public interface CorrespondenceSearchDocument {
     public abstract void searchMailDocument();
 
     public abstract String cancelEmailAttachmentsSearch()
-            throws ClientException;
-
-    public abstract SelectDataModel getSearchEmailResults()
             throws ClientException;
 
     /**

@@ -59,12 +59,13 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
+import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.ecm.core.api.pathsegment.PathSegmentService;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModelService;
-import org.nuxeo.ecm.core.search.api.client.querymodel.descriptor.QueryModelDescriptor;
+import org.nuxeo.ecm.platform.query.api.PageProvider;
+import org.nuxeo.ecm.platform.query.api.PageProviderService;
+import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -135,44 +136,32 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     /**
-     * Executes a query model.
+     * Executes a query
      *
-     * @param queryModel The name of the query model
+     * @param pageProviderName the page provider to use for this query
+     * @param params params if the page provider expects some parameters
      * @return the corresponding documentModels
      */
-    protected DocumentModelList executeQueryModel(CoreSession session,
-            String queryModel) {
-        return executeQueryModel(session, queryModel, new Object[] {});
-    }
-
-    /**
-     * Executes a query model.
-     *
-     * @param queryModel The name of the query model
-     * @param params params if the query model
-     * @return the corresponding documentModels
-     */
-    protected DocumentModelList executeQueryModel(CoreSession session,
-            String queryModel, Object[] params) {
-        // TODO use session query instead of query model
-        QueryModelService qmService = null;
+    @SuppressWarnings("unchecked")
+    protected DocumentModelList executeQuery(CoreSession session,
+            String pageProviderName, Object[] params) {
+        PageProviderService ppService = Framework.getLocalService(PageProviderService.class);
+        Map<String, Serializable> props = new HashMap<String, Serializable>();
+        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
+                (Serializable) session);
         try {
-            qmService = Framework.getService(QueryModelService.class);
-        } catch (Exception e) {
+            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
+                    pageProviderName, null, null, null, props, params);
+            if (pp == null) {
+                throw new CaseManagementRuntimeException(
+                        "Page provider not found: " + pageProviderName);
+            }
+            return new DocumentModelListImpl(pp.getCurrentPage());
+        } catch (CaseManagementRuntimeException e) {
+            throw e;
+        } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
-        if (qmService == null) {
-            throw new CaseManagementRuntimeException("Query Manager not found");
-        }
-        QueryModelDescriptor qmd = qmService.getQueryModelDescriptor(queryModel);
-        QueryModel qm = new QueryModel(qmd);
-        DocumentModelList list = null;
-        try {
-            list = qm.getDocuments(session, params);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-        return list;
     }
 
     protected List<CaseLink> getPosts(CoreSession coreSession, long offset,
@@ -571,8 +560,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     }
                     eventProperties.put(
                             CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_
-                                    + type, StringUtils.join(mailboxTitles,
-                                    ", "));
+                                    + type,
+                            StringUtils.join(mailboxTitles, ", "));
                 }
 
                 eventProperties.put(

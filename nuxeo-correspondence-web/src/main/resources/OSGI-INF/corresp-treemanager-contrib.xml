@@ -20,7 +20,7 @@
       <leafFilterClass>
         org.nuxeo.ecm.webapp.tree.BigFolderLeafFilter
       </leafFilterClass>
-      <queryModel>CORRESP_TREE_CHILDREN</queryModel>
+      <pageProvider>CORRESP_TREE_CHILDREN</pageProvider>
     </treeManagerPlugin>
 
   </extension>

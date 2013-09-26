@@ -98,6 +98,13 @@
 
     <!-- end of Mail Reply action -->
 
+    <action id="corresp_mail_attachment_select"
+      link="#{correspSearchDocument.addSelectedEmails}"
+      label="command.correspondence.email.select"
+      icon="/icons/correspondence_reply.png" order="1">
+      <category>MAIL_ATTACHEMENT_SEARCH</category>
+    </action>
+
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"

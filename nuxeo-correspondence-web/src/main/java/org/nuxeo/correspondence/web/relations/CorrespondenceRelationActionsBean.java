@@ -44,11 +44,12 @@ import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.PagedDocumentsProvider;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
+import org.nuxeo.ecm.platform.query.api.PageProvider;
+import org.nuxeo.ecm.platform.query.api.PageProviderService;
+import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 import org.nuxeo.ecm.platform.relations.api.Literal;
 import org.nuxeo.ecm.platform.relations.api.Node;
 import org.nuxeo.ecm.platform.relations.api.QNameResource;
@@ -70,7 +71,6 @@ import org.nuxeo.ecm.platform.relations.web.StatementInfo;
 import org.nuxeo.ecm.platform.relations.web.StatementInfoComparator;
 import org.nuxeo.ecm.platform.relations.web.StatementInfoImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
-import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -98,9 +98,6 @@ public class CorrespondenceRelationActionsBean extends
 
     @In(create = true, required = false)
     protected FacesMessages facesMessages;
-
-    @In(create = true)
-    protected transient QueryModelActions queryModelActions;
 
     @In(required = false)
     protected transient Principal currentUser;
@@ -305,15 +302,20 @@ public class CorrespondenceRelationActionsBean extends
         return documentManager.getDocument(new IdRef(id));
     }
 
+    @SuppressWarnings("unchecked")
     public List<DocumentModel> getDocumentRelationSuggestions(Object input)
             throws ClientException {
         try {
-            QueryModel qm = queryModelActions.get(CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL);
+            PageProviderService ppService = Framework.getService(PageProviderService.class);
+            Map<String, Serializable> props = new HashMap<String, Serializable>();
+            props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
+                    (Serializable) documentManager);
             Object[] params = new Object[] { getCurrentCaseItem().getId(),
                     input };
-            PagedDocumentsProvider pageProvider = qm.getResultsProvider(
-                    documentManager, params, null);
-            return pageProvider.getCurrentPage();
+            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
+                    CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL, null, null, null,
+                    props, params);
+            return pp.getCurrentPage();
         } catch (Exception e) {
             throw new ClientException("error searching for documents", e);
         }
@@ -398,13 +400,15 @@ public class CorrespondenceRelationActionsBean extends
             notifyEvent(RelationEvents.AFTER_RELATION_CREATION, currentDoc,
                     options, eventComment);
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "label.relation.created"));
         }
 
         if (alreadySet) {
-            facesMessages.add(FacesMessage.SEVERITY_WARN,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_WARN,
                     resourcesAccessor.getMessages().get(
                             "label.relation.already.exists"));
         }
@@ -446,7 +450,8 @@ public class CorrespondenceRelationActionsBean extends
             // make sure statements will be recomputed
             resetStatements();
 
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
+            facesMessages.add(
+                    FacesMessage.SEVERITY_INFO,
                     resourcesAccessor.getMessages().get(
                             "label.relation.deleted"));
         }

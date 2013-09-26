@@ -41,17 +41,19 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.faces.FacesMessages;
+import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBound;
 import org.nuxeo.cm.web.invalidations.CaseManagementContextBoundInstance;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.PagedDocumentsProvider;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.ecm.core.search.api.client.querymodel.QueryModel;
+import org.nuxeo.ecm.platform.query.api.PageProvider;
+import org.nuxeo.ecm.platform.query.api.PageProviderService;
+import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 import org.nuxeo.ecm.platform.relations.api.Literal;
 import org.nuxeo.ecm.platform.relations.api.Node;
 import org.nuxeo.ecm.platform.relations.api.QNameResource;
@@ -76,12 +78,11 @@ import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.model.SelectDataModel;
 import org.nuxeo.ecm.platform.ui.web.model.impl.SelectDataModelImpl;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
-import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 import org.nuxeo.runtime.api.Framework;
 
 /**
  * Retrieves relations for current email.
- * 
+ *
  * @author Anahide Tchertchian
  */
 @Name("cmRelationActions")
@@ -95,7 +96,7 @@ public class CaseManagementRelationActionsBean extends
 
     private static final Log log = LogFactory.getLog(CaseManagementRelationActionsBean.class);
 
-    public static final String CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL = "CURRENT_CASE_ITEM_RELATION_SEARCH";
+    public static final String CURRENT_CASE_ITEM_RELATION_SEARCH_PAGE_PROVIDER = "CURRENT_CASE_ITEM_RELATION_SEARCH";
 
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
@@ -108,9 +109,6 @@ public class CaseManagementRelationActionsBean extends
 
     @In(create = true, required = false)
     protected FacesMessages facesMessages;
-
-    @In(create = true)
-    protected transient QueryModelActions queryModelActions;
 
     @In(create = true)
     protected transient NavigationContext navigationContext;
@@ -333,15 +331,31 @@ public class CaseManagementRelationActionsBean extends
         return documentManager.getDocument(new IdRef(id));
     }
 
+    @SuppressWarnings("unchecked")
     public List<DocumentModel> getDocumentRelationSuggestions(Object input)
             throws ClientException {
         try {
-            String docId = navigationContext.getCurrentDocument().getId();
-            QueryModel qm = queryModelActions.get(CURRENT_CASE_ITEM_RELATION_SEARCH_QUERYMODEL);
+            PageProviderService ppService = Framework.getLocalService(PageProviderService.class);
+            Map<String, Serializable> props = new HashMap<String, Serializable>();
+            props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
+                    (Serializable) documentManager);
+            DocumentModel doc = navigationContext.getCurrentDocument();
+            if (doc == null) {
+                throw new CaseManagementRuntimeException("No current document");
+            }
+            String docId = doc.getId();
             Object[] params = { docId, input };
-            PagedDocumentsProvider pageProvider = qm.getResultsProvider(
-                    documentManager, params, null);
-            return pageProvider.getCurrentPage();
+            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
+                    CURRENT_CASE_ITEM_RELATION_SEARCH_PAGE_PROVIDER, null,
+                    null, null, props, params);
+            if (pp == null) {
+                throw new CaseManagementRuntimeException(
+                        "Page provider not found: "
+                                + CURRENT_CASE_ITEM_RELATION_SEARCH_PAGE_PROVIDER);
+            }
+            return pp.getCurrentPage();
+        } catch (CaseManagementRuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new ClientException("error searching for documents", e);
         }

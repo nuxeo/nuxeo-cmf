@@ -7,67 +7,46 @@
   xmlns:nxu="http://nuxeo.org/nxweb/util"
   xmlns:nxd="http://nuxeo.org/nxweb/document">
 
-
   <ui:define name="body">
 
     <div>
-    
+
       <h3>
         <h:outputText value="#{messages['label.correspondence.email.attached_parts.searchHeader']} " />
         <em>
           <h:outputText value=" #{currentEnvelope.document.title}" />
         </em>
       </h3>
-      
+
       <ui:include src="/incl/message_banner.xhtml" />
 
-      <div class="tabsContent">
+      <div id="content">
 
-      <h:form id="search_form">
+        <h:form id="search_form">
+          <h:inputText value="#{correspSearchDocument.searchKeywords}" size="40"
+            class="searchField" />
+          <h:commandButton value="#{messages['command.search']}"
+            action="#{correspSearchDocument.searchMailDocument}" class="button" />
+          <h:commandButton value="#{messages['command.back']}"
+            action="#{correspSearchDocument.cancelEmailAttachmentsSearch}"
+            immediate="true" class="button" />
+        </h:form>
 
-        <h:inputText value="#{correspSearchDocument.searchKeywords}" size="40"
-          class="searchField" />
+        <c:if test="#{correspSearchDocument.hasSearchResults}">
 
-        <h:commandButton value="#{messages['command.search']}"
-          action="#{correspSearchDocument.searchMailDocument}" class="button" />
+          <h3>
+            <h:outputText value="#{messages['label.search.results.keywords']}" />
+          </h3>
 
-        <h:commandButton value="#{messages['command.back']}"
-          action="#{correspSearchDocument.cancelEmailAttachmentsSearch}"
-          immediate="true" class="button" />
+          <nxu:set var="contentViewId" value="0">
+          <nxu:set var="contentViewName" value="#{MAIL_ATTACHEMENT_SEARCH_PROVIDER}">
+            <ui:decorate template="/incl/content_view.xhtml" />
+          </nxu:set>
+          </nxu:set>
 
-      </h:form>
+        </c:if>
+      </div>
 
-      <h3>
-        <h:outputText value="#{messages['label.search.results.keywords']}" />
-      </h3>
-  
-      <h:outputText value="#{messages['label.content.empty.search']}"
-        rendered="#{!correspSearchDocument.hasSearchResults}" />
-  
-      <h:form id="search_results" rendered="#{correspSearchDocument.hasSearchResults}">
-        <nxu:methodResult
-          name="provider"
-          value="#{resultsProvidersCache.get('MAIL_ATTACHEMENT_SEARCH_PROVIDER')}" >
-          <ui:decorate template="/correspondence/mail/mails_selection_search_results.xhtml">
-            <ui:param name="provider" value="#{provider}" />
-            <ui:param name="providerName" value="MAIL_ATTACHEMENT_SEARCH_PROVIDER" />
-            <ui:param name="listName" value="MAIL_ATTACHEMENT_SEARCH" />
-            <ui:param name="documents" value="#{correspSearchDocument.searchEmailResults}" />
-            <ui:define name="buttons">
-              <div id="selection_buttons">
-                <h:commandButton styleClass="button"
-                  value="#{messages['command.correspondence.email.select']}"
-                  action="#{correspSearchDocument.addSelectedEmails}" />
-              </div>
-            </ui:define>
-          </ui:decorate>
-  
-        </nxu:methodResult>
-    
-      </h:form>
-  
-    </div>
-    
     </div>
 
   </ui:define>

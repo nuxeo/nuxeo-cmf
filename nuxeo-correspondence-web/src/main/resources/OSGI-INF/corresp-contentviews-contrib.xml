@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="org.nuxeo.correspondence.contentviews">
+
+  <extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
+    point="contentViews">
+
+    <contentView name="MAIL_ATTACHEMENT_SEARCH_PROVIDER">
+
+      <emptySentence>label.content.empty.search</emptySentence>
+      <translateEmptySentence>true</translateEmptySentence>
+
+      <coreQueryPageProvider>
+        <property name="maxResults">DEFAULT_NAVIGATION_RESULTS</property>
+        <property name="coreSession">#{documentManager}</property>
+        <pattern>
+          SELECT * FROM Document WHERE ecm:mixinType =
+          'CorrespondenceDocument' AND ecm:currentLifeCycleState != 'deleted'
+          AND dc:title LIKE ?
+        </pattern>
+        <parameter>#{correspSearchDocument.searchKeywords}</parameter>
+        <sort column="dc:title" ascending="true" />
+        <pageSize>20</pageSize>
+      </coreQueryPageProvider>
+
+      <showPageSizeSelector>false</showPageSizeSelector>
+      <useGlobalPageSize>false</useGlobalPageSize>
+      <refresh>
+        <event>documentChanged</event>
+        <event>documentChildrenChanged</event>
+      </refresh>
+      <cacheKey>only_one_cache</cacheKey>
+      <cacheSize>1</cacheSize>
+
+      <resultLayouts>
+        <layout name="search_listing_ajax" title="document_listing"
+          translateTitle="true" iconPath="/icons/document_listing_icon.png"
+          showCSVExport="true" showPDFExport="false" showSyndicationLinks="true" />
+      </resultLayouts>
+
+      <selectionList>MAIL_ATTACHEMENT_SEARCH</selectionList>
+      <actions category="MAIL_ATTACHEMENT_SEARCH" />
+
+    </contentView>
+  </extension>
+
+</component>
