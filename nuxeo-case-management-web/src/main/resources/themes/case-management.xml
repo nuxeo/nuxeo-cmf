@@ -22,8 +22,6 @@
           <fragment perspectives="default" type="generic fragment"/>
           <!-- clip board -->
           <fragment perspectives="default" type="generic fragment"/>
-          <!-- calendar -->
-          <fragment perspectives="view_calendar" type="generic fragment"/>
           <!-- case tree -->
           <fragment perspectives="default" type="generic fragment"/>
         </cell>
