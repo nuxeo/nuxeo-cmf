@@ -6,9 +6,8 @@
     point="actions">
     <!-- Classification integration -->
     <action id="CLASSIFICATION_REQUEST"
-      link="/casemanagement/caseitem/tabs/classification_request.xhtml"
-      label="label.casemanagement.action.classificationRequest" icon="/icons/icone_classement.gif"
-      order="72">
+      link="/casemanagement/caseitem/tabs/classification_request.xhtml" label="label.casemanagement.action.classificationRequest"
+      icon="/icons/icone_classement.gif" order="72" type="rest_document_link">
       <category>VIEW_ACTION_LIST</category>
       <filter-id>isNotCmInitialCase</filter-id>
     </action>
