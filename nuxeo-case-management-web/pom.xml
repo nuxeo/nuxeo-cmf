@@ -101,8 +101,8 @@
       <artifactId>nuxeo-platform-userworkspace-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-document-routing-web</artifactId>
+      <groupId>org.nuxeo.ecm.routing</groupId>
+      <artifactId>nuxeo-routing-web</artifactId>
     </dependency>
   </dependencies>
 
