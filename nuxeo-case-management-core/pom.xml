@@ -8,8 +8,7 @@
   </parent>
 
   <artifactId>nuxeo-case-management-core</artifactId>
-  <name>Case Management Core</name>
-  <description>Case Management Core</description>
+  <name>Nuxeo Case Management Core</name>
 
   <dependencies>
     <dependency>

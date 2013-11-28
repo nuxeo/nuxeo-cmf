@@ -9,9 +9,8 @@
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
   <version>5.9.1-SNAPSHOT</version>
-  <name>Nuxeo Case Management Framework</name>
+  <name>Nuxeo Case Management Parent</name>
   <packaging>pom</packaging>
-  <description>The parent module for Nuxeo Case Management Framework</description>
 
   <modules>
     <module>nuxeo-case-management-api</module>

@@ -8,8 +8,7 @@
   </parent>
 
   <artifactId>nuxeo-case-management-web</artifactId>
-  <name>Case Management Web</name>
-  <description>Case Management Web</description>
+  <name>Nuxeo Case Management Web</name>
 
   <dependencies>
     <dependency>

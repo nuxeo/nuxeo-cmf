@@ -8,7 +8,6 @@
   </parent>
 
   <artifactId>nuxeo-case-management-lang</artifactId>
-  <name>Case Management Lang</name>
-  <description>Case Management Lang</description>
+  <name>Nuxeo Case Management Lang</name>
 
 </project>

@@ -8,8 +8,7 @@
   </parent>
 
   <artifactId>nuxeo-case-management-api</artifactId>
-  <name>Case Management API</name>
-  <description>Case Management API</description>
+  <name>Nuxeo Case Management API</name>
 
   <dependencies>
     <dependency>

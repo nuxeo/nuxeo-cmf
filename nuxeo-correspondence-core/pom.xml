@@ -9,8 +9,7 @@
 
   <groupId>org.nuxeo.correspondence</groupId>
   <artifactId>nuxeo-correspondence-core</artifactId>
-  <name>Correspondence Core</name>
-  <description>Correspondence Core</description>
+  <name>Nuxeo Correspondence Core</name>
 
   <dependencies>
     <dependency>

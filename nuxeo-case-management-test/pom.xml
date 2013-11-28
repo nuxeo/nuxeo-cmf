@@ -8,8 +8,7 @@
   </parent>
 
   <artifactId>nuxeo-case-management-test</artifactId>
-  <name>Case Management Test</name>
-  <description>Case Management Test</description>
+  <name>Nuxeo Case Management Test</name>
 
   <dependencies>
     <dependency>

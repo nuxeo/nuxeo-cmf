@@ -7,8 +7,7 @@
   </parent>
 
   <artifactId>nuxeo-case-management-integration-tests</artifactId>
-  <name>Nuxeo Case Management integration tests</name>
-  <description>Nuxeo Case Management Functional Tests</description>
+  <name>Nuxeo Case Management Integration Tests</name>
 
   <dependencies>
     <dependency>

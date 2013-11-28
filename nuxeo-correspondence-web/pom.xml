@@ -9,8 +9,7 @@
 
   <groupId>org.nuxeo.correspondence</groupId>
   <artifactId>nuxeo-correspondence-web</artifactId>
-  <name>Correspondence Web</name>
-  <description>Correspondence Web</description>
+  <name>Nuxeo Correspondence Web</name>
 
   <dependencies>
     <dependency>

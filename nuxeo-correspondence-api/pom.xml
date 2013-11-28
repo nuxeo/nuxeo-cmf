@@ -9,8 +9,7 @@
 
   <groupId>org.nuxeo.correspondence</groupId>
   <artifactId>nuxeo-correspondence-api</artifactId>
-  <name>Correspondence API</name>
-  <description>Correspondence API</description>
+  <name>Nuxeo Correspondence API</name>
 
   <dependencies>
     <dependency>
