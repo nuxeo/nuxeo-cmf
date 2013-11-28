@@ -379,9 +379,8 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(pipe);
         Visitor visitor = new Visitor(pipe);
         ExecutionContext initialExecutionContext = new ExecutionContext();
-        initialExecutionContext.put(
-                MailActionPipeConstants.CORE_SESSION_ID_KEY,
-                session.getSessionId());
+        initialExecutionContext.put(MailActionPipeConstants.CORE_SESSION_KEY,
+                session);
         initialExecutionContext.put(
                 MailActionPipeConstants.MIMETYPE_SERVICE_KEY,
                 Framework.getService(MimetypeRegistry.class));

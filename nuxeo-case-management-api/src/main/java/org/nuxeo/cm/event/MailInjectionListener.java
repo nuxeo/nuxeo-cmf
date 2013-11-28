@@ -89,8 +89,7 @@ public class MailInjectionListener implements EventListener {
             // initialize context
             ExecutionContext initialExecutionContext = new ExecutionContext();
             initialExecutionContext.put(
-                    AbstractCaseManagementMailAction.CORE_SESSION_ID_KEY,
-                    session.getSessionId());
+                    AbstractCaseManagementMailAction.CORE_SESSION_KEY, session);
             initialExecutionContext.put(
                     AbstractCaseManagementMailAction.MIMETYPE_SERVICE_KEY,
                     Framework.getService(MimetypeRegistry.class));

@@ -230,9 +230,7 @@ public class CaseImpl implements Case {
     }
 
     protected CoreSession getDocumentSession() {
-        CoreSession session = CoreInstance.getInstance().getSession(
-                document.getSessionId());
-        return session;
+        return document.getCoreSession();
     }
 
     protected CoreSession getCoreSession() throws Exception {

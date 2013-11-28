@@ -25,7 +25,7 @@ public interface MailActionPipeConstants {
 
     public static final String CASEMANAGEMENT_SERVICE_KEY = "casemanagementService";
 
-    public static final String CORE_SESSION_ID_KEY = "sessionId";
+    public static final String CORE_SESSION_KEY = "session";
 
     public static final String RECEPTION_DATE_KEY = "receptionDate";
 

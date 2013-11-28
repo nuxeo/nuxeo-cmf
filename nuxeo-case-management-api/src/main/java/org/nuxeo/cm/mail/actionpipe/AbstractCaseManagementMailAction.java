@@ -19,7 +19,6 @@
 
 package org.nuxeo.cm.mail.actionpipe;
 
-import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 import org.nuxeo.ecm.platform.mail.action.MessageAction;
@@ -34,12 +33,7 @@ public abstract class AbstractCaseManagementMailAction implements
 
     protected CoreSession getCoreSession(ExecutionContext context)
             throws Exception {
-        ExecutionContext initialContext = context.getInitialContext();
-        String sessionId = (String) initialContext.get(CORE_SESSION_ID_KEY);
-        if (sessionId != null) {
-            return CoreInstance.getInstance().getSession(sessionId);
-        }
-        return null;
+        return (CoreSession) context.getInitialContext().get(CORE_SESSION_KEY);
     }
 
 }
