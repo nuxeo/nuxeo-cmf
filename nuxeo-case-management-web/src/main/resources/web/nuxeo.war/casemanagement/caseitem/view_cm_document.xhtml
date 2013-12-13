@@ -11,7 +11,8 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout">
 
   <ui:define name="page title">
-    Nuxeo 5 EP: <h:outputText value="#{nxd:titleOrId(currentDocument)}"/>
+      <h:outputText
+              value="#{nuxeoApplicationName} - #{nxd:titleOrId(currentDocument)}"/>
   </ui:define>
 
   <ui:define name="bookmark">
@@ -38,7 +39,7 @@
           </div>
         </ui:insert>
       </h:panelGroup>
-  
+
       <c:if test="#{currentDocument.hasFacet('Commentable') and (documentThreadedComments.size > 0)}">
         <ui:include src="/incl/summary/comments.xhtml" />
       </c:if>
