@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
@@ -152,6 +153,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     }
 
     @Test
+    // disabled because failing randomly, see NXP-10477
+    @Ignore
     public void testSynchro() throws Exception {
         Framework.getProperties().load(
                 new FileInputStream(getResource("cmf.properties").getFile()));
