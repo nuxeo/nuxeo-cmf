@@ -140,9 +140,8 @@ public class CaseManagementRelationActionsBean extends
     public DocumentModel getDocumentModel(Node node) throws ClientException {
         if (node.isQNameResource()) {
             QNameResource resource = (QNameResource) node;
-            Map<String, Serializable> context = new HashMap<String, Serializable>();
-            context.put(ResourceAdapter.CORE_SESSION_ID_CONTEXT_KEY,
-                    documentManager.getSessionId());
+            Map<String, Object> context = Collections.<String, Object> singletonMap(
+                    ResourceAdapter.CORE_SESSION_CONTEXT_KEY, documentManager);
             Object o = relationManager.getResourceRepresentation(
                     resource.getNamespace(), resource, context);
             if (o instanceof DocumentModel) {
