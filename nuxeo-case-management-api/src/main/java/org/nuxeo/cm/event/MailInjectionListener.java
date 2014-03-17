@@ -27,8 +27,6 @@ import javax.mail.Store;
 import javax.mail.Flags.Flag;
 import javax.mail.search.FlagTerm;
 import javax.mail.search.SearchTerm;
-import javax.security.auth.login.LoginContext;
-import javax.security.auth.login.LoginException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,7 +35,6 @@ import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
@@ -76,16 +73,9 @@ public class MailInjectionListener implements EventListener {
         Thread.currentThread().setContextClassLoader(
                 Framework.class.getClassLoader());
 
-        LoginContext loginContext = null;
-        CoreSession session = null;
         Folder rootFolder = null;
 
-        try {
-            // open a system session
-            loginContext = Framework.login();
-            RepositoryManager mgr = Framework.getService(RepositoryManager.class);
-            session = mgr.getDefaultRepository().open();
-
+        try (CoreSession session = CoreInstance.openCoreSessionSystem(null)) {
             // initialize context
             ExecutionContext initialExecutionContext = new ExecutionContext();
             initialExecutionContext.put(
@@ -112,26 +102,15 @@ public class MailInjectionListener implements EventListener {
             // save session
             session.save();
 
-        } catch (Exception e) {
-            log.error(e, e);
-        } finally {
-            if (rootFolder != null && rootFolder.isOpen()) {
+            if (rootFolder.isOpen()) {
                 try {
                     rootFolder.close(true);
                 } catch (MessagingException e) {
                     log.error(e.getMessage(), e);
                 }
             }
-            if (loginContext != null) {
-                try {
-                    loginContext.logout();
-                } catch (LoginException e) {
-                    log.error(e.getMessage(), e);
-                }
-            }
-            if (session != null) {
-                CoreInstance.getInstance().close(session);
-            }
+        } catch (Exception e) {
+            log.error(e, e);
         }
     }
 

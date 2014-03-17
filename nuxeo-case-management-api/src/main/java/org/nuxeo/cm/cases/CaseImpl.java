@@ -33,9 +33,6 @@ import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.repository.Repository;
-import org.nuxeo.ecm.core.api.repository.RepositoryManager;
-import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
@@ -205,15 +202,13 @@ public class CaseImpl implements Case {
     @Override
     public List<DocumentModel> getDocuments() {
         List<DocumentModel> result;
-        CoreSession session = getDocumentSession();
+        CoreSession session = document.getCoreSession();
         if (session == null) {
-            try {
-                session = getCoreSession();
-            } catch (Exception e) {
+            try (CoreSession sess = CoreInstance.openCoreSession(document.getRepositoryName())) {
+                result = getDocuments(sess);
+            } catch (ClientException e) {
                 throw new CaseManagementRuntimeException(e);
             }
-            result = getDocuments(session);
-            CoreInstance.getInstance().close(session);
         } else {
             result = getDocuments(session);
         }
@@ -227,19 +222,6 @@ public class CaseImpl implements Case {
             result.add(item.getDocument());
         }
         return result;
-    }
-
-    protected CoreSession getDocumentSession() {
-        return document.getCoreSession();
-    }
-
-    protected CoreSession getCoreSession() throws Exception {
-        RepositoryManager mgr = Framework.getService(RepositoryManager.class);
-        if (mgr == null) {
-            throw new ClientException("Cannot find RepostoryManager");
-        }
-        Repository repo = mgr.getRepository(document.getRepositoryName());
-        return repo.open();
     }
 
     @Override

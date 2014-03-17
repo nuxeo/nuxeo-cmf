@@ -19,15 +19,12 @@
 
 package org.nuxeo.cm.core.event;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.exception.CaseManagementException;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.SimplePrincipal;
-import org.nuxeo.ecm.core.api.repository.Repository;
-import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.runtime.api.Framework;
@@ -40,46 +37,29 @@ import org.nuxeo.runtime.transaction.TransactionHelper;
  */
 public class SuccessLoginListener implements EventListener {
 
-    private static final Log log = LogFactory.getLog(SuccessLoginListener.class);
-
+    @Override
     public void handleEvent(Event event) throws ClientException {
-        CoreSession session = null;
+        MailboxManagementService nxcService = Framework.getLocalService(MailboxManagementService.class);
+        if (nxcService == null) {
+            throw new CaseManagementException(
+                    "CorrespondenceService not found.");
+        }
+        String principalName = event.getContext().getPrincipal().getName();
         boolean isNewTransactionStarted = false;
+        if (!TransactionHelper.isTransactionActive()) {
+            isNewTransactionStarted = TransactionHelper.startTransaction();
+        }
         try {
-            MailboxManagementService nxcService = Framework.getService(MailboxManagementService.class);
-            if (nxcService == null) {
-                throw new CaseManagementException(
-                        "CorrespondenceService not found.");
+            try (CoreSession session = CoreInstance.openCoreSession(null)) {
+                if (!nxcService.hasUserPersonalMailbox(session, principalName)) {
+                    nxcService.createPersonalMailboxes(session, principalName);
+                }
             }
-            if (!TransactionHelper.isTransactionActive()) {
-                isNewTransactionStarted = TransactionHelper.startTransaction();
-            }
-            SimplePrincipal principal = (SimplePrincipal) event.getContext().getPrincipal();
-            session = getCoreSession();
-            if (!nxcService.hasUserPersonalMailbox(session, principal.getName())) {
-                nxcService.createPersonalMailboxes(session, principal.getName());
-            }
-
-        } catch (Exception e) {
-            log.error("Error during personal mailbox creation.", e);
         } finally {
-            if (session != null) {
-                Repository.close(session);
-            }
             if (isNewTransactionStarted) {
                 TransactionHelper.commitOrRollbackTransaction();
             }
         }
-    }
-
-    protected CoreSession getCoreSession() throws Exception {
-        RepositoryManager mgr = Framework.getService(RepositoryManager.class);
-        if (mgr == null) {
-            throw new ClientException("Cannot find RepositoryManager");
-        }
-
-        Repository repo = mgr.getDefaultRepository();
-        return repo.open();
     }
 
 }

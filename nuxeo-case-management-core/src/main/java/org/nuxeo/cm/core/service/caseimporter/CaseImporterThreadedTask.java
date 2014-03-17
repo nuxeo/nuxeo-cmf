@@ -51,7 +51,7 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
             return null;
         }
         DocumentModel folder = getFactory().createFolderishNode(
-                getCoreSession(), parent, node);
+                session, parent, node);
         if (folder != null) {
             String parentPath = (parent == null) ? "null"
                     : parent.getPathAsString();
@@ -69,7 +69,7 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
             return null;
         }
 
-        DocumentModel leaf = getFactory().createLeafNode(getCoreSession(),
+        DocumentModel leaf = getFactory().createLeafNode(session,
                 parent, node);
         if (leaf != null && node.getBlobHolder() != null) {
             long fileSize = node.getBlobHolder().getBlob().getLength();

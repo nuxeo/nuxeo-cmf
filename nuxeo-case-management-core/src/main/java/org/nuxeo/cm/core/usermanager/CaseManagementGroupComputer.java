@@ -34,6 +34,7 @@ import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.security.CaseManagementSecurityConstants;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
@@ -225,19 +226,11 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
 
     protected CoreSession openCoreSession(String username) {
         try {
-            String repositoryName = getRepoName();
-            Repository repository = Framework.getService(
-                    RepositoryManager.class).getRepository(repositoryName);
-            if (repository == null) {
-                throw new ClientException("Cannot get repository: "
-                        + repositoryName);
+            if (!Framework.isTestModeSet()) {
+                username = null;
+                // open core session as given user only for tests
             }
-            Map<String, Serializable> context = new HashMap<String, Serializable>();
-            if (Framework.isTestModeSet()) {
-                // open core session as given user for tests
-                context.put("username", username);
-            }
-            return repository.open(context);
+            return CoreInstance.openCoreSession(getRepoName(), username);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
@@ -245,23 +238,13 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
 
     protected void closeCoreSession(CoreSession session) {
         if (session != null) {
-            Repository.close(session);
+            session.close();
         }
     }
 
     protected String getRepoName() {
-        RepositoryManager mgr = null;
-        try {
-            mgr = Framework.getService(RepositoryManager.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e.getMessage(), e);
-        }
-        if (mgr == null) {
-            throw new CaseManagementRuntimeException(
-                    "Unable to find Repository Manager.");
-        }
-        Repository repo = mgr.getDefaultRepository();
-        return repo.getName();
+        RepositoryManager repositoryManager = Framework.getLocalService(RepositoryManager.class);
+        return repositoryManager.getDefaultRepository().getName();
     }
 
 }
