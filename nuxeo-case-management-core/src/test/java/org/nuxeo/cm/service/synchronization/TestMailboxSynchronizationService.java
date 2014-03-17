@@ -46,7 +46,6 @@ import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.classification.api.ClassificationConstants;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
@@ -380,17 +379,12 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     protected void checkMailboxes(String user, int numberOfMailboxes,
             String[] mailboxes) throws ClientException {
         // check mailboxes with own user session
-        CoreSession userSession = null;
-        try {
-            NuxeoPrincipal pal = umService.getPrincipal(user);
-            userSession = openSessionAs(pal);
+        NuxeoPrincipal pal = umService.getPrincipal(user);
+        try (CoreSession userSession = openSessionAs(pal)) {
             List<Mailbox> userMailboxes = mbService.getUserMailboxes(
                     userSession, user);
-            checkMailboxes(userMailboxes, user, numberOfMailboxes, mailboxes);
-        } finally {
-            if (userSession != null) {
-                CoreInstance.getInstance().close(userSession);
-            }
+            checkMailboxes(userMailboxes, user, numberOfMailboxes,
+                    mailboxes);
         }
 
         // check mailboxes with admin session
