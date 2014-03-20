@@ -56,7 +56,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
-import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventProducer;
@@ -205,9 +204,9 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         deleteOldMailboxes = Boolean.parseBoolean(Framework.getProperty(
                 MailboxConstants.SYNC_DELETE_MAILBOXES_PROPERTY, "false"));
 
-        Repository repo = mgr.getDefaultRepository();
+        String repositoryName = mgr.getDefaultRepositoryName();
         SynchronizeSessionRunner runner = new SynchronizeSessionRunner(
-                repo.getName());
+                repositoryName);
         runner.runUnrestricted();
 
         flushJaasCache();

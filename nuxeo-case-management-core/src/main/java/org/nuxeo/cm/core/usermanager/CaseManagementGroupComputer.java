@@ -38,7 +38,6 @@ import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
-import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfo;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfoCallbackHandler;
@@ -244,7 +243,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
 
     protected String getRepoName() {
         RepositoryManager repositoryManager = Framework.getLocalService(RepositoryManager.class);
-        return repositoryManager.getDefaultRepository().getName();
+        return repositoryManager.getDefaultRepositoryName();
     }
 
 }
