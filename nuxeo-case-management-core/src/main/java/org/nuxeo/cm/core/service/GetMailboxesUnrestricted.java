@@ -62,14 +62,7 @@ public class GetMailboxesUnrestricted extends UnrestrictedSessionRunner {
         if (muids == null) {
             return;
         }
-        MailboxManagementService service = null;
-        try {
-            service = Framework.getService(MailboxManagementService.class);
-        } catch (ClientException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        MailboxManagementService service = Framework.getService(MailboxManagementService.class);
         if (service == null) {
             throw new ClientException("MailboxManagementService not found");
         }
