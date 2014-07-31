@@ -38,6 +38,7 @@ import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
@@ -59,6 +60,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
 
     public static final String MESSAGE_RFC822_MIMETYPE = "message/rfc822";
 
+    @Override
     @SuppressWarnings("deprecation")
     public boolean execute(ExecutionContext context) throws Exception {
         File tmpOutput = null;
@@ -140,11 +142,10 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             out = new FileOutputStream(tmpOutput);
             message.writeTo(out);
             FileBlob fileBlob = new FileBlob(tmpOutput);
-
             fileBlob.setFilename(subject + ".eml");
             fileBlob.setMimeType(MESSAGE_RFC822_MIMETYPE);
 
-            List<Blob> blobs = new ArrayList<Blob>();
+            List<Blob> blobs = new ArrayList<>();
             blobs.add(fileBlob);
             context.put(ATTACHMENTS_KEY, blobs);
 
@@ -250,6 +251,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
 
     }
 
+    @Override
     public void reset(ExecutionContext context) throws Exception {
         // do nothing
     }
