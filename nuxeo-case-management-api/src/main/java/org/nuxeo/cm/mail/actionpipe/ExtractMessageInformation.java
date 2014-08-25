@@ -43,6 +43,7 @@ import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * Extract attached files and info from the message
@@ -139,6 +140,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
 
             // add all content as first blob
             tmpOutput = File.createTempFile("injectedEmail", ".eml");
+            Framework.trackFile(tmpOutput, tmpOutput);
             out = new FileOutputStream(tmpOutput);
             message.writeTo(out);
             FileBlob fileBlob = new FileBlob(tmpOutput);
@@ -157,9 +159,6 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
         } finally {
             if (out != null) {
                 out.close();
-            }
-            if (tmpOutput != null) {
-                tmpOutput.deleteOnExit();
             }
         }
         return false;
