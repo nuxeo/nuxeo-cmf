@@ -25,7 +25,7 @@
       <artifactId>ejb-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.faces</groupId>
+      <groupId>com.sun.faces</groupId>
       <artifactId>jsf-api</artifactId>
     </dependency>
     <!-- needed by jsf-api (???) -->
