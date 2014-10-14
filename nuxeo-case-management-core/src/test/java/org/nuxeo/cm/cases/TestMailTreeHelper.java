@@ -15,14 +15,16 @@
  */
 package org.nuxeo.cm.cases;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Calendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.nuxeo.cm.test.CaseManagementTestConstants;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -65,6 +67,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         TransactionHelper.commitOrRollbackTransaction();
     }
 
+    @Ignore("NXP-15519")
     @Test
     public void testSimple() throws Exception {
         CaseTreeHelper.getOrCreateTxDateTreeFolder(database.repositoryName,
@@ -97,8 +100,8 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
     public void testParallelDocumentCreation() throws Exception {
         Thread[] threads = new Thread[2];
         for (int i = 0; i < threads.length; i++) {
-            threads[i] = new Thread(new MailTreeCreator(database.repositoryName,
-                    mailFolderDocument));
+            threads[i] = new Thread(new MailTreeCreator(
+                    database.repositoryName, mailFolderDocument));
             threads[i].start();
         }
         Thread.sleep(500);
