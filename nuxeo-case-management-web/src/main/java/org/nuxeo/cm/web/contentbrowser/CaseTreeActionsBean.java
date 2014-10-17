@@ -35,11 +35,11 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.Filter;
 import org.nuxeo.ecm.core.api.Sorter;
-import org.nuxeo.ecm.virtualnavigation.action.MultiNavTreeManager;
 import org.nuxeo.ecm.webapp.tree.DocumentTreeNode;
 import org.nuxeo.ecm.webapp.tree.DocumentTreeNodeImpl;
 import org.nuxeo.ecm.webapp.tree.TreeActionsBean;
 import org.nuxeo.ecm.webapp.tree.TreeManager;
+import org.nuxeo.ecm.webapp.tree.nav.MultiNavTreeManager;
 import org.nuxeo.runtime.api.Framework;
 
 /**

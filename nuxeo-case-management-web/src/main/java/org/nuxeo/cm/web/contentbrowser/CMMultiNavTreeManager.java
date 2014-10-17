@@ -28,10 +28,10 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
-import org.nuxeo.ecm.virtualnavigation.action.MultiNavTreeManager;
-import org.nuxeo.ecm.virtualnavigation.action.NavTreeDescriptor;
-import org.nuxeo.ecm.virtualnavigation.service.NavTreeService;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
+import org.nuxeo.ecm.webapp.tree.nav.MultiNavTreeManager;
+import org.nuxeo.ecm.webapp.tree.nav.NavTreeDescriptor;
+import org.nuxeo.ecm.webapp.tree.nav.NavTreeService;
 import org.nuxeo.runtime.api.Framework;
 
 /**
