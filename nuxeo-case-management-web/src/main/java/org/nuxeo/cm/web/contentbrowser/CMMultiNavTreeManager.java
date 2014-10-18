@@ -77,7 +77,6 @@ public class CMMultiNavTreeManager extends MultiNavTreeManager {
         return result;
     }
 
-    @Override
     public List<NavTreeDescriptor> getAvailableNavigationTrees() {
         return currentNavTree;
     }
