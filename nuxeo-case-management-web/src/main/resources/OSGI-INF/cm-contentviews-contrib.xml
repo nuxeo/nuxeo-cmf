@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.cm.contentview.contrib">
-  
+
   <require>org.nuxeo.platform.audit.contentView.contrib</require>
-  
+
   <extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
     point="contentViews">
 
@@ -164,12 +164,9 @@
       <resultLayouts>
         <layout name="document_listing_ajax" title="document_listing"
           translateTitle="true" iconPath="/icons/document_listing_icon.png" />
-        <layout name="document_listing_ajax_compact_2_columns"
-          title="document_listing_compact_2_columns" translateTitle="true"
-          iconPath="/icons/document_listing_compact_2_columns_icon.png" />
-        <layout name="document_listing_ajax_icon_2_columns"
-          title="document_listing_icon_2_columns" translateTitle="true"
-          iconPath="/icons/document_listing_icon_2_columns_icon.png" />
+        <layout name="thumbnail_listing" title="document_thumbnail_listing"
+          translateTitle="true" iconPath="/icons/document_listing_icon_2_columns_icon.png"
+          showSlideshow="true" showEditRows="true" />
       </resultLayouts>
 
       <selectionList>CURRENT_SELECTION</selectionList>
@@ -262,7 +259,7 @@
       <actions category="CURRENT_SELECTION_LIST" />
 
     </contentView>
-    
+
     <!--see NXCM-372-->
     <contentView name="DOCUMENT_HISTORY">
       <showFilterForm>false</showFilterForm>
