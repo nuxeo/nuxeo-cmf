@@ -16,6 +16,7 @@
  */
 package org.nuxeo.correspondence.test.generator;
 
+import static org.junit.Assert.assertEquals;
 import static org.nuxeo.cm.test.CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE;
 import static org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants.CORRESPONDENCE_CORE_BUNDLE;
 import static org.nuxeo.correspondence.test.utils.CorrespondenceTestConstants.CORRESPONDENCE_CORE_TEST_BUNDLE;
@@ -25,8 +26,6 @@ import java.util.GregorianCalendar;
 
 import org.junit.After;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.nuxeo.cm.mailbox.MailboxConstants;
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentException;
@@ -91,7 +90,7 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
     public void testUidReference() throws Exception {
         DocumentModel doc = createTestDocument();
         String expectedUID = String.format("NXC-IN-%s-00001", getSequenceKey());
-        assertEquals(expectedUID, (String) doc.getPropertyValue("uid:uid"));
+        assertEquals(expectedUID, doc.getPropertyValue("uid:uid"));
     }
 
     protected String getSequenceKey() throws DocumentException {

@@ -12,6 +12,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.nuxeo.runtime</groupId>
+      <artifactId>nuxeo-runtime-jtajca</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.nuxeo.ecm.routing</groupId>
       <artifactId>nuxeo-routing-api</artifactId>
     </dependency>
