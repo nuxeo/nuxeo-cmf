@@ -31,7 +31,6 @@ import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
 import org.nuxeo.ecm.core.api.DocumentException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.DocumentModelImpl;
-import org.nuxeo.runtime.jtajca.NuxeoContainer;
 
 /**
  * Tests if the uid property is set on a document at creation
@@ -43,7 +42,7 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
     @Override
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
-        NuxeoContainer.installNaming();
+        deployBundle("org.nuxeo.runtime.jtajca");
         deployBundle("org.nuxeo.ecm.core.persistence");
         deployBundle("org.nuxeo.ecm.platform.uidgen.core");
         deployContrib(CORRESPONDENCE_CORE_TEST_BUNDLE,
@@ -61,9 +60,6 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
         try {
             closeSession();
         } finally {
-            if (NuxeoContainer.isInstalled()) {
-                NuxeoContainer.uninstall();
-            }
             super.tearDown();
         }
     }
