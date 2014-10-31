@@ -43,6 +43,7 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
     protected void deployRepositoryContrib() throws Exception {
         super.deployRepositoryContrib();
         deployBundle("org.nuxeo.runtime.jtajca");
+        deployBundle("org.nuxeo.runtime.datasource");
         deployBundle("org.nuxeo.ecm.core.persistence");
         deployBundle("org.nuxeo.ecm.platform.uidgen.core");
         deployContrib(CORRESPONDENCE_CORE_TEST_BUNDLE,
