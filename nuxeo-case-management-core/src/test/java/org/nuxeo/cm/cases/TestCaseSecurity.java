@@ -18,7 +18,9 @@ package org.nuxeo.cm.cases;
 
 import org.junit.Before;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 import org.nuxeo.cm.test.CaseManagementRepositoryTestCase;
@@ -85,6 +87,8 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
         session.save();
     }
 
+    /* Ignored due to negative ACLs, see NXP-15804 */
+    @Ignore
     @Test
     public void testCaseLifeCycle() throws Exception {
         archiveDoc();
