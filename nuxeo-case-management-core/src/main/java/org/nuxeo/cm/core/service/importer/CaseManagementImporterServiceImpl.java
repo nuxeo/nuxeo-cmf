@@ -47,14 +47,13 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
     private String folderPath;
 
     @Override
-    public void activate(ComponentContext context) throws Exception {
+    public void activate(ComponentContext context) {
         super.activate(context);
     }
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
 
         importInfo = (CaseManagementImporterDescriptor) contribution;
 

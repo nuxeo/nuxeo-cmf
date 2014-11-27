@@ -40,14 +40,13 @@ public class CaseManagementDocumentTypeServiceImpl extends DefaultComponent
     private String envelopeDocType;
 
     @Override
-    public void activate(ComponentContext context) throws Exception {
+    public void activate(ComponentContext context) {
         super.activate(context);
     }
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
 
         CaseManagementDocumentTypeDescriptor distributionType = (CaseManagementDocumentTypeDescriptor) contribution;
 

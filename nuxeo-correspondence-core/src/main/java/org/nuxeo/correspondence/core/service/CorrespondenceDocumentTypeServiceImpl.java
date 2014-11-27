@@ -31,14 +31,13 @@ public class CorrespondenceDocumentTypeServiceImpl extends DefaultComponent
     private String outgoingDocType;
 
     @Override
-    public void activate(ComponentContext context) throws Exception {
+    public void activate(ComponentContext context) {
         super.activate(context);
     }
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
 
         CorrespondenceDocumentTypeDescriptor distributionType = (CorrespondenceDocumentTypeDescriptor) contribution;
 

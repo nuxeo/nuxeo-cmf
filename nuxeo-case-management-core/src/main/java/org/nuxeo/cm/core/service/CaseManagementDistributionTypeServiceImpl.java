@@ -45,15 +45,14 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
     private final Map<String, List<String>> values = new HashMap<String, List<String>>();
 
     @Override
-    public void activate(ComponentContext context) throws Exception {
+    public void activate(ComponentContext context) {
         // TODO Auto-generated method stub
         super.activate(context);
     }
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
 
         CaseManagementDistributionTypeDescriptor distributionType = ((CaseManagementDistributionTypeDescriptor) contribution);
 

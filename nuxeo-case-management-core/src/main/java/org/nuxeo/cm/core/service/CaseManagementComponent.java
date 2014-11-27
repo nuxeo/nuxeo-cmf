@@ -53,7 +53,7 @@ public class CaseManagementComponent extends DefaultComponent {
     protected CaseDistributionServiceImpl distributionService;
 
     @Override
-    public void activate(ComponentContext context) throws Exception {
+    public void activate(ComponentContext context) {
         super.activate(context);
         this.mailboxService = new MailboxManagementServiceImpl();
         this.distributionService = new CaseDistributionServiceImpl();
@@ -73,14 +73,18 @@ public class CaseManagementComponent extends DefaultComponent {
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
         if (extensionPoint.equals(MAILBOX_CREATOR_EXTENSION_POINT)) {
             CreationClassDescriptor classDesc = (CreationClassDescriptor) contribution;
             String className = classDesc.getKlass();
             // Thread context loader is not working in isolated EARs
-            Object creator = CaseManagementComponent.class.getClassLoader().loadClass(
-                    className).newInstance();
+            Object creator;
+            try {
+                creator = CaseManagementComponent.class.getClassLoader().loadClass(
+                        className).newInstance();
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
             if (creator instanceof MailboxCreator) {
                 mailboxService.setPersonalMailboxCreator((MailboxCreator) creator);
             } else {
@@ -89,7 +93,12 @@ public class CaseManagementComponent extends DefaultComponent {
             }
         } else if (PERSISTER_EXTENSION_POINT.equals(extensionPoint)) {
             PersisterDescriptor desc = (PersisterDescriptor) contribution;
-            CaseManagementPersister persister = desc.getKlass().newInstance();
+            CaseManagementPersister persister;
+            try {
+                persister = desc.getKlass().newInstance();
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
             String rootPath = desc.getCaseRootPath();
             if (rootPath != null) {
                 persister.setCaseRootPath(rootPath);

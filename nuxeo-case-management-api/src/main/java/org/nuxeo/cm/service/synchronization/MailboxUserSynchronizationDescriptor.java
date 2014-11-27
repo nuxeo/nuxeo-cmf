@@ -37,12 +37,15 @@ public class MailboxUserSynchronizationDescriptor {
         return enabled;
     }
 
-    public MailboxTitleGenerator getTitleGenerator()
-            throws InstantiationException, IllegalAccessException {
+    public MailboxTitleGenerator getTitleGenerator() {
         if (titleGenerator == null) {
             return null;
         }
-        return titleGenerator.newInstance();
+        try {
+            return titleGenerator.newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

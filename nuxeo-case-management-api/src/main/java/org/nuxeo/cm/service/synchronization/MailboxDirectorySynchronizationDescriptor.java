@@ -61,8 +61,7 @@ public class MailboxDirectorySynchronizationDescriptor {
         return mailboxIdField;
     }
 
-    public MailboxTitleGenerator getTitleGenerator()
-            throws InstantiationException, IllegalAccessException {
+    public MailboxTitleGenerator getTitleGenerator() {
         if (titleGenerator == null) {
             return null;
         }

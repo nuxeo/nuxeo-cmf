@@ -111,8 +111,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
         if (contribution instanceof MailboxDirectorySynchronizationDescriptor) {
             MailboxDirectorySynchronizationDescriptor synchronizer = (MailboxDirectorySynchronizationDescriptor) contribution;
             String directoryName = synchronizer.getDirectoryName();
@@ -151,8 +150,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
 
     protected MailboxDirectorySynchronizationDescriptor mergeDirectoryContribution(
             MailboxDirectorySynchronizationDescriptor existingDirSynchronizer,
-            MailboxDirectorySynchronizationDescriptor synchronizer)
-            throws InstantiationException, IllegalAccessException {
+            MailboxDirectorySynchronizationDescriptor synchronizer) {
         existingDirSynchronizer.setEnabled(synchronizer.isEnabled());
         if (synchronizer.getMailboxIdField() != null) {
             existingDirSynchronizer.setMailboxIdField(synchronizer.getMailboxIdField());
@@ -185,7 +183,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
     }
 
     @Override
-    public void doSynchronize() throws Exception {
+    public void doSynchronize() {
         RepositoryManager mgr;
         try {
             mgr = Framework.getService(RepositoryManager.class);
@@ -577,7 +575,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         }
     }
 
-    protected EventProducer getEventProducer() throws Exception {
+    protected EventProducer getEventProducer() {
         if (eventProducer == null) {
             eventProducer = Framework.getService(EventProducer.class);
         }

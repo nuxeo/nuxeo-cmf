@@ -44,12 +44,15 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
         if ("importer".equals(extensionPoint)) {
             CaseManagementCaseImporterDescriptor caseImporterDescriptor = (CaseManagementCaseImporterDescriptor) contribution;
             if (caseImporterDescriptor.caseReader != null) {
-                xmlCaseReader = caseImporterDescriptor.caseReader.newInstance();
+                try {
+                    xmlCaseReader = caseImporterDescriptor.caseReader.newInstance();
+                } catch (ReflectiveOperationException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (caseImporterDescriptor.noImportingThreads != null) {
                 noImportingThreads = Integer.parseInt(caseImporterDescriptor.noImportingThreads);
@@ -59,8 +62,7 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
 
     @Override
     public void unregisterContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
         xmlCaseReader = null;
     }
 }

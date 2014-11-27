@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public interface MailboxSynchronizationService extends Serializable {
 
-    void doSynchronize() throws Exception;
+    void doSynchronize();
 
     Map<String, MailboxDirectorySynchronizationDescriptor> getSynchronizerMap();
 
