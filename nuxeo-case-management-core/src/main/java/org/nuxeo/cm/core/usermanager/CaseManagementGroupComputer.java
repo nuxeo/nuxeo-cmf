@@ -63,7 +63,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      * Returns an empty list for efficiency
      */
     @Override
-    public List<String> getAllGroupIds() throws Exception {
+    public List<String> getAllGroupIds() {
         // should handle computed virtual groups?
         return Collections.emptyList();
     }
@@ -73,13 +73,13 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      */
     @Override
     public List<String> searchGroups(Map<String, Serializable> filter,
-            Set<String> fulltext) throws Exception {
+            Set<String> fulltext) {
         // should handle computed virtual groups?
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getGroupMembers(String groupName) throws Exception {
+    public List<String> getGroupMembers(String groupName) {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getMailboxManager(), groupName);
         runner.runUnrestricted();
@@ -91,8 +91,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      * list when local thread is flagged.
      */
     @Override
-    public List<String> getGroupsForUser(NuxeoPrincipalImpl pal)
-            throws Exception {
+    public List<String> getGroupsForUser(NuxeoPrincipalImpl pal) {
         if (pal != null) {
             if (!Boolean.TRUE.equals(disableRetrieveMailboxes.get())) {
                 disableRetrieveMailboxes.set(Boolean.TRUE);
@@ -101,7 +100,11 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                 boolean isNewTransactionStarted = false;
                 try {
                     final String username = pal.getName();
-                    loginContext = loginOnContext(username);
+                    try {
+                        loginContext = loginOnContext(username);
+                    } catch (LoginException e) {
+                        throw new RuntimeException(e);
+                    }
                     session = openCoreSession(username);
                     // TODO: optimize, retrieving ids directly on service (?)
                     if (!TransactionHelper.isTransactionActive()) {
@@ -135,7 +138,11 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     closeCoreSession(session);
                     disableRetrieveMailboxes.remove();
                     if (loginContext != null) {
-                        loginContext.logout();
+                        try {
+                            loginContext.logout();
+                        } catch (LoginException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -175,7 +182,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     }
 
     @Override
-    public List<String> getParentsGroupNames(String groupName) throws Exception {
+    public List<String> getParentsGroupNames(String groupName) {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getMailboxManager(), groupName);
         runner.runUnrestricted();
@@ -183,7 +190,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     }
 
     @Override
-    public List<String> getSubGroupsNames(String groupName) throws Exception {
+    public List<String> getSubGroupsNames(String groupName) {
         GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
                 getRepoName(), getMailboxManager(), groupName);
         runner.runUnrestricted();
@@ -194,7 +201,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      * Return false: no mailbox should be seen as a group
      */
     @Override
-    public boolean hasGroup(String name) throws Exception {
+    public boolean hasGroup(String name) {
         // should handle computed virtual groups?
         return false;
     }
