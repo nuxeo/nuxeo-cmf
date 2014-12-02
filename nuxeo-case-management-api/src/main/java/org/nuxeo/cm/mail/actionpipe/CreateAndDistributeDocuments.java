@@ -64,7 +64,7 @@ public class CreateAndDistributeDocuments extends
     private static final Log log = LogFactory.getLog(CreateAndDistributeDocuments.class);
 
     @SuppressWarnings("unchecked")
-    public boolean execute(ExecutionContext context) throws Exception {
+    public boolean execute(ExecutionContext context) {
         CoreSession session = getCoreSession(context);
         if (session == null) {
             log.error("Could not open core session");
@@ -270,12 +270,11 @@ public class CreateAndDistributeDocuments extends
         return CaseConstants.CASE_ITEM_DOCUMENT_TYPE;
     }
 
-    public void reset(ExecutionContext context) throws Exception {
+    public void reset(ExecutionContext context) {
         // do nothing
     }
 
-    private CaseDistributionService getCaseDistributionService()
-            throws Exception {
+    private CaseDistributionService getCaseDistributionService() {
         CaseDistributionService distributionService = Framework.getService(CaseDistributionService.class);
         if (distributionService == null) {
             log.error("Unable to get the distribution service");
