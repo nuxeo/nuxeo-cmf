@@ -21,9 +21,7 @@ package org.nuxeo.cm.mail.actionpipe;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +29,6 @@ import java.util.List;
 
 import javax.mail.Address;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.ContentType;
@@ -39,13 +36,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
-import org.nuxeo.ecm.platform.mimetype.MimetypeDetectionException;
 import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
 import org.nuxeo.runtime.api.Framework;
 
@@ -67,7 +63,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
 
     @Override
     @SuppressWarnings("deprecation")
-    public boolean execute(ExecutionContext context) throws MessagingException {
+    public boolean execute(ExecutionContext context) throws Exception {
         File tmpOutput = null;
         OutputStream out = null;
         try {
@@ -111,7 +107,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
                     try {
                         long time = Date.parse(dateHeader[0]);
                         receivedDate = new Date(time);
-                    } catch (IllegalArgumentException e) {
+                    } catch (Exception e) {
                         // nevermind
                     }
                 }
@@ -158,16 +154,18 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             // process content
             getAttachmentParts(message, subject, mimeService, context);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
         } finally {
-            IOUtils.closeQuietly(out);
+            if (out != null) {
+                out.close();
+            }
         }
         return false;
     }
 
     protected static String getFilename(Part p, String defaultFileName)
-            throws MessagingException {
+            throws Exception {
         String originalFilename = p.getFileName();
         if (originalFilename == null || originalFilename.trim().length() == 0) {
             String filename = defaultFileName;
@@ -181,7 +179,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
         } else {
             try {
                 return MimeUtility.decodeText(originalFilename.trim());
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 return originalFilename.trim();
             }
         }
@@ -190,7 +188,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
     @SuppressWarnings("unchecked")
     protected static void getAttachmentParts(Part p, String defaultFilename,
             MimetypeRegistry mimeService, ExecutionContext context)
-            throws MessagingException, IOException {
+            throws Exception {
         String filename = getFilename(p, defaultFilename);
         List<Blob> blobs = (List<Blob>) context.get(ATTACHMENTS_KEY);
 
@@ -212,7 +210,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
                         mime = mimeService.getMimetypeFromFilenameAndBlobWithDefault(
                                 filename, fileBlob, contentType.getBaseType());
                     }
-                } catch (MimetypeDetectionException e) {
+                } catch (Exception e) {
                     log.error(e);
                 }
                 fileBlob.setMimeType(mime);
@@ -253,7 +251,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
     }
 
     @Override
-    public void reset(ExecutionContext context) {
+    public void reset(ExecutionContext context) throws Exception {
         // do nothing
     }
 

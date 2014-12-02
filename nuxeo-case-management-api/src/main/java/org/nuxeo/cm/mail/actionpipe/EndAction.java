@@ -35,7 +35,7 @@ public class EndAction extends AbstractCaseManagementMailAction {
 
     private static final Log log = LogFactory.getLog(EndAction.class);
 
-    public boolean execute(ExecutionContext context) {
+    public boolean execute(ExecutionContext context) throws Exception {
         try {
             Message message = context.getMessage();
             // erase marker: mail has been treated
@@ -47,7 +47,7 @@ public class EndAction extends AbstractCaseManagementMailAction {
         }
     }
 
-    public void reset(ExecutionContext context) {
+    public void reset(ExecutionContext context) throws Exception {
         // do nothing
     }
 

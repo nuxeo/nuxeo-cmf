@@ -109,7 +109,7 @@ public class MailInjectionListener implements EventListener {
                     log.error(e.getMessage(), e);
                 }
             }
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             log.error(e, e);
         }
     }
