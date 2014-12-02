@@ -22,6 +22,7 @@ package org.nuxeo.cm.mail.actionpipe;
 import javax.mail.Flags;
 import javax.mail.Message;
 import javax.mail.Flags.Flag;
+import javax.mail.MessagingException;
 
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 
@@ -35,7 +36,7 @@ import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
  */
 public class StartAction extends AbstractCaseManagementMailAction {
 
-    public boolean execute(ExecutionContext context) throws Exception {
+    public boolean execute(ExecutionContext context) throws MessagingException {
         Message message = context.getMessage();
         if (message == null) {
             return false;
@@ -53,7 +54,7 @@ public class StartAction extends AbstractCaseManagementMailAction {
         return true;
     }
 
-    public void reset(ExecutionContext context) throws Exception {
+    public void reset(ExecutionContext context) {
         // do nothing
     }
 
