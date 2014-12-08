@@ -47,8 +47,7 @@ public class TestDefaultEnglishMailParser {
     }
 
     /**
-     * Testing the parsing of contacts with the default contact pattern that
-     * should be the Thunderbird one.
+     * Testing the parsing of contacts with the default contact pattern that should be the Thunderbird one.
      */
     @Test
     public void testParseContacts() {
@@ -62,29 +61,23 @@ public class TestDefaultEnglishMailParser {
         String fullContact2 = "\t \"Sun Seng David Tan (sunix)\" <stan@nuxeo.com> test";
         contacts = bodyParser.parseContacts(fullContact2);
         assertEquals(1, contacts.size());
-        assertEquals("Sun Seng David Tan (sunix)",
-                contacts.get(0).getName());
+        assertEquals("Sun Seng David Tan (sunix)", contacts.get(0).getName());
         assertEquals("stan@nuxeo.com", contacts.get(0).getEmail());
 
         String simpleContact = "\t stan@nuxeo.com >test >test";
         contacts = bodyParser.parseContacts(simpleContact);
         assertEquals(1, contacts.size());
-        assertTrue("".equals(contacts.get(0).getName())
-                || contacts.get(0).getName() == null);
+        assertTrue("".equals(contacts.get(0).getName()) || contacts.get(0).getName() == null);
         assertEquals("stan@nuxeo.com", contacts.get(0).getEmail());
 
         String multipleSimpleContacts = "\tsun@sue-fr.org, sxzhang@ead.naixtis.com, ehimarka@yaheo.fr decoooo>qsdfqsdf>";
         contacts = bodyParser.parseContacts(multipleSimpleContacts);
         assertEquals(3, contacts.size());
-        assertTrue("".equals(contacts.get(0).getName())
-                || contacts.get(0).getName() == null);
+        assertTrue("".equals(contacts.get(0).getName()) || contacts.get(0).getName() == null);
         assertEquals("sun@sue-fr.org", contacts.get(0).getEmail());
-        assertTrue("".equals(contacts.get(1).getName())
-                || contacts.get(1).getName() == null);
-        assertEquals("sxzhang@ead.naixtis.com",
-                contacts.get(1).getEmail());
-        assertTrue("".equals(contacts.get(2).getName())
-                || contacts.get(2).getName() == null);
+        assertTrue("".equals(contacts.get(1).getName()) || contacts.get(1).getName() == null);
+        assertEquals("sxzhang@ead.naixtis.com", contacts.get(1).getEmail());
+        assertTrue("".equals(contacts.get(2).getName()) || contacts.get(2).getName() == null);
         assertEquals("ehimarka@yaheo.fr", contacts.get(2).getEmail());
 
         String multipleFullContacts = "\tJean-David TANG <jdtang@gmail.com>, \"Sun Seng David Tan (sunix)\" <sun.seng.david.tan@nuxeo.com>,  Louisa Cha <cha_louisa@yahoo.fr> qsdfqsdf < mlkjlmj > mlkj";
@@ -92,56 +85,43 @@ public class TestDefaultEnglishMailParser {
         assertEquals(3, contacts.size());
         assertEquals("Jean-David TANG", contacts.get(0).getName());
         assertEquals("jdtang@gmail.com", contacts.get(0).getEmail());
-        assertEquals("Sun Seng David Tan (sunix)",
-                contacts.get(1).getName());
-        assertEquals("sun.seng.david.tan@nuxeo.com",
-                contacts.get(1).getEmail());
+        assertEquals("Sun Seng David Tan (sunix)", contacts.get(1).getName());
+        assertEquals("sun.seng.david.tan@nuxeo.com", contacts.get(1).getEmail());
         assertEquals("Louisa Cha", contacts.get(2).getName());
         assertEquals("cha_louisa@yahoo.fr", contacts.get(2).getEmail());
 
         String mixedContacts = "prase.jesuth@sgs.socgene.com,  Anne so Paier <annesopaier@yahoo.fr>, jubaien@hotmail.com, \"Guillaume(chacha) Chateau\" <guillaume.chateaur@eeee.fr> >mlkjmlj sdf> qsdfq>";
         contacts = bodyParser.parseContacts(mixedContacts);
         assertEquals(4, contacts.size());
-        assertTrue("".equals(contacts.get(0).getName())
-                || contacts.get(0).getName() == null);
-        assertEquals("prase.jesuth@sgs.socgene.com",
-                contacts.get(0).getEmail());
+        assertTrue("".equals(contacts.get(0).getName()) || contacts.get(0).getName() == null);
+        assertEquals("prase.jesuth@sgs.socgene.com", contacts.get(0).getEmail());
         assertEquals("Anne so Paier", contacts.get(1).getName());
         assertEquals("annesopaier@yahoo.fr", contacts.get(1).getEmail());
-        assertTrue("".equals(contacts.get(2).getName())
-                || contacts.get(2).getName() == null);
+        assertTrue("".equals(contacts.get(2).getName()) || contacts.get(2).getName() == null);
         assertEquals("jubaien@hotmail.com", contacts.get(2).getEmail());
-        assertEquals("Guillaume(chacha) Chateau",
-                contacts.get(3).getName());
-        assertEquals("guillaume.chateaur@eeee.fr",
-                contacts.get(3).getEmail());
+        assertEquals("Guillaume(chacha) Chateau", contacts.get(3).getName());
+        assertEquals("guillaume.chateaur@eeee.fr", contacts.get(3).getEmail());
     }
 
     @Test
     public void testEmailEnglishParser() {
-        String toParse = "\n-------- Original Message --------"
-                + "\nSubject:    RENOUVELLEMENT DE SUPPORT ANNUEL"
-                + "\nDate:   Wed, 14 Jan 2009 15:15:25 +0100"
-                + "\nFrom:   Anahide TCHERTCHIAN <at@nuxeo.com>"
-                + "\nTo:     <arussel@nuxeo.com>\n\n"
-                + "\nObjet : [correspondence] courriel test pour fonctionnalité "
-                + "\nBonjour,\n"
-                + "\nVeuillez trouver ci-joint un devis pour le renouvellement de votre support"
+        String toParse = "\n-------- Original Message --------" + "\nSubject:    RENOUVELLEMENT DE SUPPORT ANNUEL"
+                + "\nDate:   Wed, 14 Jan 2009 15:15:25 +0100" + "\nFrom:   Anahide TCHERTCHIAN <at@nuxeo.com>"
+                + "\nTo:     <arussel@nuxeo.com>\n\n" + "\nObjet : [correspondence] courriel test pour fonctionnalité "
+                + "\nBonjour,\n" + "\nVeuillez trouver ci-joint un devis pour le renouvellement de votre support"
                 + "\nannuel pour la p�riode du 26/02/09 AU 26/02/10."
                 + "\n\nMerci de bien vouloir nous faire parvenir un bon de commande."
                 + "\n\nNous restons � votre disposition pour tout compl�ment d'information,"
-                + "\n\n\nBien cordialement," + "\n\nAnahide TCHERTCHIAN"
-                + "\nAssistante Commerciale" + "\ne-mail : at@nuxeo.com\n		";
+                + "\n\n\nBien cordialement," + "\n\nAnahide TCHERTCHIAN" + "\nAssistante Commerciale"
+                + "\ne-mail : at@nuxeo.com\n		";
         Matcher matcher = bodyParser.getHeaderPattern().matcher(toParse);
-        assertTrue("The text to parse didn't match the header regexp",
-                matcher.matches());
+        assertTrue("The text to parse didn't match the header regexp", matcher.matches());
         if (log.isDebugEnabled()) {
             for (int i = 1; i < matcher.groupCount() + 1; i++) {
                 log.debug(i + ": " + matcher.group(i));
             }
         }
-        assertTrue(
-                "The original TO recipient should contain arussel@nuxeo.com",
+        assertTrue("The original TO recipient should contain arussel@nuxeo.com",
                 matcher.group(10).contains("arussel@nuxeo.com"));
 
     }
@@ -152,15 +132,13 @@ public class TestDefaultEnglishMailParser {
         String toParse = "\n\n-------- Original Message --------\nSubject: \tRENOUVELLEMENT DE SUPPORT ANNUEL\nDate: \tWed, 14 Jan 2009 15:15:25 +0100\nFrom: \tAnahide TCHERTCHIAN <at@nuxeo.com>\nTo: \t<arussel@nuxeo.com> ; Jean Dupuis <jean.dupuis@mail.fr>\nCc: \tSebastien Blanc <s.b@mail.fr>; benoit perrier <b.l@mail.fr>\n\n\n\nBonjour,\n\nVeuillez trouver ci-joint un devis pour le renouvellement de votre support\nannuel pour la p�riode du 26/02/09 AU 26/02/10.\n\n\nMerci de bien vouloir nous faire parvenir un bon de commande.\n\nNous restons � votre disposition pour tout compl�ment d'information,\n\n\nBien cordialement,\n\nAnahide TCHERTCHIAN\n\ne-mail : at@nuxeo.com\n\n\n";
 
         Matcher matcher = bodyParser.getHeaderPattern().matcher(toParse);
-        assertTrue("The text to parse didn't match the header regexp",
-                matcher.matches());
+        assertTrue("The text to parse didn't match the header regexp", matcher.matches());
         if (log.isDebugEnabled()) {
             for (int i = 1; i < matcher.groupCount() + 1; i++) {
                 log.debug(i + ": " + matcher.group(i));
             }
         }
-        assertTrue(
-                "The original TO recipient should contain arussel@nuxeo.com",
+        assertTrue("The original TO recipient should contain arussel@nuxeo.com",
                 matcher.group(10).contains("arussel@nuxeo.com"));
     }
 

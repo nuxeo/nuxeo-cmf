@@ -47,8 +47,7 @@ public class MailboxSynchronizationListener implements EventListener {
             }
         } catch (Exception e) {
             doingSync = false;
-            throw new CaseManagementRuntimeException(
-                    "Error during Mailboxes synchronization", e);
+            throw new CaseManagementRuntimeException("Error during Mailboxes synchronization", e);
         }
     }
 

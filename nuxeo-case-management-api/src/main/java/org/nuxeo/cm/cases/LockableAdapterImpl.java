@@ -38,24 +38,19 @@ public class LockableAdapterImpl implements LockableAdapter {
         this.document = document;
     }
 
-    public Lock lockDocument(CoreSession documentManager)
-            throws ClientException {
+    public Lock lockDocument(CoreSession documentManager) throws ClientException {
         return document.setLock();
     }
 
-    public void unlockDocument(CoreSession documentManager)
-            throws ClientException {
+    public void unlockDocument(CoreSession documentManager) throws ClientException {
         Lock lock = documentManager.getLockInfo(document.getRef());
 
         if (lock != null) {
             DocumentRef ref = document.getRef();
             NuxeoPrincipal userName = (NuxeoPrincipal) documentManager.getPrincipal();
-            if (userName.isAdministrator()
-                    || documentManager.hasPermission(ref,
-                            SecurityConstants.EVERYTHING)
+            if (userName.isAdministrator() || documentManager.hasPermission(ref, SecurityConstants.EVERYTHING)
                     || userName.getName().equals(lock.getOwner())) {
-                if (documentManager.hasPermission(ref,
-                        SecurityConstants.WRITE_PROPERTIES)) {
+                if (documentManager.hasPermission(ref, SecurityConstants.WRITE_PROPERTIES)) {
                     document.removeLock();
                 } else {
                     log.error("Cannot unlock document " + document.getName());
@@ -78,8 +73,7 @@ public class LockableAdapterImpl implements LockableAdapter {
         return true;
     }
 
-    public boolean isLockedByCurrentUser(CoreSession documentManager)
-            throws ClientException {
+    public boolean isLockedByCurrentUser(CoreSession documentManager) throws ClientException {
         Lock lock = documentManager.getLockInfo(document.getRef());
         if (lock == null) {
             return false;

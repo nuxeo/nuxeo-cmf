@@ -39,9 +39,7 @@ public abstract class AbstractDraftListener {
 
     public void handleEvent(Event event) throws ClientException {
         if (!getEventName().equals(event.getName())) {
-            getLog().warn(
-                    "DraftUpdatedListener called on a non DraftUpdatedListener event: "
-                            + event);
+            getLog().warn("DraftUpdatedListener called on a non DraftUpdatedListener event: " + event);
             return;
         }
         DocumentEventContext docCtx = null;
@@ -50,9 +48,7 @@ public abstract class AbstractDraftListener {
             docCtx = (DocumentEventContext) event.getContext();
             principal = docCtx.getPrincipal();
         } else {
-            getLog().warn(
-                    "DraftUpdatedListener called with non DocumentEventContext context: "
-                            + event.getContext());
+            getLog().warn("DraftUpdatedListener called with non DocumentEventContext context: " + event.getContext());
             return;
         }
         CoreSession session = docCtx.getCoreSession();
@@ -75,20 +71,18 @@ public abstract class AbstractDraftListener {
             return;
         }
         DocumentModel firstDoc = item.getDocument();
-        CaseLink draft = (CaseLink) docCtx.getProperties().get(
-                CaseManagementEventConstants.EVENT_CONTEXT_DRAFT);
+        CaseLink draft = (CaseLink) docCtx.getProperties().get(CaseManagementEventConstants.EVENT_CONTEXT_DRAFT);
         updateDraft(draft.getDocument(), firstDoc, envelopeDM, principal);
         session.saveDocument(draft.getDocument());
     }
 
-    protected void updateDraft(DocumentModel draft, DocumentModel firstDoc,
-            DocumentModel envelope, Principal principal) throws ClientException {
+    protected void updateDraft(DocumentModel draft, DocumentModel firstDoc, DocumentModel envelope, Principal principal)
+            throws ClientException {
         draft.setPropertyValue(CaseConstants.CONTACTS_SENDERS,
                 firstDoc.getPropertyValue(CaseConstants.CONTACTS_SENDERS));
         draft.setPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS,
                 firstDoc.getPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS));
-        draft.setPropertyValue(CaseLinkConstants.SENDER_FIELD,
-                principal.getName());
+        draft.setPropertyValue(CaseLinkConstants.SENDER_FIELD, principal.getName());
     }
 
 }

@@ -41,8 +41,7 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
 
     private CaseManagementCaseItemDocumentFactory cmCaseItemDocFactory;
 
-    public CaseManagementImporter(String destionationMailboxPath,
-            String noImportingThreads, String folderPath,
+    public CaseManagementImporter(String destionationMailboxPath, String noImportingThreads, String folderPath,
             CaseManagementCaseItemDocumentFactory factory) {
         this.destionationMailboxPath = destionationMailboxPath;
         this.noImportingThreads = noImportingThreads;
@@ -59,9 +58,8 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
         SourceNode sourceNode = new FileSourceNode(folderPath);
         GenericMultiThreadedImporter importer;
         try {
-            importer = new GenericMultiThreadedImporter(sourceNode,
-                    destionationMailboxPath, 50,
-                    new Integer(noImportingThreads), getLogger());
+            importer = new GenericMultiThreadedImporter(sourceNode, destionationMailboxPath, 50, new Integer(
+                    noImportingThreads), getLogger());
             // TODO : bachSize?
             cmCaseItemDocFactory.setDestionationMailboxPath(destionationMailboxPath);
             importer.setFactory(cmCaseItemDocFactory);

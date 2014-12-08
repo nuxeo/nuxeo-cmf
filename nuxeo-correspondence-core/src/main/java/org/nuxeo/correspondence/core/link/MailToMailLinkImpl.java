@@ -28,7 +28,6 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 
 /**
- * 
  * @author ldoguin
  */
 public class MailToMailLinkImpl extends AbstractLink implements MailToMailLink {
@@ -50,17 +49,14 @@ public class MailToMailLinkImpl extends AbstractLink implements MailToMailLink {
 
     @Override
     public void addMailToMailLink(CorrespondenceLink link) {
-        addCorrespondenceLink(
-                CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_PROPERTY_NAME,
-                link);
+        addCorrespondenceLink(CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_PROPERTY_NAME, link);
         try {
             String newId = link.getTargetDocId();
             List<String> itemsId = (List<String>) document.getPropertyValue(CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME);
             if (!itemsId.contains(newId)) {
                 itemsId.add(newId);
             }
-            document.setPropertyValue(
-                    CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME,
+            document.setPropertyValue(CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME,
                     (Serializable) itemsId);
         } catch (PropertyException e) {
             throw new CaseManagementRuntimeException(e);
@@ -71,9 +67,7 @@ public class MailToMailLinkImpl extends AbstractLink implements MailToMailLink {
 
     @Override
     public void addAllMailToMailLink(List<CorrespondenceLink> links) {
-        addAllCorrespondenceLinks(
-                CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_PROPERTY_NAME,
-                links);
+        addAllCorrespondenceLinks(CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_PROPERTY_NAME, links);
         try {
             List<String> itemsId = (List<String>) document.getPropertyValue(CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME);
             String newId;
@@ -83,8 +77,7 @@ public class MailToMailLinkImpl extends AbstractLink implements MailToMailLink {
                     itemsId.add(newId);
                 }
             }
-            document.setPropertyValue(
-                    CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME,
+            document.setPropertyValue(CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME,
                     (Serializable) itemsId);
         } catch (PropertyException e) {
             throw new CaseManagementRuntimeException(e);
@@ -107,17 +100,14 @@ public class MailToMailLinkImpl extends AbstractLink implements MailToMailLink {
 
     @Override
     public void removeMailToMailLink(CorrespondenceLink link) {
-        removeCorrespondenceLink(
-                CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_PROPERTY_NAME,
-                link);
+        removeCorrespondenceLink(CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_PROPERTY_NAME, link);
         try {
             String docId = link.getTargetDocId();
             List<String> itemsId = (List<String>) document.getPropertyValue(CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME);
             if (itemsId.contains(docId)) {
                 itemsId.remove(docId);
             }
-            document.setPropertyValue(
-                    CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME,
+            document.setPropertyValue(CorrespondenceLinksConstants.TARGET_DOCUMENTS_ID_PROPERTY_NAME,
                     (Serializable) itemsId);
         } catch (PropertyException e) {
             throw new CaseManagementRuntimeException(e);

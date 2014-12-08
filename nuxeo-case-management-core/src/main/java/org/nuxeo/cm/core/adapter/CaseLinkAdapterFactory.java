@@ -37,8 +37,7 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
  */
 public class CaseLinkAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
-            Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new ActionableCaseLinkImpl(doc, adapter);
@@ -46,16 +45,13 @@ public class CaseLinkAdapterFactory implements DocumentAdapterFactory {
 
     protected void checkDocument(DocumentModel doc) {
         if (!doc.hasFacet(CASE_LINK_FACET)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should have facet " + CASE_LINK_FACET);
+            throw new CaseManagementRuntimeException("Document should have facet " + CASE_LINK_FACET);
         }
         if (!doc.hasSchema(DISTRIBUTION_SCHEMA)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should contain schema " + DISTRIBUTION_SCHEMA);
+            throw new CaseManagementRuntimeException("Document should contain schema " + DISTRIBUTION_SCHEMA);
         }
         if (!doc.hasSchema(CASE_LINK_SCHEMA)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should contain schema " + CASE_LINK_SCHEMA);
+            throw new CaseManagementRuntimeException("Document should contain schema " + CASE_LINK_SCHEMA);
         }
     }
 

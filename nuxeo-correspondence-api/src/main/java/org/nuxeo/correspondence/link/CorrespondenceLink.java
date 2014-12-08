@@ -42,8 +42,7 @@ public class CorrespondenceLink extends HashMap<String, Serializable> {
         this.putAll(stmt);
     }
 
-    public CorrespondenceLink(DocumentRef sourceDocumentRef,
-            String targetDocId, String comment, Long order,
+    public CorrespondenceLink(DocumentRef sourceDocumentRef, String targetDocId, String comment, Long order,
             Calendar creationDate, Calendar modificationDate, String author) {
         this.sourceDocumentRef = sourceDocumentRef;
         setTargetDocId(targetDocId);
@@ -54,8 +53,7 @@ public class CorrespondenceLink extends HashMap<String, Serializable> {
         setAuthor(author);
     }
 
-    public CorrespondenceLink(DocumentRef sourceDocumentRef,
-            String targetDocId, String comment, Long order,
+    public CorrespondenceLink(DocumentRef sourceDocumentRef, String targetDocId, String comment, Long order,
             Calendar creationDate) {
         this.sourceDocumentRef = sourceDocumentRef;
         setTargetDocId(targetDocId);
@@ -69,8 +67,7 @@ public class CorrespondenceLink extends HashMap<String, Serializable> {
     }
 
     public void setTargetDocId(String targetDocId) {
-        put(CorrespondenceLinksConstants.TARGET_DOC_ID_PROPERTY_NAME,
-                targetDocId);
+        put(CorrespondenceLinksConstants.TARGET_DOC_ID_PROPERTY_NAME, targetDocId);
     }
 
     public String getAuthor() {
@@ -112,8 +109,7 @@ public class CorrespondenceLink extends HashMap<String, Serializable> {
 
     public void setModificationDate(Calendar modificationDate) {
         if (modificationDate != null) {
-            put(CorrespondenceLinksConstants.MODIFICATION_DATE_PROPERTY_NAME,
-                    modificationDate);
+            put(CorrespondenceLinksConstants.MODIFICATION_DATE_PROPERTY_NAME, modificationDate);
         }
     }
 
@@ -123,8 +119,7 @@ public class CorrespondenceLink extends HashMap<String, Serializable> {
 
     public void setCreationDate(Calendar creationDate) {
         if (creationDate != null) {
-            put(CorrespondenceLinksConstants.CREATION_DATE_PROPERTY_NAME,
-                    creationDate);
+            put(CorrespondenceLinksConstants.CREATION_DATE_PROPERTY_NAME, creationDate);
         }
     }
 

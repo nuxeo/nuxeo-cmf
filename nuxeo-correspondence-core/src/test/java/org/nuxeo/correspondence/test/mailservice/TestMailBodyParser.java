@@ -39,11 +39,10 @@ import org.nuxeo.cm.mail.actionpipe.ParseMailBody;
  */
 public class TestMailBodyParser {
 
-    protected final SimpleDateFormat emailDateParser = new SimpleDateFormat(
-            "EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+    protected final SimpleDateFormat emailDateParser = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z",
+            Locale.ENGLISH);
 
-    public void matchContact(String expectedName, String expectedEmail,
-            Contact actual) throws Exception {
+    public void matchContact(String expectedName, String expectedEmail, Contact actual) throws Exception {
         assertEquals("Actual name is", expectedName, actual.getName());
         assertEquals("Actual email is", expectedEmail, actual.getEmail());
     }
@@ -67,8 +66,7 @@ public class TestMailBodyParser {
         Contacts actualSenders = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_SENDERS_KEY);
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
-        assertEquals(
-                emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
                 ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime().getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
@@ -96,8 +94,7 @@ public class TestMailBodyParser {
         Contacts actualSenders = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_SENDERS_KEY);
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
-        assertEquals(
-                emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
                 ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime().getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(2, actualTo.size());
@@ -111,8 +108,7 @@ public class TestMailBodyParser {
     }
 
     /**
-     * Test contents with the same header but with different bodies, that must
-     * give the same result
+     * Test contents with the same header but with different bodies, that must give the same result
      *
      * @throws Exception
      */
@@ -174,8 +170,7 @@ public class TestMailBodyParser {
         Contacts actualSenders = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_SENDERS_KEY);
         assertEquals(1, actualSenders.size());
         matchContact(fromName, fromEmail, actualSenders.get(0));
-        assertEquals(
-                date.getTime(),
+        assertEquals(date.getTime(),
                 ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         Contacts actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
@@ -195,8 +190,7 @@ public class TestMailBodyParser {
         actualSenders = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_SENDERS_KEY);
         assertEquals(1, actualSenders.size());
         matchContact(fromName, null, actualSenders.get(0));
-        assertEquals(
-                date.getTime(),
+        assertEquals(date.getTime(),
                 ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertEquals(1, actualTo.size());
@@ -212,13 +206,11 @@ public class TestMailBodyParser {
 
         actualSenders = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_SENDERS_KEY);
         assertEquals(1, actualSenders.size());
-        matchContact("GUITTER Solen", "solen.guitter@nuxeo.com",
-                actualSenders.get(0));
+        matchContact("GUITTER Solen", "solen.guitter@nuxeo.com", actualSenders.get(0));
         date = Calendar.getInstance();
         date.setTimeInMillis(0);
         date.set(2008, 1, 4, 16, 46);
-        assertEquals(
-                date.getTime(),
+        assertEquals(date.getTime(),
                 ((Calendar) context.get(MailActionPipeConstants.ORIGINAL_RECEPTION_DATE_KEY)).getTime());
         actualTo = (Contacts) context.get(MailActionPipeConstants.ORIGINAL_TO_RECIPIENTS_KEY);
         assertNull(actualTo);

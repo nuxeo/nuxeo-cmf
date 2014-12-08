@@ -42,8 +42,7 @@ import org.nuxeo.ecm.platform.comment.web.ThreadEntry;
 @Name("correspCommentActions")
 @Scope(CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceCommentActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CorrespondenceCommentActionsBean extends CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 6994714264125928209L;
 
@@ -52,8 +51,7 @@ public class CorrespondenceCommentActionsBean extends
     @In(create = true)
     protected transient CommentManagerActions commentManagerActions;
 
-    protected void resetCurrentEmailCache(DocumentModel cachedEmail,
-            DocumentModel newEmail) throws ClientException {
+    protected void resetCurrentEmailCache(DocumentModel cachedEmail, DocumentModel newEmail) throws ClientException {
         commentManagerActions.documentChanged();
     }
 

@@ -25,8 +25,7 @@ import org.nuxeo.cm.exception.CaseManagementException;
  * <p>
  * This service is used to add Distribution Type.
  * <p>
- * A distribution type is declared with an identifier and 3 schema properties
- * for:
+ * A distribution type is declared with an identifier and 3 schema properties for:
  * <ul>
  * <li>Internal initial recipients</li>
  * <li>External initial recipients</li>
@@ -40,33 +39,27 @@ public interface CaseManagementDistributionTypeService extends Serializable {
     Set<String> getDistributionTypes();
 
     /**
-     * Get the <b>initial internal</b> recipients property corresponding to
-     * the distribution type.
+     * Get the <b>initial internal</b> recipients property corresponding to the distribution type.
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
      */
-    String getInternalProperty(String distributionType)
-            throws CaseManagementException;
+    String getInternalProperty(String distributionType) throws CaseManagementException;
 
     /**
-     * Get the <b>initial external</b> recipients property corresponding to
-     * the distribution type.
+     * Get the <b>initial external</b> recipients property corresponding to the distribution type.
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
      */
-    String getExternalProperty(String distributionType)
-            throws CaseManagementException;
+    String getExternalProperty(String distributionType) throws CaseManagementException;
 
     /**
-     * Get the <b>all</b> recipients property corresponding to the
-     * distribution type.
+     * Get the <b>all</b> recipients property corresponding to the distribution type.
      *
      * @param distributionType A Distribution Type.
      * @return The corresponding schema property name.
      */
-    String getAllProperty(String distributionType)
-            throws CaseManagementException;
+    String getAllProperty(String distributionType) throws CaseManagementException;
 
 }

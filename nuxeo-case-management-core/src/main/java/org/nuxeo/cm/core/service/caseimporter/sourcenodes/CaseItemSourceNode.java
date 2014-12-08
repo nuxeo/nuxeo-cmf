@@ -27,8 +27,7 @@ public class CaseItemSourceNode extends FileSourceNode {
 
     private Element caseItemElement;
 
-    public CaseItemSourceNode(Element caseItemElement,
-            AbstractXMLCaseReader xmlReader, String rootPath) {
+    public CaseItemSourceNode(Element caseItemElement, AbstractXMLCaseReader xmlReader, String rootPath) {
         super(new File(FileUtils.getParentPath(rootPath) + File.separator
                 + xmlReader.getCaseItemPathFile(caseItemElement)));
         this.caseItemElement = caseItemElement;

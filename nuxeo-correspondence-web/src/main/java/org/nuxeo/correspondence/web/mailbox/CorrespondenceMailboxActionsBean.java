@@ -48,8 +48,7 @@ import org.nuxeo.runtime.api.Framework;
 @Name("correspMailboxActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceMailboxActionsBean extends
-        CaseManagementContextBoundInstance implements Serializable {
+public class CorrespondenceMailboxActionsBean extends CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -60,8 +59,7 @@ public class CorrespondenceMailboxActionsBean extends
 
     // FIXME: reset also when a new plan is created/deleted
     @Override
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
-            throws ClientException {
+    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox) throws ClientException {
     }
 
     public boolean isIncomingInitialEnvelope() throws ClientException {
@@ -86,8 +84,7 @@ public class CorrespondenceMailboxActionsBean extends
 
     /**
      * @param facet
-     * @return true if the first caseItem of the current envelope has the given
-     *         facet.
+     * @return true if the first caseItem of the current envelope has the given facet.
      * @throws ClientException
      */
     public boolean hasCurrentCaseFacet(String facet) throws ClientException {
@@ -96,8 +93,7 @@ public class CorrespondenceMailboxActionsBean extends
         try {
             correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         } catch (Exception e) {
-            log.error("Could not retrieve CorrespondenceDocumentType Service",
-                    e);
+            log.error("Could not retrieve CorrespondenceDocumentType Service", e);
         }
 
         Case currentEnvelope = getCurrentCase();
@@ -113,8 +109,7 @@ public class CorrespondenceMailboxActionsBean extends
 
     public String openDraft(String envelopeId) throws ClientException {
 
-        DocumentModel envelopeDoc = documentManager.getDocument(new IdRef(
-                envelopeId));
+        DocumentModel envelopeDoc = documentManager.getDocument(new IdRef(envelopeId));
         Case envelope = envelopeDoc.getAdapter(Case.class);
         DocumentModel mailDoc = envelope.getFirstItem(documentManager).getDocument();
         if (mailDoc.hasFacet(MailConstants.OUTGOING_MAIL_FACET)) {
@@ -124,9 +119,7 @@ public class CorrespondenceMailboxActionsBean extends
             LockableAdapter lockable = mailDoc.getAdapter(LockableAdapter.class);
 
             if (!lockable.isLocked(documentManager)
-                    && documentManager.hasPermission(
-                            getCurrentCase().getDocument().getRef(),
-                            SecurityConstants.WRITE)) {
+                    && documentManager.hasPermission(getCurrentCase().getDocument().getRef(), SecurityConstants.WRITE)) {
                 lockable.lockDocument(documentManager);
             }
             return view;

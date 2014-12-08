@@ -31,8 +31,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 
 /**
- * A data structure representative for nxs:contacts complex type. It helps
- * setting/retrieving contacts data.
+ * A data structure representative for nxs:contacts complex type. It helps setting/retrieving contacts data.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
@@ -52,8 +51,7 @@ public class Contacts extends ArrayList<Contact> {
     }
 
     @SuppressWarnings("unchecked")
-    public static Contacts getContactsForDoc(DocumentModel doc,
-            String propertyName) throws PropertyException {
+    public static Contacts getContactsForDoc(DocumentModel doc, String propertyName) throws PropertyException {
         List<Map<String, Serializable>> data;
         try {
             data = (List<Map<String, Serializable>>) doc.getPropertyValue(propertyName);

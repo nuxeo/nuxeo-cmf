@@ -36,8 +36,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 
 /**
- * Updates a mailbox setting users/groups on top on synchronisation
- * information.
+ * Updates a mailbox setting users/groups on top on synchronisation information.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
@@ -67,10 +66,8 @@ public class MailboxUpdatedListener extends AbstractSyncMailboxListener {
                 newGroups.add(entryId);
             }
             mailbox.setTitle(mailboxTitle);
-            boolean doMerge = isGroupUpdatePolicy(event,
-                    MailboxConstants.updatePolicy.merge);
-            boolean doOverride = isGroupUpdatePolicy(event,
-                    MailboxConstants.updatePolicy.override);
+            boolean doMerge = isGroupUpdatePolicy(event, MailboxConstants.updatePolicy.merge);
+            boolean doOverride = isGroupUpdatePolicy(event, MailboxConstants.updatePolicy.override);
             if (doMerge) {
                 if (isPersonal && !newUsers.isEmpty()) {
                     List<String> users = mailbox.getUsers();
@@ -95,26 +92,21 @@ public class MailboxUpdatedListener extends AbstractSyncMailboxListener {
             CoreSession coreSession = event.getContext().getCoreSession();
             mailbox.save(coreSession);
         } catch (Exception e) {
-            throw new CaseManagementException("Error during mailboxes update",
-                    e);
+            throw new CaseManagementException("Error during mailboxes update", e);
         }
     }
 
     /**
-     * Hook method to fill additional info on mailbox, or override other info,
-     * before performing default updates
+     * Hook method to fill additional info on mailbox, or override other info, before performing default updates
      */
-    protected void beforeMailboxUpdate(Mailbox mailbox, Event event)
-            throws ClientException {
+    protected void beforeMailboxUpdate(Mailbox mailbox, Event event) throws ClientException {
         // do nothing
     }
 
     /**
-     * Hook method to fill additional info on mailbox, or override other info,
-     * after performing default updates
+     * Hook method to fill additional info on mailbox, or override other info, after performing default updates
      */
-    protected void beforeMailboxSave(Mailbox mailbox, Event event)
-            throws ClientException {
+    protected void beforeMailboxSave(Mailbox mailbox, Event event) throws ClientException {
         // do nothing
     }
 

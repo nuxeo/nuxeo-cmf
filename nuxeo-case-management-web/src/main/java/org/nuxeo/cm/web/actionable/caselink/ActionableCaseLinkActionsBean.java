@@ -43,8 +43,7 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
 @Name("actionableCaseLinkActions")
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
-public class ActionableCaseLinkActionsBean extends
-        CaseManagementContextBoundInstance {
+public class ActionableCaseLinkActionsBean extends CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,8 +57,7 @@ public class ActionableCaseLinkActionsBean extends
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
         DocumentRef ref = caseLink.getParentRef();
         acl.validate(documentManager);
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                documentManager.getDocument(ref));
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED, documentManager.getDocument(ref));
         return navigationContext.navigateToDocument(getCurrentMailbox().getDocument());
     }
 
@@ -67,8 +65,7 @@ public class ActionableCaseLinkActionsBean extends
         ActionableCaseLink acl = caseLink.getAdapter(ActionableCaseLink.class);
         DocumentRef ref = caseLink.getParentRef();
         acl.refuse(documentManager);
-        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                documentManager.getDocument(ref));
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED, documentManager.getDocument(ref));
         return navigationContext.navigateToDocument(getCurrentMailbox().getDocument());
     }
 

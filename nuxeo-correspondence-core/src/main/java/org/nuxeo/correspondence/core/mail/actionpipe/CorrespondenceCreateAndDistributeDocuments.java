@@ -27,8 +27,7 @@ import org.nuxeo.correspondence.core.utils.CorrespondenceConstants;
  *
  * @author Laurent Doguin
  */
-public class CorrespondenceCreateAndDistributeDocuments extends
-        CreateAndDistributeDocuments {
+public class CorrespondenceCreateAndDistributeDocuments extends CreateAndDistributeDocuments {
 
     @Override
     protected String getCorrespondenceDocumentTypeToCreate() {

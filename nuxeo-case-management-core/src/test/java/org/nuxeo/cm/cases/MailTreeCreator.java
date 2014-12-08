@@ -35,8 +35,7 @@ public class MailTreeCreator implements Runnable {
 
     DocumentModel mailFolderDocument;
 
-    public MailTreeCreator(String repositoryName,
-            DocumentModel mailFolderDocumentModel) {
+    public MailTreeCreator(String repositoryName, DocumentModel mailFolderDocumentModel) {
         this.repositoryName = repositoryName;
         mailFolderDocument = mailFolderDocumentModel;
     }
@@ -46,10 +45,8 @@ public class MailTreeCreator implements Runnable {
         log.info("Starting thread" + Thread.currentThread().getName());
         try {
             TransactionHelper.commitOrRollbackTransaction();
-            DocumentModel rootRef = CaseTreeHelper.getOrCreateTxDateTreeFolder(
-                    repositoryName, mailFolderDocument,
-                    Calendar.getInstance().getTime(),
-                    CaseConstants.CASE_TREE_TYPE);
+            DocumentModel rootRef = CaseTreeHelper.getOrCreateTxDateTreeFolder(repositoryName, mailFolderDocument,
+                    Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
             assertNotNull(rootRef);
         } catch (Exception e) {
             log.error("Unable to create mail tree", e);

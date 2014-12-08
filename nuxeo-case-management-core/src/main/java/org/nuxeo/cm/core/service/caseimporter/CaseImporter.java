@@ -46,8 +46,7 @@ public class CaseImporter extends AbstractImporterExecutor {
 
     private CaseImporterThreadedTask caseImporterThreadedTask;
 
-    public CaseImporter(int noImportingThreads,
-            AbstractXMLCaseReader xmlCaseReader) {
+    public CaseImporter(int noImportingThreads, AbstractXMLCaseReader xmlCaseReader) {
         this.noImportingThreads = noImportingThreads;
         this.xmlCaseReader = xmlCaseReader;
     }
@@ -68,18 +67,15 @@ public class CaseImporter extends AbstractImporterExecutor {
                         return name.endsWith(".xml");
                     }
                 })) {
-                    children.add(new CaseManagementSourceNode(child,
-                            xmlCaseReader));
+                    children.add(new CaseManagementSourceNode(child, xmlCaseReader));
                 }
                 return children;
             }
         };
         GenericMultiThreadedImporter importer;
         try {
-            importer = new GenericMultiThreadedImporter(src,
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH, true,
-                    noImportingThreads, new Integer(noImportingThreads),
-                    getLogger());
+            importer = new GenericMultiThreadedImporter(src, CaseConstants.CASE_ROOT_DOCUMENT_PATH, true,
+                    noImportingThreads, new Integer(noImportingThreads), getLogger());
             if (caseManagementCaseImporterDocumentsFactory == null) {
                 setCaseManagementCaseImporterDocumentsFactory(new CaseManagementCaseImporterDocumentsFactory());
             }
@@ -121,8 +117,7 @@ public class CaseImporter extends AbstractImporterExecutor {
         return caseImporterThreadedTask;
     }
 
-    public void setCaseImporterThreadedTask(
-            CaseImporterThreadedTask caseImporterThreadedTask) {
+    public void setCaseImporterThreadedTask(CaseImporterThreadedTask caseImporterThreadedTask) {
         this.caseImporterThreadedTask = caseImporterThreadedTask;
     }
 }

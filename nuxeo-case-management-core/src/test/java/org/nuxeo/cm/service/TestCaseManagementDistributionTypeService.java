@@ -33,8 +33,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 /**
  * @author Nicolas Ulrich
  */
-public class TestCaseManagementDistributionTypeService extends
-        CaseManagementRepositoryTestCase {
+public class TestCaseManagementDistributionTypeService extends CaseManagementRepositoryTestCase {
 
     private static final String FOR_ACTION = "FOR_ACTION";
 
@@ -43,8 +42,7 @@ public class TestCaseManagementDistributionTypeService extends
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        deployContrib(
-                CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-distribution-type-with-error-corresp-contrib.xml");
         openSession();
     }
@@ -64,18 +62,15 @@ public class TestCaseManagementDistributionTypeService extends
 
     @Test
     public void testGetAllProperty() throws ClientException {
-        assertEquals("all_action_participant_mailboxes",
-                correspDistributionTypeService.getAllProperty(FOR_ACTION));
-        assertEquals("all_copy_participant_mailboxes",
-                correspDistributionTypeService.getAllProperty(FOR_INFORMATION));
+        assertEquals("all_action_participant_mailboxes", correspDistributionTypeService.getAllProperty(FOR_ACTION));
+        assertEquals("all_copy_participant_mailboxes", correspDistributionTypeService.getAllProperty(FOR_INFORMATION));
     }
 
     @Test
     public void testGetExternalProperty() throws ClientException {
         assertEquals("initial_action_external_participant_mailboxes",
                 correspDistributionTypeService.getExternalProperty(FOR_ACTION));
-        assertEquals(
-                "initial_copy_external_participant_mailboxes",
+        assertEquals("initial_copy_external_participant_mailboxes",
                 correspDistributionTypeService.getExternalProperty(FOR_INFORMATION));
     }
 
@@ -83,8 +78,7 @@ public class TestCaseManagementDistributionTypeService extends
     public void testGetInternalProperty() throws ClientException {
         assertEquals("initial_action_internal_participant_mailboxes",
                 correspDistributionTypeService.getInternalProperty(FOR_ACTION));
-        assertEquals(
-                "initial_copy_internal_participant_mailboxes",
+        assertEquals("initial_copy_internal_participant_mailboxes",
                 correspDistributionTypeService.getInternalProperty(FOR_INFORMATION));
     }
 

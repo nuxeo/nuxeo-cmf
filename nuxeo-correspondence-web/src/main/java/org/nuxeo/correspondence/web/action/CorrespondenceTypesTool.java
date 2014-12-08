@@ -64,8 +64,7 @@ public class CorrespondenceTypesTool extends TypesTool {
     private static Set<String> outgoingTypes = null;
 
     @Override
-    protected Map<String, List<Type>> filterTypeMap(
-            Map<String, List<Type>> docTypeMap) {
+    protected Map<String, List<Type>> filterTypeMap(Map<String, List<Type>> docTypeMap) {
         // If not null, parent doc is envelope so no need to filter
         // This should be remove and parent Doc should be given as parameter
         if (docTypeMap.get(CASE_DOCUMENT_CATEGORY) != null) {
@@ -78,9 +77,7 @@ public class CorrespondenceTypesTool extends TypesTool {
         for (List<Type> types : docTypeMap.values()) {
             for (Iterator<Type> it = types.iterator(); it.hasNext();) {
                 Type type = it.next();
-                if (!isAllowed(
-                        type, isCurrentCaseItemIncomingCorrespondence,
-                        isCurrentCaseItemOutgoingCorrespondence)) {
+                if (!isAllowed(type, isCurrentCaseItemIncomingCorrespondence, isCurrentCaseItemOutgoingCorrespondence)) {
                     it.remove();
                 }
             }
@@ -88,8 +85,7 @@ public class CorrespondenceTypesTool extends TypesTool {
         return docTypeMap;
     }
 
-    protected boolean isAllowed(Type type,
-            boolean isCurrentCaseItemIncomingCorrespondence,
+    protected boolean isAllowed(Type type, boolean isCurrentCaseItemIncomingCorrespondence,
             boolean isCurrentCaseItemOutgoingCorrespondence) {
         try {
             if (incomingTypes == null || outgoingTypes == null) {

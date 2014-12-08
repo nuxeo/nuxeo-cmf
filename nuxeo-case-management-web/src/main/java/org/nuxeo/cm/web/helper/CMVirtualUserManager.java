@@ -48,8 +48,7 @@ public class CMVirtualUserManager {
     protected transient Principal currentUser;
 
     /**
-     * Lookup currentUser directly in userDirectory to see if it is virtual or
-     * not.
+     * Lookup currentUser directly in userDirectory to see if it is virtual or not.
      *
      * @param currentUser
      * @return true if currentUser is virtual, false otherwise.

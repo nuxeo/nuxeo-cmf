@@ -29,7 +29,6 @@ import java.util.List;
 public interface MailToMailLink extends CommonLink {
 
     /**
-     * 
      * @return the list of mail to mail CorrespondenceLink.
      */
     List<CorrespondenceLink> getMailToMailLink();

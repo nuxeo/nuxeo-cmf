@@ -61,8 +61,7 @@ public class TestParticipants extends CaseManagementRepositoryTestCase {
         reviewList1.add("review1");
         reviewList1.add("review2");
         recipients1.put(CaseLinkType.FOR_INFORMATION.toString(), reviewList1);
-        DocumentModel model = session.createDocumentModel("/",
-                UUID.randomUUID().toString(),
+        DocumentModel model = session.createDocumentModel("/", UUID.randomUUID().toString(),
                 CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
         assertNotNull(doc);
@@ -82,18 +81,14 @@ public class TestParticipants extends CaseManagementRepositoryTestCase {
         Map<String, List<String>> allRecipients = post.getAllParticipants();
         assertNotNull(allRecipients);
         assertEquals(2, allRecipients.size());
-        assertEquals(2,
-                allRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
-        assertEquals(4, allRecipients.get(
-                CaseLinkType.FOR_INFORMATION.toString()).size());
+        assertEquals(2, allRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(4, allRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
 
         Map<String, List<String>> initialRecipients = post.getInitialInternalParticipants();
         assertNotNull(initialRecipients);
         assertEquals(2, initialRecipients.size());
-        assertEquals(2, initialRecipients.get(
-                CaseLinkType.FOR_ACTION.toString()).size());
-        assertEquals(2, initialRecipients.get(
-                CaseLinkType.FOR_INFORMATION.toString()).size());
+        assertEquals(2, initialRecipients.get(CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(2, initialRecipients.get(CaseLinkType.FOR_INFORMATION.toString()).size());
     }
 
 }

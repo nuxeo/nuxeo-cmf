@@ -77,8 +77,7 @@ public class CaseTreeActionsBean extends TreeActionsBean {
     public boolean getRenderChildTree() throws ClientException {
         if (!renderChildTree) {
             for (SupportedNavigationTrees navTree : SupportedNavigationTrees.values()) {
-                if (navTree.toString().equals(
-                        multiNavTreeManager.getSelectedNavigationTree())) {
+                if (navTree.toString().equals(multiNavTreeManager.getSelectedNavigationTree())) {
                     treeName = multiNavTreeManager.getSelectedNavigationTree();
                     setNavigationChildTreeContext();
                     return true;
@@ -138,15 +137,12 @@ public class CaseTreeActionsBean extends TreeActionsBean {
                 } catch (Exception e) {
                     log.error("Could not fetch filter or sorter for tree ", e);
                 }
-                DocumentTreeNode treeRoot = new DocumentTreeNodeImpl(
-                        documentManager.getSessionId(), firstAccessibleParent,
-                        filter, leafFilter, sorter, pageProvider);
+                DocumentTreeNode treeRoot = new DocumentTreeNodeImpl(documentManager.getSessionId(),
+                        firstAccessibleParent, filter, leafFilter, sorter, pageProvider);
                 currentTree.add(treeRoot);
-                log.debug("Tree initialized with document: "
-                        + firstAccessibleParent.getId());
+                log.debug("Tree initialized with document: " + firstAccessibleParent.getId());
             } else {
-                log.debug("Could not initialize the navigation tree: no parent"
-                        + " found for current document");
+                log.debug("Could not initialize the navigation tree: no parent" + " found for current document");
             }
             trees.put(treeName, currentTree);
         }

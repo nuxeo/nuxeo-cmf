@@ -69,10 +69,8 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         String forgottenUserMailboxId = forgottenUserMailbox.getDocument().getId();
         assertNotNull(receiver2Mailbox);
         Map<String, List<String>> recipients = new HashMap<String, List<String>>();
-        recipients.put(CaseLinkType.FOR_ACTION.name(),
-                Collections.singletonList(receiver1Mailbox.getId()));
-        recipients.put(CaseLinkType.FOR_INFORMATION.name(),
-                Collections.singletonList(receiver2Mailbox.getId()));
+        recipients.put(CaseLinkType.FOR_ACTION.name(), Collections.singletonList(receiver1Mailbox.getId()));
+        recipients.put(CaseLinkType.FOR_INFORMATION.name(), Collections.singletonList(receiver2Mailbox.getId()));
         setMailRootRigts();
         closeSession();
         session = openSessionAs(user1);
@@ -80,30 +78,21 @@ public class TestEnvelopeSecurity extends CaseManagementSecurityTestCase {
         session.save();
         DocumentModel docModel = envelope.getDocument();
         assertNotNull(docModel);
-        CaseLink clk = caseDistributionService.getDraftCaseLink(session,
-                senderMailbox, docModel.getId());
+        CaseLink clk = caseDistributionService.getDraftCaseLink(session, senderMailbox, docModel.getId());
         assertNotNull(clk);
         assertTrue(clk.isDraft());
-        CaseLink postRequest = new CaseLinkRequestImpl(senderMailbox.getId(),
-                Calendar.getInstance(), "Check this out", "it is a bit boring",
-                envelope, recipients, recipients);
-        CaseLink post = caseDistributionService.sendCase(session, postRequest,
-                true);
+        CaseLink postRequest = new CaseLinkRequestImpl(senderMailbox.getId(), Calendar.getInstance(), "Check this out",
+                "it is a bit boring", envelope, recipients, recipients);
+        CaseLink post = caseDistributionService.sendCase(session, postRequest, true);
         DocumentModel kase = session.getDocument(envelope.getDocument().getRef());
-        assertEquals(CaseLifeCycleConstants.STATE_SENT,
-                kase.getCurrentLifeCycleState());
+        assertEquals(CaseLifeCycleConstants.STATE_SENT, kase.getCurrentLifeCycleState());
         assertNotNull(post);
         assertFalse(post.isDraft());
         assertEquals(user1, post.getSender());
-        assertFalse(post.getAllParticipants().get(
-                CaseLinkType.FOR_ACTION.name()).isEmpty());
-        assertFalse(post.getAllParticipants().get(
-                CaseLinkType.FOR_INFORMATION.name()).isEmpty());
-        assertTrue(post.getAllParticipants().get(CaseLinkType.FOR_ACTION.name()).contains(
-                receiver1Mailbox.getId()));
-        assertTrue(post.getAllParticipants().get(
-                CaseLinkType.FOR_INFORMATION.name()).contains(
-                receiver2Mailbox.getId()));
+        assertFalse(post.getAllParticipants().get(CaseLinkType.FOR_ACTION.name()).isEmpty());
+        assertFalse(post.getAllParticipants().get(CaseLinkType.FOR_INFORMATION.name()).isEmpty());
+        assertTrue(post.getAllParticipants().get(CaseLinkType.FOR_ACTION.name()).contains(receiver1Mailbox.getId()));
+        assertTrue(post.getAllParticipants().get(CaseLinkType.FOR_INFORMATION.name()).contains(receiver2Mailbox.getId()));
         DocumentModelList docList = session.query("select * from Document where ecm:mixinType = 'CaseLink' AND ecm:parentId = '"
                 + sender1MailboxId + "'");
         assertEquals(1, docList.size());

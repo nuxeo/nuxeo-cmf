@@ -81,8 +81,7 @@ import org.nuxeo.runtime.api.Framework;
 @Name("correspRelationActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceRelationActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CorrespondenceRelationActionsBean extends CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -128,8 +127,7 @@ public class CorrespondenceRelationActionsBean extends
             QNameResource resource = (QNameResource) node;
             Map<String, Object> context = Collections.<String, Object> singletonMap(
                     ResourceAdapter.CORE_SESSION_CONTEXT_KEY, documentManager);
-            Object o = relationManager.getResourceRepresentation(
-                    resource.getNamespace(), resource, context);
+            Object o = relationManager.getResourceRepresentation(resource.getNamespace(), resource, context);
             if (o instanceof DocumentModel) {
                 return (DocumentModel) o;
             }
@@ -137,18 +135,16 @@ public class CorrespondenceRelationActionsBean extends
         return null;
     }
 
-    public QNameResource getDocumentResource(DocumentModel document)
-            throws ClientException {
+    public QNameResource getDocumentResource(DocumentModel document) throws ClientException {
         QNameResource documentResource = null;
         if (document != null) {
-            documentResource = (QNameResource) relationManager.getResource(
-                    RelationConstants.DOCUMENT_NAMESPACE, document, null);
+            documentResource = (QNameResource) relationManager.getResource(RelationConstants.DOCUMENT_NAMESPACE,
+                    document, null);
         }
         return documentResource;
     }
 
-    protected List<StatementInfo> getStatementsInfo(List<Statement> statements)
-            throws ClientException {
+    protected List<StatementInfo> getStatementsInfo(List<Statement> statements) throws ClientException {
         if (statements == null) {
             return null;
         }
@@ -156,21 +152,17 @@ public class CorrespondenceRelationActionsBean extends
         for (Statement statement : statements) {
             Subject subject = statement.getSubject();
             // TODO: filter on doc visibility (?)
-            NodeInfo subjectInfo = new NodeInfoImpl(subject,
-                    getDocumentModel(subject), true);
+            NodeInfo subjectInfo = new NodeInfoImpl(subject, getDocumentModel(subject), true);
             Resource predicate = statement.getPredicate();
             Node object = statement.getObject();
-            NodeInfo objectInfo = new NodeInfoImpl(object,
-                    getDocumentModel(object), true);
-            StatementInfo info = new StatementInfoImpl(statement, subjectInfo,
-                    new NodeInfoImpl(predicate), objectInfo);
+            NodeInfo objectInfo = new NodeInfoImpl(object, getDocumentModel(object), true);
+            StatementInfo info = new StatementInfoImpl(statement, subjectInfo, new NodeInfoImpl(predicate), objectInfo);
             infoList.add(info);
         }
         return infoList;
     }
 
-    public List<StatementInfo> getIncomingStatementsInfo()
-            throws ClientException {
+    public List<StatementInfo> getIncomingStatementsInfo() throws ClientException {
         if (incomingStatementsInfo != null) {
             return incomingStatementsInfo;
         }
@@ -181,8 +173,7 @@ public class CorrespondenceRelationActionsBean extends
             incomingStatementsInfo = Collections.emptyList();
         } else {
             Statement pattern = new StatementImpl(null, null, docResource);
-            incomingStatements = relationManager.getStatements(
-                    RelationConstants.GRAPH_NAME, pattern);
+            incomingStatements = relationManager.getStatements(RelationConstants.GRAPH_NAME, pattern);
             incomingStatementsInfo = getStatementsInfo(incomingStatements);
             // sort by modification date, reverse
             Comparator<StatementInfo> comp = Collections.reverseOrder(new StatementInfoComparator());
@@ -191,8 +182,7 @@ public class CorrespondenceRelationActionsBean extends
         return incomingStatementsInfo;
     }
 
-    public List<StatementInfo> getOutgoingStatementsInfo()
-            throws ClientException {
+    public List<StatementInfo> getOutgoingStatementsInfo() throws ClientException {
         if (outgoingStatementsInfo != null) {
             return outgoingStatementsInfo;
         }
@@ -203,8 +193,7 @@ public class CorrespondenceRelationActionsBean extends
             outgoingStatementsInfo = Collections.emptyList();
         } else {
             Statement pattern = new StatementImpl(docResource, null, null);
-            outgoingStatements = relationManager.getStatements(
-                    RelationConstants.GRAPH_NAME, pattern);
+            outgoingStatements = relationManager.getStatements(RelationConstants.GRAPH_NAME, pattern);
             outgoingStatementsInfo = getStatementsInfo(outgoingStatements);
             // sort by modification date, reverse
             Comparator<StatementInfo> comp = Collections.reverseOrder(new StatementInfoComparator());
@@ -273,20 +262,17 @@ public class CorrespondenceRelationActionsBean extends
         targetCreationDocuments = null;
     }
 
-    protected void notifyEvent(String eventId, DocumentModel source,
-            Map<String, Serializable> options, String comment) {
+    protected void notifyEvent(String eventId, DocumentModel source, Map<String, Serializable> options, String comment) {
 
         EventProducer evtProducer = null;
 
         try {
             evtProducer = Framework.getService(EventProducer.class);
         } catch (Exception e) {
-            log.error("Unable to get EventProducer to send event notification",
-                    e);
+            log.error("Unable to get EventProducer to send event notification", e);
         }
 
-        DocumentEventContext docCtx = new DocumentEventContext(documentManager,
-                documentManager.getPrincipal(), source);
+        DocumentEventContext docCtx = new DocumentEventContext(documentManager, documentManager.getPrincipal(), source);
         options.put("category", RelationEvents.CATEGORY);
         options.put("comment", comment);
 
@@ -302,18 +288,14 @@ public class CorrespondenceRelationActionsBean extends
     }
 
     @SuppressWarnings("unchecked")
-    public List<DocumentModel> getDocumentRelationSuggestions(Object input)
-            throws ClientException {
+    public List<DocumentModel> getDocumentRelationSuggestions(Object input) throws ClientException {
         try {
             PageProviderService ppService = Framework.getService(PageProviderService.class);
             Map<String, Serializable> props = new HashMap<String, Serializable>();
-            props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
-                    (Serializable) documentManager);
-            Object[] params = new Object[] { getCurrentCaseItem().getId(),
-                    input };
+            props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) documentManager);
+            Object[] params = new Object[] { getCurrentCaseItem().getId(), input };
             PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
-                    CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL, null, null, null,
-                    props, params);
+                    CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL, null, null, null, props, params);
             return pp.getCurrentPage();
         } catch (Exception e) {
             throw new ClientException("error searching for documents", e);
@@ -324,8 +306,7 @@ public class CorrespondenceRelationActionsBean extends
         DocumentModel currentDoc = getCurrentCaseItem();
         Resource documentResource = getDocumentResource(currentDoc);
         if (documentResource == null) {
-            throw new ClientException(
-                    "Document resource could not be retrieved");
+            throw new ClientException("Document resource could not be retrieved");
         }
 
         Resource predicate = new ResourceImpl(predicateUri);
@@ -357,11 +338,9 @@ public class CorrespondenceRelationActionsBean extends
         boolean someSet = false;
         for (String targetDocId : targetCreationDocs) {
             String localName = repositoryName + "/" + targetDocId;
-            Resource object = new QNameResourceImpl(
-                    RelationConstants.DOCUMENT_NAMESPACE, localName);
+            Resource object = new QNameResourceImpl(RelationConstants.DOCUMENT_NAMESPACE, localName);
 
-            Statement stmt = new StatementImpl(documentResource, predicate,
-                    object);
+            Statement stmt = new StatementImpl(documentResource, predicate, object);
 
             if (commentLiteral != null) {
                 stmt.addProperty(RelationConstants.COMMENT, commentLiteral);
@@ -383,33 +362,24 @@ public class CorrespondenceRelationActionsBean extends
         if (someSet) {
             Map<String, Serializable> options = new HashMap<String, Serializable>();
             String currentLifeCycleState = currentDoc.getCurrentLifeCycleState();
-            options.put(CoreEventConstants.DOC_LIFE_CYCLE,
-                    currentLifeCycleState);
-            options.put(RelationEvents.GRAPH_NAME_EVENT_KEY,
-                    RelationConstants.GRAPH_NAME);
+            options.put(CoreEventConstants.DOC_LIFE_CYCLE, currentLifeCycleState);
+            options.put(RelationEvents.GRAPH_NAME_EVENT_KEY, RelationConstants.GRAPH_NAME);
 
             // before notification
-            notifyEvent(RelationEvents.BEFORE_RELATION_CREATION, currentDoc,
-                    options, eventComment);
+            notifyEvent(RelationEvents.BEFORE_RELATION_CREATION, currentDoc, options, eventComment);
 
             // add statement
             relationManager.add(RelationConstants.GRAPH_NAME, stmts);
 
             // after notification
-            notifyEvent(RelationEvents.AFTER_RELATION_CREATION, currentDoc,
-                    options, eventComment);
+            notifyEvent(RelationEvents.AFTER_RELATION_CREATION, currentDoc, options, eventComment);
 
-            facesMessages.add(
-                    FacesMessage.SEVERITY_INFO,
-                    resourcesAccessor.getMessages().get(
-                            "label.relation.created"));
+            facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("label.relation.created"));
         }
 
         if (alreadySet) {
-            facesMessages.add(
-                    FacesMessage.SEVERITY_WARN,
-                    resourcesAccessor.getMessages().get(
-                            "label.relation.already.exists"));
+            facesMessages.add(FacesMessage.SEVERITY_WARN,
+                    resourcesAccessor.getMessages().get("label.relation.already.exists"));
         }
 
         // make sure statements will be recomputed
@@ -419,23 +389,18 @@ public class CorrespondenceRelationActionsBean extends
         return null;
     }
 
-    public String deleteStatement(StatementInfo stmtInfo)
-            throws ClientException {
-        if (stmtInfo != null && outgoingStatementsInfo != null
-                && outgoingStatementsInfo.contains(stmtInfo)) {
+    public String deleteStatement(StatementInfo stmtInfo) throws ClientException {
+        if (stmtInfo != null && outgoingStatementsInfo != null && outgoingStatementsInfo.contains(stmtInfo)) {
             Statement stmt = stmtInfo.getStatement();
             // notifications
             Map<String, Serializable> options = new HashMap<String, Serializable>();
             DocumentModel source = getCurrentCaseItem();
             String currentLifeCycleState = source.getCurrentLifeCycleState();
-            options.put(CoreEventConstants.DOC_LIFE_CYCLE,
-                    currentLifeCycleState);
-            options.put(RelationEvents.GRAPH_NAME_EVENT_KEY,
-                    RelationConstants.GRAPH_NAME);
+            options.put(CoreEventConstants.DOC_LIFE_CYCLE, currentLifeCycleState);
+            options.put(RelationEvents.GRAPH_NAME_EVENT_KEY, RelationConstants.GRAPH_NAME);
 
             // before notification
-            notifyEvent(RelationEvents.BEFORE_RELATION_REMOVAL, source,
-                    options, null);
+            notifyEvent(RelationEvents.BEFORE_RELATION_REMOVAL, source, options, null);
 
             // remove statement
             List<Statement> stmts = new ArrayList<Statement>();
@@ -443,23 +408,18 @@ public class CorrespondenceRelationActionsBean extends
             relationManager.remove(RelationConstants.GRAPH_NAME, stmts);
 
             // after notification
-            notifyEvent(RelationEvents.AFTER_RELATION_REMOVAL, source, options,
-                    null);
+            notifyEvent(RelationEvents.AFTER_RELATION_REMOVAL, source, options, null);
 
             // make sure statements will be recomputed
             resetStatements();
 
-            facesMessages.add(
-                    FacesMessage.SEVERITY_INFO,
-                    resourcesAccessor.getMessages().get(
-                            "label.relation.deleted"));
+            facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("label.relation.deleted"));
         }
         return null;
     }
 
     @Override
-    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail,
-            DocumentModel newEmail) throws ClientException {
+    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail, DocumentModel newEmail) throws ClientException {
         resetStatements();
         resetCreateFormValues();
     }

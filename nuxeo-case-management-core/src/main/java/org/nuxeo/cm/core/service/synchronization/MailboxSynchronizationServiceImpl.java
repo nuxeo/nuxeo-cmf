@@ -77,8 +77,7 @@ import org.nuxeo.runtime.transaction.TransactionHelper;
 /**
  * @author Laurent Doguin
  */
-public class MailboxSynchronizationServiceImpl extends DefaultComponent
-        implements MailboxSynchronizationService {
+public class MailboxSynchronizationServiceImpl extends DefaultComponent implements MailboxSynchronizationService {
 
     private static final long serialVersionUID = 1L;
 
@@ -87,8 +86,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
     protected static final String QUERY_GET_MAILBOX_FROM_ID = "SELECT * FROM Mailbox WHERE "
             + "mlbx:synchronizerId= '%s'";
 
-    protected static final String QUERY_GET_MAILBOX_FROM_TITLE = "SELECT * FROM Mailbox WHERE "
-            + "dc:title= '%s'";
+    protected static final String QUERY_GET_MAILBOX_FROM_TITLE = "SELECT * FROM Mailbox WHERE " + "dc:title= '%s'";
 
     protected static final String QUERY_GET_DELETED_MAILBOX = "SELECT * FROM Mailbox WHERE "
             + "mlbx:origin= '%s'  AND mlbx:lastSyncUpdate < TIMESTAMP '%s' AND ecm:currentLifeCycleState != 'deleted'";
@@ -110,25 +108,20 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
     protected boolean deleteOldMailboxes;
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         if (contribution instanceof MailboxDirectorySynchronizationDescriptor) {
             MailboxDirectorySynchronizationDescriptor synchronizer = (MailboxDirectorySynchronizationDescriptor) contribution;
             String directoryName = synchronizer.getDirectoryName();
             MailboxDirectorySynchronizationDescriptor existingDirSynchronizer = directorySynchronizer.get(directoryName);
             if (existingDirSynchronizer == null) {
-                if (synchronizer.getDirectoryEntryIdField() != null
-                        && synchronizer.getMailboxIdField() != null
-                        && synchronizer.getDirectoryName() != null
-                        && synchronizer.getTitleGenerator() != null) {
-                    directorySynchronizer.put(synchronizer.getDirectoryName(),
-                            synchronizer);
+                if (synchronizer.getDirectoryEntryIdField() != null && synchronizer.getMailboxIdField() != null
+                        && synchronizer.getDirectoryName() != null && synchronizer.getTitleGenerator() != null) {
+                    directorySynchronizer.put(synchronizer.getDirectoryName(), synchronizer);
                 } else {
                     log.error("Could not register contribution because of missing field(s) in contribution");
                 }
             } else {
-                mergeDirectoryContribution(existingDirSynchronizer,
-                        synchronizer);
+                mergeDirectoryContribution(existingDirSynchronizer, synchronizer);
             }
         } else if (contribution instanceof MailboxGroupSynchronizationDescriptor) {
             MailboxGroupSynchronizationDescriptor synchronizer = (MailboxGroupSynchronizationDescriptor) contribution;
@@ -192,8 +185,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         }
 
         if (mgr == null) {
-            throw new CaseManagementRuntimeException(
-                    "Cannot find RepositoryManager");
+            throw new CaseManagementRuntimeException("Cannot find RepositoryManager");
         }
         String batchSize = Framework.getProperty(MailboxConstants.SYNC_BATCH_SIZE_PROPERTY);
         if (batchSize != null && !"".equals(batchSize)) {
@@ -203,24 +195,21 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                 MailboxConstants.SYNC_DELETE_MAILBOXES_PROPERTY, "false"));
 
         String repositoryName = mgr.getDefaultRepositoryName();
-        SynchronizeSessionRunner runner = new SynchronizeSessionRunner(
-                repositoryName);
+        SynchronizeSessionRunner runner = new SynchronizeSessionRunner(repositoryName);
         runner.runUnrestricted();
 
         flushJaasCache();
     }
 
     /**
-     * Flushes jaas cache otherwise mailboxes may not be updated on users who
-     * login, logout and login again
+     * Flushes jaas cache otherwise mailboxes may not be updated on users who login, logout and login again
      */
     // FIXME: should be also called when editing a Mailbox in the interface
     protected void flushJaasCache() {
         try {
             EventService eventService = Framework.getService(EventService.class);
             if (eventService != null) {
-                eventService.sendEvent(new Event(
-                        UserManagerImpl.USERMANAGER_TOPIC,
+                eventService.sendEvent(new Event(UserManagerImpl.USERMANAGER_TOPIC,
                         UserManagerImpl.USERCHANGED_EVENT_ID, this, null));
             }
         } catch (Exception e) {
@@ -228,9 +217,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         }
     }
 
-    protected void synchronizeGroupList(Map<String, List<String>> groupMap,
-            String directoryName, String directoryIdField, Calendar now,
-            UserManager userManager, MailboxTitleGenerator titleGenerator,
+    protected void synchronizeGroupList(Map<String, List<String>> groupMap, String directoryName,
+            String directoryIdField, Calendar now, UserManager userManager, MailboxTitleGenerator titleGenerator,
             CoreSession coreSession, Boolean txStarted) throws ClientException {
         String type = MailboxConstants.type.generic.toString();
         String synchronizerId;
@@ -247,17 +235,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     try {
                         groupModel = userManager.getGroupModel(groupName);
                         if (groupModel == null) {
-                            log.error("Could not synchronize mailbox for user "
-                                    + groupName);
+                            log.error("Could not synchronize mailbox for user " + groupName);
                             continue;
                         }
-                        synchronizerId = String.format("%s:%s", directoryName,
-                                groupName);
+                        synchronizerId = String.format("%s:%s", directoryName, groupName);
                         generatedTitle = titleGenerator.getMailboxTitle(groupModel);
-                        synchronizeMailbox(groupModel, directoryName,
-                                userManager.getGroupSchemaName(),
-                                parentSynchronizerId, synchronizerId,
-                                groupName, generatedTitle, null, type, now,
+                        synchronizeMailbox(groupModel, directoryName, userManager.getGroupSchemaName(),
+                                parentSynchronizerId, synchronizerId, groupName, generatedTitle, null, type, now,
                                 coreSession);
                         List<String> groupChilds = userManager.getGroupsInGroup(groupName);
                         if (groupChilds != null && !groupChilds.isEmpty()) {
@@ -271,39 +255,32 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                                 log.debug("New Transaction started during Mailbox synchronization");
                             }
                         }
-                        log.debug(String.format(
-                                "Updated %d/%d group Mailboxes", count, total));
+                        log.debug(String.format("Updated %d/%d group Mailboxes", count, total));
                     } catch (DirectoryException de) {
                         Throwable t = ExceptionHelper.unwrapException(de);
-                        if (t.getMessage().contains(
-                                "javax.naming.NameNotFoundException")) {
-                            log.warn("Searched entry does not exist: "
-                                    + groupName);
+                        if (t.getMessage().contains("javax.naming.NameNotFoundException")) {
+                            log.warn("Searched entry does not exist: " + groupName);
                         } else {
-                            throw new CaseManagementRuntimeException(
-                                    "User synchronization failed", de);
+                            throw new CaseManagementRuntimeException("User synchronization failed", de);
                         }
                     }
                 }
             }
             if (!nextChildrenBatch.isEmpty()) {
-                synchronizeGroupList(nextChildrenBatch, directoryName,
-                        directoryIdField, now, userManager, titleGenerator,
-                        coreSession, txStarted);
+                synchronizeGroupList(nextChildrenBatch, directoryName, directoryIdField, now, userManager,
+                        titleGenerator, coreSession, txStarted);
             }
         } catch (Exception e) {
             if (txStarted) {
                 TransactionHelper.setTransactionRollbackOnly();
             }
-            throw new CaseManagementRuntimeException(
-                    "Group synchronization failed", e);
+            throw new CaseManagementRuntimeException("Group synchronization failed", e);
         }
     }
 
-    protected void synchronizeUserList(List<String> userIds,
-            String directoryName, String directoryIdField, Calendar now,
-            UserManager userManager, MailboxTitleGenerator titleGenerator,
-            CoreSession coreSession, Boolean txStarted) throws ClientException {
+    protected void synchronizeUserList(List<String> userIds, String directoryName, String directoryIdField,
+            Calendar now, UserManager userManager, MailboxTitleGenerator titleGenerator, CoreSession coreSession,
+            Boolean txStarted) throws ClientException {
         String type = MailboxConstants.type.personal.toString();
         String synchronizerId;
         String generatedTitle;
@@ -314,17 +291,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                 try {
                     userModel = userManager.getUserModel(userId);
                     if (userModel == null) {
-                        log.error("Could not synchronize mailbox for user "
-                                + userId);
+                        log.error("Could not synchronize mailbox for user " + userId);
                         continue;
                     }
-                    synchronizerId = String.format("%s:%s", directoryName,
-                            userId);
+                    synchronizerId = String.format("%s:%s", directoryName, userId);
                     generatedTitle = titleGenerator.getMailboxTitle(userModel);
-                    synchronizeMailbox(userModel, directoryName,
-                            userManager.getUserSchemaName(), "",
-                            synchronizerId, userId, generatedTitle, userId,
-                            type, now, coreSession);
+                    synchronizeMailbox(userModel, directoryName, userManager.getUserSchemaName(), "", synchronizerId,
+                            userId, generatedTitle, userId, type, now, coreSession);
                     if (++count % batchSize == 0) {
                         if (txStarted) {
                             log.debug("Transaction ended during Mailbox synchronization");
@@ -333,16 +306,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                             log.debug("New Transaction started during Mailbox synchronization");
                         }
                     }
-                    log.debug(String.format("Updated %d/%d user Mailboxes",
-                            count, total));
+                    log.debug(String.format("Updated %d/%d user Mailboxes", count, total));
                 } catch (DirectoryException de) {
                     Throwable t = ExceptionHelper.unwrapException(de);
-                    if (t.getMessage().contains(
-                            "javax.naming.NameNotFoundException")) {
+                    if (t.getMessage().contains("javax.naming.NameNotFoundException")) {
                         log.warn("Searched entry does not exist: " + userId);
                     } else {
-                        throw new CaseManagementRuntimeException(
-                                "User synchronization failed", de);
+                        throw new CaseManagementRuntimeException("User synchronization failed", de);
                     }
                 }
             }
@@ -350,21 +320,17 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
             if (txStarted) {
                 TransactionHelper.setTransactionRollbackOnly();
             }
-            throw new CaseManagementRuntimeException(
-                    "User synchronization failed", e);
+            throw new CaseManagementRuntimeException("User synchronization failed", e);
         }
     }
 
-    protected void synchronizeMailbox(DocumentModel entry,
-            String directoryName, String directorySchema,
-            String parentSynchronizerId, String synchronizerId, String entryId,
-            String generatedTitle, String owner, String type, Calendar now,
-            CoreSession coreSession) throws ClientException {
+    protected void synchronizeMailbox(DocumentModel entry, String directoryName, String directorySchema,
+            String parentSynchronizerId, String synchronizerId, String entryId, String generatedTitle, String owner,
+            String type, Calendar now, CoreSession coreSession) throws ClientException {
 
         // TODO: hook mailbox resolvers so that synchronizerId can be
         // customized depending on what mailbox is found
-        DocumentModel cfDoc = getMailboxFromSynchronizerId(synchronizerId,
-                coreSession);
+        DocumentModel cfDoc = getMailboxFromSynchronizerId(synchronizerId, coreSession);
 
         Mailbox cf = null;
         if (cfDoc != null) {
@@ -377,22 +343,17 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY_ID, entryId);
         // avoid reconnecting document
-        entry.putContextData(
-                ReconnectedEventBundle.SKIP_REFETCH_DOCUMENT_CONTEXT_KEY,
-                Boolean.TRUE);
+        entry.putContextData(ReconnectedEventBundle.SKIP_REFETCH_DOCUMENT_CONTEXT_KEY, Boolean.TRUE);
         eventProperties.put(EVENT_CONTEXT_MAILBOX_ENTRY, entry);
         eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
-        eventProperties.put(EVENT_CONTEXT_DIRECTORY_SCHEMA_NAME,
-                directorySchema);
-        eventProperties.put(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID,
-                parentSynchronizerId);
+        eventProperties.put(EVENT_CONTEXT_DIRECTORY_SCHEMA_NAME, directorySchema);
+        eventProperties.put(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID, parentSynchronizerId);
         eventProperties.put(EVENT_CONTEXT_SYNCHRONIZER_ID, synchronizerId);
         eventProperties.put(EVENT_CONTEXT_MAILBOX_TITLE, generatedTitle);
         eventProperties.put(EVENT_CONTEXT_MAILBOX_OWNER, owner);
         eventProperties.put(EVENT_CONTEXT_MAILBOX_TYPE, type);
         eventProperties.put(EVENT_CONTEXT_SYNCHRONIZED_DATE, now);
-        eventProperties.put(CoreEventConstants.SESSION_ID,
-                coreSession.getSessionId());
+        eventProperties.put(CoreEventConstants.SESSION_ID, coreSession.getSessionId());
 
         if (cf != null) {
             Calendar lastSyncUpdate = cf.getLastSyncUpdate();
@@ -403,17 +364,14 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     cf.setLastSyncUpdate(now);
                     coreSession.saveDocument(cfDoc);
                     log.debug(String.format("Update Mailbox %s", synchronizerId));
-                    notify(EventNames.onMailboxUpdated.toString(),
-                            cf.getDocument(), eventProperties, coreSession);
+                    notify(EventNames.onMailboxUpdated.toString(), cf.getDocument(), eventProperties, coreSession);
 
                 } else {
                     // a user set it as unsynchronized, we don't modify it
                     // anymore
                     cf.setLastSyncUpdate(now);
                     coreSession.saveDocument(cfDoc);
-                    log.debug(String.format(
-                            "set Unsynchronized state for Mailbox %s",
-                            synchronizerId));
+                    log.debug(String.format("set Unsynchronized state for Mailbox %s", synchronizerId));
                     return;
                 }
             }
@@ -434,10 +392,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         cf.setLastSyncUpdate(now);
                         cf.setOrigin(directoryName);
                         coreSession.saveDocument(cfDoc);
-                        log.debug(String.format("Update Mailbox %s",
-                                synchronizerId));
-                        notify(EventNames.onMailboxUpdated.toString(),
-                                cf.getDocument(), eventProperties, coreSession);
+                        log.debug(String.format("Update Mailbox %s", synchronizerId));
+                        notify(EventNames.onMailboxUpdated.toString(), cf.getDocument(), eventProperties, coreSession);
                     } else {
                         setDoublon = true;
                     }
@@ -450,15 +406,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                     cf.setSynchronizeState(synchronisedState.doublon.toString());
                     cf.setLastSyncUpdate(now);
                     coreSession.saveDocument(cfDoc);
-                    log.debug(String.format("set Doublon state for Mailbox %s",
-                            synchronizerId));
+                    log.debug(String.format("set Doublon state for Mailbox %s", synchronizerId));
                 }
             } else {
                 // throws onMailboxCreated
                 log.debug(String.format("Creates Mailbox %s", synchronizerId));
                 DocumentModel mailboxModel = coreSession.createDocumentModel(getMailboxType());
-                notify(EventNames.onMailboxCreated.toString(), mailboxModel,
-                        eventProperties, coreSession);
+                notify(EventNames.onMailboxCreated.toString(), mailboxModel, eventProperties, coreSession);
             }
         }
     }
@@ -473,11 +427,10 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         return correspDocumentTypeService.getMailboxType();
     }
 
-    protected void handleDeletedMailboxes(String directoryName, Calendar now,
-            CoreSession coreSession) throws ClientException {
+    protected void handleDeletedMailboxes(String directoryName, Calendar now, CoreSession coreSession)
+            throws ClientException {
         String dateLiteral = DateLiteral.dateTimeFormatter.print(now.getTimeInMillis());
-        String query = String.format(QUERY_GET_DELETED_MAILBOX, directoryName,
-                dateLiteral);
+        String query = String.format(QUERY_GET_DELETED_MAILBOX, directoryName, dateLiteral);
         DocumentModelList deletedMailboxes = coreSession.query(query);
         if (deletedMailboxes == null) {
             return;
@@ -488,28 +441,21 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         for (DocumentModel mailboxDoc : deletedMailboxes) {
             cf = mailboxDoc.getAdapter(Mailbox.class);
             if (cf == null) {
-                log.error(String.format(
-                        "Could not get Mailbox adapter for doc %s",
-                        mailboxDoc.getId()));
+                log.error(String.format("Could not get Mailbox adapter for doc %s", mailboxDoc.getId()));
                 continue;
             }
             synchronizerId = cf.getSynchronizerId();
             eventProperties = new HashMap<String, Serializable>();
             eventProperties.put(EVENT_CONTEXT_DIRECTORY_NAME, directoryName);
             eventProperties.put(EVENT_CONTEXT_SYNCHRONIZER_ID, synchronizerId);
-            eventProperties.put(EVENT_CONTEXT_MAILBOX_TITLE,
-                    mailboxDoc.getTitle());
+            eventProperties.put(EVENT_CONTEXT_MAILBOX_TITLE, mailboxDoc.getTitle());
             eventProperties.put(EVENT_CONTEXT_SYNCHRONIZED_DATE, now);
-            log.debug(String.format(
-                    "Mailbox %s has been remove from directory, deleting it.",
-                    synchronizerId));
-            notify(EventNames.onMailboxDeleted.toString(), mailboxDoc,
-                    eventProperties, coreSession);
+            log.debug(String.format("Mailbox %s has been remove from directory, deleting it.", synchronizerId));
+            notify(EventNames.onMailboxDeleted.toString(), mailboxDoc, eventProperties, coreSession);
         }
     }
 
-    protected DocumentModel getMailboxFromSynchronizerId(String id,
-            CoreSession coreSession) throws ClientException {
+    protected DocumentModel getMailboxFromSynchronizerId(String id, CoreSession coreSession) throws ClientException {
         String query = String.format(QUERY_GET_MAILBOX_FROM_ID, escape(id));
         DocumentModelList mailboxDocs = coreSession.query(query);
         if (mailboxDocs == null || mailboxDocs.isEmpty()) {
@@ -525,21 +471,16 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         return mailboxDoc;
     }
 
-    protected DocumentModel getMailboxFromTitle(String title,
-            CoreSession coreSession) throws ClientException {
-        String query = String.format(QUERY_GET_MAILBOX_FROM_TITLE,
-                escape(title));
+    protected DocumentModel getMailboxFromTitle(String title, CoreSession coreSession) throws ClientException {
+        String query = String.format(QUERY_GET_MAILBOX_FROM_TITLE, escape(title));
         DocumentModelList mailboxDocs = coreSession.query(query);
         if (mailboxDocs == null || mailboxDocs.isEmpty()) {
-            log.debug(String.format("Mailbox with title %s does not exist",
-                    title));
+            log.debug(String.format("Mailbox with title %s does not exist", title));
             return null;
         } else if (mailboxDocs.size() > 1) {
             // more than one mailbox for given title
             // return first Mailbox
-            log.debug(String.format(
-                    "Found more than one Mailbox for Title %s, uses first found.",
-                    title));
+            log.debug(String.format("Found more than one Mailbox for Title %s, uses first found.", title));
         }
         DocumentModel mailboxDoc = mailboxDocs.get(0);
         return mailboxDoc;
@@ -557,15 +498,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
         return sb.toString();
     }
 
-    public void notify(String name, DocumentModel document,
-            Map<String, Serializable> eventProperties, CoreSession session) {
+    public void notify(String name, DocumentModel document, Map<String, Serializable> eventProperties,
+            CoreSession session) {
         EventContext envContext;
         if (document == null) {
-            envContext = new UnboundEventContext(session,
-                    session.getPrincipal(), null);
+            envContext = new UnboundEventContext(session, session.getPrincipal(), null);
         } else {
-            envContext = new DocumentEventContext(session,
-                    session.getPrincipal(), document);
+            envContext = new DocumentEventContext(session, session.getPrincipal(), document);
         }
         envContext.setProperties(eventProperties);
         try {
@@ -631,15 +570,13 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         txStarted = TransactionHelper.startTransaction();
                         log.debug("New Transaction started during Mailbox (group) synchronization");
 
-                        synchronizeGroupList(topBatch, directoryName,
-                                directoryIdField, now, userManager,
+                        synchronizeGroupList(topBatch, directoryName, directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
                     } catch (Exception e) {
                         if (txStarted) {
                             TransactionHelper.setTransactionRollbackOnly();
                         }
-                        throw new CaseManagementRuntimeException(
-                                "Group synchronization failed", e);
+                        throw new CaseManagementRuntimeException("Group synchronization failed", e);
                     } finally {
                         if (txStarted) {
                             TransactionHelper.commitOrRollbackTransaction();
@@ -681,23 +618,20 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent
                         txStarted = TransactionHelper.startTransaction();
                         log.debug("New Transaction started during Mailbox (user) synchronization");
 
-                        synchronizeUserList(userIds, directoryName,
-                                directoryIdField, now, userManager,
-                                titleGenerator, session, txStarted);
+                        synchronizeUserList(userIds, directoryName, directoryIdField, now, userManager, titleGenerator,
+                                session, txStarted);
                     } catch (Exception e) {
                         if (txStarted) {
                             TransactionHelper.setTransactionRollbackOnly();
                         }
-                        throw new CaseManagementRuntimeException(
-                                "User synchronization failed", e);
+                        throw new CaseManagementRuntimeException("User synchronization failed", e);
                     } finally {
                         if (txStarted) {
                             TransactionHelper.commitOrRollbackTransaction();
                             log.debug("Transaction ended during Mailbox synchronization");
                         }
                     }
-                    log.debug(String.format("Updated %d/%d mailboxes", count,
-                            total));
+                    log.debug(String.format("Updated %d/%d mailboxes", count, total));
                     if (deleteOldMailboxes) {
                         handleDeletedMailboxes(directoryName, now, session);
                     }

@@ -79,11 +79,9 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
 
     private void archiveDoc() throws Exception {
         kase.followTransition(CaseLifeCycleConstants.TRANSITION_OPEN);
-        assertEquals(CaseLifeCycleConstants.STATE_OPEN,
-                kase.getDocument().getCurrentLifeCycleState());
+        assertEquals(CaseLifeCycleConstants.STATE_OPEN, kase.getDocument().getCurrentLifeCycleState());
         kase.followTransition(CaseLifeCycleConstants.TRANSITION_PROCESS);
-        assertEquals(CaseLifeCycleConstants.STATE_PROCESS,
-                kase.getDocument().getCurrentLifeCycleState());
+        assertEquals(CaseLifeCycleConstants.STATE_PROCESS, kase.getDocument().getCurrentLifeCycleState());
         session.save();
     }
 
@@ -103,20 +101,17 @@ public class TestCaseSecurity extends CaseManagementRepositoryTestCase {
             kase.save(session);
             fail();
         } catch (Exception e) {
-            assertEquals(e.getCause().getClass(),
-                    DocumentSecurityException.class);
+            assertEquals(e.getCause().getClass(), DocumentSecurityException.class);
         }
         CaseItem item = kase.getFirstItem(session);
         try {
             item.save(session);
             fail();
         } catch (Exception e) {
-            assertEquals(e.getCause().getClass(),
-                    DocumentSecurityException.class);
+            assertEquals(e.getCause().getClass(), DocumentSecurityException.class);
         }
 
         localDoc.followTransition(CaseLifeCycleConstants.TRANSITION_ARCHIVE);
-        assertEquals(CaseLifeCycleConstants.STATE_ARCHIVE,
-                localDoc.getCurrentLifeCycleState());
+        assertEquals(CaseLifeCycleConstants.STATE_ARCHIVE, localDoc.getCurrentLifeCycleState());
     }
 }

@@ -98,11 +98,9 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         // needed for default hierarchy
         deployBundle("org.nuxeo.ecm.platform.content.template");
 
-        deployContrib(
-                CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-cm-event-listener-contrib.xml");
-        deployContrib(
-                CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-cm-synchronization-contrib.xml");
 
         fireFrameworkStarted();
@@ -137,8 +135,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(Boolean.TRUE, groupDirectorySynchronizer.isEnabled());
 
         // Test service override
-        deployContrib(
-                CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-cm-synchronization-override-contrib.xml");
 
         MailboxDirectorySynchronizationDescriptor uncompleteContrib = synchronizerMap.get("uncompleteContrib");
@@ -155,8 +152,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     // disabled because failing randomly, see NXP-10477
     @Ignore
     public void testSynchro() throws Exception {
-        Framework.getProperties().load(
-                new FileInputStream(getResource("cmf.properties").getFile()));
+        Framework.getProperties().load(new FileInputStream(getResource("cmf.properties").getFile()));
         syncService.doSynchronize();
         session.save();
 
@@ -168,33 +164,26 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(0, mbDeletedForUser.size());
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-3")));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-1")));
-        assertTrue(session.exists(new PathRef(MB_ROOT
-                + "group-4/group-4-1/group-4-1-1")));
-        assertTrue(session.exists(new PathRef(MB_ROOT
-                + "group-4/group-4-1/group-4-1-2")));
+        assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-1/group-4-1-1")));
+        assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-1/group-4-1-2")));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-2")));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-5/")));
-        DocumentModel group5 = session.getDocument(new PathRef(MB_ROOT
-                + "group-5/"));
+        DocumentModel group5 = session.getDocument(new PathRef(MB_ROOT + "group-5/"));
         assertNotNull(group5);
         List<DocumentModel> group5Children = session.getChildren(group5.getRef());
         assertFalse(group5Children.isEmpty());
         assertEquals(2, group5Children.size());
-        group5Children = session.getChildren(group5.getRef(),
-                ClassificationConstants.CLASSIFICATION_ROOT);
+        group5Children = session.getChildren(group5.getRef(), ClassificationConstants.CLASSIFICATION_ROOT);
         // order is database-dependent
-        if (MailboxConstants.ROUTE_ROOT_DOCUMENT_TYPE.equals(group5Children.get(
-                0).getType())) {
+        if (MailboxConstants.ROUTE_ROOT_DOCUMENT_TYPE.equals(group5Children.get(0).getType())) {
             Collections.reverse(group5Children);
         }
-        assertEquals(ClassificationConstants.CLASSIFICATION_ROOT,
-                group5Children.get(0).getType());
+        assertEquals(ClassificationConstants.CLASSIFICATION_ROOT, group5Children.get(0).getType());
         // test onDelete event
         DirectoryService dirService = Framework.getService(DirectoryService.class);
         dirService.open("userDirectory").deleteEntry("user");
         dirService.open("groupDirectory").deleteEntry("group_4");
-        DocumentModel entry = dirService.open("groupDirectory").getEntry(
-                "group_4");
+        DocumentModel entry = dirService.open("groupDirectory").getEntry("group_4");
         assertNull(entry);
         if ("MySQL".equals(DatabaseHelper.DB_PROPERTY)) {
             Thread.sleep(1000);
@@ -209,14 +198,10 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals("deleted", getState(MB_ROOT + "group-4"));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-1")));
         assertEquals("deleted", getState(MB_ROOT + "group-4/group-4-1"));
-        assertTrue(session.exists(new PathRef(MB_ROOT
-                + "group-4/group-4-1/group-4-1-1")));
-        assertEquals("deleted", getState(MB_ROOT
-                + "group-4/group-4-1/group-4-1-1"));
-        assertTrue(session.exists(new PathRef(MB_ROOT
-                + "group-4/group-4-1/group-4-1-2")));
-        assertEquals("deleted", getState(MB_ROOT
-                + "group-4/group-4-1/group-4-1-2"));
+        assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-1/group-4-1-1")));
+        assertEquals("deleted", getState(MB_ROOT + "group-4/group-4-1/group-4-1-1"));
+        assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-1/group-4-1-2")));
+        assertEquals("deleted", getState(MB_ROOT + "group-4/group-4-1/group-4-1-2"));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-4/group-4-2")));
         assertEquals("deleted", getState(MB_ROOT + "group-4/group-4-2"));
         assertTrue(session.exists(new PathRef(MB_ROOT + "group-5/")));
@@ -228,10 +213,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(9, mbUpdatedForGroup.size());
         assertEquals(9, mbUpdatedForUser.size());
         assertEquals(2, mbDeletedForGroup.size());
-        assertTrue(mbDeletedForGroup.toString(),
-                mbDeletedForGroup.contains(MB_ROOT + "group-4"));
-        assertTrue(mbDeletedForGroup.toString(),
-                mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
+        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4"));
+        assertTrue(mbDeletedForGroup.toString(), mbDeletedForGroup.contains(MB_ROOT + "group-4/group-4-2"));
         // group-4-1 is kept because it has sub mailboxes(?)
 
         assertEquals(1, mbDeletedForUser.size());
@@ -240,14 +223,12 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         String groupOwner = cfGroup.getOwner();
         assertNull(groupOwner);
 
-        DocumentModel userMailboxDoc = session.getDocument(new PathRef(MB_ROOT
-                + "user-lambda-mycomp"));
+        DocumentModel userMailboxDoc = session.getDocument(new PathRef(MB_ROOT + "user-lambda-mycomp"));
         Mailbox userMailbox = userMailboxDoc.getAdapter(Mailbox.class);
         String owner = userMailbox.getOwner();
         assertEquals("user", owner);
         // test unSynchronized mailbox
-        DocumentModel membersMailboxDoc = session.getDocument(new PathRef(
-                MB_ROOT + "members"));
+        DocumentModel membersMailboxDoc = session.getDocument(new PathRef(MB_ROOT + "members"));
         Mailbox membersMailbox = membersMailboxDoc.getAdapter(Mailbox.class);
         membersMailbox.setSynchronizeState(MailboxSynchronizationConstants.synchronisedState.unsynchronised.toString());
         membersMailbox.save(session);
@@ -268,17 +249,15 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
     @Test
     public void testSynchroWithExistingMailbox() throws Exception {
         // create a mailbox
-        DocumentModel membersGroupMailboxDoc = session.createDocumentModel(
-                MB_ROOT + "", "members", MailboxConstants.MAILBOX_DOCUMENT_TYPE);
+        DocumentModel membersGroupMailboxDoc = session.createDocumentModel(MB_ROOT + "", "members",
+                MailboxConstants.MAILBOX_DOCUMENT_TYPE);
         membersGroupMailboxDoc = session.createDocument(membersGroupMailboxDoc);
         membersGroupMailboxDoc.setPropertyValue("dc:title", "members");
         session.saveDocument(membersGroupMailboxDoc);
-        DocumentModel ldoguinUserMailbox = session.createDocumentModel(MB_ROOT
-                + "", "laurent-o-doguin-nuxeo",
+        DocumentModel ldoguinUserMailbox = session.createDocumentModel(MB_ROOT + "", "laurent-o-doguin-nuxeo",
                 MailboxConstants.MAILBOX_DOCUMENT_TYPE);
         ldoguinUserMailbox = session.createDocument(membersGroupMailboxDoc);
-        ldoguinUserMailbox.setPropertyValue("dc:title",
-                "laurent O'doguin (nuxeo/reponseD)");
+        ldoguinUserMailbox.setPropertyValue("dc:title", "laurent O'doguin (nuxeo/reponseD)");
         session.saveDocument(ldoguinUserMailbox);
 
         // synchronize
@@ -294,9 +273,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         membersGroupMailboxDoc = session.getDocument(membersGroupMailboxDoc.getRef());
         Mailbox cf = membersGroupMailboxDoc.getAdapter(Mailbox.class);
         String state = cf.getSynchronizeState();
-        assertEquals(
-                MailboxSynchronizationConstants.synchronisedState.doublon.toString(),
-                state);
+        assertEquals(MailboxSynchronizationConstants.synchronisedState.doublon.toString(), state);
         String origin = cf.getOrigin();
         assertEquals("", origin);
         cf.setSynchronizeState(MailboxSynchronizationConstants.synchronisedState.synchronised.toString());
@@ -304,9 +281,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         ldoguinUserMailbox = session.getDocument(ldoguinUserMailbox.getRef());
         cf = ldoguinUserMailbox.getAdapter(Mailbox.class);
         state = cf.getSynchronizeState();
-        assertEquals(
-                MailboxSynchronizationConstants.synchronisedState.doublon.toString(),
-                state);
+        assertEquals(MailboxSynchronizationConstants.synchronisedState.doublon.toString(), state);
         origin = cf.getOrigin();
         assertEquals("", origin);
         cf.setSynchronizeState(MailboxSynchronizationConstants.synchronisedState.synchronised.toString());
@@ -337,22 +312,16 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
 
         String domainACL = "administrators:Everything:true, Administrator:Everything:true, Everyone:Everything:false";
         String onlyDomainACL = "[" + domainACL + "]";
-        checkRights("user-lambda-mycomp", "[user:ReadWrite:true]",
-                onlyDomainACL);
-        checkRights("members", "[cmfgroup_members:ReadWrite:true]",
-                onlyDomainACL);
-        checkRights("group-4", "[cmfgroup_group_4:ReadWrite:true]",
-                onlyDomainACL);
-        checkRights("group-4/group-4-1", "[cmfgroup_group_4_1:ReadWrite:true]",
-                "[cmfgroup_group_4:ReadWrite:true, " + domainACL + "]");
-        checkRights("group-4/group-4-1/group-4-1-1",
-                "[cmfgroup_group_4_1_1:ReadWrite:true]",
-                "[cmfgroup_group_4_1:ReadWrite:true, cmfgroup_group_4:ReadWrite:true, "
-                        + domainACL + "]");
+        checkRights("user-lambda-mycomp", "[user:ReadWrite:true]", onlyDomainACL);
+        checkRights("members", "[cmfgroup_members:ReadWrite:true]", onlyDomainACL);
+        checkRights("group-4", "[cmfgroup_group_4:ReadWrite:true]", onlyDomainACL);
+        checkRights("group-4/group-4-1", "[cmfgroup_group_4_1:ReadWrite:true]", "[cmfgroup_group_4:ReadWrite:true, "
+                + domainACL + "]");
+        checkRights("group-4/group-4-1/group-4-1-1", "[cmfgroup_group_4_1_1:ReadWrite:true]",
+                "[cmfgroup_group_4_1:ReadWrite:true, cmfgroup_group_4:ReadWrite:true, " + domainACL + "]");
     }
 
-    protected void checkRights(String mbPath, String localACL,
-            String inheritedACL) throws ClientException {
+    protected void checkRights(String mbPath, String localACL, String inheritedACL) throws ClientException {
         DocumentModel mbDoc = session.getDocument(new PathRef(MB_ROOT + mbPath));
         ACP acp = mbDoc.getACP();
         ACL localValue = acp.getACL(ACL.LOCAL_ACL);
@@ -367,24 +336,18 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         session.save();
 
         checkMailboxes("user", 2, new String[] { "user-user", "group-group-1" });
-        checkMailboxes("user1", 4, new String[] { "user-user1",
-                "group-group-1", "group-group-5", "group-group-4-2" });
-        checkMailboxes("user2", 5, new String[] { "user-user2",
-                "group-group-2", "group-group-4-1", "group-group-4-1-1",
-                "group-group-4-1-2", });
-        checkMailboxes("user3", 4, new String[] { "user-user3",
-                "group-group-3", "group-members", "group-group-4-1-1" });
+        checkMailboxes("user1", 4, new String[] { "user-user1", "group-group-1", "group-group-5", "group-group-4-2" });
+        checkMailboxes("user2", 5, new String[] { "user-user2", "group-group-2", "group-group-4-1",
+                "group-group-4-1-1", "group-group-4-1-2", });
+        checkMailboxes("user3", 4, new String[] { "user-user3", "group-group-3", "group-members", "group-group-4-1-1" });
     }
 
-    protected void checkMailboxes(String user, int numberOfMailboxes,
-            String[] mailboxes) throws ClientException {
+    protected void checkMailboxes(String user, int numberOfMailboxes, String[] mailboxes) throws ClientException {
         // check mailboxes with own user session
         NuxeoPrincipal pal = umService.getPrincipal(user);
         try (CoreSession userSession = openSessionAs(pal)) {
-            List<Mailbox> userMailboxes = mbService.getUserMailboxes(
-                    userSession, user);
-            checkMailboxes(userMailboxes, user, numberOfMailboxes,
-                    mailboxes);
+            List<Mailbox> userMailboxes = mbService.getUserMailboxes(userSession, user);
+            checkMailboxes(userMailboxes, user, numberOfMailboxes, mailboxes);
         }
 
         // check mailboxes with admin session
@@ -396,8 +359,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         // checkMailboxes(userMailboxes, user, numberOfMailboxes, mailboxes);
     }
 
-    protected void checkMailboxes(List<Mailbox> userMailboxes, String user,
-            int numberOfMailboxes, String[] mailboxes) {
+    protected void checkMailboxes(List<Mailbox> userMailboxes, String user, int numberOfMailboxes, String[] mailboxes) {
         assertFalse(userMailboxes.isEmpty());
         List<String> mbIds = new ArrayList<String>();
         for (Mailbox mailbox : userMailboxes) {
@@ -406,24 +368,20 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         assertEquals(numberOfMailboxes, userMailboxes.size());
 
         for (String mailbox : mailboxes) {
-            assertTrue("User " + user + " is missing mailbox " + mailbox,
-                    mbIds.contains(mailbox));
+            assertTrue("User " + user + " is missing mailbox " + mailbox, mbIds.contains(mailbox));
         }
 
         boolean personalMbFound = false;
         for (Mailbox mailbox : userMailboxes) {
             if (("user-" + user).equals(mailbox.getId())) {
                 // personal mailbox
-                assertEquals(MailboxConstants.type.personal.name(),
-                        mailbox.getType());
+                assertEquals(MailboxConstants.type.personal.name(), mailbox.getType());
                 assertEquals(user, mailbox.getOwner());
                 personalMbFound = true;
             } else {
-                assertEquals(MailboxConstants.type.generic.name(),
-                        mailbox.getType());
+                assertEquals(MailboxConstants.type.generic.name(), mailbox.getType());
             }
         }
-        assertTrue("No personal mailbox found for user " + user,
-                personalMbFound);
+        assertTrue("No personal mailbox found for user " + user, personalMbFound);
     }
 }

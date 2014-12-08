@@ -70,14 +70,12 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         if (muid == null) {
             return null;
         }
-        List<DocumentModel> res = executeQuery(session,
-                QUERY_GET_MAILBOX_FROM_ID, muid);
+        List<DocumentModel> res = executeQuery(session, QUERY_GET_MAILBOX_FROM_ID, muid);
         if (res == null || res.isEmpty()) {
             return null;
         }
         if (res.size() > 1) {
-            log.warn(String.format(
-                    "Several mailboxes with id %s, returning first found", muid));
+            log.warn(String.format("Several mailboxes with id %s, returning first found", muid));
         }
         return res.get(0).getAdapter(Mailbox.class);
     }
@@ -94,8 +92,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
 
         List<String> muids = new ArrayList<String>();
         muids.add(muid);
-        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(session,
-                muids);
+        List<MailboxHeader> mailboxesHeaders = getMailboxesHeaders(session, muids);
         if (mailboxesHeaders == null || mailboxesHeaders.isEmpty()) {
             return null;
         } else {
@@ -113,26 +110,21 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             if (muid == null) {
                 continue;
             }
-            List<DocumentModel> res = executeQuery(session,
-                    QUERY_GET_MAILBOX_FROM_ID, muid);
+            List<DocumentModel> res = executeQuery(session, QUERY_GET_MAILBOX_FROM_ID, muid);
             if (res == null || res.isEmpty()) {
                 log.warn(String.format("No mailbox found with id '%s'", muid));
                 continue;
             }
             if (res.size() > 1) {
-                log.warn(String.format(
-                        "Several mailboxes with id '%s', returning first found",
-                        muid));
+                log.warn(String.format("Several mailboxes with id '%s', returning first found", muid));
             }
             docs.add(res.get(0));
         }
         return MailboxConstants.getMailboxList(docs);
     }
 
-    public List<MailboxHeader> getMailboxesHeaders(CoreSession session,
-            List<String> muids) {
-        GetMailboxesHeadersUnrestricted sessionSearch = new GetMailboxesHeadersUnrestricted(
-                session, muids);
+    public List<MailboxHeader> getMailboxesHeaders(CoreSession session, List<String> muids) {
+        GetMailboxesHeadersUnrestricted sessionSearch = new GetMailboxesHeadersUnrestricted(session, muids);
         try {
             sessionSearch.runUnrestricted();
         } catch (Exception e) {
@@ -162,11 +154,9 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return getMailbox(session, mailboxId);
     }
 
-    public List<Mailbox> createPersonalMailboxes(CoreSession session,
-            String user) {
+    public List<Mailbox> createPersonalMailboxes(CoreSession session, String user) {
         if (personalMailboxCreator == null) {
-            throw new CaseManagementRuntimeException(
-                    "Cannot create personal mailbox: missing creator configuration");
+            throw new CaseManagementRuntimeException("Cannot create personal mailbox: missing creator configuration");
         }
         // First check if mailbox exists using unrestricted session to
         // avoid creating multiple personal mailboxes for a given user in
@@ -174,8 +164,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         String muid = getUserPersonalMailboxId(user);
         if (hasMailbox(session, muid)) {
             log.error(String.format(
-                    "Cannot create personal mailbox for user '%s': "
-                            + "it already exists with id '%s'", user, muid));
+                    "Cannot create personal mailbox for user '%s': " + "it already exists with id '%s'", user, muid));
             return Arrays.asList(getMailbox(session, muid));
         }
         try {
@@ -185,10 +174,8 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         }
     }
 
-    public Mailbox getUserPersonalMailboxForEmail(CoreSession session,
-            String userEmail) {
-        if (userEmail == null
-                || org.apache.commons.lang.StringUtils.isEmpty(userEmail)) {
+    public Mailbox getUserPersonalMailboxForEmail(CoreSession session, String userEmail) {
+        if (userEmail == null || org.apache.commons.lang.StringUtils.isEmpty(userEmail)) {
             return null;
         }
         Directory dir = getUserDirectory();
@@ -205,8 +192,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
                 log.error("Could not resolve UserManager service");
             }
         } catch (ClientException e) {
-            throw new CaseManagementRuntimeException(
-                    "Couldn't query user directory", e);
+            throw new CaseManagementRuntimeException("Couldn't query user directory", e);
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);
         } finally {
@@ -217,8 +203,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
                 }
             }
         }
-        if (userIds != null && !userIds.isEmpty()
-                && !org.apache.commons.lang.StringUtils.isEmpty(userIds.get(0))) {
+        if (userIds != null && !userIds.isEmpty() && !org.apache.commons.lang.StringUtils.isEmpty(userIds.get(0))) {
             // return first found
             return getUserPersonalMailbox(session, userIds.get(0));
         }
@@ -226,10 +211,9 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
         return null;
     }
 
-    public List<MailboxHeader> searchMailboxes(CoreSession session,
-            String pattern, String type) {
-        SearchMailboxesHeadersUnrestricted sessionSearch = new SearchMailboxesHeadersUnrestricted(
-                session, pattern, type);
+    public List<MailboxHeader> searchMailboxes(CoreSession session, String pattern, String type) {
+        SearchMailboxesHeadersUnrestricted sessionSearch = new SearchMailboxesHeadersUnrestricted(session, pattern,
+                type);
         try {
             sessionSearch.runUnrestricted();
             return sessionSearch.getMailboxesHeaders();
@@ -284,8 +268,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             }
             return getDirService().getDirectory(dirName);
         } catch (Exception e) {
-            throw new CaseManagementRuntimeException(
-                    "Error acccessing user directory", e);
+            throw new CaseManagementRuntimeException("Error acccessing user directory", e);
         }
     }
 
@@ -300,8 +283,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             // they cannot be retrieved remotely
             return Framework.getLocalService(DirectoryService.class);
         } catch (Exception e) {
-            throw new CaseManagementRuntimeException(
-                    "Error while looking up directory service", e);
+            throw new CaseManagementRuntimeException("Error while looking up directory service", e);
         }
     }
 
@@ -313,8 +295,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
      * @return the corresponding documentModels
      */
     @SuppressWarnings("unchecked")
-    protected List<DocumentModel> executeQuery(CoreSession session,
-            String ppName, Object... params) {
+    protected List<DocumentModel> executeQuery(CoreSession session, String ppName, Object... params) {
         PageProviderService pps;
         try {
             pps = Framework.getService(PageProviderService.class);
@@ -322,18 +303,16 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             throw new CaseManagementRuntimeException(e);
         }
         if (pps == null) {
-            throw new CaseManagementRuntimeException(
-                    "PageProviderService not found");
+            throw new CaseManagementRuntimeException("PageProviderService not found");
         }
 
         HashMap<String, Serializable> props = new HashMap<String, Serializable>();
-        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
-                (Serializable) session);
+        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
         List<DocumentModel> list;
         try {
-            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) pps.getPageProvider(
-                    ppName, null, null, null, props, params);
+            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) pps.getPageProvider(ppName, null, null,
+                    null, props, params);
             list = pp.getCurrentPage();
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e);

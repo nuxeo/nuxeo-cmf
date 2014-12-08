@@ -37,22 +37,18 @@ import org.nuxeo.ecm.core.io.impl.plugins.DocumentModelWriter;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.runtime.api.Framework;
 
-public class CaseManagementCaseImporterDocumentsFactory extends
-        CaseManagementCaseItemDocumentFactory {
+public class CaseManagementCaseImporterDocumentsFactory extends CaseManagementCaseItemDocumentFactory {
 
     private static final Log log = LogFactory.getLog(CaseManagementCaseImporterDocumentsFactory.class);
 
     private CaseManagementDocumentTypeService cmTypeService;
 
     @Override
-    public DocumentModel createLeafNode(CoreSession session,
-            DocumentModel parent, SourceNode node) throws Exception {
+    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) throws Exception {
         if (node instanceof CaseItemSourceNode) {
-            DocumentModel caseItemDoc = defaultCreateCaseItemDocType(session,
-                    null, node);
+            DocumentModel caseItemDoc = defaultCreateCaseItemDocType(session, null, node);
             Case kase = parent.getAdapter(Case.class);
-            CaseItem caseItem = getCaseDistributionService().addCaseItemToCase(
-                    session, kase, caseItemDoc);
+            CaseItem caseItem = getCaseDistributionService().addCaseItemToCase(session, kase, caseItemDoc);
             return caseItem.getDocument();
         }
         return null;
@@ -60,31 +56,27 @@ public class CaseManagementCaseImporterDocumentsFactory extends
 
     // TODO change this to avoid fetching parent doc each time
     @Override
-    public DocumentModel createFolderishNode(CoreSession session,
-            DocumentModel parent, SourceNode node) throws Exception {
+    public DocumentModel createFolderishNode(CoreSession session, DocumentModel parent, SourceNode node)
+            throws Exception {
         if (node instanceof CaseSourceNode) {
-            return defaultCreateCaseDoc(session, parent.getPathAsString(),
-                    node, "Case");
+            return defaultCreateCaseDoc(session, parent.getPathAsString(), node, "Case");
         }
         return getCaseDistributionService().getParentDocumentForCase(session);
     }
 
-    protected DocumentModel defaultCreateCaseItemDocType(CoreSession session,
-            String parentPath, SourceNode node) throws Exception {
-        return defaultCreateNodeDoc(session, parentPath, node,
-                getCaseManagementDocumentTypeService().getCaseItemType());
+    protected DocumentModel defaultCreateCaseItemDocType(CoreSession session, String parentPath, SourceNode node)
+            throws Exception {
+        return defaultCreateNodeDoc(session, parentPath, node, getCaseManagementDocumentTypeService().getCaseItemType());
     }
 
-    protected DocumentModel defaultCreateCaseDoc(CoreSession session,
-            String parentPath, SourceNode node, String docType)
+    protected DocumentModel defaultCreateCaseDoc(CoreSession session, String parentPath, SourceNode node, String docType)
             throws Exception {
         CaseSourceNode caseNode = (CaseSourceNode) node;
         ExportedDocument xdoc = exportDocumentFromNode(caseNode);
         DocumentModel doc = session.createDocumentModel(parentPath, "Case",
                 getCaseManagementDocumentTypeService().getCaseType());
         doc = session.createDocument(doc);
-        DocumentWriter writer = new DocumentModelWriter(session,
-                doc.getPathAsString(), 1);
+        DocumentWriter writer = new DocumentModelWriter(session, doc.getPathAsString(), 1);
         try {
             writer.write(xdoc);
         } catch (Exception e) {
@@ -95,8 +87,7 @@ public class CaseManagementCaseImporterDocumentsFactory extends
         return doc;
     }
 
-    protected ExportedDocument exportDocumentFromNode(CaseSourceNode node)
-            throws ClientException {
+    protected ExportedDocument exportDocumentFromNode(CaseSourceNode node) throws ClientException {
         ExportedDocument xdoc = new ExportedDocumentImpl();
         xdoc.setDocument(node.getCaseDocument());
         String envelopeId = new SimpleDateFormat("yyyy-MM-dd_HHmmss").format(new Date());
@@ -104,8 +95,7 @@ public class CaseManagementCaseImporterDocumentsFactory extends
         return xdoc;
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
-            throws Exception {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws Exception {
         if (cmTypeService == null) {
             cmTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         }

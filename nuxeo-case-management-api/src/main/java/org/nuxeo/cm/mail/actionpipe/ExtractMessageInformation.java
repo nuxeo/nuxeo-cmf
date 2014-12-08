@@ -73,8 +73,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
         try {
             Message originalMessage = context.getMessage();
             if (log.isDebugEnabled()) {
-                log.debug("Transforming message, original subject: "
-                        + originalMessage.getSubject());
+                log.debug("Transforming message, original subject: " + originalMessage.getSubject());
             }
 
             // fully load the message before trying to parse to
@@ -84,8 +83,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             if (originalMessage instanceof MimeMessage) {
                 message = new MimeMessage((MimeMessage) originalMessage);
                 if (log.isDebugEnabled()) {
-                    log.debug("Transforming message after full load: "
-                            + message.getSubject());
+                    log.debug("Transforming message after full load: " + message.getSubject());
                 }
             } else {
                 // stuck with the original one
@@ -136,8 +134,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             }
 
             // TODO: pass it through initial context
-            MimetypeRegistry mimeService = (MimetypeRegistry) context.getInitialContext().get(
-                    MIMETYPE_SERVICE_KEY);
+            MimetypeRegistry mimeService = (MimetypeRegistry) context.getInitialContext().get(MIMETYPE_SERVICE_KEY);
             if (mimeService == null) {
                 log.error("Could not retrieve mimetype service");
             }
@@ -166,8 +163,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
         return false;
     }
 
-    protected static String getFilename(Part p, String defaultFileName)
-            throws MessagingException {
+    protected static String getFilename(Part p, String defaultFileName) throws MessagingException {
         String originalFilename = p.getFileName();
         if (originalFilename == null || originalFilename.trim().length() == 0) {
             String filename = defaultFileName;
@@ -188,9 +184,8 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
     }
 
     @SuppressWarnings("unchecked")
-    protected static void getAttachmentParts(Part p, String defaultFilename,
-            MimetypeRegistry mimeService, ExecutionContext context)
-            throws MessagingException, IOException {
+    protected static void getAttachmentParts(Part p, String defaultFilename, MimetypeRegistry mimeService,
+            ExecutionContext context) throws MessagingException, IOException {
         String filename = getFilename(p, defaultFilename);
         List<Blob> blobs = (List<Blob>) context.get(ATTACHMENTS_KEY);
 
@@ -207,10 +202,9 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
                 String mime = DEFAULT_BINARY_MIMETYPE;
                 try {
                     if (mimeService != null) {
-                        ContentType contentType = new ContentType(
-                                p.getContentType());
-                        mime = mimeService.getMimetypeFromFilenameAndBlobWithDefault(
-                                filename, fileBlob, contentType.getBaseType());
+                        ContentType contentType = new ContentType(p.getContentType());
+                        mime = mimeService.getMimetypeFromFilenameAndBlobWithDefault(filename, fileBlob,
+                                contentType.getBaseType());
                     }
                 } catch (MimetypeDetectionException e) {
                     log.error(e);
@@ -228,8 +222,7 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
                 log.debug("---------------------------");
 
             } else {
-                log.debug(String.format("Ignoring part with type %s",
-                        p.getContentType()));
+                log.debug(String.format("Ignoring part with type %s", p.getContentType()));
             }
         }
 
@@ -240,14 +233,12 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
 
             int count = mp.getCount();
             for (int i = 0; i < count; i++) {
-                getAttachmentParts(mp.getBodyPart(i), defaultFilename,
-                        mimeService, context);
+                getAttachmentParts(mp.getBodyPart(i), defaultFilename, mimeService, context);
             }
         } else if (p.isMimeType(MESSAGE_RFC822_MIMETYPE)) {
             log.debug("This is a Nested Message");
             log.debug("---------------------------");
-            getAttachmentParts((Part) p.getContent(), defaultFilename,
-                    mimeService, context);
+            getAttachmentParts((Part) p.getContent(), defaultFilename, mimeService, context);
         }
 
     }

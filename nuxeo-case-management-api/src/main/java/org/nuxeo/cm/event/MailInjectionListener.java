@@ -70,21 +70,17 @@ public class MailInjectionListener implements EventListener {
         MessageActionPipe pipe = mailService.getPipe(MAILBOX_PIPE);
 
         Visitor visitor = new Visitor(pipe);
-        Thread.currentThread().setContextClassLoader(
-                Framework.class.getClassLoader());
+        Thread.currentThread().setContextClassLoader(Framework.class.getClassLoader());
 
         Folder rootFolder = null;
 
         try (CoreSession session = CoreInstance.openCoreSessionSystem(null)) {
             // initialize context
             ExecutionContext initialExecutionContext = new ExecutionContext();
-            initialExecutionContext.put(
-                    AbstractCaseManagementMailAction.CORE_SESSION_KEY, session);
-            initialExecutionContext.put(
-                    AbstractCaseManagementMailAction.MIMETYPE_SERVICE_KEY,
+            initialExecutionContext.put(AbstractCaseManagementMailAction.CORE_SESSION_KEY, session);
+            initialExecutionContext.put(AbstractCaseManagementMailAction.MIMETYPE_SERVICE_KEY,
                     Framework.getService(MimetypeRegistry.class));
-            initialExecutionContext.put(
-                    AbstractCaseManagementMailAction.CASEMANAGEMENT_SERVICE_KEY,
+            initialExecutionContext.put(AbstractCaseManagementMailAction.CASEMANAGEMENT_SERVICE_KEY,
                     Framework.getService(CaseDistributionService.class));
 
             // open store

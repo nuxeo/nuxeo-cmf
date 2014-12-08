@@ -56,8 +56,7 @@ import org.nuxeo.runtime.api.Framework;
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
-public class CaseManagementRoutingActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CaseManagementRoutingActionsBean extends CaseManagementContextBoundInstance {
 
     private static final String QUERY_ACTIONNABLE_CASE_LINK_FROM_CASE = "SELECT * FROM CaseLink WHERE cslk:isActionable = 1 AND cslk:caseDocumentId = %s";
 
@@ -82,10 +81,8 @@ public class CaseManagementRoutingActionsBean extends
 
     protected Boolean showHistoryPanel = false;
 
-    public String navigateToRouteTab(DocumentModel routeDoc)
-            throws ClientException {
-        String view = navigationContext.navigateToDocument(routeDoc,
-                "view_documents");
+    public String navigateToRouteTab(DocumentModel routeDoc) throws ClientException {
+        String view = navigationContext.navigateToDocument(routeDoc, "view_documents");
         webActions.setCurrentTabId(CaseManagementWebConstants.DOCUMENT_ROUTE_TAB_ID);
         return view;
     }
@@ -100,8 +97,8 @@ public class CaseManagementRoutingActionsBean extends
         states.add(DocumentRouteElement.ElementLifeCycleState.ready);
         states.add(DocumentRouteElement.ElementLifeCycleState.running);
         states.add(DocumentRouteElement.ElementLifeCycleState.done);
-        routes = getDocumentRoutingService().getDocumentRoutesForAttachedDocument(
-                documentManager, currentDoc.getId(), states);
+        routes = getDocumentRoutingService().getDocumentRoutesForAttachedDocument(documentManager, currentDoc.getId(),
+                states);
         return routes;
     }
 
@@ -114,10 +111,8 @@ public class CaseManagementRoutingActionsBean extends
         }
     }
 
-    public DocumentModelList getPendingActionnableClsk(DocumentModel caseDoc)
-            throws ClientException {
-        String query = String.format(QUERY_ACTIONNABLE_CASE_LINK_FROM_CASE,
-                caseDoc.getId());
+    public DocumentModelList getPendingActionnableClsk(DocumentModel caseDoc) throws ClientException {
+        String query = String.format(QUERY_ACTIONNABLE_CASE_LINK_FROM_CASE, caseDoc.getId());
         DocumentModelList pendingAClsk = documentManager.query(query);
         return pendingAClsk;
     }
@@ -126,7 +121,7 @@ public class CaseManagementRoutingActionsBean extends
         return showHistoryPanel;
     }
 
-    public  void setShowHistoryPanel(Boolean showHistoryPanel) {
+    public void setShowHistoryPanel(Boolean showHistoryPanel) {
         this.showHistoryPanel = showHistoryPanel;
     }
 }

@@ -66,8 +66,7 @@ import org.nuxeo.runtime.api.Framework;
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
-public class CaseItemDocumentActionsBean extends
-        CaseManagementContextBoundInstance implements
+public class CaseItemDocumentActionsBean extends CaseManagementContextBoundInstance implements
         CaseManagementDocumentActions {
 
     private static final String DOCUMENT_SAVED = "document_saved";
@@ -114,11 +113,9 @@ public class CaseItemDocumentActionsBean extends
         typesTool.setSelectedType(docType);
         try {
             DocumentModel changeableDocument = documentManager.createDocumentModel(typeName);
-            changeableDocument.putContextData(
-                    CaseManagementWebConstants.CREATE_NEW_CASE_KEY, true);
+            changeableDocument.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY, true);
             navigationContext.setChangeableDocument(changeableDocument);
-            return navigationContext.getActionResult(changeableDocument,
-                    UserAction.CREATE);
+            return navigationContext.getActionResult(changeableDocument, UserAction.CREATE);
         } catch (Throwable t) {
             throw ClientException.wrap(t);
         }
@@ -128,26 +125,21 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
         Mailbox currentMailbox = getCurrentMailbox();
         try {
-            getCaseManagementDocumentTypeService().markDocumentAsCaseItem(
-                    emailDoc);
+            getCaseManagementDocumentTypeService().markDocumentAsCaseItem(emailDoc);
         } catch (Exception e) {
             throw new ClientException(e);
         }
-        Case envelope = caseDistributionService.createCase(documentManager,
-                emailDoc, Collections.singletonList(currentMailbox));
+        Case envelope = caseDistributionService.createCase(documentManager, emailDoc,
+                Collections.singletonList(currentMailbox));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
-        emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
+        emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                 envelope.getDocument().getId());
         documentManager.saveDocument(emailDoc);
         // Create the Draft post in the mailbox
-        caseDistributionService.createDraftCaseLink(documentManager,
-                getCurrentMailbox(), envelope);
-        Events.instance().raiseEvent(
-                EventNames.DOCUMENT_CHILDREN_CHANGED,
+        caseDistributionService.createDraftCaseLink(documentManager, getCurrentMailbox(), envelope);
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
-        facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
+        facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(emailDoc.getType()));
 
         // Navigate to the created envelope
@@ -161,23 +153,18 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
         // The new mail
         Case kase = getCurrentCase();
-        if (kase != null
-                && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null
-                && navigationContext.getCurrentDocument().equals(
-                        kase.getDocument())) {
+        if (kase != null && emailDoc.getContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY) == null
+                && navigationContext.getCurrentDocument().equals(kase.getDocument())) {
             // adding a case item in a case
             // creating a case item in a case
             try {
-                getCaseManagementDocumentTypeService().markDocumentAsCaseItem(
-                        emailDoc);
+                getCaseManagementDocumentTypeService().markDocumentAsCaseItem(emailDoc);
             } catch (Exception e) {
                 throw new ClientException(e);
             }
-            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(
-                    documentManager, kase, emailDoc);
+            CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(documentManager, kase, emailDoc);
             emailDoc = newCaseItem.getDocument();
-            emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                    CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
+            emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
                     getCurrentCase().getDocument().getId());
             documentManager.saveDocument(emailDoc);
 
@@ -194,15 +181,11 @@ public class CaseItemDocumentActionsBean extends
     public String createEmptyCase() throws ClientException {
         DocumentModel caseDoc = navigationContext.getChangeableDocument();
         Mailbox currentMailbox = getCurrentMailbox();
-        Case emptyCase = caseDistributionService.createEmptyCase(
-                documentManager, caseDoc, currentMailbox);
-        caseDistributionService.createDraftCaseLink(documentManager,
-                getCurrentMailbox(), emptyCase);
-        facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
+        Case emptyCase = caseDistributionService.createEmptyCase(documentManager, caseDoc, currentMailbox);
+        caseDistributionService.createDraftCaseLink(documentManager, getCurrentMailbox(), emptyCase);
+        facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get(DOCUMENT_SAVED),
                 resourcesAccessor.getMessages().get(caseDoc.getType()));
-        Events.instance().raiseEvent(
-                EventNames.DOCUMENT_CHILDREN_CHANGED,
+        Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
                 documentManager.getDocument(currentMailbox.getDocument().getRef()));
         caseDoc = emptyCase.getDocument();
         navigationContext.setCurrentDocument(caseDoc);
@@ -224,8 +207,7 @@ public class CaseItemDocumentActionsBean extends
         if (lockableMail.isLocked(documentManager)) {
             return false;
         }
-        if (documentManager.hasPermission(currentDoc.getRef(),
-                SecurityConstants.WRITE)) {
+        if (documentManager.hasPermission(currentDoc.getRef(), SecurityConstants.WRITE)) {
             return true;
         }
         return false;
@@ -244,8 +226,7 @@ public class CaseItemDocumentActionsBean extends
             return false;
         }
 
-        if (documentManager.hasPermission(currentEmail.getRef(),
-                SecurityConstants.WRITE)) {
+        if (documentManager.hasPermission(currentEmail.getRef(), SecurityConstants.WRITE)) {
             return true;
         }
 
@@ -259,8 +240,7 @@ public class CaseItemDocumentActionsBean extends
         DocumentModel currentEmailDoc = getCurrentCaseItem();
         CaseItem currentEmail = currentEmailDoc.getAdapter(CaseItem.class);
         currentEmail.save(documentManager);
-        facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(DOCUMENT_MODIFIED),
+        facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get(DOCUMENT_MODIFIED),
                 resourcesAccessor.getMessages().get(currentEmail.getType()));
         EventManager.raiseEventsOnDocumentChange(currentEmail.getDocument());
     }
@@ -289,10 +269,8 @@ public class CaseItemDocumentActionsBean extends
     }
 
     public void startEditingCaseItem() throws ClientException {
-        LockableAdapter lockable = getCurrentCaseItem().getAdapter(
-                LockableAdapter.class);
-        if (documentManager.hasPermission(getCurrentCaseItem().getRef(),
-                SecurityConstants.WRITE)) {
+        LockableAdapter lockable = getCurrentCaseItem().getAdapter(LockableAdapter.class);
+        if (documentManager.hasPermission(getCurrentCaseItem().getRef(), SecurityConstants.WRITE)) {
             if (!lockable.isLockedByCurrentUser(documentManager)) {
                 lockable.lockDocument(documentManager);
             }
@@ -302,8 +280,7 @@ public class CaseItemDocumentActionsBean extends
 
     public void quitEditingMail() throws ClientException {
         editingMail = false;
-        LockableAdapter lockable = getCurrentCaseItem().getAdapter(
-                LockableAdapter.class);
+        LockableAdapter lockable = getCurrentCaseItem().getAdapter(LockableAdapter.class);
         if (lockable.isLockedByCurrentUser(documentManager)) {
             lockable.unlockDocument(documentManager);
         }
@@ -315,8 +292,7 @@ public class CaseItemDocumentActionsBean extends
         if (isEditingCaseItem()) {
             DocumentModel currentEmail = getCurrentCaseItem();
             DocumentRef currentEmailRef = currentEmail.getRef();
-            if (documentManager.hasPermission(currentEmailRef,
-                    SecurityConstants.WRITE)) {
+            if (documentManager.hasPermission(currentEmailRef, SecurityConstants.WRITE)) {
                 mode = BuiltinModes.EDIT;
             }
         }
@@ -341,8 +317,7 @@ public class CaseItemDocumentActionsBean extends
     }
 
     @Override
-    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail,
-            DocumentModel newEmail) throws ClientException {
+    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail, DocumentModel newEmail) throws ClientException {
         editingMail = false;
     }
 
@@ -356,8 +331,7 @@ public class CaseItemDocumentActionsBean extends
         return isDistributable && isCaseGroupable;
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
-            throws Exception {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws Exception {
         if (caseManagementDocumentTypeService == null) {
             caseManagementDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         }

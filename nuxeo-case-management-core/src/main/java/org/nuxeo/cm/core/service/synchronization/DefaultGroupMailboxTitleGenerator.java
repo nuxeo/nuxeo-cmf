@@ -24,8 +24,7 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
 
 public class DefaultGroupMailboxTitleGenerator implements MailboxTitleGenerator {
 
-    public String getMailboxTitle(DocumentModel directoryEntry)
-            throws PropertyException, ClientException {
+    public String getMailboxTitle(DocumentModel directoryEntry) throws PropertyException, ClientException {
         String groupName = (String) directoryEntry.getPropertyValue("group:groupname");
         return groupName;
     }

@@ -44,7 +44,6 @@ public interface CaseManagementContextActions {
     /**
      * Sets current context according to current document information
      */
-    void currentDocumentChanged(DocumentModel newDocument)
-            throws ClientException;
+    void currentDocumentChanged(DocumentModel newDocument) throws ClientException;
 
 }

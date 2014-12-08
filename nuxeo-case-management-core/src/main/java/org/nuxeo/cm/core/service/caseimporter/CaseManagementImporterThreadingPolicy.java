@@ -22,20 +22,16 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.ecm.platform.importer.threading.DefaultMultiThreadingPolicy;
 
 /**
- * Default thread policy for CMF : make sure that the case, and all the
- * caseItems are created by the same thread
- * */
-public class CaseManagementImporterThreadingPolicy extends
-        DefaultMultiThreadingPolicy {
+ * Default thread policy for CMF : make sure that the case, and all the caseItems are created by the same thread
+ */
+public class CaseManagementImporterThreadingPolicy extends DefaultMultiThreadingPolicy {
 
     @Override
-    public boolean needToCreateThreadAfterNewFolderishNode(
-            DocumentModel parent, SourceNode node, long uploadedSources,
+    public boolean needToCreateThreadAfterNewFolderishNode(DocumentModel parent, SourceNode node, long uploadedSources,
             int batchSize, int scheduledTasks) {
         if (node instanceof CaseSourceNode) {
             return false;
         }
-        return super.needToCreateThreadAfterNewFolderishNode(parent, node,
-                uploadedSources, batchSize, scheduledTasks);
+        return super.needToCreateThreadAfterNewFolderishNode(parent, node, uploadedSources, batchSize, scheduledTasks);
     }
 }

@@ -70,8 +70,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Install(precedence = Install.FRAMEWORK)
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementDistributionActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CaseManagementDistributionActionsBean extends CaseManagementContextBoundInstance {
 
     public static final String DISTRIBUTION_ACTION_TABS_CATEGORY = "DISTRIBUTION_TABS";
 
@@ -114,8 +113,8 @@ public class CaseManagementDistributionActionsBean extends
                 List<ParticipantItem> favoriteMailboxes = new ArrayList<ParticipantItem>();
                 for (String fav : favs) {
                     // TODO: Update with post
-                    ParticipantItem item = (ParticipantItem) mailboxManagementService.getMailboxHeader(
-                            documentManager, fav);
+                    ParticipantItem item = (ParticipantItem) mailboxManagementService.getMailboxHeader(documentManager,
+                            fav);
                     item.setMessageType(CaseLinkType.NONE.getStringType());
                     favoriteMailboxes.add(item);
                 }
@@ -124,8 +123,7 @@ public class CaseManagementDistributionActionsBean extends
             if (currentMailbox != null) {
                 List<MailingListDistributionInfo> mlInfos = new ArrayList<MailingListDistributionInfo>();
                 for (MailingList list : currentMailbox.getMailingLists()) {
-                    mlInfos.add(new MailingListDistributionInfoImpl(
-                            CaseLinkType.NONE.name(), list));
+                    mlInfos.add(new MailingListDistributionInfoImpl(CaseLinkType.NONE.name(), list));
                 }
                 distributionInfo.setMlInfos(mlInfos);
             }
@@ -137,17 +135,14 @@ public class CaseManagementDistributionActionsBean extends
 
     public boolean validateDistributionParticipants() {
         if (!distributionInfo.hasParticipants()) {
-            facesMessages.add(
-                    FacesMessage.SEVERITY_ERROR,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.casemanagement.distribution.noParticipants"));
+            facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                    resourcesAccessor.getMessages().get("feedback.casemanagement.distribution.noParticipants"));
             return false;
         }
         return true;
     }
 
-    public String validateWizard(DistributionInfo distributionInfo)
-            throws ClientException {
+    public String validateWizard(DistributionInfo distributionInfo) throws ClientException {
         this.distributionInfo = distributionInfo;
         return validateWizard();
     }
@@ -160,10 +155,8 @@ public class CaseManagementDistributionActionsBean extends
             }
             CaseLinkMode mode = CaseLinkMode.valueOfString(distributionInfo.getMode());
             if (mode == null) {
-                facesMessages.add(
-                        FacesMessage.SEVERITY_ERROR,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.casemanagement.distribution.invalidMode"));
+                facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                        resourcesAccessor.getMessages().get("feedback.casemanagement.distribution.invalidMode"));
                 return null;
             }
             Mailbox currentMailbox = getCurrentMailbox();
@@ -181,50 +174,40 @@ public class CaseManagementDistributionActionsBean extends
                 emailDoc = kase.getFirstItem(documentManager).getDocument();
             } else if (mode == CaseLinkMode.DOC_ONLY) {
                 emailDoc = getCurrentCaseItem();
-                kase = caseDistributionService.createCaseFromExistingCaseItem(
-                        emailDoc.getAdapter(CaseItem.class), documentManager);
+                kase = caseDistributionService.createCaseFromExistingCaseItem(emailDoc.getAdapter(CaseItem.class),
+                        documentManager);
 
                 // XXX: user same parent than current email for new envelope,
                 // maybe to change.
                 DocumentModel parent = documentManager.getDocument(emailDoc.getParentRef());
                 CaseItem item = emailDoc.getAdapter(CaseItem.class);
-                item.createMailCase(documentManager, parent.getPathAsString(),
-                        null);
+                item.createMailCase(documentManager, parent.getPathAsString(), null);
                 // FIXME: Null value here
                 envelopeDoc = kase.getDocument();
             }
             if (kase == null || envelopeDoc == null) {
-                facesMessages.add(
-                        FacesMessage.SEVERITY_ERROR,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.casemanagement.distribution.invalidCase"));
+                facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                        resourcesAccessor.getMessages().get("feedback.casemanagement.distribution.invalidCase"));
                 return null;
             }
             Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
-            CaseLink postRequest = new CaseLinkRequestImpl(
-                    currentMailbox.getId(),
-                    Calendar.getInstance(),
+            CaseLink postRequest = new CaseLinkRequestImpl(currentMailbox.getId(), Calendar.getInstance(),
                     (String) envelopeDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
                     distributionInfo.getComment(), kase, recipients, null);
-            caseDistributionService.sendCase(documentManager, postRequest,
-                    kase.isDraft());
+            caseDistributionService.sendCase(documentManager, postRequest, kase.isDraft());
             // check there were actual recipients
             if (recipients.isEmpty()) {
-                facesMessages.add(
-                        FacesMessage.SEVERITY_ERROR,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.corresp.distribution.noFinalRecipients"));
+                facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                        resourcesAccessor.getMessages().get("feedback.corresp.distribution.noFinalRecipients"));
                 return null;
             }
             kase.save(documentManager);
 
             resetWizard();
             facesMessages.add(FacesMessage.SEVERITY_INFO,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.casemanagement.distribution.done"));
+                    resourcesAccessor.getMessages().get("feedback.casemanagement.distribution.done"));
             // raise seam event to update the content view for the mailbox
-            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                    currentMailbox.getDocument());
+            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED, currentMailbox.getDocument());
         }
         // navigate to default view
         webActions.resetCurrentTab();
@@ -240,8 +223,7 @@ public class CaseManagementDistributionActionsBean extends
         if (kase.isEmpty()) {
             return false;
         }
-        List<CaseLink> links = caseDistributionService.getCaseLinks(
-                documentManager, null, kase);
+        List<CaseLink> links = caseDistributionService.getCaseLinks(documentManager, null, kase);
         return !links.isEmpty();
     }
 
@@ -259,14 +241,12 @@ public class CaseManagementDistributionActionsBean extends
     }
 
     @Override
-    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail,
-            DocumentModel newEmail) throws ClientException {
+    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail, DocumentModel newEmail) throws ClientException {
         resetWizard();
     }
 
     @Override
-    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
-            throws ClientException {
+    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope) throws ClientException {
         resetWizard();
     }
 

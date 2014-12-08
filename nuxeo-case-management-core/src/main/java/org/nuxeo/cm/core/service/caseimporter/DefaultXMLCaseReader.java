@@ -66,8 +66,7 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
             in = new BufferedInputStream(new FileInputStream(file));
             return new SAXReader().read(in);
         } catch (Exception e) {
-            log.error("Failed to read document from file "
-                    + file.getAbsolutePath());
+            log.error("Failed to read document from file " + file.getAbsolutePath());
             throw new ClientException();
         } finally {
             if (in != null) {
@@ -82,8 +81,7 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
 
     @SuppressWarnings("unchecked")
     private List<Document> readDomDoc(Document doc) throws ClientException {
-        XPath xpathSelector = DocumentHelper.createXPath("/" + ALL_CASES_TAG
-                + "/" + CASE_TAG);
+        XPath xpathSelector = DocumentHelper.createXPath("/" + ALL_CASES_TAG + "/" + CASE_TAG);
         List<Element> allCases = xpathSelector.selectNodes(doc);
         List<Document> caseReaders = new ArrayList<Document>();
         for (Element element : allCases) {
@@ -113,16 +111,14 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
         // TODO : better error handling
         if (allRecipients != null) {
 
-            List<Element> actionMailboxesElements = allRecipients.element(
-                    CASE_RECIPIENTS_ACTION).elements(
+            List<Element> actionMailboxesElements = allRecipients.element(CASE_RECIPIENTS_ACTION).elements(
                     CASE_RECIPIENTS_MAILBOX_TAG);
             for (Element element : actionMailboxesElements) {
                 actionMailboxes.add((String) element.getData());
             }
 
-            List<Element> informationMailboxesElements = caseElement.element(
-                    CASE_RECIPIENTS_TAG).element(CASE_RECIPIENTS_INFORMATION).elements(
-                    CASE_RECIPIENTS_MAILBOX_TAG);
+            List<Element> informationMailboxesElements = caseElement.element(CASE_RECIPIENTS_TAG).element(
+                    CASE_RECIPIENTS_INFORMATION).elements(CASE_RECIPIENTS_MAILBOX_TAG);
 
             for (Element element : informationMailboxesElements) {
                 informationMailboxes.add((String) element.getData());

@@ -35,8 +35,7 @@ public class GetMailboxesHeadersUnrestricted extends GetMailboxesUnrestricted {
 
     protected List<MailboxHeader> mailboxesHeaders;
 
-    public GetMailboxesHeadersUnrestricted(CoreSession session,
-            List<String> muids) {
+    public GetMailboxesHeadersUnrestricted(CoreSession session, List<String> muids) {
         super(session, muids);
     }
 

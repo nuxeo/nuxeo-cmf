@@ -23,7 +23,6 @@ package org.nuxeo.cm.cases;
  */
 public class CaseLifeCycleConstants {
 
-
     public static final String STATE_DRAFT = "draft";
 
     public static final String STATE_SENT = "sent";

@@ -30,7 +30,6 @@ import org.nuxeo.ecm.core.api.model.PropertyException;
  */
 public interface MailboxTitleGenerator {
 
-    String getMailboxTitle(DocumentModel directoryEntry)
-            throws PropertyException, ClientException;
+    String getMailboxTitle(DocumentModel directoryEntry) throws PropertyException, ClientException;
 
 }

@@ -54,8 +54,7 @@ public class CreateCaseLinkOperation {
         try {
             for (DocumentModel doc : docs) {
                 DocumentModel model = session.createDocumentModel(getCaseManagementDocumentTypeService().getCaseLinkType());
-                model.setPropertyValue(
-                        CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, doc.getId());
+                model.setPropertyValue(CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, doc.getId());
                 CaseLink cl = model.getAdapter(CaseLink.class);
                 links.add(cl);
             }
@@ -73,8 +72,7 @@ public class CreateCaseLinkOperation {
         return createCaseLink(list).get(0);
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
-            throws ClientException {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws ClientException {
         if (correspDocumentTypeService == null) {
             try {
                 correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);

@@ -26,9 +26,8 @@ import java.util.Comparator;
  * Comparator on link using the order metadata.
  *
  * @author ldoguin
- *
  */
-public class CorrespondenceLinkOrderComparator implements Comparator< CorrespondenceLink> {
+public class CorrespondenceLinkOrderComparator implements Comparator<CorrespondenceLink> {
 
     private static final long serialVersionUID = 1L;
 

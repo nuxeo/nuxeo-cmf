@@ -15,7 +15,6 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
  * Follow the send transition for a case after its initial distribution.
  * 
  * @author ldoguin
- * 
  */
 public class EnvelopeDistributionListener implements EventListener {
 
@@ -36,8 +35,7 @@ public class EnvelopeDistributionListener implements EventListener {
         }
         if (isInitial) {
             // Update the lifecycle of the envelope
-            env.getDocument().followTransition(
-                    CaseLifeCycleConstants.TRANSITION_SEND);
+            env.getDocument().followTransition(CaseLifeCycleConstants.TRANSITION_SEND);
         }
     }
 

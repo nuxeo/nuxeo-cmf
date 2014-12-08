@@ -69,20 +69,16 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
         // Add the title length check at this level, too
         if (newTitle.length() > getMaximumMailingListNameSize()) {
             Object[] params = { getMaximumMailingListNameSize() };
-            FacesMessage message = FacesMessages.createFacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.mailinglist.maximum.length"), params);
+            FacesMessage message = FacesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR,
+                    resourcesAccessor.getMessages().get("feedback.mailinglist.maximum.length"), params);
             facesMessages.add(message);
 
             return null;
         }
 
         if (newTitle.length() == 0 || newTitle.equals("")) {
-            FacesMessage message = FacesMessages.createFacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.mailinglist.name.empty"));
+            FacesMessage message = FacesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR,
+                    resourcesAccessor.getMessages().get("feedback.mailinglist.name.empty"));
             facesMessages.add(message);
             return null;
         }
@@ -92,14 +88,9 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
             if (newTitle.equals(mailingList.getTitle())) {
                 Object[] params = { newTitle };
                 facesMessages.add(FacesMessage.SEVERITY_WARN,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.mailinglist.create.duplicateName"),
-                        params);
-                facesMessages.addToControl("newMlTitle",
-                        FacesMessage.SEVERITY_WARN,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.mailinglist.create.duplicateName"),
-                        params);
+                        resourcesAccessor.getMessages().get("feedback.mailinglist.create.duplicateName"), params);
+                facesMessages.addToControl("newMlTitle", FacesMessage.SEVERITY_WARN,
+                        resourcesAccessor.getMessages().get("feedback.mailinglist.create.duplicateName"), params);
                 newTitle = null;
                 return null;
             }
@@ -112,8 +103,7 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
         getCurrentMailbox().save(documentManager);
         newTitle = null;
         facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(
-                        "feedback.mailinglist.create.success"));
+                resourcesAccessor.getMessages().get("feedback.mailinglist.create.success"));
         return null;
     }
 
@@ -127,15 +117,13 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
         return currentMailingList;
     }
 
-    public String deleteMailingList(String mailingListId)
-            throws ClientException {
+    public String deleteMailingList(String mailingListId) throws ClientException {
         getCurrentMailbox().removeMailingList(mailingListId);
         getCurrentMailbox().save(documentManager);
         newTitle = null;
         currentMailingList = null;
         facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(
-                        "feedback.mailinglist.list.deleted"));
+                resourcesAccessor.getMessages().get("feedback.mailinglist.list.deleted"));
         return null;
     }
 
@@ -156,13 +144,11 @@ public class MailboxMailingListBean extends CaseManagementContextBoundInstance {
     }
 
     public void updateCurrentMailingList() throws ClientException {
-        Mailbox mailbox = getCurrentMailbox().updateMailingList(
-                currentMailingList);
+        Mailbox mailbox = getCurrentMailbox().updateMailingList(currentMailingList);
         // xxx update doc with current mailing list
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(
-                        "feedback.mailinglist.list.saved"));
+                resourcesAccessor.getMessages().get("feedback.mailinglist.list.saved"));
     }
 
     public String getNewTitle() {

@@ -31,8 +31,7 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class MailboxAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
-            Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
         if (checkDocument(doc)) {
             return new MailboxImpl(doc);
         } else {
@@ -42,12 +41,10 @@ public class MailboxAdapterFactory implements DocumentAdapterFactory {
     }
 
     /**
-     * Returns false if document does not have
-     * {@link MailboxConstants#MAILBOX_FACET}
+     * Returns false if document does not have {@link MailboxConstants#MAILBOX_FACET}
      *
      * @param doc
-     * @throws ClientRuntimeException if document has the required facet but
-     *             does not have the required
+     * @throws ClientRuntimeException if document has the required facet but does not have the required
      *             {@link MailboxConstants#MAILBOX_SCHEMA}
      */
     public static boolean checkDocument(DocumentModel doc) {
@@ -55,9 +52,8 @@ public class MailboxAdapterFactory implements DocumentAdapterFactory {
             // not a mailbox
             return false;
         } else if (!doc.hasSchema(MailboxConstants.MAILBOX_SCHEMA)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should contain schema "
-                            + MailboxConstants.MAILBOX_SCHEMA);
+            throw new CaseManagementRuntimeException("Document should contain schema "
+                    + MailboxConstants.MAILBOX_SCHEMA);
         }
         return true;
     }

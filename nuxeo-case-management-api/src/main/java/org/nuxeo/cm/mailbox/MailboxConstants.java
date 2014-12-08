@@ -50,8 +50,8 @@ public class MailboxConstants {
 
     public static final String MAILBOX_ROOT_DOCUMENT_NAME = "mailbox-root";
 
-    public static final String MAILBOX_ROOT_DOCUMENT_PATH = CaseConstants.CASE_DOMAIN_PATH
-            + "/" + MAILBOX_ROOT_DOCUMENT_NAME;
+    public static final String MAILBOX_ROOT_DOCUMENT_PATH = CaseConstants.CASE_DOMAIN_PATH + "/"
+            + MAILBOX_ROOT_DOCUMENT_NAME;
 
     public static final String MAILBOX_ROOT_DOCUMENT_TYPE = "MailboxRoot";
 
@@ -111,8 +111,7 @@ public class MailboxConstants {
 
     public static final String SYNC_DELETE_MAILBOXES_PROPERTY = "cm.syncro.delete.mailboxes";
 
-    public static List<MailboxHeader> getMailboxHeaderList(
-            List<DocumentModel> docs) {
+    public static List<MailboxHeader> getMailboxHeaderList(List<DocumentModel> docs) {
         List<MailboxHeader> res = new ArrayList<MailboxHeader>();
         if (docs != null) {
             for (DocumentModel doc : docs) {

@@ -29,14 +29,13 @@ public interface CorrespondenceSearchDocument {
 
     public abstract void searchMailDocument();
 
-    public abstract String cancelEmailAttachmentsSearch()
-            throws ClientException;
+    public abstract String cancelEmailAttachmentsSearch() throws ClientException;
 
     /**
      * Adds selected email to current envelope documents
      * <p>
-     * As long as envelope is not saved, relations are not updated, but current
-     * envelope keeps track of its email documents.
+     * As long as envelope is not saved, relations are not updated, but current envelope keeps track of its email
+     * documents.
      */
     public abstract String addSelectedEmails() throws ClientException;
 

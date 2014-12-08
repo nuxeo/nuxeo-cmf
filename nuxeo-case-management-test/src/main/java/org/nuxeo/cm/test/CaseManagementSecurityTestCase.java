@@ -123,8 +123,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         assertNotNull(mailboxManagementService);
     }
 
-    protected DocumentModel createDocument(String type, String id)
-            throws Exception {
+    protected DocumentModel createDocument(String type, String id) throws Exception {
         DocumentModel document = session.createDocumentModel(type);
         document.setPathInfo("/", id);
         document = session.createDocument(document);
@@ -143,22 +142,18 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
         CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
-            mailEnvelopeModel = session.createDocumentModel(
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    UUID.randomUUID().toString(),
-                    correspDocumentTypeService.getCaseType());
+            mailEnvelopeModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+                    UUID.randomUUID().toString(), correspDocumentTypeService.getCaseType());
         }
         return mailEnvelopeModel;
     }
 
     public void createDraftPost(Mailbox mb, Case envelope) throws Exception {
-        DocumentModel model = session.createDocumentModel(
-                mb.getDocument().getPathAsString(),
+        DocumentModel model = session.createDocumentModel(mb.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
 
-        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
-                envelope.getDocument().getId());
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD, envelope.getDocument().getId());
         doc.setPropertyValue(IS_DRAFT_FIELD, Boolean.TRUE);
         doc.setPropertyValue(SENDER_FIELD, mb.getId());
 
@@ -167,8 +162,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
     }
 
     protected Mailbox createPersonalMailbox(String name) throws Exception {
-        return mailboxManagementService.createPersonalMailboxes(session, name).get(
-                0);
+        return mailboxManagementService.createPersonalMailboxes(session, name).get(0);
     }
 
     protected CaseItem getMailEnvelopeItem() throws Exception {
@@ -182,8 +176,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
 
     protected DocumentModel getMailEnvelopeItemModel() throws Exception {
         if (mailEnvelopItemeModel == null) {
-            mailEnvelopItemeModel = session.createDocumentModel("/",
-                    UUID.randomUUID().toString(),
+            mailEnvelopItemeModel = session.createDocumentModel("/", UUID.randomUUID().toString(),
                     "IncomingCorrespondenceDocument");
         }
         return mailEnvelopItemeModel;
@@ -202,8 +195,7 @@ public class CaseManagementSecurityTestCase extends TXSQLRepositoryTestCase {
     }
 
     protected void setMailRootRigts() throws Exception {
-        DocumentModel mailRootdoc = session.getDocument(new PathRef(
-                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+        DocumentModel mailRootdoc = session.getDocument(new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH));
         ACL localACL = new ACLImpl(ACL.LOCAL_ACL);
         ACE ace = new ACE(user1, SecurityConstants.EVERYTHING, true);
         localACL.add(ace);

@@ -40,16 +40,14 @@ public class CaseManagementDocRoutingTreePersister extends DocumentRoutingTreePe
     public static final String QUERY_PERSONAL_ROUTE_ROOT = "SELECT * FROM RouteRoot WHERE ecm:parentId = '%s' AND dc:title= '%s'";
 
     @Override
-    public DocumentModel getParentFolderForNewModel(CoreSession session,
-            DocumentModel instance) {
+    public DocumentModel getParentFolderForNewModel(CoreSession session, DocumentModel instance) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            Mailbox userMailbox = service.getUserPersonalMailbox(session,
-                    session.getPrincipal().getName());
-            String name = CreateMailboxRouteRootUnrestricted.getRouteRootNamePrefix()
-                    + userMailbox.getTitle();
-            DocumentModelList children = session.query(String.format(QUERY_PERSONAL_ROUTE_ROOT, userMailbox.getDocument().getId(), name));
-            if (children != null && !children.isEmpty()){
+            Mailbox userMailbox = service.getUserPersonalMailbox(session, session.getPrincipal().getName());
+            String name = CreateMailboxRouteRootUnrestricted.getRouteRootNamePrefix() + userMailbox.getTitle();
+            DocumentModelList children = session.query(String.format(QUERY_PERSONAL_ROUTE_ROOT,
+                    userMailbox.getDocument().getId(), name));
+            if (children != null && !children.isEmpty()) {
                 return children.get(0);
             } else {
                 return null;

@@ -54,8 +54,8 @@ import org.nuxeo.runtime.api.Framework;
 @Name("correspEditOutgoingMailActionsBean")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceEditOutgoingMailActionsBean extends
-        CaseManagementContextBoundInstance implements Serializable {
+public class CorrespondenceEditOutgoingMailActionsBean extends CaseManagementContextBoundInstance implements
+        Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -77,8 +77,7 @@ public class CorrespondenceEditOutgoingMailActionsBean extends
     public String backToMailBox() throws ClientException {
 
         // Unlock the outgoing mail
-        LockableAdapter lockable = getCurrentCaseItem().getAdapter(
-                LockableAdapter.class);
+        LockableAdapter lockable = getCurrentCaseItem().getAdapter(LockableAdapter.class);
         lockable.unlockDocument(documentManager);
 
         Mailbox mb = getCurrentMailbox();
@@ -112,21 +111,17 @@ public class CorrespondenceEditOutgoingMailActionsBean extends
         draftUpdated(currentEmail, envelope);
         EventManager.raiseEventsOnDocumentChange(currentEmail);
 
-        facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get("document_modified"),
+        facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("document_modified"),
                 resourcesAccessor.getMessages().get(envelopeDoc.getType()));
 
     }
 
-    protected void draftUpdated(DocumentModel currentEmail, Case envelope)
-            throws ClientException {
+    protected void draftUpdated(DocumentModel currentEmail, Case envelope) throws ClientException {
         Map<String, Serializable> properties = new HashMap<String, Serializable>();
-        CaseLink draft = caseDistributionService.getDraftCaseLink(
-                documentManager, getCurrentMailbox(),
+        CaseLink draft = caseDistributionService.getDraftCaseLink(documentManager, getCurrentMailbox(),
                 getCurrentCase().getDocument().getId());
         properties.put(CaseManagementEventConstants.EVENT_CONTEXT_DRAFT, draft);
-        caseDistributionService.notify(documentManager,
-                EventNames.draftUpdated.name(), envelope.getDocument(),
+        caseDistributionService.notify(documentManager, EventNames.draftUpdated.name(), envelope.getDocument(),
                 properties);
     }
 
@@ -161,11 +156,9 @@ public class CorrespondenceEditOutgoingMailActionsBean extends
 
         CaseDistributionService correspondenceService = Framework.getService(CaseDistributionService.class);
 
-        CaseLink post = correspondenceService.getDraftCaseLink(documentManager,
-                mailbox, envelope.getDocument().getId());
+        CaseLink post = correspondenceService.getDraftCaseLink(documentManager, mailbox, envelope.getDocument().getId());
 
-        return navigationContext.navigateToDocument(post.getDocument(),
-                "distribution_outgoing_post");
+        return navigationContext.navigateToDocument(post.getDocument(), "distribution_outgoing_post");
 
     }
 

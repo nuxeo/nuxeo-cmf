@@ -42,8 +42,7 @@ import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
 @Name("correspSearchDocument")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceSearchDocumentBean extends
-        CaseManagementContextBoundInstance implements
+public class CorrespondenceSearchDocumentBean extends CaseManagementContextBoundInstance implements
         CorrespondenceSearchDocument {
 
     private static final long serialVersionUID = 1L;
@@ -97,8 +96,8 @@ public class CorrespondenceSearchDocumentBean extends
     /**
      * Adds selected email to current envelope documents
      * <p>
-     * As long as envelope is not saved, relations are not updated, but current
-     * envelope keeps track of its email documents.
+     * As long as envelope is not saved, relations are not updated, but current envelope keeps track of its email
+     * documents.
      */
     public String addSelectedEmails() throws ClientException {
 
@@ -107,9 +106,7 @@ public class CorrespondenceSearchDocumentBean extends
             Case currentEnvelope = getCurrentCase();
             for (DocumentModel document : selectedDocuments) {
                 if (document != null) {
-                    currentEnvelope.addCaseItem(
-                            document.getAdapter(CaseItem.class),
-                            documentManager);
+                    currentEnvelope.addCaseItem(document.getAdapter(CaseItem.class), documentManager);
                 }
             }
         }

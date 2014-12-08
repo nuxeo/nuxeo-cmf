@@ -33,8 +33,7 @@ import org.nuxeo.cm.web.context.CaseManagementContextHolder;
 import org.nuxeo.cm.web.context.CaseManagementContextHolderBean;
 
 /**
- * Interceptor used to invalidate components annotated by
- * {@link CaseManagementContextBound}. Every method on this class
+ * Interceptor used to invalidate components annotated by {@link CaseManagementContextBound}. Every method on this class
  */
 @Interceptor(stateless = true, within = BijectionInterceptor.class)
 public class CaseManagementContextInterceptor extends AbstractInterceptor {
@@ -43,8 +42,7 @@ public class CaseManagementContextInterceptor extends AbstractInterceptor {
 
     private static final Log log = LogFactory.getLog(CaseManagementContextInterceptor.class);
 
-    public Object aroundInvoke(InvocationContext invocationContext)
-            throws Exception {
+    public Object aroundInvoke(InvocationContext invocationContext) throws Exception {
         beforeInvocation(invocationContext);
         return invocationContext.proceed();
     }
@@ -63,8 +61,7 @@ public class CaseManagementContextInterceptor extends AbstractInterceptor {
     }
 
     protected CaseManagementContextHolder getCaseManagementContextHolder() {
-        return (CaseManagementContextHolder) Component.getInstance(
-                CaseManagementContextHolderBean.SEAM_COMPONENT_NAME,
+        return (CaseManagementContextHolder) Component.getInstance(CaseManagementContextHolderBean.SEAM_COMPONENT_NAME,
                 ScopeType.CONVERSATION);
     }
 

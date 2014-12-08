@@ -53,8 +53,8 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
  */
 @Name("correspDistributeOutgoingMailActionsBean")
 @Scope(ScopeType.CONVERSATION)
-public class CorrespondenceDistributeOutgoingMailActionsBean extends
-        CaseManagementContextBoundInstance implements Serializable {
+public class CorrespondenceDistributeOutgoingMailActionsBean extends CaseManagementContextBoundInstance implements
+        Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -96,8 +96,7 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
     public String backToMailBox() throws ClientException {
 
         // Unlock the outgoing mail
-        LockableAdapter lockable = getCurrentCaseItem().getAdapter(
-                LockableAdapter.class);
+        LockableAdapter lockable = getCurrentCaseItem().getAdapter(LockableAdapter.class);
         lockable.unlockDocument(documentManager);
 
         Mailbox mb = getCurrentMailbox();
@@ -118,8 +117,7 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
 
             // some changes (versioning) happened server-side, fetch new one
             navigationContext.invalidateCurrentDocument();
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
-                    resourcesAccessor.getMessages().get("document_modified"),
+            facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("document_modified"),
                     resourcesAccessor.getMessages().get(postDoc.getType()));
 
         } catch (Throwable t) {
@@ -143,10 +141,8 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
         Mailbox currentMailbox = getCurrentMailbox();
 
         if (currentMailbox == null) {
-            facesMessages.add(
-                    FacesMessage.SEVERITY_ERROR,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.corresp.distribution.invalidCurrentMailbox"));
+            facesMessages.add(FacesMessage.SEVERITY_ERROR,
+                    resourcesAccessor.getMessages().get("feedback.corresp.distribution.invalidCurrentMailbox"));
             return null;
         }
 
@@ -154,8 +150,7 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
         Case envelope = getCurrentCase();
         if (envelope == null) {
             facesMessages.add(FacesMessage.SEVERITY_ERROR,
-                    resourcesAccessor.getMessages().get(
-                            "feedback.corresp.distribution.invalidEnvelope"));
+                    resourcesAccessor.getMessages().get("feedback.corresp.distribution.invalidEnvelope"));
             return null;
         }
 
@@ -164,20 +159,16 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
         CaseLink post = postDoc.getAdapter(CaseLink.class);
 
         // Create a Post Request
-        CaseLink postRequest = new CaseLinkRequestImpl(currentMailbox.getId(),
-                Calendar.getInstance(),
-                (String) envelope.getDocument().getPropertyValue(
-                        CaseConstants.TITLE_PROPERTY_NAME), post.getComment(),
-                envelope, post.getInitialInternalParticipants(),
-                post.getInitialExternalParticipants());
+        CaseLink postRequest = new CaseLinkRequestImpl(currentMailbox.getId(), Calendar.getInstance(),
+                (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME), post.getComment(),
+                envelope, post.getInitialInternalParticipants(), post.getInitialExternalParticipants());
 
         // Send envelope (initial)
         caseDistributionService.sendCase(documentManager, postRequest, true);
         envelope.save(documentManager);
 
         facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(
-                        "feedback.corresp.distribution.done"));
+                resourcesAccessor.getMessages().get("feedback.corresp.distribution.done"));
 
         // Go back to the envelope
         DocumentModel envelopeDoc = envelope.getDocument();
@@ -201,8 +192,7 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends
                 if (selectedItem == null) {
                     return false;
                 }
-                if (!selectedItem.getDocument().hasFacet(
-                        CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET)) {
+                if (!selectedItem.getDocument().hasFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET)) {
                     return false;
                 }
             }

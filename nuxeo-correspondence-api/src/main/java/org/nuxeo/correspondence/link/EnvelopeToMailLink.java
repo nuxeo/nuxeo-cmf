@@ -29,7 +29,6 @@ import java.util.List;
 public interface EnvelopeToMailLink extends CommonLink {
 
     /**
-     * 
      * @return the list of envelope to mail CorrespondenceLink.
      */
     List<CorrespondenceLink> getEnvelopeToMailLink();
@@ -51,6 +50,5 @@ public interface EnvelopeToMailLink extends CommonLink {
      * 
      * @param relations
      */
-    void addAllEnvelopeToMailLink(
-            List<CorrespondenceLink> links);
+    void addAllEnvelopeToMailLink(List<CorrespondenceLink> links);
 }

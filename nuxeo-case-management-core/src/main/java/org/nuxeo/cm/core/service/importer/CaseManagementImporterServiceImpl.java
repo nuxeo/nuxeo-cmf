@@ -29,8 +29,7 @@ import org.nuxeo.runtime.model.DefaultComponent;
  *
  * @author Mariana Cedica
  */
-public class CaseManagementImporterServiceImpl extends DefaultComponent
-        implements CaseManagementImporterService {
+public class CaseManagementImporterServiceImpl extends DefaultComponent implements CaseManagementImporterService {
 
     private static final Log log = LogFactory.getLog(CaseManagementImporterServiceImpl.class);
 
@@ -52,8 +51,7 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
     }
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
 
         importInfo = (CaseManagementImporterDescriptor) contribution;
 
@@ -76,8 +74,7 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
     }
 
     @Override
-    public void unregisterContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void unregisterContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         destionationMailboxPath = null;
         noImportingThreads = null;
         importerDocumentModelfactoryClass = null;
@@ -90,8 +87,8 @@ public class CaseManagementImporterServiceImpl extends DefaultComponent
             log.warn("No there is no importer configured!");
             return;
         }
-        new CaseManagementImporter(destionationMailboxPath, noImportingThreads,
-                folderPath, getImporterDocumentModelFactory()).importDocuments();
+        new CaseManagementImporter(destionationMailboxPath, noImportingThreads, folderPath,
+                getImporterDocumentModelFactory()).importDocuments();
     }
 
     public final CaseManagementCaseItemDocumentFactory getImporterDocumentModelFactory() {

@@ -93,22 +93,20 @@ public interface CaseItem extends HasParticipants, Serializable {
     void setType(String type);
 
     /**
-     * Gets the envelope this document is in. This value only is only set when
-     * it is coming from an envelope in the current session.
+     * Gets the envelope this document is in. This value only is only set when it is coming from an envelope in the
+     * current session.
      *
-     * @return the envelope or null if the document is not associated with an
-     *         envelope.
+     * @return the envelope or null if the document is not associated with an envelope.
      */
     Case getCase();
 
     void setCase(Case theCase);
 
     /**
-     * Gets the envelope in which this item should be shown if not associated
-     * with an envelope.
+     * Gets the envelope in which this item should be shown if not associated with an envelope.
      * <p>
-     * If you find this item from a search, we still have to show it in an
-     * envelope. This method tell us in which envelope to put it.
+     * If you find this item from a search, we still have to show it in an envelope. This method tell us in which
+     * envelope to put it.
      */
     String getDefaultCaseId();
 
@@ -123,12 +121,10 @@ public interface CaseItem extends HasParticipants, Serializable {
      * Creates a mail envelope with this item inside.
      *
      * @param documentManager an open session.
-     * @param parentPath the path to the folder in which the envelope will be
-     *            created.
+     * @param parentPath the path to the folder in which the envelope will be created.
      * @return The created mail envelope.
      */
-    Case createMailCase(CoreSession documentManager, String parentPath,
-            String initialLifeCycleState);
+    Case createMailCase(CoreSession documentManager, String parentPath, String initialLifeCycleState);
 
     /**
      * Persists the item.
@@ -136,14 +132,12 @@ public interface CaseItem extends HasParticipants, Serializable {
     void save(CoreSession session);
 
     /**
-     * 
      * @param coreSession
      * @return list of cases containing the case item.
      */
     DocumentModelList getCases(CoreSession coreSession);
 
     /**
-     * 
      * @return true if case item is in more than one case.
      */
     boolean hasSeveralCases(CoreSession coreSession);

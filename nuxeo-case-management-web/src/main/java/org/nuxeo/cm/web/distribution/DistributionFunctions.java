@@ -58,8 +58,7 @@ public class DistributionFunctions {
         return mailboxId;
     }
 
-    public static String getMailboxTitles(CoreSession session,
-            List<String> mailboxIds, String separator, Boolean sorted) {
+    public static String getMailboxTitles(CoreSession session, List<String> mailboxIds, String separator, Boolean sorted) {
         List<MailboxHeader> mailboxes = getMailboxHeaders(session, mailboxIds);
         if (mailboxes != null) {
             List<String> titles = new ArrayList<String>();
@@ -88,8 +87,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static MailboxHeader getMailboxHeader(CoreSession session,
-            String mailboxId) {
+    public static MailboxHeader getMailboxHeader(CoreSession session, String mailboxId) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailboxHeader(session, mailboxId);
@@ -99,8 +97,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static List<Mailbox> getMailboxes(CoreSession session,
-            List<String> mailboxIds) {
+    public static List<Mailbox> getMailboxes(CoreSession session, List<String> mailboxIds) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailboxes(session, mailboxIds);
@@ -110,8 +107,7 @@ public class DistributionFunctions {
         }
     }
 
-    public static List<MailboxHeader> getMailboxHeaders(CoreSession session,
-            List<String> mailboxIds) {
+    public static List<MailboxHeader> getMailboxHeaders(CoreSession session, List<String> mailboxIds) {
         try {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             return service.getMailboxesHeaders(session, mailboxIds);

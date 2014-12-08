@@ -60,8 +60,7 @@ public class CaseItemImpl implements CaseItem {
     }
 
     public String getConfidentiality() {
-        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_CONFIDENTIALITY);
+        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_CONFIDENTIALITY);
     }
 
     protected String getStringProperty(String schema, String value) {
@@ -92,8 +91,7 @@ public class CaseItemImpl implements CaseItem {
 
     public void setTitle(String title) {
         try {
-            this.document.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
-                    title);
+            this.document.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME, title);
         } catch (PropertyException e) {
             throw new CaseManagementRuntimeException(e);
         } catch (ClientException e) {
@@ -110,13 +108,11 @@ public class CaseItemImpl implements CaseItem {
     }
 
     public String getDefaultCaseId() {
-        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_ID);
+        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DEFAULT_CASE_ID);
     }
 
     public Calendar getDocumentDate() {
-        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DATE);
     }
 
     public Case getCase() {
@@ -124,23 +120,19 @@ public class CaseItemImpl implements CaseItem {
     }
 
     public Calendar getImportDate() {
-        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_IMPORT_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_IMPORT_DATE);
     }
 
     public String getOrigin() {
-        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_ORIGIN);
+        return getStringProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_ORIGIN);
     }
 
     public Calendar getReceiveDate() {
-        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_RECEIVE_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_RECEIVE_DATE);
     }
 
     public Calendar getSendingDate() {
-        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_SENDING_DATE);
+        return getDateProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_SENDING_DATE);
     }
 
     public String getType() {
@@ -148,18 +140,15 @@ public class CaseItemImpl implements CaseItem {
     }
 
     public void setConfidentiality(String cdf) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_CONFIDENTIALITY, cdf);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_CONFIDENTIALITY, cdf);
     }
 
     public void setDefaultCase(String mailEnvelopeId) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DEFAULT_CASE_ID, mailEnvelopeId);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DEFAULT_CASE_ID, mailEnvelopeId);
     }
 
     public void setDocumentDate(Calendar date) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DATE, date);
     }
 
     public void setCase(Case envelope) {
@@ -167,28 +156,23 @@ public class CaseItemImpl implements CaseItem {
     }
 
     public void setImportDate(Calendar date) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_IMPORT_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_IMPORT_DATE, date);
     }
 
     public void setOrigin(String origin) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_ORIGIN, origin);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_ORIGIN, origin);
     }
 
     public void setReceiveDate(Calendar date) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_RECEIVE_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_RECEIVE_DATE, date);
     }
 
     public void setSendingDate(Calendar date) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.DOCUMENT_SENDING_DATE, date);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_SENDING_DATE, date);
     }
 
     public void setType(String type) {
-        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA,
-                CaseConstants.CASE_ITEM_DOCUMENT_TYPE, type);
+        setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.CASE_ITEM_DOCUMENT_TYPE, type);
     }
 
     /**
@@ -214,16 +198,12 @@ public class CaseItemImpl implements CaseItem {
         }
     }
 
-    public Case createMailCase(CoreSession session, String parentPath,
-            String initialLifeCycleState) {
+    public Case createMailCase(CoreSession session, String parentPath, String initialLifeCycleState) {
         try {
             String emailTitle = getTitle();
-            String envelopeid = IdUtils.generateId(emailTitle == null ? ""
-                    : emailTitle);
-            Case mailEnvelope = createEnvelope(session, parentPath, envelopeid,
-                    initialLifeCycleState);
-            mailEnvelope.addCaseItem(document.getAdapter(CaseItem.class),
-                    session);
+            String envelopeid = IdUtils.generateId(emailTitle == null ? "" : emailTitle);
+            Case mailEnvelope = createEnvelope(session, parentPath, envelopeid, initialLifeCycleState);
+            mailEnvelope.addCaseItem(document.getAdapter(CaseItem.class), session);
             mailEnvelope.save(session);
             return mailEnvelope;
         } catch (ClientException e) {
@@ -231,8 +211,8 @@ public class CaseItemImpl implements CaseItem {
         }
     }
 
-    protected Case createEnvelope(CoreSession session, String parentPath,
-            String id, String initialLifeCycleState) throws ClientException {
+    protected Case createEnvelope(CoreSession session, String parentPath, String id, String initialLifeCycleState)
+            throws ClientException {
 
         CaseManagementDocumentTypeService correspDocumentTypeService;
         try {
@@ -241,8 +221,7 @@ public class CaseItemImpl implements CaseItem {
             throw new ClientException(e);
         }
 
-        DocumentModel envelope = session.createDocumentModel(parentPath, id,
-                correspDocumentTypeService.getCaseType());
+        DocumentModel envelope = session.createDocumentModel(parentPath, id, correspDocumentTypeService.getCaseType());
         envelope.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
                 document.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME));
         // FIXME: make this constant available in nuxeo-core-api
@@ -256,14 +235,12 @@ public class CaseItemImpl implements CaseItem {
         return document.toString();
     }
 
-    public void addInitialExternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialExternalParticipants(Map<String, List<String>> recipients) {
         recipientAdapter.addInitialExternalParticipants(recipients);
 
     }
 
-    public void addInitialInternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialInternalParticipants(Map<String, List<String>> recipients) {
         recipientAdapter.addInitialInternalParticipants(recipients);
     }
 

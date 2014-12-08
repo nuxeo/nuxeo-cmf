@@ -34,8 +34,7 @@ public class CaseSourceNode implements SourceNode {
 
     private String rootPath;
 
-    CaseSourceNode(Element caseDocument, AbstractXMLCaseReader xmlReader,
-            String rootPath) {
+    CaseSourceNode(Element caseDocument, AbstractXMLCaseReader xmlReader, String rootPath) {
         this.caseDocument = caseDocument;
         this.xmlReader = xmlReader;
         this.rootPath = rootPath;

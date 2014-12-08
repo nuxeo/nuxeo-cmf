@@ -94,11 +94,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public CaseLink sendCase(CoreSession session, CaseLink postRequest,
-            boolean isInitial) {
+    public CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean isInitial) {
         try {
-            SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(
-                    session, postRequest, isInitial);
+            SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(session, postRequest, isInitial);
             sendPostUnrestricted.runUnrestricted();
             return sendPostUnrestricted.getPost();
         } catch (Exception e) {
@@ -107,11 +105,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public CaseLink sendCase(CoreSession session, CaseLink postRequest,
-            boolean isInitial, boolean actionable) {
+    public CaseLink sendCase(CoreSession session, CaseLink postRequest, boolean isInitial, boolean actionable) {
         try {
-            SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(
-                    session, postRequest, isInitial, actionable);
+            SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(session, postRequest, isInitial,
+                    actionable);
             sendPostUnrestricted.runUnrestricted();
             return sendPostUnrestricted.getPost();
         } catch (Exception e) {
@@ -120,14 +117,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public CaseLink sendCase(CoreSession session, String origin, Case kase,
-            DistributionInfo initialDistribution) {
+    public CaseLink sendCase(CoreSession session, String origin, Case kase, DistributionInfo initialDistribution) {
         Map<String, List<String>> recipients = initialDistribution.getAllParticipants();
         CaseLink postRequest;
         try {
-            postRequest = new CaseLinkRequestImpl(origin,
-                    Calendar.getInstance(), kase.getDocument().getTitle(),
-                    null, kase, recipients, null);
+            postRequest = new CaseLinkRequestImpl(origin, Calendar.getInstance(), kase.getDocument().getTitle(), null,
+                    kase, recipients, null);
             return sendCase(session, postRequest, kase.isDraft());
 
         } catch (ClientException e) {
@@ -143,18 +138,15 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
      * @return the corresponding documentModels
      */
     @SuppressWarnings("unchecked")
-    protected DocumentModelList executeQuery(CoreSession session,
-            String pageProviderName, Object[] params) {
+    protected DocumentModelList executeQuery(CoreSession session, String pageProviderName, Object[] params) {
         PageProviderService ppService = Framework.getLocalService(PageProviderService.class);
         Map<String, Serializable> props = new HashMap<String, Serializable>();
-        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
-                (Serializable) session);
+        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
         try {
-            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
-                    pageProviderName, null, null, null, props, params);
+            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(pageProviderName,
+                    null, null, null, props, params);
             if (pp == null) {
-                throw new CaseManagementRuntimeException(
-                        "Page provider not found: " + pageProviderName);
+                throw new CaseManagementRuntimeException("Page provider not found: " + pageProviderName);
             }
             return new DocumentModelListImpl(pp.getCurrentPage());
         } catch (CaseManagementRuntimeException e) {
@@ -164,8 +156,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         }
     }
 
-    protected List<CaseLink> getPosts(CoreSession coreSession, long offset,
-            long limit, String query) {
+    protected List<CaseLink> getPosts(CoreSession coreSession, long offset, long limit, String query) {
         List<CaseLink> posts = new ArrayList<CaseLink>();
         DocumentModelList result;
 
@@ -183,62 +174,52 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit) {
+    public List<CaseLink> getReceivedCaseLinks(CoreSession coreSession, Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
-        String query = String.format(
-                "SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=0",
+        String query = String.format("SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=0",
                 mailbox.getDocument().getId(), CaseLinkConstants.IS_SENT_FIELD);
         return getPosts(coreSession, offset, limit, query);
     }
 
     @Override
-    public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox,
-            Case kase) {
+    public List<CaseLink> getCaseLinks(CoreSession session, Mailbox mailbox, Case kase) {
         String query = String.format(
                 "SELECT * FROM Document WHERE ecm:mixinType = 'CaseLink' and cslk:caseDocumentId = '%s'",
                 kase.getDocument().getId());
         if (mailbox != null) {
-            query += String.format(" and ecm:parentId = '%s'",
-                    mailbox.getDocument().getId());
+            query += String.format(" and ecm:parentId = '%s'", mailbox.getDocument().getId());
         }
         return getPosts(session, 0, 0, query);
     }
 
     @Override
-    public List<CaseLink> getSentCaseLinks(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit) {
+    public List<CaseLink> getSentCaseLinks(CoreSession coreSession, Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
-        String query = String.format(
-                "SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=1",
+        String query = String.format("SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=1",
                 mailbox.getDocument().getId(), CaseLinkConstants.IS_SENT_FIELD);
         return getPosts(coreSession, offset, limit, query);
     }
 
     @Override
-    public List<CaseLink> getDraftCaseLinks(CoreSession coreSession,
-            Mailbox mailbox, long offset, long limit) {
+    public List<CaseLink> getDraftCaseLinks(CoreSession coreSession, Mailbox mailbox, long offset, long limit) {
         if (mailbox == null) {
             return null;
         }
-        String query = String.format(
-                "SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=1",
+        String query = String.format("SELECT * FROM Document WHERE ecm:parentId ='%s' and %s=1",
                 mailbox.getDocument().getId(), CaseLinkConstants.IS_DRAFT_FIELD);
         return getPosts(coreSession, offset, limit, query);
     }
 
     @Override
-    public CaseItem addCaseItemToCase(CoreSession session, Case kase,
-            DocumentModel emailDoc) {
+    public CaseItem addCaseItemToCase(CoreSession session, Case kase, DocumentModel emailDoc) {
         try {
-            String parentPath = persister.getParentDocumentPathForCaseItem(
-                    session, kase);
-            CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(
-                    session, emailDoc, kase.getDocument().getACP(), parentPath);
+            String parentPath = persister.getParentDocumentPathForCaseItem(session, kase);
+            CreateCaseItemUnrestricted mailCreator = new CreateCaseItemUnrestricted(session, emailDoc,
+                    kase.getDocument().getACP(), parentPath);
             mailCreator.runUnrestricted();
             DocumentModel mail = session.getDocument(mailCreator.getDocRef());
             CaseItem newCaseItem = mail.getAdapter(CaseItem.class);
@@ -252,8 +233,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public Case createCase(CoreSession session, DocumentModel emailDoc,
-            List<Mailbox> mailboxes) {
+    public Case createCase(CoreSession session, DocumentModel emailDoc, List<Mailbox> mailboxes) {
         try {
             String emailTitle = emailDoc.getTitle();
             String caseId = pathSegmentService.generatePathSegment(emailDoc);
@@ -271,28 +251,23 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public Case createEmptyCase(CoreSession session, String title, String id,
-            Mailbox mailbox) {
-        return createEmptyCase(session, title, id,
-                Collections.singletonList(mailbox));
+    public Case createEmptyCase(CoreSession session, String title, String id, Mailbox mailbox) {
+        return createEmptyCase(session, title, id, Collections.singletonList(mailbox));
     }
 
     @Override
-    public Case createEmptyCase(CoreSession session, String title, String id,
-            List<Mailbox> mailboxes) {
-        return createEmptyCase(session, title, id,
-                getTypeService().getCaseType(), mailboxes);
+    public Case createEmptyCase(CoreSession session, String title, String id, List<Mailbox> mailboxes) {
+        return createEmptyCase(session, title, id, getTypeService().getCaseType(), mailboxes);
     }
 
     @Override
-    public Case createEmptyCase(CoreSession session, String title, String id,
-            String type, List<Mailbox> mailboxes) {
+    public Case createEmptyCase(CoreSession session, String title, String id, String type, List<Mailbox> mailboxes) {
         return createEmptyCase(session, title, id, type, null, mailboxes);
     }
 
     @Override
-    public Case createEmptyCase(CoreSession session, String title, String id,
-            String type, Date date, List<Mailbox> mailboxes) {
+    public Case createEmptyCase(CoreSession session, String title, String id, String type, Date date,
+            List<Mailbox> mailboxes) {
         String parentPath = getParentDocumentPathForCase(session);
         DocumentModel kase;
         try {
@@ -314,17 +289,14 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            Mailbox mailbox) {
-        return createEmptyCase(session, caseDoc,
-                Collections.singletonList(mailbox));
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc, Mailbox mailbox) {
+        return createEmptyCase(session, caseDoc, Collections.singletonList(mailbox));
     }
 
-    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            Date date, List<Mailbox> mailboxes) {
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc, Date date, List<Mailbox> mailboxes) {
         String parentPath = getParentDocumentPathForCase(session, date);
-        CreateEmptyCaseUnrestricted emptyCaseCreator = new CreateEmptyCaseUnrestricted(
-                session, caseDoc, parentPath, mailboxes);
+        CreateEmptyCaseUnrestricted emptyCaseCreator = new CreateEmptyCaseUnrestricted(session, caseDoc, parentPath,
+                mailboxes);
         try {
             emptyCaseCreator.runUnrestricted();
         } catch (ClientException e) {
@@ -340,36 +312,26 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc,
-            List<Mailbox> mailboxes) {
+    public Case createEmptyCase(CoreSession session, DocumentModel caseDoc, List<Mailbox> mailboxes) {
         return createEmptyCase(session, caseDoc, null, mailboxes);
     }
 
     @Override
-    public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox,
-            Case envelope) {
+    public CaseLink createDraftCaseLink(CoreSession session, Mailbox mailbox, Case envelope) {
         try {
 
             Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
-            eventProperties.put(
-                    CaseManagementEventConstants.EVENT_CONTEXT_CASE, envelope);
-            eventProperties.put("category",
-                    CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
-            fireEvent(session, envelope, eventProperties,
-                    EventNames.beforeDraftCreated.name());
-            CreateDraftCaseLinkUnrestricted runner = new CreateDraftCaseLinkUnrestricted(
-                    session.getRepositoryName(),
-                    (String) envelope.getDocument().getPropertyValue(
-                            CaseConstants.TITLE_PROPERTY_NAME), envelope,
+            eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE, envelope);
+            eventProperties.put("category", CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
+            fireEvent(session, envelope, eventProperties, EventNames.beforeDraftCreated.name());
+            CreateDraftCaseLinkUnrestricted runner = new CreateDraftCaseLinkUnrestricted(session.getRepositoryName(),
+                    (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME), envelope,
                     mailbox);
             runner.runUnrestricted();
-            DocumentModel draftDoc = session.getDocument(new IdRef(
-                    runner.getCreatedPostDocRef()));
+            DocumentModel draftDoc = session.getDocument(new IdRef(runner.getCreatedPostDocRef()));
             CaseLink draft = draftDoc.getAdapter(CaseLink.class);
-            eventProperties.put(
-                    CaseManagementEventConstants.EVENT_CONTEXT_DRAFT, draft);
-            fireEvent(session, envelope, eventProperties,
-                    EventNames.afterDraftCreated.name());
+            eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_DRAFT, draft);
+            fireEvent(session, envelope, eventProperties, EventNames.afterDraftCreated.name());
             return draft;
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
@@ -377,15 +339,12 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public CaseLink getDraftCaseLink(CoreSession coreSession, Mailbox mailbox,
-            String envelopeId) {
+    public CaseLink getDraftCaseLink(CoreSession coreSession, Mailbox mailbox, String envelopeId) {
         if (mailbox == null) {
             return null;
         }
-        String query = String.format(
-                "SELECT * FROM Document WHERE ecm:parentId ='%s' AND %s='%s' and %s=1",
-                mailbox.getDocument().getId(),
-                CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, envelopeId,
+        String query = String.format("SELECT * FROM Document WHERE ecm:parentId ='%s' AND %s='%s' and %s=1",
+                mailbox.getDocument().getId(), CaseLinkConstants.CASE_DOCUMENT_ID_FIELD, envelopeId,
                 CaseLinkConstants.IS_DRAFT_FIELD);
         List<CaseLink> result = getPosts(coreSession, 0, 0, query);
         int size = result.size();
@@ -402,12 +361,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     /**
      * Fire an event for a MailEnvelope object.
      */
-    protected void fireEvent(CoreSession coreSession, Case envelope,
-            Map<String, Serializable> eventProperties, String caseEventName,
-            String caseItemEventName) {
+    protected void fireEvent(CoreSession coreSession, Case envelope, Map<String, Serializable> eventProperties,
+            String caseEventName, String caseItemEventName) {
         try {
-            DocumentEventContext envContext = new DocumentEventContext(
-                    coreSession, coreSession.getPrincipal(),
+            DocumentEventContext envContext = new DocumentEventContext(coreSession, coreSession.getPrincipal(),
                     envelope.getDocument());
             envContext.setProperties(eventProperties);
             getEventProducer().fireEvent(envContext.newEvent(caseEventName));
@@ -415,11 +372,10 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             if (caseItemEventName != null) {
                 for (CaseItem item : items) {
                     DocumentModel doc = item.getDocument();
-                    DocumentEventContext docContext = new DocumentEventContext(
-                            coreSession, coreSession.getPrincipal(), doc);
+                    DocumentEventContext docContext = new DocumentEventContext(coreSession, coreSession.getPrincipal(),
+                            doc);
                     docContext.setProperties(eventProperties);
-                    getEventProducer().fireEvent(
-                            docContext.newEvent(caseItemEventName));
+                    getEventProducer().fireEvent(docContext.newEvent(caseItemEventName));
                 }
             }
         } catch (Exception e) {
@@ -430,8 +386,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     /**
      * Fire an event for a MailEnvelope object.
      */
-    protected void fireEvent(CoreSession coreSession, Case envelope,
-            Map<String, Serializable> eventProperties, String caseEventName) {
+    protected void fireEvent(CoreSession coreSession, Case envelope, Map<String, Serializable> eventProperties,
+            String caseEventName) {
         fireEvent(coreSession, envelope, eventProperties, caseEventName, null);
     }
 
@@ -445,22 +401,15 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 public void run() throws ClientException {
                     try {
                         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
-                        eventProperties.put(
-                                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK,
-                                link);
-                        eventProperties.put(
-                                "category",
-                                CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
-                        final DocumentEventContext envContext = new DocumentEventContext(
-                                session, principal, link.getDocument());
+                        eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK, link);
+                        eventProperties.put("category", CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
+                        final DocumentEventContext envContext = new DocumentEventContext(session, principal,
+                                link.getDocument());
                         envContext.setProperties(eventProperties);
-                        getEventProducer().fireEvent(
-                                envContext.newEvent(EventNames.beforeCaseLinkRemovedEvent.name()));
+                        getEventProducer().fireEvent(envContext.newEvent(EventNames.beforeCaseLinkRemovedEvent.name()));
                         session.removeDocument(ref);
-                        envContext.getProperties().remove(
-                                CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK);
-                        getEventProducer().fireEvent(
-                                envContext.newEvent(EventNames.afterCaseLinkRemovedEvent.name()));
+                        envContext.getProperties().remove(CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK);
+                        getEventProducer().fireEvent(envContext.newEvent(EventNames.afterCaseLinkRemovedEvent.name()));
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -472,10 +421,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public void notify(CoreSession session, String name,
-            DocumentModel document, Map<String, Serializable> eventProperties) {
-        DocumentEventContext envContext = new DocumentEventContext(session,
-                session.getPrincipal(), document);
+    public void notify(CoreSession session, String name, DocumentModel document,
+            Map<String, Serializable> eventProperties) {
+        DocumentEventContext envContext = new DocumentEventContext(session, session.getPrincipal(), document);
         envContext.setProperties(eventProperties);
         try {
             getEventProducer().fireEvent(envContext.newEvent(name));
@@ -509,15 +457,13 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
         protected boolean isActionable = false;
 
-        public SendPostUnrestricted(CoreSession session, CaseLink postRequest,
-                boolean isInitial) {
+        public SendPostUnrestricted(CoreSession session, CaseLink postRequest, boolean isInitial) {
             super(session);
             this.postRequest = postRequest;
             this.isInitial = isInitial;
         }
 
-        public SendPostUnrestricted(CoreSession session, CaseLink postRequest,
-                boolean isInitial, boolean isActionable) {
+        public SendPostUnrestricted(CoreSession session, CaseLink postRequest, boolean isInitial, boolean isActionable) {
             super(session);
             this.postRequest = postRequest;
             this.isInitial = isInitial;
@@ -529,8 +475,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
             try {
                 String senderMailboxId = postRequest.getSender();
-                GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
-                        session, senderMailboxId);
+                GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(session,
+                        senderMailboxId);
                 getMailboxesUnrestricted.runUnrestricted();
                 List<Mailbox> senderMailboxes = getMailboxesUnrestricted.getMailboxes();
                 Mailbox senderMailbox = null;
@@ -558,53 +504,35 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                             mailboxTitles.add(mailboxHeader.getTitle());
                         }
                     }
-                    eventProperties.put(
-                            CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_
-                                    + type,
+                    eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_PARTICIPANTS_TYPE_ + type,
                             StringUtils.join(mailboxTitles, ", "));
                 }
 
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_SENDER_MAILBOX,
-                        senderMailbox);
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_SUBJECT,
-                        subject);
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_COMMENT,
-                        comment);
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_CASE, kase);
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS,
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_SENDER_MAILBOX, senderMailbox);
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_SUBJECT, subject);
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_COMMENT, comment);
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_CASE, kase);
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_INTERNAL_PARTICIPANTS,
                         (Serializable) internalRecipientIds);
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_EXTERNAL_PARTICIPANTS,
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_EXTERNAL_PARTICIPANTS,
                         (Serializable) externalRecipients);
-                eventProperties.put("category",
-                        CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
-                eventProperties.put(
-                        CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL,
-                        isInitial);
+                eventProperties.put("category", CaseManagementEventConstants.DISTRIBUTION_CATEGORY);
+                eventProperties.put(CaseManagementEventConstants.EVENT_CONTEXT_IS_INITIAL, isInitial);
 
-                fireEvent(session, kase, eventProperties,
-                        EventNames.beforeCaseSentEvent.name(),
+                fireEvent(session, kase, eventProperties, EventNames.beforeCaseSentEvent.name(),
                         EventNames.beforeCaseItemSentEvent.name());
 
                 if (isInitial) {
                     if (senderMailbox != null) {
                         // Update the Draft post for the sender
-                        CaseLink draft = getDraftCaseLink(session,
-                                senderMailbox, kase.getDocument().getId());
+                        CaseLink draft = getDraftCaseLink(session, senderMailbox, kase.getDocument().getId());
 
                         if (draft == null) {
-                            throw new CaseManagementException(
-                                    "No draft for an initial send.");
+                            throw new CaseManagementException("No draft for an initial send.");
                         }
 
-                        UpdateCaseLinkUnrestricted createPostUnrestricted = new UpdateCaseLinkUnrestricted(
-                                session, subject, comment, kase, senderMailbox,
-                                senderMailbox.getId(), internalRecipientIds,
+                        UpdateCaseLinkUnrestricted createPostUnrestricted = new UpdateCaseLinkUnrestricted(session,
+                                subject, comment, kase, senderMailbox, senderMailbox.getId(), internalRecipientIds,
                                 externalRecipients, true, isInitial, draft);
                         createPostUnrestricted.run();
                         post = createPostUnrestricted.getUpdatedPost();
@@ -612,10 +540,9 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
 
                 } else if (senderMailbox != null) {
                     // No draft, create the Post for the sender
-                    CreateCaseLink createPost = new CreateCaseLink(null,
-                            session, subject, comment, kase, senderMailbox,
-                            senderMailbox.getId(), internalRecipientIds,
-                            externalRecipients, true, isInitial);
+                    CreateCaseLink createPost = new CreateCaseLink(null, session, subject, comment, kase,
+                            senderMailbox, senderMailbox.getId(), internalRecipientIds, externalRecipients, true,
+                            isInitial);
                     createPost.create();
                     post = createPost.getCreatedPost();
                 }
@@ -624,25 +551,20 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                 for (String type : internalRecipientIds.keySet()) {
                     for (String recipient : internalRecipientIds.get(type)) {
                         if (isActionable) {
-                            CreateCaseLink createMessage = new CreateCaseLink(
-                                    postRequest, session, subject, comment,
-                                    kase, senderMailbox, recipient,
-                                    internalRecipientIds, externalRecipients,
-                                    false, isInitial);
+                            CreateCaseLink createMessage = new CreateCaseLink(postRequest, session, subject, comment,
+                                    kase, senderMailbox, recipient, internalRecipientIds, externalRecipients, false,
+                                    isInitial);
                             createMessage.create();
                         } else {
-                            CreateCaseLink createMessage = new CreateCaseLink(
-                                    post, session, subject, comment, kase,
-                                    senderMailbox, recipient,
-                                    internalRecipientIds, externalRecipients,
-                                    false, isInitial);
+                            CreateCaseLink createMessage = new CreateCaseLink(post, session, subject, comment, kase,
+                                    senderMailbox, recipient, internalRecipientIds, externalRecipients, false,
+                                    isInitial);
                             createMessage.create();
                         }
                     }
                 }
 
-                fireEvent(session, kase, eventProperties,
-                        EventNames.afterCaseSentEvent.name(),
+                fireEvent(session, kase, eventProperties, EventNames.afterCaseSentEvent.name(),
                         EventNames.afterCaseItemSentEvent.name());
             } catch (ClientException e) {
                 throw new CaseManagementException(e);
@@ -665,8 +587,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public String getParentDocumentPathForCaseItem(CoreSession session,
-            Case kase) {
+    public String getParentDocumentPathForCaseItem(CoreSession session, Case kase) {
         return persister.getParentDocumentPathForCaseItem(session, kase);
     }
 
@@ -681,8 +602,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     @Override
-    public Case createCaseFromExistingCaseItem(CaseItem item,
-            CoreSession session) {
+    public Case createCaseFromExistingCaseItem(CaseItem item, CoreSession session) {
         return persister.createCaseFromExistingCaseItem(item, session);
     }
 

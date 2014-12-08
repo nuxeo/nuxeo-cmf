@@ -32,8 +32,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 /**
- * Listener for classification root that gives classify permission to the
- * creator of the classification root.
+ * Listener for classification root that gives classify permission to the creator of the classification root.
  */
 public class UpdateClassificationRootRightsListener implements EventListener {
 

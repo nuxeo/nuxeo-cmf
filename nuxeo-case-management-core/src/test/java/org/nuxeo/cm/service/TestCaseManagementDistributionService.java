@@ -30,8 +30,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 /**
  * @author arussel
  */
-public class TestCaseManagementDistributionService extends
-        CaseManagementRepositoryTestCase {
+public class TestCaseManagementDistributionService extends CaseManagementRepositoryTestCase {
 
     @Before
     public void setUp() throws Exception {
@@ -53,8 +52,7 @@ public class TestCaseManagementDistributionService extends
         Case kase = distributionService.createCase(session, emailDoc);
         assertNotNull(kase);
         emailDoc = getMailEnvelopeItem().getDocument();
-        CaseItem item = distributionService.addCaseItemToCase(session, kase,
-                emailDoc);
+        CaseItem item = distributionService.addCaseItemToCase(session, kase, emailDoc);
         assertNotNull(item);
         assertEquals(kase.getDocuments().size(), 2);
     }

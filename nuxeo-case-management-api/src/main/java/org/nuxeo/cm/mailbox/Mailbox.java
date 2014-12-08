@@ -118,14 +118,12 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     void setGroups(List<String> groups);
 
     /**
-     * Gets a users sublist of delegates that should be notified when new
-     * casemanagement has arrived in this mailbox.
+     * Gets a users sublist of delegates that should be notified when new casemanagement has arrived in this mailbox.
      */
     List<String> getNotifiedUsers();
 
     /**
-     * Sets a users sublist of delegates that should be notified when new
-     * casemanagement has arrived in this mailbox.
+     * Sets a users sublist of delegates that should be notified when new casemanagement has arrived in this mailbox.
      */
     void setNotifiedUsers(List<String> users);
 
@@ -253,8 +251,7 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     List<String> getAllUsersAndGroups();
 
     /**
-     * @return the affiliated mailbox id. null if not affiliated mailbox
-     *         exists.
+     * @return the affiliated mailbox id. null if not affiliated mailbox exists.
      */
     String getAffiliatedMailboxId();
 
@@ -291,22 +288,19 @@ public interface Mailbox extends Serializable, Comparable<Mailbox> {
     void setSynchronizerId(String synchronizerId);
 
     /**
-     * @return the last time this mailbox has been updated by the
-     *         synchronziation service.
+     * @return the last time this mailbox has been updated by the synchronziation service.
      */
     Calendar getLastSyncUpdate();
 
     /**
-     * Sets the last time this mailbox has been updated by the synchronziation
-     * service.
+     * Sets the last time this mailbox has been updated by the synchronziation service.
      *
      * @param now
      */
     void setLastSyncUpdate(Calendar now);
 
     /**
-     * @return The name of the directory from which it has been synchronized or
-     *         an empty string if it has been created.
+     * @return The name of the directory from which it has been synchronized or an empty string if it has been created.
      */
     String getOrigin();
 

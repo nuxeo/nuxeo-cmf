@@ -60,8 +60,7 @@ public class TestMailbox extends SQLRepositoryTestCase {
 
     protected DocumentModel getBareMailboxDoc() throws Exception {
         DocumentModel mailbox = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
-        mailbox.setPathInfo(session.getRootDocument().getPathAsString(),
-                MAILBOX);
+        mailbox.setPathInfo(session.getRootDocument().getPathAsString(), MAILBOX);
         return mailbox;
     }
 
@@ -108,33 +107,25 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals("mb description", mb.getDescription());
         assertEquals("personal", mb.getType());
 
-        assertEquals(Arrays.asList(new String[] { "profile1" }),
-                mb.getProfiles());
+        assertEquals(Arrays.asList(new String[] { "profile1" }), mb.getProfiles());
 
         assertEquals("mbowner", mb.getOwner());
-        assertEquals(Arrays.asList(new String[] { "toto", "titi" }),
-                mb.getUsers());
-        assertEquals(Arrays.asList(new String[] { "toto" }),
-                mb.getNotifiedUsers());
+        assertEquals(Arrays.asList(new String[] { "toto", "titi" }), mb.getUsers());
+        assertEquals(Arrays.asList(new String[] { "toto" }), mb.getNotifiedUsers());
 
-        assertEquals(Arrays.asList(new String[] { "mbowner", "toto", "titi" }),
-                mb.getAllUsers());
+        assertEquals(Arrays.asList(new String[] { "mbowner", "toto", "titi" }), mb.getAllUsers());
 
-        assertEquals(Arrays.asList(new String[] { "group1", "group2" }),
-                mb.getGroups());
+        assertEquals(Arrays.asList(new String[] { "group1", "group2" }), mb.getGroups());
 
-        assertEquals(Arrays.asList(new String[] { "fav1", "fav2" }),
-                mb.getFavorites());
-        assertEquals(Arrays.asList(new String[] { "mlid" }),
-                mb.getMailingListIds());
+        assertEquals(Arrays.asList(new String[] { "fav1", "fav2" }), mb.getFavorites());
+        assertEquals(Arrays.asList(new String[] { "mlid" }), mb.getMailingListIds());
         List<MailingList> mls = mb.getMailingLists();
         assertEquals(1, mls.size());
         MailingList ml = mls.get(0);
         assertEquals("mlid", ml.getId());
         assertEquals("ml title", ml.getTitle());
         assertEquals("ml description", ml.getDescription());
-        assertEquals(Arrays.asList(new String[] { "mb1", "mb2" }),
-                ml.getMailboxIds());
+        assertEquals(Arrays.asList(new String[] { "mb1", "mb2" }), ml.getMailboxIds());
 
         assertEquals((Integer) 4, mb.getConfidentiality());
     }
@@ -176,25 +167,18 @@ public class TestMailbox extends SQLRepositoryTestCase {
         assertEquals("new mb description", mb.getDescription());
         assertEquals("generic", mb.getType());
 
-        assertEquals(Arrays.asList(new String[] { "profile1", "profile2" }),
-                mb.getProfiles());
+        assertEquals(Arrays.asList(new String[] { "profile1", "profile2" }), mb.getProfiles());
 
         assertEquals("newmbowner", mb.getOwner());
-        assertEquals(Arrays.asList(new String[] { "toto", "titi", "tutu" }),
-                mb.getUsers());
-        assertEquals(Arrays.asList(new String[] { "toto", "tutu" }),
-                mb.getNotifiedUsers());
+        assertEquals(Arrays.asList(new String[] { "toto", "titi", "tutu" }), mb.getUsers());
+        assertEquals(Arrays.asList(new String[] { "toto", "tutu" }), mb.getNotifiedUsers());
 
-        assertEquals(Arrays.asList(new String[] { "newmbowner", "toto", "titi",
-                "tutu" }), mb.getAllUsers());
+        assertEquals(Arrays.asList(new String[] { "newmbowner", "toto", "titi", "tutu" }), mb.getAllUsers());
 
-        assertEquals(
-                Arrays.asList(new String[] { "group1", "group2", "group3" }),
-                mb.getGroups());
+        assertEquals(Arrays.asList(new String[] { "group1", "group2", "group3" }), mb.getGroups());
 
         assertEquals(Arrays.asList(new String[] { "fav1" }), mb.getFavorites());
-        assertEquals(Arrays.asList(new String[] { "newmlid", }),
-                mb.getMailingListIds());
+        assertEquals(Arrays.asList(new String[] { "newmlid", }), mb.getMailingListIds());
 
         List<MailingList> mls = mb.getMailingLists();
         assertEquals(1, mls.size());

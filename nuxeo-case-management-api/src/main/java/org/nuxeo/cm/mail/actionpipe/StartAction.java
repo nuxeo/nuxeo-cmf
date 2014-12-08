@@ -29,8 +29,8 @@ import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 /**
  * Start action, skipping read emails.
  * <p>
- * Message is marked read so that it's not treated again. It's also flagged in
- * case the pipe does not finish because it cannot be treated correctly.
+ * Message is marked read so that it's not treated again. It's also flagged in case the pipe does not finish because it
+ * cannot be treated correctly.
  *
  * @author Anahide Tchertchian
  */

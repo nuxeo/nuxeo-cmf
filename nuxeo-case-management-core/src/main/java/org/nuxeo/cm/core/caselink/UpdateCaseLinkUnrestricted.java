@@ -72,22 +72,18 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     }
 
     /**
-     * @param repositoryName The name of the repository in which the
-     *            {@link CaseLink} will be created.
+     * @param repositoryName The name of the repository in which the {@link CaseLink} will be created.
      * @param subject The subject of the post.
      * @param comment The comment of the post.
      * @param envelope The envelope sent.
      * @param mailboxes The mailbox of the sender.
-     * @param internalRecipients A map of recipients keyed by type of Message
-     *            and keyed with a list of mailboxes.
+     * @param internalRecipients A map of recipients keyed by type of Message and keyed with a list of mailboxes.
      * @param isSent The post can be Sent or Received
      * @param isInitial Is it an initial sent?
      */
-    public UpdateCaseLinkUnrestricted(CoreSession session, String subject,
-            String comment, Case envelope, Mailbox sender, String recipientId,
-            Map<String, List<String>> internalRecipients,
-            Map<String, List<String>> externalRecipients, boolean isSent,
-            boolean isInitial, CaseLink post) {
+    public UpdateCaseLinkUnrestricted(CoreSession session, String subject, String comment, Case envelope,
+            Mailbox sender, String recipientId, Map<String, List<String>> internalRecipients,
+            Map<String, List<String>> externalRecipients, boolean isSent, boolean isInitial, CaseLink post) {
         super(session);
         this.comment = comment;
         this.envelope = envelope;
@@ -127,10 +123,8 @@ public class UpdateCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // FIXME: use CorrespondencePost setters
         doc.setPropertyValue(IS_DRAFT_FIELD, false);
         doc.setPropertyValue(SUBJECT_FIELD, subject);
-        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD,
-                envelope.getDocument().getRepositoryName());
-        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
-                envelope.getDocument().getId());
+        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD, envelope.getDocument().getRepositoryName());
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD, envelope.getDocument().getId());
         doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
         doc.setPropertyValue(SENDER_FIELD, sender.getOwner());
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());

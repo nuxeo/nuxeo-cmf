@@ -44,8 +44,7 @@ public class CaseManagementImporterListener implements EventListener {
         }
     }
 
-    private CaseManagementImporterService getCaseManagementImporterService()
-            throws ClientException {
+    private CaseManagementImporterService getCaseManagementImporterService() throws ClientException {
         try {
             if (caseManagementImporterService == null) {
                 caseManagementImporterService = Framework.getService(CaseManagementImporterService.class);

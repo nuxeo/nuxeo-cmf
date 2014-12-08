@@ -46,13 +46,10 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
         deployBundle("org.nuxeo.runtime.datasource");
         deployBundle("org.nuxeo.ecm.core.persistence");
         deployBundle("org.nuxeo.ecm.platform.uidgen.core");
-        deployContrib(CORRESPONDENCE_CORE_TEST_BUNDLE,
-                "test-corresp-nxuidgenerator-bundle.xml");
+        deployContrib(CORRESPONDENCE_CORE_TEST_BUNDLE, "test-corresp-nxuidgenerator-bundle.xml");
         deployBundle(CASE_MANAGEMENT_CORE_BUNDLE);
-        deployContrib(CORRESPONDENCE_CORE_BUNDLE,
-                "OSGI-INF/corresp-core-types-contrib.xml");
-        deployContrib(CORRESPONDENCE_CORE_BUNDLE,
-                "OSGI-INF/corresp-uid-contrib.xml");
+        deployContrib(CORRESPONDENCE_CORE_BUNDLE, "OSGI-INF/corresp-core-types-contrib.xml");
+        deployContrib(CORRESPONDENCE_CORE_BUNDLE, "OSGI-INF/corresp-uid-contrib.xml");
         openSession();
     }
 
@@ -67,17 +64,14 @@ public class TestUIDReference extends CaseManagementRepositoryTestCase {
 
     public DocumentModel createTestDocument() throws Exception {
         // Create an incoming document
-        DocumentModel folder = new DocumentModelImpl("/", "testfolder",
-                "Folder");
+        DocumentModel folder = new DocumentModelImpl("/", "testfolder", "Folder");
         session.createDocument(folder);
         session.saveDocument(folder);
 
-        DocumentModel mailbox = new DocumentModelImpl(folder, "myMailBox",
-                MailboxConstants.MAILBOX_DOCUMENT_TYPE);
+        DocumentModel mailbox = new DocumentModelImpl(folder, "myMailBox", MailboxConstants.MAILBOX_DOCUMENT_TYPE);
         mailbox = session.createDocument(mailbox);
         session.saveDocument(mailbox);
-        DocumentModel document = new DocumentModelImpl(folder, "doc1",
-                "IncomingCorrespondenceDocument");
+        DocumentModel document = new DocumentModelImpl(folder, "doc1", "IncomingCorrespondenceDocument");
         document = session.createDocument(document);
         session.saveDocument(document);
         return document;

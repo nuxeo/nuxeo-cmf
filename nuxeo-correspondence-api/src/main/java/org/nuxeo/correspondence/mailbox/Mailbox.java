@@ -20,7 +20,6 @@
 
 package org.nuxeo.correspondence.mailbox;
 
-
 /**
  * Mailbox interface
  *

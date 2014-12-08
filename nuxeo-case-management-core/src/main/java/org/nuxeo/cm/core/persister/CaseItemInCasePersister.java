@@ -25,19 +25,15 @@ import org.nuxeo.ecm.core.api.CoreSession;
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
-public class CaseItemInCasePersister extends CaseManagementAbstractPersister
-        implements CaseManagementPersister {
+public class CaseItemInCasePersister extends CaseManagementAbstractPersister implements CaseManagementPersister {
 
     @Override
-    public Case createCaseFromExistingCaseItem(CaseItem item,
-            CoreSession session) {
-        throw new UnsupportedOperationException(
-                "CaseItem in Case persister cannot create Case from existing CaseItem.");
+    public Case createCaseFromExistingCaseItem(CaseItem item, CoreSession session) {
+        throw new UnsupportedOperationException("CaseItem in Case persister cannot create Case from existing CaseItem.");
     }
 
     @Override
-    public String getParentDocumentPathForCaseItem(CoreSession session,
-            Case kase) {
+    public String getParentDocumentPathForCaseItem(CoreSession session, Case kase) {
         try {
             return session.getDocument(kase.getDocument().getRef()).getPathAsString();
         } catch (ClientException e) {

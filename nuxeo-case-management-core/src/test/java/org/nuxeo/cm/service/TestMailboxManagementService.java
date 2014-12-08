@@ -42,8 +42,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
-public class TestMailboxManagementService extends
-        CaseManagementRepositoryTestCase {
+public class TestMailboxManagementService extends CaseManagementRepositoryTestCase {
 
     @Before
     public void setUp() throws Exception {
@@ -61,8 +60,7 @@ public class TestMailboxManagementService extends
     public void testDefaultPersonalMailboxCreation() throws Exception {
 
         correspMailboxService.createPersonalMailboxes(session, "toto");
-        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(
-                session, "toto");
+        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(session, "toto");
         assertTrue(mailboxes.isEmpty());
 
         correspMailboxService.createPersonalMailboxes(session, user);
@@ -80,12 +78,10 @@ public class TestMailboxManagementService extends
     @Test
     public void testPersonalMailboxCreatorContribution() throws Exception {
         // override creation behaviour
-        deployContrib(
-                CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_TEST_BUNDLE,
                 "test-personalmailbox-creator-corresp-contrib.xml");
 
-        List<Mailbox> mailboxes = correspMailboxService.createPersonalMailboxes(
-                session, user);
+        List<Mailbox> mailboxes = correspMailboxService.createPersonalMailboxes(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(1, mailboxes.size());
 
@@ -131,8 +127,7 @@ public class TestMailboxManagementService extends
         // Create an other mailbox
         createMailbox();
 
-        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(
-                session, user);
+        List<Mailbox> mailboxes = correspMailboxService.getUserMailboxes(session, user);
         assertFalse(mailboxes.isEmpty());
         assertEquals(2, mailboxes.size());
 
@@ -146,7 +141,7 @@ public class TestMailboxManagementService extends
         assertEquals("User Lambda (mycomp)", mbPerso.getTitle());
         assertEquals(MailboxConstants.type.personal.name(), mbPerso.getType());
         assertEquals(user, mbPerso.getOwner());
-        assertEquals(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE,mbPerso.getProfiles().get(0).toString());
+        assertEquals(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE, mbPerso.getProfiles().get(0).toString());
 
         Mailbox mbGeneric = mailboxes.get(1);
         assertEquals("test", mbGeneric.getId());
@@ -179,8 +174,7 @@ public class TestMailboxManagementService extends
         // create doc
         mailboxModel = newMailbox.getDocument();
         // XXX: use default domain path here
-        mailboxModel.setPathInfo("/case-management/mailbox-root",
-                newMailbox.getId());
+        mailboxModel.setPathInfo("/case-management/mailbox-root", newMailbox.getId());
         session.createDocument(mailboxModel);
         // save to make it available to other sessions
         session.save();
@@ -205,19 +199,15 @@ public class TestMailboxManagementService extends
         Mailbox receiver2Mailbox = getPersonalMailbox(user3);
         assertNotNull(receiver2Mailbox);
         Map<String, List<String>> recipients = new HashMap<String, List<String>>();
-        recipients.put("FOR_ACTION",
-                Collections.singletonList(receiver1Mailbox.getId()));
-        recipients.put("FOR_INFORMATION",
-                Collections.singletonList(receiver2Mailbox.getId()));
+        recipients.put("FOR_ACTION", Collections.singletonList(receiver1Mailbox.getId()));
+        recipients.put("FOR_INFORMATION", Collections.singletonList(receiver2Mailbox.getId()));
         Case envelope = getMailEnvelope();
         createDraftPost(senderMailbox, envelope);
 
-        assertTrue(distributionService.getDraftCaseLink(session, senderMailbox,
-                envelope.getDocument().getId()).isDraft());
+        assertTrue(distributionService.getDraftCaseLink(session, senderMailbox, envelope.getDocument().getId()).isDraft());
 
-        CaseLink postRequest = new CaseLinkRequestImpl(senderMailbox.getId(),
-                Calendar.getInstance(), "Check this out", "it is a bit boring",
-                envelope, recipients, null);
+        CaseLink postRequest = new CaseLinkRequestImpl(senderMailbox.getId(), Calendar.getInstance(), "Check this out",
+                "it is a bit boring", envelope, recipients, null);
 
         CaseLink post = distributionService.sendCase(session, postRequest, true);
         assertNotNull(post);
@@ -243,8 +233,7 @@ public class TestMailboxManagementService extends
         // create doc
         mailboxModel = newMailbox.getDocument();
         // XXX: use default domain path here
-        mailboxModel.setPathInfo("/case-management/mailbox-root",
-                newMailbox.getId());
+        mailboxModel.setPathInfo("/case-management/mailbox-root", newMailbox.getId());
         session.createDocument(mailboxModel);
         // save to make it available to other sessions
         session.save();

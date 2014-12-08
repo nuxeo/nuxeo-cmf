@@ -45,8 +45,7 @@ public class ValidateDueCaseLinkUnrestricted extends UnrestrictedSessionRunner {
     @Override
     public void run() throws ClientException {
         String dateLiteral = DateLiteral.dateTimeFormatter.print(Calendar.getInstance().getTimeInMillis());
-        String query = String.format(FETCH_DUE_ACTIONCASELINK_QUERY,
-                dateLiteral);
+        String query = String.format(FETCH_DUE_ACTIONCASELINK_QUERY, dateLiteral);
         DocumentModelList dueCaseLinks = session.query(query);
         ActionableCaseLink acl;
         for (DocumentModel caseLinkdoc : dueCaseLinks) {

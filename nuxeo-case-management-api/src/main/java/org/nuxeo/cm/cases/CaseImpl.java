@@ -68,8 +68,7 @@ public class CaseImpl implements Case {
         List<CaseItem> items = new ArrayList<CaseItem>();
         try {
             for (String emailId : getItemsId()) {
-                DocumentModel mailDocument = session.getDocument(new IdRef(
-                        emailId));
+                DocumentModel mailDocument = session.getDocument(new IdRef(emailId));
                 CaseItem item = mailDocument.getAdapter(CaseItem.class);
                 items.add(item);
             }
@@ -83,8 +82,7 @@ public class CaseImpl implements Case {
     protected List<String> getItemsId() {
         List<String> emailIds;
         try {
-            emailIds = (List<String>) document.getProperty(CASE_SCHEMA,
-                    MAILBOX_DOCUMENTS_ID_TYPE);
+            emailIds = (List<String>) document.getProperty(CASE_SCHEMA, MAILBOX_DOCUMENTS_ID_TYPE);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
@@ -127,8 +125,7 @@ public class CaseImpl implements Case {
 
     protected void saveItemsId(CoreSession session, List<String> itemsId) {
         try {
-            document.setProperty(CASE_SCHEMA, MAILBOX_DOCUMENTS_ID_TYPE,
-                    itemsId);
+            document.setProperty(CASE_SCHEMA, MAILBOX_DOCUMENTS_ID_TYPE, itemsId);
             session.saveDocument(document);
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
@@ -144,8 +141,7 @@ public class CaseImpl implements Case {
         return result;
     }
 
-    protected boolean moveEmailsInEnvelope(List<CaseItem> selected, boolean up,
-            CoreSession session) {
+    protected boolean moveEmailsInEnvelope(List<CaseItem> selected, boolean up, CoreSession session) {
         List<String> itemIds = getItemsId();
         boolean res = true;
         int size = itemIds.size();
@@ -179,14 +175,12 @@ public class CaseImpl implements Case {
     }
 
     @Override
-    public boolean moveUpEmailsInCase(List<CaseItem> selected,
-            CoreSession session) {
+    public boolean moveUpEmailsInCase(List<CaseItem> selected, CoreSession session) {
         return moveEmailsInEnvelope(selected, true, session);
     }
 
     @Override
-    public boolean moveDownEmailsInCase(List<CaseItem> selected,
-            CoreSession session) {
+    public boolean moveDownEmailsInCase(List<CaseItem> selected, CoreSession session) {
         return moveEmailsInEnvelope(selected, false, session);
     }
 
@@ -235,14 +229,12 @@ public class CaseImpl implements Case {
     }
 
     @Override
-    public void addInitialExternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialExternalParticipants(Map<String, List<String>> recipients) {
         recipientsAdapter.addInitialExternalParticipants(recipients);
     }
 
     @Override
-    public void addInitialInternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialInternalParticipants(Map<String, List<String>> recipients) {
         recipientsAdapter.addInitialInternalParticipants(recipients);
     }
 

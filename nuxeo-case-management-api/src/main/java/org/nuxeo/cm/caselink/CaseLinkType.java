@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
- *
  */
 public enum CaseLinkType {
 
@@ -43,8 +42,7 @@ public enum CaseLinkType {
         try {
             return valueOf(name.toUpperCase());
         } catch (IllegalArgumentException err) {
-            log.error(String.format("Illegal value '%s', "
-                    + "should be one of %s", name, CaseLinkType.values()));
+            log.error(String.format("Illegal value '%s', " + "should be one of %s", name, CaseLinkType.values()));
             return NONE;
         }
     }

@@ -29,13 +29,10 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.runtime.api.Framework;
 
 /***
- *
- * CaseManagement custom import task.
- * Overrides methods for creating documents to handle commits
- * When all the caseItems are imported for a given thread, the
- * case is distributed
+ * CaseManagement custom import task. Overrides methods for creating documents to handle commits When all the caseItems
+ * are imported for a given thread, the case is distributed
  */
-//TODO add and implement a rollback on error policy
+// TODO add and implement a rollback on error policy
 public class CaseImporterThreadedTask extends GenericThreadedImportTask {
 
     CaseDistributionService distributionService;
@@ -45,42 +42,34 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected DocumentModel doCreateFolderishNode(DocumentModel parent,
-            SourceNode node) throws Exception {
+    protected DocumentModel doCreateFolderishNode(DocumentModel parent, SourceNode node) throws Exception {
         if (!shouldImportDocument(node)) {
             return null;
         }
-        DocumentModel folder = getFactory().createFolderishNode(
-                session, parent, node);
+        DocumentModel folder = getFactory().createFolderishNode(session, parent, node);
         if (folder != null) {
-            String parentPath = (parent == null) ? "null"
-                    : parent.getPathAsString();
-            fslog("Created Folder " + folder.getName() + " at " + parentPath,
-                    true);
+            String parentPath = (parent == null) ? "null" : parent.getPathAsString();
+            fslog("Created Folder " + folder.getName() + " at " + parentPath, true);
         }
         return folder;
 
     }
 
     @Override
-    protected DocumentModel doCreateLeafNode(DocumentModel parent,
-            SourceNode node) throws Exception {
+    protected DocumentModel doCreateLeafNode(DocumentModel parent, SourceNode node) throws Exception {
         if (!shouldImportDocument(node)) {
             return null;
         }
 
-        DocumentModel leaf = getFactory().createLeafNode(session,
-                parent, node);
+        DocumentModel leaf = getFactory().createLeafNode(session, parent, node);
         if (leaf != null && node.getBlobHolder() != null) {
             long fileSize = node.getBlobHolder().getBlob().getLength();
             String fileName = node.getBlobHolder().getBlob().getFilename();
             if (fileSize > 0) {
                 long kbSize = fileSize / 1024;
-                String parentPath = (parent == null) ? "null"
-                        : parent.getPathAsString();
-                fslog("Created doc " + leaf.getName() + " at " + parentPath
-                        + " with file " + fileName + " of size " + kbSize
-                        + "KB", true);
+                String parentPath = (parent == null) ? "null" : parent.getPathAsString();
+                fslog("Created doc " + leaf.getName() + " at " + parentPath + " with file " + fileName + " of size "
+                        + kbSize + "KB", true);
             }
 
             uploadedKO += fileSize;
@@ -89,8 +78,7 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected void recursiveCreateDocumentFromNode(DocumentModel parent,
-            SourceNode node) throws Exception {
+    protected void recursiveCreateDocumentFromNode(DocumentModel parent, SourceNode node) throws Exception {
 
         if (getFactory().isTargetDocumentModelFolderish(node)) {
             DocumentModel folder;
@@ -130,15 +118,12 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
         }
     }
 
-    protected void distributeCase(DocumentModel caseDoc, CaseSourceNode node)
-            throws Exception {
+    protected void distributeCase(DocumentModel caseDoc, CaseSourceNode node) throws Exception {
         Case kase = caseDoc.getAdapter(Case.class);
-        getCaseDistributionService().sendCase(session, "Import", kase,
-                node.getDistributionInfo());
+        getCaseDistributionService().sendCase(session, "Import", kase, node.getDistributionInfo());
     }
 
-    private CaseDistributionService getCaseDistributionService()
-            throws Exception {
+    private CaseDistributionService getCaseDistributionService() throws Exception {
         if (distributionService == null) {
             distributionService = Framework.getService(CaseDistributionService.class);
         }

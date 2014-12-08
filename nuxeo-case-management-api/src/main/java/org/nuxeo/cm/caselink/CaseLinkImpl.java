@@ -97,8 +97,7 @@ public class CaseLinkImpl implements CaseLink {
         Case envelope;
         try {
             String envelopeDocumentId = (String) document.getPropertyValue(CASE_DOCUMENT_ID_FIELD);
-            DocumentModel mailDocument = session.getDocument(new IdRef(
-                    envelopeDocumentId));
+            DocumentModel mailDocument = session.getDocument(new IdRef(envelopeDocumentId));
             envelope = mailDocument.getAdapter(Case.class);
         } catch (PropertyException e) {
             throw new CaseManagementRuntimeException(e);
@@ -168,14 +167,12 @@ public class CaseLinkImpl implements CaseLink {
     }
 
     @Override
-    public void addInitialExternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialExternalParticipants(Map<String, List<String>> recipients) {
         recipientAdapter.addInitialExternalParticipants(recipients);
     }
 
     @Override
-    public void addInitialInternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialInternalParticipants(Map<String, List<String>> recipients) {
         recipientAdapter.addInitialInternalParticipants(recipients);
     }
 
@@ -202,8 +199,7 @@ public class CaseLinkImpl implements CaseLink {
     @Override
     public void setActionnable(boolean actionnable) {
         try {
-            document.setPropertyValue(CaseLinkConstants.IS_ACTIONABLE_FIELD,
-                    actionnable);
+            document.setPropertyValue(CaseLinkConstants.IS_ACTIONABLE_FIELD, actionnable);
         } catch (PropertyException e) {
             throw new RuntimeException(e);
         } catch (ClientException e) {

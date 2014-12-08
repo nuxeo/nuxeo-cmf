@@ -41,14 +41,12 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * Implementation for CaseManagement factory; each time a file is found a new
- * caseItem is created and the corresponding case; the case is sent to the
- * specified destionationMailbox
+ * Implementation for CaseManagement factory; each time a file is found a new caseItem is created and the corresponding
+ * case; the case is sent to the specified destionationMailbox
  *
  * @author Mariana Cedica
  */
-public class CaseManagementCaseItemDocumentFactory extends
-        DefaultDocumentModelFactory {
+public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelFactory {
 
     private String destionationMailboxPath;
 
@@ -59,14 +57,13 @@ public class CaseManagementCaseItemDocumentFactory extends
     private EventProducer eventProducer;
 
     @Override
-    public DocumentModel createFolderishNode(CoreSession session,
-            DocumentModel parent, SourceNode node) throws Exception {
+    public DocumentModel createFolderishNode(CoreSession session, DocumentModel parent, SourceNode node)
+            throws Exception {
         return null;
     }
 
     @Override
-    public DocumentModel createLeafNode(CoreSession session,
-            DocumentModel parent, SourceNode node) throws Exception {
+    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) throws Exception {
         return createCaseItemInCase(session, node);
     }
 
@@ -78,15 +75,14 @@ public class CaseManagementCaseItemDocumentFactory extends
         return super.getMimeType(name);
     }
 
-    protected DocumentModel createCaseItemInCase(CoreSession session,
-            SourceNode node) throws Exception {
+    protected DocumentModel createCaseItemInCase(CoreSession session, SourceNode node) throws Exception {
         caseDistributionService = getCaseDistributionService();
         if (caseDistributionService == null) {
             return null;
         }
         String caseRootPath = caseDistributionService.getParentDocumentPathForCase(session);
-        DocumentModel caseItemDoc = defaultCreateNodeDoc(session, caseRootPath,
-                node, getCaseManagementDocumentTypeService().getCaseItemType());
+        DocumentModel caseItemDoc = defaultCreateNodeDoc(session, caseRootPath, node,
+                getCaseManagementDocumentTypeService().getCaseItemType());
         if (caseItemDoc == null) {
             // skip importing this node
             return null;
@@ -99,15 +95,13 @@ public class CaseManagementCaseItemDocumentFactory extends
         caseItemDoc = caseDoc.getFirstItem(session).getDocument();
         setPropertiesOnImport(session, caseItemDoc, caseDoc);
         // create the corresponding caseLink in the receiver mailbox
-        caseDistributionService.createDraftCaseLink(session,
-                getDestinationMailbox(session), caseDoc);
+        caseDistributionService.createDraftCaseLink(session, getDestinationMailbox(session), caseDoc);
         // dont't forget to notify the istener that the caseItem was created
         notifyCaseImported(session, caseItemDoc, node);
         return caseItemDoc;
     }
 
-    protected DocumentModel defaultCreateNodeDoc(CoreSession session,
-            String parentPath, SourceNode node, String docType)
+    protected DocumentModel defaultCreateNodeDoc(CoreSession session, String parentPath, SourceNode node, String docType)
             throws Exception {
         BlobHolder bh = node.getBlobHolder();
         String mimeType = bh.getBlob().getMimeType();
@@ -117,8 +111,7 @@ public class CaseManagementCaseItemDocumentFactory extends
         // add check for pdf
 
         String name = getValidNameFromFileName(node.getName());
-        if (name.startsWith(CaseConstants.DOCUMENT_IMPORTED_PREFIX)
-                || !mimeType.equals("application/pdf")) {
+        if (name.startsWith(CaseConstants.DOCUMENT_IMPORTED_PREFIX) || !mimeType.equals("application/pdf")) {
             // this file was already imported or is not a pdf file
             // skip import
             return null;
@@ -143,35 +136,27 @@ public class CaseManagementCaseItemDocumentFactory extends
         return doc;
     }
 
-    private void setPropertiesOnImport(CoreSession session,
-            DocumentModel caseItemDoc, Case caseDoc) throws Exception {
-        caseItemDoc.setPropertyValue(
-                CaseConstants.DOCUMENT_DEFAULT_CASE_ID_PROPERTY_NAME,
+    private void setPropertiesOnImport(CoreSession session, DocumentModel caseItemDoc, Case caseDoc) throws Exception {
+        caseItemDoc.setPropertyValue(CaseConstants.DOCUMENT_DEFAULT_CASE_ID_PROPERTY_NAME,
                 caseDoc.getDocument().getId());
-        caseItemDoc.setPropertyValue(
-                CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME,
-                Calendar.getInstance());
+        caseItemDoc.setPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME, Calendar.getInstance());
         // TODO : check if we need to set other properties like origin..etc
         session.saveDocument(caseItemDoc);
     }
 
-    protected CaseDistributionService getCaseDistributionService()
-            throws Exception {
+    protected CaseDistributionService getCaseDistributionService() throws Exception {
         if (caseDistributionService == null) {
             caseDistributionService = Framework.getService(CaseDistributionService.class);
         }
         return caseDistributionService;
     }
 
-    private Mailbox getDestinationMailbox(CoreSession session)
-            throws ClientException {
-        DocumentModel docDestinationMailbox = session.getDocument(new PathRef(
-                destionationMailboxPath));
+    private Mailbox getDestinationMailbox(CoreSession session) throws ClientException {
+        DocumentModel docDestinationMailbox = session.getDocument(new PathRef(destionationMailboxPath));
         return docDestinationMailbox.getAdapter(Mailbox.class);
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService()
-            throws Exception {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws Exception {
         if (caseManagementDocumentTypeService == null) {
             caseManagementDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         }
@@ -186,25 +171,20 @@ public class CaseManagementCaseItemDocumentFactory extends
         this.destionationMailboxPath = destionationMailboxPath;
     }
 
-    protected void notifyCaseImported(CoreSession coreSession,
-            DocumentModel caseItemDoc, SourceNode node) {
+    protected void notifyCaseImported(CoreSession coreSession, DocumentModel caseItemDoc, SourceNode node) {
         // fire event that this doc was imported
         Map<String, Serializable> eventProperties = new HashMap<String, Serializable>();
-        eventProperties.put(
-                "category",
-                CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY);
-        eventProperties.put(
-                CaseManagementEventConstants.EVENT_CASE_MANAGEMENT_CASE_ITEM_SOURCE_PATH,
+        eventProperties.put("category", CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_IMPORT_CATEGORY);
+        eventProperties.put(CaseManagementEventConstants.EVENT_CASE_MANAGEMENT_CASE_ITEM_SOURCE_PATH,
                 node.getSourcePath());
         fireEvent(coreSession, caseItemDoc, eventProperties,
                 CaseManagementEventConstants.EVENT_CASE_MANAGEMENET_CASE_IMPORT);
     }
 
-    protected void fireEvent(CoreSession coreSession, DocumentModel doc,
-            Map<String, Serializable> eventProperties, String eventName) {
+    protected void fireEvent(CoreSession coreSession, DocumentModel doc, Map<String, Serializable> eventProperties,
+            String eventName) {
         try {
-            DocumentEventContext envContext = new DocumentEventContext(
-                    coreSession, coreSession.getPrincipal(), doc);
+            DocumentEventContext envContext = new DocumentEventContext(coreSession, coreSession.getPrincipal(), doc);
             envContext.setProperties(eventProperties);
             getEventProducer().fireEvent(envContext.newEvent(eventName));
 

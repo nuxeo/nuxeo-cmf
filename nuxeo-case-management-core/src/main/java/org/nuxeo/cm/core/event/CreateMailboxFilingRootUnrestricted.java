@@ -33,19 +33,16 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 
 /**
- * Create a filing root document as a child of the mailBox, in unrestricted
- * mode.
+ * Create a filing root document as a child of the mailBox, in unrestricted mode.
  *
  * @author ldoguin
  */
-public class CreateMailboxFilingRootUnrestricted extends
-        UnrestrictedSessionRunner {
+public class CreateMailboxFilingRootUnrestricted extends UnrestrictedSessionRunner {
 
     // Mailbox document model
     protected final DocumentModel doc;
 
-    public CreateMailboxFilingRootUnrestricted(CoreSession session,
-            DocumentModel doc) {
+    public CreateMailboxFilingRootUnrestricted(CoreSession session, DocumentModel doc) {
         super(session);
         this.doc = doc;
     }
@@ -54,18 +51,15 @@ public class CreateMailboxFilingRootUnrestricted extends
     public void run() throws ClientException {
         Mailbox mb = doc.getAdapter(Mailbox.class);
         String filingRootName = getFilingRootNamePrefix() + mb.getTitle();
-        String filingFolderId = IdUtils.generateId(filingRootName, "-", true,
-                24);
-        DocumentModel filingRoot = session.createDocumentModel(
-                doc.getPathAsString(), filingFolderId,
+        String filingFolderId = IdUtils.generateId(filingRootName, "-", true, 24);
+        DocumentModel filingRoot = session.createDocumentModel(doc.getPathAsString(), filingFolderId,
                 ClassificationConstants.CLASSIFICATION_ROOT);
-        filingRoot.setPropertyValue(MailboxConstants.TITLE_FIELD,
-                filingRootName);
+        filingRoot.setPropertyValue(MailboxConstants.TITLE_FIELD, filingRootName);
         filingRoot = session.createDocument(filingRoot);
         ACP acp = filingRoot.getACP();
         ACL acl = acp.getOrCreateACL(ACL.LOCAL_ACL);
-        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                + mb.getId(), ClassificationConstants.CLASSIFY, true));
+        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX + mb.getId(), ClassificationConstants.CLASSIFY,
+                true));
         acp.addACL(acl);
         filingRoot.setACP(acp, true);
         session.saveDocument(filingRoot);

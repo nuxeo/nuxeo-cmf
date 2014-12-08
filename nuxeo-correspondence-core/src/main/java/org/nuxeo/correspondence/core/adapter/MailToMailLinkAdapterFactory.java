@@ -29,13 +29,11 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
 public class MailToMailLinkAdapterFactory implements DocumentAdapterFactory {
 
     @Override
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
-            Class arg1) {
-        if (doc.hasFacet(CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_FACET_NAME)){
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
+        if (doc.hasFacet(CorrespondenceLinksConstants.MAIL_TO_MAIL_LINK_FACET_NAME)) {
             return new MailToMailLinkImpl(doc);
         }
         return null;
     }
-
 
 }

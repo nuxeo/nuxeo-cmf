@@ -68,8 +68,8 @@ public class RouteSecurityUpdaterListener implements EventListener {
         for (Map.Entry<String, List<String>> recipient : recipients.entrySet()) {
             allMailboxIds.addAll(recipient.getValue());
         }
-        List<DocumentRoute> relatedRoutes = getDocumentRoutingService().getDocumentRoutesForAttachedDocument(
-                session, kaseDoc.getId());
+        List<DocumentRoute> relatedRoutes = getDocumentRoutingService().getDocumentRoutesForAttachedDocument(session,
+                kaseDoc.getId());
         if (!allMailboxIds.isEmpty()) {
             for (DocumentRoute route : relatedRoutes) {
                 DocumentModel routeDoc = route.getDocument();
@@ -78,19 +78,16 @@ public class RouteSecurityUpdaterListener implements EventListener {
                 List<ACE> newACEs = new ArrayList<ACE>();
                 if (routeACL == null) {
                     routeACL = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
-                    ACL kaseACL = kaseDoc.getACP().getACL(
-                            CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
+                    ACL kaseACL = kaseDoc.getACP().getACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
                     for (ACE a : kaseACL.getACEs()) {
                         if (isReadFromMailboxId(a)) {
-                            newACEs.add(new ACE(a.getUsername(),
-                                    SecurityConstants.READ, true));
+                            newACEs.add(new ACE(a.getUsername(), SecurityConstants.READ, true));
                         }
                     }
                 }
                 for (String mailboxId : allMailboxIds) {
-                    newACEs.add(new ACE(
-                            CaseManagementSecurityConstants.MAILBOX_PREFIX
-                                    + mailboxId, SecurityConstants.READ, true));
+                    newACEs.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX + mailboxId,
+                            SecurityConstants.READ, true));
                 }
                 routeACL.addAll(newACEs);
                 acp.removeACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
@@ -110,8 +107,7 @@ public class RouteSecurityUpdaterListener implements EventListener {
             pm = Framework.getService(PermissionProvider.class);
             String[] perms = pm.getSubPermissions(a.getPermission());
             for (String perm : perms) {
-                if (SecurityConstants.READ.equals(perm)
-                        || SecurityConstants.EVERYTHING.equals(perm)) {
+                if (SecurityConstants.READ.equals(perm) || SecurityConstants.EVERYTHING.equals(perm)) {
                     return true;
                 }
             }

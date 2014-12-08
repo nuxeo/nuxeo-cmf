@@ -31,23 +31,20 @@ public interface CaseManagementDocumentActions extends Serializable {
     /**
      * Creates a new document from current changeable document.
      * <p>
-     * Document will be created in a hierarchy yyyy/mm/dd below current document
-     * (mail root)
+     * Document will be created in a hierarchy yyyy/mm/dd below current document (mail root)
      */
     String createCaseItemInCase() throws ClientException;
 
     /**
-     * Creates a new caseItem into a case by default from current changeable
-     * document.
+     * Creates a new caseItem into a case by default from current changeable document.
      * <p>
-     * Document will be created in a hierarchy yyyy/mm/dd below current document
-     * (mail root)
+     * Document will be created in a hierarchy yyyy/mm/dd below current document (mail root)
      */
     String createCaseItemInDefaultCase() throws ClientException;
 
     /**
-     * Return the Layout Mode for the current user. If the user can write the
-     * document and the document is not locked, return Edit. Otherwise View.
+     * Return the Layout Mode for the current user. If the user can write the document and the document is not locked,
+     * return Edit. Otherwise View.
      *
      * @throws ClientException
      */

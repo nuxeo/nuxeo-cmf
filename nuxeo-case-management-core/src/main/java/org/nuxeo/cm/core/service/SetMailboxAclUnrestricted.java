@@ -35,8 +35,8 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
 
 /**
- * Set the right WRITE for all the users of the mailbox, in unrestricted mode,
- * and removes the whole local ACL when there are no users for this mailbox.
+ * Set the right WRITE for all the users of the mailbox, in unrestricted mode, and removes the whole local ACL when
+ * there are no users for this mailbox.
  *
  * @author nulrich
  * @author ldoguin
@@ -48,8 +48,7 @@ public class SetMailboxAclUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String permission;
 
-    public SetMailboxAclUnrestricted(CoreSession session, DocumentRef ref,
-            String permission) {
+    public SetMailboxAclUnrestricted(CoreSession session, DocumentRef ref, String permission) {
         super(session);
         this.ref = ref;
         if (permission == null) {
@@ -81,9 +80,7 @@ public class SetMailboxAclUnrestricted extends UnrestrictedSessionRunner {
             List<String> groups = mb.getGroups();
             if (groups != null && !groups.isEmpty()) {
                 for (String group : groups) {
-                    ACE ace = new ACE(
-                            CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX
-                                    + group, permission, true);
+                    ACE ace = new ACE(CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX + group, permission, true);
                     localACL.add(ace);
                 }
             }

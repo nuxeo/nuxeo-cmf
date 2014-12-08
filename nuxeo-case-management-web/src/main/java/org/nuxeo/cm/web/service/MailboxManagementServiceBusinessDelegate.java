@@ -31,8 +31,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * Correspondence service business delegate, exposing the service to the seam
- * layer.
+ * Correspondence service business delegate, exposing the service to the seam layer.
  *
  * @author Anahide Tchertchian
  */
@@ -45,14 +44,12 @@ public class MailboxManagementServiceBusinessDelegate implements Serializable {
     protected MailboxManagementService service;
 
     @Unwrap
-    public MailboxManagementService getMailboxManagementService()
-            throws ClientException {
+    public MailboxManagementService getMailboxManagementService() throws ClientException {
         if (service == null) {
             try {
                 service = Framework.getService(MailboxManagementService.class);
             } catch (Exception e) {
-                throw new ClientException(
-                        "Error connecting to casemanagement service", e);
+                throw new ClientException("Error connecting to casemanagement service", e);
             }
             if (service == null) {
                 throw new ClientException("Correspondence service not bound");

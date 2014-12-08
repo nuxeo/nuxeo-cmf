@@ -26,12 +26,10 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
-public class SeparateCaseCaseItemPersister extends
-        CaseManagementAbstractPersister implements CaseManagementPersister {
+public class SeparateCaseCaseItemPersister extends CaseManagementAbstractPersister implements CaseManagementPersister {
 
     @Override
-    public Case createCaseFromExistingCaseItem(CaseItem item,
-            CoreSession session) {
+    public Case createCaseFromExistingCaseItem(CaseItem item, CoreSession session) {
         DocumentModel parent;
         try {
             parent = session.getDocument(item.getDocument().getParentRef());
@@ -42,8 +40,7 @@ public class SeparateCaseCaseItemPersister extends
     }
 
     @Override
-    public String getParentDocumentPathForCaseItem(CoreSession session,
-            Case kase) {
+    public String getParentDocumentPathForCaseItem(CoreSession session, Case kase) {
         return getParentDocumentPathForCase(session);
     }
 }

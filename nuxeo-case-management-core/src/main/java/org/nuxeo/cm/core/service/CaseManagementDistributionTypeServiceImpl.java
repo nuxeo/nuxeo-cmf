@@ -31,8 +31,8 @@ import org.nuxeo.runtime.model.DefaultComponent;
 /**
  * @author Nicolas Ulrich
  */
-public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
-        implements CaseManagementDistributionTypeService {
+public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent implements
+        CaseManagementDistributionTypeService {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,29 +51,24 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
     }
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
 
         CaseManagementDistributionTypeDescriptor distributionType = ((CaseManagementDistributionTypeDescriptor) contribution);
 
-        List<String> properties = Arrays.asList(
-                distributionType.allRecipientsProperty,
-                distributionType.externalRecipientsProperty,
-                distributionType.internalRecipientsProperty);
+        List<String> properties = Arrays.asList(distributionType.allRecipientsProperty,
+                distributionType.externalRecipientsProperty, distributionType.internalRecipientsProperty);
 
         values.put(distributionType.name, properties);
     }
 
     @Override
-    public void unregisterContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void unregisterContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
 
         CaseManagementDistributionTypeDescriptor distributionType = ((CaseManagementDistributionTypeDescriptor) contribution);
         values.remove(distributionType.name);
     }
 
-    public String getAllProperty(String distributionType)
-            throws CaseManagementException {
+    public String getAllProperty(String distributionType) throws CaseManagementException {
 
         checkValue(distributionType, ALL_PROPERTY);
         return values.get(distributionType).get(ALL_PROPERTY);
@@ -84,32 +79,27 @@ public class CaseManagementDistributionTypeServiceImpl extends DefaultComponent
         return values.keySet();
     }
 
-    public String getExternalProperty(String distributionType)
-            throws CaseManagementException {
+    public String getExternalProperty(String distributionType) throws CaseManagementException {
         checkValue(distributionType, EXTERNAL_PROPERTY);
         return values.get(distributionType).get(EXTERNAL_PROPERTY);
     }
 
-    public String getInternalProperty(String distributionType)
-            throws CaseManagementException {
+    public String getInternalProperty(String distributionType) throws CaseManagementException {
         checkValue(distributionType, INTERNAL_PROPERTY);
         return values.get(distributionType).get(INTERNAL_PROPERTY);
     }
 
-    protected void checkValue(String distributionType, int distributionProperty)
-            throws CaseManagementException {
+    protected void checkValue(String distributionType, int distributionProperty) throws CaseManagementException {
         if (!values.containsKey(distributionType)) {
-            throw new CaseManagementException(
-                    String.format(
-                            "Unknown distribution type (%s). Check your DistributionTypeService contributions",
-                            distributionType));
+            throw new CaseManagementException(String.format(
+                    "Unknown distribution type (%s). Check your DistributionTypeService contributions",
+                    distributionType));
         }
 
         if (values.get(distributionType).get(distributionProperty) == null) {
-            throw new CaseManagementException(
-                    String.format(
-                            "'%s' property is undefined. Check your DistributionTypeService contributions",
-                            distributionProperty));
+            throw new CaseManagementException(String.format(
+                    "'%s' property is undefined. Check your DistributionTypeService contributions",
+                    distributionProperty));
         }
     }
 

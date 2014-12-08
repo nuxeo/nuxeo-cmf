@@ -51,25 +51,21 @@ public class CaseManagementEventConstants {
          */
         afterCaseItemSentEvent,
         /**
-         * Event sent before a draft is created. EventContext is a
-         * DocumentEventContext carrying the Envelope.
+         * Event sent before a draft is created. EventContext is a DocumentEventContext carrying the Envelope.
          */
         beforeDraftCreated,
         /**
-         * Event sent after a draft was created. EventContext is a
-         * DocumentEventContext carrying the Envelope. The draft is available
-         * as EVENT_CONTEXT_DRAFT.
+         * Event sent after a draft was created. EventContext is a DocumentEventContext carrying the Envelope. The draft
+         * is available as EVENT_CONTEXT_DRAFT.
          */
         afterDraftCreated,
         /**
-         * Event sent after a draft was updated. EventContext is a
-         * DocumentEventContext carrying the Envelope. The draft is available
-         * as EVENT_CONTEXT_DRAFT.
+         * Event sent after a draft was updated. EventContext is a DocumentEventContext carrying the Envelope. The draft
+         * is available as EVENT_CONTEXT_DRAFT.
          */
         draftUpdated,
         /**
-         * Event sent after a caseItem was imported. EventContext is a
-         * DocumentEventContext carrying the document.
+         * Event sent after a caseItem was imported. EventContext is a DocumentEventContext carrying the document.
          */
         caseItemImported,
         /**
@@ -118,8 +114,7 @@ public class CaseManagementEventConstants {
     public static final String EVENT_CONTEXT_DRAFT = "eventContextDraft";
 
     /**
-     * The recipients (of type {@link Map} with key {@link String} and value a
-     * {@link List} of {@link Mailbox} )
+     * The recipients (of type {@link Map} with key {@link String} and value a {@link List} of {@link Mailbox} )
      */
     public static final String EVENT_CONTEXT_INTERNAL_PARTICIPANTS = "eventContextParticipants";
 

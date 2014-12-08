@@ -27,8 +27,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 /**
- * Listener for mailbox events that creates associated RouteRoot when mailbox is
- * created.
+ * Listener for mailbox events that creates associated RouteRoot when mailbox is created.
  *
  * @author Laurent Doguin
  * @since 5.5

@@ -46,8 +46,7 @@ public class CaseDistributionListener implements EventListener {
         }
         if (isInitial) {
             // Update the lifecycle of the envelope
-            env.getDocument().followTransition(
-                    CaseLifeCycleConstants.TRANSITION_OPEN);
+            env.getDocument().followTransition(CaseLifeCycleConstants.TRANSITION_OPEN);
         }
     }
 }

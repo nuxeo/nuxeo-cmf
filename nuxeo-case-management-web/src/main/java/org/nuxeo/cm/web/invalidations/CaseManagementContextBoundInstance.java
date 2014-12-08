@@ -30,16 +30,14 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
- * Base class for Seam beans that would like to invalidate some cached
- * information based on casemanagement context changes.
+ * Base class for Seam beans that would like to invalidate some cached information based on casemanagement context
+ * changes.
  * <p>
- * Subclasses have to override its methods to invalidated their fields
- * accordingly.
+ * Subclasses have to override its methods to invalidated their fields accordingly.
  *
  * @author Anahide Tchertchian
  */
-public abstract class CaseManagementContextBoundInstance implements
-        CaseManagementContextHolder {
+public abstract class CaseManagementContextBoundInstance implements CaseManagementContextHolder {
 
     private static final long serialVersionUID = 3402178528822538781L;
 
@@ -60,27 +58,21 @@ public abstract class CaseManagementContextBoundInstance implements
     protected DocumentModel cachedEmail;
 
     @CaseManagementContextChecker
-    public void onMailboxContextChange(
-            CaseManagementContextHolder correspContextHolder)
-            throws ClientException {
+    public void onMailboxContextChange(CaseManagementContextHolder correspContextHolder) throws ClientException {
         if (correspContextHolder == null) {
             log.error("Cannot check context: instance is null");
             return;
         }
         Mailbox currentMailbox = correspContextHolder.getCurrentMailbox();
-        if (currentMailbox == null
-                || cachedMailbox == null
-                || hasCacheKeyChanged(generateMailboxCacheKey(cachedMailbox),
-                        generateMailboxCacheKey(currentMailbox))) {
+        if (currentMailbox == null || cachedMailbox == null
+                || hasCacheKeyChanged(generateMailboxCacheKey(cachedMailbox), generateMailboxCacheKey(currentMailbox))) {
             resetMailboxCache(cachedMailbox, currentMailbox);
             cachedMailbox = currentMailbox;
         }
         Case currentEnvelope = correspContextHolder.getCurrentCase();
-        if (currentEnvelope == null
-                || cachedEnvelope == null
+        if (currentEnvelope == null || cachedEnvelope == null
                 || !documentManager.exists(cachedEnvelope.getDocument().getRef())
-                || hasCacheKeyChanged(generateCaseCacheKey(cachedEnvelope),
-                        generateCaseCacheKey(currentEnvelope))) {
+                || hasCacheKeyChanged(generateCaseCacheKey(cachedEnvelope), generateCaseCacheKey(currentEnvelope))) {
             resetCaseCache(cachedEnvelope, currentEnvelope);
             cachedEnvelope = currentEnvelope;
         }
@@ -91,18 +83,15 @@ public abstract class CaseManagementContextBoundInstance implements
         if (currentEmail == null
                 || cachedEmail == null
                 || !documentManager.exists(cachedEmail.getRef())
-                || hasCacheKeyChanged(
-                        generateCurrentCaseItemCacheKey(cachedEmail),
+                || hasCacheKeyChanged(generateCurrentCaseItemCacheKey(cachedEmail),
                         generateCurrentCaseItemCacheKey(currentEmail))) {
             resetCurrentCaseItemCache(cachedEmail, currentEmail);
             cachedEmail = currentEmail;
         }
     }
 
-    protected boolean hasCacheKeyChanged(String cachedKey, String newKey)
-            throws ClientException {
-        if (cachedKey == null && newKey != null || cachedKey != null
-                && newKey == null) {
+    protected boolean hasCacheKeyChanged(String cachedKey, String newKey) throws ClientException {
+        if (cachedKey == null && newKey != null || cachedKey != null && newKey == null) {
             return true;
         }
         if (cachedKey == null && newKey == null) {
@@ -111,8 +100,7 @@ public abstract class CaseManagementContextBoundInstance implements
         return !cachedKey.equals(newKey);
     }
 
-    protected String generateDocumentModelKey(DocumentModel doc)
-            throws ClientException {
+    protected String generateDocumentModelKey(DocumentModel doc) throws ClientException {
         String key = null;
         if (doc != null) {
             key = doc.getCacheKey();
@@ -120,8 +108,7 @@ public abstract class CaseManagementContextBoundInstance implements
         return key;
     }
 
-    protected String generateMailboxCacheKey(Mailbox mailbox)
-            throws ClientException {
+    protected String generateMailboxCacheKey(Mailbox mailbox) throws ClientException {
         String key = null;
         if (mailbox != null) {
             key = generateDocumentModelKey(mailbox.getDocument());
@@ -135,15 +122,13 @@ public abstract class CaseManagementContextBoundInstance implements
             // FIXME: assumes envelope doc model is modified when its content
             // has changed => test also first doc key for now
             key = generateDocumentModelKey(envelope.getDocument())
-                    + (!envelope.isEmpty() ? generateDocumentModelKey(envelope.getFirstItem(
-                            documentManager).getDocument())
+                    + (!envelope.isEmpty() ? generateDocumentModelKey(envelope.getFirstItem(documentManager).getDocument())
                             : "");
         }
         return key;
     }
 
-    protected String generateCurrentCaseItemCacheKey(DocumentModel currentEmail)
-            throws ClientException {
+    protected String generateCurrentCaseItemCacheKey(DocumentModel currentEmail) throws ClientException {
         return generateDocumentModelKey(currentEmail);
     }
 
@@ -184,18 +169,15 @@ public abstract class CaseManagementContextBoundInstance implements
         return cmContextHolder.getCurrentClassificationRoot();
     }
 
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
-            throws ClientException {
+    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox) throws ClientException {
         // do nothing: to implement in subclasses
     }
 
-    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
-            throws ClientException {
+    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope) throws ClientException {
         // do nothing: to implement in subclasses
     }
 
-    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail,
-            DocumentModel newEmail) throws ClientException {
+    protected void resetCurrentCaseItemCache(DocumentModel cachedEmail, DocumentModel newEmail) throws ClientException {
         // do nothing: to implement in subclasses
     }
 

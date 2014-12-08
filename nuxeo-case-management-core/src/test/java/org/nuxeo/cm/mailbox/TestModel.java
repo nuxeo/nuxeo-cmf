@@ -43,8 +43,7 @@ public class TestModel extends SQLRepositoryTestCase {
         super.setUp();
 
         // deploy type contrib
-        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
-                "OSGI-INF/cm-core-types-contrib.xml");
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE, "OSGI-INF/cm-core-types-contrib.xml");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
         deployBundle("org.nuxeo.ecm.platform.classification.api");
         deployBundle("org.nuxeo.ecm.platform.classification.core");
@@ -60,8 +59,7 @@ public class TestModel extends SQLRepositoryTestCase {
 
     public DocumentModel createTestFolder() throws ClientException {
         // Create Test Folder
-        DocumentModel folder = new DocumentModelImpl("/", "testfolder",
-                "Folder");
+        DocumentModel folder = new DocumentModelImpl("/", "testfolder", "Folder");
         return session.createDocument(folder);
     }
 
@@ -71,17 +69,14 @@ public class TestModel extends SQLRepositoryTestCase {
         DocumentModel folder = createTestFolder();
 
         // Create the Mail Box
-        DocumentModel mailbox = new DocumentModelImpl(folder, "myMailBox",
-                "Mailbox");
+        DocumentModel mailbox = new DocumentModelImpl(folder, "myMailBox", "Mailbox");
         mailbox = session.createDocument(mailbox);
 
         // Create Documents
-        DocumentModel document = new DocumentModelImpl(folder, "doc1",
-                CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
+        DocumentModel document = new DocumentModelImpl(folder, "doc1", CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document = session.createDocument(document);
 
-        DocumentModel document2 = new DocumentModelImpl(folder, "doc1",
-                CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
+        DocumentModel document2 = new DocumentModelImpl(folder, "doc1", CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         document2 = session.createDocument(document2);
 
         // Create Envelope with 2 Documents
@@ -89,14 +84,12 @@ public class TestModel extends SQLRepositoryTestCase {
         documentIds.add(document.getId());
         documentIds.add(document2.getId());
 
-        DocumentModel envelope = new DocumentModelImpl(folder, "envelope",
-                CaseConstants.CASE_TYPE);
+        DocumentModel envelope = new DocumentModelImpl(folder, "envelope", CaseConstants.CASE_TYPE);
         envelope.setPropertyValue("case:documentsId", documentIds);
         envelope = session.createDocument(envelope);
 
         // Dispatch the Envelope
-        DocumentModel dispatch = new DocumentModelImpl(folder, "post",
-                "CaseLink");
+        DocumentModel dispatch = new DocumentModelImpl(folder, "post", "CaseLink");
         dispatch.setPropertyValue("cslk:caseDocumentId", envelope.getId());
         dispatch = session.createDocument(dispatch);
     }

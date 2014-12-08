@@ -26,19 +26,16 @@ import java.util.regex.Pattern;
 import org.nuxeo.cm.contact.Contacts;
 
 /**
- * This is the Gmail English Mail Parser which is from a forwarded mail using
- * English Gmail (web interface). The header pattern is a bit different (not in
- * the same order) and the date is not in the same format.
+ * This is the Gmail English Mail Parser which is from a forwarded mail using English Gmail (web interface). The header
+ * pattern is a bit different (not in the same order) and the date is not in the same format.
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
  */
 public class GmailMailParser extends DefaultEnglishMailParser {
 
     public static final Pattern GMAIL_ENGLISH_HEADER_PATTERN = Pattern.compile(
-            "(.*?)Forwarded message(.*?)" + "(From\\w*:)([^\r\n]+)[\r\n\\s]+"
-                    + "(Date\\w*:)([^\r\n]+)[\r\n\\s]+"
-                    + "(Subject\\w*:)([^\r\n]+)[\r\n\\s]+"
-                    + "(To\\w*:)([^\r\n]+)[\r\n\\s]+"
+            "(.*?)Forwarded message(.*?)" + "(From\\w*:)([^\r\n]+)[\r\n\\s]+" + "(Date\\w*:)([^\r\n]+)[\r\n\\s]+"
+                    + "(Subject\\w*:)([^\r\n]+)[\r\n\\s]+" + "(To\\w*:)([^\r\n]+)[\r\n\\s]+"
                     + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
 
     public static final String GMAIL_DATE_FORMAT = "yyyy/MM/d";
@@ -76,8 +73,7 @@ public class GmailMailParser extends DefaultEnglishMailParser {
         }
         // TO
         if (m.group(10) != null) {
-            resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY,
-                    parseContacts(m.group(10)));
+            resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY, parseContacts(m.group(10)));
         }
         // Cc
         Contacts ccContacts = new Contacts();

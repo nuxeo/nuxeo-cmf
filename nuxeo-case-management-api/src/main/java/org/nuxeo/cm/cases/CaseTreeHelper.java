@@ -53,16 +53,14 @@ public class CaseTreeHelper {
      *
      * @return the last child created (day)
      */
-    public static DocumentModel getOrCreateDateTreeFolder(CoreSession session,
-            DocumentModel root, Date date, String folderType)
-            throws ClientException {
+    public static DocumentModel getOrCreateDateTreeFolder(CoreSession session, DocumentModel root, Date date,
+            String folderType) throws ClientException {
         String subPath = new SimpleDateFormat("yyyy/MM/dd").format(date);
         return getOrCreatePath(session, root, subPath, folderType);
     }
 
-    public static DocumentModel getOrCreatePath(CoreSession session,
-            DocumentModel root, String subPath, String folderType)
-            throws ClientException {
+    public static DocumentModel getOrCreatePath(CoreSession session, DocumentModel root, String subPath,
+            String folderType) throws ClientException {
         String[] pathSplit = subPath.split("/");
         String parentPath = root.getPathAsString();
         DocumentModel child = root;
@@ -73,9 +71,8 @@ public class CaseTreeHelper {
         return child;
     }
 
-    public static synchronized DocumentModel getOrCreate(CoreSession session,
-            String rootPath, String id, String folderType)
-            throws ClientException {
+    public static synchronized DocumentModel getOrCreate(CoreSession session, String rootPath, String id,
+            String folderType) throws ClientException {
         String path = String.format("%s/%s", rootPath, id);
         DocumentRef pathRef = new PathRef(path);
         boolean exists = session.exists(pathRef);
@@ -86,37 +83,33 @@ public class CaseTreeHelper {
             }
         }
         // create it
-        DocumentModel newDocument = session.createDocumentModel(rootPath,
-                IdUtils.generateId(id), folderType);
+        DocumentModel newDocument = session.createDocumentModel(rootPath, IdUtils.generateId(id), folderType);
         newDocument.setPropertyValue(TITLE_PROPERTY_NAME, id);
         newDocument = session.createDocument(newDocument);
         return newDocument;
     }
 
     /**
-     * Find or create a set of folders representing the date hierarchy. This
-     * method is starting and stopping transactions, so caller should make sure
-     * no transaction is active (commit before, start a new transaction after)
+     * Find or create a set of folders representing the date hierarchy. This method is starting and stopping
+     * transactions, so caller should make sure no transaction is active (commit before, start a new transaction after)
      *
      * @since 1.7
      */
-    public static final DocumentModel getOrCreateTxDateTreeFolder(
-            String repositoryName, DocumentModel root, Date date,
+    public static final DocumentModel getOrCreateTxDateTreeFolder(String repositoryName, DocumentModel root, Date date,
             String folderType) throws ClientException {
         String subPath = new SimpleDateFormat("yyyy/MM/dd").format(date);
         return getOrCreateTxPath(repositoryName, root, subPath, folderType);
     }
 
-    public static final DocumentModel getOrCreateTxPath(String repositoryName,
-            DocumentModel rootDocument, String subPath, String folderType)
-            throws ClientException {
+    public static final DocumentModel getOrCreateTxPath(String repositoryName, DocumentModel rootDocument,
+            String subPath, String folderType) throws ClientException {
         lock.lock();
         try {
 
             TransactionHelper.startTransaction();
             try {
-                UnrestrictedRootTreeCreator rootTreeCreator = new UnrestrictedRootTreeCreator(
-                        repositoryName, rootDocument, subPath, folderType);
+                UnrestrictedRootTreeCreator rootTreeCreator = new UnrestrictedRootTreeCreator(repositoryName,
+                        rootDocument, subPath, folderType);
                 rootTreeCreator.runUnrestricted();
                 return rootTreeCreator.getChild();
             } finally {
@@ -141,8 +134,8 @@ public class CaseTreeHelper {
 
         DocumentModel child;
 
-        protected UnrestrictedRootTreeCreator(String repositoryName,
-                DocumentModel rootDoc, String subPath, String folderType) {
+        protected UnrestrictedRootTreeCreator(String repositoryName, DocumentModel rootDoc, String subPath,
+                String folderType) {
             super(repositoryName);
             this.subPath = subPath;
             this.folderType = folderType;

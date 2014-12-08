@@ -55,8 +55,7 @@ public class RemoveCaseLinkOperation {
     public void removeCaseLink() throws ClientException {
         List<CaseLink> links = fetchCaseLinks();
         for (CaseLink link : links) {
-            getDistributionService().removeCaseLink(link,
-                    context.getCoreSession());
+            getDistributionService().removeCaseLink(link, context.getCoreSession());
         }
     }
 

@@ -32,8 +32,7 @@ import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 
 /**
- * CaseDocumentPageProvider fetch case children using Case adapter
- * or CaseItem children using CoreSession API.
+ * CaseDocumentPageProvider fetch case children using Case adapter or CaseItem children using CoreSession API.
  *
  * @author Laurent Doguin
  * @since 1.8
@@ -43,7 +42,6 @@ public class CaseDocumentPageProvider extends CoreQueryDocumentPageProvider {
     private static final long serialVersionUID = 1L;
 
     protected List<DocumentModel> currentPageDocuments;
-
 
     @Override
     public List<DocumentModel> getCurrentPage() {
@@ -56,15 +54,12 @@ public class CaseDocumentPageProvider extends CoreQueryDocumentPageProvider {
             if (parent.hasFacet(DISTRIBUTABLE_FACET) && !parent.hasFacet(CASE_GROUPABLE_FACET)) {
                 Case kase = parent.getAdapter(Case.class);
                 return kase.getDocuments(coreSession);
-            } else  {
-                return coreSession.getChildren(parent.getRef(), null,
-                        SecurityConstants.READ);
+            } else {
+                return coreSession.getChildren(parent.getRef(), null, SecurityConstants.READ);
             }
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
 
-
 }
-

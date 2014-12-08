@@ -42,8 +42,7 @@ public enum CaseLinkMode {
         try {
             return valueOf(name.toUpperCase());
         } catch (IllegalArgumentException err) {
-            log.error(String.format("Illegal value '%s', "
-                    + "should be one of %s", name, CaseLinkMode.values()));
+            log.error(String.format("Illegal value '%s', " + "should be one of %s", name, CaseLinkMode.values()));
             return null;
         }
     }

@@ -30,24 +30,21 @@ public interface HasParticipants extends Serializable {
     /**
      * Adds to the list of recipients.
      *
-     * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link Mailbox}
+     * @param recipients A map keyed with the message type and valued with a list of {@link Mailbox}
      */
     void addParticipants(Map<String, List<String>> recipients);
 
     /**
      * Adds to the list of initial internal recipients.
      *
-     * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link Mailbox}
+     * @param recipients A map keyed with the message type and valued with a list of {@link Mailbox}
      */
     void addInitialInternalParticipants(Map<String, List<String>> recipients);
 
     /**
      * Adds to the list of initial external recipients.
      *
-     * @param recipients A map keyed with the message type and valued with a
-     *            list of {@link Mailbox}
+     * @param recipients A map keyed with the message type and valued with a list of {@link Mailbox}
      */
     void addInitialExternalParticipants(Map<String, List<String>> recipients);
 

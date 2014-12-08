@@ -51,8 +51,7 @@ public class HasParticipantsImpl implements HasParticipants {
         }
     }
 
-    public void addInitialInternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialInternalParticipants(Map<String, List<String>> recipients) {
 
         if (recipients == null) {
             return;
@@ -68,8 +67,7 @@ public class HasParticipantsImpl implements HasParticipants {
         }
     }
 
-    public void addInitialExternalParticipants(
-            Map<String, List<String>> recipients) {
+    public void addInitialExternalParticipants(Map<String, List<String>> recipients) {
 
         if (recipients == null) {
             return;
@@ -176,7 +174,7 @@ public class HasParticipantsImpl implements HasParticipants {
         }
     }
 
-    @SuppressWarnings( { "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     protected List<String> getRecipients(String recipientsXpath) {
 
         List<String> recipients = null;

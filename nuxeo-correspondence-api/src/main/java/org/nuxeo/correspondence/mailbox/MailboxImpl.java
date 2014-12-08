@@ -27,8 +27,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  *
  * @author Anahide Tchertchian
  */
-public class MailboxImpl extends org.nuxeo.cm.mailbox.MailboxImpl implements
-        Mailbox {
+public class MailboxImpl extends org.nuxeo.cm.mailbox.MailboxImpl implements Mailbox {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,13 +36,11 @@ public class MailboxImpl extends org.nuxeo.cm.mailbox.MailboxImpl implements
     }
 
     public void setIncomingConfidentiality(Integer confidentiality) {
-        setPropertyValue(MailboxConstants.INCOMING_CONFIDENTIALITY_FIELD,
-                confidentiality);
+        setPropertyValue(MailboxConstants.INCOMING_CONFIDENTIALITY_FIELD, confidentiality);
     }
 
     public void setOutgoingConfidentiality(Integer confidentiality) {
-        setPropertyValue(MailboxConstants.OUTGOING_CONFIDENTIALITY_FIELD,
-                confidentiality);
+        setPropertyValue(MailboxConstants.OUTGOING_CONFIDENTIALITY_FIELD, confidentiality);
     }
 
     public Integer getOutgoingConfidentiality() {

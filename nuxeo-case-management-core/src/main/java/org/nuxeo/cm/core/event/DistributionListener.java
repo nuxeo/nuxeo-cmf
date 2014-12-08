@@ -44,8 +44,8 @@ import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
 
 /**
- * Listener for distribution events that sets recipient mailbox user/groups
- * rights on the envelope and related documents.
+ * Listener for distribution events that sets recipient mailbox user/groups rights on the envelope and related
+ * documents.
  *
  * @author Anahide Tchertchian
  */
@@ -67,8 +67,8 @@ public class DistributionListener implements EventListener {
             return;
         }
         try {
-            SetEnvelopeAclUnrestricted session = new SetEnvelopeAclUnrestricted(
-                    eventCtx.getCoreSession(), envelope, recipients);
+            SetEnvelopeAclUnrestricted session = new SetEnvelopeAclUnrestricted(eventCtx.getCoreSession(), envelope,
+                    recipients);
             session.runUnrestricted();
         } catch (Exception e) {
             throw new CaseManagementRuntimeException(e.getMessage(), e);
@@ -76,8 +76,7 @@ public class DistributionListener implements EventListener {
 
     }
 
-    public static class SetEnvelopeAclUnrestricted extends
-            UnrestrictedSessionRunner {
+    public static class SetEnvelopeAclUnrestricted extends UnrestrictedSessionRunner {
 
         protected final Case envelope;
 
@@ -89,8 +88,7 @@ public class DistributionListener implements EventListener {
 
         protected String confidentiality;
 
-        public SetEnvelopeAclUnrestricted(CoreSession session, Case envelope,
-                Map<String, List<String>> recipients) {
+        public SetEnvelopeAclUnrestricted(CoreSession session, Case envelope, Map<String, List<String>> recipients) {
             super(session);
             this.envelope = envelope;
             this.recipients = recipients;
@@ -122,8 +120,7 @@ public class DistributionListener implements EventListener {
             }
         }
 
-        protected void setRightsOnCaseItems(List<DocumentModel> docs)
-                throws ClientException {
+        protected void setRightsOnCaseItems(List<DocumentModel> docs) throws ClientException {
             for (DocumentModel doc : docs) {
                 doc = session.getDocument(doc.getRef());
                 ACP acp = doc.getACP();
@@ -140,15 +137,12 @@ public class DistributionListener implements EventListener {
             if (newACEs == null || newACEs.isEmpty()) {
                 // compute private ace
                 for (String mailboxId : allMailboxIds) {
-                    newACEs.add(new ACE(
-                            CaseManagementSecurityConstants.MAILBOX_PREFIX
-                                    + mailboxId, SecurityConstants.READ_WRITE,
-                            true));
+                    newACEs.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX + mailboxId,
+                            SecurityConstants.READ_WRITE, true));
                 }
                 // set public ACE if needed
                 if (CaseManagementSecurityConstants.PUBLIC_SECURITY_LEVEL.equals(confidentiality)) {
-                    newACEs.add(new ACE(SecurityConstants.EVERYONE,
-                            SecurityConstants.READ, true));
+                    newACEs.add(new ACE(SecurityConstants.EVERYONE, SecurityConstants.READ, true));
                 }
             }
             return newACEs;

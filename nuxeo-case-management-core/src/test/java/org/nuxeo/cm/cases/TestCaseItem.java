@@ -99,8 +99,7 @@ public class TestCaseItem extends CaseManagementRepositoryTestCase {
 
     @Test
     public void testCreateCase() throws ClientException {
-        Case envelope = item.createMailCase(session,
-                session.getRootDocument().getPathAsString(), null);
+        Case envelope = item.createMailCase(session, session.getRootDocument().getPathAsString(), null);
         assertNotNull(envelope);
         String id = envelope.getDocument().getId();
         session.save();

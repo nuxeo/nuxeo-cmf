@@ -31,8 +31,7 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
  * @author arussel
  * @author Anahide Tchertchian
  */
-public class GetMailboxInformationUnrestricted extends
-        UnrestrictedSessionRunner {
+public class GetMailboxInformationUnrestricted extends UnrestrictedSessionRunner {
 
     protected final MailboxManagementService service;
 
@@ -44,8 +43,7 @@ public class GetMailboxInformationUnrestricted extends
 
     protected List<String> children;
 
-    public GetMailboxInformationUnrestricted(String repoName,
-            MailboxManagementService service, String mailboxId) {
+    public GetMailboxInformationUnrestricted(String repoName, MailboxManagementService service, String mailboxId) {
         super(repoName);
         this.service = service;
         this.mailboxId = mailboxId;

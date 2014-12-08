@@ -29,8 +29,7 @@ import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
 
 /**
- * When a case Item was created by import, rename the original doc so that it
- * won't be imported again
+ * When a case Item was created by import, rename the original doc so that it won't be imported again
  *
  * @author Mariana Cedica
  */
@@ -58,8 +57,8 @@ public class CaseManagementCaseImporterListener implements EventListener {
 
     private void renameFile(String filePath) {
         File origFile = new File(filePath);
-        origFile.renameTo(new File(filePath.replaceAll(origFile.getName(),
-                CaseConstants.DOCUMENT_IMPORTED_PREFIX + origFile.getName())));
+        origFile.renameTo(new File(filePath.replaceAll(origFile.getName(), CaseConstants.DOCUMENT_IMPORTED_PREFIX
+                + origFile.getName())));
     }
 
 }

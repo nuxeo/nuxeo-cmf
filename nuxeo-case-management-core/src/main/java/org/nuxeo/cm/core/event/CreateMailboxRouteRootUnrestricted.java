@@ -33,19 +33,16 @@ import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 
 /**
- * Create a route root document as a child of the mailBox, in unrestricted
- * mode.
+ * Create a route root document as a child of the mailBox, in unrestricted mode.
  *
  * @author ldoguin
  */
-public class CreateMailboxRouteRootUnrestricted extends
-        UnrestrictedSessionRunner {
+public class CreateMailboxRouteRootUnrestricted extends UnrestrictedSessionRunner {
 
     // Mailbox document model
     protected final DocumentModel doc;
 
-    public CreateMailboxRouteRootUnrestricted(CoreSession session,
-            DocumentModel doc) {
+    public CreateMailboxRouteRootUnrestricted(CoreSession session, DocumentModel doc) {
         super(session);
         this.doc = doc;
     }
@@ -54,18 +51,14 @@ public class CreateMailboxRouteRootUnrestricted extends
     public void run() throws ClientException {
         Mailbox mb = doc.getAdapter(Mailbox.class);
         String routeRootName = getRouteRootNamePrefix() + mb.getTitle();
-        String routeFolderId = IdUtils.generateId(routeRootName, "-", true,
-                24);
-        DocumentModel routeRoot = session.createDocumentModel(
-                doc.getPathAsString(), routeFolderId,
+        String routeFolderId = IdUtils.generateId(routeRootName, "-", true, 24);
+        DocumentModel routeRoot = session.createDocumentModel(doc.getPathAsString(), routeFolderId,
                 MailboxConstants.ROUTE_ROOT_DOCUMENT_TYPE);
-        routeRoot.setPropertyValue(MailboxConstants.TITLE_FIELD,
-                routeRootName);
+        routeRoot.setPropertyValue(MailboxConstants.TITLE_FIELD, routeRootName);
         routeRoot = session.createDocument(routeRoot);
         ACP acp = routeRoot.getACP();
         ACL acl = acp.getOrCreateACL(ACL.LOCAL_ACL);
-        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                + mb.getId(), SecurityConstants.EVERYTHING, true));
+        acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX + mb.getId(), SecurityConstants.EVERYTHING, true));
         acp.addACL(acl);
         routeRoot.setACP(acp, true);
         session.saveDocument(routeRoot);

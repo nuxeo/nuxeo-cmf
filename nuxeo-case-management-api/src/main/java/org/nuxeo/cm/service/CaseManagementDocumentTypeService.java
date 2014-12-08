@@ -21,8 +21,7 @@ import java.io.Serializable;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
- * Used to setup the core type of the Post, Envelope and Incoming Mail
- * documents.
+ * Used to setup the core type of the Post, Envelope and Incoming Mail documents.
  *
  * @author Nicolas Ulrich
  */
@@ -49,8 +48,7 @@ public interface CaseManagementDocumentTypeService extends Serializable {
     String getCaseItemType();
 
     /***
-     * Adds the needed facets to the given document in order to be used as a
-     * caseItem
+     * Adds the needed facets to the given document in order to be used as a caseItem
      *
      * @since 5.5
      * @param document
@@ -58,8 +56,7 @@ public interface CaseManagementDocumentTypeService extends Serializable {
     void markDocumentAsCaseItem(DocumentModel document);
 
     /***
-     * Adds the needed facets to the given document in order to be used as a
-     * case
+     * Adds the needed facets to the given document in order to be used as a case
      *
      * @since 5.5
      * @param document

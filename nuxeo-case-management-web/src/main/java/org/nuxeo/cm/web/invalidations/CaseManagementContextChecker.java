@@ -26,8 +26,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to mark invalidation methods that will be called to check if
- * context has changed.
+ * Annotation used to mark invalidation methods that will be called to check if context has changed.
  *
  * @author Anahide Tchertchian
  */

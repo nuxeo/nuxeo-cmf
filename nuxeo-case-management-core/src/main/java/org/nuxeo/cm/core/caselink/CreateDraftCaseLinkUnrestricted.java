@@ -56,8 +56,7 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         return createdPostDocRef;
     }
 
-    public CreateDraftCaseLinkUnrestricted(String repositoryName,
-            String subject, Case envelope, Mailbox sender) {
+    public CreateDraftCaseLinkUnrestricted(String repositoryName, String subject, Case envelope, Mailbox sender) {
         super(repositoryName);
         this.envelope = envelope;
         this.subject = subject;
@@ -73,10 +72,8 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
             throw new ClientException(e);
         }
 
-        DocumentModel doc = session.createDocumentModel(
-                sender.getDocument().getPathAsString(),
-                UUID.randomUUID().toString(),
-                correspDocumentTypeService.getCaseLinkType());
+        DocumentModel doc = session.createDocumentModel(sender.getDocument().getPathAsString(),
+                UUID.randomUUID().toString(), correspDocumentTypeService.getCaseLinkType());
         setPostValues(doc);
         doc = session.createDocument(doc);
         createdPostDocRef = doc.getId();
@@ -89,10 +86,8 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
         // FIXME: use CorrespondencePost setters
         doc.setPropertyValue(IS_DRAFT_FIELD, true);
         doc.setPropertyValue(SUBJECT_FIELD, subject);
-        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD,
-                envelope.getDocument().getRepositoryName());
-        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
-                envelope.getDocument().getId());
+        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD, envelope.getDocument().getRepositoryName());
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD, envelope.getDocument().getId());
         doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
         doc.setPropertyValue(DATE_FIELD, Calendar.getInstance().getTime());
         doc.setPropertyValue(SENDER_FIELD, sender.getId());

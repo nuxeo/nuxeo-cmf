@@ -53,8 +53,7 @@ public class CaseLinkRemovedListener implements EventListener {
         CoreSession session = eventCtx.getCoreSession();
         DocumentModel mailbox = session.getParentDocument(link.getDocument().getRef());
         String caseId = link.getCase(session).getDocument().getId();
-        String query = String.format(
-                "Select * from CaseLink where ecm:parentId = '%s' and cslk:caseDocumentId = '%s'",
+        String query = String.format("Select * from CaseLink where ecm:parentId = '%s' and cslk:caseDocumentId = '%s'",
                 mailbox.getId(), caseId);
         DocumentModelList links = session.query(query);
         if (links.size() == 1) {
@@ -63,8 +62,7 @@ public class CaseLinkRemovedListener implements EventListener {
             List<DocumentModel> docs = new ArrayList<DocumentModel>();
             DocumentModel kaseDocument = session.getDocument(new IdRef(caseId));
             docs.add(kaseDocument);
-            List<CaseItem> items = kaseDocument.getAdapter(Case.class).getCaseItems(
-                    session);
+            List<CaseItem> items = kaseDocument.getAdapter(Case.class).getCaseItems(session);
             for (CaseItem item : items) {
                 docs.add(item.getDocument());
             }
@@ -74,8 +72,7 @@ public class CaseLinkRemovedListener implements EventListener {
                 List<ACE> newACES = new ArrayList<ACE>();
                 for (ACE ace : mailboxACL.getACEs()) {
                     if (!ace.getUsername().equals(
-                            CaseManagementSecurityConstants.MAILBOX_PREFIX
-                                    + mailbox.getAdapter(Mailbox.class).getId())) {
+                            CaseManagementSecurityConstants.MAILBOX_PREFIX + mailbox.getAdapter(Mailbox.class).getId())) {
                         newACES.add(ace);
                     }
                 }

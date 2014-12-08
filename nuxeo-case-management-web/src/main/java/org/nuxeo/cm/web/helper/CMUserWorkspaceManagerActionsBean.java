@@ -35,8 +35,8 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
  */
 @Name("userWorkspaceManagerActions")
 @Scope(ScopeType.CONVERSATION)
-public class CMUserWorkspaceManagerActionsBean extends
-        UserWorkspaceManagerActionsBean implements UserWorkspaceManagerActions {
+public class CMUserWorkspaceManagerActionsBean extends UserWorkspaceManagerActionsBean implements
+        UserWorkspaceManagerActions {
 
     private static final long serialVersionUID = 1L;
 

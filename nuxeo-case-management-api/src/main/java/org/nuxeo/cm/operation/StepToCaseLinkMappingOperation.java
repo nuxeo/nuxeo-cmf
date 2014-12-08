@@ -79,8 +79,7 @@ public class StepToCaseLinkMappingOperation {
                 recipient = (String) step.getDocument().getPropertyValue(
                         CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME);
                 step.setCanValidateStep(context.getCoreSession(), recipient);
-                recipients.put(CaseLinkType.FOR_ACTION.name(),
-                        Arrays.asList(new String[] { recipient }));
+                recipients.put(CaseLinkType.FOR_ACTION.name(), Arrays.asList(new String[] { recipient }));
                 if (recipient != null) {
                     link.addInitialInternalParticipants(recipients);
                 }
@@ -95,12 +94,10 @@ public class StepToCaseLinkMappingOperation {
                         setterDoc = stepDoc;
                         setter = setter.substring(STEP_PREFIX.length());
                     }
-                    linkDoc.setPropertyValue(getter,
-                            setterDoc.getPropertyValue(setter));
+                    linkDoc.setPropertyValue(getter, setterDoc.getPropertyValue(setter));
                 }
                 if (link.isActionnable()) {
-                    ActionableCaseLink actionableLink = link.getDocument().getAdapter(
-                            ActionableCaseLink.class);
+                    ActionableCaseLink actionableLink = link.getDocument().getAdapter(ActionableCaseLink.class);
                     String refuseChainId = leavingChainsProperties.get("refuse");
                     String validateChainId = leavingChainsProperties.get("validate");
                     actionableLink.setRefuseOperationChainId(refuseChainId);

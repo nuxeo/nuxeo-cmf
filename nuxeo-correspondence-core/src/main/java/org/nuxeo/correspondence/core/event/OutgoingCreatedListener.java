@@ -38,8 +38,7 @@ public class OutgoingCreatedListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
         if (!"documentCreated".equals(event.getName())) {
-            log.warn("OutgoingCreatedListener called on a non documentCreated event: "
-                    + event);
+            log.warn("OutgoingCreatedListener called on a non documentCreated event: " + event);
             return;
         }
         DocumentEventContext docCtx = null;
@@ -62,11 +61,9 @@ public class OutgoingCreatedListener implements EventListener {
             return;
         }
         DocumentModel doc = item.getDocument();
-        doc.setPropertyValue(
-                CorrespondenceConstants.OUT_SENDING_MAILBOX,
+        doc.setPropertyValue(CorrespondenceConstants.OUT_SENDING_MAILBOX,
                 docCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_MAILBOX_ID));
-        doc.setPropertyValue(
-                CorrespondenceConstants.OUT_SENDING_UNIT,
+        doc.setPropertyValue(CorrespondenceConstants.OUT_SENDING_UNIT,
                 docCtx.getProperty(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID));
         session.saveDocument(doc);
     }

@@ -77,8 +77,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 @Name("cmMailboxActions")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementMailboxActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CaseManagementMailboxActionsBean extends CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -118,8 +117,7 @@ public class CaseManagementMailboxActionsBean extends
         if (searchType == null || StringUtils.isEmpty(searchType)) {
             searchType = null;
         }
-        return mailboxManagementService.searchMailboxes(documentManager,
-                searchPattern, searchType);
+        return mailboxManagementService.searchMailboxes(documentManager, searchPattern, searchType);
     }
 
     /**
@@ -131,14 +129,13 @@ public class CaseManagementMailboxActionsBean extends
             userMailboxes = new ArrayList<Mailbox>();
             if (currentUser != null) {
                 Mailbox personalMailbox = null;
-                List<Mailbox> mailboxes = mailboxManagementService.getUserMailboxes(
-                        documentManager, currentUser.getName());
+                List<Mailbox> mailboxes = mailboxManagementService.getUserMailboxes(documentManager,
+                        currentUser.getName());
                 if (mailboxes != null && !mailboxes.isEmpty()) {
                     userMailboxes.addAll(mailboxes);
                     for (Iterator<Mailbox> it = userMailboxes.iterator(); it.hasNext();) {
                         Mailbox mbox = it.next();
-                        if (MailboxConstants.type.personal.name().equals(
-                                mbox.getType())
+                        if (MailboxConstants.type.personal.name().equals(mbox.getType())
                                 && currentUser.getName().equals(mbox.getOwner())) {
                             personalMailbox = mbox;
                             it.remove();
@@ -163,19 +160,12 @@ public class CaseManagementMailboxActionsBean extends
     }
 
     /**
-     * Performs a validation error when trying to set a mailbox id that already
-     * exists in the system.
+     * Performs a validation error when trying to set a mailbox id that already exists in the system.
      */
-    public void validateMailboxId(FacesContext context, UIComponent component,
-            Object value) {
-        if (!(value instanceof String)
-                || mailboxManagementService.hasMailbox(documentManager,
-                        (String) value)) {
-            FacesMessage message = new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(
-                            context,
-                            "feedback.casemanagement.mailboxIdAlreadyExists"),
-                    null);
+    public void validateMailboxId(FacesContext context, UIComponent component, Object value) {
+        if (!(value instanceof String) || mailboxManagementService.hasMailbox(documentManager, (String) value)) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(context,
+                    "feedback.casemanagement.mailboxIdAlreadyExists"), null);
             // also add global message?
             // context.addMessage(null, message);
             throw new ValidatorException(message);
@@ -183,11 +173,9 @@ public class CaseManagementMailboxActionsBean extends
     }
 
     /**
-     * Performs a validation error when trying to create a personal mailbox for
-     * a user that already has one.
+     * Performs a validation error when trying to create a personal mailbox for a user that already has one.
      */
-    public void validatePersonalMailboxCreation(FacesContext context,
-            UIComponent component, Object value) {
+    public void validatePersonalMailboxCreation(FacesContext context, UIComponent component, Object value) {
         Map<String, Object> attributes = component.getAttributes();
         String mailboxTypeInputId = (String) attributes.get("mailboxTypeInputId");
         String mailboxOwnerInputId = (String) attributes.get("mailboxOwnerInputId");
@@ -214,11 +202,8 @@ public class CaseManagementMailboxActionsBean extends
         if (MailboxConstants.type.personal.name().equals(mailboxType)) {
             String mbId = mailboxManagementService.getUserPersonalMailboxId((String) mailboxOwner);
             if (mailboxManagementService.hasMailbox(documentManager, mbId)) {
-                FacesMessage message = new FacesMessage(
-                        FacesMessage.SEVERITY_ERROR,
-                        ComponentUtils.translate(context,
-                                "feedback.casemanagement.personalMailboxAlreadyExists"),
-                        null);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ComponentUtils.translate(context,
+                        "feedback.casemanagement.personalMailboxAlreadyExists"), null);
                 // also add global message?
                 // context.addMessage(null, message);
                 throw new ValidatorException(message);
@@ -237,17 +222,14 @@ public class CaseManagementMailboxActionsBean extends
     }
 
     /**
-     * Creates a new document mailBox document with the parent given by
-     * parentMailboxId
+     * Creates a new document mailBox document with the parent given by parentMailboxId
      */
     public String createMailbox() throws CaseManagementException {
         try {
             DocumentModel newDocument = navigationContext.getChangeableDocument();
             if (newDocument.getId() != null) {
-                log.debug("Document " + newDocument.getName()
-                        + " already created");
-                return navigationContext.navigateToDocument(newDocument,
-                        "after-create");
+                log.debug("Document " + newDocument.getName() + " already created");
+                return navigationContext.navigateToDocument(newDocument, "after-create");
             }
             DocumentModel parentDocument = getParentMailbox(parentMailboxId);
             // reset the parent id
@@ -260,13 +242,10 @@ public class CaseManagementMailboxActionsBean extends
             String name = IdUtils.generateId(title);
             newDocument.setPathInfo(parentDocumentPath, name);
             newDocument = documentManager.createDocument(newDocument);
-            facesMessages.add(FacesMessage.SEVERITY_INFO,
-                    resourcesAccessor.getMessages().get("document_saved"),
+            facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("document_saved"),
                     resourcesAccessor.getMessages().get(newDocument.getType()));
-            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED,
-                    parentDocument);
-            return navigationContext.navigateToDocument(newDocument,
-                    "after-create");
+            Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED, parentDocument);
+            return navigationContext.navigateToDocument(newDocument, "after-create");
         } catch (Throwable t) {
             throw new CaseManagementException(t);
         }
@@ -276,25 +255,22 @@ public class CaseManagementMailboxActionsBean extends
      * Gets the mailbox root folder
      */
     protected DocumentModel getMailboxRoot() throws ClientException {
-        DocumentModelList res = documentManager.query(String.format(
-                "SELECT * from %s", MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
+        DocumentModelList res = documentManager.query(String.format("SELECT * from %s",
+                MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
         if (res == null || res.isEmpty()) {
             throw new CaseManagementException("Cannot find any mailbox root");
         }
         return res.get(0);
     }
 
-    protected DocumentModel getParentMailbox(String parentMailboxId)
-            throws ClientException {
+    protected DocumentModel getParentMailbox(String parentMailboxId) throws ClientException {
         DocumentModel mailboxDoc = null;
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
-                mailboxDoc = mailboxManagementService.getMailbox(
-                        documentManager, parentMailboxId).getDocument();
+                mailboxDoc = mailboxManagementService.getMailbox(documentManager, parentMailboxId).getDocument();
             } catch (Exception e) {
-                log.error(String.format(
-                        "Unable to find parent mailbox with id '%s', using default "
-                                + "mailbox root as parent", parentMailboxId));
+                log.error(String.format("Unable to find parent mailbox with id '%s', using default "
+                        + "mailbox root as parent", parentMailboxId));
             }
         }
         if (mailboxDoc == null) {
@@ -338,8 +314,7 @@ public class CaseManagementMailboxActionsBean extends
     public String addCaseItem(String type) throws ClientException {
         DocumentModel changeableDocument = documentManager.createDocumentModel(type);
         navigationContext.setChangeableDocument(changeableDocument);
-        return navigationContext.getActionResult(changeableDocument,
-                UserAction.CREATE);
+        return navigationContext.getActionResult(changeableDocument, UserAction.CREATE);
     }
 
     /**
@@ -349,23 +324,18 @@ public class CaseManagementMailboxActionsBean extends
         Map<String, Object> context = new HashMap<String, Object>();
 
         // Set the path of MailRoot
-        context.put(CoreEventConstants.PARENT_PATH,
-                CaseConstants.CASE_ROOT_DOCUMENT_PATH);
-        context.put(CaseManagementEventConstants.EVENT_CONTEXT_MAILBOX_ID,
-                getCurrentMailbox().getId());
-        context.put(
-                CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID,
+        context.put(CoreEventConstants.PARENT_PATH, CaseConstants.CASE_ROOT_DOCUMENT_PATH);
+        context.put(CaseManagementEventConstants.EVENT_CONTEXT_MAILBOX_ID, getCurrentMailbox().getId());
+        context.put(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID,
                 getCurrentMailbox().getAffiliatedMailboxId());
 
         // Create the new Mail document model in the MailRoot
-        DocumentModel changeableDocument = documentManager.createDocumentModel(
-                type, context);
+        DocumentModel changeableDocument = documentManager.createDocumentModel(type, context);
 
         navigationContext.setChangeableDocument(changeableDocument);
 
         // Redirect to the creation form
-        return navigationContext.getActionResult(changeableDocument,
-                UserAction.CREATE);
+        return navigationContext.getActionResult(changeableDocument, UserAction.CREATE);
     }
 
     /**
@@ -375,8 +345,7 @@ public class CaseManagementMailboxActionsBean extends
         Mailbox mailbox = getCurrentMailbox();
         mailbox.save(documentManager);
         facesMessages.add(FacesMessage.SEVERITY_INFO,
-                resourcesAccessor.getMessages().get(
-                        "feedback.casemanagement.delegation.modified"));
+                resourcesAccessor.getMessages().get("feedback.casemanagement.delegation.modified"));
         EventManager.raiseEventsOnDocumentChange(mailbox.getDocument());
     }
 
@@ -389,13 +358,10 @@ public class CaseManagementMailboxActionsBean extends
         return navigationContext.navigateToId(envelopeId);
     }
 
-    public String readCaseLink(String caseLinkId, String caseDocumentId,
-            Boolean read) throws ClientException {
+    public String readCaseLink(String caseLinkId, String caseDocumentId, Boolean read) throws ClientException {
         if (!read) {
-            DocumentModel caseLink = documentManager.getDocument(new IdRef(
-                    caseLinkId));
-            caseLink.setPropertyValue(CaseLinkConstants.IS_READ_FIELD,
-                    Boolean.TRUE);
+            DocumentModel caseLink = documentManager.getDocument(new IdRef(caseLinkId));
+            caseLink.setPropertyValue(CaseLinkConstants.IS_READ_FIELD, Boolean.TRUE);
             documentManager.saveDocument(caseLink);
         }
         return navigationContext.navigateToId(caseDocumentId);

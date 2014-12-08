@@ -23,7 +23,6 @@ package org.nuxeo.correspondence.link;
  * Constants for correspondence links management.
  * 
  * @author ldoguin
- * 
  */
 public final class CorrespondenceLinksConstants {
 

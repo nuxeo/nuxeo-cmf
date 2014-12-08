@@ -19,20 +19,16 @@ package org.nuxeo.cm.mail.actionpipe.parser;
 import java.util.regex.Pattern;
 
 /**
- * This is the Thunderbird French Mail Parser which is from a forwarded mail
- * using French Thunderbird. The header pattern is a bit different: labels are
- * in French.
+ * This is the Thunderbird French Mail Parser which is from a forwarded mail using French Thunderbird. The header
+ * pattern is a bit different: labels are in French.
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
  */
 public class ThunderbirdFrenchMailParser extends DefaultEnglishMailParser {
 
-    public static final Pattern THUNDERBIRD_FRENCH_HEADER_PATTERN = Pattern.compile(
-            "(.*?)Message original(.*?)" + "(Sujet *:)([^\r\n]+)[\r\n\\s]+"
-                    + "(Date *:)([^\r\n]+)[\r\n\\s]+"
-                    + "(De *:)([^\r\n]+)[\r\n\\s]+"
-                    + "(Pour *:)([^\r\n]+)[\r\n\\s]+"
-                    + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
+    public static final Pattern THUNDERBIRD_FRENCH_HEADER_PATTERN = Pattern.compile("(.*?)Message original(.*?)"
+            + "(Sujet *:)([^\r\n]+)[\r\n\\s]+" + "(Date *:)([^\r\n]+)[\r\n\\s]+" + "(De *:)([^\r\n]+)[\r\n\\s]+"
+            + "(Pour *:)([^\r\n]+)[\r\n\\s]+" + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
 
     @Override
     public Pattern getHeaderPattern() {

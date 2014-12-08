@@ -27,8 +27,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
- * Holds references to current mailbox, current envelope and current email in
- * the envelope.
+ * Holds references to current mailbox, current envelope and current email in the envelope.
  */
 public interface CaseManagementContextHolder extends Serializable {
 

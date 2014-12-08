@@ -83,8 +83,7 @@ public class MailboxImpl implements Mailbox {
             } else if (propValue instanceof String[]) {
                 res = Arrays.asList((String[]) propValue);
             } else if (propValue != null) {
-                throw new ClientRuntimeException(String.format(
-                        "Unexpected non-list value for prop %s: %s", property,
+                throw new ClientRuntimeException(String.format("Unexpected non-list value for prop %s: %s", property,
                         propValue));
             }
             return res;
@@ -136,8 +135,7 @@ public class MailboxImpl implements Mailbox {
                 }
             }
             if (!(value instanceof Map)) {
-                throw new ClientRuntimeException(
-                        "Cannot get default template for mailing list");
+                throw new ClientRuntimeException("Cannot get default template for mailing list");
             }
             Map<String, Serializable> map = (Map<String, Serializable>) value;
             return new MailingListImpl(map);
@@ -228,18 +226,14 @@ public class MailboxImpl implements Mailbox {
         for (Map<String, Serializable> map : mailinglists) {
             String mlid = (String) map.get(MailboxConstants.MAILINGLIST_ID_FIELD);
             if (currentMailingList.getId().equals(mlid)) {
-                map.put(MailboxConstants.MAILINGLIST_TITLE_FIELD,
-                        currentMailingList.getTitle());
-                map.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD,
-                        currentMailingList.getDescription());
-                map.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
-                        (Serializable) currentMailingList.getMailboxIds());
+                map.put(MailboxConstants.MAILINGLIST_TITLE_FIELD, currentMailingList.getTitle());
+                map.put(MailboxConstants.MAILINGLIST_DESCRIPTION_FIELD, currentMailingList.getDescription());
+                map.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD, (Serializable) currentMailingList.getMailboxIds());
             }
         }
         try {
             // save all mailing lists + updated current one
-            doc.setPropertyValue(MailboxConstants.MAILING_LIST_FIELD,
-                    (Serializable) mailinglists);
+            doc.setPropertyValue(MailboxConstants.MAILING_LIST_FIELD, (Serializable) mailinglists);
         } catch (PropertyException e) {
             throw new RuntimeException(e);
         } catch (ClientException e) {
@@ -317,14 +311,12 @@ public class MailboxImpl implements Mailbox {
         setPropertyValue(MailboxConstants.DESCRIPTION_FIELD, description);
     }
 
-    public void setFavorites(List<String> favorites)
-            throws CaseManagementException {
+    public void setFavorites(List<String> favorites) throws CaseManagementException {
         ArrayList<String> serializableFavorites = new ArrayList<String>();
         if (favorites != null) {
             serializableFavorites.addAll(favorites);
         }
-        setPropertyValue(MailboxConstants.FAVORITES_FIELD,
-                serializableFavorites);
+        setPropertyValue(MailboxConstants.FAVORITES_FIELD, serializableFavorites);
     }
 
     public void setGroups(List<String> groups) {
@@ -340,8 +332,7 @@ public class MailboxImpl implements Mailbox {
         if (users != null) {
             serializableUsers.addAll(users);
         }
-        setPropertyValue(MailboxConstants.NOTIFIED_USERS_FIELD,
-                serializableUsers);
+        setPropertyValue(MailboxConstants.NOTIFIED_USERS_FIELD, serializableUsers);
     }
 
     public void setOwner(String owner) {
@@ -365,8 +356,7 @@ public class MailboxImpl implements Mailbox {
     }
 
     public void setConfidentiality(Integer confidentiality) {
-        setPropertyValue(MailboxConstants.CONFIDENTIALITY_FIELD,
-                confidentiality);
+        setPropertyValue(MailboxConstants.CONFIDENTIALITY_FIELD, confidentiality);
     }
 
     public Integer getConfidentiality() {
@@ -396,8 +386,7 @@ public class MailboxImpl implements Mailbox {
 
     public String getParentId(CoreSession session) {
         try {
-            if (session.hasPermission(doc.getParentRef(),
-                    SecurityConstants.READ)) {
+            if (session.hasPermission(doc.getParentRef(), SecurityConstants.READ)) {
                 DocumentModel parent = session.getDocument(doc.getParentRef());
                 Mailbox parentMailbox = parent.getAdapter(Mailbox.class);
                 if (parentMailbox != null) {
@@ -413,8 +402,7 @@ public class MailboxImpl implements Mailbox {
     public List<String> getChildrenIds(CoreSession session) {
         List<String> res = new ArrayList<String>();
         try {
-            if (session.hasPermission(doc.getRef(),
-                    SecurityConstants.READ_CHILDREN)) {
+            if (session.hasPermission(doc.getRef(), SecurityConstants.READ_CHILDREN)) {
                 DocumentModelList children = session.getChildren(doc.getRef());
                 if (children != null) {
                     for (DocumentModel child : children) {
@@ -463,8 +451,7 @@ public class MailboxImpl implements Mailbox {
     }
 
     public Boolean isSynchronized() {
-        if (MailboxSynchronizationConstants.synchronisedState.synchronised.toString().equals(
-                getSynchronizeState())) {
+        if (MailboxSynchronizationConstants.synchronisedState.synchronised.toString().equals(getSynchronizeState())) {
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;

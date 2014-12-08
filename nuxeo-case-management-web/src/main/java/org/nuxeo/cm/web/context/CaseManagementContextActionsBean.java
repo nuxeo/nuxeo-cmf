@@ -39,8 +39,7 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
 
 @Name("cmContextActions")
 @Scope(ScopeType.CONVERSATION)
-public class CaseManagementContextActionsBean implements Serializable,
-        CaseManagementContextActions {
+public class CaseManagementContextActionsBean implements Serializable, CaseManagementContextActions {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,8 +69,7 @@ public class CaseManagementContextActionsBean implements Serializable,
         if (id != null && documentManager != null) {
             id = id.trim();
             if (!"".equals(id)) {
-                DocumentModel currentEmail = documentManager.getDocument(new IdRef(
-                        id));
+                DocumentModel currentEmail = documentManager.getDocument(new IdRef(id));
                 if (currentEmail != null) {
                     cmContextHolder.setCurrentCaseItem(currentEmail);
                 }
@@ -82,8 +80,7 @@ public class CaseManagementContextActionsBean implements Serializable,
     // XXX: see if needs to be moved
     @Override
     @Observer(value = { EventNames.DOCUMENT_SELECTION_CHANGED }, create = true)
-    public void currentDocumentChanged(DocumentModel newDocument)
-            throws ClientException {
+    public void currentDocumentChanged(DocumentModel newDocument) throws ClientException {
         if (newDocument != null) {
             // mailbox case
             if (newDocument.hasFacet(CaseConstants.MAILBOX_FACET)) {
@@ -117,8 +114,7 @@ public class CaseManagementContextActionsBean implements Serializable,
                 treeActions.resetChildTree();
             } else if (cmContextHolder.getCurrentCase() != null) {
                 // xxx: if I'm in a folderish case
-                if (!cmContextHolder.getCurrentCase().getDocument().getPath().isPrefixOf(
-                        newDocument.getPath())) {
+                if (!cmContextHolder.getCurrentCase().getDocument().getPath().isPrefixOf(newDocument.getPath())) {
                     cmContextHolder.resetCurrentContext();
                 }
             } else {

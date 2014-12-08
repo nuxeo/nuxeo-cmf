@@ -57,18 +57,14 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_TEST_BUNDLE);
 
         // contributions to the ContentTemplate service
-        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
-                "OSGI-INF/content-template-framework.xml");
-        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
-                "OSGI-INF/content-template-listener.xml");
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE, "OSGI-INF/content-template-framework.xml");
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE, "OSGI-INF/content-template-listener.xml");
 
-        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
-                "OSGI-INF/document-routing-service.xml");
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE, "OSGI-INF/document-routing-service.xml");
         // deploy CMF document types
         deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
                 "OSGI-INF/document-routing-core-types-contrib.xml");
-        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
-                "OSGI-INF/cm-core-types-contrib.xml");
+        deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE, "OSGI-INF/cm-core-types-contrib.xml");
 
         realAdmin = new NuxeoPrincipalImpl("realAdmin", false, true);
         memberUser = new NuxeoPrincipalImpl("memberUser", false, false);
@@ -80,8 +76,7 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
     @Test
     @Ignore
     public void testRootsWithCAP() throws Exception {
-        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
-                "OSGI-INF/content-template-contrib.xml");
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE, "OSGI-INF/content-template-contrib.xml");
         fireFrameworkStarted();
 
         // open session before deploying CMF => repo will be initialized now
@@ -89,18 +84,15 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         DocumentModel domainBefore = session.getRootDocument();
         DocumentModelList domainChildrenBefore = session.getChildren(domainBefore.getRef());
         assertEquals(1, domainChildrenBefore.size());
-        DocumentModel defaultDomainBefore = session.getChild(
-                domainBefore.getRef(), "default-domain");
+        DocumentModel defaultDomainBefore = session.getChild(domainBefore.getRef(), "default-domain");
         assertNotNull(defaultDomainBefore);
         // close session and reopen it again after to trigger CMF
         // initialization
         closeSession();
 
         // force re-initialization of repo to simulate first access
-        undeployContrib("org.nuxeo.ecm.core.storage.sql.test",
-                database.getDeploymentContrib());
-        deployContrib("org.nuxeo.ecm.core.storage.sql.test",
-                database.getDeploymentContrib());
+        undeployContrib("org.nuxeo.ecm.core.storage.sql.test", database.getDeploymentContrib());
+        deployContrib("org.nuxeo.ecm.core.storage.sql.test", database.getDeploymentContrib());
 
         // deploy CMF contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
@@ -111,25 +103,18 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
 
         try {
             DocumentModel domain = session.getRootDocument();
-            assertTrue(session.hasPermission(realAdmin, domain.getRef(),
-                    SecurityConstants.READ));
-            assertTrue(session.hasPermission(memberUser, domain.getRef(),
-                    SecurityConstants.READ));
-            assertFalse(session.hasPermission(anonymousUser, domain.getRef(),
-                    SecurityConstants.READ));
+            assertTrue(session.hasPermission(realAdmin, domain.getRef(), SecurityConstants.READ));
+            assertTrue(session.hasPermission(memberUser, domain.getRef(), SecurityConstants.READ));
+            assertFalse(session.hasPermission(anonymousUser, domain.getRef(), SecurityConstants.READ));
 
             DocumentModelList domainChildren = session.getChildren(domain.getRef());
             assertEquals(2, domainChildren.size());
 
-            DocumentModel defaultDomain = session.getChild(domain.getRef(),
-                    "default-domain");
+            DocumentModel defaultDomain = session.getChild(domain.getRef(), "default-domain");
             assertNotNull(defaultDomain);
-            assertTrue(session.hasPermission(realAdmin, defaultDomain.getRef(),
-                    SecurityConstants.READ));
-            assertTrue(session.hasPermission(memberUser,
-                    defaultDomain.getRef(), SecurityConstants.READ));
-            assertFalse(session.hasPermission(anonymousUser,
-                    defaultDomain.getRef(), SecurityConstants.READ));
+            assertTrue(session.hasPermission(realAdmin, defaultDomain.getRef(), SecurityConstants.READ));
+            assertTrue(session.hasPermission(memberUser, defaultDomain.getRef(), SecurityConstants.READ));
+            assertFalse(session.hasPermission(anonymousUser, defaultDomain.getRef(), SecurityConstants.READ));
 
             checkCMFDomainHierarchy();
         } finally {
@@ -139,8 +124,7 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
 
     @Test
     public void testRootsWithoutCAP() throws Exception {
-        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE,
-                "OSGI-INF/content-template-contrib.xml");
+        deployContrib(CaseManagementTestConstants.TEMPLATE_BUNDLE, "OSGI-INF/content-template-contrib.xml");
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
                 "OSGI-INF/cm-content-template-contrib.xml");
         fireFrameworkStarted();
@@ -151,12 +135,9 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
 
         try {
             DocumentModel domain = session.getRootDocument();
-            assertTrue(session.hasPermission(realAdmin, domain.getRef(),
-                    SecurityConstants.READ));
-            assertTrue(session.hasPermission(memberUser, domain.getRef(),
-                    SecurityConstants.READ));
-            assertFalse(session.hasPermission(anonymousUser, domain.getRef(),
-                    SecurityConstants.READ));
+            assertTrue(session.hasPermission(realAdmin, domain.getRef(), SecurityConstants.READ));
+            assertTrue(session.hasPermission(memberUser, domain.getRef(), SecurityConstants.READ));
+            assertFalse(session.hasPermission(anonymousUser, domain.getRef(), SecurityConstants.READ));
 
             DocumentModelList domainChildren = session.getChildren(domain.getRef());
             assertEquals(1, domainChildren.size());
@@ -168,48 +149,32 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
     }
 
     protected void checkCMFDomainHierarchy() throws Exception {
-        DocumentModel domain = session.getDocument(new PathRef(
-                CaseConstants.CASE_DOMAIN_PATH));
+        DocumentModel domain = session.getDocument(new PathRef(CaseConstants.CASE_DOMAIN_PATH));
         assertEquals(CaseConstants.CASE_DOMAIN_PATH, domain.getPathAsString());
-        assertTrue(session.hasPermission(realAdmin, domain.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(memberUser, domain.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(anonymousUser, domain.getRef(),
-                SecurityConstants.READ));
+        assertTrue(session.hasPermission(realAdmin, domain.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, domain.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, domain.getRef(), SecurityConstants.READ));
 
         DocumentModelList domainChildren = session.getChildren(domain.getRef());
         assertEquals(3, domainChildren.size());
 
-        DocumentModel mailRoot = session.getChild(domain.getRef(),
-                CaseConstants.CASE_ROOT_DOCUMENT_NAME);
+        DocumentModel mailRoot = session.getChild(domain.getRef(), CaseConstants.CASE_ROOT_DOCUMENT_NAME);
         assertNotNull(mailRoot);
-        assertTrue(session.hasPermission(realAdmin, mailRoot.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(memberUser, mailRoot.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(anonymousUser, mailRoot.getRef(),
-                SecurityConstants.READ));
+        assertTrue(session.hasPermission(realAdmin, mailRoot.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, mailRoot.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, mailRoot.getRef(), SecurityConstants.READ));
 
-        DocumentModel mailboxRoot = session.getChild(domain.getRef(),
-                MailboxConstants.MAILBOX_ROOT_DOCUMENT_NAME);
+        DocumentModel mailboxRoot = session.getChild(domain.getRef(), MailboxConstants.MAILBOX_ROOT_DOCUMENT_NAME);
         assertNotNull(mailboxRoot);
-        assertTrue(session.hasPermission(realAdmin, mailboxRoot.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(memberUser, mailboxRoot.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(anonymousUser, mailboxRoot.getRef(),
-                SecurityConstants.READ));
+        assertTrue(session.hasPermission(realAdmin, mailboxRoot.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, mailboxRoot.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, mailboxRoot.getRef(), SecurityConstants.READ));
 
-        DocumentModel sectionsRoot = session.getChild(domain.getRef(),
-                "sections");
+        DocumentModel sectionsRoot = session.getChild(domain.getRef(), "sections");
         assertNotNull(sectionsRoot);
-        assertTrue(session.hasPermission(realAdmin, sectionsRoot.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(memberUser, sectionsRoot.getRef(),
-                SecurityConstants.READ));
-        assertFalse(session.hasPermission(anonymousUser, sectionsRoot.getRef(),
-                SecurityConstants.READ));
+        assertTrue(session.hasPermission(realAdmin, sectionsRoot.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(memberUser, sectionsRoot.getRef(), SecurityConstants.READ));
+        assertFalse(session.hasPermission(anonymousUser, sectionsRoot.getRef(), SecurityConstants.READ));
     }
 
 }

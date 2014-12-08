@@ -31,8 +31,7 @@ import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 /**
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
-public abstract class CaseManagementAbstractPersister implements
-        CaseManagementPersister {
+public abstract class CaseManagementAbstractPersister implements CaseManagementPersister {
 
     protected String caseRootPath;
 
@@ -62,8 +61,7 @@ public abstract class CaseManagementAbstractPersister implements
 
     @Override
     public DocumentModel getParentDocumentForCase(CoreSession session, Date date) {
-        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                session, date);
+        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(session, date);
         try {
             runner.runUnrestricted();
         } catch (ClientException e) {
@@ -74,8 +72,7 @@ public abstract class CaseManagementAbstractPersister implements
 
     @Override
     public String getParentDocumentPathForCase(CoreSession session, Date date) {
-        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(
-                session, date);
+        GetParentPathUnrestricted runner = new GetParentPathUnrestricted(session, date);
         try {
             runner.runUnrestricted();
         } catch (ClientException e) {
@@ -85,8 +82,7 @@ public abstract class CaseManagementAbstractPersister implements
     }
 
     @Override
-    public String getParentDocumentPathForCaseItem(CoreSession session,
-            Case kase) {
+    public String getParentDocumentPathForCaseItem(CoreSession session, Case kase) {
         return getParentDocumentPathForCase(session);
     }
 
@@ -118,12 +114,10 @@ public abstract class CaseManagementAbstractPersister implements
         @Override
         public void run() throws ClientException {
             // Retrieve the MailRoot folder
-            DocumentModel mailRootdoc = session.getDocument(new PathRef(
-                    getCaseRootPath()));
+            DocumentModel mailRootdoc = session.getDocument(new PathRef(getCaseRootPath()));
             // Create (or retrieve) the current MailRoot folder
             // (/mail/YYYY/MM/DD)
-            parent = CaseTreeHelper.getOrCreateDateTreeFolder(session,
-                    mailRootdoc, date, CaseConstants.CASE_TREE_TYPE);
+            parent = CaseTreeHelper.getOrCreateDateTreeFolder(session, mailRootdoc, date, CaseConstants.CASE_TREE_TYPE);
             parentPath = parent.getPathAsString();
         }
 

@@ -70,8 +70,7 @@ public class ParticipantListImpl implements ParticipantsList {
         if (mailboxes != null) {
             serializableMailboxes.addAll(mailboxes);
         }
-        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
-                serializableMailboxes);
+        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD, serializableMailboxes);
     }
 
     public void setTitle(String title) {

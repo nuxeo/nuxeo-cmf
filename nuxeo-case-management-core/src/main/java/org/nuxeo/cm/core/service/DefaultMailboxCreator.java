@@ -72,12 +72,10 @@ public class DefaultMailboxCreator implements MailboxCreator {
         return new DefaultPersonalMailboxTitleGenerator();
     }
 
-    public List<Mailbox> createMailboxes(CoreSession session, String user)
-            throws CaseManagementException {
+    public List<Mailbox> createMailboxes(CoreSession session, String user) throws CaseManagementException {
 
         String skipCreation = Framework.getProperty(CM_DEFAULT_MAILBOX_CREATOR_SKIP);
-        if (skipCreation != null
-                && skipCreation.equals(Boolean.TRUE.toString())) {
+        if (skipCreation != null && skipCreation.equals(Boolean.TRUE.toString())) {
             return Collections.emptyList();
         }
 
@@ -115,8 +113,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
             list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
             mailbox.setProfiles(list);
 
-            mailboxModel.setPathInfo(getMailboxParentPath(session),
-                    getMailboxPathSegment(userModel, mailboxModel));
+            mailboxModel.setPathInfo(getMailboxParentPath(session), getMailboxPathSegment(userModel, mailboxModel));
             // call hook method
             beforeMailboxCreation(session, mailbox, userModel);
 
@@ -129,31 +126,26 @@ public class DefaultMailboxCreator implements MailboxCreator {
             return Collections.singletonList(mailbox);
 
         } catch (Exception e) {
-            throw new CaseManagementException(
-                    "Error during mailboxes creation", e);
+            throw new CaseManagementException("Error during mailboxes creation", e);
         }
     }
 
     /**
      * Hook method to fill additional info on mailbox, or override other info
      */
-    protected void beforeMailboxCreation(CoreSession session, Mailbox mailbox,
-            DocumentModel userEntry) {
+    protected void beforeMailboxCreation(CoreSession session, Mailbox mailbox, DocumentModel userEntry) {
         // do nothing
     }
 
-    protected String getMailboxParentPath(CoreSession session)
-            throws ClientException {
+    protected String getMailboxParentPath(CoreSession session) throws ClientException {
         return getNewMailboxParentPath(session);
     }
 
-    protected String getMailboxPathSegment(DocumentModel dirEntry,
-            DocumentModel mailboxModel) throws ClientException {
+    protected String getMailboxPathSegment(DocumentModel dirEntry, DocumentModel mailboxModel) throws ClientException {
         return getNewMailboxPathSegment(mailboxModel);
     }
 
-    public static String getNewMailboxParentPath(CoreSession session)
-            throws ClientException {
+    public static String getNewMailboxParentPath(CoreSession session) throws ClientException {
         // XXX: save it in first mailbox folder found for now
         DocumentModelList res = session.query(String.format("SELECT * from %s",
                 MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE));
@@ -163,8 +155,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
         return res.get(0).getPathAsString();
     }
 
-    public static String getNewMailboxPathSegment(DocumentModel mailboxModel)
-            throws ClientException {
+    public static String getNewMailboxPathSegment(DocumentModel mailboxModel) throws ClientException {
         String baseid = mailboxModel.getTitle();
         if (baseid == null) {
             throw new ClientException("No base id for mailbox path creation");

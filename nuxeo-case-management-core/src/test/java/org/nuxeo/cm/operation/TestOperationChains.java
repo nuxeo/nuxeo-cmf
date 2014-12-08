@@ -68,22 +68,19 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         assertNotNull(routingService);
         assertNotNull(automationService);
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP);
-        assertEquals(chainId,
-                CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
+        assertEquals(chainId, CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
     }
 
     @Test
     public void testDistributionTaskChain() throws Exception {
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK);
-        assertEquals(chainId,
-                CaseConstants.OPERATION_CHAIN_DISTRIBUTION_TASK_CHAIN);
+        assertEquals(chainId, CaseConstants.OPERATION_CHAIN_DISTRIBUTION_TASK_CHAIN);
         OperationContext ctx = new OperationContext(session);
         DocumentModel stepDocument = createDocumentModel(session, "step1",
                 CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, "/");
         DocumentRouteStep step = stepDocument.getAdapter(DocumentRouteStep.class);
         ctx.put(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY, step);
-        DocumentModel processedDocument = createDocumentModel(session, "foo",
-                CaseConstants.CASE_TYPE, "/");
+        DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");
         session.save();
         ctx.setInput(processedDocument);
         automationService.run(ctx, chainId);
@@ -92,8 +89,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
     @Test
     public void testDistributionStepChain() throws Exception {
         String chainId = routingService.getOperationChainId(CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP);
-        assertEquals(chainId,
-                CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
+        assertEquals(chainId, CaseConstants.OPERATION_CHAIN_DISTRIBUTION_STEP_CHAIN);
         OperationContext ctx = new OperationContext(session);
         DocumentModel stepDocument = createDocumentModel(session, "step1",
                 CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP, "/");
@@ -102,8 +98,7 @@ public class TestOperationChains extends CaseManagementRepositoryTestCase {
         stepDocument.followTransition(DocumentRouteElement.ElementLifeCycleTransistion.toRunning.name());
         DocumentRouteStep step = stepDocument.getAdapter(DocumentRouteStep.class);
         ctx.put(DocumentRoutingConstants.OPERATION_STEP_DOCUMENT_KEY, step);
-        DocumentModel processedDocument = createDocumentModel(session, "foo",
-                CaseConstants.CASE_TYPE, "/");
+        DocumentModel processedDocument = createDocumentModel(session, "foo", CaseConstants.CASE_TYPE, "/");
         DocumentModelList listOfDocs = new DocumentModelListImpl();
         listOfDocs.add(processedDocument);
         session.save();

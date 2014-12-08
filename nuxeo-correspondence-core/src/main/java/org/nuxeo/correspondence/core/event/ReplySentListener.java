@@ -77,8 +77,7 @@ public class ReplySentListener implements EventListener {
             try {
                 relationManager = Framework.getService(RelationManager.class);
             } catch (Exception e) {
-                throw new CaseManagementRuntimeException(
-                        "Relation manager should be deployed.", e);
+                throw new CaseManagementRuntimeException("Relation manager should be deployed.", e);
             }
         }
         return relationManager;
@@ -86,8 +85,7 @@ public class ReplySentListener implements EventListener {
 
     public void handleEvent(Event event) throws ClientException {
 
-        if (!CaseManagementEventConstants.EventNames.afterCaseSentEvent.name().equals(
-                event.getName())) {
+        if (!CaseManagementEventConstants.EventNames.afterCaseSentEvent.name().equals(event.getName())) {
             return;
         }
 
@@ -118,21 +116,18 @@ public class ReplySentListener implements EventListener {
 
         // If the sent document is an outgoing mail and is a response
         Object repliedDocumentIdObject = itemDoc.getPropertyValue(MailConstants.CORRESPONDENCE_DOCUMENT_REPLIED_DOCUMENT_ID);
-        if (itemDoc.hasFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET)
-                && repliedDocumentIdObject != null) {
+        if (itemDoc.hasFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET) && repliedDocumentIdObject != null) {
 
             // Retrieve the replied document
             String repliedDocumentId = (String) repliedDocumentIdObject;
-            DocumentModel repliedDocument = session.getDocument(new IdRef(
-                    repliedDocumentId));
+            DocumentModel repliedDocument = session.getDocument(new IdRef(repliedDocumentId));
 
             // Get the existing responses of the replied mail
             String[] responses = (String[]) repliedDocument.getPropertyValue(MailConstants.CORRESPONDENCE_DOCUMENT_RESPONSE_DOCUMENT_IDS);
 
             // Set the date of response of the replied mail
             if (responses == null || responses.length == 0) {
-                repliedDocument.setPropertyValue(
-                        MailConstants.CORRESPONDENCE_DOCUMENT_FIRST_RESPONSE_DATE,
+                repliedDocument.setPropertyValue(MailConstants.CORRESPONDENCE_DOCUMENT_FIRST_RESPONSE_DATE,
                         GregorianCalendar.getInstance().getTime());
             }
 
@@ -140,20 +135,17 @@ public class ReplySentListener implements EventListener {
             List<String> newResponses = new ArrayList<String>();
             newResponses.addAll(Arrays.asList(responses));
             newResponses.add(itemDoc.getId());
-            repliedDocument.setPropertyValue(
-                    MailConstants.CORRESPONDENCE_DOCUMENT_RESPONSE_DOCUMENT_IDS,
+            repliedDocument.setPropertyValue(MailConstants.CORRESPONDENCE_DOCUMENT_RESPONSE_DOCUMENT_IDS,
                     (Serializable) newResponses);
 
             session.saveDocument(repliedDocument);
 
             // set the Post isAnswered
-            String repliedEnvelopeId = (String) repliedDocument.getProperty(
-                    MailConstants.MAIL_DOCUMENT_SCHEMA,
+            String repliedEnvelopeId = (String) repliedDocument.getProperty(MailConstants.MAIL_DOCUMENT_SCHEMA,
                     CaseConstants.DOCUMENT_DEFAULT_CASE_ID);
             DocumentModelList list = session.query("SELECT * FROM Document WHERE ecm:mixinType ='"
-                    + CaseLinkConstants.CASE_LINK_FACET
-                    + "' AND"
-                    + " cslk:envelopeDocumentId='" + repliedEnvelopeId + "'");
+                    + CaseLinkConstants.CASE_LINK_FACET + "' AND" + " cslk:envelopeDocumentId='" + repliedEnvelopeId
+                    + "'");
             for (DocumentModel post : list) {
                 post.setPropertyValue(MailConstants.IS_ANSWERED, true);
                 session.saveDocument(post);
@@ -164,16 +156,12 @@ public class ReplySentListener implements EventListener {
                     RelationConstants.DOCUMENT_NAMESPACE, repliedDocument, null);
             QNameResource replyResource = (QNameResource) getRelationManager().getResource(
                     RelationConstants.DOCUMENT_NAMESPACE, itemDoc, null);
-            Resource resource = new ResourceImpl(
-                    RelationConstants.METADATA_NAMESPACE + REPLY_TO);
-            Statement stmt = new StatementImpl(docResource, resource,
-                    replyResource);
+            Resource resource = new ResourceImpl(RelationConstants.METADATA_NAMESPACE + REPLY_TO);
+            Statement stmt = new StatementImpl(docResource, resource, replyResource);
             Literal now = RelationDate.getLiteralDate(new Date());
             stmt.addProperty(RelationConstants.CREATION_DATE, now);
-            stmt.addProperty(RelationConstants.AUTHOR, new LiteralImpl(
-                    session.getPrincipal().getName()));
-            getRelationManager().add(RelationConstants.GRAPH_NAME,
-                    Collections.singletonList(stmt));
+            stmt.addProperty(RelationConstants.AUTHOR, new LiteralImpl(session.getPrincipal().getName()));
+            getRelationManager().add(RelationConstants.GRAPH_NAME, Collections.singletonList(stmt));
 
         }
 

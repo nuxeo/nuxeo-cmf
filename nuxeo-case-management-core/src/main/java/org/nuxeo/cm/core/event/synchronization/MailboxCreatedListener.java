@@ -49,9 +49,8 @@ import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.event.Event;
 
 /**
- * Creates a mailbox filling id, title, title, and adding default user (if
- * mailbox is personal) or group (otherwise) on top of synchronization
- * information.
+ * Creates a mailbox filling id, title, title, and adding default user (if mailbox is personal) or group (otherwise) on
+ * top of synchronization information.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
@@ -83,11 +82,9 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
                 DefaultMailboxCreator mbCreator = new DefaultMailboxCreator();
                 id = mbCreator.getPersonalMailboxId(entry);
             } else if (isGeneric) {
-                id = IdUtils.generateId(NuxeoGroup.PREFIX + entryId, "-", true,
-                        24);
+                id = IdUtils.generateId(NuxeoGroup.PREFIX + entryId, "-", true, 24);
             } else {
-                log.debug("No id generation for unknown mailbox type: "
-                        + getMailboxType(event));
+                log.debug("No id generation for unknown mailbox type: " + getMailboxType(event));
             }
             // Create the personal mailbox for the user
             DocumentModel mailboxModel = getMailboxDocument(event);
@@ -126,9 +123,8 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
             mailbox.setProfiles(list);
 
             mailbox.setId(id);
-            mailboxModel.setPathInfo(getMailboxParentPath(session,
-                    parentSynchronizerId), getMailboxPathSegment(entry,
-                    mailboxModel));
+            mailboxModel.setPathInfo(getMailboxParentPath(session, parentSynchronizerId),
+                    getMailboxPathSegment(entry, mailboxModel));
 
             // call hook
             beforeMailboxCreation(mailbox, event);
@@ -141,8 +137,7 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
             // session
             mailbox.save(session);
         } catch (Exception e) {
-            throw new CaseManagementException(
-                    "Error during mailboxes creation", e);
+            throw new CaseManagementException("Error during mailboxes creation", e);
         }
 
     }
@@ -150,31 +145,24 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
     /**
      * Hook method to fill additional info on mailbox, or override other info
      */
-    protected void beforeMailboxCreation(Mailbox mailbox, Event event)
-            throws ClientException {
+    protected void beforeMailboxCreation(Mailbox mailbox, Event event) throws ClientException {
         // do nothing
     }
 
     /**
-     * Hook method to override other info filled by
-     * {@link #CoreSession.createDocument(DocumentModel)} method.
+     * Hook method to override other info filled by {@link #CoreSession.createDocument(DocumentModel)} method.
      */
-    protected void afterMailboxCreation(Mailbox mailbox, Event event)
-            throws ClientException {
+    protected void afterMailboxCreation(Mailbox mailbox, Event event) throws ClientException {
         // do nothing
     }
 
-    protected String getMailboxParentPath(CoreSession session,
-            String parentSynchronizerId) throws ClientException {
+    protected String getMailboxParentPath(CoreSession session, String parentSynchronizerId) throws ClientException {
         String searchQuery;
         // Take the first MailboxRoot when there is no parent.
         if (parentSynchronizerId == null || "".equals(parentSynchronizerId)) {
-            searchQuery = String.format("SELECT * from %s",
-                    MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE);
+            searchQuery = String.format("SELECT * from %s", MailboxConstants.MAILBOX_ROOT_DOCUMENT_TYPE);
         } else {
-            searchQuery = String.format(
-                    "SELECT * from Mailbox WHERE mlbx:synchronizerId= '%s'",
-                    parentSynchronizerId);
+            searchQuery = String.format("SELECT * from Mailbox WHERE mlbx:synchronizerId= '%s'", parentSynchronizerId);
         }
         DocumentModelList res = session.query(searchQuery);
         if (res == null || res.isEmpty()) {
@@ -183,8 +171,7 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
         return res.get(0).getPathAsString();
     }
 
-    protected String getMailboxPathSegment(DocumentModel dirEntry,
-            DocumentModel mailboxModel) throws ClientException {
+    protected String getMailboxPathSegment(DocumentModel dirEntry, DocumentModel mailboxModel) throws ClientException {
         return DefaultMailboxCreator.getNewMailboxPathSegment(mailboxModel);
     }
 

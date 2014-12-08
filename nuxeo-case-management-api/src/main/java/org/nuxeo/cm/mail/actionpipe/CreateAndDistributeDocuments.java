@@ -58,8 +58,7 @@ import org.nuxeo.runtime.api.Framework;
  *
  * @author Laurent Doguin
  */
-public class CreateAndDistributeDocuments extends
-        AbstractCaseManagementMailAction {
+public class CreateAndDistributeDocuments extends AbstractCaseManagementMailAction {
 
     private static final Log log = LogFactory.getLog(CreateAndDistributeDocuments.class);
 
@@ -83,30 +82,27 @@ public class CreateAndDistributeDocuments extends
 
         MailboxManagementService mailboxManagemenetService = Framework.getService(MailboxManagementService.class);
 
-        Mailbox senderMailbox = mailboxManagemenetService.getUserPersonalMailboxForEmail(
-                session, senderEmail);
+        Mailbox senderMailbox = mailboxManagemenetService.getUserPersonalMailboxForEmail(session, senderEmail);
         if (senderMailbox == null) {
             // cannot find mailbox for user who forwarded => abort
             return false;
         }
-        Contact senderContact = Contact.getContactForMailbox(senderMailbox,
-                senderEmail, null, null);
+        Contact senderContact = Contact.getContactForMailbox(senderMailbox, senderEmail, null, null);
 
         // gather sender/recipients info
 
         // senders
         Contacts internalOrigSenders = new Contacts();
         Contacts externalOrigSenders = new Contacts();
-        fillContactInformation(session, mailboxManagemenetService, origSenders,
-                internalOrigSenders, externalOrigSenders);
+        fillContactInformation(session, mailboxManagemenetService, origSenders, internalOrigSenders,
+                externalOrigSenders);
         List<String> origSendersMailboxesId = new LinkedList<String>();
         origSendersMailboxesId.addAll(internalOrigSenders.getMailboxes());
 
         // recipients for action
         Contacts internalOrigToRecipients = new Contacts();
         Contacts externalOrigToRecipients = new Contacts();
-        fillContactInformation(session, mailboxManagemenetService,
-                origToRecipients, internalOrigToRecipients,
+        fillContactInformation(session, mailboxManagemenetService, origToRecipients, internalOrigToRecipients,
                 externalOrigToRecipients);
         Set<String> mailboxesForAction = new LinkedHashSet<String>();
         mailboxesForAction.addAll(internalOrigToRecipients.getMailboxes());
@@ -118,27 +114,23 @@ public class CreateAndDistributeDocuments extends
         // recipients for information
         Contacts internalOrigCcRecipients = new Contacts();
         Contacts externalOrigCcRecipients = new Contacts();
-        fillContactInformation(session, mailboxManagemenetService,
-                origCcRecipients, internalOrigCcRecipients,
+        fillContactInformation(session, mailboxManagemenetService, origCcRecipients, internalOrigCcRecipients,
                 externalOrigCcRecipients);
         Set<String> mailboxesForInformation = new LinkedHashSet<String>();
         mailboxesForInformation.addAll(internalOrigCcRecipients.getMailboxes());
 
         CMFDistributionInfo distributionInfo = new CMFDistributionInfo();
-        distributionInfo.setForActionMailboxes(new ArrayList<String>(
-                mailboxesForAction));
-        distributionInfo.setForInformationMailboxes(new ArrayList<String>(
-                mailboxesForInformation));
+        distributionInfo.setForActionMailboxes(new ArrayList<String>(mailboxesForAction));
+        distributionInfo.setForInformationMailboxes(new ArrayList<String>(mailboxesForInformation));
 
         // Create Documents
-        DocumentModel mailRootdoc = session.getDocument(new PathRef(
-                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+        DocumentModel mailRootdoc = session.getDocument(new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH));
         Date now = new Date();
         if (receptionDate != null) {
             now = receptionDate.getTime();
         }
-        DocumentModel parent = CaseTreeHelper.getOrCreateDateTreeFolder(
-                session, mailRootdoc, now, CaseConstants.CASE_TREE_TYPE);
+        DocumentModel parent = CaseTreeHelper.getOrCreateDateTreeFolder(session, mailRootdoc, now,
+                CaseConstants.CASE_TREE_TYPE);
 
         String parentPath = parent.getPathAsString();
         List<Blob> blobs = (List<Blob>) context.get(ATTACHMENTS_KEY);
@@ -165,29 +157,21 @@ public class CreateAndDistributeDocuments extends
             String docName = IdUtils.generateId(emailTitle);
             emailDoc.setPathInfo(parentPath, docName);
 
-            emailDoc.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
-                    emailTitle);
-            emailDoc.setPropertyValue(
-                    CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME,
-                    receptionDate);
-            emailDoc.setPropertyValue(
-                    CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME,
-                    origReceptionDate);
+            emailDoc.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME, emailTitle);
+            emailDoc.setPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME, receptionDate);
+            emailDoc.setPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME, origReceptionDate);
 
             // uses messageId as a reference
-            emailDoc.setPropertyValue(
-                    CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME, messageId);
+            emailDoc.setPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME, messageId);
 
             // senders
             Set<Map<String, Serializable>> sendersContactsProperty = new LinkedHashSet<Map<String, Serializable>>();
             sendersContactsProperty.addAll(internalOrigSenders.getContactsData());
             sendersContactsProperty.addAll(externalOrigSenders.getContactsData());
-            emailDoc.setPropertyValue(CaseConstants.CONTACTS_SENDERS,
-                    (Serializable) sendersContactsProperty);
+            emailDoc.setPropertyValue(CaseConstants.CONTACTS_SENDERS, (Serializable) sendersContactsProperty);
 
             if (origSendersMailboxesId != null) {
-                emailDoc.setPropertyValue(
-                        CaseConstants.DOCUMENT_SENDERS_PROPERTY_NAME,
+                emailDoc.setPropertyValue(CaseConstants.DOCUMENT_SENDERS_PROPERTY_NAME,
                         origSendersMailboxesId.toArray());
             }
 
@@ -202,23 +186,17 @@ public class CreateAndDistributeDocuments extends
                         (Serializable) recipientsContactsProperty);
             }
 
-            emailDoc.setPropertyValue(
-                    CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME,
-                    CaseConstants.MAIN_INJECTION_ORIGIN);
+            emailDoc.setPropertyValue(CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME, CaseConstants.MAIN_INJECTION_ORIGIN);
 
-            emailDoc.setPropertyValue(CaseConstants.FILE_PROPERTY_NAME,
-                    (Serializable) blob);
-            emailDoc.setPropertyValue(CaseConstants.FILENAME_PROPERTY_NAME,
-                    blob.getFilename());
+            emailDoc.setPropertyValue(CaseConstants.FILE_PROPERTY_NAME, (Serializable) blob);
+            emailDoc.setPropertyValue(CaseConstants.FILENAME_PROPERTY_NAME, blob.getFilename());
 
             emailDoc = session.createDocument(emailDoc);
 
             CaseItem item = emailDoc.getAdapter(CaseItem.class);
             item.save(session);
             if (first) {
-                envelope = item.createMailCase(session,
-                        parent.getPathAsString(),
-                        CaseLifeCycleConstants.STATE_SENT);
+                envelope = item.createMailCase(session, parent.getPathAsString(), CaseLifeCycleConstants.STATE_SENT);
             } else {
                 envelope.addCaseItem(item, session);
             }
@@ -227,10 +205,8 @@ public class CreateAndDistributeDocuments extends
 
         Map<String, List<String>> recipients = distributionInfo.getAllParticipants();
         // request without sender mailbox to avoid creating a "sent" post in it
-        CaseLink postRequest = new CaseLinkRequestImpl(null,
-                Calendar.getInstance(),
-                (String) envelope.getDocument().getPropertyValue(
-                        CaseConstants.TITLE_PROPERTY_NAME), null, envelope,
+        CaseLink postRequest = new CaseLinkRequestImpl(null, Calendar.getInstance(),
+                (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME), null, envelope,
                 recipients, null);
         CaseDistributionService service = getCaseDistributionService();
         service.sendCase(session, postRequest, envelope.isDraft());
@@ -243,17 +219,15 @@ public class CreateAndDistributeDocuments extends
         return true;
     }
 
-    protected void fillContactInformation(CoreSession session,
-            MailboxManagementService mailboxService, Contacts originalContacts,
-            Contacts internalContacts, Contacts externalContacts) {
+    protected void fillContactInformation(CoreSession session, MailboxManagementService mailboxService,
+            Contacts originalContacts, Contacts internalContacts, Contacts externalContacts) {
         if (originalContacts != null) {
             for (Contact origContact : originalContacts) {
                 String origContactEmail = origContact.getEmail();
-                Mailbox origContactMailbox = mailboxService.getUserPersonalMailboxForEmail(
-                        session, origContactEmail);
+                Mailbox origContactMailbox = mailboxService.getUserPersonalMailboxForEmail(session, origContactEmail);
                 if (origContactMailbox != null) {
-                    Contact newOrigSender = Contact.getContactForMailbox(
-                            origContactMailbox, origContactEmail, null, null);
+                    Contact newOrigSender = Contact.getContactForMailbox(origContactMailbox, origContactEmail, null,
+                            null);
                     if (!internalContacts.contains(newOrigSender)) {
                         internalContacts.add(newOrigSender);
                     }

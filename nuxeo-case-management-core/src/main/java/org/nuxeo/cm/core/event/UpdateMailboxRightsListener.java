@@ -29,8 +29,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 /**
- * Listener for mailbox events that sets user/groups rights when mailbox is
- * created/edited.
+ * Listener for mailbox events that sets user/groups rights when mailbox is created/edited.
  *
  * @author Anahide Tchertchian
  */
@@ -49,8 +48,7 @@ public class UpdateMailboxRightsListener implements EventListener {
             return;
         }
         CoreSession session = docCtx.getCoreSession();
-        SetMailboxAclUnrestricted sessionCreator = new SetMailboxAclUnrestricted(
-                session, doc.getRef());
+        SetMailboxAclUnrestricted sessionCreator = new SetMailboxAclUnrestricted(session, doc.getRef());
         sessionCreator.runUnrestricted();
     }
 

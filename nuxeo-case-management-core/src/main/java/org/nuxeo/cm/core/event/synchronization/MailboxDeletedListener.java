@@ -55,10 +55,8 @@ public class MailboxDeletedListener extends AbstractSyncMailboxListener {
         deleteDoc(sourceDoc, synchronizeDate, session);
     }
 
-    private void deleteDoc(DocumentModel doc, Calendar synchronizeDate,
-            CoreSession session) throws ClientException {
-        if (doc.getAllowedStateTransitions().contains(
-                CaseLifeCycleConstants.TRANSITION_DELETE)) {
+    private void deleteDoc(DocumentModel doc, Calendar synchronizeDate, CoreSession session) throws ClientException {
+        if (doc.getAllowedStateTransitions().contains(CaseLifeCycleConstants.TRANSITION_DELETE)) {
             doc.followTransition(CaseLifeCycleConstants.TRANSITION_DELETE);
             log.debug("Deleted " + doc.getName());
             Mailbox cf = doc.getAdapter(Mailbox.class);

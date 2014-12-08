@@ -41,8 +41,7 @@ public class SuccessLoginListener implements EventListener {
     public void handleEvent(Event event) throws ClientException {
         MailboxManagementService nxcService = Framework.getLocalService(MailboxManagementService.class);
         if (nxcService == null) {
-            throw new CaseManagementException(
-                    "CorrespondenceService not found.");
+            throw new CaseManagementException("CorrespondenceService not found.");
         }
         String principalName = event.getContext().getPrincipal().getName();
         boolean isNewTransactionStarted = false;

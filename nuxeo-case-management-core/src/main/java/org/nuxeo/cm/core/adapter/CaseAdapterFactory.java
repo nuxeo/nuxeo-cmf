@@ -32,8 +32,7 @@ import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
  */
 public class CaseAdapterFactory implements DocumentAdapterFactory {
 
-    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes")
-            Class arg1) {
+    public Object getAdapter(DocumentModel doc, @SuppressWarnings("rawtypes") Class arg1) {
         checkDocument(doc);
         HasParticipants adapter = doc.getAdapter(HasParticipants.class);
         return new CaseImpl(doc, adapter);
@@ -41,12 +40,10 @@ public class CaseAdapterFactory implements DocumentAdapterFactory {
 
     protected void checkDocument(DocumentModel doc) {
         if (!doc.hasFacet(DISTRIBUTABLE_FACET)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should have facet " + DISTRIBUTABLE_FACET);
+            throw new CaseManagementRuntimeException("Document should have facet " + DISTRIBUTABLE_FACET);
         }
         if (doc.hasFacet(CASE_GROUPABLE_FACET)) {
-            throw new CaseManagementRuntimeException(
-                    "Document should not have facet " + CASE_GROUPABLE_FACET);
+            throw new CaseManagementRuntimeException("Document should not have facet " + CASE_GROUPABLE_FACET);
         }
     }
 

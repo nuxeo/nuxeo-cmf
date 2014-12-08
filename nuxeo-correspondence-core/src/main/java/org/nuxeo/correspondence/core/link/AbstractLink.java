@@ -56,8 +56,7 @@ public abstract class AbstractLink implements CommonLink {
         setPropertyValue(xPath, null);
     }
 
-    protected List<CorrespondenceLink> wrapRelationMap(
-            List<Map<String, Serializable>> relations) {
+    protected List<CorrespondenceLink> wrapRelationMap(List<Map<String, Serializable>> relations) {
         List<CorrespondenceLink> statements = new ArrayList<CorrespondenceLink>();
         for (Map<String, Serializable> map : relations) {
             statements.add(new CorrespondenceLink(map));
@@ -80,8 +79,7 @@ public abstract class AbstractLink implements CommonLink {
         }
     }
 
-    protected void addAllCorrespondenceLinks(String xPath,
-            List<CorrespondenceLink> links) {
+    protected void addAllCorrespondenceLinks(String xPath, List<CorrespondenceLink> links) {
         List<Map> existingLinks = getPropertyValue(xPath);
         if (existingLinks == null) {
             existingLinks = new ArrayList<Map>();

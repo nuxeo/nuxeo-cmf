@@ -29,9 +29,8 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 /**
  * A CorrespondencePost represent a sent {@link Case} in a {@link Mailbox}.
  * <p>
- * When a Mailbox send a MailEnvelope, a CorrespondencePost is created in its
- * Mailbox and a {@link CorrespondenceMessage} is created in each of the
- * recipients Mailbox.
+ * When a Mailbox send a MailEnvelope, a CorrespondencePost is created in its Mailbox and a
+ * {@link CorrespondenceMessage} is created in each of the recipients Mailbox.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */

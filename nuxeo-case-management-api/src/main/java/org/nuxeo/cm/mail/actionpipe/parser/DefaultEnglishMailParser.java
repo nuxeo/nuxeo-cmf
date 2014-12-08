@@ -33,27 +33,21 @@ import org.nuxeo.cm.contact.Contacts;
 import org.nuxeo.cm.mail.actionpipe.MailActionPipeConstants;
 
 /**
- * This is the default English Mail Parser which is from a forwarded mail using
- * English Thunderbird.
+ * This is the default English Mail Parser which is from a forwarded mail using English Thunderbird.
  *
  * @author Sun Seng David TAN <stan@nuxeo.com>
  */
-public class DefaultEnglishMailParser implements MailBodyParser,
-        MailActionPipeConstants {
+public class DefaultEnglishMailParser implements MailBodyParser, MailActionPipeConstants {
 
     public static final Log log = LogFactory.getLog(DefaultEnglishMailParser.class);
 
-    public static final Pattern DEFAULT_CONTACT_PATTERN = Pattern.compile("\\s*\"?"
-            + "([^@<>\",]*?)" // the name
+    public static final Pattern DEFAULT_CONTACT_PATTERN = Pattern.compile("\\s*\"?" + "([^@<>\",]*?)" // the name
             + "\"?\\s*(<?)" + "([^\"@<> ,]+@.+\\.[a-z]+)" // the email
             + "(>?).*?");
 
-    public static final Pattern THUNDERBIRD_ENGLISH_HEADER_PATTERN = Pattern.compile(
-            "(.*?)Original Message(.*?)" + "(Subject:)([^\r\n]+)[\r\n\\s]+"
-                    + "(Date:)([^\r\n]+)[\r\n\\s]+"
-                    + "(From:)([^\r\n]+)[\r\n\\s]+"
-                    + "(To:)([^\r\n]+)[\r\n\\s]+"
-                    + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
+    public static final Pattern THUNDERBIRD_ENGLISH_HEADER_PATTERN = Pattern.compile("(.*?)Original Message(.*?)"
+            + "(Subject:)([^\r\n]+)[\r\n\\s]+" + "(Date:)([^\r\n]+)[\r\n\\s]+" + "(From:)([^\r\n]+)[\r\n\\s]+"
+            + "(To:)([^\r\n]+)[\r\n\\s]+" + "((Cc:)([^\r\n]+))?[\r\n\\s]+.*", Pattern.DOTALL);
 
     public static final String DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss ZZZZZ";
 
@@ -85,8 +79,7 @@ public class DefaultEnglishMailParser implements MailBodyParser,
         }
         // TO
         if (m.group(10) != null) {
-            resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY,
-                    parseContacts(m.group(10)));
+            resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY, parseContacts(m.group(10)));
         }
         // Cc
         Contacts ccContacts = new Contacts();

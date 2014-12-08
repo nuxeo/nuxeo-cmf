@@ -41,11 +41,9 @@ import org.nuxeo.ecm.platform.routing.api.helper.ActionableValidator;
 /**
  * @author <a href="mailto:mcedica@nuxeo.com">Mariana Cedica</a>
  */
-public class ActionableCaseLinkImpl extends CaseLinkImpl implements
-        ActionableCaseLink {
+public class ActionableCaseLinkImpl extends CaseLinkImpl implements ActionableCaseLink {
 
-    public ActionableCaseLinkImpl(DocumentModel doc,
-            HasParticipants recipientAdapted) {
+    public ActionableCaseLinkImpl(DocumentModel doc, HasParticipants recipientAdapted) {
         super(doc, recipientAdapted);
     }
 
@@ -67,10 +65,8 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
                 @Override
                 public void run() throws ClientException {
                     Map<String, Serializable> map = new HashMap<String, Serializable>();
-                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY,
-                            ActionableCaseLinkImpl.this);
-                    ActionableValidator validator = new ActionableValidator(
-                            ActionableCaseLinkImpl.this, session, map);
+                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY, ActionableCaseLinkImpl.this);
+                    ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this, session, map);
                     validator.validate();
                 }
             }.runUnrestricted();
@@ -87,10 +83,8 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
                 @Override
                 public void run() throws ClientException {
                     Map<String, Serializable> map = new HashMap<String, Serializable>();
-                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY,
-                            ActionableCaseLinkImpl.this);
-                    ActionableValidator validator = new ActionableValidator(
-                            ActionableCaseLinkImpl.this, session, map);
+                    map.put(CaseConstants.OPERATION_CASE_LINK_KEY, ActionableCaseLinkImpl.this);
+                    ActionableValidator validator = new ActionableValidator(ActionableCaseLinkImpl.this, session, map);
                     validator.refuse();
                 }
             }.runUnrestricted();
@@ -113,8 +107,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     public DocumentRouteStep getDocumentRouteStep(CoreSession session) {
         String stepId = getPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD);
         try {
-            return session.getDocument(new IdRef(stepId)).getAdapter(
-                    DocumentRouteStep.class);
+            return session.getDocument(new IdRef(stepId)).getAdapter(DocumentRouteStep.class);
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
@@ -142,8 +135,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     @Override
     public void setValidateOperationChainId(String validateChainId) {
         try {
-            document.setPropertyValue(VALIDATION_OPERATION_CHAIN_ID,
-                    validateChainId);
+            document.setPropertyValue(VALIDATION_OPERATION_CHAIN_ID, validateChainId);
         } catch (PropertyException e) {
             throw new RuntimeException(e);
         } catch (ClientException e) {
@@ -154,8 +146,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     @Override
     public void setStepId(String id) {
         try {
-            document.setPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD,
-                    id);
+            document.setPropertyValue(CaseLinkConstants.STEP_DOCUMENT_ID_FIELD, id);
         } catch (PropertyException e) {
             throw new RuntimeException(e);
         } catch (ClientException e) {
@@ -171,8 +162,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     @Override
     public boolean isTodo() {
         try {
-            return document.getCurrentLifeCycleState().equals(
-                    CaseLink.CaseLinkState.todo.name());
+            return document.getCurrentLifeCycleState().equals(CaseLink.CaseLinkState.todo.name());
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
@@ -181,8 +171,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     @Override
     public boolean isDone() {
         try {
-            return document.getCurrentLifeCycleState().equals(
-                    CaseLink.CaseLinkState.done.name());
+            return document.getCurrentLifeCycleState().equals(CaseLink.CaseLinkState.done.name());
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
@@ -191,8 +180,7 @@ public class ActionableCaseLinkImpl extends CaseLinkImpl implements
     @Override
     public void setDone(CoreSession session) {
         try {
-            session.followTransition(document.getRef(),
-                    CaseLink.CaseLinkTransistion.toDone.name());
+            session.followTransition(document.getRef(), CaseLink.CaseLinkTransistion.toDone.name());
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }

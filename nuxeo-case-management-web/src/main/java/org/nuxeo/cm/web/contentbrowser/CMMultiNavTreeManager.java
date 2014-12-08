@@ -56,8 +56,7 @@ public class CMMultiNavTreeManager extends MultiNavTreeManager {
     public void create() {
         outsideNavTree = getNavTree(currentUser.isAdministrator());
         personnalNavTree = getNavTree(true);
-        setSelectedNavigationTree((currentUser.isAdministrator()) ? STD_NAV_TREE
-                : "MAILBOXES_FOLDER");
+        setSelectedNavigationTree((currentUser.isAdministrator()) ? STD_NAV_TREE : "MAILBOXES_FOLDER");
         currentNavTree = outsideNavTree;
     }
 
@@ -90,7 +89,6 @@ public class CMMultiNavTreeManager extends MultiNavTreeManager {
     @Observer(EventNames.GO_HOME)
     public void switchToOutside() {
         currentNavTree = outsideNavTree;
-        setSelectedNavigationTree((currentUser.isAdministrator()) ? STD_NAV_TREE
-                : "MAILBOXES_FOLDER");
+        setSelectedNavigationTree((currentUser.isAdministrator()) ? STD_NAV_TREE : "MAILBOXES_FOLDER");
     }
 }

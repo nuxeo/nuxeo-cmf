@@ -42,8 +42,7 @@ public class TestAdapter extends SQLRepositoryTestCase {
     }
 
     protected DocumentModel createDocument(String type) throws ClientException {
-        DocumentModel model = session.createDocumentModel("/",
-                UUID.randomUUID().toString(), type);
+        DocumentModel model = session.createDocumentModel("/", UUID.randomUUID().toString(), type);
         return session.createDocument(model);
     }
 

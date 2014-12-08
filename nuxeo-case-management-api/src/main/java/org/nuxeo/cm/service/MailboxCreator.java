@@ -42,7 +42,6 @@ public interface MailboxCreator {
      */
     MailboxTitleGenerator getTitleGenerator();
 
-    List<Mailbox> createMailboxes(CoreSession session, String user)
-            throws CaseManagementException;
+    List<Mailbox> createMailboxes(CoreSession session, String user) throws CaseManagementException;
 
 }

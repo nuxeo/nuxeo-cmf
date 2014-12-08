@@ -33,8 +33,7 @@ import org.nuxeo.ecm.core.api.model.impl.MapProperty;
 @Install(precedence = Install.FRAMEWORK)
 public class ContactPrinter {
 
-    public String printContacts(Collection<MapProperty> contacts)
-            throws PropertyException {
+    public String printContacts(Collection<MapProperty> contacts) throws PropertyException {
         if (contacts == null || contacts.size() < 1) {
             return "";
         }

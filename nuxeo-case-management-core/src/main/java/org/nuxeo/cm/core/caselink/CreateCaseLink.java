@@ -90,22 +90,18 @@ public class CreateCaseLink {
 
     /**
      * @param draft The draft used to sent this envelope
-     * @param repositoryName The name of the repository in which the
-     *            {@link CaseLink} will be created.
+     * @param repositoryName The name of the repository in which the {@link CaseLink} will be created.
      * @param subject The subject of the post.
      * @param comment The comment of the post.
      * @param envelope The envelope sent.
      * @param mailboxes The mailbox of the sender.
-     * @param internalRecipients A map of recipients keyed by type of Message
-     *            and keyed with a list of mailboxes.
+     * @param internalRecipients A map of recipients keyed by type of Message and keyed with a list of mailboxes.
      * @param isSent The post can be Sent or Received
      * @param isInitial Is it an initial sent?
      */
-    public CreateCaseLink(CaseLink draft, CoreSession session, String subject,
-            String comment, Case envelope, Mailbox sender, String recipientId,
-            Map<String, List<String>> internalRecipients,
-            Map<String, List<String>> externalRecipients, boolean isSent,
-            boolean isInitial) {
+    public CreateCaseLink(CaseLink draft, CoreSession session, String subject, String comment, Case envelope,
+            Mailbox sender, String recipientId, Map<String, List<String>> internalRecipients,
+            Map<String, List<String>> externalRecipients, boolean isSent, boolean isInitial) {
         this.draft = draft;
         this.comment = comment;
         this.envelope = envelope;
@@ -123,13 +119,11 @@ public class CreateCaseLink {
     }
 
     public void create() throws ClientException {
-        GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(
-                session, recipientId);
+        GetMailboxesUnrestricted getMailboxesUnrestricted = new GetMailboxesUnrestricted(session, recipientId);
         getMailboxesUnrestricted.runUnrestricted();
         List<Mailbox> mailboxes = getMailboxesUnrestricted.getMailboxes();
         if (mailboxes == null || mailboxes.isEmpty()) {
-            throw new CaseManagementException(
-                    "Can't send post because sender mailbox does not exist.");
+            throw new CaseManagementException("Can't send post because sender mailbox does not exist.");
         }
 
         recipient = mailboxes.get(0);
@@ -141,10 +135,8 @@ public class CreateCaseLink {
         }
 
         recipient = mailboxes.get(0);
-        DocumentModel doc = session.createDocumentModel(
-                recipient.getDocument().getPathAsString(),
-                UUID.randomUUID().toString(),
-                correspDocumentTypeService.getCaseLinkType());
+        DocumentModel doc = session.createDocumentModel(recipient.getDocument().getPathAsString(),
+                UUID.randomUUID().toString(), correspDocumentTypeService.getCaseLinkType());
 
         if (draft != null) {
             doc.copyContent(draft.getDocument());
@@ -156,8 +148,7 @@ public class CreateCaseLink {
         }
         post.setActionnable(isActionable);
         if (isActionable) {
-            doc.putContextData(
-                    LifeCycleConstants.INITIAL_LIFECYCLE_STATE_OPTION_NAME,
+            doc.putContextData(LifeCycleConstants.INITIAL_LIFECYCLE_STATE_OPTION_NAME,
                     CaseLink.CaseLinkState.todo.name());
         }
         post.addParticipants(internalRecipients);
@@ -173,10 +164,8 @@ public class CreateCaseLink {
     protected void setPostValues(DocumentModel doc) throws ClientException {
         doc.setPropertyValue(IS_DRAFT_FIELD, false);
         doc.setPropertyValue(SUBJECT_FIELD, subject);
-        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD,
-                envelope.getDocument().getRepositoryName());
-        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
-                envelope.getDocument().getId());
+        doc.setPropertyValue(CASE_REPOSITORY_NAME_FIELD, envelope.getDocument().getRepositoryName());
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD, envelope.getDocument().getId());
         if (sender != null) {
             doc.setPropertyValue(SENDER_MAILBOX_ID_FIELD, sender.getId());
             doc.setPropertyValue(SENDER_FIELD, sender.getOwner());

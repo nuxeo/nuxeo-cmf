@@ -61,8 +61,7 @@ import org.nuxeo.runtime.api.Framework;
 @Scope(ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
 @CaseManagementContextBound
-public class CorrespondenceDocumentActionsBean extends
-        CaseManagementContextBoundInstance implements
+public class CorrespondenceDocumentActionsBean extends CaseManagementContextBoundInstance implements
         CorrespondenceDocumentActions {
 
     private static final long serialVersionUID = 1L;
@@ -87,21 +86,17 @@ public class CorrespondenceDocumentActionsBean extends
 
     private static final String REP_SUFFIX = "Rep: ";
 
-    public DocumentModel getReplyDocument(CoreSession session, Mailbox mailbox,
-            DocumentModel receivedMail) throws ClientException {
+    public DocumentModel getReplyDocument(CoreSession session, Mailbox mailbox, DocumentModel receivedMail)
+            throws ClientException {
 
         CaseItem receivedItem = receivedMail.getAdapter(CaseItem.class);
 
         Map<String, Object> context = new HashMap<String, Object>();
 
         // Set the path of MailRoot
-        context.put(CoreEventConstants.PARENT_PATH,
-                CaseConstants.CASE_ROOT_DOCUMENT_PATH);
-        context.put(CaseManagementEventConstants.EVENT_CONTEXT_MAILBOX_ID,
-                mailbox.getId());
-        context.put(
-                CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID,
-                mailbox.getAffiliatedMailboxId());
+        context.put(CoreEventConstants.PARENT_PATH, CaseConstants.CASE_ROOT_DOCUMENT_PATH);
+        context.put(CaseManagementEventConstants.EVENT_CONTEXT_MAILBOX_ID, mailbox.getId());
+        context.put(CaseManagementEventConstants.EVENT_CONTEXT_AFFILIATED_MAILBOX_ID, mailbox.getAffiliatedMailboxId());
 
         // Use the Correspondence Type Service to retrieve the used outgoing
         // mail core type
@@ -112,8 +107,8 @@ public class CorrespondenceDocumentActionsBean extends
             throw new ClientException(e);
         }
         // Create the new Mail document model in the MailRoot
-        DocumentModel responseMail = session.createDocumentModel(
-                correspDocumentTypeService.getOutgoingDocType(), context);
+        DocumentModel responseMail = session.createDocumentModel(correspDocumentTypeService.getOutgoingDocType(),
+                context);
         // Set recipients
         responseMail.setPropertyValue(CaseConstants.CONTACTS_PARTICIPANTS,
                 receivedMail.getPropertyValue(CaseConstants.CONTACTS_SENDERS));
@@ -129,17 +124,14 @@ public class CorrespondenceDocumentActionsBean extends
 
         List<HashMap<String, String>> senders = new ArrayList<HashMap<String, String>>();
         senders.add(senderItem);
-        responseMail.setPropertyValue(CaseConstants.CONTACTS_SENDERS,
-                (Serializable) senders);
+        responseMail.setPropertyValue(CaseConstants.CONTACTS_SENDERS, (Serializable) senders);
 
         // Set the title
         CaseItem responseItem = responseMail.getAdapter(CaseItem.class);
         responseItem.setTitle(REP_SUFFIX + receivedItem.getTitle());
 
         // Set the answered document id
-        responseMail.setPropertyValue(
-                MailConstants.CORRESPONDENCE_DOCUMENT_REPLIED_DOCUMENT_ID,
-                receivedMail.getId());
+        responseMail.setPropertyValue(MailConstants.CORRESPONDENCE_DOCUMENT_REPLIED_DOCUMENT_ID, receivedMail.getId());
 
         return responseMail;
     }
@@ -147,10 +139,8 @@ public class CorrespondenceDocumentActionsBean extends
     public String reply() throws ClientException {
 
         DocumentModel emailDoc = getCurrentCaseItem();
-        DocumentModel reply = getReplyDocument(documentManager,
-                getCurrentMailbox(), emailDoc);
-        reply.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY,
-                Boolean.TRUE);
+        DocumentModel reply = getReplyDocument(documentManager, getCurrentMailbox(), emailDoc);
+        reply.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY, Boolean.TRUE);
         // Set changeable document
         navigationContext.setChangeableDocument(reply);
         // Redirect to the creation form

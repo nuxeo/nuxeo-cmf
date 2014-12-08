@@ -28,8 +28,7 @@ import java.lang.annotation.Target;
 import javax.interceptor.Interceptors;
 
 /**
- * Annotation used to mark components that will be introspected by the
- * invalidation mechanism.
+ * Annotation used to mark components that will be introspected by the invalidation mechanism.
  *
  * @see CaseManagementContextChecker
  * @author Anahide Tchertchian

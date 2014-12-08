@@ -68,8 +68,7 @@ import org.nuxeo.runtime.api.Framework;
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
 @Install(precedence = Install.FRAMEWORK)
-public class CaseManagementCaseActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CaseManagementCaseActionsBean extends CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -132,8 +131,7 @@ public class CaseManagementCaseActionsBean extends
     }
 
     @Override
-    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope)
-            throws ClientException {
+    protected void resetCaseCache(Case cachedEnvelope, Case newEnvelope) throws ClientException {
         super.resetCaseCache(cachedEnvelope, newEnvelope);
     }
 
@@ -161,16 +159,12 @@ public class CaseManagementCaseActionsBean extends
                 parentDoc = documentManager.getParentDocument(post.getDocument().getRef());
                 parentMailbox = parentDoc.getAdapter(Mailbox.class);
                 envelope = post.getCase(documentManager);
-                postRequest = new CaseLinkRequestImpl(parentMailbox.getId(),
-                        post.getDate(),
-                        (String) envelope.getDocument().getPropertyValue(
-                                CaseConstants.TITLE_PROPERTY_NAME),
-                        post.getComment(), envelope,
-                        post.getInitialInternalParticipants(),
+                postRequest = new CaseLinkRequestImpl(parentMailbox.getId(), post.getDate(),
+                        (String) envelope.getDocument().getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME),
+                        post.getComment(), envelope, post.getInitialInternalParticipants(),
                         post.getInitialExternalParticipants());
 
-                caseDistributionService.sendCase(documentManager, postRequest,
-                        true);
+                caseDistributionService.sendCase(documentManager, postRequest, true);
                 EventManager.raiseEventsOnDocumentChildrenChange(parentDoc);
             }
         }
@@ -201,7 +195,7 @@ public class CaseManagementCaseActionsBean extends
         try {
             CaseLink caseLink = null;
             for (DocumentModel doc : docs) {
-                caseLink = doc .getAdapter(CaseLink.class);
+                caseLink = doc.getAdapter(CaseLink.class);
                 if (caseLink == null) {
                     return false;
                 }
@@ -209,16 +203,13 @@ public class CaseManagementCaseActionsBean extends
                     return false;
                 }
             }
-            return getTrashService().canDelete(docs,
-                    documentManager.getPrincipal(), false);
+            return getTrashService().canDelete(docs, documentManager.getPrincipal(), false);
         } catch (ClientException e) {
-            throw new ClientRuntimeException("Cannot check delete permission",
-                    e);
+            throw new ClientRuntimeException("Cannot check delete permission", e);
         }
     }
 
-    protected void purgeCaseSelection(List<DocumentModel> workingList)
-            throws ClientException {
+    protected void purgeCaseSelection(List<DocumentModel> workingList) throws ClientException {
         final List<DocumentRef> caseRefs = new ArrayList<DocumentRef>();
         final List<DocumentRef> postRefs = new ArrayList<DocumentRef>();
         for (DocumentModel documentModel : workingList) {
@@ -229,10 +220,8 @@ public class CaseManagementCaseActionsBean extends
                     documentManager, caseId);
             if (relatedRoutes != null && relatedRoutes.size() > 0) {
                 // Cancel deletion - at least one route is related to at least one Case
-                facesMessages.add(
-                        FacesMessage.SEVERITY_INFO,
-                        resourcesAccessor.getMessages().get(
-                                "feedback.case.selection.delete.existing.route"));
+                facesMessages.add(FacesMessage.SEVERITY_INFO,
+                        resourcesAccessor.getMessages().get("feedback.case.selection.delete.existing.route"));
                 return;
             }
             try {
@@ -254,8 +243,8 @@ public class CaseManagementCaseActionsBean extends
             if (containsSelectedDocument) {
                 break;
             }
-            List<CaseItem> items = documentManager.getDocument(caseRef).getAdapter(
-                    Case.class).getCaseItems(documentManager);
+            List<CaseItem> items = documentManager.getDocument(caseRef).getAdapter(Case.class).getCaseItems(
+                    documentManager);
             for (CaseItem caseItem : items) {
                 if (currentDocRef.equals(caseItem.getDocument().getRef())) {
                     containsSelectedDocument = true;
@@ -308,8 +297,7 @@ public class CaseManagementCaseActionsBean extends
             return false;
         }
 
-        if (documentManager.hasPermission(caseDoc.getRef(),
-                SecurityConstants.WRITE)) {
+        if (documentManager.hasPermission(caseDoc.getRef(), SecurityConstants.WRITE)) {
             return true;
         }
 
@@ -332,8 +320,7 @@ public class CaseManagementCaseActionsBean extends
         return false;
     }
 
-    public String followTranstionCaseSelection(String transition)
-            throws ClientException {
+    public String followTranstionCaseSelection(String transition) throws ClientException {
         if (!isEmptyDraft()) {
             List<DocumentModel> currentDraftCasesList = documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
             for (DocumentModel documentModel : currentDraftCasesList) {
@@ -350,15 +337,14 @@ public class CaseManagementCaseActionsBean extends
     }
 
     /**
-     * Removes a mail from the current envelope.
-     * Navigate to the Case view.
+     * Removes a mail from the current envelope. Navigate to the Case view.
      */
-    public void RemoveCaseItem() throws Exception{
+    public void RemoveCaseItem() throws Exception {
         Case currentEnvelope = getCurrentCase();
         DocumentModel doc = getCurrentCaseItem();
         CaseItem item = doc.getAdapter(CaseItem.class);
         currentEnvelope.removeCaseItem(item, documentManager);
-        navigationContext.navigateToDocument(currentEnvelope.getDocument()); 
+        navigationContext.navigateToDocument(currentEnvelope.getDocument());
     }
 
 }

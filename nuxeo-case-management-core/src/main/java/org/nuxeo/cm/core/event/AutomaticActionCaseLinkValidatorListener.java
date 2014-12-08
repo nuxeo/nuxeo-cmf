@@ -27,8 +27,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 
 /**
- * Listener that fetch all ActionCaseLink with automatic validation and date
- * passed and not done to validate them.
+ * Listener that fetch all ActionCaseLink with automatic validation and date passed and not done to validate them.
  *
  * @author Laurent Doguin
  */
@@ -37,8 +36,7 @@ public class AutomaticActionCaseLinkValidatorListener implements EventListener {
     @Override
     public void handleEvent(Event event) throws ClientException {
         try (CoreSession session = CoreInstance.openCoreSession(null)) {
-            ValidateDueCaseLinkUnrestricted runner = new ValidateDueCaseLinkUnrestricted(
-                    session);
+            ValidateDueCaseLinkUnrestricted runner = new ValidateDueCaseLinkUnrestricted(session);
             runner.runUnrestricted();
         }
     }

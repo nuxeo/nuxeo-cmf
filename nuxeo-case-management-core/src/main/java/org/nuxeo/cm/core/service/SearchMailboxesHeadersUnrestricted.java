@@ -30,18 +30,15 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 /**
  * Searches mailboxes headers using an unrestricted session
  * <p>
- * Mailboxes have to be searchable to be able to select recipients, but senders
- * may not have access to them.
+ * Mailboxes have to be searchable to be able to select recipients, but senders may not have access to them.
  *
  * @author Laurent Doguin
  */
-public class SearchMailboxesHeadersUnrestricted extends
-        SearchMailboxesUnrestricted {
+public class SearchMailboxesHeadersUnrestricted extends SearchMailboxesUnrestricted {
 
     protected List<MailboxHeader> mailboxesHeaders;
 
-    public SearchMailboxesHeadersUnrestricted(CoreSession session,
-            String pattern, String type) {
+    public SearchMailboxesHeadersUnrestricted(CoreSession session, String pattern, String type) {
         super(session, pattern, type);
     }
 

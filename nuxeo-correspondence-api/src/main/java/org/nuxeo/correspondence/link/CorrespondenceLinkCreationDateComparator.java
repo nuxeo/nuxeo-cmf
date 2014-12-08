@@ -25,10 +25,8 @@ import java.util.Comparator;
  * Comparator on link using the creation date metadata.
  *
  * @author ldoguin
- *
  */
-public class CorrespondenceLinkCreationDateComparator implements
-        Comparator<CorrespondenceLink> {
+public class CorrespondenceLinkCreationDateComparator implements Comparator<CorrespondenceLink> {
 
     private static final long serialVersionUID = 1L;
 

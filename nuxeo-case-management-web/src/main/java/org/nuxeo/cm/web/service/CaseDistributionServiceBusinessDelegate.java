@@ -41,18 +41,16 @@ public class CaseDistributionServiceBusinessDelegate implements Serializable {
     protected CaseDistributionService service;
 
     /**
-     * Acquires a new {@link CaseDistributionService} reference. The related
-     * EJB may be deployed on a local or remote AppServer.
+     * Acquires a new {@link CaseDistributionService} reference. The related EJB may be deployed on a local or remote
+     * AppServer.
      */
     @Unwrap
-    public CaseDistributionService getDistributionService()
-            throws ClientException {
+    public CaseDistributionService getDistributionService() throws ClientException {
         if (service == null) {
             try {
                 service = Framework.getService(CaseDistributionService.class);
             } catch (Exception e) {
-                throw new ClientException(
-                        "Error connecting to casemanagement service", e);
+                throw new ClientException("Error connecting to casemanagement service", e);
             }
             if (service == null) {
                 throw new ClientException("Correspondence service not bound");

@@ -29,8 +29,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 /**
  * @author Nicolas Ulrich
  */
-public class TestCaseManagementDocumentTypeService extends
-        CaseManagementRepositoryTestCase {
+public class TestCaseManagementDocumentTypeService extends CaseManagementRepositoryTestCase {
 
     @Before
     public void setUp() throws Exception {

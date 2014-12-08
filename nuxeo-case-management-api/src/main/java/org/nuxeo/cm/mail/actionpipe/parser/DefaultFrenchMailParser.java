@@ -34,8 +34,7 @@ import org.nuxeo.cm.mail.actionpipe.MailActionPipeConstants;
 /**
  * @author Sun Seng David TAN <stan@nuxeo.com>
  */
-public class DefaultFrenchMailParser implements MailBodyParser,
-        MailActionPipeConstants {
+public class DefaultFrenchMailParser implements MailBodyParser, MailActionPipeConstants {
 
     public static final Log log = LogFactory.getLog(DefaultFrenchMailParser.class);
 
@@ -47,15 +46,13 @@ public class DefaultFrenchMailParser implements MailBodyParser,
 
     // PLE-680: marker to get rid of " > " ligns
 
-    public static final Pattern FRENCH_HEADER_PATTERN = Pattern.compile("(.*?)"
-            + "(De :)(.*?)" + "(Envoy\u00e9 :)" + "((.*?)(\u00c0 :))?"
-            + "((.*?)(Cc :))?(.*?)" + "(Objet :)(.*?)", Pattern.DOTALL);
+    public static final Pattern FRENCH_HEADER_PATTERN = Pattern.compile("(.*?)" + "(De :)(.*?)" + "(Envoy\u00e9 :)"
+            + "((.*?)(\u00c0 :))?" + "((.*?)(Cc :))?(.*?)" + "(Objet :)(.*?)", Pattern.DOTALL);
 
     public static final String TRANSFER_MARKER = " > ";
 
     /*
      * (non-Javadoc)
-     *
      * @see org.nuxeo.cm.mail.actionpipe.parser.MailBodyParser#getRegexp()
      */
     @Override
@@ -65,9 +62,7 @@ public class DefaultFrenchMailParser implements MailBodyParser,
 
     /*
      * (non-Javadoc)
-     *
-     * @see org.nuxeo.cm.mail.actionpipe.parser.MailBodyParser#parse(java.util.regex
-     *      .Matcher, java.util.Map)
+     * @see org.nuxeo.cm.mail.actionpipe.parser.MailBodyParser#parse(java.util.regex .Matcher, java.util.Map)
      */
     @Override
     public boolean parse(Matcher m, Map<String, Object> resultMap) {
@@ -101,14 +96,11 @@ public class DefaultFrenchMailParser implements MailBodyParser,
         if (m.group(6) != null) {
             resultMap.put(ORIGINAL_RECEPTION_DATE_KEY, parseDate(m.group(6)));
             if (m.group(8) != null) {
-                resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY,
-                        parseContacts(m.group(9)));
-                resultMap.put(ORIGINAL_CC_RECIPIENTS_KEY,
-                        parseContacts(m.group(11)));
+                resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY, parseContacts(m.group(9)));
+                resultMap.put(ORIGINAL_CC_RECIPIENTS_KEY, parseContacts(m.group(11)));
             } else {
                 // no Cc
-                resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY,
-                        parseContacts(m.group(11)));
+                resultMap.put(ORIGINAL_TO_RECIPIENTS_KEY, parseContacts(m.group(11)));
             }
         } else {
             // no To, assume no Cc neither
@@ -122,8 +114,7 @@ public class DefaultFrenchMailParser implements MailBodyParser,
         log.debug(String.format("Parsing contacts '%s'", contacts));
         if (contacts != null && contacts.length() > 0) {
             if (contacts.endsWith(TRANSFER_MARKER)) {
-                contacts = contacts.substring(0, contacts.length()
-                        - TRANSFER_MARKER.length());
+                contacts = contacts.substring(0, contacts.length() - TRANSFER_MARKER.length());
             }
 
             String[] split = contacts.trim().split("; ");
@@ -163,8 +154,7 @@ public class DefaultFrenchMailParser implements MailBodyParser,
         try {
             log.debug(String.format("Parsing date '%s'", dateString));
 
-            SimpleDateFormat sdf = new SimpleDateFormat(FRENCH_DATE_FORMAT,
-                    Locale.FRENCH);
+            SimpleDateFormat sdf = new SimpleDateFormat(FRENCH_DATE_FORMAT, Locale.FRENCH);
             Date date = sdf.parse(dateString.trim());
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);

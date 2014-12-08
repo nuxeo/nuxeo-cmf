@@ -29,15 +29,15 @@ import org.nuxeo.ecm.core.api.CoreSession;
 public interface CommonLink {
 
     /**
-     * 
      * @param targetDocId is the linked mail doc id.
      * @return the existing link or null if it doesn't exist.
      */
     CorrespondenceLink getLink(String targetDocId);
 
-   /**
-    * Save the adapter's document.
-    * @param session
-    */
+    /**
+     * Save the adapter's document.
+     * 
+     * @param session
+     */
     void save(CoreSession session);
 }

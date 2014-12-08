@@ -35,8 +35,7 @@ import org.nuxeo.runtime.api.Framework;
 /**
  * Searches mailboxes using an unrestricted session
  * <p>
- * Mailboxes have to be searchable to be able to select recipients, but senders
- * may not have access to them.
+ * Mailboxes have to be searchable to be able to select recipients, but senders may not have access to them.
  *
  * @author Anahide Tchertchian
  * @author Laurent Doguin
@@ -51,8 +50,7 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String type;
 
-    public SearchMailboxesUnrestricted(CoreSession session, String pattern,
-            String type) {
+    public SearchMailboxesUnrestricted(CoreSession session, String pattern, String type) {
         super(session);
         this.pattern = pattern;
         this.type = type;
@@ -69,13 +67,10 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
     }
 
     protected DocumentModelList queryMailboxes() throws ClientException {
-        String query = String.format(
-                "SELECT * FROM %s WHERE %s ILIKE '%%%s%%' AND ecm:currentLifeCycleState != '%s'",
-                getMailboxType(), MailboxConstants.TITLE_FIELD, pattern,
-                MailboxConstants.MAILBOX_DELETED_STATE);
+        String query = String.format("SELECT * FROM %s WHERE %s ILIKE '%%%s%%' AND ecm:currentLifeCycleState != '%s'",
+                getMailboxType(), MailboxConstants.TITLE_FIELD, pattern, MailboxConstants.MAILBOX_DELETED_STATE);
         if (type != null) {
-            query += String.format(" AND %s='%s'", MailboxConstants.TYPE_FIELD,
-                    type);
+            query += String.format(" AND %s='%s'", MailboxConstants.TYPE_FIELD, type);
         }
         if (log.isDebugEnabled()) {
             log.debug(query);

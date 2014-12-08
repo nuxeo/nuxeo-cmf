@@ -22,8 +22,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 
-public class DefaultPersonalMailboxTitleGenerator implements
-        MailboxTitleGenerator {
+public class DefaultPersonalMailboxTitleGenerator implements MailboxTitleGenerator {
 
     protected String getUserFirstNameProperty() {
         return "user:firstName";
@@ -37,8 +36,7 @@ public class DefaultPersonalMailboxTitleGenerator implements
         return "user:company";
     }
 
-    public String getMailboxTitle(DocumentModel userModel)
-            throws PropertyException, ClientException {
+    public String getMailboxTitle(DocumentModel userModel) throws PropertyException, ClientException {
 
         String res = "";
         String first = null;

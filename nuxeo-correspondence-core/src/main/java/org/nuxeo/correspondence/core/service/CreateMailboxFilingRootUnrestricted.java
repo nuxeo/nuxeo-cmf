@@ -29,19 +29,16 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 
 /**
- * Create a filing root document as a child of the mailBox, in unrestricted
- * mode.
+ * Create a filing root document as a child of the mailBox, in unrestricted mode.
  *
  * @author ldoguin
  */
-public class CreateMailboxFilingRootUnrestricted extends
-        UnrestrictedSessionRunner {
+public class CreateMailboxFilingRootUnrestricted extends UnrestrictedSessionRunner {
 
     // Mailbox document model
     final protected DocumentModel doc;
 
-    public CreateMailboxFilingRootUnrestricted(CoreSession session,
-            DocumentModel doc) {
+    public CreateMailboxFilingRootUnrestricted(CoreSession session, DocumentModel doc) {
         super(session);
         this.doc = doc;
     }
@@ -51,11 +48,9 @@ public class CreateMailboxFilingRootUnrestricted extends
         Mailbox mb = doc.getAdapter(Mailbox.class);
         String filingRootName = getFilingRootNamePrefix() + mb.getTitle();
         String filingFolderId = IdUtils.generateId(filingRootName);
-        DocumentModel filingRoot = session.createDocumentModel(
-                doc.getPathAsString(), filingFolderId,
+        DocumentModel filingRoot = session.createDocumentModel(doc.getPathAsString(), filingFolderId,
                 ClassificationConstants.CLASSIFICATION_ROOT);
-        filingRoot.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
-                filingRootName);
+        filingRoot.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME, filingRootName);
         filingRoot = session.createDocument(filingRoot);
     }
 

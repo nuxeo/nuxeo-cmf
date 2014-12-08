@@ -54,8 +54,8 @@ public class ParticipantItem extends MailboxHeaderImpl {
             return false;
         }
         ParticipantItem other = (ParticipantItem) obj;
-        return safeStrEq(type, other.type) && safeStrEq(id, other.id)
-                && safeStrEq(title, other.title) && safeStrEq(type, other.type);
+        return safeStrEq(type, other.type) && safeStrEq(id, other.id) && safeStrEq(title, other.title)
+                && safeStrEq(type, other.type);
     }
 
     protected boolean safeStrEq(String first, String second) {
@@ -71,10 +71,8 @@ public class ParticipantItem extends MailboxHeaderImpl {
     }
 
     protected void calculateHash() {
-        hash = (type != null ? type.hashCode() * 3 : 0)
-                + (id != null ? id.hashCode() * 5 : 0)
-                + (title != null ? title.hashCode() * 7 : 0)
-                + (messageType != null ? messageType.hashCode() * 11 : 0);
+        hash = (type != null ? type.hashCode() * 3 : 0) + (id != null ? id.hashCode() * 5 : 0)
+                + (title != null ? title.hashCode() * 7 : 0) + (messageType != null ? messageType.hashCode() * 11 : 0);
     }
 
     @Override

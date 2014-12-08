@@ -65,15 +65,15 @@ import org.nuxeo.runtime.api.Framework;
  * @author Laurent Doguin
  * @author Sun Seng David TAN <stan@nuxeo.com>
  */
-public class TestCorrespondenceMailInjection extends
-        CaseManagementRepositoryTestCase implements MailActionPipeConstants {
+public class TestCorrespondenceMailInjection extends CaseManagementRepositoryTestCase implements
+        MailActionPipeConstants {
 
     protected MailService mailService;
 
     protected String incomingDocumentType;
 
-    protected final SimpleDateFormat emailDateParser = new SimpleDateFormat(
-            "EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+    protected final SimpleDateFormat emailDateParser = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z",
+            Locale.ENGLISH);
 
     @Override
     protected void deployRepositoryContrib() throws Exception {
@@ -120,11 +120,9 @@ public class TestCorrespondenceMailInjection extends
         String filePath = "data/test_mail_en_thunderbird.eml";
         injectEmail(filePath);
 
-        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH
-                + "/2010/02/25");
+        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH + "/2010/02/25");
         assertTrue(session.exists(dayRef));
-        DocumentModelList envelopes = session.getChildren(dayRef,
-                MailConstants.MAIL_ENVELOPE_TYPE);
+        DocumentModelList envelopes = session.getChildren(dayRef, MailConstants.MAIL_ENVELOPE_TYPE);
         assertEquals(1, envelopes.size());
 
         DocumentModel envelopeDoc = envelopes.get(0);
@@ -132,23 +130,18 @@ public class TestCorrespondenceMailInjection extends
         List<DocumentModel> linkedDocs = envelope.getDocuments();
         DocumentModel firstDoc = linkedDocs.get(0);
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Thu, 25 Feb 2010 15:14:35 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Thu, 25 Feb 2010 15:14:35 +0100").getTime(),
                 receptionDate.getTime().getTime());
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Thu, 25 Feb 2010 15:15:25 +0100").getTime(),
-                importDate.getTime().getTime());
+        assertEquals(emailDateParser.parse("Thu, 25 Feb 2010 15:15:25 +0100").getTime(), importDate.getTime().getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
-        assertEquals("<14A8EDFD-E93E-4E05-B1F3-7F2EED488BCB@nuxeo.com>",
-                reference);
+        assertEquals("<14A8EDFD-E93E-4E05-B1F3-7F2EED488BCB@nuxeo.com>", reference);
         String origin = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME);
         assertEquals("mail", origin);
         String object = (String) firstDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         assertEquals("Fwd: correspondence test sample", object);
 
-        Contacts senders = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_SENDERS);
+        Contacts senders = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_SENDERS);
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
@@ -156,8 +149,7 @@ public class TestCorrespondenceMailInjection extends
         assertEquals("ldoguin@nuxeo.com", sender.getEmail());
         assertEquals("user-ldoguin", sender.getMailboxIdd());
 
-        Contacts recipients = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_PARTICIPANTS);
+        Contacts recipients = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_PARTICIPANTS);
         assertNotNull(recipients);
         assertEquals(1, recipients.size());
         Contact recipient = recipients.get(0);
@@ -165,32 +157,29 @@ public class TestCorrespondenceMailInjection extends
         assertEquals("nulrich@nuxeo.com", recipient.getEmail());
         assertEquals("user-nulrich", recipient.getMailboxIdd());
 
-        List<CaseLink> forwarderReceivedPosts = distributionService.getReceivedCaseLinks(
-                session, forwarderMailbox, 0, 0);
+        List<CaseLink> forwarderReceivedPosts = distributionService.getReceivedCaseLinks(session, forwarderMailbox, 0,
+                0);
         assertNotNull(forwarderReceivedPosts);
         assertEquals(1, forwarderReceivedPosts.size());
 
-        List<CaseLink> forwarderSentPosts = distributionService.getSentCaseLinks(
-                session, forwarderMailbox, 0, 0);
+        List<CaseLink> forwarderSentPosts = distributionService.getSentCaseLinks(session, forwarderMailbox, 0, 0);
         assertNotNull(forwarderSentPosts);
         assertEquals(0, forwarderSentPosts.size());
 
         // original sender does not have any message, even if he has a
         // mailbox...
-        List<CaseLink> origSenderReceivedPosts = distributionService.getReceivedCaseLinks(
-                session, origSenderMailbox, 0, 0);
+        List<CaseLink> origSenderReceivedPosts = distributionService.getReceivedCaseLinks(session, origSenderMailbox,
+                0, 0);
         assertNotNull(origSenderReceivedPosts);
         assertEquals(0, origSenderReceivedPosts.size());
 
-        List<CaseLink> origSenderSentPosts = distributionService.getSentCaseLinks(
-                session, origSenderMailbox, 0, 0);
+        List<CaseLink> origSenderSentPosts = distributionService.getSentCaseLinks(session, origSenderMailbox, 0, 0);
         assertNotNull(origSenderSentPosts);
         assertEquals(0, origSenderSentPosts.size());
     }
 
     /**
-     * copy of the previous test but with a mail forwarded using Thunderbird
-     * (French)
+     * copy of the previous test but with a mail forwarded using Thunderbird (French)
      *
      * @throws Exception
      */
@@ -203,11 +192,9 @@ public class TestCorrespondenceMailInjection extends
         String filePath = "data/test_mail_fr_thunderbird.eml";
         injectEmail(filePath);
 
-        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH
-                + "/2010/12/06");
+        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH + "/2010/12/06");
         assertTrue(session.exists(dayRef));
-        DocumentModelList envelopes = session.getChildren(dayRef,
-                MailConstants.MAIL_ENVELOPE_TYPE);
+        DocumentModelList envelopes = session.getChildren(dayRef, MailConstants.MAIL_ENVELOPE_TYPE);
         assertEquals(1, envelopes.size());
 
         DocumentModel envelopeDoc = envelopes.get(0);
@@ -216,14 +203,11 @@ public class TestCorrespondenceMailInjection extends
         DocumentModel firstDoc = linkedDocs.get(0);
         // initial message reception
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Mon, 06 Dec 2010 18:08:41 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Mon, 06 Dec 2010 18:08:41 +0100").getTime(),
                 receptionDate.getTime().getTime());
         // date of the initial message
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Wed, 22 Sep 2010 12:49:11 +0200").getTime(),
-                importDate.getTime().getTime());
+        assertEquals(emailDateParser.parse("Wed, 22 Sep 2010 12:49:11 +0200").getTime(), importDate.getTime().getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
         assertEquals("<4CFD1899.9070005@nuxeo.com>", reference);
         String origin = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME);
@@ -231,8 +215,7 @@ public class TestCorrespondenceMailInjection extends
         String object = (String) firstDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         assertEquals("Fwd: correspondence thunderbird fr test sample", object);
 
-        Contacts senders = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_SENDERS);
+        Contacts senders = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_SENDERS);
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
@@ -240,8 +223,7 @@ public class TestCorrespondenceMailInjection extends
         assertEquals("ldoguin@nuxeo.com", sender.getEmail());
         assertEquals("user-ldoguin", sender.getMailboxIdd());
 
-        Contacts recipients = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_PARTICIPANTS);
+        Contacts recipients = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_PARTICIPANTS);
         assertNotNull(recipients);
         assertEquals(1, recipients.size());
         Contact recipient = recipients.get(0);
@@ -249,25 +231,23 @@ public class TestCorrespondenceMailInjection extends
         assertEquals("nulrich@nuxeo.com", recipient.getEmail());
         assertEquals("user-nulrich", recipient.getMailboxIdd());
 
-        List<CaseLink> forwarderReceivedPosts = distributionService.getReceivedCaseLinks(
-                session, forwarderMailbox, 0, 0);
+        List<CaseLink> forwarderReceivedPosts = distributionService.getReceivedCaseLinks(session, forwarderMailbox, 0,
+                0);
         assertNotNull(forwarderReceivedPosts);
         assertEquals(1, forwarderReceivedPosts.size());
 
-        List<CaseLink> forwarderSentPosts = distributionService.getSentCaseLinks(
-                session, forwarderMailbox, 0, 0);
+        List<CaseLink> forwarderSentPosts = distributionService.getSentCaseLinks(session, forwarderMailbox, 0, 0);
         assertNotNull(forwarderSentPosts);
         assertEquals(0, forwarderSentPosts.size());
 
         // original sender does not have any message, even if he has a
         // mailbox...
-        List<CaseLink> origSenderReceivedPosts = distributionService.getReceivedCaseLinks(
-                session, origSenderMailbox, 0, 0);
+        List<CaseLink> origSenderReceivedPosts = distributionService.getReceivedCaseLinks(session, origSenderMailbox,
+                0, 0);
         assertNotNull(origSenderReceivedPosts);
         assertEquals(0, origSenderReceivedPosts.size());
 
-        List<CaseLink> origSenderSentPosts = distributionService.getSentCaseLinks(
-                session, origSenderMailbox, 0, 0);
+        List<CaseLink> origSenderSentPosts = distributionService.getSentCaseLinks(session, origSenderMailbox, 0, 0);
         assertNotNull(origSenderSentPosts);
         assertEquals(0, origSenderSentPosts.size());
     }
@@ -286,11 +266,9 @@ public class TestCorrespondenceMailInjection extends
         String filePath = "data/test_mail_gmail.eml";
         injectEmail(filePath);
 
-        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH
-                + "/2010/12/08");
+        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH + "/2010/12/08");
         assertTrue(session.exists(dayRef));
-        DocumentModelList envelopes = session.getChildren(dayRef,
-                MailConstants.MAIL_ENVELOPE_TYPE);
+        DocumentModelList envelopes = session.getChildren(dayRef, MailConstants.MAIL_ENVELOPE_TYPE);
         assertEquals(1, envelopes.size());
 
         DocumentModel envelopeDoc = envelopes.get(0);
@@ -299,25 +277,19 @@ public class TestCorrespondenceMailInjection extends
         DocumentModel firstDoc = linkedDocs.get(0);
         // initial message reception
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Wed, 8 Dec 2010 18:25:20 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Wed, 8 Dec 2010 18:25:20 +0100").getTime(),
                 receptionDate.getTime().getTime());
         // date of the initial message
         Calendar importDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(
-                new SimpleDateFormat("yyyy/M/d").parse("2010/12/8").getTime(),
-                importDate.getTime().getTime());
+        assertEquals(new SimpleDateFormat("yyyy/M/d").parse("2010/12/8").getTime(), importDate.getTime().getTime());
         String reference = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_REFERENCE_PROPERTY_NAME);
-        assertEquals(
-                "<AANLkTinYj41ADFjFqb=kBYnKzM6jdNMV1OQYDEodMahJ@mail.gmail.com>",
-                reference);
+        assertEquals("<AANLkTinYj41ADFjFqb=kBYnKzM6jdNMV1OQYDEodMahJ@mail.gmail.com>", reference);
         String origin = (String) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_ORIGIN_PROPERTY_NAME);
         assertEquals("mail", origin);
         String object = (String) firstDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         assertEquals("Fwd: correspondence gmail en test sample", object);
 
-        Contacts senders = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_SENDERS);
+        Contacts senders = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_SENDERS);
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
@@ -325,8 +297,7 @@ public class TestCorrespondenceMailInjection extends
         assertEquals("ldoguin@nuxeo.com", sender.getEmail());
         assertEquals("user-ldoguin", sender.getMailboxIdd());
 
-        Contacts recipients = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_PARTICIPANTS);
+        Contacts recipients = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_PARTICIPANTS);
         assertNotNull(recipients);
         assertEquals(1, recipients.size());
         Contact recipient = recipients.get(0);
@@ -334,25 +305,23 @@ public class TestCorrespondenceMailInjection extends
         assertEquals("nulrich@nuxeo.com", recipient.getEmail());
         assertEquals("user-nulrich", recipient.getMailboxIdd());
 
-        List<CaseLink> forwarderReceivedPosts = distributionService.getReceivedCaseLinks(
-                session, forwarderMailbox, 0, 0);
+        List<CaseLink> forwarderReceivedPosts = distributionService.getReceivedCaseLinks(session, forwarderMailbox, 0,
+                0);
         assertNotNull(forwarderReceivedPosts);
         assertEquals(1, forwarderReceivedPosts.size());
 
-        List<CaseLink> forwarderSentPosts = distributionService.getSentCaseLinks(
-                session, forwarderMailbox, 0, 0);
+        List<CaseLink> forwarderSentPosts = distributionService.getSentCaseLinks(session, forwarderMailbox, 0, 0);
         assertNotNull(forwarderSentPosts);
         assertEquals(0, forwarderSentPosts.size());
 
         // original sender does not have any message, even if he has a
         // mailbox...
-        List<CaseLink> origSenderReceivedPosts = distributionService.getReceivedCaseLinks(
-                session, origSenderMailbox, 0, 0);
+        List<CaseLink> origSenderReceivedPosts = distributionService.getReceivedCaseLinks(session, origSenderMailbox,
+                0, 0);
         assertNotNull(origSenderReceivedPosts);
         assertEquals(0, origSenderReceivedPosts.size());
 
-        List<CaseLink> origSenderSentPosts = distributionService.getSentCaseLinks(
-                session, origSenderMailbox, 0, 0);
+        List<CaseLink> origSenderSentPosts = distributionService.getSentCaseLinks(session, origSenderMailbox, 0, 0);
         assertNotNull(origSenderSentPosts);
         assertEquals(0, origSenderSentPosts.size());
     }
@@ -379,21 +348,16 @@ public class TestCorrespondenceMailInjection extends
         assertNotNull(pipe);
         Visitor visitor = new Visitor(pipe);
         ExecutionContext initialExecutionContext = new ExecutionContext();
-        initialExecutionContext.put(MailActionPipeConstants.CORE_SESSION_KEY,
-                session);
-        initialExecutionContext.put(
-                MailActionPipeConstants.MIMETYPE_SERVICE_KEY,
+        initialExecutionContext.put(MailActionPipeConstants.CORE_SESSION_KEY, session);
+        initialExecutionContext.put(MailActionPipeConstants.MIMETYPE_SERVICE_KEY,
                 Framework.getService(MimetypeRegistry.class));
-        initialExecutionContext.put(
-                MailActionPipeConstants.CASEMANAGEMENT_SERVICE_KEY,
-                distributionService);
+        initialExecutionContext.put(MailActionPipeConstants.CASEMANAGEMENT_SERVICE_KEY, distributionService);
 
         Message[] messages = new Message[] { getSampleMessage(filePath) };
 
         visitor.visit(messages, initialExecutionContext);
 
-        DocumentModel mailFolderRef = session.getDocument(new PathRef(
-                CaseConstants.CASE_ROOT_DOCUMENT_PATH));
+        DocumentModel mailFolderRef = session.getDocument(new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH));
         assertNotNull(mailFolderRef);
         assertTrue(session.hasChildren(mailFolderRef.getRef()));
     }
@@ -425,11 +389,9 @@ public class TestCorrespondenceMailInjection extends
         getPersonalMailbox("jdoe");
 
         injectEmail(filePath);
-        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH
-                + "/2009/03/17");
+        DocumentRef dayRef = new PathRef(CaseConstants.CASE_ROOT_DOCUMENT_PATH + "/2009/03/17");
         assertTrue(session.exists(dayRef));
-        DocumentModelList envelopes = session.getChildren(dayRef,
-                MailConstants.MAIL_ENVELOPE_TYPE);
+        DocumentModelList envelopes = session.getChildren(dayRef, MailConstants.MAIL_ENVELOPE_TYPE);
         assertEquals(1, envelopes.size());
 
         DocumentModel envelopeDoc = envelopes.get(0);
@@ -441,45 +403,37 @@ public class TestCorrespondenceMailInjection extends
         String title = (String) firstDoc.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME);
         assertEquals("[Fwd: RENOUVELLEMENT DE SUPPORT ANNUEL NUXEO]", title);
         Calendar originalReceptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Wed, 14 Jan 2009 15:15:25 +0100").getTime(),
                 originalReceptionDate.getTime().getTime());
         Calendar receptionDate = (Calendar) firstDoc.getPropertyValue(CaseConstants.DOCUMENT_RECEIVE_DATE_PROPERTY_NAME);
-        assertEquals(
-                emailDateParser.parse("Tue, 17 Mar 2009 13:39:05 +0100").getTime(),
+        assertEquals(emailDateParser.parse("Tue, 17 Mar 2009 13:39:05 +0100").getTime(),
                 receptionDate.getTime().getTime());
 
-        Contacts senders = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_SENDERS);
+        Contacts senders = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_SENDERS);
         assertNotNull(senders);
         assertEquals(1, senders.size());
         Contact sender = senders.get(0);
         assertEquals("Sylvie KAPCOM", sender.getName());
         assertEquals("sylvie.kapcom@cs.nuxeo.test.fr", sender.getEmail());
 
-        Contacts recipients = Contacts.getContactsForDoc(firstDoc,
-                CaseConstants.CONTACTS_PARTICIPANTS);
+        Contacts recipients = Contacts.getContactsForDoc(firstDoc, CaseConstants.CONTACTS_PARTICIPANTS);
         assertNotNull(recipients);
         assertEquals(2, recipients.size());
 
         assertEquals("jdoe@nuxeo.com", recipients.get(0).getEmail());
 
-        assertTrue((recipients.get(1).getName() == null)
-                || ("".equals(recipients.get(1).getName().trim())));
-        assertEquals("jean-paul.roger@nuxeo.test.fr",
-                recipients.get(1).getEmail());
+        assertTrue((recipients.get(1).getName() == null) || ("".equals(recipients.get(1).getName().trim())));
+        assertEquals("jean-paul.roger@nuxeo.test.fr", recipients.get(1).getEmail());
 
         // testing content
         DocumentModel secondDoc = linkedDocs.get(1);
         Blob fileBlob = (Blob) secondDoc.getPropertyValue(CaseConstants.FILE_PROPERTY_NAME);
 
-        assertEquals("The file blob filename is", "testpdf.pdf",
-                fileBlob.getFilename());
+        assertEquals("The file blob filename is", "testpdf.pdf", fileBlob.getFilename());
         assertEquals("the file blob length is", 24016, fileBlob.getLength());
 
         String fileNamePropertyValue = (String) secondDoc.getPropertyValue(CaseConstants.FILENAME_PROPERTY_NAME);
-        assertEquals("The filename property value is", "testpdf.pdf",
-                fileNamePropertyValue);
+        assertEquals("The filename property value is", "testpdf.pdf", fileNamePropertyValue);
 
     }
 

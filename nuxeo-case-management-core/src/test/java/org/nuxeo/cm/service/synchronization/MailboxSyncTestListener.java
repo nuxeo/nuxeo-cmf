@@ -51,27 +51,19 @@ public class MailboxSyncTestListener implements EventListener {
         String failMessage = "Error handling event " + eventName + ": ";
         String mbTitle = (String) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_MAILBOX_TITLE);
-        assertFalse(failMessage + "Empty mailbox title",
-                StringUtils.isEmpty(mbTitle));
+        assertFalse(failMessage + "Empty mailbox title", StringUtils.isEmpty(mbTitle));
         Calendar synchronizerDate = (Calendar) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZED_DATE);
-        assertFalse(
-                failMessage + "Empty synchronizer date for mailbox with title "
-                        + mbTitle,
-                synchronizerDate == null
-                        || StringUtils.isEmpty(synchronizerDate.toString()));
+        assertFalse(failMessage + "Empty synchronizer date for mailbox with title " + mbTitle, synchronizerDate == null
+                || StringUtils.isEmpty(synchronizerDate.toString()));
         String synchronizerId = (String) event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_SYNCHRONIZER_ID);
-        assertFalse(failMessage
-                + "Empty synchronizer id for mailbox with title " + mbTitle,
+        assertFalse(failMessage + "Empty synchronizer id for mailbox with title " + mbTitle,
                 StringUtils.isEmpty(synchronizerId));
         DocumentModel mbDoc = ((DocumentEventContext) event.getContext()).getSourceDocument();
-        assertNotNull(failMessage
-                + "Null document for mailbox with title " + mbTitle, mbDoc);
+        assertNotNull(failMessage + "Null document for mailbox with title " + mbTitle, mbDoc);
         String mbPath = mbDoc.getPathAsString();
-        assertFalse(failMessage
-                + "Empty path for mailbox document with title " + mbTitle,
-                StringUtils.isEmpty(mbPath));
+        assertFalse(failMessage + "Empty path for mailbox document with title " + mbTitle, StringUtils.isEmpty(mbPath));
         if ("userDirectory".equals(event.getContext().getProperty(
                 MailboxSynchronizationConstants.EVENT_CONTEXT_DIRECTORY_NAME))) {
             if (MailboxSynchronizationConstants.EventNames.onMailboxCreated.equals(eventName)) {

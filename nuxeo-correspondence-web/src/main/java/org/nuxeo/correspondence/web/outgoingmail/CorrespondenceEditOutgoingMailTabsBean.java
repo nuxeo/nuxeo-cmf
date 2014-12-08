@@ -46,8 +46,7 @@ import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 @Name("editOutgoingMailTabsBean")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CorrespondenceEditOutgoingMailTabsBean extends
-        CaseManagementContextBoundInstance implements Serializable {
+public class CorrespondenceEditOutgoingMailTabsBean extends CaseManagementContextBoundInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

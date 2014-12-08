@@ -50,14 +50,12 @@ public class AfterCaseSentEventListener implements EventListener {
         boolean isInitial = (Boolean) properties.get(EVENT_CONTEXT_IS_INITIAL);
 
         // Set Envelope recipients
-        setRecipients(kase, isInitial, internalRecipients,
-                externalRecipients);
+        setRecipients(kase, isInitial, internalRecipients, externalRecipients);
         kase.save(event.getContext().getCoreSession());
         // Set EnvelopeItems recipients
         List<CaseItem> items = kase.getCaseItems(event.getContext().getCoreSession());
         for (CaseItem item : items) {
-            setRecipients(item, isInitial, internalRecipients,
-                    externalRecipients);
+            setRecipients(item, isInitial, internalRecipients, externalRecipients);
             item.setDefaultCase(kase.getDocument().getId());
             item.save(event.getContext().getCoreSession());
         }
@@ -69,8 +67,7 @@ public class AfterCaseSentEventListener implements EventListener {
         }
     }
 
-    protected void setRecipients(HasParticipants item, boolean isInitial,
-            Map<String, List<String>> internalRecipients,
+    protected void setRecipients(HasParticipants item, boolean isInitial, Map<String, List<String>> internalRecipients,
             Map<String, List<String>> externalRecipients) {
 
         if (isInitial) {

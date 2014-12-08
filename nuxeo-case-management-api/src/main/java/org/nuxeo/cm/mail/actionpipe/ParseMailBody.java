@@ -116,8 +116,7 @@ public class ParseMailBody extends AbstractCaseManagementMailAction {
         }
 
         if (finalMailBodyParser == null) {
-            throw new IllegalArgumentException("Content cannot be matched : "
-                    + toParse);
+            throw new IllegalArgumentException("Content cannot be matched : " + toParse);
         }
 
         finalMailBodyParser.parse(finalMatcher, resultMap);

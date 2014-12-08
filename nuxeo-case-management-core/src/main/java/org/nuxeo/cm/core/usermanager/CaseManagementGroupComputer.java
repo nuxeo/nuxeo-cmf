@@ -48,8 +48,8 @@ import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
 /**
- * Group computer for case management, adding mailboxes ids to the user virtual
- * groups so that it can be used for permissions resolution.
+ * Group computer for case management, adding mailboxes ids to the user virtual groups so that it can be used for
+ * permissions resolution.
  *
  * @author Anahide Tchertchian
  */
@@ -72,23 +72,21 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
      * Returns an empty list as mailboxes are not searchable
      */
     @Override
-    public List<String> searchGroups(Map<String, Serializable> filter,
-            Set<String> fulltext) {
+    public List<String> searchGroups(Map<String, Serializable> filter, Set<String> fulltext) {
         // should handle computed virtual groups?
         return Collections.emptyList();
     }
 
     @Override
     public List<String> getGroupMembers(String groupName) {
-        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
-                getRepoName(), getMailboxManager(), groupName);
+        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(getRepoName(),
+                getMailboxManager(), groupName);
         runner.runUnrestricted();
         return runner.getMailboxMembers();
     }
 
     /**
-     * Method called at startup to compute users groups, so returns an empty
-     * list when local thread is flagged.
+     * Method called at startup to compute users groups, so returns an empty list when local thread is flagged.
      */
     @Override
     public List<String> getGroupsForUser(NuxeoPrincipalImpl pal) {
@@ -110,18 +108,15 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     if (!TransactionHelper.isTransactionActive()) {
                         isNewTransactionStarted = TransactionHelper.startTransaction();
                     }
-                    List<Mailbox> mailboxes = getMailboxManager().getUserMailboxes(
-                            session, pal.getName());
+                    List<Mailbox> mailboxes = getMailboxManager().getUserMailboxes(session, pal.getName());
                     List<String> res = new ArrayList<String>();
                     if (mailboxes != null) {
                         for (Mailbox folder : mailboxes) {
-                            res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                                    + folder.getId());
+                            res.add(CaseManagementSecurityConstants.MAILBOX_PREFIX + folder.getId());
                         }
                     }
                     String userMailboxId = CaseManagementSecurityConstants.MAILBOX_PREFIX
-                            + getMailboxManager().getUserPersonalMailboxId(
-                                    username);
+                            + getMailboxManager().getUserPersonalMailboxId(username);
                     if (userMailboxId != null && !res.contains(userMailboxId)) {
                         res.add(userMailboxId);
                     }
@@ -152,8 +147,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return Collections.emptyList();
     }
 
-    protected List<String> getVirtualGroupsForMailboxHierarchy(
-            NuxeoPrincipal pal) throws ClientException {
+    protected List<String> getVirtualGroupsForMailboxHierarchy(NuxeoPrincipal pal) throws ClientException {
         UserManager um = getUM();
         List<String> res = new ArrayList<String>();
 
@@ -173,8 +167,7 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
                     // add member groups instead
                     groupsToProcess.addAll(nxGroup.getMemberGroups());
                     // add prefix
-                    res.add(CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX
-                            + nxGroup.getName());
+                    res.add(CaseManagementSecurityConstants.MAILBOX_GROUP_PREFIX + nxGroup.getName());
                 }
             }
         }
@@ -183,16 +176,16 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
 
     @Override
     public List<String> getParentsGroupNames(String groupName) {
-        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
-                getRepoName(), getMailboxManager(), groupName);
+        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(getRepoName(),
+                getMailboxManager(), groupName);
         runner.runUnrestricted();
         return runner.getMailboxParentNames();
     }
 
     @Override
     public List<String> getSubGroupsNames(String groupName) {
-        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(
-                getRepoName(), getMailboxManager(), groupName);
+        GetMailboxInformationUnrestricted runner = new GetMailboxInformationUnrestricted(getRepoName(),
+                getMailboxManager(), groupName);
         runner.runUnrestricted();
         return runner.getMailboxSubFolderNames();
     }
@@ -213,17 +206,13 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
         return cfms;
     }
 
-    protected LoginContext loginOnContext(String username)
-            throws LoginException {
+    protected LoginContext loginOnContext(String username) throws LoginException {
         if (!Framework.isTestModeSet()) {
             // bind to the jaas context
-            UserIdentificationInfo userIdent = new UserIdentificationInfo(
-                    username, "");
+            UserIdentificationInfo userIdent = new UserIdentificationInfo(username, "");
             userIdent.setLoginPluginName("Trusting_LM");
-            CallbackHandler handler = new UserIdentificationInfoCallbackHandler(
-                    userIdent);
-            LoginContext loginContext = new LoginContext("nuxeo-ecm-web",
-                    handler);
+            CallbackHandler handler = new UserIdentificationInfoCallbackHandler(userIdent);
+            LoginContext loginContext = new LoginContext("nuxeo-ecm-web", handler);
             loginContext.login();
             return loginContext;
         }

@@ -36,9 +36,8 @@ public class Contact implements Serializable, Comparable<Contact> {
         name, email, surname, service, mailboxId
     }
 
-    private static final CONTACT_FIELD[] FIELDS_FOR_FULLTEXT_INDEXING = {
-            CONTACT_FIELD.name, CONTACT_FIELD.email, CONTACT_FIELD.surname,
-            CONTACT_FIELD.service, CONTACT_FIELD.mailboxId };
+    private static final CONTACT_FIELD[] FIELDS_FOR_FULLTEXT_INDEXING = { CONTACT_FIELD.name, CONTACT_FIELD.email,
+            CONTACT_FIELD.surname, CONTACT_FIELD.service, CONTACT_FIELD.mailboxId };
 
     private static final long serialVersionUID = 1L;
 
@@ -170,8 +169,7 @@ public class Contact implements Serializable, Comparable<Contact> {
         return this.asStringForIndexing().compareTo(other.asStringForIndexing());
     }
 
-    public static Contact getContactForMailbox(Mailbox mailbox, String email,
-            String service, String surname) {
+    public static Contact getContactForMailbox(Mailbox mailbox, String email, String service, String surname) {
         if (mailbox == null) {
             return null;
         }

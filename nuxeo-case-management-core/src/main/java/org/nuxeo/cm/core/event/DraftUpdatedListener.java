@@ -24,8 +24,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 /**
  * @author arussel
  */
-public class DraftUpdatedListener extends AbstractDraftListener implements
-        EventListener {
+public class DraftUpdatedListener extends AbstractDraftListener implements EventListener {
 
     static final Log log = LogFactory.getLog(DraftCreationListener.class);
 

@@ -26,8 +26,7 @@ import org.nuxeo.cm.distribution.DistributionInfo;
 import org.nuxeo.ecm.core.api.ClientException;
 
 /***
- * Parses xml file and returns corresponding dom4j elements for cases and
- * caseItems
+ * Parses xml file and returns corresponding dom4j elements for cases and caseItems
  */
 public abstract class AbstractXMLCaseReader {
 
@@ -35,7 +34,7 @@ public abstract class AbstractXMLCaseReader {
      * Loads the list of cases contained into the imported file
      *
      * @throws ClientException
-     * */
+     */
     public abstract List<Document> loadCases(File file) throws ClientException;
 
     /***
@@ -54,9 +53,9 @@ public abstract class AbstractXMLCaseReader {
      */
     public abstract String getCaseItemPathFile(Element caseItemElement);
 
-
     /**
      * Gets the recipients from the case for the distribution
+     * 
      * @param caseElement
      * @return
      */

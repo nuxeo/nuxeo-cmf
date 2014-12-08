@@ -113,12 +113,10 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployBundle(CaseManagementTestConstants.TEMPLATE_BUNDLE);
 
         // deploy api and core bundles
-        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
-                "OSGI-INF/document-routing-service.xml");
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE, "OSGI-INF/document-routing-service.xml");
         deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
                 "OSGI-INF/document-routing-core-types-contrib.xml");
-        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
-                "OSGI-INF/pageproviders-contrib.xml");
+        deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE, "OSGI-INF/pageproviders-contrib.xml");
         deployContrib(CaseManagementTestConstants.CLASSIFICATION_CORE_BUNDLE,
                 "OSGI-INF/classification-core-types-contrib.xml");
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
@@ -146,8 +144,7 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         assertNotNull(correspDocumentTypeService);
     }
 
-    protected DocumentModel createDocument(String type, String id)
-            throws Exception {
+    protected DocumentModel createDocument(String type, String id) throws Exception {
         DocumentModel document = session.createDocumentModel(type);
         document.setPathInfo("/", id);
         document = session.createDocument(document);
@@ -173,32 +170,26 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
 
         if (mailEnvelopeModel == null) {
-            mailEnvelopeModel = session.createDocumentModel(
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    UUID.randomUUID().toString(),
-                    correspDocumentTypeService.getCaseType());
+            mailEnvelopeModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+                    UUID.randomUUID().toString(), correspDocumentTypeService.getCaseType());
         }
         return mailEnvelopeModel;
     }
 
     public DocumentModel getMailEnvelopeItemModel() throws Exception {
         if (mailEnvelopeItemModel == null) {
-            mailEnvelopeItemModel = session.createDocumentModel(
-                    CaseConstants.CASE_ROOT_DOCUMENT_PATH,
-                    UUID.randomUUID().toString(),
-                    CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
+            mailEnvelopeItemModel = session.createDocumentModel(CaseConstants.CASE_ROOT_DOCUMENT_PATH,
+                    UUID.randomUUID().toString(), CaseConstants.CASE_ITEM_DOCUMENT_TYPE);
         }
         return mailEnvelopeItemModel;
     }
 
     public void createDraftPost(Mailbox mb, Case envelope) throws Exception {
-        DocumentModel model = session.createDocumentModel(
-                mb.getDocument().getPathAsString(),
+        DocumentModel model = session.createDocumentModel(mb.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), CASE_LINK_DOCUMENT_TYPE);
         DocumentModel doc = session.createDocument(model);
 
-        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD,
-                envelope.getDocument().getId());
+        doc.setPropertyValue(CASE_DOCUMENT_ID_FIELD, envelope.getDocument().getId());
         doc.setPropertyValue(IS_DRAFT_FIELD, Boolean.TRUE);
         doc.setPropertyValue(SENDER_FIELD, mb.getId());
 
@@ -207,88 +198,56 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
     }
 
     public Mailbox getPersonalMailbox(String name) throws Exception {
-        return correspMailboxService.createPersonalMailboxes(session, name).get(
-                0);
+        return correspMailboxService.createPersonalMailboxes(session, name).get(0);
     }
 
-    public DocumentModel createDocumentModel(CoreSession session, String name,
-            String type, String path) throws ClientException {
+    public DocumentModel createDocumentModel(CoreSession session, String name, String type, String path)
+            throws ClientException {
         DocumentModel route1 = session.createDocumentModel(path, name, type);
-        route1.setPropertyValue(DocumentRoutingConstants.TITLE_PROPERTY_NAME,
-                name);
+        route1.setPropertyValue(DocumentRoutingConstants.TITLE_PROPERTY_NAME, name);
         return session.createDocument(route1);
     }
 
-    public DocumentRoute createComplexRoute(CoreSession session)
-            throws Exception {
+    public DocumentRoute createComplexRoute(CoreSession session) throws Exception {
         createDocumentModel(session, "routes", "Folder", "/case-management");
         DocumentModel route = createDocumentModel(session, "route",
-                DocumentRoutingConstants.DOCUMENT_ROUTE_DOCUMENT_TYPE,
-                "/case-management/routes");
-        DocumentModel step1 = createDocumentModel(session, "step1",
-                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP,
+                DocumentRoutingConstants.DOCUMENT_ROUTE_DOCUMENT_TYPE, "/case-management/routes");
+        DocumentModel step1 = createDocumentModel(session, "step1", CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_STEP,
                 route.getPathAsString());
         Mailbox user2Mailbox = getPersonalMailbox(user2);
-        step1.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
-                user2Mailbox.getId());
+        step1.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME, user2Mailbox.getId());
         session.saveDocument(step1);
-        DocumentModel step2 = createDocumentModel(session, "step2",
-                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
+        DocumentModel step2 = createDocumentModel(session, "step2", CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
                 route.getPathAsString());
-        step2.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
-                user2Mailbox.getId());
+        step2.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME, user2Mailbox.getId());
         session.saveDocument(step2);
-        DocumentModel parallelFolder1 = createDocumentModel(session,
-                "parallelFolder1",
-                DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE,
-                route.getPathAsString());
-        parallelFolder1.setPropertyValue(
-                DocumentRoutingConstants.EXECUTION_TYPE_PROPERTY_NAME,
+        DocumentModel parallelFolder1 = createDocumentModel(session, "parallelFolder1",
+                DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE, route.getPathAsString());
+        parallelFolder1.setPropertyValue(DocumentRoutingConstants.EXECUTION_TYPE_PROPERTY_NAME,
                 DocumentRoutingConstants.ExecutionTypeValues.parallel.name());
         session.saveDocument(parallelFolder1);
         DocumentModel step31 = createDocumentModel(session, "step31",
-                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
-                parallelFolder1.getPathAsString());
-        step31.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
-                user2Mailbox.getId());
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, parallelFolder1.getPathAsString());
+        step31.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME, user2Mailbox.getId());
         session.saveDocument(step31);
         DocumentModel step32 = createDocumentModel(session, "step32",
-                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
-                parallelFolder1.getPathAsString());
-        step32.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
-                user2Mailbox.getId());
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, parallelFolder1.getPathAsString());
+        step32.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME, user2Mailbox.getId());
         session.saveDocument(step32);
-        DocumentModel serialFolder = createDocumentModel(session,
-                "serialFolder1",
-                DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE,
-                parallelFolder1.getPathAsString());
-        serialFolder.setPropertyValue(
-                DocumentRoutingConstants.EXECUTION_TYPE_PROPERTY_NAME,
+        DocumentModel serialFolder = createDocumentModel(session, "serialFolder1",
+                DocumentRoutingConstants.STEP_FOLDER_DOCUMENT_TYPE, parallelFolder1.getPathAsString());
+        serialFolder.setPropertyValue(DocumentRoutingConstants.EXECUTION_TYPE_PROPERTY_NAME,
                 DocumentRoutingConstants.ExecutionTypeValues.serial.name());
         session.saveDocument(serialFolder);
         DocumentModel step41 = createDocumentModel(session, "step41",
-                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
-                serialFolder.getPathAsString());
-        step41.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
-                user2Mailbox.getId());
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, serialFolder.getPathAsString());
+        step41.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME, user2Mailbox.getId());
         session.saveDocument(step41);
         DocumentModel step42 = createDocumentModel(session, "step42",
-                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK,
-                serialFolder.getPathAsString());
-        step42.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME,
-                user2Mailbox.getId());
-        step42.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_DUE_DATE_PROPERTY_NAME,
-                new Date());
-        step42.setPropertyValue(
-                CaseConstants.STEP_DISTRIBUTION_AUTOMATIC_VALIDATION_PROPERTY_NAME,
-                Boolean.TRUE);
+                CaseConstants.STEP_DOCUMENT_TYPE_DISTRIBUTION_TASK, serialFolder.getPathAsString());
+        step42.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_MAILBOX_ID_PROPERTY_NAME, user2Mailbox.getId());
+        step42.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_DUE_DATE_PROPERTY_NAME, new Date());
+        step42.setPropertyValue(CaseConstants.STEP_DISTRIBUTION_AUTOMATIC_VALIDATION_PROPERTY_NAME, Boolean.TRUE);
         session.saveDocument(step42);
         session.saveDocument(parallelFolder1);
         session.save();

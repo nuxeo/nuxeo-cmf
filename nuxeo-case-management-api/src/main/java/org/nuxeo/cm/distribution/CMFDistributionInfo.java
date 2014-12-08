@@ -79,22 +79,21 @@ public class CMFDistributionInfo implements DistributionInfo {
     public void setFavoriteMailboxes(List<ParticipantItem> favoriteMailboxes) {
         this.favoriteMailboxes = favoriteMailboxes;
         // order them
-        Collections.sort(this.favoriteMailboxes,
-                new Comparator<ParticipantItem>() {
-                    public int compare(ParticipantItem o1, ParticipantItem o2) {
-                        int comp = 0;
-                        if (o1.getType() != null) {
-                            comp = o1.getType().compareTo(o2.getType());
-                        } else if (o2.getType() != null) {
-                            return -1;
-                        }
+        Collections.sort(this.favoriteMailboxes, new Comparator<ParticipantItem>() {
+            public int compare(ParticipantItem o1, ParticipantItem o2) {
+                int comp = 0;
+                if (o1.getType() != null) {
+                    comp = o1.getType().compareTo(o2.getType());
+                } else if (o2.getType() != null) {
+                    return -1;
+                }
 
-                        if (comp == 0 && o1.getTitle() != null) {
-                            comp = o1.getTitle().compareTo(o2.getTitle());
-                        }
-                        return comp;
-                    }
-                });
+                if (comp == 0 && o1.getTitle() != null) {
+                    comp = o1.getTitle().compareTo(o2.getTitle());
+                }
+                return comp;
+            }
+        });
     }
 
     public String getComment() {
@@ -117,8 +116,7 @@ public class CMFDistributionInfo implements DistributionInfo {
         return forInformationMailboxes;
     }
 
-    public void setForInformationMailboxes(
-            List<String> forInformationPersonalMailboxes) {
+    public void setForInformationMailboxes(List<String> forInformationPersonalMailboxes) {
         this.forInformationMailboxes = forInformationPersonalMailboxes;
     }
 
@@ -212,8 +210,7 @@ public class CMFDistributionInfo implements DistributionInfo {
         // TODO: add other info (mailing lists, etc...)
         Map<String, List<String>> res = new HashMap<String, List<String>>();
         res.put(CaseLinkType.FOR_ACTION.name(), getAllForActionMailboxes());
-        res.put(CaseLinkType.FOR_INFORMATION.name(),
-                getAllForInformationMailboxes());
+        res.put(CaseLinkType.FOR_INFORMATION.name(), getAllForInformationMailboxes());
         return res;
     }
 
@@ -223,9 +220,8 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     public boolean hasParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes) && isEmpty(getForActionFunctions())
-                && isEmpty(forActionGroups) && isEmpty(forInformationMailboxes)
-                && isEmpty(getForInformationFunctions())
+        if (isEmpty(forActionMailboxes) && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)
+                && isEmpty(forInformationMailboxes) && isEmpty(getForInformationFunctions())
                 && isEmpty(forInformationGroups) && !hasMailingList()) {
             res = false;
         }
@@ -246,8 +242,8 @@ public class CMFDistributionInfo implements DistributionInfo {
 
     public boolean hasActionParticipants() {
         boolean res = true;
-        if (isEmpty(forActionMailboxes) && getForActionMailingLists().isEmpty()
-                && isEmpty(getForActionFunctions()) && isEmpty(forActionGroups)) {
+        if (isEmpty(forActionMailboxes) && getForActionMailingLists().isEmpty() && isEmpty(getForActionFunctions())
+                && isEmpty(forActionGroups)) {
             res = false;
         }
         return res;

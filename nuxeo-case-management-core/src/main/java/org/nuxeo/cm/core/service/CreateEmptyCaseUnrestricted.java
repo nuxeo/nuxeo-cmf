@@ -44,8 +44,8 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
 
     protected DocumentModel caseDoc;
 
-    public CreateEmptyCaseUnrestricted(CoreSession session,
-            DocumentModel caseDoc, String parentPath, List<Mailbox> mailbox) {
+    public CreateEmptyCaseUnrestricted(CoreSession session, DocumentModel caseDoc, String parentPath,
+            List<Mailbox> mailbox) {
         super(session);
         this.caseDoc = caseDoc;
         this.mailboxes = mailbox;
@@ -66,8 +66,8 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
         ACP acp = caseDoc.getACP();
         ACL acl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_MAILBOX_PREFIX);
         for (Mailbox mailbox : mailboxes) {
-            acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX
-                    + mailbox.getId(), SecurityConstants.READ_WRITE, true));
+            acl.add(new ACE(CaseManagementSecurityConstants.MAILBOX_PREFIX + mailbox.getId(),
+                    SecurityConstants.READ_WRITE, true));
         }
         acp.addACL(acl);
         session.setACP(caseDoc.getRef(), acp, true);

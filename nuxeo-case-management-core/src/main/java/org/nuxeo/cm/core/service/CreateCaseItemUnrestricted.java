@@ -44,8 +44,8 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
 
     protected final String parentPath;
 
-    public CreateCaseItemUnrestricted(CoreSession session, DocumentModel doc,
-            ACP caseACP, String parentPath) throws ClientException {
+    public CreateCaseItemUnrestricted(CoreSession session, DocumentModel doc, ACP caseACP, String parentPath)
+            throws ClientException {
         super(session);
         if (doc.getId() != null) {
             // don't detach if not yet created
@@ -58,8 +58,7 @@ public class CreateCaseItemUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        DocumentModel newDoc = session.createDocumentModel(parentPath,
-                doc.getName(), doc.getType());
+        DocumentModel newDoc = session.createDocumentModel(parentPath, doc.getName(), doc.getType());
         newDoc.copyContent(doc);
         newDoc = session.createDocument(newDoc);
         ACP acp = newDoc.getACP();

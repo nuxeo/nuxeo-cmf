@@ -39,8 +39,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
  */
 @Name("cmContextHolder")
 @Scope(ScopeType.CONVERSATION)
-public class CaseManagementContextHolderBean implements
-        CaseManagementContextHolder {
+public class CaseManagementContextHolderBean implements CaseManagementContextHolder {
 
     public static final String SEAM_COMPONENT_NAME = "cmContextHolder";
 
@@ -74,8 +73,7 @@ public class CaseManagementContextHolderBean implements
     @Override
     @Factory(value = "currentCaseItem", scope = ScopeType.EVENT)
     public DocumentModel getCurrentCaseItem() throws ClientException {
-        if (currentEmail == null && currentEnvelope != null
-                && !currentEnvelope.isEmpty()) {
+        if (currentEmail == null && currentEnvelope != null && !currentEnvelope.isEmpty()) {
             // lazily fetch current email
             currentEmail = currentEnvelope.getFirstItem(documentManager).getDocument();
         }
@@ -108,8 +106,7 @@ public class CaseManagementContextHolderBean implements
         this.currentEmail = currentEmail;
     }
 
-    public void setCurrentClassificationRoot(
-            DocumentModel currentClassificationRoot) {
+    public void setCurrentClassificationRoot(DocumentModel currentClassificationRoot) {
         this.currentClassificationRoot = currentClassificationRoot;
     }
 

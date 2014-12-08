@@ -48,16 +48,14 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
 
         CaseManagementCaseImporterService caseImporterService = getCaseManagementCaseImporterService();
         assertNotNull(caseImporterService);
-        caseImporterService.importCases(FileUtils.getResourceFileFromContext(
-                ("case-import-src")).getPath());
+        caseImporterService.importCases(FileUtils.getResourceFileFromContext(("case-import-src")).getPath());
 
         DocumentModel kaseParentDoc = session.getDocument(new PathRef(
                 distributionService.getParentDocumentPathForCase(session)));
         DocumentTreeSorter sorter = new DefaultDocumentTreeSorter();
         sorter.setSortPropertyPath("dc:title");
 
-        DocumentModelList allCases = session.getChildren(
-                kaseParentDoc.getRef(), null, null, null, sorter);
+        DocumentModelList allCases = session.getChildren(kaseParentDoc.getRef(), null, null, null, sorter);
         assertEquals(4, allCases.size());
 
         DocumentModel caseDoc1 = allCases.get(0);
@@ -65,10 +63,8 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         assertEquals("Test Case", caseDoc1.getTitle());
 
         Case case1 = caseDoc1.getAdapter(Case.class);
-        String caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
-                session, case1);
-        DocumentModelList caseItemDocs = session.getChildren(new PathRef(
-                caseItemsParentPath), null, null, null, sorter);
+        String caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(session, case1);
+        DocumentModelList caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath), null, null, null, sorter);
         assertEquals(2, caseItemDocs.size());
         assertEquals("hello.pdf", caseItemDocs.get(0).getTitle());
         assertEquals("hello2.pdf", caseItemDocs.get(1).getTitle());
@@ -76,13 +72,10 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         DocumentModel caseDoc2 = allCases.get(1);
         assertNotNull(caseDoc2);
         assertEquals("Test Case2", caseDoc2.getTitle());
-        assertEquals("This is the second case in this file",
-                (String) caseDoc2.getPropertyValue("dc:description"));
+        assertEquals("This is the second case in this file", (String) caseDoc2.getPropertyValue("dc:description"));
         Case case2 = caseDoc2.getAdapter(Case.class);
-        caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
-                session, case2);
-        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath),
-                null, null, null, sorter);
+        caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(session, case2);
+        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath), null, null, null, sorter);
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello.pdf", caseItemDocs.get(0).getTitle());
 
@@ -90,10 +83,8 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         assertNotNull(caseDoc3);
         assertEquals("Test Case3", caseDoc3.getTitle());
         Case case3 = caseDoc3.getAdapter(Case.class);
-        caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
-                session, case3);
-        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath),
-                null, null, null, sorter);
+        caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(session, case3);
+        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath), null, null, null, sorter);
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello3.pdf", caseItemDocs.get(0).getTitle());
 
@@ -101,36 +92,30 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
         assertNotNull(caseDoc4);
         assertEquals("Test Case4", caseDoc4.getTitle());
         Case case4 = caseDoc4.getAdapter(Case.class);
-        caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(
-                session, case4);
-        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath),
-                null, null, null, sorter);
+        caseItemsParentPath = distributionService.getParentDocumentPathForCaseItem(session, case4);
+        caseItemDocs = session.getChildren(new PathRef(caseItemsParentPath), null, null, null, sorter);
         assertEquals(1, caseItemDocs.size());
         assertEquals("hello4.pdf", caseItemDocs.get(0).getTitle());
 
         // test also distrbution
 
         // Retrieve the case in the recipient1 mailbox
-        CaseLink postInMailbox = distributionService.getReceivedCaseLinks(
-                session, user1Mailbox, 0, 0).get(0);
+        CaseLink postInMailbox = distributionService.getReceivedCaseLinks(session, user1Mailbox, 0, 0).get(0);
 
         // Retrieve the case from the caselink
         Case receivedCase1 = postInMailbox.getCase(session);
 
         // Check the case
-        assertEquals(receivedCase1.getDocument().getId(),
-                case1.getDocument().getId());
+        assertEquals(receivedCase1.getDocument().getId(), case1.getDocument().getId());
 
         assertEquals(2, receivedCase1.getAllParticipants().size());
-        assertEquals(1, receivedCase1.getInitialInternalParticipants().get(
-                CaseLinkType.FOR_ACTION.toString()).size());
+        assertEquals(1, receivedCase1.getInitialInternalParticipants().get(CaseLinkType.FOR_ACTION.toString()).size());
 
-        assertEquals(2, receivedCase1.getInitialInternalParticipants().get(
-                CaseLinkType.FOR_INFORMATION.toString()).size());
+        assertEquals(2,
+                receivedCase1.getInitialInternalParticipants().get(CaseLinkType.FOR_INFORMATION.toString()).size());
     }
 
-    CaseManagementCaseImporterService getCaseManagementCaseImporterService()
-            throws Exception {
+    CaseManagementCaseImporterService getCaseManagementCaseImporterService() throws Exception {
         return Framework.getService(CaseManagementCaseImporterService.class);
     }
 }

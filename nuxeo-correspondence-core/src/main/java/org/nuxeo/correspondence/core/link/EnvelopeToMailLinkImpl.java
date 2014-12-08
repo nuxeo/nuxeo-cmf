@@ -24,7 +24,6 @@ import org.nuxeo.correspondence.link.EnvelopeToMailLink;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
- *
  * @author ldoguin
  */
 public class EnvelopeToMailLinkImpl extends AbstractLink implements EnvelopeToMailLink {
@@ -46,17 +45,13 @@ public class EnvelopeToMailLinkImpl extends AbstractLink implements EnvelopeToMa
 
     @Override
     public void addEnvelopeToMailLink(CorrespondenceLink link) {
-        addCorrespondenceLink(
-                CorrespondenceLinksConstants.ENVELOPE_TO_MAIL_LINK_PROPERTY_NAME,
-                link);
+        addCorrespondenceLink(CorrespondenceLinksConstants.ENVELOPE_TO_MAIL_LINK_PROPERTY_NAME, link);
 
     }
 
     @Override
     public void addAllEnvelopeToMailLink(List<CorrespondenceLink> links) {
-        addAllCorrespondenceLinks(
-                CorrespondenceLinksConstants.ENVELOPE_TO_MAIL_LINK_PROPERTY_NAME,
-                links);
+        addAllCorrespondenceLinks(CorrespondenceLinksConstants.ENVELOPE_TO_MAIL_LINK_PROPERTY_NAME, links);
     }
 
     @Override

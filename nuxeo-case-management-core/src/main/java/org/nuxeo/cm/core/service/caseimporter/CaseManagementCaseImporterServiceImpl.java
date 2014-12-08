@@ -22,8 +22,8 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
-public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
-        implements CaseManagementCaseImporterService {
+public class CaseManagementCaseImporterServiceImpl extends DefaultComponent implements
+        CaseManagementCaseImporterService {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,8 +33,7 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
 
     @Override
     public void importCases(String sourcePath) throws ClientException {
-        CaseImporter importer = new CaseImporter(noImportingThreads,
-                xmlCaseReader);
+        CaseImporter importer = new CaseImporter(noImportingThreads, xmlCaseReader);
         try {
             importer.importDocuments(sourcePath);
         } catch (Exception e) {
@@ -43,8 +42,7 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
     }
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         if ("importer".equals(extensionPoint)) {
             CaseManagementCaseImporterDescriptor caseImporterDescriptor = (CaseManagementCaseImporterDescriptor) contribution;
             if (caseImporterDescriptor.caseReader != null) {
@@ -61,8 +59,7 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent
     }
 
     @Override
-    public void unregisterContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void unregisterContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         xmlCaseReader = null;
     }
 }

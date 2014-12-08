@@ -42,8 +42,7 @@ import org.nuxeo.ecm.platform.routing.api.DocumentRoutingService;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * A test running a a complex document route including step for each of the
- * chains we're using.
+ * A test running a a complex document route including step for each of the chains we're using.
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
@@ -73,10 +72,8 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         session.save();
         routingService.unlockDocumentRoute(route, session);
         Framework.getLocalService(EventService.class).waitForAsyncCompletion();
-        assertEquals("validated",
-                route.getDocument().getCurrentLifeCycleState());
-        assertEquals("validated", session.getChildren(
-                route.getDocument().getRef()).get(0).getCurrentLifeCycleState());
+        assertEquals("validated", route.getDocument().getCurrentLifeCycleState());
+        assertEquals("validated", session.getChildren(route.getDocument().getRef()).get(0).getCurrentLifeCycleState());
     }
 
     @After
@@ -107,14 +104,12 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertNotNull(routingService);
         route = routingService.createNewInstance(route, docIds, session);
         Mailbox user2Mailbox = getPersonalMailbox(user2);
-        List<CaseLink> links = distributionService.getReceivedCaseLinks(
-                session, user2Mailbox, 0, 0);
+        List<CaseLink> links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
         assertFalse(route.isDone());
         ActionableCaseLink actionableLink = null;
         for (CaseLink link : links) {
-            assertEquals(link.getDocument().getPropertyValue(DC_TITLE),
-                    CASE_TITLE);
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
             if (link.isActionnable()) {
                 // find the step and undo it
                 DocumentModel linkDoc = link.getDocument();
@@ -125,8 +120,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
             }
         }
         // assert actionable case link was removed
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(1, links.size());
         // rerun the route
         closeSession();
@@ -135,32 +129,27 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         closeSession();
         session = openSessionAs(principal2);
         // retest that task 2 is recreated
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
         assertFalse(route.isDone());
         actionableLink = null;
         for (CaseLink link : links) {
-            assertEquals(link.getDocument().getPropertyValue(DC_TITLE),
-                    CASE_TITLE);
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
             if (link.isActionnable()) {
                 actionableLink = (ActionableCaseLink) link;
                 actionableLink.validate(session);
             }
         }
-        route = session.getDocument(route.getDocument().getRef()).getAdapter(
-                DocumentRoute.class);
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertFalse(route.isDone());
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(4, links.size());
         List<CaseLink> actionnableTodo = new ArrayList<CaseLink>();
         List<CaseLink> actionnableDone = new ArrayList<CaseLink>();
         List<CaseLink> nonActionnable = new ArrayList<CaseLink>();
         for (CaseLink link : links) {
             if (link.isActionnable()) {
-                ActionableCaseLink al = link.getDocument().getAdapter(
-                        ActionableCaseLink.class);
+                ActionableCaseLink al = link.getDocument().getAdapter(ActionableCaseLink.class);
                 if (al.isDone()) {
                     actionnableDone.add(link);
                 } else if (al.isTodo()) {
@@ -174,20 +163,17 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
         for (CaseLink link : actionnableTodo) {
-            ActionableCaseLink acl = link.getDocument().getAdapter(
-                    ActionableCaseLink.class);
+            ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
             acl.refuse(session);
         }
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
         actionnableTodo = new ArrayList<CaseLink>();
         actionnableDone = new ArrayList<CaseLink>();
         nonActionnable = new ArrayList<CaseLink>();
         for (CaseLink link : links) {
             if (link.isActionnable()) {
-                ActionableCaseLink al = link.getDocument().getAdapter(
-                        ActionableCaseLink.class);
+                ActionableCaseLink al = link.getDocument().getAdapter(ActionableCaseLink.class);
                 if (al.isDone()) {
                     actionnableDone.add(link);
                 } else if (al.isTodo()) {
@@ -201,12 +187,10 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
         for (CaseLink link : actionnableTodo) {
-            ActionableCaseLink acl = link.getDocument().getAdapter(
-                    ActionableCaseLink.class);
+            ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
             acl.refuse(session);
         }
-        route = session.getDocument(route.getDocument().getRef()).getAdapter(
-                DocumentRoute.class);
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertTrue(route.isDone());
     }
 
@@ -218,33 +202,28 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertNotNull(routingService);
         route = routingService.createNewInstance(route, docIds, session);
         Mailbox user2Mailbox = getPersonalMailbox(user2);
-        List<CaseLink> links = distributionService.getReceivedCaseLinks(
-                session, user2Mailbox, 0, 0);
+        List<CaseLink> links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
         assertFalse(route.isDone());
         ActionableCaseLink actionableLink = null;
         for (CaseLink link : links) {
-            assertEquals(link.getDocument().getPropertyValue(DC_TITLE),
-                    CASE_TITLE);
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
             if (link.isActionnable()) {
                 actionableLink = (ActionableCaseLink) link;
                 actionableLink.validate(session);
             }
         }
         assertNotNull(actionableLink);
-        route = session.getDocument(route.getDocument().getRef()).getAdapter(
-                DocumentRoute.class);
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertFalse(route.isDone());
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(4, links.size());
         List<CaseLink> actionnableTodo = new ArrayList<CaseLink>();
         List<CaseLink> actionnableDone = new ArrayList<CaseLink>();
         List<CaseLink> nonActionnable = new ArrayList<CaseLink>();
         for (CaseLink link : links) {
             if (link.isActionnable()) {
-                ActionableCaseLink al = link.getDocument().getAdapter(
-                        ActionableCaseLink.class);
+                ActionableCaseLink al = link.getDocument().getAdapter(ActionableCaseLink.class);
                 if (al.isDone()) {
                     actionnableDone.add(link);
                 } else if (al.isTodo()) {
@@ -258,20 +237,17 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
         for (CaseLink link : actionnableTodo) {
-            ActionableCaseLink acl = link.getDocument().getAdapter(
-                    ActionableCaseLink.class);
+            ActionableCaseLink acl = link.getDocument().getAdapter(ActionableCaseLink.class);
             acl.refuse(session);
         }
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
         actionnableTodo = new ArrayList<CaseLink>();
         actionnableDone = new ArrayList<CaseLink>();
         nonActionnable = new ArrayList<CaseLink>();
         for (CaseLink link : links) {
             if (link.isActionnable()) {
-                ActionableCaseLink al = link.getDocument().getAdapter(
-                        ActionableCaseLink.class);
+                ActionableCaseLink al = link.getDocument().getAdapter(ActionableCaseLink.class);
                 if (al.isDone()) {
                     actionnableDone.add(link);
                 } else if (al.isTodo()) {
@@ -284,11 +260,9 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertEquals(1, actionnableTodo.size());
         assertEquals(0, actionnableDone.size());
         assertEquals(1, nonActionnable.size());
-        ValidateDueCaseLinkUnrestricted runner = new ValidateDueCaseLinkUnrestricted(
-                session);
+        ValidateDueCaseLinkUnrestricted runner = new ValidateDueCaseLinkUnrestricted(session);
         runner.runUnrestricted();
-        route = session.getDocument(route.getDocument().getRef()).getAdapter(
-                DocumentRoute.class);
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertTrue(route.isDone());
     }
 
@@ -299,27 +273,23 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         session = openSessionAs(principal2);
         assertNotNull(routingService);
         route = routingService.createNewInstance(route, docIds, session);
-        //user has already a personal mailbox
+        // user has already a personal mailbox
         Mailbox user2Mailbox = correspMailboxService.getUserPersonalMailbox(session, user2);
-        List<CaseLink> links = distributionService.getReceivedCaseLinks(
-                session, user2Mailbox, 0, 0);
+        List<CaseLink> links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(2, links.size());
         assertFalse(route.isDone());
         ActionableCaseLink actionableLink = null;
         for (CaseLink link : links) {
-            assertEquals(link.getDocument().getPropertyValue(DC_TITLE),
-                    CASE_TITLE);
+            assertEquals(link.getDocument().getPropertyValue(DC_TITLE), CASE_TITLE);
             if (link.isActionnable()) {
                 actionableLink = (ActionableCaseLink) link;
                 actionableLink.validate(session);
             }
         }
         assertNotNull(actionableLink);
-        route = session.getDocument(route.getDocument().getRef()).getAdapter(
-                DocumentRoute.class);
+        route = session.getDocument(route.getDocument().getRef()).getAdapter(DocumentRoute.class);
         assertFalse(route.isDone());
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         assertEquals(4, links.size());
         closeSession();
         session = openSessionAs("administrators");
@@ -328,8 +298,7 @@ public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
         assertTrue(route.isCanceled());
         closeSession();
         session = openSessionAs(principal2);
-        links = distributionService.getReceivedCaseLinks(session, user2Mailbox,
-                0, 0);
+        links = distributionService.getReceivedCaseLinks(session, user2Mailbox, 0, 0);
         for (CaseLink link : links) {
             if (link.isActionnable()) {
                 fail();

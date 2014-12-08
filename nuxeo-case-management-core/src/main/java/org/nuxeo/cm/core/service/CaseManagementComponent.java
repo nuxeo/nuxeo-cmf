@@ -72,24 +72,21 @@ public class CaseManagementComponent extends DefaultComponent {
     }
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         if (extensionPoint.equals(MAILBOX_CREATOR_EXTENSION_POINT)) {
             CreationClassDescriptor classDesc = (CreationClassDescriptor) contribution;
             String className = classDesc.getKlass();
             // Thread context loader is not working in isolated EARs
             Object creator;
             try {
-                creator = CaseManagementComponent.class.getClassLoader().loadClass(
-                        className).newInstance();
+                creator = CaseManagementComponent.class.getClassLoader().loadClass(className).newInstance();
             } catch (ReflectiveOperationException e) {
                 throw new RuntimeException(e);
             }
             if (creator instanceof MailboxCreator) {
                 mailboxService.setPersonalMailboxCreator((MailboxCreator) creator);
             } else {
-                log.error("Invalid contribution to personal mailbox creator: "
-                        + className);
+                log.error("Invalid contribution to personal mailbox creator: " + className);
             }
         } else if (PERSISTER_EXTENSION_POINT.equals(extensionPoint)) {
             PersisterDescriptor desc = (PersisterDescriptor) contribution;

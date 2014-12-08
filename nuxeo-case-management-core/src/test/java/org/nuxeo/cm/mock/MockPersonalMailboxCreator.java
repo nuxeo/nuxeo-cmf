@@ -49,8 +49,7 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
         return null;
     }
 
-    public List<Mailbox> createMailboxes(CoreSession session, String user)
-            throws CaseManagementException {
+    public List<Mailbox> createMailboxes(CoreSession session, String user) throws CaseManagementException {
 
         List<Mailbox> mailboxes = new ArrayList<Mailbox>();
 
@@ -79,8 +78,7 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
             mailboxes.add(mailbox);
 
         } catch (Exception e) {
-            throw new CaseManagementException(
-                    "Error during mailboxes creation", e);
+            throw new CaseManagementException("Error during mailboxes creation", e);
         }
 
         return mailboxes;

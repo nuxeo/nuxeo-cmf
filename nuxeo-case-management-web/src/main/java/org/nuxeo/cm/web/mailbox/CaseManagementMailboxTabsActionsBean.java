@@ -50,8 +50,7 @@ import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 @Name("cmMailboxTabsActionsBean")
 @Scope(ScopeType.CONVERSATION)
 @CaseManagementContextBound
-public class CaseManagementMailboxTabsActionsBean extends
-        CaseManagementContextBoundInstance {
+public class CaseManagementMailboxTabsActionsBean extends CaseManagementContextBoundInstance {
 
     private static final long serialVersionUID = 1L;
 
@@ -93,7 +92,7 @@ public class CaseManagementMailboxTabsActionsBean extends
         return viewMailboxActionTabs;
     }
 
-    public void resetViewMailboxActionTabs(){
+    public void resetViewMailboxActionTabs() {
         viewMailboxActionTabs = null;
     }
 
@@ -164,8 +163,7 @@ public class CaseManagementMailboxTabsActionsBean extends
     /**
      * Sets the current tab (Action) for Mailbox Management.
      */
-    public void setCurrentViewMailboxAction(String actionId)
-            throws ClientException {
+    public void setCurrentViewMailboxAction(String actionId) throws ClientException {
         String previous = getCurrentViewMailboxAction().getId();
         if (!actionId.equals(previous)) {
             Contexts.removeFromAllContexts("currentCase");
@@ -185,8 +183,7 @@ public class CaseManagementMailboxTabsActionsBean extends
     /**
      * Sets the current tab (Action) for Mailbox View.
      */
-    public void setCurrentManageMailboxAction(String actionId)
-            throws ClientException {
+    public void setCurrentManageMailboxAction(String actionId) throws ClientException {
         Action target = actionManager.getAction(actionId);
         List<Action> actions = getManageMailboxActionTabs();
         if (actions != null && !actions.isEmpty() && actions.contains(target)) {
@@ -197,8 +194,7 @@ public class CaseManagementMailboxTabsActionsBean extends
     /**
      * Sets the current tab (Action) for Distribution Envelope view.
      */
-    public void setCurrentDistributionCaseAction(String actionId)
-            throws ClientException {
+    public void setCurrentDistributionCaseAction(String actionId) throws ClientException {
         Action target = actionManager.getAction(actionId);
         List<Action> actions = getDistributionCaseActionTabs();
         if (actions != null && !actions.isEmpty() && actions.contains(target)) {
@@ -223,8 +219,7 @@ public class CaseManagementMailboxTabsActionsBean extends
     }
 
     @Override
-    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox)
-            throws ClientException {
+    protected void resetMailboxCache(Mailbox cachedMailbox, Mailbox newMailbox) throws ClientException {
         viewMailboxActionTabs = null;
         distributionEnvelopeActionTabs = null;
     }

@@ -37,8 +37,7 @@ public class TestCaseLink extends CaseManagementRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
         openSession();
-        DocumentModel document = createDocument(
-                CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE, "post");
+        DocumentModel document = createDocument(CaseLinkConstants.CASE_LINK_DOCUMENT_TYPE, "post");
 
         HasParticipants adapter = document.getAdapter(HasParticipants.class);
         post = new CaseLinkImpl(document, adapter);

@@ -51,8 +51,7 @@ public interface CaseManagementPersister {
     String getParentDocumentPathForCase(CoreSession session);
 
     /**
-     * Default implementation uses date to find or create a set of folders
-     * representing the given date hierarchy.
+     * Default implementation uses date to find or create a set of folders representing the given date hierarchy.
      *
      * @param session
      * @param date
@@ -61,8 +60,7 @@ public interface CaseManagementPersister {
     DocumentModel getParentDocumentForCase(CoreSession session, Date date);
 
     /**
-     * Default implementation uses date to find or create a set of folders
-     * representing the given date hierarchy.
+     * Default implementation uses date to find or create a set of folders representing the given date hierarchy.
      *
      * @param session
      * @param date

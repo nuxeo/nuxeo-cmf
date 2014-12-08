@@ -73,13 +73,11 @@ public class CaseProcessedListener implements EventListener {
 
     }
 
-    public static class RemoveWritePermissionUnrestricted extends
-            UnrestrictedSessionRunner {
+    public static class RemoveWritePermissionUnrestricted extends UnrestrictedSessionRunner {
 
         protected final Case kase;
 
-        public RemoveWritePermissionUnrestricted(CoreSession session,
-                Case kase) {
+        public RemoveWritePermissionUnrestricted(CoreSession session, Case kase) {
             super(session);
             this.kase = kase;
         }
@@ -93,16 +91,14 @@ public class CaseProcessedListener implements EventListener {
             for (DocumentModel doc : items) {
                 acp = doc.getACP();
                 processedAcl = acp.getOrCreateACL(CaseManagementSecurityConstants.ACL_PROCESSED_CASE_NAME);
-                processedAcl.add(new ACE(SecurityConstants.EVERYONE,
-                        SecurityConstants.WRITE_LIFE_CYCLE, true));
-                processedAcl.add(new ACE(SecurityConstants.EVERYONE,
-                                SecurityConstants.WRITE, false));
+                processedAcl.add(new ACE(SecurityConstants.EVERYONE, SecurityConstants.WRITE_LIFE_CYCLE, true));
+                processedAcl.add(new ACE(SecurityConstants.EVERYONE, SecurityConstants.WRITE, false));
                 acp.removeACL(CaseManagementSecurityConstants.ACL_PROCESSED_CASE_NAME);
                 acp.addACL(0, processedAcl);
                 session.setACP(doc.getRef(), acp, true);
             }
         }
-        
+
     }
 
 }

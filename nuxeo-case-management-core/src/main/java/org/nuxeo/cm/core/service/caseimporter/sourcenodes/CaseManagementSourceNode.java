@@ -30,7 +30,7 @@ import org.nuxeo.ecm.platform.importer.source.SourceNode;
 
 /**
  * The file is actually the file containing the case definitions
- * */
+ */
 public class CaseManagementSourceNode extends FileSourceNode {
 
     public static final Log log = LogFactory.getLog(CaseManagementSourceNode.class);
@@ -39,8 +39,7 @@ public class CaseManagementSourceNode extends FileSourceNode {
 
     private List<Document> allCases = new ArrayList<Document>();
 
-    public CaseManagementSourceNode(File child,
-            AbstractXMLCaseReader xmlCaseReader) {
+    public CaseManagementSourceNode(File child, AbstractXMLCaseReader xmlCaseReader) {
         super(child);
         this.xmlCaseReader = xmlCaseReader;
     }
@@ -54,8 +53,7 @@ public class CaseManagementSourceNode extends FileSourceNode {
             log.error("Can not fetch cases");
         }
         for (Document el : allCases) {
-            cases.add(new CaseSourceNode(el.getRootElement(), xmlCaseReader,
-                    file.getPath()));
+            cases.add(new CaseSourceNode(el.getRootElement(), xmlCaseReader, file.getPath()));
         }
         return cases;
     }

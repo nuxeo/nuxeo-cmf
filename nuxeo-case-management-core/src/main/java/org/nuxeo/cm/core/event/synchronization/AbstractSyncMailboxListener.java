@@ -45,8 +45,7 @@ public abstract class AbstractSyncMailboxListener implements EventListener {
         return correspDocumentTypeService.getMailboxType();
     }
 
-    public static DocumentModel getMailboxDocument(Event event)
-            throws ClientException {
+    public static DocumentModel getMailboxDocument(Event event) throws ClientException {
         DocumentEventContext docEventContext = null;
         if (event.getContext() instanceof DocumentEventContext) {
             docEventContext = (DocumentEventContext) event.getContext();
@@ -85,8 +84,7 @@ public abstract class AbstractSyncMailboxListener implements EventListener {
         return (String) properties.get(MailboxConstants.GROUP_UPDATE_SYNC_POLICY_PROPERTY);
     }
 
-    public static boolean isGroupUpdatePolicy(Event event,
-            MailboxConstants.updatePolicy updatePolicy) {
+    public static boolean isGroupUpdatePolicy(Event event, MailboxConstants.updatePolicy updatePolicy) {
         String eventPolicy = getGroupUpdatePolicy(event);
         if (eventPolicy != null && !"".equals(eventPolicy)) {
             if (eventPolicy.equals(updatePolicy.name())) {

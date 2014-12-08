@@ -36,8 +36,7 @@ import org.nuxeo.ecm.webapp.helpers.StartupHelper;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * Overwrite default StartupHelper to provide custom startup page for
- * casemanagement.
+ * Overwrite default StartupHelper to provide custom startup page for casemanagement.
  *
  * @author <a href="mailto:ldoguin@nuxeo.com">Laurent Doguin</a>
  */
@@ -67,8 +66,7 @@ public class CaseManagementStartupHelper extends StartupHelper {
             MailboxManagementService service = Framework.getService(MailboxManagementService.class);
             // select mailbox to display
             final String user = currentNuxeoPrincipal.getName();
-            Mailbox userMailbox = service.getUserPersonalMailbox(
-                    documentManager, user);
+            Mailbox userMailbox = service.getUserPersonalMailbox(documentManager, user);
             if (userMailbox != null) {
                 page = navigationContext.navigateToDocument(userMailbox.getDocument());
                 webActions.setCurrentTabIds(CMF_TAB);

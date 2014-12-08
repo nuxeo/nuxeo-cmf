@@ -72,8 +72,7 @@ public class MailingListImpl implements MailingList {
         LinkedHashSet<String> lhs = new LinkedHashSet<String>(mailboxes);
         mailboxes = new ArrayList<String>();
         mailboxes.addAll(lhs);
-        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD,
-                (Serializable) mailboxes);
+        mlDoc.put(MailboxConstants.MAILINGLIST_MAILBOXES_FIELD, (Serializable) mailboxes);
     }
 
     @Override
