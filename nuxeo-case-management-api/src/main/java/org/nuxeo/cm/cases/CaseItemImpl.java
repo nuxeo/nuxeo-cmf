@@ -214,13 +214,7 @@ public class CaseItemImpl implements CaseItem {
     protected Case createEnvelope(CoreSession session, String parentPath, String id, String initialLifeCycleState)
             throws ClientException {
 
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
-
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         DocumentModel envelope = session.createDocumentModel(parentPath, id, correspDocumentTypeService.getCaseType());
         envelope.setPropertyValue(CaseConstants.TITLE_PROPERTY_NAME,
                 document.getPropertyValue(CaseConstants.TITLE_PROPERTY_NAME));

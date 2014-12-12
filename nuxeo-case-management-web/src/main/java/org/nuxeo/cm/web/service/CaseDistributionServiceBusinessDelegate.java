@@ -47,11 +47,7 @@ public class CaseDistributionServiceBusinessDelegate implements Serializable {
     @Unwrap
     public CaseDistributionService getDistributionService() throws ClientException {
         if (service == null) {
-            try {
-                service = Framework.getService(CaseDistributionService.class);
-            } catch (Exception e) {
-                throw new ClientException("Error connecting to casemanagement service", e);
-            }
+            service = Framework.getService(CaseDistributionService.class);
             if (service == null) {
                 throw new ClientException("Correspondence service not bound");
             }

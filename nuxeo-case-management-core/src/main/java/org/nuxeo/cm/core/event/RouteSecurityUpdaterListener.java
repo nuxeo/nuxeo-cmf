@@ -102,33 +102,18 @@ public class RouteSecurityUpdaterListener implements EventListener {
      * @return
      */
     protected boolean isReadFromMailboxId(ACE a) {
-        PermissionProvider pm;
-        try {
-            pm = Framework.getService(PermissionProvider.class);
-            String[] perms = pm.getSubPermissions(a.getPermission());
-            for (String perm : perms) {
-                if (SecurityConstants.READ.equals(perm) || SecurityConstants.EVERYTHING.equals(perm)) {
-                    return true;
-                }
+        PermissionProvider pm = Framework.getService(PermissionProvider.class);
+        String[] perms = pm.getSubPermissions(a.getPermission());
+        for (String perm : perms) {
+            if (SecurityConstants.READ.equals(perm) || SecurityConstants.EVERYTHING.equals(perm)) {
+                return true;
             }
-            return false;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
+        return false;
     }
 
     protected DocumentRoutingService getDocumentRoutingService() {
-        try {
-            DocumentRoutingService service = Framework.getService(DocumentRoutingService.class);
-            if (service == null) {
-                throw new RuntimeException("DocumentRoutingService is missing");
-            }
-            return service;
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return Framework.getService(DocumentRoutingService.class);
     }
 
 }

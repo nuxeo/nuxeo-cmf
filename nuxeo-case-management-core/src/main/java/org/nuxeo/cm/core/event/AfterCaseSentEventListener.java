@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 
 /**
  * Set case recipients on caseitem.
- * 
+ *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
 public class AfterCaseSentEventListener implements EventListener {
@@ -60,11 +60,7 @@ public class AfterCaseSentEventListener implements EventListener {
             item.save(event.getContext().getCoreSession());
         }
 
-        try {
-            kase.save(event.getContext().getCoreSession());
-        } catch (Exception e) {
-            ClientException.wrap(e);
-        }
+        kase.save(event.getContext().getCoreSession());
     }
 
     protected void setRecipients(HasParticipants item, boolean isInitial, Map<String, List<String>> internalRecipients,

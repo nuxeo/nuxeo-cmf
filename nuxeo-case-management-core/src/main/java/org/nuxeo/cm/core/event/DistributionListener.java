@@ -66,13 +66,9 @@ public class DistributionListener implements EventListener {
         if (recipients == null) {
             return;
         }
-        try {
-            SetEnvelopeAclUnrestricted session = new SetEnvelopeAclUnrestricted(eventCtx.getCoreSession(), envelope,
-                    recipients);
-            session.runUnrestricted();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e.getMessage(), e);
-        }
+        SetEnvelopeAclUnrestricted session = new SetEnvelopeAclUnrestricted(eventCtx.getCoreSession(), envelope,
+                recipients);
+        session.runUnrestricted();
 
     }
 

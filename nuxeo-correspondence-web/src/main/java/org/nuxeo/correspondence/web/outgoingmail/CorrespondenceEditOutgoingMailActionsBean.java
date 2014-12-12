@@ -142,10 +142,10 @@ public class CorrespondenceEditOutgoingMailActionsBean extends CaseManagementCon
 
     /**
      * Open the Draft Post in edit
-     * 
+     *
      * @throws Exception
      */
-    public String openDistribution() throws Exception {
+    public String openDistribution() {
 
         // Save last updates
         updateCurrentEnvelope();

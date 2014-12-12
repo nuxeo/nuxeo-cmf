@@ -18,9 +18,7 @@ package org.nuxeo.cm.core.event.synchronization;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.cm.exception.CaseManagementRuntimeException;
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationService;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.runtime.api.Framework;
@@ -34,20 +32,20 @@ public class MailboxSynchronizationListener implements EventListener {
 
     public static boolean doingSync = false;
 
-    public void handleEvent(Event event) throws ClientException {
+    @Override
+    public void handleEvent(Event event) {
+        if (doingSync) {
+            log.info("Scheduled synchronization will not run"
+                    + " because a previous synchronization is not done yet.");
+            return;
+        }
+        doingSync = true;
         try {
-            if (!doingSync) {
-                doingSync = true;
-                MailboxSynchronizationService syncService = Framework.getService(MailboxSynchronizationService.class);
-                syncService.doSynchronize();
-                doingSync = false;
-            } else {
-                log.info("Scheduled synchronization will not run"
-                        + " because a previous synchronization is not done yet.");
-            }
-        } catch (Exception e) {
+            MailboxSynchronizationService syncService = Framework.getService(MailboxSynchronizationService.class);
+            syncService.doSynchronize();
             doingSync = false;
-            throw new CaseManagementRuntimeException("Error during Mailboxes synchronization", e);
+        } finally {
+            doingSync = false;
         }
     }
 

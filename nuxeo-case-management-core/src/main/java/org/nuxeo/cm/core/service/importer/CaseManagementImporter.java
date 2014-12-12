@@ -57,17 +57,13 @@ public class CaseManagementImporter extends AbstractImporterExecutor {
     public void importDocuments() {
         SourceNode sourceNode = new FileSourceNode(folderPath);
         GenericMultiThreadedImporter importer;
-        try {
-            importer = new GenericMultiThreadedImporter(sourceNode, destionationMailboxPath, 50, new Integer(
-                    noImportingThreads), getLogger());
-            // TODO : bachSize?
-            cmCaseItemDocFactory.setDestionationMailboxPath(destionationMailboxPath);
-            importer.setFactory(cmCaseItemDocFactory);
-            // TODO : add the type checker?
-            doRun(importer, Boolean.TRUE);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+        importer = new GenericMultiThreadedImporter(sourceNode, destionationMailboxPath, 50, new Integer(
+                noImportingThreads), getLogger());
+        // TODO : bachSize?
+        cmCaseItemDocFactory.setDestionationMailboxPath(destionationMailboxPath);
+        importer.setFactory(cmCaseItemDocFactory);
+        // TODO : add the type checker?
+        doRun(importer, Boolean.TRUE);
     }
 
 }

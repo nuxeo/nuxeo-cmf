@@ -60,13 +60,7 @@ public class MailInjectionListener implements EventListener {
     private static final String MAILBOX_PIPE = "casemanagementMailBox";
 
     public void handleEvent(Event event) throws ClientException {
-
-        MailService mailService;
-        try {
-            mailService = Framework.getService(MailService.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Could not get Mailbox service.", e);
-        }
+        MailService mailService = Framework.getService(MailService.class);
         MessageActionPipe pipe = mailService.getPipe(MAILBOX_PIPE);
 
         Visitor visitor = new Visitor(pipe);

@@ -40,11 +40,7 @@ public class DistributionOperation {
     protected OperationContext context;
 
     public CaseDistributionService getDistributionService() {
-        try {
-            return Framework.getService(CaseDistributionService.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return Framework.getService(CaseDistributionService.class);
     }
 
     @OperationMethod

@@ -111,24 +111,16 @@ public class CaseItemDocumentActionsBean extends CaseManagementContextBoundInsta
         // we cannot use typesTool as intermediary since the DataModel callback
         // will alter whatever type we set
         typesTool.setSelectedType(docType);
-        try {
-            DocumentModel changeableDocument = documentManager.createDocumentModel(typeName);
-            changeableDocument.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY, true);
-            navigationContext.setChangeableDocument(changeableDocument);
-            return navigationContext.getActionResult(changeableDocument, UserAction.CREATE);
-        } catch (Throwable t) {
-            throw ClientException.wrap(t);
-        }
+        DocumentModel changeableDocument = documentManager.createDocumentModel(typeName);
+        changeableDocument.putContextData(CaseManagementWebConstants.CREATE_NEW_CASE_KEY, true);
+        navigationContext.setChangeableDocument(changeableDocument);
+        return navigationContext.getActionResult(changeableDocument, UserAction.CREATE);
     }
 
     public String createCaseItemInDefaultCase() throws ClientException {
         DocumentModel emailDoc = navigationContext.getChangeableDocument();
         Mailbox currentMailbox = getCurrentMailbox();
-        try {
-            getCaseManagementDocumentTypeService().markDocumentAsCaseItem(emailDoc);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        getCaseManagementDocumentTypeService().markDocumentAsCaseItem(emailDoc);
         Case envelope = caseDistributionService.createCase(documentManager, emailDoc,
                 Collections.singletonList(currentMailbox));
         emailDoc = envelope.getFirstItem(documentManager).getDocument();
@@ -157,11 +149,7 @@ public class CaseItemDocumentActionsBean extends CaseManagementContextBoundInsta
                 && navigationContext.getCurrentDocument().equals(kase.getDocument())) {
             // adding a case item in a case
             // creating a case item in a case
-            try {
-                getCaseManagementDocumentTypeService().markDocumentAsCaseItem(emailDoc);
-            } catch (Exception e) {
-                throw new ClientException(e);
-            }
+            getCaseManagementDocumentTypeService().markDocumentAsCaseItem(emailDoc);
             CaseItem newCaseItem = caseDistributionService.addCaseItemToCase(documentManager, kase, emailDoc);
             emailDoc = newCaseItem.getDocument();
             emailDoc.setProperty(CaseConstants.CASE_ITEM_DOCUMENT_SCHEMA, CaseConstants.DOCUMENT_DEFAULT_CASE_ID,
@@ -331,7 +319,7 @@ public class CaseItemDocumentActionsBean extends CaseManagementContextBoundInsta
         return isDistributable && isCaseGroupable;
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws Exception {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() {
         if (caseManagementDocumentTypeService == null) {
             caseManagementDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         }

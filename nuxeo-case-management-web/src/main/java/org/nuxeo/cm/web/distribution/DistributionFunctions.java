@@ -78,43 +78,23 @@ public class DistributionFunctions {
     }
 
     public static Mailbox getMailbox(CoreSession session, String mailboxId) {
-        try {
-            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailbox(session, mailboxId);
-        } catch (Exception e) {
-            log.error("Failed to get mailbox: " + mailboxId, e);
-            return null;
-        }
+        MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+        return service.getMailbox(session, mailboxId);
     }
 
     public static MailboxHeader getMailboxHeader(CoreSession session, String mailboxId) {
-        try {
-            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailboxHeader(session, mailboxId);
-        } catch (Exception e) {
-            log.error("Failed to get mailbox headers: " + mailboxId, e);
-            return null;
-        }
+        MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+        return service.getMailboxHeader(session, mailboxId);
     }
 
     public static List<Mailbox> getMailboxes(CoreSession session, List<String> mailboxIds) {
-        try {
-            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailboxes(session, mailboxIds);
-        } catch (Exception e) {
-            log.error("Failed to get mailboxes: " + mailboxIds, e);
-            return null;
-        }
+        MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+        return service.getMailboxes(session, mailboxIds);
     }
 
     public static List<MailboxHeader> getMailboxHeaders(CoreSession session, List<String> mailboxIds) {
-        try {
-            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            return service.getMailboxesHeaders(session, mailboxIds);
-        } catch (Exception e) {
-            log.error("Failed to get mailboxes headers: " + mailboxIds, e);
-            return null;
-        }
+        MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+        return service.getMailboxesHeaders(session, mailboxIds);
     }
 
     public static String formatStringForView(String summary) {

@@ -42,7 +42,8 @@ public class CaseManagementContextInterceptor extends AbstractInterceptor {
 
     private static final Log log = LogFactory.getLog(CaseManagementContextInterceptor.class);
 
-    public Object aroundInvoke(InvocationContext invocationContext) throws Exception {
+    @Override
+    public Object aroundInvoke(InvocationContext invocationContext) throws Exception { // stupid Seam API
         beforeInvocation(invocationContext);
         return invocationContext.proceed();
     }
@@ -53,7 +54,7 @@ public class CaseManagementContextInterceptor extends AbstractInterceptor {
             if (meth.isAnnotationPresent(CaseManagementContextChecker.class)) {
                 try {
                     meth.invoke(target, getCaseManagementContextHolder());
-                } catch (Exception e) {
+                } catch (ReflectiveOperationException e) {
                     log.error("Error during Invalidation method call", e);
                 }
             }

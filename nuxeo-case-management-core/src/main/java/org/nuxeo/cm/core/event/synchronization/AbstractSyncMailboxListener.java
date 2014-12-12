@@ -36,12 +36,7 @@ import org.nuxeo.runtime.api.Framework;
 public abstract class AbstractSyncMailboxListener implements EventListener {
 
     public static String getMailboxType() throws ClientException {
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         return correspDocumentTypeService.getMailboxType();
     }
 

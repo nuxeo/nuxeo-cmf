@@ -99,7 +99,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
             SendPostUnrestricted sendPostUnrestricted = new SendPostUnrestricted(session, postRequest, isInitial);
             sendPostUnrestricted.runUnrestricted();
             return sendPostUnrestricted.getPost();
-        } catch (Exception e) {
+        } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
@@ -111,7 +111,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     actionable);
             sendPostUnrestricted.runUnrestricted();
             return sendPostUnrestricted.getPost();
-        } catch (Exception e) {
+        } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
@@ -281,11 +281,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
     }
 
     public CaseManagementDocumentTypeService getTypeService() {
-        try {
-            return Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return Framework.getService(CaseManagementDocumentTypeService.class);
     }
 
     @Override
@@ -378,7 +374,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                     getEventProducer().fireEvent(docContext.newEvent(caseItemEventName));
                 }
             }
-        } catch (Exception e) {
+        } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e);
         }
     }
@@ -410,7 +406,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
                         session.removeDocument(ref);
                         envContext.getProperties().remove(CaseManagementEventConstants.EVENT_CONTEXT_CASE_LINK);
                         getEventProducer().fireEvent(envContext.newEvent(EventNames.afterCaseLinkRemovedEvent.name()));
-                    } catch (Exception e) {
+                    } catch (ClientException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -427,7 +423,7 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
         envContext.setProperties(eventProperties);
         try {
             getEventProducer().fireEvent(envContext.newEvent(name));
-        } catch (Exception e) {
+        } catch (ClientException e) {
             throw new CaseManagementRuntimeException(e.getMessage(), e);
         }
     }
@@ -436,9 +432,8 @@ public class CaseDistributionServiceImpl implements CaseDistributionService {
      * Retrieves and caches the Event Producer Service.
      *
      * @return The Event Producer Service
-     * @throws Exception
      */
-    protected EventProducer getEventProducer() throws Exception {
+    protected EventProducer getEventProducer() {
         if (eventProducer == null) {
             eventProducer = Framework.getService(EventProducer.class);
         }

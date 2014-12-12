@@ -21,6 +21,7 @@ package org.nuxeo.cm.mail.actionpipe;
 
 import javax.mail.Message;
 import javax.mail.Flags.Flag;
+import javax.mail.MessagingException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,7 +42,7 @@ public class EndAction extends AbstractCaseManagementMailAction {
             // erase marker: mail has been treated
             message.setFlag(Flag.FLAGGED, false);
             return true;
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             log.error("Failed to execute EndAction", e);
             return false;
         }

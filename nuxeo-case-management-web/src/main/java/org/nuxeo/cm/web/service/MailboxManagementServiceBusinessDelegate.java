@@ -46,14 +46,7 @@ public class MailboxManagementServiceBusinessDelegate implements Serializable {
     @Unwrap
     public MailboxManagementService getMailboxManagementService() throws ClientException {
         if (service == null) {
-            try {
-                service = Framework.getService(MailboxManagementService.class);
-            } catch (Exception e) {
-                throw new ClientException("Error connecting to casemanagement service", e);
-            }
-            if (service == null) {
-                throw new ClientException("Correspondence service not bound");
-            }
+            service = Framework.getService(MailboxManagementService.class);
         }
         return service;
     }

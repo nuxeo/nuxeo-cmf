@@ -102,6 +102,9 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         // deploy page provider service
         deployBundle("org.nuxeo.ecm.platform.query.api");
 
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
+
         // needed for users
         deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
         deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);

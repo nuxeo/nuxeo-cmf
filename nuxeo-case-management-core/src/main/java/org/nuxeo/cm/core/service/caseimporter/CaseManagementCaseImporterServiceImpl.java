@@ -34,11 +34,7 @@ public class CaseManagementCaseImporterServiceImpl extends DefaultComponent impl
     @Override
     public void importCases(String sourcePath) throws ClientException {
         CaseImporter importer = new CaseImporter(noImportingThreads, xmlCaseReader);
-        try {
-            importer.importDocuments(sourcePath);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        importer.importDocuments(sourcePath);
     }
 
     @Override

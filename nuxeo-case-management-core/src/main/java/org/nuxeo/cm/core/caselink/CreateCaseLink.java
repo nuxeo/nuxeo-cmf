@@ -126,14 +126,7 @@ public class CreateCaseLink {
             throw new CaseManagementException("Can't send post because sender mailbox does not exist.");
         }
 
-        recipient = mailboxes.get(0);
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
-
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         recipient = mailboxes.get(0);
         DocumentModel doc = session.createDocumentModel(recipient.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), correspDocumentTypeService.getCaseLinkType());

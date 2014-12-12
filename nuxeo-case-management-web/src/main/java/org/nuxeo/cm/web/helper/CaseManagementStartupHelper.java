@@ -31,6 +31,7 @@ import org.jboss.seam.annotations.Scope;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.MailboxManagementService;
 import org.nuxeo.cm.web.mailbox.CaseManagementMailboxActionsBean;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.webapp.helpers.StartupHelper;
 import org.nuxeo.runtime.api.Framework;
@@ -71,7 +72,7 @@ public class CaseManagementStartupHelper extends StartupHelper {
                 page = navigationContext.navigateToDocument(userMailbox.getDocument());
                 webActions.setCurrentTabIds(CMF_TAB);
             }
-        } catch (Exception e) {
+        } catch (ClientException e) {
             log.error("Could not redirect to user mailbox", e);
         }
         return page;

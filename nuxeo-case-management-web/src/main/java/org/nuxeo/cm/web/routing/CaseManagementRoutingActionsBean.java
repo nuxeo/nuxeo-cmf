@@ -49,7 +49,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Related routing web actions.
- * 
+ *
  * @author Laurent Doguin
  */
 @Name("cmRoutingActions")
@@ -87,7 +87,7 @@ public class CaseManagementRoutingActionsBean extends CaseManagementContextBound
         return view;
     }
 
-    public List<DocumentRoute> getCurrentDocumentLinkedRoute() throws Exception {
+    public List<DocumentRoute> getCurrentDocumentLinkedRoute() {
         List<DocumentRoute> routes = new LinkedList<DocumentRoute>();
         DocumentModel currentDoc = navigationContext.getCurrentDocument();
         if (currentDoc == null) {
@@ -103,12 +103,7 @@ public class CaseManagementRoutingActionsBean extends CaseManagementContextBound
     }
 
     public DocumentRoutingService getDocumentRoutingService() {
-        try {
-            return Framework.getService(DocumentRoutingService.class);
-
-        } catch (Exception e) {
-            throw new ClientRuntimeException(e);
-        }
+        return Framework.getService(DocumentRoutingService.class);
     }
 
     public DocumentModelList getPendingActionnableClsk(DocumentModel caseDoc) throws ClientException {

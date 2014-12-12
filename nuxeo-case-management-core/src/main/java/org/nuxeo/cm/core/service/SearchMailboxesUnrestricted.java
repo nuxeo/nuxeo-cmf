@@ -58,12 +58,8 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        try {
-            DocumentModelList res = queryMailboxes();
-            mailboxes = MailboxConstants.getMailboxList(res);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        DocumentModelList res = queryMailboxes();
+        mailboxes = MailboxConstants.getMailboxList(res);
     }
 
     protected DocumentModelList queryMailboxes() throws ClientException {
@@ -83,12 +79,7 @@ public class SearchMailboxesUnrestricted extends UnrestrictedSessionRunner {
     }
 
     private String getMailboxType() throws ClientException {
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         return correspDocumentTypeService.getMailboxType();
     }
 

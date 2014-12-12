@@ -72,13 +72,9 @@ public class CreateCaseLinkOperation {
         return createCaseLink(list).get(0);
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws ClientException {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() {
         if (correspDocumentTypeService == null) {
-            try {
-                correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-            } catch (Exception e) {
-                throw new ClientException(e);
-            }
+            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         }
         return correspDocumentTypeService;
     }

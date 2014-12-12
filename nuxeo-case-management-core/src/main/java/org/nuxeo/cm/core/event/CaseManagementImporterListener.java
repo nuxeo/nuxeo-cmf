@@ -31,7 +31,8 @@ public class CaseManagementImporterListener implements EventListener {
 
     CaseManagementImporterService caseManagementImporterService;
 
-    public void handleEvent(Event event) throws ClientException {
+    @Override
+    public void handleEvent(Event event) {
 
         EventContext context = event.getContext();
         String category = (String) context.getProperty("category");
@@ -44,13 +45,9 @@ public class CaseManagementImporterListener implements EventListener {
         }
     }
 
-    private CaseManagementImporterService getCaseManagementImporterService() throws ClientException {
-        try {
-            if (caseManagementImporterService == null) {
-                caseManagementImporterService = Framework.getService(CaseManagementImporterService.class);
-            }
-        } catch (Exception e) {
-            throw new ClientException(e);
+    private CaseManagementImporterService getCaseManagementImporterService() {
+        if (caseManagementImporterService == null) {
+            caseManagementImporterService = Framework.getService(CaseManagementImporterService.class);
         }
         return caseManagementImporterService;
     }

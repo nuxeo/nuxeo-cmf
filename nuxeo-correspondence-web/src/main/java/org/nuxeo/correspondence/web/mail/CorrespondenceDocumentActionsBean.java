@@ -100,12 +100,7 @@ public class CorrespondenceDocumentActionsBean extends CaseManagementContextBoun
 
         // Use the Correspondence Type Service to retrieve the used outgoing
         // mail core type
-        CorrespondenceDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        CorrespondenceDocumentTypeService correspDocumentTypeService = Framework.getService(CorrespondenceDocumentTypeService.class);
         // Create the new Mail document model in the MailRoot
         DocumentModel responseMail = session.createDocumentModel(correspDocumentTypeService.getOutgoingDocType(),
                 context);

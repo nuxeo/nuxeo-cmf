@@ -88,14 +88,7 @@ public class CorrespondenceMailboxActionsBean extends CaseManagementContextBound
      * @throws ClientException
      */
     public boolean hasCurrentCaseFacet(String facet) throws ClientException {
-
-        CaseManagementDocumentTypeService correspDocumentTypeService = null;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            log.error("Could not retrieve CorrespondenceDocumentType Service", e);
-        }
-
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         Case currentEnvelope = getCurrentCase();
         if (currentEnvelope != null) {
             CaseItem item = currentEnvelope.getFirstItem(documentManager);

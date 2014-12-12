@@ -122,12 +122,7 @@ public class CaseManagementCaseActionsBean extends CaseManagementContextBoundIns
     }
 
     public DocumentRoutingService getDocumentRoutingService() {
-        try {
-            return Framework.getService(DocumentRoutingService.class);
-
-        } catch (Exception e) {
-            throw new ClientRuntimeException(e);
-        }
+        return Framework.getService(DocumentRoutingService.class);
     }
 
     @Override
@@ -226,7 +221,7 @@ public class CaseManagementCaseActionsBean extends CaseManagementContextBoundIns
             }
             try {
                 caseRefs.add(caselink.getCase(documentManager).getDocument().getRef());
-            } catch (Exception e) {
+            } catch (NullPointerException e) {
                 // doc may not exist anymore
                 log.error(e, e);
             }
@@ -274,11 +269,7 @@ public class CaseManagementCaseActionsBean extends CaseManagementContextBoundIns
 
     protected TrashService getTrashService() {
         if (trashService == null) {
-            try {
-                trashService = Framework.getService(TrashService.class);
-            } catch (Exception e) {
-                throw new RuntimeException("TrashService not available", e);
-            }
+            trashService = Framework.getService(TrashService.class);
         }
         return trashService;
     }
@@ -339,7 +330,7 @@ public class CaseManagementCaseActionsBean extends CaseManagementContextBoundIns
     /**
      * Removes a mail from the current envelope. Navigate to the Case view.
      */
-    public void RemoveCaseItem() throws Exception {
+    public void RemoveCaseItem() {
         Case currentEnvelope = getCurrentCase();
         DocumentModel doc = getCurrentCaseItem();
         CaseItem item = doc.getAdapter(CaseItem.class);

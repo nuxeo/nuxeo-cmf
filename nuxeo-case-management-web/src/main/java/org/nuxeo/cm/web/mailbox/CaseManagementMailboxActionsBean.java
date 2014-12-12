@@ -246,7 +246,7 @@ public class CaseManagementMailboxActionsBean extends CaseManagementContextBound
                     resourcesAccessor.getMessages().get(newDocument.getType()));
             Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED, parentDocument);
             return navigationContext.navigateToDocument(newDocument, "after-create");
-        } catch (Throwable t) {
+        } catch (ClientException t) {
             throw new CaseManagementException(t);
         }
     }
@@ -268,7 +268,7 @@ public class CaseManagementMailboxActionsBean extends CaseManagementContextBound
         if (parentMailboxId != null && !StringUtils.isEmpty(parentMailboxId)) {
             try {
                 mailboxDoc = mailboxManagementService.getMailbox(documentManager, parentMailboxId).getDocument();
-            } catch (Exception e) {
+            } catch (ClientException e) {
                 log.error(String.format("Unable to find parent mailbox with id '%s', using default "
                         + "mailbox root as parent", parentMailboxId));
             }

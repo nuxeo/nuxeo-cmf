@@ -50,6 +50,7 @@ import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.Even
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationConstants.synchronisedState;
 import org.nuxeo.cm.service.synchronization.MailboxSynchronizationService;
 import org.nuxeo.cm.service.synchronization.MailboxUserSynchronizationDescriptor;
+import org.nuxeo.common.utils.ExceptionUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -177,16 +178,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
 
     @Override
     public void doSynchronize() {
-        RepositoryManager mgr;
-        try {
-            mgr = Framework.getService(RepositoryManager.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-
-        if (mgr == null) {
-            throw new CaseManagementRuntimeException("Cannot find RepositoryManager");
-        }
+        RepositoryManager mgr = Framework.getService(RepositoryManager.class);
         String batchSize = Framework.getProperty(MailboxConstants.SYNC_BATCH_SIZE_PROPERTY);
         if (batchSize != null && !"".equals(batchSize)) {
             this.batchSize = Integer.parseInt(batchSize);
@@ -206,20 +198,16 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
      */
     // FIXME: should be also called when editing a Mailbox in the interface
     protected void flushJaasCache() {
-        try {
-            EventService eventService = Framework.getService(EventService.class);
-            if (eventService != null) {
-                eventService.sendEvent(new Event(UserManagerImpl.USERMANAGER_TOPIC,
-                        UserManagerImpl.USERCHANGED_EVENT_ID, this, null));
-            }
-        } catch (Exception e) {
-            log.error(e);
+        EventService eventService = Framework.getService(EventService.class);
+        if (eventService != null) {
+            eventService.sendEvent(new Event(UserManagerImpl.USERMANAGER_TOPIC, UserManagerImpl.USERCHANGED_EVENT_ID,
+                    this, null));
         }
     }
 
     protected void synchronizeGroupList(Map<String, List<String>> groupMap, String directoryName,
             String directoryIdField, Calendar now, UserManager userManager, MailboxTitleGenerator titleGenerator,
-            CoreSession coreSession, Boolean txStarted) throws ClientException {
+            CoreSession coreSession, boolean txStarted) throws ClientException {
         String type = MailboxConstants.type.generic.toString();
         String synchronizerId;
         String generatedTitle;
@@ -270,7 +258,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
                 synchronizeGroupList(nextChildrenBatch, directoryName, directoryIdField, now, userManager,
                         titleGenerator, coreSession, txStarted);
             }
-        } catch (Exception e) {
+        } catch (Exception e) { // deals with interrupt below
+            ExceptionUtils.checkInterrupt(e);
             if (txStarted) {
                 TransactionHelper.setTransactionRollbackOnly();
             }
@@ -280,7 +269,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
 
     protected void synchronizeUserList(List<String> userIds, String directoryName, String directoryIdField,
             Calendar now, UserManager userManager, MailboxTitleGenerator titleGenerator, CoreSession coreSession,
-            Boolean txStarted) throws ClientException {
+            boolean txStarted) throws ClientException {
         String type = MailboxConstants.type.personal.toString();
         String synchronizerId;
         String generatedTitle;
@@ -316,7 +305,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception e) { // deals with interrupt below
+            ExceptionUtils.checkInterrupt(e);
             if (txStarted) {
                 TransactionHelper.setTransactionRollbackOnly();
             }
@@ -418,12 +408,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
     }
 
     protected String getMailboxType() throws ClientException {
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         return correspDocumentTypeService.getMailboxType();
     }
 
@@ -507,11 +492,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
             envContext = new DocumentEventContext(session, session.getPrincipal(), document);
         }
         envContext.setProperties(eventProperties);
-        try {
-            getEventProducer().fireEvent(envContext.newEvent(name));
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e.getMessage(), e);
-        }
+        getEventProducer().fireEvent(envContext.newEvent(name));
     }
 
     protected EventProducer getEventProducer() {
@@ -528,16 +509,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
 
         @Override
         public void run() throws ClientException {
-            UserManager userManager;
-            try {
-                userManager = Framework.getService(UserManager.class);
-            } catch (Exception e) {
-                throw new CaseManagementRuntimeException(e);
-            }
-            if (userManager == null) {
-                throw new CaseManagementException("User manager not found");
-            }
-
+            UserManager userManager = Framework.getService(UserManager.class);
             Calendar now;
             String directoryName;
             MailboxTitleGenerator titleGenerator;
@@ -545,11 +517,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
 
             // synchronize group
             if (groupSynchronizer != null && groupSynchronizer.isEnabled()) {
-                try {
-                    titleGenerator = groupSynchronizer.getTitleGenerator();
-                } catch (Exception e) {
-                    throw new CaseManagementRuntimeException(e);
-                }
+                titleGenerator = groupSynchronizer.getTitleGenerator();
                 if (titleGenerator != null) {
                     now = Calendar.getInstance();
                     directoryName = userManager.getGroupDirectoryName();
@@ -572,7 +540,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
 
                         synchronizeGroupList(topBatch, directoryName, directoryIdField, now, userManager,
                                 titleGenerator, session, txStarted);
-                    } catch (Exception e) {
+                    } catch (Exception e) { // deals with interrupt below
+                        ExceptionUtils.checkInterrupt(e);
                         if (txStarted) {
                             TransactionHelper.setTransactionRollbackOnly();
                         }
@@ -594,11 +563,7 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
             }
             // synchronize users
             if (userSynchronizer != null && userSynchronizer.isEnabled()) {
-                try {
-                    titleGenerator = userSynchronizer.getTitleGenerator();
-                } catch (Exception e) {
-                    throw new CaseManagementRuntimeException(e);
-                }
+                titleGenerator = userSynchronizer.getTitleGenerator();
                 if (titleGenerator != null) {
                     now = new GregorianCalendar();
                     directoryName = userManager.getUserDirectoryName();
@@ -620,7 +585,8 @@ public class MailboxSynchronizationServiceImpl extends DefaultComponent implemen
 
                         synchronizeUserList(userIds, directoryName, directoryIdField, now, userManager, titleGenerator,
                                 session, txStarted);
-                    } catch (Exception e) {
+                    } catch (Exception e) { // deals with interrupt below
+                        ExceptionUtils.checkInterrupt(e);
                         if (txStarted) {
                             TransactionHelper.setTransactionRollbackOnly();
                         }

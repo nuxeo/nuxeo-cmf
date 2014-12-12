@@ -125,11 +125,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
 
     public List<MailboxHeader> getMailboxesHeaders(CoreSession session, List<String> muids) {
         GetMailboxesHeadersUnrestricted sessionSearch = new GetMailboxesHeadersUnrestricted(session, muids);
-        try {
-            sessionSearch.runUnrestricted();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+        sessionSearch.runUnrestricted();
         return sessionSearch.getMailboxesHeaders();
     }
 
@@ -167,11 +163,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
                     "Cannot create personal mailbox for user '%s': " + "it already exists with id '%s'", user, muid));
             return Arrays.asList(getMailbox(session, muid));
         }
-        try {
-            return personalMailboxCreator.createMailboxes(session, user);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e.getMessage(), e);
-        }
+        return personalMailboxCreator.createMailboxes(session, user);
     }
 
     public Mailbox getUserPersonalMailboxForEmail(CoreSession session, String userEmail) {
@@ -193,8 +185,6 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
             }
         } catch (ClientException e) {
             throw new CaseManagementRuntimeException("Couldn't query user directory", e);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
         } finally {
             if (dirSession != null) {
                 try {
@@ -214,12 +204,8 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     public List<MailboxHeader> searchMailboxes(CoreSession session, String pattern, String type) {
         SearchMailboxesHeadersUnrestricted sessionSearch = new SearchMailboxesHeadersUnrestricted(session, pattern,
                 type);
-        try {
-            sessionSearch.runUnrestricted();
-            return sessionSearch.getMailboxesHeaders();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+        sessionSearch.runUnrestricted();
+        return sessionSearch.getMailboxesHeaders();
     }
 
     public boolean hasUserPersonalMailbox(CoreSession session, String userId) {
@@ -234,16 +220,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
      * @return The personal Mailbox Id
      */
     public String getUserPersonalMailboxId(String user) {
-        UserManager userManager;
-        try {
-            userManager = Framework.getService(UserManager.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-        if (userManager == null) {
-            throw new CaseManagementRuntimeException("User manager not found");
-        }
-
+        UserManager userManager = Framework.getService(UserManager.class);
         DocumentModel userModel;
         try {
             userModel = userManager.getUserModel(user);
@@ -258,18 +235,14 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
     }
 
     protected Directory getUserDirectory() {
-        try {
-            UserManager userManager = Framework.getService(UserManager.class);
-            String dirName;
-            if (userManager == null) { // unit tests
-                dirName = "userDirectory";
-            } else {
-                dirName = userManager.getUserDirectoryName();
-            }
-            return getDirService().getDirectory(dirName);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException("Error acccessing user directory", e);
+        UserManager userManager = Framework.getService(UserManager.class);
+        String dirName;
+        if (userManager == null) { // unit tests
+            dirName = "userDirectory";
+        } else {
+            dirName = userManager.getUserDirectoryName();
         }
+        return getDirService().getDirectory(dirName);
     }
 
     /**
@@ -278,13 +251,7 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
      * @return The DirectoryService, guaranteed not null
      */
     protected DirectoryService getDirService() {
-        try {
-            // get local service to be able to retrieve directories, because
-            // they cannot be retrieved remotely
-            return Framework.getLocalService(DirectoryService.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException("Error while looking up directory service", e);
-        }
+        return Framework.getService(DirectoryService.class);
     }
 
     /**
@@ -296,28 +263,12 @@ public class MailboxManagementServiceImpl implements MailboxManagementService {
      */
     @SuppressWarnings("unchecked")
     protected List<DocumentModel> executeQuery(CoreSession session, String ppName, Object... params) {
-        PageProviderService pps;
-        try {
-            pps = Framework.getService(PageProviderService.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-        if (pps == null) {
-            throw new CaseManagementRuntimeException("PageProviderService not found");
-        }
-
+        PageProviderService pps = Framework.getService(PageProviderService.class);
         HashMap<String, Serializable> props = new HashMap<String, Serializable>();
         props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
-
-        List<DocumentModel> list;
-        try {
-            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) pps.getPageProvider(ppName, null, null,
-                    null, props, params);
-            list = pp.getCurrentPage();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
-        return list;
+        PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) pps.getPageProvider(ppName, null, null, null,
+                props, params);
+        return pp.getCurrentPage();
     }
 
     MailboxCreator getPersonalMailboxCreator() {

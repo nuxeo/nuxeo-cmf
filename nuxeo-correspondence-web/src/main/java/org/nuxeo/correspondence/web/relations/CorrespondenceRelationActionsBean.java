@@ -263,15 +263,7 @@ public class CorrespondenceRelationActionsBean extends CaseManagementContextBoun
     }
 
     protected void notifyEvent(String eventId, DocumentModel source, Map<String, Serializable> options, String comment) {
-
-        EventProducer evtProducer = null;
-
-        try {
-            evtProducer = Framework.getService(EventProducer.class);
-        } catch (Exception e) {
-            log.error("Unable to get EventProducer to send event notification", e);
-        }
-
+        EventProducer evtProducer = Framework.getService(EventProducer.class);
         DocumentEventContext docCtx = new DocumentEventContext(documentManager, documentManager.getPrincipal(), source);
         options.put("category", RelationEvents.CATEGORY);
         options.put("comment", comment);
@@ -289,17 +281,13 @@ public class CorrespondenceRelationActionsBean extends CaseManagementContextBoun
 
     @SuppressWarnings("unchecked")
     public List<DocumentModel> getDocumentRelationSuggestions(Object input) throws ClientException {
-        try {
-            PageProviderService ppService = Framework.getService(PageProviderService.class);
-            Map<String, Serializable> props = new HashMap<String, Serializable>();
-            props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) documentManager);
-            Object[] params = new Object[] { getCurrentCaseItem().getId(), input };
-            PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
-                    CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL, null, null, null, props, params);
-            return pp.getCurrentPage();
-        } catch (Exception e) {
-            throw new ClientException("error searching for documents", e);
-        }
+        PageProviderService ppService = Framework.getService(PageProviderService.class);
+        Map<String, Serializable> props = new HashMap<String, Serializable>();
+        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) documentManager);
+        Object[] params = new Object[] { getCurrentCaseItem().getId(), input };
+        PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider(
+                CURRENT_EMAIL_RELATION_SEARCH_QUERYMODEL, null, null, null, props, params);
+        return pp.getCurrentPage();
     }
 
     public String addStatement() throws ClientException {

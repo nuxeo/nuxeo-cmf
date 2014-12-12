@@ -220,15 +220,11 @@ public class CaseManagementGroupComputer extends AbstractGroupComputer {
     }
 
     protected CoreSession openCoreSession(String username) {
-        try {
-            if (!Framework.isTestModeSet()) {
-                username = null;
-                // open core session as given user only for tests
-            }
-            return CoreInstance.openCoreSession(getRepoName(), username);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e.getMessage(), e);
+        if (!Framework.isTestModeSet()) {
+            username = null;
+            // open core session as given user only for tests
         }
+        return CoreInstance.openCoreSession(getRepoName(), username);
     }
 
     protected void closeCoreSession(CoreSession session) {

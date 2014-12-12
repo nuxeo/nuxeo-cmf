@@ -73,26 +73,22 @@ public class CaseImporter extends AbstractImporterExecutor {
             }
         };
         GenericMultiThreadedImporter importer;
-        try {
-            importer = new GenericMultiThreadedImporter(src, CaseConstants.CASE_ROOT_DOCUMENT_PATH, true,
-                    noImportingThreads, new Integer(noImportingThreads), getLogger());
-            if (caseManagementCaseImporterDocumentsFactory == null) {
-                setCaseManagementCaseImporterDocumentsFactory(new CaseManagementCaseImporterDocumentsFactory());
-            }
-            if (caseManagementImporterThreadingPolicy == null) {
-                setCaseManagementImporterThreadingPolicy(new CaseManagementImporterThreadingPolicy());
-            }
-            if (caseImporterThreadedTask == null) {
-                setCaseImporterThreadedTask(new CaseImporterThreadedTask(null));
-            }
-
-            importer.setFactory(caseManagementCaseImporterDocumentsFactory);
-            importer.setThreadPolicy(caseManagementImporterThreadingPolicy);
-            importer.setRootImportTask(caseImporterThreadedTask);
-            doRun(importer, Boolean.TRUE);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
+        importer = new GenericMultiThreadedImporter(src, CaseConstants.CASE_ROOT_DOCUMENT_PATH, true,
+                noImportingThreads, new Integer(noImportingThreads), getLogger());
+        if (caseManagementCaseImporterDocumentsFactory == null) {
+            setCaseManagementCaseImporterDocumentsFactory(new CaseManagementCaseImporterDocumentsFactory());
         }
+        if (caseManagementImporterThreadingPolicy == null) {
+            setCaseManagementImporterThreadingPolicy(new CaseManagementImporterThreadingPolicy());
+        }
+        if (caseImporterThreadedTask == null) {
+            setCaseImporterThreadedTask(new CaseImporterThreadedTask(null));
+        }
+
+        importer.setFactory(caseManagementCaseImporterDocumentsFactory);
+        importer.setThreadPolicy(caseManagementImporterThreadingPolicy);
+        importer.setRootImportTask(caseImporterThreadedTask);
+        doRun(importer, Boolean.TRUE);
     }
 
     public CaseManagementCaseImporterDocumentsFactory getCaseManagementCaseImporterDocumentsFactory() {

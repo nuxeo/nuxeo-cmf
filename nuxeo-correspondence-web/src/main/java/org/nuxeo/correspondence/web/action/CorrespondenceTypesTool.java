@@ -87,26 +87,22 @@ public class CorrespondenceTypesTool extends TypesTool {
 
     protected boolean isAllowed(Type type, boolean isCurrentCaseItemIncomingCorrespondence,
             boolean isCurrentCaseItemOutgoingCorrespondence) {
-        try {
-            if (incomingTypes == null || outgoingTypes == null) {
-                SchemaManager schemaManager = Framework.getService(SchemaManager.class);
-                incomingTypes = schemaManager.getDocumentTypeNamesForFacet(CorrespondenceConstants.INCOMING_CORRESPONDENCE_FACET);
-                outgoingTypes = schemaManager.getDocumentTypeNamesForFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET);
-            }
-            boolean currentTypeIsIncoming = incomingTypes.contains(type.getId());
-            boolean currentTypeIsOutgoing = outgoingTypes.contains(type.getId());
-            if (isCurrentCaseItemIncomingCorrespondence) {
-                return currentTypeIsIncoming;
-            } else if (isCurrentCaseItemOutgoingCorrespondence) {
-                return currentTypeIsOutgoing;
-            }
-            if (isCelluleCourrierMailbox()) {
-                return true;
-            } else {
-                return currentTypeIsOutgoing;
-            }
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
+        if (incomingTypes == null || outgoingTypes == null) {
+            SchemaManager schemaManager = Framework.getService(SchemaManager.class);
+            incomingTypes = schemaManager.getDocumentTypeNamesForFacet(CorrespondenceConstants.INCOMING_CORRESPONDENCE_FACET);
+            outgoingTypes = schemaManager.getDocumentTypeNamesForFacet(CorrespondenceConstants.OUTGOING_CORRESPONDENCE_FACET);
+        }
+        boolean currentTypeIsIncoming = incomingTypes.contains(type.getId());
+        boolean currentTypeIsOutgoing = outgoingTypes.contains(type.getId());
+        if (isCurrentCaseItemIncomingCorrespondence) {
+            return currentTypeIsIncoming;
+        } else if (isCurrentCaseItemOutgoingCorrespondence) {
+            return currentTypeIsOutgoing;
+        }
+        if (isCelluleCourrierMailbox()) {
+            return true;
+        } else {
+            return currentTypeIsOutgoing;
         }
     }
 

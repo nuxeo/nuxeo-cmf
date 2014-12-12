@@ -44,12 +44,8 @@ public class SearchMailboxesHeadersUnrestricted extends SearchMailboxesUnrestric
 
     @Override
     public void run() throws ClientException {
-        try {
-            DocumentModelList res = queryMailboxes();
-            mailboxesHeaders = MailboxConstants.getMailboxHeaderList(res);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        DocumentModelList res = queryMailboxes();
+        mailboxesHeaders = MailboxConstants.getMailboxHeaderList(res);
     }
 
     public List<MailboxHeader> getMailboxesHeaders() {

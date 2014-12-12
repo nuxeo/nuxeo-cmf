@@ -48,9 +48,6 @@ public class MailTreeCreator implements Runnable {
             DocumentModel rootRef = CaseTreeHelper.getOrCreateTxDateTreeFolder(repositoryName, mailFolderDocument,
                     Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
             assertNotNull(rootRef);
-        } catch (Exception e) {
-            log.error("Unable to create mail tree", e);
-
         } finally {
             TransactionHelper.startTransaction();
         }

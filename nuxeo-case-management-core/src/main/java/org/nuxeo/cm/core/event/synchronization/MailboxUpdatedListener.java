@@ -46,54 +46,50 @@ public class MailboxUpdatedListener extends AbstractSyncMailboxListener {
 
     public void handleEvent(Event event) throws ClientException {
         DocumentModel sourceDoc = getMailboxDocument(event);
-        try {
-            Mailbox mailbox = sourceDoc.getAdapter(Mailbox.class);
-            beforeMailboxUpdate(mailbox, event);
-            List<String> newUsers = new LinkedList<String>();
-            List<String> newGroups = new LinkedList<String>();
-            Map<String, Serializable> properties = event.getContext().getProperties();
-            String mailboxTitle = (String) properties.get(EVENT_CONTEXT_MAILBOX_TITLE);
-            String owner = (String) properties.get(EVENT_CONTEXT_MAILBOX_OWNER);
-            boolean isPersonal = isMailboxPersonal(event);
-            if (owner != null && !"".equals(owner)) {
-                newUsers.add(owner);
-                if (isPersonal) {
-                    mailbox.setOwner(owner);
-                }
+        Mailbox mailbox = sourceDoc.getAdapter(Mailbox.class);
+        beforeMailboxUpdate(mailbox, event);
+        List<String> newUsers = new LinkedList<String>();
+        List<String> newGroups = new LinkedList<String>();
+        Map<String, Serializable> properties = event.getContext().getProperties();
+        String mailboxTitle = (String) properties.get(EVENT_CONTEXT_MAILBOX_TITLE);
+        String owner = (String) properties.get(EVENT_CONTEXT_MAILBOX_OWNER);
+        boolean isPersonal = isMailboxPersonal(event);
+        if (owner != null && !"".equals(owner)) {
+            newUsers.add(owner);
+            if (isPersonal) {
+                mailbox.setOwner(owner);
             }
-            String entryId = (String) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY_ID);
-            if (!isPersonal) {
-                newGroups.add(entryId);
-            }
-            mailbox.setTitle(mailboxTitle);
-            boolean doMerge = isGroupUpdatePolicy(event, MailboxConstants.updatePolicy.merge);
-            boolean doOverride = isGroupUpdatePolicy(event, MailboxConstants.updatePolicy.override);
-            if (doMerge) {
-                if (isPersonal && !newUsers.isEmpty()) {
-                    List<String> users = mailbox.getUsers();
-                    newUsers.addAll(users);
-                    mailbox.setUsers(newUsers);
-                } else if (!newGroups.isEmpty()) {
-                    List<String> groups = mailbox.getGroups();
-                    newGroups.addAll(groups);
-                    mailbox.setGroups(newGroups);
-                }
-            } else if (doOverride) {
-                if (isPersonal && !newUsers.isEmpty()) {
-                    mailbox.setUsers(newUsers);
-                } else if (!newGroups.isEmpty()) {
-                    mailbox.setGroups(newGroups);
-                }
-            } else {
-                log.debug("No users or groups were changed on mailbox, unknown update policy: "
-                        + getGroupUpdatePolicy(event));
-            }
-            beforeMailboxSave(mailbox, event);
-            CoreSession coreSession = event.getContext().getCoreSession();
-            mailbox.save(coreSession);
-        } catch (Exception e) {
-            throw new CaseManagementException("Error during mailboxes update", e);
         }
+        String entryId = (String) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY_ID);
+        if (!isPersonal) {
+            newGroups.add(entryId);
+        }
+        mailbox.setTitle(mailboxTitle);
+        boolean doMerge = isGroupUpdatePolicy(event, MailboxConstants.updatePolicy.merge);
+        boolean doOverride = isGroupUpdatePolicy(event, MailboxConstants.updatePolicy.override);
+        if (doMerge) {
+            if (isPersonal && !newUsers.isEmpty()) {
+                List<String> users = mailbox.getUsers();
+                newUsers.addAll(users);
+                mailbox.setUsers(newUsers);
+            } else if (!newGroups.isEmpty()) {
+                List<String> groups = mailbox.getGroups();
+                newGroups.addAll(groups);
+                mailbox.setGroups(newGroups);
+            }
+        } else if (doOverride) {
+            if (isPersonal && !newUsers.isEmpty()) {
+                mailbox.setUsers(newUsers);
+            } else if (!newGroups.isEmpty()) {
+                mailbox.setGroups(newGroups);
+            }
+        } else {
+            log.debug("No users or groups were changed on mailbox, unknown update policy: "
+                    + getGroupUpdatePolicy(event));
+        }
+        beforeMailboxSave(mailbox, event);
+        CoreSession coreSession = event.getContext().getCoreSession();
+        mailbox.save(coreSession);
     }
 
     /**

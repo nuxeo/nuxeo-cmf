@@ -57,13 +57,12 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
     private EventProducer eventProducer;
 
     @Override
-    public DocumentModel createFolderishNode(CoreSession session, DocumentModel parent, SourceNode node)
-            throws Exception {
+    public DocumentModel createFolderishNode(CoreSession session, DocumentModel parent, SourceNode node) {
         return null;
     }
 
     @Override
-    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) throws Exception {
+    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) {
         return createCaseItemInCase(session, node);
     }
 
@@ -75,7 +74,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         return super.getMimeType(name);
     }
 
-    protected DocumentModel createCaseItemInCase(CoreSession session, SourceNode node) throws Exception {
+    protected DocumentModel createCaseItemInCase(CoreSession session, SourceNode node) {
         caseDistributionService = getCaseDistributionService();
         if (caseDistributionService == null) {
             return null;
@@ -101,8 +100,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         return caseItemDoc;
     }
 
-    protected DocumentModel defaultCreateNodeDoc(CoreSession session, String parentPath, SourceNode node, String docType)
-            throws Exception {
+    protected DocumentModel defaultCreateNodeDoc(CoreSession session, String parentPath, SourceNode node, String docType) {
         BlobHolder bh = node.getBlobHolder();
         String mimeType = bh.getBlob().getMimeType();
         if (mimeType == null) {
@@ -136,7 +134,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         return doc;
     }
 
-    private void setPropertiesOnImport(CoreSession session, DocumentModel caseItemDoc, Case caseDoc) throws Exception {
+    private void setPropertiesOnImport(CoreSession session, DocumentModel caseItemDoc, Case caseDoc) {
         caseItemDoc.setPropertyValue(CaseConstants.DOCUMENT_DEFAULT_CASE_ID_PROPERTY_NAME,
                 caseDoc.getDocument().getId());
         caseItemDoc.setPropertyValue(CaseConstants.DOCUMENT_IMPORT_DATE_PROPERTY_NAME, Calendar.getInstance());
@@ -144,7 +142,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         session.saveDocument(caseItemDoc);
     }
 
-    protected CaseDistributionService getCaseDistributionService() throws Exception {
+    protected CaseDistributionService getCaseDistributionService() {
         if (caseDistributionService == null) {
             caseDistributionService = Framework.getService(CaseDistributionService.class);
         }
@@ -156,7 +154,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         return docDestinationMailbox.getAdapter(Mailbox.class);
     }
 
-    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() throws Exception {
+    private CaseManagementDocumentTypeService getCaseManagementDocumentTypeService() {
         if (caseManagementDocumentTypeService == null) {
             caseManagementDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         }
@@ -183,17 +181,12 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
 
     protected void fireEvent(CoreSession coreSession, DocumentModel doc, Map<String, Serializable> eventProperties,
             String eventName) {
-        try {
-            DocumentEventContext envContext = new DocumentEventContext(coreSession, coreSession.getPrincipal(), doc);
-            envContext.setProperties(eventProperties);
-            getEventProducer().fireEvent(envContext.newEvent(eventName));
-
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+        DocumentEventContext envContext = new DocumentEventContext(coreSession, coreSession.getPrincipal(), doc);
+        envContext.setProperties(eventProperties);
+        getEventProducer().fireEvent(envContext.newEvent(eventName));
     }
 
-    protected EventProducer getEventProducer() throws Exception {
+    protected EventProducer getEventProducer() {
         if (eventProducer == null) {
             eventProducer = Framework.getService(EventProducer.class);
         }

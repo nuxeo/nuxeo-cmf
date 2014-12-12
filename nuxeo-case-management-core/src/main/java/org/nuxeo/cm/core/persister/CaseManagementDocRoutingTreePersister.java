@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.cm.core.event.CreateMailboxRouteRootUnrestricted;
 import org.nuxeo.cm.mailbox.Mailbox;
 import org.nuxeo.cm.service.MailboxManagementService;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -41,19 +42,15 @@ public class CaseManagementDocRoutingTreePersister extends DocumentRoutingTreePe
 
     @Override
     public DocumentModel getParentFolderForNewModel(CoreSession session, DocumentModel instance) {
-        try {
-            MailboxManagementService service = Framework.getService(MailboxManagementService.class);
-            Mailbox userMailbox = service.getUserPersonalMailbox(session, session.getPrincipal().getName());
-            String name = CreateMailboxRouteRootUnrestricted.getRouteRootNamePrefix() + userMailbox.getTitle();
-            DocumentModelList children = session.query(String.format(QUERY_PERSONAL_ROUTE_ROOT,
-                    userMailbox.getDocument().getId(), name));
-            if (children != null && !children.isEmpty()) {
-                return children.get(0);
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        MailboxManagementService service = Framework.getService(MailboxManagementService.class);
+        Mailbox userMailbox = service.getUserPersonalMailbox(session, session.getPrincipal().getName());
+        String name = CreateMailboxRouteRootUnrestricted.getRouteRootNamePrefix() + userMailbox.getTitle();
+        DocumentModelList children = session.query(String.format(QUERY_PERSONAL_ROUTE_ROOT,
+                userMailbox.getDocument().getId(), name));
+        if (children != null && !children.isEmpty()) {
+            return children.get(0);
+        } else {
+            return null;
         }
     }
 

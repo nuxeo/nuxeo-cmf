@@ -66,12 +66,8 @@ public class CreateMailboxIdListener implements EventListener {
             return;
         }
 
-        try {
-            MailboxManagementService correspService = Framework.getService(MailboxManagementService.class);
-            setIdForMailbox(session, correspService, mb);
-        } catch (Exception e) {
-            log.error(e);
-        }
+        MailboxManagementService correspService = Framework.getService(MailboxManagementService.class);
+        setIdForMailbox(session, correspService, mb);
     }
 
     protected void setIdForMailbox(CoreSession session, MailboxManagementService correspService, Mailbox mb) {

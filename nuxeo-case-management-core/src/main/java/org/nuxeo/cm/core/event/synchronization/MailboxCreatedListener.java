@@ -62,84 +62,79 @@ public class MailboxCreatedListener extends AbstractSyncMailboxListener {
     // implemented in MailboxCreator contribution and here
     @Override
     public void handleEvent(Event event) throws ClientException {
-        try {
-            Map<String, Serializable> properties = event.getContext().getProperties();
-            String mailboxTitle = (String) properties.get(EVENT_CONTEXT_MAILBOX_TITLE);
-            String directoryName = (String) properties.get(EVENT_CONTEXT_DIRECTORY_NAME);
-            String parentSynchronizerId = (String) properties.get(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID);
-            String synchronizerId = (String) properties.get(EVENT_CONTEXT_SYNCHRONIZER_ID);
-            String owner = (String) properties.get(EVENT_CONTEXT_MAILBOX_OWNER);
-            String type = (String) properties.get(EVENT_CONTEXT_MAILBOX_TYPE);
-            String entryId = (String) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY_ID);
-            DocumentModel entry = (DocumentModel) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY);
-            Calendar synchronizeDate = (Calendar) properties.get(EVENT_CONTEXT_SYNCHRONIZED_DATE);
+        Map<String, Serializable> properties = event.getContext().getProperties();
+        String mailboxTitle = (String) properties.get(EVENT_CONTEXT_MAILBOX_TITLE);
+        String directoryName = (String) properties.get(EVENT_CONTEXT_DIRECTORY_NAME);
+        String parentSynchronizerId = (String) properties.get(EVENT_CONTEXT_PARENT_SYNCHRONIZER_ID);
+        String synchronizerId = (String) properties.get(EVENT_CONTEXT_SYNCHRONIZER_ID);
+        String owner = (String) properties.get(EVENT_CONTEXT_MAILBOX_OWNER);
+        String type = (String) properties.get(EVENT_CONTEXT_MAILBOX_TYPE);
+        String entryId = (String) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY_ID);
+        DocumentModel entry = (DocumentModel) properties.get(EVENT_CONTEXT_MAILBOX_ENTRY);
+        Calendar synchronizeDate = (Calendar) properties.get(EVENT_CONTEXT_SYNCHRONIZED_DATE);
 
-            CoreSession session = event.getContext().getCoreSession();
-            String id = null;
-            boolean isPersonal = isMailboxPersonal(event);
-            boolean isGeneric = isMailboxGeneric(event);
-            if (isPersonal) {
-                DefaultMailboxCreator mbCreator = new DefaultMailboxCreator();
-                id = mbCreator.getPersonalMailboxId(entry);
-            } else if (isGeneric) {
-                id = IdUtils.generateId(NuxeoGroup.PREFIX + entryId, "-", true, 24);
-            } else {
-                log.debug("No id generation for unknown mailbox type: " + getMailboxType(event));
-            }
-            // Create the personal mailbox for the user
-            DocumentModel mailboxModel = getMailboxDocument(event);
-            Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
-            // Set mailbox properties
-            mailbox.setSynchronizeState(synchronisedState.synchronised.toString());
-            if (synchronizerId != null && !"".equals(synchronizerId)) {
-                mailbox.setSynchronizerId(synchronizerId);
-            }
-            if (synchronizeDate != null) {
-                mailbox.setLastSyncUpdate(synchronizeDate);
-            }
-            if (mailboxTitle != null && !"".equals(mailboxTitle)) {
-                mailbox.setTitle(mailboxTitle);
-            }
-            if (directoryName != null && !"".equals(directoryName)) {
-                mailbox.setOrigin(directoryName);
-            }
-            if (owner != null && !"".equals(owner)) {
-                mailbox.setOwner(owner);
-            }
-            if (isPersonal) {
-                List<String> users = new LinkedList<String>();
-                users.add(entryId);
-                mailbox.setUsers(users);
-            } else {
-                List<String> groups = new LinkedList<String>();
-                groups.add(entryId);
-                mailbox.setGroups(groups);
-            }
-            mailbox.setType(type);
-
-            // Set case creation profile
-            List<String> list = new ArrayList<String>();
-            list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
-            mailbox.setProfiles(list);
-
-            mailbox.setId(id);
-            mailboxModel.setPathInfo(getMailboxParentPath(session, parentSynchronizerId),
-                    getMailboxPathSegment(entry, mailboxModel));
-
-            // call hook
-            beforeMailboxCreation(mailbox, event);
-
-            mailboxModel = session.createDocument(mailboxModel);
-
-            mailbox = mailboxModel.getAdapter(Mailbox.class);
-            afterMailboxCreation(mailbox, event);
-            // save because the mailbox will be queried just after in another
-            // session
-            mailbox.save(session);
-        } catch (Exception e) {
-            throw new CaseManagementException("Error during mailboxes creation", e);
+        CoreSession session = event.getContext().getCoreSession();
+        String id = null;
+        boolean isPersonal = isMailboxPersonal(event);
+        boolean isGeneric = isMailboxGeneric(event);
+        if (isPersonal) {
+            DefaultMailboxCreator mbCreator = new DefaultMailboxCreator();
+            id = mbCreator.getPersonalMailboxId(entry);
+        } else if (isGeneric) {
+            id = IdUtils.generateId(NuxeoGroup.PREFIX + entryId, "-", true, 24);
+        } else {
+            log.debug("No id generation for unknown mailbox type: " + getMailboxType(event));
         }
+        // Create the personal mailbox for the user
+        DocumentModel mailboxModel = getMailboxDocument(event);
+        Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
+        // Set mailbox properties
+        mailbox.setSynchronizeState(synchronisedState.synchronised.toString());
+        if (synchronizerId != null && !"".equals(synchronizerId)) {
+            mailbox.setSynchronizerId(synchronizerId);
+        }
+        if (synchronizeDate != null) {
+            mailbox.setLastSyncUpdate(synchronizeDate);
+        }
+        if (mailboxTitle != null && !"".equals(mailboxTitle)) {
+            mailbox.setTitle(mailboxTitle);
+        }
+        if (directoryName != null && !"".equals(directoryName)) {
+            mailbox.setOrigin(directoryName);
+        }
+        if (owner != null && !"".equals(owner)) {
+            mailbox.setOwner(owner);
+        }
+        if (isPersonal) {
+            List<String> users = new LinkedList<String>();
+            users.add(entryId);
+            mailbox.setUsers(users);
+        } else {
+            List<String> groups = new LinkedList<String>();
+            groups.add(entryId);
+            mailbox.setGroups(groups);
+        }
+        mailbox.setType(type);
 
+        // Set case creation profile
+        List<String> list = new ArrayList<String>();
+        list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
+        mailbox.setProfiles(list);
+
+        mailbox.setId(id);
+        mailboxModel.setPathInfo(getMailboxParentPath(session, parentSynchronizerId),
+                getMailboxPathSegment(entry, mailboxModel));
+
+        // call hook
+        beforeMailboxCreation(mailbox, event);
+
+        mailboxModel = session.createDocument(mailboxModel);
+
+        mailbox = mailboxModel.getAdapter(Mailbox.class);
+        afterMailboxCreation(mailbox, event);
+        // save because the mailbox will be queried just after in another
+        // session
+        mailbox.save(session);
     }
 
     /**

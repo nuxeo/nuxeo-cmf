@@ -41,7 +41,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 /**
  * Remove Write permission to all users once a case is processed.
- * 
+ *
  * @author Laurent Doguin
  */
 public class CaseProcessedListener implements EventListener {
@@ -63,14 +63,9 @@ public class CaseProcessedListener implements EventListener {
         if (kase == null) {
             return;
         }
-        try {
-            RemoveWritePermissionUnrestricted session = new RemoveWritePermissionUnrestricted(
-                    eventCtx.getCoreSession(), kase);
-            session.runUnrestricted();
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e.getMessage(), e);
-        }
-
+        RemoveWritePermissionUnrestricted session = new RemoveWritePermissionUnrestricted(eventCtx.getCoreSession(),
+                kase);
+        session.runUnrestricted();
     }
 
     public static class RemoveWritePermissionUnrestricted extends UnrestrictedSessionRunner {

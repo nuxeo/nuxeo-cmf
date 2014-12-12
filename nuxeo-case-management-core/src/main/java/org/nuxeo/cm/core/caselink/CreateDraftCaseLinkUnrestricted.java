@@ -39,7 +39,7 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * A creator of {@link CaseLink}.
- * 
+ *
  * @author Nicolas Ulrich
  */
 public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
@@ -65,13 +65,7 @@ public class CreateDraftCaseLinkUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
-
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         DocumentModel doc = session.createDocumentModel(sender.getDocument().getPathAsString(),
                 UUID.randomUUID().toString(), correspDocumentTypeService.getCaseLinkType());
         setPostValues(doc);

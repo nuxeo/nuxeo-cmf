@@ -54,12 +54,7 @@ public class CreateEmptyCaseUnrestricted extends UnrestrictedSessionRunner {
 
     @Override
     public void run() throws ClientException {
-        PathSegmentService pathSegmentService;
-        try {
-            pathSegmentService = Framework.getService(PathSegmentService.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+        PathSegmentService pathSegmentService = Framework.getService(PathSegmentService.class);
         String caseName = pathSegmentService.generatePathSegment(caseDoc);
         caseDoc.setPathInfo(parentPath, caseName);
         caseDoc = session.createDocument(caseDoc);

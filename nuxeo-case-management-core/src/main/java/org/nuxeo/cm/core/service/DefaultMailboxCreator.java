@@ -53,12 +53,7 @@ public class DefaultMailboxCreator implements MailboxCreator {
     private static final Log log = LogFactory.getLog(DefaultMailboxCreator.class);
 
     protected String getMailboxType() throws ClientException {
-        CaseManagementDocumentTypeService correspDocumentTypeService;
-        try {
-            correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        CaseManagementDocumentTypeService correspDocumentTypeService = Framework.getService(CaseManagementDocumentTypeService.class);
         return correspDocumentTypeService.getMailboxType();
     }
 
@@ -79,55 +74,50 @@ public class DefaultMailboxCreator implements MailboxCreator {
             return Collections.emptyList();
         }
 
-        try {
-            // Retrieve the user
-            UserManager userManager = Framework.getService(UserManager.class);
-            if (userManager == null) {
-                throw new CaseManagementException("User manager not found");
-            }
-
-            DocumentModel userModel = userManager.getUserModel(user);
-            if (userModel == null) {
-                log.debug(String.format("No User by that name. Maybe a wrong id or virtual user"));
-                return Collections.emptyList();
-            }
-
-            // Create the personal mailbox for the user
-            DocumentModel mailboxModel = session.createDocumentModel(getMailboxType());
-            Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
-
-            // Set mailbox properties
-            String id = getPersonalMailboxId(userModel);
-            mailbox.setId(id);
-            MailboxTitleGenerator gen = getTitleGenerator();
-            if (gen == null) {
-                // fallback on default title generator
-                gen = new DefaultPersonalMailboxTitleGenerator();
-            }
-            mailbox.setTitle(gen.getMailboxTitle(userModel));
-            mailbox.setOwner(user);
-            mailbox.setType(MailboxConstants.type.personal.name());
-
-            // Set case creation profile
-            List<String> list = new ArrayList<String>();
-            list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
-            mailbox.setProfiles(list);
-
-            mailboxModel.setPathInfo(getMailboxParentPath(session), getMailboxPathSegment(userModel, mailboxModel));
-            // call hook method
-            beforeMailboxCreation(session, mailbox, userModel);
-
-            mailboxModel = session.createDocument(mailboxModel);
-            // save because the mailbox will be queried just after in another
-            // session
-            session.save();
-            mailbox = mailboxModel.getAdapter(Mailbox.class);
-
-            return Collections.singletonList(mailbox);
-
-        } catch (Exception e) {
-            throw new CaseManagementException("Error during mailboxes creation", e);
+        // Retrieve the user
+        UserManager userManager = Framework.getService(UserManager.class);
+        if (userManager == null) {
+            throw new CaseManagementException("User manager not found");
         }
+
+        DocumentModel userModel = userManager.getUserModel(user);
+        if (userModel == null) {
+            log.debug(String.format("No User by that name. Maybe a wrong id or virtual user"));
+            return Collections.emptyList();
+        }
+
+        // Create the personal mailbox for the user
+        DocumentModel mailboxModel = session.createDocumentModel(getMailboxType());
+        Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
+
+        // Set mailbox properties
+        String id = getPersonalMailboxId(userModel);
+        mailbox.setId(id);
+        MailboxTitleGenerator gen = getTitleGenerator();
+        if (gen == null) {
+            // fallback on default title generator
+            gen = new DefaultPersonalMailboxTitleGenerator();
+        }
+        mailbox.setTitle(gen.getMailboxTitle(userModel));
+        mailbox.setOwner(user);
+        mailbox.setType(MailboxConstants.type.personal.name());
+
+        // Set case creation profile
+        List<String> list = new ArrayList<String>();
+        list.add(MailboxConstants.MAILBOX_CASE_CREATION_PROFILE);
+        mailbox.setProfiles(list);
+
+        mailboxModel.setPathInfo(getMailboxParentPath(session), getMailboxPathSegment(userModel, mailboxModel));
+        // call hook method
+        beforeMailboxCreation(session, mailbox, userModel);
+
+        mailboxModel = session.createDocument(mailboxModel);
+        // save because the mailbox will be queried just after in another
+        // session
+        session.save();
+        mailbox = mailboxModel.getAdapter(Mailbox.class);
+
+        return Collections.singletonList(mailbox);
     }
 
     /**

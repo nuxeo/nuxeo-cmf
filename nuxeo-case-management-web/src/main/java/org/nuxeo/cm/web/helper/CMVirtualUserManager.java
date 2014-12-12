@@ -54,7 +54,7 @@ public class CMVirtualUserManager {
      * @return true if currentUser is virtual, false otherwise.
      * @throws Exception
      */
-    public boolean isCurrentUserVirtual() throws Exception {
+    public boolean isCurrentUserVirtual() {
         if (isCurrentUserVirtual == null) {
             if (currentUser == null) {
                 return true;

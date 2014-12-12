@@ -90,10 +90,6 @@ public class RemoveCaseLinkOperation {
     }
 
     protected CaseDistributionService getDistributionService() {
-        try {
-            return Framework.getService(CaseDistributionService.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return Framework.getService(CaseDistributionService.class);
     }
 }

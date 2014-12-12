@@ -53,33 +53,28 @@ public class MockPersonalMailboxCreator implements MailboxCreator {
 
         List<Mailbox> mailboxes = new ArrayList<Mailbox>();
 
-        try {
-            UserManager userManager = Framework.getService(UserManager.class);
-            if (userManager == null) {
-                throw new CaseManagementException("User manager not found");
-            }
-            DocumentModel userModel = userManager.getUserModel(user);
-            if (userModel == null) {
-                // no user by that name => wrong id or virtual user
-                return null;
-            }
-
-            DocumentModel mailboxModel = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
-            Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
-
-            String userId = userModel.getId();
-            mailbox.setId(getPersonalMailboxId(userModel));
-            mailbox.setTitle(userId + "'s personal mailbox");
-            mailbox.setType(MailboxConstants.type.personal.name());
-            mailbox.setOwner(user);
-
-            session.save();
-
-            mailboxes.add(mailbox);
-
-        } catch (Exception e) {
-            throw new CaseManagementException("Error during mailboxes creation", e);
+        UserManager userManager = Framework.getService(UserManager.class);
+        if (userManager == null) {
+            throw new CaseManagementException("User manager not found");
         }
+        DocumentModel userModel = userManager.getUserModel(user);
+        if (userModel == null) {
+            // no user by that name => wrong id or virtual user
+            return null;
+        }
+
+        DocumentModel mailboxModel = session.createDocumentModel(MailboxConstants.MAILBOX_DOCUMENT_TYPE);
+        Mailbox mailbox = mailboxModel.getAdapter(Mailbox.class);
+
+        String userId = userModel.getId();
+        mailbox.setId(getPersonalMailboxId(userModel));
+        mailbox.setTitle(userId + "'s personal mailbox");
+        mailbox.setType(MailboxConstants.type.personal.name());
+        mailbox.setOwner(user);
+
+        session.save();
+
+        mailboxes.add(mailbox);
 
         return mailboxes;
     }

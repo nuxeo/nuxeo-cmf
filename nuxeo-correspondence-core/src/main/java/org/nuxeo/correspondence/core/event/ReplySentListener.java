@@ -74,11 +74,7 @@ public class ReplySentListener implements EventListener {
 
     public RelationManager getRelationManager() {
         if (relationManager == null) {
-            try {
-                relationManager = Framework.getService(RelationManager.class);
-            } catch (Exception e) {
-                throw new CaseManagementRuntimeException("Relation manager should be deployed.", e);
-            }
+            relationManager = Framework.getService(RelationManager.class);
         }
         return relationManager;
     }

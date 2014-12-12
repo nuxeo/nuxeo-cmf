@@ -23,9 +23,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.XPath;
@@ -65,17 +67,11 @@ public class DefaultXMLCaseReader extends AbstractXMLCaseReader {
         try {
             in = new BufferedInputStream(new FileInputStream(file));
             return new SAXReader().read(in);
-        } catch (Exception e) {
+        } catch (IOException | DocumentException e) {
             log.error("Failed to read document from file " + file.getAbsolutePath());
-            throw new ClientException();
+            throw new ClientException(e);
         } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    in = null;
-                }
-            }
+            IOUtils.closeQuietly(in);
         }
     }
 

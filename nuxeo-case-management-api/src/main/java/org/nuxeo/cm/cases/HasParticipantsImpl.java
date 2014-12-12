@@ -44,11 +44,7 @@ public class HasParticipantsImpl implements HasParticipants {
 
     public HasParticipantsImpl(DocumentModel document) {
         this.document = document;
-        try {
-            distributionType = Framework.getService(CaseManagementDistributionTypeService.class);
-        } catch (Exception e) {
-            throw new CaseManagementRuntimeException(e);
-        }
+        distributionType = Framework.getService(CaseManagementDistributionTypeService.class);
     }
 
     public void addInitialInternalParticipants(Map<String, List<String>> recipients) {

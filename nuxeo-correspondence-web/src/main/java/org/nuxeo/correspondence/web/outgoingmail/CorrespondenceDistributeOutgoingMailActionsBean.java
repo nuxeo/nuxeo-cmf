@@ -109,21 +109,14 @@ public class CorrespondenceDistributeOutgoingMailActionsBean extends CaseManagem
      * Save the Post Draft of the current envelope
      */
     public void updateCurrentPost() throws ClientException {
+        DocumentModel postDoc = navigationContext.getChangeableDocument();
+        CaseLink post = postDoc.getAdapter(CaseLink.class);
+        post.save(documentManager);
 
-        try {
-            DocumentModel postDoc = navigationContext.getChangeableDocument();
-            CaseLink post = postDoc.getAdapter(CaseLink.class);
-            post.save(documentManager);
-
-            // some changes (versioning) happened server-side, fetch new one
-            navigationContext.invalidateCurrentDocument();
-            facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("document_modified"),
-                    resourcesAccessor.getMessages().get(postDoc.getType()));
-
-        } catch (Throwable t) {
-            throw ClientException.wrap(t);
-        }
-
+        // some changes (versioning) happened server-side, fetch new one
+        navigationContext.invalidateCurrentDocument();
+        facesMessages.add(FacesMessage.SEVERITY_INFO, resourcesAccessor.getMessages().get("document_modified"),
+                resourcesAccessor.getMessages().get(postDoc.getType()));
     }
 
     public boolean displaySendButton() {

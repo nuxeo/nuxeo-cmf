@@ -16,6 +16,7 @@
  */
 package org.nuxeo.cm.core.service.caseimporter;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.nuxeo.cm.cases.Case;
@@ -23,6 +24,7 @@ import org.nuxeo.cm.core.service.caseimporter.sourcenodes.CaseSourceNode;
 import org.nuxeo.cm.service.CaseDistributionService;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.platform.importer.base.GenericMultiThreadedImporter;
 import org.nuxeo.ecm.platform.importer.base.GenericThreadedImportTask;
 import org.nuxeo.ecm.platform.importer.source.SourceNode;
@@ -42,11 +44,16 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected DocumentModel doCreateFolderishNode(DocumentModel parent, SourceNode node) throws Exception {
+    protected DocumentModel doCreateFolderishNode(DocumentModel parent, SourceNode node) {
         if (!shouldImportDocument(node)) {
             return null;
         }
-        DocumentModel folder = getFactory().createFolderishNode(session, parent, node);
+        DocumentModel folder;
+        try {
+            folder = getFactory().createFolderishNode(session, parent, node);
+        } catch (IOException e) {
+            throw new NuxeoException("Failed to import node " + node.getName(), e);
+        }
         if (folder != null) {
             String parentPath = (parent == null) ? "null" : parent.getPathAsString();
             fslog("Created Folder " + folder.getName() + " at " + parentPath, true);
@@ -56,12 +63,17 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected DocumentModel doCreateLeafNode(DocumentModel parent, SourceNode node) throws Exception {
+    protected DocumentModel doCreateLeafNode(DocumentModel parent, SourceNode node) {
         if (!shouldImportDocument(node)) {
             return null;
         }
 
-        DocumentModel leaf = getFactory().createLeafNode(session, parent, node);
+        DocumentModel leaf;
+        try {
+            leaf = getFactory().createLeafNode(session, parent, node);
+        } catch (IOException e) {
+            throw new NuxeoException("Failed to import node " + node.getName(), e);
+        }
         if (leaf != null && node.getBlobHolder() != null) {
             long fileSize = node.getBlobHolder().getBlob().getLength();
             String fileName = node.getBlobHolder().getBlob().getFilename();
@@ -78,7 +90,7 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected void recursiveCreateDocumentFromNode(DocumentModel parent, SourceNode node) throws Exception {
+    protected void recursiveCreateDocumentFromNode(DocumentModel parent, SourceNode node) {
 
         if (getFactory().isTargetDocumentModelFolderish(node)) {
             DocumentModel folder;
@@ -118,12 +130,12 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
         }
     }
 
-    protected void distributeCase(DocumentModel caseDoc, CaseSourceNode node) throws Exception {
+    protected void distributeCase(DocumentModel caseDoc, CaseSourceNode node) {
         Case kase = caseDoc.getAdapter(Case.class);
         getCaseDistributionService().sendCase(session, "Import", kase, node.getDistributionInfo());
     }
 
-    private CaseDistributionService getCaseDistributionService() throws Exception {
+    private CaseDistributionService getCaseDistributionService() {
         if (distributionService == null) {
             distributionService = Framework.getService(CaseDistributionService.class);
         }
