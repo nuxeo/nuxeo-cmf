@@ -43,6 +43,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoute;
 import org.nuxeo.ecm.platform.routing.api.DocumentRoutingConstants;
+import org.nuxeo.ecm.platform.task.test.TaskUTConstants;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
@@ -116,6 +117,8 @@ public class CaseManagementRepositoryTestCase extends SQLRepositoryTestCase {
         deployBundle(CaseManagementTestConstants.TEMPLATE_BUNDLE);
 
         // deploy api and core bundles
+        deployContrib(TaskUTConstants.CORE_BUNDLE_NAME, "OSGI-INF/task-core-types-contrib.xml");
+        deployContrib(TaskUTConstants.CORE_BUNDLE_NAME, "OSGI-INF/task-lifecycle-contrib.xml");
         deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE, "OSGI-INF/document-routing-service.xml");
         deployContrib(CaseManagementTestConstants.ROUTING_CORE_BUNDLE,
                 "OSGI-INF/document-routing-core-types-contrib.xml");
