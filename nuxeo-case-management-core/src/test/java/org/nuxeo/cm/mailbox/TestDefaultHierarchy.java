@@ -50,6 +50,8 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         super.setUp();
 
         // needed for users
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
         deployBundle(CaseManagementTestConstants.DIRECTORY_BUNDLE);
         deployBundle(CaseManagementTestConstants.USERMANAGER_BUNDLE);
         deployBundle(CaseManagementTestConstants.DIRECTORY_TYPES_BUNDLE);

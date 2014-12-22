@@ -44,6 +44,8 @@ public class TestMailbox extends SQLRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
         deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");

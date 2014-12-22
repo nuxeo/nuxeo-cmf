@@ -42,6 +42,8 @@ public class TestModel extends SQLRepositoryTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
         // deploy type contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE, "OSGI-INF/cm-core-types-contrib.xml");
         deployBundle("org.nuxeo.ecm.platform.routing.core");

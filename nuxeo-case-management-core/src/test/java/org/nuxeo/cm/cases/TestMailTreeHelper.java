@@ -45,6 +45,8 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
         deployBundle("org.nuxeo.ecm.platform.classification.core");
         deployBundle("org.nuxeo.ecm.platform.routing.core");
         deployBundle("org.nuxeo.ecm.automation.core");
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
         deployBundle("org.nuxeo.ecm.webapp.core");

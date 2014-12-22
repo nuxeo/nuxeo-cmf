@@ -83,6 +83,8 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         deployBundle("org.nuxeo.ecm.platform.query.api");
 
         // deploy api and core bundles
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_API_BUNDLE);
         deployBundle(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE);
         deployBundle("org.nuxeo.ecm.platform.classification.core");

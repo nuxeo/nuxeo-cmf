@@ -24,6 +24,8 @@ public class TestCaseImporter extends CaseManagementRepositoryTestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        deployBundle("org.nuxeo.ecm.platform.task.api");
+        deployBundle("org.nuxeo.ecm.platform.task.core");
         deployBundle("org.nuxeo.ecm.platform.importer.core");
         openSession();
     }
