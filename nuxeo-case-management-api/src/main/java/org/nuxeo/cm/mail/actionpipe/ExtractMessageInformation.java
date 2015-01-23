@@ -22,6 +22,7 @@ package org.nuxeo.cm.mail.actionpipe;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -198,7 +199,10 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             } else if (disp != null
                     && (disp.equalsIgnoreCase(Part.ATTACHMENT) || (disp.equalsIgnoreCase(Part.INLINE) && !(p.isMimeType("text/*") || p.isMimeType("image/*"))))) {
                 log.debug("Saving attachment to file " + filename);
-                FileBlob fileBlob = new FileBlob(p.getInputStream());
+                FileBlob fileBlob;
+                try (InputStream in = p.getInputStream()) {
+                    fileBlob = new FileBlob(in);
+                }
                 String mime = DEFAULT_BINARY_MIMETYPE;
                 try {
                     if (mimeService != null) {
