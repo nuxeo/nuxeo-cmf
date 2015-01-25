@@ -43,7 +43,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
+import org.nuxeo.ecm.core.api.Blobs;
 import org.nuxeo.ecm.platform.mail.action.ExecutionContext;
 import org.nuxeo.ecm.platform.mimetype.MimetypeDetectionException;
 import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
@@ -144,12 +144,10 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             Framework.trackFile(tmpOutput, tmpOutput);
             out = new FileOutputStream(tmpOutput);
             message.writeTo(out);
-            FileBlob fileBlob = new FileBlob(tmpOutput);
-            fileBlob.setFilename(subject + ".eml");
-            fileBlob.setMimeType(MESSAGE_RFC822_MIMETYPE);
+            Blob blob = Blobs.createBlob(tmpOutput, MESSAGE_RFC822_MIMETYPE, null, subject + ".eml");
 
             List<Blob> blobs = new ArrayList<>();
-            blobs.add(fileBlob);
+            blobs.add(blob);
             context.put(ATTACHMENTS_KEY, blobs);
 
             // process content
@@ -198,22 +196,22 @@ public class ExtractMessageInformation extends AbstractCaseManagementMailAction 
             } else if (disp != null
                     && (disp.equalsIgnoreCase(Part.ATTACHMENT) || (disp.equalsIgnoreCase(Part.INLINE) && !(p.isMimeType("text/*") || p.isMimeType("image/*"))))) {
                 log.debug("Saving attachment to file " + filename);
-                FileBlob fileBlob = new FileBlob(p.getInputStream());
+                Blob blob = Blobs.createBlob(p.getInputStream());
                 String mime = DEFAULT_BINARY_MIMETYPE;
                 try {
                     if (mimeService != null) {
                         ContentType contentType = new ContentType(p.getContentType());
-                        mime = mimeService.getMimetypeFromFilenameAndBlobWithDefault(filename, fileBlob,
+                        mime = mimeService.getMimetypeFromFilenameAndBlobWithDefault(filename, blob,
                                 contentType.getBaseType());
                     }
                 } catch (MimetypeDetectionException e) {
                     log.error(e);
                 }
-                fileBlob.setMimeType(mime);
+                blob.setMimeType(mime);
 
-                fileBlob.setFilename(filename);
+                blob.setFilename(filename);
 
-                blobs.add(fileBlob);
+                blobs.add(blob);
 
                 // for debug
                 // File f = new File(filename);

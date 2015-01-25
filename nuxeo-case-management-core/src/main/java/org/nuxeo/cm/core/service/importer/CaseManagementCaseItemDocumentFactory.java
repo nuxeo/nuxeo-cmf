@@ -16,6 +16,7 @@
  */
 package org.nuxeo.cm.core.service.importer;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
@@ -62,7 +63,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
     }
 
     @Override
-    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) {
+    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) throws IOException {
         return createCaseItemInCase(session, node);
     }
 
@@ -74,7 +75,7 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         return super.getMimeType(name);
     }
 
-    protected DocumentModel createCaseItemInCase(CoreSession session, SourceNode node) {
+    protected DocumentModel createCaseItemInCase(CoreSession session, SourceNode node) throws IOException {
         caseDistributionService = getCaseDistributionService();
         if (caseDistributionService == null) {
             return null;
@@ -100,7 +101,8 @@ public class CaseManagementCaseItemDocumentFactory extends DefaultDocumentModelF
         return caseItemDoc;
     }
 
-    protected DocumentModel defaultCreateNodeDoc(CoreSession session, String parentPath, SourceNode node, String docType) {
+    protected DocumentModel defaultCreateNodeDoc(CoreSession session, String parentPath, SourceNode node, String docType)
+            throws IOException {
         BlobHolder bh = node.getBlobHolder();
         String mimeType = bh.getBlob().getMimeType();
         if (mimeType == null) {

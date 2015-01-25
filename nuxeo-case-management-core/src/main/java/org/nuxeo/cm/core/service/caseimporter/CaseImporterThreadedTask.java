@@ -22,6 +22,7 @@ import java.util.List;
 import org.nuxeo.cm.cases.Case;
 import org.nuxeo.cm.core.service.caseimporter.sourcenodes.CaseSourceNode;
 import org.nuxeo.cm.service.CaseDistributionService;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.NuxeoException;
@@ -63,7 +64,7 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected DocumentModel doCreateLeafNode(DocumentModel parent, SourceNode node) {
+    protected DocumentModel doCreateLeafNode(DocumentModel parent, SourceNode node) throws IOException {
         if (!shouldImportDocument(node)) {
             return null;
         }
@@ -90,7 +91,7 @@ public class CaseImporterThreadedTask extends GenericThreadedImportTask {
     }
 
     @Override
-    protected void recursiveCreateDocumentFromNode(DocumentModel parent, SourceNode node) {
+    protected void recursiveCreateDocumentFromNode(DocumentModel parent, SourceNode node) throws IOException {
 
         if (getFactory().isTargetDocumentModelFolderish(node)) {
             DocumentModel folder;

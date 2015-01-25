@@ -45,7 +45,7 @@ public class CaseManagementCaseImporterDocumentsFactory extends CaseManagementCa
     private CaseManagementDocumentTypeService cmTypeService;
 
     @Override
-    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) {
+    public DocumentModel createLeafNode(CoreSession session, DocumentModel parent, SourceNode node) throws IOException {
         if (node instanceof CaseItemSourceNode) {
             DocumentModel caseItemDoc = defaultCreateCaseItemDocType(session, null, node);
             Case kase = parent.getAdapter(Case.class);
@@ -64,7 +64,8 @@ public class CaseManagementCaseImporterDocumentsFactory extends CaseManagementCa
         return getCaseDistributionService().getParentDocumentForCase(session);
     }
 
-    protected DocumentModel defaultCreateCaseItemDocType(CoreSession session, String parentPath, SourceNode node) {
+    protected DocumentModel defaultCreateCaseItemDocType(CoreSession session, String parentPath, SourceNode node)
+            throws IOException {
         return defaultCreateNodeDoc(session, parentPath, node, getCaseManagementDocumentTypeService().getCaseItemType());
     }
 
