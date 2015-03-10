@@ -39,4 +39,9 @@ Creates a Correspondance tomcat distribution server.
 
 Creates a Correspondance Jboss distribution server.
 
+TODO
+----
 
+nuxeo-case-management-core/src/test/resources/case-import-src/case.xml
+Replace user 'me' by 'Administrator' (me doesn't exist, it's not validated so it fail)
+see https://jira.nuxeo.com/browse/NXP-16717
