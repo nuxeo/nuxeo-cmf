@@ -3,12 +3,12 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-addons-parent</artifactId>
-    <version>6.0-HF09-SNAPSHOT</version>
+    <version>6.0-HF10-SNAPSHOT</version>
   </parent>
 
   <groupId>org.nuxeo.cm</groupId>
   <artifactId>nuxeo-case-management-parent</artifactId>
-  <version>6.0-HF09-SNAPSHOT</version>
+  <version>6.0-HF10-SNAPSHOT</version>
   <name>Nuxeo Case Management Parent</name>
   <packaging>pom</packaging>
 
