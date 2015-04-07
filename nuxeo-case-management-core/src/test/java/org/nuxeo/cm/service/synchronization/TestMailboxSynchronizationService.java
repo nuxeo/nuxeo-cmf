@@ -37,6 +37,7 @@ import org.junit.Ignore;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 import org.nuxeo.cm.core.service.synchronization.DefaultPersonalMailboxTitleGenerator;
@@ -53,6 +54,7 @@ import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.storage.sql.DatabaseHelper;
+import org.nuxeo.ecm.core.storage.sql.DatabaseMySQL;
 import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
@@ -187,7 +189,7 @@ public class TestMailboxSynchronizationService extends SQLRepositoryTestCase {
         dirService.open("groupDirectory").deleteEntry("group_4");
         DocumentModel entry = dirService.open("groupDirectory").getEntry("group_4");
         assertNull(entry);
-        if ("MySQL".equals(DatabaseHelper.DB_PROPERTY)) {
+        if (DatabaseHelper.DATABASE instanceof DatabaseMySQL) {
             Thread.sleep(1000);
         }
         MailboxSyncTestListener.reset();

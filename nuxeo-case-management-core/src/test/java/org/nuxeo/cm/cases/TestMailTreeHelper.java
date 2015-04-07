@@ -71,7 +71,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
     @Ignore("NXP-15519")
     @Test
     public void testSimple() throws Exception {
-        CaseTreeHelper.getOrCreateTxDateTreeFolder(database.repositoryName, mailFolderDocument,
+        CaseTreeHelper.getOrCreateTxDateTreeFolder(database.getRepositoryName(), mailFolderDocument,
                 Calendar.getInstance().getTime(), CaseConstants.CASE_TREE_TYPE);
 
         TransactionHelper.startTransaction();
@@ -93,7 +93,7 @@ public class TestMailTreeHelper extends TXSQLRepositoryTestCase {
     public void testParallelDocumentCreation() throws Exception {
         Thread[] threads = new Thread[2];
         for (int i = 0; i < threads.length; i++) {
-            threads[i] = new Thread(new MailTreeCreator(database.repositoryName, mailFolderDocument));
+            threads[i] = new Thread(new MailTreeCreator(database.getRepositoryName(), mailFolderDocument));
             threads[i].start();
         }
         Thread.sleep(500);

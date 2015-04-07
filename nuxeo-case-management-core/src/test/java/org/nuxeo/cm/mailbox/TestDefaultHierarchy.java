@@ -93,8 +93,8 @@ public class TestDefaultHierarchy extends SQLRepositoryTestCase {
         closeSession();
 
         // force re-initialization of repo to simulate first access
-        undeployContrib("org.nuxeo.ecm.core.storage.sql.test", database.getDeploymentContrib());
-        deployContrib("org.nuxeo.ecm.core.storage.sql.test", database.getDeploymentContrib());
+        // undeployContrib("org.nuxeo.ecm.core.storage.sql.test", database.getDeploymentContrib());
+        // deployContrib("org.nuxeo.ecm.core.storage.sql.test", database.getDeploymentContrib());
 
         // deploy CMF contrib
         deployContrib(CaseManagementTestConstants.CASE_MANAGEMENT_CORE_BUNDLE,
