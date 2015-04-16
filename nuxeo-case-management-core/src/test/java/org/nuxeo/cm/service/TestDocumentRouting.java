@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,6 +47,7 @@ import org.nuxeo.runtime.api.Framework;
  *
  * @author <a href="mailto:arussel@nuxeo.com">Alexandre Russel</a>
  */
+@Ignore // ignored as cmf is now unmaintained
 public class TestDocumentRouting extends CaseManagementRepositoryTestCase {
 
     protected DocumentRoutingService routingService;
