@@ -1,0 +1,1 @@
+If you are willing to use Nuxeo Platform in a Case Management project, please have a look at our solution page http://www.nuxeo.com/solutions/case-management/ and our small guide (https://doc.nuxeo.com/x/S4v1) and do not hesitate to contact us.

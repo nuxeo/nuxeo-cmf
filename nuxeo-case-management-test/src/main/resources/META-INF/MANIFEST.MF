@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 1
-Bundle-Name: Nuxeo Case Management Test
-Bundle-SymbolicName: org.nuxeo.cm.test;singleton=true
-Bundle-Version: 1.0.0
-Bundle-Vendor: Nuxeo
-Nuxeo-Component: OSGI-INF/test-sql-directories-contrib.xml,
-  OSGI-INF/LoginService.xml
